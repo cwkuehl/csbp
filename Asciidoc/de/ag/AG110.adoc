@@ -1,0 +1,20 @@
+:ag110-title: Mandant
+anchor:AG110[{ag110-title}]
+
+==== Dialog {ag110-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Mandanten.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:AG110.png[{ag110-title},title={ag110-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Mandanten.
+|Beschreibung |Eine Beschreibung des Mandanten kann eingegeben werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht die Mandanten und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

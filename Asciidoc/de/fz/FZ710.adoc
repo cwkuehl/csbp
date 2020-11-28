@@ -1,0 +1,30 @@
+:fz710-title: Notiz
+anchor:FZ710[{fz710-title}]
+
+==== Dialog {fz710-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen einer Notiz.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:FZ710.png[{fz710-title},title={fz710-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Die Nummer der Notiz wird angezeigt.
+|Thema        |Das Thema der Notiz muss eingegeben werden.
+|Notiz        |Textfeld zum Eingeben der Notiz zum Thema.
+|Tabelle      |Editierbare Tabelle für Notizen in Tabellen-Form. 
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht die Notiz	und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================
+
+TIP: Die Tablle wird mit einem Kontext-Menü gesteuert, das mit der rechten Maustaste aktiviert wird.
+Die Zeilen, Spalten und Zellen lassen sich somit verändern.
+Die Zellen können auch Funktionen enthalten: today, now, sum, count.
+Beispiele: =today, =now, =sum(a1:b7), =count(b2:e5)
+Die Berechnung bzw. Aktualisierung der Funktionen erfolgt durch das Klicken auf die linke Spaltenüberschrift ohne Bezeichnung.
+Damit wird auch die gesamte Tabelle markiert.
+

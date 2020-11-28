@@ -1,0 +1,42 @@
+:hh100-title: Perioden
+anchor:HH100[{hh100-title}]
+
+==== Formular {hh100-title}
+
+Mit diesem Formular werden die Perioden bearbeitet.
+Wenn noch keine Perioden vorhanden sind, muss eine Periode angelegt werden. Die erste Periode beginnt am 1.1. der aktuellen Jahres.
+Man sollte sich vor dem Anlegen überlegen, mit welcher Periodenlänge gearbeitet wird, da man die letzte Periode nicht löschen kann.
+Bei einer monatlichen Länge im Jahr 2018 ergibt sich eine erste Periode vom 01.01.2018 bis 31.01.2018.
+Eine Periode kann folgende Periodenlänge haben: 1 Monat, Vierteljahr (3 Monate), Halbjahr (6 Monate) und 1 Jahr (12 Monate).
+Die Periode beginnt mit dem ersten Tag eines Monats und schließt mit dem Monatsende.
+
+*Überlegungen zur Periodenlänge:* Das Haushalts-Programm ist auch geeignet, um die Einnahmen und Ausgaben kleiner Vereine zu verwalten.
+In diesem Fall sollte die Periodenlänge 1 Jahr betragen, da über diese Zeit Rechenschaft abzulegen ist.
+Die zu erstellenden Kassenberichte können dann trotzdem auf monatlicher Basis erfolgen.
+Ansonsten kann man beliebige Auswertungen auf monatlicher, vierteljährlicher und halbjährlicher Basis nur machen,
+wenn die Periodenlänge monatlich ist.
+
+*Neue Periode erstellen:* Durch das Betätigen der Schaltfläche Neu wird nach der zuletzt erstellten Periode eine weitere
+mit der per Optionsfeld eingestellten Länge hinzugefügt.
+
+*Periode löschen:* Die Schaltfläche Löschen löscht nur die erste oder letzte Periode.
+Dadurch ist gewährleistet, dass keine Lücken zwischen den Perioden entstehen.
+Wenn nur noch eine Periode vorhanden ist, kann diese nicht gelöscht werden.
+
+image:HH100.png[{hh100-title},title={hh100-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Perioden.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Periode.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen einer Periode am Anfang oder Ende.
+|Fahrräder    |Liste mit allen bestehenden Fahrrädern.
+|Perioden     |Liste von allen Perioden mit Periodennummer sowie Anfangs- und Enddatum.
+|Anfang       |Anfangsdatum der ersten Periode.
+|Ende         |Enddatum der letzten Periode.
+|Länge        |Die ausgewählte Optionsschaltfläche gibt die Periodenlänge für eine neu anzulegende Periode an. Der Standardwert ist Monat.
+|Art          |Die ausgewählte Optionsschaltfläche gibt an, an welcher Stelle die neue Periode hinzugefügt oder eine bestehende gelöscht wird. Der Standardwert ist Ende.
+|==========================

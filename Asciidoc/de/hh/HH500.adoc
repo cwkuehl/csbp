@@ -1,0 +1,34 @@
+:hh500-title: Bilanzen
+anchor:HH500[{hh500-title}]
+
+==== Formular {hh500-title}
+
+Dieses Formular zeigt alle Bilanzkonten als T-Konten an:
+
+* Eröffnungsbilanz (EB)
+image:HH500EB.png[Eröffnungsbilanz,title=Eröffnungsbilanz]
+* Gewinn- und Verlustrechnung (GV)
+image:HH500GV.png[G+V-Rechnung,title=G+V-Rechnung]
+* Schlussbilanz (SB)
+image:HH500SB.png[Schlussbilanz,title=Schlussbilanz]
+
+Die Bilanzen (EB, SB) können zu jedem beliebigen Datum dargestellt werden.
+Die Gewinn- und Verlustrechnung (GV) kann auf einen beliebigen Zeitraum eingeschrät werden.
+
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Berechnen",width={icon-width}]    |Schaltfläche zum Berechnen aller aktuellen Bilanzen ab der zu berechnenden Periode. Am Ende wird das angezeigte Bilanzkonto aktualisiert.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Starten des Drucken-Dialogs. <<HH510>>
+|Soll         |Je nach Art des Kontos wird in dieser Liste die linke Seite des T-Kontos angezeigt: Aktiva (EB/SB) oder Aufwand (GV)
+|Haben        |Je nach Art des Kontos wird in dieser Liste die rechte Seite	des T-Kontos angezeigt: Passiva (EB/SB) oder Ertrag (GV)
+|Summe        |Summe der Beträge der linken Seite.
+|Summe        |Summe der Beträge der rechten Seite.
+|Zum          |Das Datum für die Bilanz kann geändert werden.
+|Bis          |Das End-Datum für die Gewinn- und Verlustrechnung kann geändert werden.
+|^            |Das ausgewählte Konto wird um eine Position nach oben verschoben.
+|v            |Das ausgewählte Konto wird um eine Position nach unten verschoben.
+|==========================

@@ -1,0 +1,23 @@
+:so100-title: Sudoku
+anchor:SO100[{so100-title}]
+
+==== Formular {so100-title}
+
+Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln.
+
+image:SO100.png[{so100-title},title={so100-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Neuzeichnen des Sudoku-Felds.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche stellt das gespeichert Sudoku-Feld wieder her.
+|image:icon/icons8-save.png[title="Export",width={icon-width}]          |Diese Schaltfläche speichert das aktuelle Sudoku-Feld.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Diese Schaltfläche leer das Sudoku-Feld.
+|Sudoku       |Das Sudoku-Feld kann editiert werden. Dabei braucht die vorhandene Zahl nicht gelöscht werden. Es reicht die Eingabe der neuen Zahl. Ein leeres Kästchen wird durch die Eingabe von 0 erreicht.
+|Gefüllt      |Anzeige der Anzahl der gefüllten Felder.
+|1 Zug        |Diese Schaltfläche bestimmt eine Lösungs-Zahl im Sudoku-Feld.
+|Lösen        |Diese Schaltfläche versucht das Sudoku-Feld komplett zu lösen. Probleme werden in der Statuszeile angezeigt.
+|Widerspruch-Test|Diese Schaltfläche führt einen Widerspruch-Test durch. Probleme werden in der Statuszeile angezeigt.
+|Diagonalen verschieden|Zusatzbedingung für Variante: Müssen die Diagonalen auch alle Zahlen enthalten? (Leonard-Schüssler-Sudoku)
+|==========================

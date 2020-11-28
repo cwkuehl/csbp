@@ -1,0 +1,37 @@
+:tb100-title: Tagebuch
+anchor:TB100[{tb100-title}]
+
+==== Formular {tb100-title}
+
+Dieses Formular verwaltet beliebig lange textliche Eintragungen für jeden Tag.
+
+image:TB100.png[{tb100-title},title={tb100-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Merken des aktuellen Eintrags.
+|image:icon/icons8-paste.png[title="Einfügen",width={icon-width}]       |Diese Schaltfläche überschreibt den aktuellen Eintrag mit dem zuvor kopierten Eintrag.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-save.png[title="Export",width={icon-width}]          |Schaltfläche zum Schreiben einer Datei mit allen Einträgen, die der Such-Maske entsprechen.
+|1 Tag vorher |Eintrag vom vorherigen Tag wird nur angezeigt.
+|1 Monat vorher|Eintrag vom vorherigen Monat wird nur angezeigt.
+|1 Jahr vorher|Eintrag vom vorherigen Jahr wird nur angezeigt.
+|Datum        |Datum, auf das sich alle Einträge beziehen, kann geändert werden. Änderungen am Eintrag werden zuvor gespeichert.
+|Eintrag      |Texteintrag für das eingestellte Datum kann editiert werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|Suche        |Such-Maske für Eintragstexte, z.B. %arzt%. % steht für eine beliebige Anzahl von Zeichen. _ steht für ein beliebiges Zeichen. Es können auch mehrere Such-Masken eingegeben werden, die alternativ (oder), gleichzeitig (und) oder nicht (und nicht) zutreffen sollen.
+|\|<          |Schaltfläche zum Springen zum 1. Eintrag, der der Such-Maske entspricht.
+|<            |Schaltfläche zum Springen zum vorherigen Eintrag, der der Such-Maske entspricht.
+|>            |Schaltfläche zum Springen zum nächsten Eintrag, der der Such-Maske entspricht.
+|>\|          |Schaltfläche zum Springen zum letzten Eintrag, der der Such-Maske entspricht.
+|Leeren       |Schaltfläche zum Leeren des aktuellen Eintrags.
+|1 Tag danach |Eintrag vom folgenden Tag wird nur angezeigt.
+|1 Monat danach|Eintrag vom folgenden Monat wird nur angezeigt.
+|1 Jahr danach|Eintrag vom folgenden Jahr wird nur angezeigt.
+|==========================
+
+TIP: Falls ein Such-Feld +++####+++ enthält, wird in allen selektierten Einträgen die Reihenfolge geprüft, beginnend mit 1.
+

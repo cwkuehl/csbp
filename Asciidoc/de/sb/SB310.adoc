@@ -1,0 +1,28 @@
+:sb310-title: Familie
+anchor:SB310[{sb310-title}]
+
+==== Dialog {sb310-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen einer Ahnen-Familien.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:SB310.png[{sb310-title},title={sb310-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer der ausgewählten Familie.
+|Vater        |Auswahlliste mit allen männlichen Ahnen, die Vater in einer Familie sein können.
+|Mutter       |Auswahlliste mit allen weiblichen Ahnen, die Mutter in einer Familie sein können.
+|geheiratet   |Textfeld für das Hochzeitsdatum.
+|in           |Textfeld für den Ort der Hochzeit.
+|Bemerkung    |Textfeld für die Bemerkung zur Hochzeit.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|Kinder       |Liste mit allen Kindern der ausgewählten Familie.
+|Kind         |Auswahlliste mit allen Ahnen, die Kinder in einer Familie sein können.
+|OK           |Diese Schaltfläche speichert oder löscht die Familie und schließt den Dialog.
+|Hinzufügen   |Schaltfläche zum Zuordnen eines Kindes. Der ausgewählte Ahn der Kind-Auswahlliste wird der ausgewählten Familie als Kind zugeordnet.
+|Entfernen    |Schaltfläche zum Entfernen eines Kindes. Das in der Kinder-Liste ausgewählte Kind wird bei der ausgewählten Familie als Kind entfernt.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

@@ -1,0 +1,18 @@
+:wp110-title: PnF-Charts
+anchor:WP110[{wp110-title}]
+
+==== Formular {wp110-title}
+
+Dieses Formular zeigt drei Point and Figure-Charts.
+
+image:WP110.png[{wp110-title},title={wp110-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}] |Schaltfläche zum Aktualisieren der Point and Figure-Charts.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]       |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}] |Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-settings.png[title="Einstellungen",width={icon-width}]|Schaltfläche zum Aufruf des Dialogs <<WP120>>, in dem die Wertpapiere und Konfigurationen für alle Charts festgelegt werden können.
+|Charts       |Anzeige von drei Point and Figure-Charts.
+|==========================

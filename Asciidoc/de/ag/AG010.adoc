@@ -1,0 +1,16 @@
+:ag010-title: Java-Haushalts-Programm-Hilfe
+anchor:AG010[{ag010-title}]
+
+==== Dialog {ag010-title}
+
+Der Dialog zeigt diese Hilfe in einem Browser-Steuerelement an. Der Pfad zur Hilfe kann in den <<AM500>> eingetragen werden.
+
+image:AG010.png[{ag010-title},title={ag010-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|             |Browser-Steuerelement mit dieser Hilfe.
+|OK           |Schaltfläche zum Schließen des Dialogs.
+|Zurück       |Schaltfläche zum Zurückspringen von verfolgten Links.
+|==========================

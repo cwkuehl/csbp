@@ -1,0 +1,23 @@
+:so200-title: Detektiv
+anchor:SO200[{so200-title}]
+
+==== Formular {so200-title}
+
+Dieses Formular erlaubt das Prüfen und Lösen von Detektiv-Rätseln. Auf Grund der Befragungen werden die Ergebnisse automatisch berechnet.
+
+image:SO200.png[{so200-title},title={so200-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Befragungen und Ergebnissen.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Befragung. <<SO210>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Befragung.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Befragung.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Befragung.
+|Befragungen  |Liste von alle bestehenen Befragungen.
+|Ergebnisse   |Liste von alle bestehenen Ergebnissen.
+|Neues Spiel  |Schaltfläche zum Löschen aller Befragungen und Eingabe der neuen Spielernamen. Die Namen müssen mit Komma getrennt eingegeben werden.
+|==========================

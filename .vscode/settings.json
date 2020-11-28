@@ -1,0 +1,6 @@
+{
+  "files.watcherExclude": {
+    "**/packages/**": true
+  },
+  "vssolution.trackActiveItem": false
+}

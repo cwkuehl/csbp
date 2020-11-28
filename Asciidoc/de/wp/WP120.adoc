@@ -1,0 +1,24 @@
+:wp120-title: PnF-Charts-Einstellungen
+anchor:WP120[{wp120-title}]
+
+==== Dialog {wp120-title}
+
+In diesem Dialog werden Point and Figure-Charts-Einstellungen vorgenommen.
+Wenn nur das erste Wertpapier ausgewählt wird, gilt dies auch für die beiden anderen.
+Wenn nur die erste Konfiguration ausgewählt wird, gilt diese auch für die beiden anderen,
+mit der Ausnahme, dass die Boxgröße im zweiten Chart halbiert und im dritten verdoppelt wird.
+
+image:WP120.png[{wp120-title},title={wp120-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Wertpapier 1 |Wertpapier für Chart links oben.
+|Konfiguration 1|Konfiguration für Chart links oben festlegen.
+|Wertpapier 2 |Wertpapier für Chart rechts oben.
+|Konfiguration 2|Konfiguration für Chart rechts oben festlegen.
+|Wertpapier 3 |Wertpapier für Chart unten.
+|Konfiguration 3|Konfiguration für Chart unten festlegen.
+|OK           |Diese Schaltfläche speichert die Einstellungen und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

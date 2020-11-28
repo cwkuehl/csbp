@@ -1,0 +1,20 @@
+:sb220-title: Drucken
+anchor:SB220[{sb220-title}]
+
+==== Dialog {sb220-title}
+
+Dieser Dialog ermöglicht das Erstellen von PDF-Dateien und somit Drucken von Ahnen-Daten.
+
+image:SB220.png[{sb220-title},title={sb220-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Ahn          |Ein Ahn muss ausgewählt werden. Er dient als Ausgangspunkt in den zu erstellenden Berichten.
+|Generationen |Die Anzahl der Generationen, die in den Berichten berücksichtigt werden sollen,	muss eingegeben werden.
+|Vorfahren    |Dieses Kontrollkästchen legt fest, ob der Vorfahren-Bericht erstellt wird.
+|Mit Geschwistern|Dieses Kontrollkästchen legt fest, ob im Vorfahren-Bericht auch Geschwister aufgenommen werden.
+|Nachfahren   |Dieses Kontrollkästchen legt fest, ob der Nachfahren-Bericht erstellt wird.
+|OK           |Schaltfläche zum Erstellen und Öffnen der ausgewählten PDF-Berichte.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog.
+|==========================

@@ -1,0 +1,25 @@
+:fz260-title: Fahrradstand
+anchor:FZ260[{fz260-title}]
+
+==== Dialog {fz260-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Fahrradstandes.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:FZ260.png[{fz260-title},title={fz260-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Fahrradstandes.
+|Fahrrad      |Das Fahrrad für den Fahrradstand muss ausgewählt werden.
+|Datum        |Ein Datum muss ausgewählt werden. Wenn das Fahrrad vom Typ wöchentlich ist, wird das Datum automatisch auf den letzten Tag der Woche gesetzt wird.
+|Zähler       |Kilometerstand des Zählers kann leer sein, wenn km eingetragen werden.
+|km           |Kilometer des Tages bzw. der Woche kann leer sein, wenn Zähler eingetragen werden.
+|Schnitt      |Der Kilometer pro Stunde-Durchschnitt der Tour kann leer bleiben.
+|Beschreibung |Optionale Beschreibung der Tour.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht den Fahrradstand und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

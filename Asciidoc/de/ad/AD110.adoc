@@ -1,0 +1,44 @@
+:ad110-title: Person mit Sitz und Adresse
+anchor:AD110[{ad110-title}]
+
+==== Dialog {ad110-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen einer Person mit Sitz und Adresse.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:AD110.png[{ad110-title},title={ad110-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nrn. (PSA)   |Nummern der Person, des Sitzes und der Adresse.
+|Titel        |Titel der Person, z.B. Dr. med. oder Dipl.-Math.
+|Vorname      |Vorname der Person.
+|Prädikat     |Prädikat der Person, z.B. de.
+|(Nach-)Name  |Nachname der Person oder Firmenname.
+|Name 2       |Weiterer Namensteil für die Person oder Firma.
+|Geschlecht   |Geschlecht der Person. Neutrum für Firmen oder sonstige Dinge.
+|Geburt       |Geburtsdatum der Person. Falls es nicht bekannt ist, sollte der Haken unbekannt gesetzt werden.
+|Person-Status|Optionen für den Status der Person. Nicht aktuelle Personen werden in der Liste eingeklammert und beim Drucken nicht ausgedruckt.
+|Sitz         |Bezeichnung für der Sitz, z.B. Sitz, Eltern, Firma.
+|Straße       |Straße des Sitzes.
+|Hausnr.      |Hausnummer des Sitzes.
+|Postfach     |Postfach des Sitzes.
+|Staat        |3-stelliges Kennzeichen für den Staat des Sitzes, z.B. D für Deutschland, CAN für Kanada.
+|Plz          |Postleitzahl des Sitzes.
+|Ort          |Ort des Sitzes.
+|Telefon      |Telefonnummer des Sitzes.
+|Fax          |Faxnummer oder 2. Telefonnummer des Sitzes.
+|Mobil        |Mobilfunknummer der Person oder 3. Telefonnummer des Sitzes.
+|Homepage     |URL der Homepage der Person oder Firma.
+|Email        |Email-Adresse der Person.
+|Bemerkung    |Bemerkung zum Sitz.
+|Sitz-Status  |Optionen für den Status des Sitzes. Nicht aktuelle Sitze werden in der Liste eingeklammert und beim Drucken nicht ausgedruckt.
+|# gleiche Adresse|Anzahl der Personen (Sitze), die die gleiche Adresse verwenden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht die Person bzw. den Sitz und schließt den Dialog.
+|Adresse Duplizieren|Schaltfläche zum Anlegen einer Adressen-Kopie unter neuer Nummer für den aktuellen Sitz. Dies kann nötig sein, wenn zwei Personen, die bisher die gleiche Adresse benutzt haben, sich trennen.
+|Adresse Wechseln|Schaltfläche zum Benutzen der Adresse einer anderen Person (eines anderen Sitzes). Dies kann nötig sein, wenn zwei Personen zusammenziehen. <<AD130>>
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

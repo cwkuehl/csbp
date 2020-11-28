@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<!-- Created with unit test GenerateForm -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkGrid" id="FZ260Mileage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">5</property>
+    <property name="margin_right">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="row_spacing">5</property>
+    <property name="column_spacing">5</property>
+    <child>
+      <object class="GtkLabel" id="nr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.nr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">nr</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="nr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">FZ260.nr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">FZ260.nr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="fahrrad0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.fahrrad</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">fahrrad</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="fahrrad">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">FZ260.fahrrad.tt</property>
+        <property name="has_entry">True</property>
+        <signal name="changed" handler="OnFahrradChanged" swapped="no"/>
+        <child internal-child="entry">
+          <object class="GtkEntry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="text">
+            </property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="datum0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.datum</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">datum</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="datum">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="zaehler0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.zaehler</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">zaehler</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="zaehler">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">FZ260.zaehler.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">FZ260.zaehler.tt</property>
+        <signal name="key-release-event" handler="OnZaehlerKeyReleaseEvent" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="km0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.km</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">km</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="km">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">FZ260.km.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">FZ260.km.tt</property>
+        <signal name="key-release-event" handler="OnKmKeyReleaseEvent" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="schnitt0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.schnitt</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">schnitt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="schnitt">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">FZ260.schnitt.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">FZ260.schnitt.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="beschreibung0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">FZ260.beschreibung</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">beschreibung</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="beschreibung">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">FZ260.beschreibung.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">FZ260.beschreibung.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="angelegt0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.created</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">angelegt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="angelegt">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">Forms.created.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.created.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geaendert0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.changed</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geaendert</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geaendert">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">Forms.changed.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.changed.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id12">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="ok">
+            <property name="label">Forms.ok</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">Forms.ok.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnOkClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="abbrechen">
+            <property name="label">Forms.cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">Forms.cancel.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAbbrechenClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+</interface>

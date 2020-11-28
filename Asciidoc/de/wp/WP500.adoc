@@ -1,0 +1,25 @@
+:wp500-title: Stände
+anchor:WP500[{wp500-title}]
+
+==== Formular {wp500-title}
+
+Dieses Formular verwaltet alle Wertpapier-Stände, d.h. Preise zu einem Datum. 
+
+image:WP500.png[{wp500-title},title={wp500-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Ständen.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Standes. <<WP510>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Standes.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Standes.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Standes.
+|Stände       |Liste von ausgewählten Ständen.
+|Wertpapier   |Auswahlliste für ein Wertpapier.
+|Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
+|Datum von    |Selektionsdatum für Stände, die nach diesem Datum liegen.
+|Bis          |Selektionsdatum für Stände, die vor diesem Datum liegen.
+|==========================

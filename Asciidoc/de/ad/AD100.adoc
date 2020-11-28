@@ -1,0 +1,34 @@
+:ad100-title: Personen
+anchor:AD100[{ad100-title}]
+
+==== Formular {ad100-title}
+
+Dieses Formular verwaltet Personen, Geburtstage und Adressen. Einer Person können beliebig viele Sitze mit Adressen zugeordnet werden.
+Ein Sitz hat eine Bezeichnung (z.B. Sitz, Eltern, Firma) und die damit verbundenen Kommunikationsdaten wie Telefon, Fax, Mobil, E-Mail,
+Homepage und Bemerkung. Dazu gehören noch die reinen Adressdaten wie Straße, Hausnummer, Postfach, Staat, Postleitzahl und Ort.
+Diese Adressdaten können auch von anderen Personen und Sitzen verwendet werden, z.B. Ehepartner oder Kinder, die im gleichen Haus wohnen.
+Falls diese Familie umzieht, braucht man die Adresse nur einmal zu ändern, um bei allen Personen die neue Adresse zu haben.
+Natürlich können auch Firmen erfasst werden, die Sitze sind dann Filialen oder Mitarbeiter.
+
+image:AD100.png[{ad100-title},title={ad100-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Personen-Liste.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Person. <<AD110>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Person.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Person sowie Sitz und Adresse.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sitzes. Falls der letzte Sitz einer Person gelöscht wird, wird auch die Person gelöscht.
+|image:icon/icons8-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Drucken einer kompletten 2-spaltigen Adressenliste. Nicht aktuelle Personen oder Sitze werden nicht gedruckt.
+|image:icon/icons8-save.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Adressen-Schnittstelle-Dialog. <<AD200>>
+|Personen     |Liste mit allen Personen und Sitzen. Eingeklammerte Personen und Sitze sind vom Status her nicht aktuell. Falls eine Person mehrere Sitze hat, wird der Name ab dem 2. Sitz leer angezeigt.
+|Name         |Suchfeld für den Namen. Die Liste wird nach dem Verlassen des Feldes aktualisiert.
+|Vorname      |Suchfeld für den Vornamen. Die Liste wird nach dem Verlassen des Feldes aktualisiert.
+|Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
+|Neuer Sitz   |Schaltfläche zum Anlegen eines neuen Sitz für die ausgewählte Person.
+|1. Sitz      |Mit dieser Schaltfläche wird der ausgeählte Sitz zum ersten Sitz dieser Person gemacht. Dabei ändert sich die Nummerierung aller Sitze dieser Person.
+|Geburtstagsliste|Schaltfläche zum Aufrufen der Geburtstagsliste, die auch nach dem Anmelden angezeigt werden kann. <<AD120>>
+|==========================

@@ -1,0 +1,21 @@
+:am510-title: Start-Formulare
+anchor:AM510[{am510-title}]
+
+==== Dialog {am510-title}
+
+In diesem Dialog werden die Formulare festgelegt, die nach dem Anmelden geöffnet werden.
+
+image:AM510.png[{am510-title},title={am510-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Formulare    |Die Liste zeigt alle Formulare an, die noch nicht als Start-Formulare ausgewählt sind.
+|>            |Diese Schaltfläche legt das ausgewählte Formular als Start-Formular fest.
+|<            |Diese Schaltfläche entfernt das ausgewählten Start-Formular aus der Liste.
+|Start-Formulare|Die Liste zeigt alle Formulare an, die als Start-Formulare ausgewählt sind.
+|^            |Diese Schaltfläche positioniert das ausgewählte Start-Formular um eine Stelle nach oben.
+|v            |Diese Schaltfläche positioniert das ausgewählte Start-Formular um eine Stelle nach unten.
+|OK           |Diese Schaltfläche speichert die Start-Formulare und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

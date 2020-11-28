@@ -1,0 +1,30 @@
+:fz350-title: Buch
+anchor:FZ350[{fz350-title}]
+
+==== Dialog {fz350-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Buches.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:FZ350.png[{fz350-title},title={fz350-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Buches.
+|Titel        |Der Titel des Buches muss eingegeben werden.
+|Autor        |Ein Autor muss ausgewählt werden.
+|Neuer Autor  |Mit dieser Schaltfläche kann ein neuer Autor erfasst werden.
+|Serie        |Eine Serie muss ausgewählt werden.
+|Neue Serie   |Mit dieser Schaltfläche kann ein neue Serie erfasst werden.
+|Seriennummer |Falls das Buch zu einer Serie gehört, kann die Nummer innerhalb der Serie angegeben werden.
+|Seiten       |Die Anzahl der Seiten kann angegeben werden.
+|Sprache      |Eine Sprache des Buches kann ausgewählt werden.
+|Besitz       |Mit dem Kontrollkästchen wird festgelegt, ob man das Buch besitzt.
+|Lesedatum    |Es kann ein Datum angegeben werden, an dem das Buch gelesen wurde.
+|Hördatum     |Es kann ein Datum angegeben werden, an dem das Buch gehört wurde.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht das Buch und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

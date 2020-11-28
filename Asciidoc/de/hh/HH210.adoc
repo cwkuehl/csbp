@@ -1,0 +1,25 @@
+:hh210-title: Konto
+anchor:HH210[{hh210-title}]
+
+==== Dialog {hh210-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Kontos.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:HH210.png[{hh210-title},title={hh210-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Kontos.
+|Bezeichnung  |Die Bezeichnung des Kontos muss eingegeben werden.
+|Kennzeichen  |Ein Kennzeichen des Kontos muss ausgewählt werden: Ohne, Eigenkapital-Konto oder Gewinn+Verlust-Konto.
+|Kontoart     |Eine Kontoart muss ausgewählt werden: Aktivkonto (AK), Passivkonto (PK), Aufwandskonto (AW) und Ertragskonto (ER).
+|Gültigkeit von|Wenn ein Von-Datum angegeben wird, kann davor keine Buchung für das Konto erfasst werden.
+|Bis          |Wenn ein Bis-Datum angegeben wird, kann danach keine Buchung für das Konto erfasst werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|Buchung      |In diesem Zeitraum gibt es Buchungen auf diesem Konto und Einträge in der Bilanz.
+|OK           |Diese Schaltfläche speichert oder löscht das Konto und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

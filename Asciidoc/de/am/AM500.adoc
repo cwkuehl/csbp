@@ -1,0 +1,18 @@
+:am500-title: Einstellungen
+anchor:AM500[{am500-title}]
+
+==== Dialog {am500-title}
+
+In diesem Dialog werden alle Einstellungen angezeigt. Die Werte können in der Liste direkt geändert werden.
+
+TIP: Nach dem Ändern eines Wert muss Enter gedrückt werden, damit der neue Wert übernommen wird.
+
+image:AM500.png[{am500-title},title={am500-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Einstellungen|Die Liste zeigt alle Einstellungen an. Die Werte können in der Liste direkt geändert werden.
+|OK           |Diese Schaltfläche speichert die Einstellungen und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

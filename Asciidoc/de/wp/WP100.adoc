@@ -1,0 +1,25 @@
+:wp100-title: Point and Figure
+anchor:WP100[{wp100-title}]
+
+==== Formular {wp100-title}
+
+Dieses Formular zeigt die Kurse und das Point and Figure-Chart eines Wertpapiers.
+
+image:WP100.png[{wp100-title},title={wp100-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Kursen und dem Point and Figure-Chart.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|Daten        |Liste von ausgewählten Kursen für das Point and Figure-Chart.
+|Chart        |Darstellung der Kurse als Point and Figure-Chart.
+|Von          |Selektionsdatum für Kurse, die nach diesem Datum liegen.
+|Bis          |Selektionsdatum für Kurse, die vor diesem Datum liegen.
+|Wertpapier   |Ein Wertpapier muss ausgewählt werden.
+|Boxgröße     |Eingabe der Boxgröße als Absolut- oder Prozentwert. Sie muss größer als 0 sein. Außerdem kann die Art der Boxgröße eingestellt werden: fest, prozentual oder dynamisch. 
+|Umkehr       |Anzahl der Boxen für Umkehr. Sie muss größer als 0 sein.
+|Methode      |Auswahl der Methode für Kursberechnung: Schlusskurse, High-Low-Trendfolge, High-Low-Trendumkehr, Open-High-Low-Close, Typischer Preis.
+|Relativ      |Soll die Auswertung relativ zur Relation (meist Index) erfolgen?
+|==========================

@@ -1,0 +1,22 @@
+:ag200-title: Benutzer
+anchor:AG200[{ag200-title}]
+
+==== Formular {ag200-title}
+
+Dieses Formular verwaltet alle Benutzer, die mit dem Programm arbeiten. Der Benutzer mit der Nummer 1 ist der Hauptbenutzer.
+Beim ersten Anmelden wird der Benutzername Benutzer-ID festgelegt.
+
+image:AG200.png[{ag200-title},title={ag200-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Benutzern.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Benutzers. <<AG210>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Benutzers.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Benutzers.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Benutzers.
+|Mandanten    |Liste mit allen berechtigten Mandanten.
+|==========================

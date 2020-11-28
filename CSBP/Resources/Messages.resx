@@ -1,0 +1,4148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="parm.AG_ANWENDUNGS_TITEL.value" xml:space="preserve">
+        <value>CSharp Budget Program</value>
+    </data>
+    <data name="parm.AG_ANWENDUNGS_TITEL.text" xml:space="preserve">
+        <value>This text will be part of the title, e.g. AG_ANWENDUNGS_TITEL=CSharp Budget Program</value>
+    </data>
+    <data name="parm.AG_HILFE_DATEI.value" xml:space="preserve">
+        <value>doc/Csbp-Help.html</value>
+    </data>
+    <data name="parm.AG_HILFE_DATEI.text" xml:space="preserve">
+        <value>Name of HTML help file, e.g. HILFE_DATEI=doc/Csbp-Help.html</value>
+    </data>
+    <data name="parm.AG_STARTDIALOGE.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.AG_STARTDIALOGE.text" xml:space="preserve">
+        <value>List of starting dialogs, z.B. #FZ100</value>
+    </data>
+    <data name="parm.AG_TEMP_PFAD.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.AG_TEMP_PFAD.text" xml:space="preserve">
+        <value>Path for temporary files, e.g. C:/Temp</value>
+    </data>
+    <data name="parm.AG_TEST_PRODUKTION.value" xml:space="preserve">
+        <value>PRODUKTION</value>
+    </data>
+    <data name="parm.AG_TEST_PRODUKTION.text" xml:space="preserve">
+        <value>Distinction between test and production mode. Possible values: TEST, PRODUKTION, e.g. PRODUKTION</value>
+    </data>
+    <data name="parm.SB_SUBMITTER.value" xml:space="preserve">
+        <value>First name /NAME/;Address1;Address2;Address3;Email</value>
+    </data>
+    <data name="parm.SB_SUBMITTER.text" xml:space="preserve">
+        <value>Submitter of GEDCOM file in the format of First name /NAME/;Address1;Address2;Address3;Email</value>
+    </data>
+    <data name="parm.WP_FIXER_IO_ACCESS_KEY.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.WP_FIXER_IO_ACCESS_KEY.text" xml:space="preserve">
+        <value>Type in access key for currency rates of https://fixer.io.</value>
+    </data>
+
+    <data name="AD001_" xml:space="preserve">
+        <value>AD001Birthdays between {0:yyyy-MM-dd} and {1:yyyy-MM-dd}:</value>
+    </data>
+    <data name="AD002_" xml:space="preserve">
+        <value>AD002{0:yyyy-MM-dd} {1} ({2} Jahre)</value>
+    </data>
+    <data name="AD003_" xml:space="preserve">
+        <value>AD003Address list from {0:yyyy-MM-dd HH:mm:ss}</value>
+    </data>
+    <data name="AD005" xml:space="preserve">
+        <value>AD005Column headers do not fit.</value>
+    </data>
+    <data name="AD010_" xml:space="preserve">
+        <value>AD010{0} person(s), {2} site(s) and {4} address(es) imported.&#xd;There are {1} person(s), {3} site(s) and {5} address(es).</value>
+    </data>
+    <data name="AD011" xml:space="preserve">
+        <value>AD011Are You sure to import addresses?</value>
+    </data>
+    <data name="AD012" xml:space="preserve">
+        <value>AD012Address list</value>
+    </data>
+    <data name="AD013_" xml:space="preserve">
+        <value>AD013Person {0}</value>
+    </data>
+    <data name="AD014" xml:space="preserve">
+        <value>AD014Site</value>
+    </data>
+
+    <data name="AG001" xml:space="preserve">
+        <value>AG001Are you sure to restore?</value>
+    </data>
+    <data name="AG002" xml:space="preserve">
+        <value>AG002Type in a password.</value>
+    </data>
+
+    <data name="AM001" xml:space="preserve">
+        <value>AM001Invalid login.</value>
+    </data>
+    <data name="AM002" xml:space="preserve">
+        <value>AM002The new password must not be empty.</value>
+    </data>
+    <data name="AM003_" xml:space="preserve">
+        <value>AM003User {0}/{1} exists.</value>
+    </data>
+    <data name="AM008" xml:space="preserve">
+        <value>AM008Type in a description.</value>
+    </data>
+    <data name="AM009" xml:space="preserve">
+        <value>AM009The user ID must not be empty.</value>
+    </data>
+    <data name="AM010" xml:space="preserve">
+        <value>AM010You must not grant a permission you don't possess.</value>
+    </data>
+    <data name="AM011" xml:space="preserve">
+        <value>AM011The user ID must be unique.</value>
+    </data>
+    <data name="AM012" xml:space="preserve">
+        <value>AM012You must not delete yourselves.</value>
+    </data>
+
+    <data name="FZ001_" xml:space="preserve">
+        <value>FZ001{0} ({1:yyyy-MM-dd}): {2:#,##0.00}</value>
+    </data>
+    <data name="FZ002_" xml:space="preserve">
+        <value>FZ002 ({0})</value>
+    </data>
+    <data name="FZ003_" xml:space="preserve">
+        <value>FZ003Person:                {0}</value>
+    </data>
+    <data name="FZ004_" xml:space="preserve">
+        <value>FZ004Days of life:          {0:#,##0}</value>
+    </data>
+    <data name="FZ005_" xml:space="preserve">
+        <value>FZ005Number of books:       {0:#,##0}</value>
+    </data>
+    <data name="FZ006_" xml:space="preserve">
+        <value>FZ006Read:                  {0:#,##0}</value>
+    </data>
+    <data name="FZ007_" xml:space="preserve">
+        <value>FZ007Heard:                 {0:#,##0}</value>
+    </data>
+    <data name="FZ008_" xml:space="preserve">
+        <value>FZ008 ({0:#,##0.0000}%)</value>
+    </data>
+    <data name="FZ009_" xml:space="preserve">
+        <value>FZ009English books:         {0:#,##0}</value>
+    </data>
+    <data name="FZ010_" xml:space="preserve">
+        <value>FZ010Perry Rhodan booklets: {0:#,##0}</value>
+    </data>
+    <data name="FZ011_" xml:space="preserve">
+        <value>FZ011PPR booklets read:     {0:#,##0}</value>
+    </data>
+    <data name="FZ012_" xml:space="preserve">
+        <value>FZ012Book pages read:       {0:#,##0}</value>
+    </data>
+    <data name="FZ013_" xml:space="preserve">
+        <value>FZ013PR pages read:         {0:#,##0}</value>
+    </data>
+    <data name="FZ014_" xml:space="preserve">
+        <value>FZ014Pages read:            {0:#,##0}</value>
+    </data>
+    <data name="FZ015_" xml:space="preserve">
+        <value>FZ015Pages read per day:    {0:#,##0.0000}</value>
+    </data>
+    <data name="FZ016_" xml:space="preserve">
+        <value>FZ016{0}{1:#,##0} ({2:#,##0}) km</value>
+    </data>
+    <data name="FZ017_" xml:space="preserve">
+        <value>FZ017{0}{1:#,##0.0000} km/day ({2:#,##0.0000} km/year)</value>
+    </data>
+    <data name="FZ018" xml:space="preserve">
+        <value>FZ018Sum</value>
+    </data>
+    <data name="FZ019" xml:space="preserve">
+        <value>FZ019Select a bike.</value>
+    </data>
+    <data name="FZ020" xml:space="preserve">
+        <value>FZ020Type in a positive odometer reading.</value>
+    </data>
+    <data name="FZ021" xml:space="preserve">
+        <value>FZ021Type in a positive km.</value>
+    </data>
+    <data name="FZ022" xml:space="preserve">
+        <value>FZ022Type in a positive average.</value>
+    </data>
+    <data name="FZ024_" xml:space="preserve">
+        <value>FZ024Bike {0} is missing.</value>
+    </data>
+    <data name="FZ025_" xml:space="preserve">
+        <value>FZ025The odometer reading must be greater or equal to {0:#,##0}.</value>
+    </data>
+    <data name="FZ026" xml:space="preserve">
+        <value>FZ026EMileages could only be added at the end.</value>
+    </data>
+    <data name="FZ027" xml:space="preserve">
+        <value>FZ027The odometer reading could only be set to 0 at the end.</value>
+    </data>
+    <data name="FZ028" xml:space="preserve">
+        <value>FZ028No tour</value>
+    </data>
+    <data name="FZ029_" xml:space="preserve">
+        <value>FZ029Mileage {0} is missing.</value>
+    </data>
+    <data name="FZ030" xml:space="preserve">
+        <value>FZ030The following km would be negative.</value>
+    </data>
+    <data name="FZ031" xml:space="preserve">
+        <value>FZ031Only the last mileage can be deleted.</value>
+    </data>
+    <data name="FZ032" xml:space="preserve">
+        <value>FZ032Type in an author name.</value>
+    </data>
+    <data name="FZ033" xml:space="preserve">
+        <value>FZ033Type in a series name.</value>
+    </data>
+    <data name="FZ034" xml:space="preserve">
+        <value>FZ034No series</value>
+    </data>
+    <data name="FZ035" xml:space="preserve">
+        <value>FZ035Type in a topic.</value>
+    </data>
+    <data name="FZ036_" xml:space="preserve">
+        <value>FZ036User {0} is missing.</value>
+    </data>
+    <data name="FZ037" xml:space="preserve">
+        <value>FZ037Type in a description.</value>
+    </data>
+    <data name="FZ038" xml:space="preserve">
+        <value>FZ038Select a type.</value>
+    </data>
+    <data name="FZ039" xml:space="preserve">
+        <value>FZ039The author is used by books and cannot be deleted.</value>
+    </data>
+    <data name="FZ040" xml:space="preserve">
+        <value>FZ040The series is used by books and cannot be deleted.</value>
+    </data>
+    <data name="FZ041" xml:space="preserve">
+        <value>FZ041Type in a title.</value>
+    </data>
+    <data name="FZ042" xml:space="preserve">
+        <value>FZ042Select an author.</value>
+    </data>
+    <data name="FZ043" xml:space="preserve">
+        <value>FZ043Select a series.</value>
+    </data>
+    <data name="FZ044" xml:space="preserve">
+        <value>FZ044Mileages per year</value>
+    </data>
+    <data name="FZ045" xml:space="preserve">
+        <value>FZ045Average per year</value>
+    </data>
+
+    <data name="HH001" xml:space="preserve">
+        <value>HH001Equity capital</value>
+    </data>
+    <data name="HH002" xml:space="preserve">
+        <value>HH002Profit and loss</value>
+    </data>
+    <data name="HH003" xml:space="preserve">
+        <value>HH003No periods found.</value>
+    </data>
+    <data name="HH004" xml:space="preserve">
+        <value>HH004The last period cannot be deleted.</value>
+    </data>
+    <data name="HH005_" xml:space="preserve">
+        <value>HH005Period {0} is missing.</value>
+    </data>
+    <data name="HH006_" xml:space="preserve">
+        <value>HH006{0:0000000000}{1}{2}{3}</value>
+    </data>
+    <data name="HH007" xml:space="preserve">
+        <value>HH007Type in a description.</value>
+    </data>
+    <data name="HH008_" xml:space="preserve">
+        <value>HH008The account type {0} is invalid.</value>
+    </data>
+    <data name="HH009_" xml:space="preserve">
+        <value>HH009The account attribute {0} is invalid or more than 1 character.</value>
+    </data>
+    <data name="HH010_" xml:space="preserve">
+        <value>HH010There is already an account with attribute {0}.</value>
+    </data>
+    <data name="HH011" xml:space="preserve">
+        <value>HH011The account must not be timely limited.</value>
+    </data>
+    <data name="HH012" xml:space="preserve">
+        <value>HH012The account type must not be changed.</value>
+    </data>
+    <data name="HH013_" xml:space="preserve">
+        <value>HH013The account attribute {0} must not be changed.</value>
+    </data>
+    <data name="HH014" xml:space="preserve">
+        <value>HH014There are bookings before the period of validity.</value>
+    </data>
+    <data name="HH015" xml:space="preserve">
+        <value>HH015The valid to date must not be before valid from date.</value>
+    </data>
+    <data name="HH016" xml:space="preserve">
+        <value>HH016There are bookings after the period of validity.</value>
+    </data>
+    <data name="HH017_" xml:space="preserve">
+        <value>HH017There is already an account with description {0}.</value>
+    </data>
+    <data name="HH018" xml:space="preserve">
+        <value>HH018There is no suitable period. Create a new period.</value>
+    </data>
+    <data name="HH019_" xml:space="preserve">
+        <value>HH019Account number {0} is missing.</value>
+    </data>
+    <data name="HH020" xml:space="preserve">
+        <value>HH020The account is used for bookings and cannot be deleted.</value>
+    </data>
+    <data name="HH021" xml:space="preserve">
+        <value>HH021The equity capital account and profit and loss account cannot be deleted.</value>
+    </data>
+    <data name="HH024" xml:space="preserve">
+        <value>HH024Type in a description.</value>
+    </data>
+    <data name="HH025_" xml:space="preserve">
+        <value>HH025Event{0}</value>
+    </data>
+    <data name="HH026_" xml:space="preserve">
+        <value>HH026The attribute must be no longer than {0} characters.</value>
+    </data>
+    <data name="HH027" xml:space="preserve">
+        <value>HH027The posting text must not be empty.</value>
+    </data>
+    <data name="HH028" xml:space="preserve">
+        <value>HH028Select a debit account.</value>
+    </data>
+    <data name="HH029" xml:space="preserve">
+        <value>HH029Select a credit account.</value>
+    </data>
+    <data name="HH030" xml:space="preserve">
+        <value>HH030The debit account must be different from the credit account.</value>
+    </data>
+    <data name="HH031" xml:space="preserve">
+        <value>HH031The equity capital account can not be found.</value>
+    </data>
+    <data name="HH032" xml:space="preserve">
+        <value>HH032The profit and loss account can not be found.</value>
+    </data>
+    <data name="HH033" xml:space="preserve">
+        <value>HH033Select a value date.</value>
+    </data>
+    <data name="HH034" xml:space="preserve">
+        <value>HH034The value must be greater than 0.</value>
+    </data>
+    <data name="HH035" xml:space="preserve">
+        <value>HH035The equity capital account and profit and loss account are not bookable.</value>
+    </data>
+    <data name="HH036" xml:space="preserve">
+        <value>HH036Select a receipt date.</value>
+    </data>
+    <data name="HH037" xml:space="preserve">
+        <value>HH037The debit account is not found.</value>
+    </data>
+    <data name="HH038_" xml:space="preserve">
+        <value>HH038The debit account is valid from {0:yyyy-MM-dd}.</value>
+    </data>
+    <data name="HH039_" xml:space="preserve">
+        <value>HH039The debit account is valid to {0:yyyy-MM-dd}.</value>
+    </data>
+    <data name="HH040" xml:space="preserve">
+        <value>HH040The credit account is not found.</value>
+    </data>
+    <data name="HH041_" xml:space="preserve">
+        <value>HH041The credit account is valid from {0:yyyy-MM-dd}.</value>
+    </data>
+    <data name="HH042_" xml:space="preserve">
+        <value>HH042The credit account is valid to {0:yyyy-MM-dd}.</value>
+    </data>
+    <data name="HH043_" xml:space="preserve">
+        <value>HH043Booking number {0} is missing.</value>
+    </data>
+    <data name="HH045" xml:space="preserve">
+        <value>HH045Type in a report title.</value>
+    </data>
+    <data name="HH046_" xml:space="preserve">
+        <value>HH046Annual report {0} for {1} of {2:yyyy-MM-dd HH:mm:ss}</value>
+    </data>
+    <data name="HH047_" xml:space="preserve">
+        <value>HH047Cash report {0} for {1} of {2:yyyy-MM-dd HH:mm:ss}</value>
+    </data>
+    <data name="HH048" xml:space="preserve">
+        <value>HH048Annual report</value>
+    </data>
+    <data name="HH049" xml:space="preserve">
+        <value>HH049Cash report</value>
+    </data>
+    <data name="HH050" xml:space="preserve">
+        <value>HH050The file is too short.</value>
+    </data>
+    <data name="HH051_" xml:space="preserve">
+        <value>HH051The column {0} is missing.</value>
+    </data>
+    <data name="HH052" xml:space="preserve">
+        <value>HH052Are You sure to import the bookings?</value>
+    </data>
+    <data name="HH053_" xml:space="preserve">
+        <value>HH053{0} booking(s) imported.</value>
+    </data>
+    <data name="HH054_" xml:space="preserve">
+        <value>HH054Records: {0}  Sum: {1:#,##0.00}</value>
+    </data>
+    <data name="HH057_" xml:space="preserve">
+        <value>HH057{0:yyyy-MM-dd}, {1:#,##0.00}, {2} to {3}, {4}</value>
+    </data>
+    <data name="HH058_" xml:space="preserve">
+        <value>HH058, {0}</value>
+    </data>
+    <data name="HH059_" xml:space="preserve">
+        <value>HH059, {0:yyyy-MM-dd}</value>
+    </data>
+    <data name="HH060" xml:space="preserve">
+        <value>HH060Calculating balance sheets ...</value>
+    </data>
+    <data name="HH061_" xml:space="preserve">
+        <value>HH061Balance sheets calculated: {0}</value>
+    </data>
+    <data name="HH063_" xml:space="preserve">
+        <value>HH063The cash auditors did the cash auditing {0} for {1}.</value>
+    </data>
+    <data name="HH064" xml:space="preserve">
+        <value>HH064The correct cash management is confirmed.</value>
+    </data>
+    <data name="HH065" xml:space="preserve">
+        <value>HH065Revenues</value>
+    </data>
+    <data name="HH066" xml:space="preserve">
+        <value>HH066Expenditure</value>
+    </data>
+    <data name="HH067" xml:space="preserve">
+        <value>HH067Balance</value>
+    </data>
+    <data name="HH068" xml:space="preserve">
+        <value>HH068Sum</value>
+    </data>
+    <data name="HH069" xml:space="preserve">
+        <value>HH069Signature of cash auditor</value>
+    </data>
+    <data name="HH070_" xml:space="preserve">
+        <value>HH070Breakdown {0}</value>
+    </data>
+    <data name="HH071_" xml:space="preserve">
+        <value>HH071Inventory {0} {1:yyyy-MM-dd}</value>
+    </data>
+    <data name="HH072_" xml:space="preserve">
+        <value>HH072Inventory {0}</value>
+    </data>
+    <data name="HH073_" xml:space="preserve">
+        <value>HH073Sum {0} {1:yyyy-MM-dd}</value>
+    </data>
+    <data name="HH074" xml:space="preserve">
+        <value>HH074The sum is incorrect. Calculate the period.</value>
+    </data>
+    <data name="HH076" xml:space="preserve">
+        <value>HH076Balance carryforward</value>
+    </data>
+    <data name="HH077" xml:space="preserve">
+        <value>HH077Date</value>
+    </data>
+    <data name="HH078" xml:space="preserve">
+        <value>HH078Revenues</value>
+    </data>
+    <data name="HH079" xml:space="preserve">
+        <value>HH079Expenditure</value>
+    </data>
+    <data name="HH080" xml:space="preserve">
+        <value>HH080Account</value>
+    </data>
+    <data name="HH081" xml:space="preserve">
+        <value>HH081Receipt number</value>
+    </data>
+    <data name="HH082" xml:space="preserve">
+        <value>HH082Posting text</value>
+    </data>
+
+    <data name="SB001" xml:space="preserve">
+        <value>SB001Type in a maiden name.</value>
+    </data>
+    <data name="SB002" xml:space="preserve">
+        <value>SB002New spouse and new parents are not possible.</value>
+    </data>
+    <data name="SB003_" xml:space="preserve">
+        <value>SB003Date {0} could not be parsed.</value>
+    </data>
+    <data name="SB004" xml:space="preserve">
+        <value>SB004Select ancestor or family.</value>
+    </data>
+    <data name="SB005" xml:space="preserve">
+        <value>SB005Select a type.</value>
+    </data>
+    <data name="SB006" xml:space="preserve">
+        <value>SB006Select a date type.</value>
+    </data>
+    <data name="SB007" xml:space="preserve">
+        <value>SB007Father or mother are necessary.</value>
+    </data>
+    <data name="SB008" xml:space="preserve">
+        <value>SB008New father is not male.</value>
+    </data>
+    <data name="SB009" xml:space="preserve">
+        <value>SB009New mother is not female.</value>
+    </data>
+    <data name="SB010_" xml:space="preserve">
+        <value>SB010Family number {0} has same father and mother.</value>
+    </data>
+    <data name="SB011" xml:space="preserve">
+        <value>SB011Family and child are necessary.</value>
+    </data>
+    <data name="SB012_" xml:space="preserve">
+        <value>SB012Ancestor is already child in family {0}.</value>
+    </data>
+    <data name="SB013" xml:space="preserve">
+        <value>SB013Type in an author.</value>
+    </data>
+    <data name="SB014" xml:space="preserve">
+        <value>SB014Type in a description.</value>
+    </data>
+    <data name="SB015" xml:space="preserve">
+        <value>SB015The reference is used by ancestors and cannot be deleted.</value>
+    </data>
+    <data name="SB016" xml:space="preserve">
+        <value>SB016The reference is used by events and cannot be deleted.</value>
+    </data>
+    <data name="SB017_" xml:space="preserve">
+        <value>SB017Ancestor {0} is missing.</value>
+    </data>
+    <data name="SB018_" xml:space="preserve">
+        <value>SB018List of ancestors from {0:yyyy-MM-dd HH:mm:ss}</value>
+    </data>
+    <data name="SB019_" xml:space="preserve">
+        <value>SB019Descendants of {0} with max. {1} generations</value>
+    </data>
+    <data name="SB021_" xml:space="preserve">
+        <value>SB021Forbears of {0} with max. {1} generations{2}</value>
+    </data>
+    <data name="SB022" xml:space="preserve">
+        <value>SB022 and siblings</value>
+    </data>
+    <data name="SB023" xml:space="preserve">
+        <value>SB023Type in a name.</value>
+    </data>
+    <data name="SB024" xml:space="preserve">
+        <value>SB024Wrong GEDCOM version.</value>
+    </data>
+    <data name="SB025" xml:space="preserve">
+        <value>SB025Wrong filter criteria (e.g. status1&lt;=1900).</value>
+    </data>
+    <data name="SB026_" xml:space="preserve">
+        <value>SB026{0,number} person(s) have been imported.</value>
+    </data>
+    <data name="SB027" xml:space="preserve">
+        <value>SB027No family exists.</value>
+    </data>
+    <data name="SB028_" xml:space="preserve">
+        <value>SB028Records: {0}  Without date of birth: {1}</value>
+    </data>
+    <data name="SB029" xml:space="preserve">
+        <value>SB029Are You sure to delete the whole family tree?</value>
+    </data>
+    <data name="SB030" xml:space="preserve">
+        <value>SB030Ancestor_list</value>
+    </data>
+    <data name="SB031_" xml:space="preserve">
+        <value>SB031about {0}</value>
+    </data>
+    <data name="SB032_" xml:space="preserve">
+        <value>SB032after {0}</value>
+    </data>
+    <data name="SB033_" xml:space="preserve">
+        <value>SB033before {0}</value>
+    </data>
+    <data name="SB034_" xml:space="preserve">
+        <value>SB034{0} - {1}</value>
+    </data>
+    <data name="SB035_" xml:space="preserve">
+        <value>SB035{0} or {1}</value>
+    </data>
+
+    <data name="TB001" xml:space="preserve">
+        <value>TB001The search parameter is invalid.</value>
+    </data>
+    <data name="TB002_" xml:space="preserve">
+        <value>TB002Report: {0:yyyy-MM-dd HH:mm:ss}</value>
+    </data>
+    <data name="TB003_" xml:space="preserve">
+        <value>TB003Search: (/{0}/ or /{1}/ or /{2}/) and (/{3}/ or /{4}/ or /{5}/) and not (/{6}/ or /{7}/ or /{8}/)</value>
+    </data>
+    <data name="TB004_" xml:space="preserve">
+        <value>TB004Wrong counter at {0:yyyy-MM-dd}: {1}, expected: {2}</value>
+    </data>
+    <data name="TB005" xml:space="preserve">
+        <value>TB005Diary</value>
+    </data>
+    <data name="TB006_" xml:space="preserve">
+        <value>TB006{0:yyyy-MM-dd} {1}</value>
+    </data>
+    <data name="TB007" xml:space="preserve">
+        <value>TB007Type in a description.</value>
+    </data>
+    <data name="TB008" xml:space="preserve">
+        <value>TB008The latitude must be between -90 and +90.</value>
+    </data>
+    <data name="TB009" xml:space="preserve">
+        <value>TB009The longitude must be between -180 and +180.</value>
+    </data>
+
+    <data name="WP001" xml:space="preserve">
+        <value>WP001Type in a description.</value>
+    </data>
+    <data name="WP002" xml:space="preserve">
+        <value>WP002Select a state.</value>
+    </data>
+    <data name="WP003" xml:space="preserve">
+        <value>WP003The box size must be greater than 0.</value>
+    </data>
+    <data name="WP004" xml:space="preserve">
+        <value>WP004The reversal must be greater than 0.</value>
+    </data>
+    <data name="WP005" xml:space="preserve">
+        <value>WP005Wrong method.</value>
+    </data>
+    <data name="WP006" xml:space="preserve">
+        <value>WP006The period must be greater than 10 days.</value>
+    </data>
+    <data name="WP007" xml:space="preserve">
+        <value>WP007Wrong scaling method.</value>
+    </data>
+    <data name="WP008_" xml:space="preserve">
+        <value>WP008({0} of {1}) Calculation of {2} at {3:yyyy-MM-dd} {4}</value>
+    </data>
+    <data name="WP010" xml:space="preserve">
+        <value>WP010Without</value>
+    </data>
+    <data name="WP012_" xml:space="preserve">
+        <value>WP012Wrong status code {0}.</value>
+    </data>
+    <data name="WP014" xml:space="preserve">
+        <value>WP014Type in a shortcut.</value>
+    </data>
+    <data name="WP017" xml:space="preserve">
+        <value>WP017Select a stock.</value>
+    </data>
+    <data name="WP018" xml:space="preserve">
+        <value>WP018The investment is used by bookings and cannot be deleted.</value>
+    </data>
+    <data name="WP019" xml:space="preserve">
+        <value>WP019Select an investment.</value>
+    </data>
+    <data name="WP021" xml:space="preserve">
+        <value>WP021The posting text must not be empty.</value>
+    </data>
+    <data name="WP022" xml:space="preserve">
+        <value>WP022Type in a value for payment or shares.</value>
+    </data>
+    <data name="WP023_" xml:space="preserve">
+        <value>WP023Payment amount:  {0:#,##0.00}{1}&#xd;Shares:          {2:#,##0.00000}&#xd;Price per share: {3:#,##0.0000}&#xd;Interest:        {4:#,##0.00}&#xd;{5}&#xd;{6}</value>
+    </data>
+    <data name="WP024_" xml:space="preserve">
+        <value>WP024Actual price:    {0:#,##0.0000}{1}&#xd;Actual value:    {2:#,##0.00}&#xd;Profit or loss:  {3:#,##0.00} ({4:#,##0.0000}%)</value>
+    </data>
+    <data name="WP025_" xml:space="preserve">
+        <value>WP025 ({0} {1:#,##0.0000}){2}</value>
+    </data>
+    <data name="WP026_" xml:space="preserve">
+        <value>WP026 ({0:yyyy-MM-dd})</value>
+    </data>
+    <data name="WP028_" xml:space="preserve">
+        <value>WP028Value prev. day: {0:#,##0.00}  +/-: {1:#,##0.00} ({2:yyyy-MM-dd})</value>
+    </data>
+    <data name="WP029_" xml:space="preserve">
+        <value>WP029Records: {0:#,##0}  Sum: {1:#,##0.00}  Value: {2:#,##0.00}  Profit: {3:#,##0.00} ({4:#,##0.00}%)  Previous day +/-: {5:#,##0.00}</value>
+    </data>
+    <data name="WP030_" xml:space="preserve">
+        <value>WP030{0:yyyy-MM-dd}, Payment {1}, Discount {2}, Shares {3}, Interest {4}, {5}, {6}</value>
+    </data>
+    <data name="WP031" xml:space="preserve">
+        <value>WP031Closing price is missing.</value>
+    </data>
+    <data name="WP032" xml:space="preserve">
+        <value>WP032High or low price is missing.</value>
+    </data>
+    <data name="WP033" xml:space="preserve">
+        <value>WP033Opening, high, low or closing price is missing.</value>
+    </data>
+    <data name="WP034" xml:space="preserve">
+        <value>WP034High, low or closing price is missing.</value>
+    </data>
+    <data name="WP035" xml:space="preserve">
+        <value>WP035Box</value>
+    </data>
+    <data name="WP039_" xml:space="preserve">
+        <value>WP039Reversal {0}</value>
+    </data>
+    <data name="WP045" xml:space="preserve">
+        <value>WP045relative</value>
+    </data>
+    <data name="WP046_" xml:space="preserve">
+        <value>WP046{0} days</value>
+    </data>
+    <data name="WP047_" xml:space="preserve">
+        <value>WP047{0:yyyy-MM-dd} - {1:yyyy-MM-dd}</value>
+    </data>
+    <data name="WP049" xml:space="preserve">
+        <value>WP049Get a free access key from https://fixer.io and type in to option WP_FIXER_IO_ACCESS_KEY.</value>
+    </data>
+    <data name="WP050_" xml:space="preserve">
+        <value>WP050Wrong format {0} instead of {1}.</value>
+    </data>
+    <data name="WP051_" xml:space="preserve">
+        <value>WP051 (from {0:yyyy-MM-dd})</value>
+    </data>
+    <data name="WP052" xml:space="preserve">
+        <value>WP052Type in a positive price.</value>
+    </data>
+    <data name="WP053" xml:space="preserve">
+        <value>WP053Reading prices per HTTPS.</value>
+    </data>
+    <data name="WP054_" xml:space="preserve">
+        <value>WP054Error while reading price for currency {0}: {1}</value>
+    </data>
+    <data name="WP055" xml:space="preserve">
+        <value>WP055There has to be all 3 accounts or none at all.</value>
+    </data>
+
+    <data name="M0000" xml:space="preserve">
+        <value>M0000OK</value>
+    </data>
+    <data name="M1011_" xml:space="preserve">
+        <value>M1011{0:s} of {1}</value>
+    </data>
+    <data name="M1012" xml:space="preserve">
+        <value>M1012Select a file.</value>
+    </data>
+    <data name="M1013" xml:space="preserve">
+        <value>M1013Select a record.</value>
+    </data>
+    <data name="M1019_" xml:space="preserve">
+        <value>M1019CSV parse error at character {0} in row\n{1}.</value>
+    </data>
+    <data name="M1020_" xml:space="preserve">
+        <value>M1020CSV parse error in row\n{0}.</value>
+    </data>
+    <data name="M1031" xml:space="preserve">
+        <value>M1031Preparing ...</value>
+    </data>
+    <data name="M1032" xml:space="preserve">
+        <value>M1032Copying ...</value>
+    </data>
+    <data name="M1034_" xml:space="preserve">
+        <value>M1034The file {0} is missing.</value>
+    </data>
+    <data name="M1035_" xml:space="preserve">
+        <value>M1035The folder {0} is missing.</value>
+    </data>
+    <data name="M1038_" xml:space="preserve">
+        <value>M1038The path {0} is not a folder.</value>
+    </data>
+    <data name="M1057" xml:space="preserve">
+        <value>M1057Binding for interface {0} is missing.</value>
+    </data>
+    <data name="M2023" xml:space="preserve">
+        <value>M2023Type in a target folder.</value>
+    </data>
+    <data name="M2024" xml:space="preserve">
+        <value>M2024Type in at least one source folder.</value>
+    </data>
+    <data name="M2096" xml:space="preserve">
+        <value>M2096Month</value>
+    </data>
+    <data name="M2097" xml:space="preserve">
+        <value>M2097Months</value>
+    </data>
+
+    <data name="Main.title" xml:space="preserve">
+        <value>CSBP Mono Bugdet Program W. Kuehl</value>
+    </data>
+
+    <!-- Menüs -->
+    <data name="Menu.file" xml:space="preserve">
+        <value>_File</value>
+    </data>
+    <data name="Menu.undo" xml:space="preserve">
+        <value>Undo</value>
+    </data>
+    <data name="Menu.redo" xml:space="preserve">
+        <value>Redo</value>
+    </data>
+    <data name="Menu.clients" xml:space="preserve">
+        <value>_Clients</value>
+    </data>
+    <data name="Menu.users" xml:space="preserve">
+        <value>_Users</value>
+    </data>
+    <data name="Menu.backups" xml:space="preserve">
+        <value>Backup_s</value>
+    </data>
+    <data name="Menu.quit" xml:space="preserve">
+        <value>_Quit</value>
+    </data>
+
+    <data name="Menu.user" xml:space="preserve">
+        <value>_Users</value>
+    </data>
+    <data name="Menu.login" xml:space="preserve">
+        <value>_Login</value>
+    </data>
+    <data name="Menu.logout" xml:space="preserve">
+        <value>_Logout</value>
+    </data>
+    <data name="Menu.pwchange" xml:space="preserve">
+        <value>_Change password</value>
+    </data>
+    <data name="Menu.options" xml:space="preserve">
+        <value>_Options</value>
+    </data>
+    <data name="Menu.dialogs" xml:space="preserve">
+        <value>_Starting dialogs</value>
+    </data>
+    <data name="Menu.reset" xml:space="preserve">
+        <value>_Reset dialogs</value>
+    </data>
+
+    <data name="Menu.private1" xml:space="preserve">
+        <value>Private(_1)</value>
+    </data>
+    <data name="Menu.diary" xml:space="preserve">
+        <value>_Diary</value>
+    </data>
+    <data name="Menu.notes" xml:space="preserve">
+        <value>_Notes</value>
+    </data>
+    <data name="Menu.persons" xml:space="preserve">
+        <value>_Persons</value>
+    </data>
+    <data name="Menu.mileages" xml:space="preserve">
+        <value>_Mileages</value>
+    </data>
+    <data name="Menu.bikes" xml:space="preserve">
+        <value>B_ikes</value>
+    </data>
+    <data name="Menu.books" xml:space="preserve">
+        <value>_Books</value>
+    </data>
+    <data name="Menu.authors" xml:space="preserve">
+        <value>_Authors</value>
+    </data>
+    <data name="Menu.series" xml:space="preserve">
+        <value>S_eries</value>
+    </data>
+    <data name="Menu.statistics" xml:space="preserve">
+        <value>_Statistics</value>
+    </data>
+    <data name="Menu.sudoku" xml:space="preserve">
+        <value>S_udoku</value>
+    </data>
+    <data name="Menu.detective" xml:space="preserve">
+        <value>_Detective</value>
+    </data>
+
+    <data name="Menu.household2" xml:space="preserve">
+        <value>Household(_2)</value>
+    </data>
+    <data name="Menu.bookings" xml:space="preserve">
+        <value>_Bookings</value>
+    </data>
+    <data name="Menu.events" xml:space="preserve">
+        <value>_Events</value>
+    </data>
+    <data name="Menu.accounts" xml:space="preserve">
+        <value>_Accounts</value>
+    </data>
+    <data name="Menu.periods" xml:space="preserve">
+        <value>_Periods</value>
+    </data>
+    <data name="Menu.finalbalance" xml:space="preserve">
+        <value>_Final balance</value>
+    </data>
+    <data name="Menu.plbalance" xml:space="preserve">
+        <value>_Profit and loss account</value>
+    </data>
+    <data name="Menu.openingbalance" xml:space="preserve">
+        <value>Opening balance</value>
+    </data>
+
+    <data name="Menu.pedigree5" xml:space="preserve">
+        <value>Family tree(_5)</value>
+    </data>
+    <data name="Menu.ancestors" xml:space="preserve">
+        <value>_Ancestors</value>
+    </data>
+    <data name="Menu.families" xml:space="preserve">
+        <value>_Families</value>
+    </data>
+    <data name="Menu.sources" xml:space="preserve">
+        <value>_References</value>
+    </data>
+
+    <data name="Menu.stock6" xml:space="preserve">
+        <value>Stock(_6)</value>
+    </data>
+    <data name="Menu.stocks" xml:space="preserve">
+        <value>_Stocks</value>
+    </data>
+    <data name="Menu.configurations" xml:space="preserve">
+        <value>_Configurations</value>
+    </data>
+    <data name="Menu.investments" xml:space="preserve">
+        <value>_Investments</value>
+    </data>
+    <data name="Menu.bookings3" xml:space="preserve">
+        <value>Investment _bookings</value>
+    </data>
+    <data name="Menu.prices" xml:space="preserve">
+        <value>_Prices</value>
+    </data>
+    <data name="Menu.chart" xml:space="preserve">
+        <value>_Stock chart</value>
+    </data>
+
+    <data name="Menu.help" xml:space="preserve">
+        <value>_Help</value>
+    </data>
+    <data name="Menu.about" xml:space="preserve">
+        <value>_About CSBP</value>
+    </data>
+    <data name="Menu.help2" xml:space="preserve">
+        <value>_Help</value>
+    </data>
+
+    <data name="Menu.table.addrow" xml:space="preserve">
+        <value>Add row(s)</value>
+    </data>
+    <data name="Menu.table.addrow2" xml:space="preserve">
+        <value>Add row(s) at the end</value>
+    </data>
+    <data name="Menu.table.delrow" xml:space="preserve">
+        <value>Delete row(s)</value>
+    </data>
+    <data name="Menu.table.addcol" xml:space="preserve">
+        <value>Add column(s)</value>
+    </data>
+    <data name="Menu.table.addcol2" xml:space="preserve">
+        <value>Add column(s) at the end</value>
+    </data>
+    <data name="Menu.table.delcol" xml:space="preserve">
+        <value>Delete column(s)</value>
+    </data>
+
+    <!-- Aufzählungen -->
+    <data name="Enum.dialog.new" xml:space="preserve">
+        <value>Neu</value>
+    </data>
+    <data name="Enum.dialog.copy" xml:space="preserve">
+        <value>Kopieren</value>
+    </data>
+    <data name="Enum.dialog.copy2" xml:space="preserve">
+        <value>Kopieren</value>
+    </data>
+    <data name="Enum.dialog.edit" xml:space="preserve">
+        <value>Ändern</value>
+    </data>
+    <data name="Enum.dialog.delete" xml:space="preserve">
+        <value>Löschen</value>
+    </data>
+    <data name="Enum.dialog.reverse" xml:space="preserve">
+        <value>Stornieren</value>
+    </data>
+
+    <data name="Enum.permission.no" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Enum.permission.user" xml:space="preserve">
+        <value>User</value>
+    </data>
+    <data name="Enum.permission.admin" xml:space="preserve">
+        <value>Administrator</value>
+    </data>
+    <data name="Enum.permission.all" xml:space="preserve">
+        <value>All</value>
+    </data>
+
+    <data name="Enum.bike.tour" xml:space="preserve">
+        <value>Tour</value>
+    </data>
+    <data name="Enum.bike.weekly" xml:space="preserve">
+        <value>Wöchentlich</value>
+    </data>
+
+    <data name="Enum.language.german" xml:space="preserve">
+        <value>German</value>
+    </data>
+    <data name="Enum.language.english" xml:space="preserve">
+        <value>English</value>
+    </data>
+    <data name="Enum.language.french" xml:space="preserve">
+        <value>French</value>
+    </data>
+    <data name="Enum.language.other" xml:space="preserve">
+        <value>Other</value>
+    </data>
+
+    <data name="Enum.state.active" xml:space="preserve">
+        <value>Active</value>
+    </data>
+    <data name="Enum.state.inactive" xml:space="preserve">
+        <value>Inactive</value>
+    </data>
+    <data name="Enum.state.nocalc" xml:space="preserve">
+        <value>No calculation</value>
+    </data>
+
+    <data name="Enum.scale.fix" xml:space="preserve">
+        <value>fix</value>
+    </data>
+    <data name="Enum.scale.pc" xml:space="preserve">
+        <value>percentage</value>
+    </data>
+    <data name="Enum.scale.dyn" xml:space="preserve">
+        <value>dynamic</value>
+    </data>
+
+    <data name="Enum.method.hl" xml:space="preserve">
+        <value>High low trend</value>
+    </data>
+    <data name="Enum.method.hlr" xml:space="preserve">
+        <value>High low trend reversal</value>
+    </data>
+    <data name="Enum.method.ohlc" xml:space="preserve">
+        <value>Open high low close</value>
+    </data>
+    <data name="Enum.method.tp" xml:space="preserve">
+        <value>Typical price</value>
+    </data>
+    <data name="Enum.method.c" xml:space="preserve">
+        <value>Close</value>
+    </data>
+
+    <!-- Aktionen -->
+    <data name="Action.copy" xml:space="preserve">
+        <value>Copy</value>
+    </data>
+    <data name="Action.paste" xml:space="preserve">
+        <value>Paste</value>
+    </data>
+    <data name="Action.undo" xml:space="preserve">
+        <value>Undo</value>
+    </data>
+    <data name="Action.redo" xml:space="preserve">
+        <value>Redo</value>
+    </data>
+    <data name="Action.save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="Action.refresh" xml:space="preserve">
+        <value>Refresh</value>
+    </data>
+    <data name="Action.new" xml:space="preserve">
+        <value>New</value>
+    </data>
+    <data name="Action.edit" xml:space="preserve">
+        <value>Edit</value>
+    </data>
+    <data name="Action.delete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="Action.chart" xml:space="preserve">
+        <value>Chart</value>
+    </data>
+    <data name="Action.floppy" xml:space="preserve">
+        <value>Import and Export</value>
+    </data>
+    <data name="Action.details" xml:space="preserve">
+        <value>Details</value>
+    </data>
+
+    <!-- Allgemeine Formular-Elemente -->
+    <data name="Forms.ok" xml:space="preserve">
+        <value>_OK</value>
+    </data>
+    <data name="Forms.ok.tt" xml:space="preserve">
+        <value>Close dialog with saving</value>
+    </data>
+    <data name="Forms.oknew" xml:space="preserve">
+        <value>_OK and New</value>
+    </data>
+    <data name="Forms.cancel" xml:space="preserve">
+        <value>_Cancel</value>
+    </data>
+    <data name="Forms.cancel.tt" xml:space="preserve">
+        <value>Cancel dialog without saving</value>
+    </data>
+    <data name="Forms.delete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="Forms.reverse" xml:space="preserve">
+        <value>Reverse</value>
+    </data>
+    <data name="Forms.unreverse" xml:space="preserve">
+        <value>Cancel Reverse</value>
+    </data>
+    <data name="Forms.created" xml:space="preserve">
+        <value>Created</value>
+    </data>
+    <data name="Forms.created.tt" xml:space="preserve">
+        <value>Date, time and user of creation</value>
+    </data>
+    <data name="Forms.changed" xml:space="preserve">
+        <value>Changed</value>
+    </data>
+    <data name="Forms.changed.tt" xml:space="preserve">
+        <value>Date, time and user of last change</value>
+    </data>
+    <data name="Forms.selectfile" xml:space="preserve">
+        <value>Select a file</value>
+    </data>
+    <data name="Forms.select" xml:space="preserve">
+        <value>Select</value>
+    </data>
+
+    <!-- Steuerelemente -->
+    <data name="Date.unknown" xml:space="preserve">
+        <value>Unbekannt</value>
+    </data>
+    <data name="Date.unknown.tt" xml:space="preserve">
+        <value>No date</value>
+    </data>
+    <data name="Date.yesterday" xml:space="preserve">
+        <value>-</value>
+    </data>
+    <data name="Date.yesterday.tt" xml:space="preserve">
+        <value>-</value>
+    </data>
+    <data name="Date.today" xml:space="preserve">
+        <value> t</value>
+    </data>
+    <data name="Date.today.tt" xml:space="preserve">
+        <value> t</value>
+    </data>
+    <data name="Date.tomorrow" xml:space="preserve">
+        <value>+</value>
+    </data>
+    <data name="Date.tomorrow.tt" xml:space="preserve">
+        <value>+</value>
+    </data>
+
+    <!-- Dialoge -->
+    <data name="AD100.title" xml:space="preserve">
+        <value>Persons</value>
+    </data>
+    <data name="AD100.personen" xml:space="preserve">
+        <value>_Persons</value>
+    </data>
+    <data name="AD100.personen.tt" xml:space="preserve">
+        <value>Persons with sites and addresses</value>
+    </data>
+    <data name="AD100.personen.columns" xml:space="preserve">
+        <value>No.;Description;Site;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="AD100.suche.tt" xml:space="preserve">
+        <value>General search</value>
+    </data>
+    <data name="AD100.suche" xml:space="preserve">
+        <value>_Search</value>
+    </data>
+    <data name="AD100.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="AD100.name.tt" xml:space="preserve">
+        <value>Selection name</value>
+    </data>
+    <data name="AD100.vorname" xml:space="preserve">
+        <value>_First name</value>
+    </data>
+    <data name="AD100.vorname.tt" xml:space="preserve">
+        <value>Selection first name</value>
+    </data>
+    <data name="AD100.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="AD100.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="AD100.sitzNeu" xml:space="preserve">
+        <value>N_ew Site</value>
+    </data>
+    <data name="AD100.sitzNeu.tt" xml:space="preserve">
+        <value>Create new site</value>
+    </data>
+    <data name="AD100.sitzEins" xml:space="preserve">
+        <value>1st _Site</value>
+    </data>
+    <data name="AD100.sitzEins.tt" xml:space="preserve">
+        <value>Make selected site to 1st site</value>
+    </data>
+    <data name="AD100.gebListe" xml:space="preserve">
+        <value>_Birthday list</value>
+    </data>
+    <data name="AD100.gebListe.tt" xml:space="preserve">
+        <value>Show list of actual birthdays</value>
+    </data>
+
+    <data name="AD110.title" xml:space="preserve">
+        <value>Person with site and address</value>
+    </data>
+    <data name="AD110.nr" xml:space="preserve">
+        <value>No. (PSA)</value>
+    </data>
+    <data name="AD110.nr.tt" xml:space="preserve">
+        <value>Person number</value>
+    </data>
+    <data name="AD110.sitzNr.tt" xml:space="preserve">
+        <value>Site number</value>
+    </data>
+    <data name="AD110.adressNr.tt" xml:space="preserve">
+        <value>Address number</value>
+    </data>
+    <data name="AD110.titel" xml:space="preserve">
+        <value>_Title</value>
+    </data>
+    <data name="AD110.titel.tt" xml:space="preserve">
+        <value>Title or profession</value>
+    </data>
+    <data name="AD110.vorname" xml:space="preserve">
+        <value>_First name</value>
+    </data>
+    <data name="AD110.vorname.tt" xml:space="preserve">
+        <value>First name</value>
+    </data>
+    <data name="AD110.praedikat" xml:space="preserve">
+        <value>_Predicate</value>
+    </data>
+    <data name="AD110.praedikat.tt" xml:space="preserve">
+        <value>Predicate</value>
+    </data>
+    <data name="AD110.name1" xml:space="preserve">
+        <value>(Sur)_name</value>
+    </data>
+    <data name="AD110.name1.tt" xml:space="preserve">
+        <value>Surname or company name</value>
+    </data>
+    <data name="AD110.name2" xml:space="preserve">
+        <value>Name 2</value>
+    </data>
+    <data name="AD110.name2.tt" xml:space="preserve">
+        <value>2. part of the name</value>
+    </data>
+    <data name="AD110.geschlecht" xml:space="preserve">
+        <value>Gender</value>
+    </data>
+    <data name="AD110.neutrum" xml:space="preserve">
+        <value>Neuter</value>
+    </data>
+    <data name="AD110.neutrum.tt" xml:space="preserve">
+        <value>Neither male nor female or company</value>
+    </data>
+    <data name="AD110.mann" xml:space="preserve">
+        <value>Male</value>
+    </data>
+    <data name="AD110.mann.tt" xml:space="preserve">
+        <value>Male</value>
+    </data>
+    <data name="AD110.frau" xml:space="preserve">
+        <value>Female</value>
+    </data>
+    <data name="AD110.frau.tt" xml:space="preserve">
+        <value>Female</value>
+    </data>
+    <data name="AD110.geburt" xml:space="preserve">
+        <value>_Birthday</value>
+    </data>
+    <data name="AD110.geburt.tt" xml:space="preserve">
+        <value>Birthday</value>
+    </data>
+    <data name="AD110.personStatus" xml:space="preserve">
+        <value>State of person</value>
+    </data>
+    <data name="AD110.personAktuell" xml:space="preserve">
+        <value>Actual</value>
+    </data>
+    <data name="AD110.personAktuell.tt" xml:space="preserve">
+        <value>Person is printed</value>
+    </data>
+    <data name="AD110.personAlt" xml:space="preserve">
+        <value>Old</value>
+    </data>
+    <data name="AD110.personAlt.tt" xml:space="preserve">
+        <value>Person is not printed</value>
+    </data>
+    <data name="AD110.name" xml:space="preserve">
+        <value>S_ite</value>
+    </data>
+    <data name="AD110.name.tt" xml:space="preserve">
+        <value>Description for site</value>
+    </data>
+    <data name="AD110.strasse" xml:space="preserve">
+        <value>St_reet</value>
+    </data>
+    <data name="AD110.strasse.tt" xml:space="preserve">
+        <value>Street without number</value>
+    </data>
+    <data name="AD110.hausnr" xml:space="preserve">
+        <value>House no.</value>
+    </data>
+    <data name="AD110.hausnr.tt" xml:space="preserve">
+        <value>House number</value>
+    </data>
+    <data name="AD110.postfach" xml:space="preserve">
+        <value>PO box</value>
+    </data>
+    <data name="AD110.postfach.tt" xml:space="preserve">
+        <value>Post office box</value>
+    </data>
+    <data name="AD110.staat" xml:space="preserve">
+        <value>_State</value>
+    </data>
+    <data name="AD110.staat.tt" xml:space="preserve">
+        <value>Abbreviation for state, D for Germany</value>
+    </data>
+    <data name="AD110.plz" xml:space="preserve">
+        <value>Postal code</value>
+    </data>
+    <data name="AD110.plz.tt" xml:space="preserve">
+        <value>Postal code or zip code</value>
+    </data>
+    <data name="AD110.ort" xml:space="preserve">
+        <value>Town</value>
+    </data>
+    <data name="AD110.ort.tt" xml:space="preserve">
+        <value>Village, town or city</value>
+    </data>
+    <data name="AD110.telefon" xml:space="preserve">
+        <value>Phone</value>
+    </data>
+    <data name="AD110.telefon.tt" xml:space="preserve">
+        <value>Telephone number</value>
+    </data>
+    <data name="AD110.fax" xml:space="preserve">
+        <value>Fax</value>
+    </data>
+    <data name="AD110.fax.tt" xml:space="preserve">
+        <value>Fax number or second telephone number</value>
+    </data>
+    <data name="AD110.mobil" xml:space="preserve">
+        <value>Mobile</value>
+    </data>
+    <data name="AD110.mobil.tt" xml:space="preserve">
+        <value>Mobile phone number</value>
+    </data>
+    <data name="AD110.homepage" xml:space="preserve">
+        <value>Homepage</value>
+    </data>
+    <data name="AD110.homepage.tt" xml:space="preserve">
+        <value>URL of homepage</value>
+    </data>
+    <data name="AD110.email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="AD110.email.tt" xml:space="preserve">
+        <value>Email address</value>
+    </data>
+    <data name="AD110.notiz" xml:space="preserve">
+        <value>Remark</value>
+    </data>
+    <data name="AD110.notiz.tt" xml:space="preserve">
+        <value>Remark</value>
+    </data>
+    <data name="AD110.sitzStatus" xml:space="preserve">
+        <value>State of site</value>
+    </data>
+    <data name="AD110.sitzAktuell" xml:space="preserve">
+        <value>Actual</value>
+    </data>
+    <data name="AD110.sitzAktuell.tt" xml:space="preserve">
+        <value>Site is printed</value>
+    </data>
+    <data name="AD110.sitzAlt" xml:space="preserve">
+        <value>Old</value>
+    </data>
+    <data name="AD110.sitzAlt.tt" xml:space="preserve">
+        <value>Site is not printed</value>
+    </data>
+    <data name="AD110.adresseAnzahl" xml:space="preserve">
+        <value># same address</value>
+    </data>
+    <data name="AD110.adresseAnzahl.tt" xml:space="preserve">
+        <value>How may times is this address used?</value>
+    </data>
+    <data name="AD110.adresseDupl" xml:space="preserve">
+        <value>Duplicate address</value>
+    </data>
+    <data name="AD110.adresseDupl.tt" xml:space="preserve">
+        <value>Copy actual address so that no other usage is changed</value>
+    </data>
+    <data name="AD110.adresseWechseln" xml:space="preserve">
+        <value>_Change address</value>
+    </data>
+    <data name="AD110.adresseWechseln.tt" xml:space="preserve">
+        <value>Select another address</value>
+    </data>
+
+    <data name="AD120.title" xml:space="preserve">
+        <value>Birthday list</value>
+    </data>
+    <data name="AD120.datum" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="AD120.datum.tt" xml:space="preserve">
+        <value>Reference date</value>
+    </data>
+    <data name="AD120.tage" xml:space="preserve">
+        <value>_Number of days</value>
+    </data>
+    <data name="AD120.tage.tt" xml:space="preserve">
+        <value>Number of days which are relevant before and after date</value>
+    </data>
+    <data name="AD120.geburtstage" xml:space="preserve">
+        <value>_Birthdays</value>
+    </data>
+    <data name="AD120.geburtstage.tt" xml:space="preserve">
+        <value>Persons with their birthday in the time span</value>
+    </data>
+    <data name="AD120.starten" xml:space="preserve">
+        <value>Show after login</value>
+    </data>
+    <data name="AD120.starten.tt" xml:space="preserve">
+        <value>Show after login</value>
+    </data>
+
+    <data name="AD130.title" xml:space="preserve">
+        <value>Addresses</value>
+    </data>
+    <data name="AD130.adressen" xml:space="preserve">
+        <value>_Addresses</value>
+    </data>
+    <data name="AD130.adressen.tt" xml:space="preserve">
+        <value>Address list</value>
+    </data>
+    <data name="AD130.adressen.columns" xml:space="preserve">
+        <value>No.;St.;Postal code;Town;Street;No.;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="AD200.title" xml:space="preserve">
+        <value>Address interface</value>
+    </data>
+    <data name="AD200.loeschen" xml:space="preserve">
+        <value>Delete all data</value>
+    </data>
+    <data name="AD200.loeschen.tt" xml:space="preserve">
+        <value>Delete all addresses before import</value>
+    </data>
+    <data name="AD200.datei" xml:space="preserve">
+        <value>_File</value>
+    </data>
+    <data name="AD200.datei.tt" xml:space="preserve">
+        <value>Name of CSV file</value>
+    </data>
+    <data name="AD200.dateiAuswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="AD200.dateiAuswahl.tt" xml:space="preserve">
+        <value>Select a file</value>
+    </data>
+    <data name="AD200.export" xml:space="preserve">
+        <value>Exp_ort</value>
+    </data>
+    <data name="AD200.export.tt" xml:space="preserve">
+        <value>Export of addresses into file</value>
+    </data>
+    <data name="AD200.importieren" xml:space="preserve">
+        <value>_Import</value>
+    </data>
+    <data name="AD200.importieren.tt" xml:space="preserve">
+        <value>Import of addresses from file</value>
+    </data>
+    <data name="AD200.select.file" xml:space="preserve">
+        <value>addresses.csv</value>
+    </data>
+    <data name="AD200.select.ext" xml:space="preserve">
+        <value>CSV files (.csv)</value>
+    </data>
+
+    <data name="AG100.title" xml:space="preserve">
+        <value>Clients</value>
+    </data>
+    <data name="AG100.mandanten" xml:space="preserve">
+        <value>_Clients</value>
+    </data>
+    <data name="AG100.mandanten.tt" xml:space="preserve">
+        <value>All clients</value>
+    </data>
+    <data name="AG100.mandanten.columns" xml:space="preserve">
+        <value>No.;Description;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="AG110.title" xml:space="preserve">
+        <value>Client</value>
+    </data>
+    <data name="AG110.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="AG110.nr.tt" xml:space="preserve">
+        <value>Client number</value>
+    </data>
+    <data name="AG110.beschreibung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="AG110.beschreibung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+
+    <data name="AG200.title" xml:space="preserve">
+        <value>Users</value>
+    </data>
+    <data name="AG200.benutzer" xml:space="preserve">
+        <value>_User IDs</value>
+    </data>
+    <data name="AG200.benutzer.tt" xml:space="preserve">
+        <value>User IDs</value>
+    </data>
+    <data name="AG200.benutzer.columns" xml:space="preserve">
+        <value>No.;User ID;Password;Authorization;Birthday;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="AG210.title" xml:space="preserve">
+        <value>User</value>
+    </data>
+    <data name="AG210.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="AG210.nr.tt" xml:space="preserve">
+        <value>User number</value>
+    </data>
+    <data name="AG210.benutzerId" xml:space="preserve">
+        <value>_User ID</value>
+    </data>
+    <data name="AG210.benutzerId.tt" xml:space="preserve">
+        <value>User ID</value>
+    </data>
+    <data name="AG210.kennwort" xml:space="preserve">
+        <value>_Password</value>
+    </data>
+    <data name="AG210.kennwort.tt" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="AG210.berechtigung" xml:space="preserve">
+        <value>Authorization</value>
+    </data>
+    <data name="AG210.berechtigung1" xml:space="preserve">
+        <value>User</value>
+    </data>
+    <data name="AG210.berechtigung1.tt" xml:space="preserve">
+        <value>User permission</value>
+    </data>
+    <data name="AG210.berechtigung2" xml:space="preserve">
+        <value>Administrator</value>
+    </data>
+    <data name="AG210.berechtigung2.tt" xml:space="preserve">
+        <value>Administrator permission</value>
+    </data>
+    <data name="AG210.berechtigung3" xml:space="preserve">
+        <value>All</value>
+    </data>
+    <data name="AG210.berechtigung3.tt" xml:space="preserve">
+        <value>Administrator permission for all clients</value>
+    </data>
+    <data name="AG210.geburt" xml:space="preserve">
+        <value>_Birthday</value>
+    </data>
+    <data name="AG210.geburt.tt" xml:space="preserve">
+        <value>Birthday for calculating the statistics</value>
+    </data>
+
+    <data name="AG400.title" xml:space="preserve">
+        <value>Backup</value>
+    </data>
+    <data name="AG400.verzeichnisse" xml:space="preserve">
+        <value>Backup _items</value>
+    </data>
+    <data name="AG400.verzeichnisse.tt" xml:space="preserve">
+        <value>Backup folders</value>
+    </data>
+    <data name="AG400.verzeichnisse.columns" xml:space="preserve">
+        <value>No.;Target;E.;P.;Sources;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="AG400.sicherung" xml:space="preserve">
+        <value>_Backup</value>
+    </data>
+    <data name="AG400.sicherung.tt" xml:space="preserve">
+        <value>Backup</value>
+    </data>
+    <data name="AG400.diffSicherung" xml:space="preserve">
+        <value>_Differential backup</value>
+    </data>
+    <data name="AG400.diffSicherung.tt" xml:space="preserve">
+        <value>Differential backup</value>
+    </data>
+    <data name="AG400.rueckSicherung" xml:space="preserve">
+        <value>_Restore</value>
+    </data>
+    <data name="AG400.rueckSicherung.tt" xml:space="preserve">
+        <value>Restore</value>
+    </data>
+    <data name="AG400.sqlSicherung" xml:space="preserve">
+        <value>SQL backup</value>
+    </data>
+    <data name="AG400.sqlSicherung.tt" xml:space="preserve">
+        <value>SQL backup in temporary directory</value>
+    </data>
+    <data name="AG400.status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="AG400.statusText.tt" xml:space="preserve">
+        <value>Status of backup</value>
+    </data>
+    <data name="AG400.mandantKopieren" xml:space="preserve">
+        <value>_Copy client</value>
+    </data>
+    <data name="AG400.mandantKopieren.tt" xml:space="preserve">
+        <value>Copy actual client into the replication database</value>
+    </data>
+    <data name="AG400.mandantRepKopieren" xml:space="preserve">
+        <value>Copy re_pl. client</value>
+    </data>
+    <data name="AG400.mandantRepKopieren.tt" xml:space="preserve">
+        <value>Copy actual client from the replication database</value>
+    </data>
+    <data name="AG400.mandant" xml:space="preserve">
+        <value>Replication client</value>
+    </data>
+    <data name="AG400.mandant.tt" xml:space="preserve">
+        <value>Client number in replication database</value>
+    </data>
+
+    <data name="AG410.title" xml:space="preserve">
+        <value>Sicherungseintrag</value>
+    </data>
+    <data name="AG410.nr" xml:space="preserve">
+        <value>Nr.</value>
+    </data>
+    <data name="AG410.nr.tt" xml:space="preserve">
+        <value>Sicherungs-Nr.</value>
+    </data>
+    <data name="AG410.ziel" xml:space="preserve">
+        <value>_Ziel-Verzeichnis</value>
+    </data>
+    <data name="AG410.ziel.tt" xml:space="preserve">
+        <value>Ziel-Verzeichnis</value>
+    </data>
+    <data name="AG410.encrypted" xml:space="preserve">
+        <value>_verschlüsselt</value>
+    </data>
+    <data name="AG410.encrypted.tt" xml:space="preserve">
+        <value>Sollen die Dateien im Ziel verschlüsselt werden?</value>
+    </data>
+    <data name="AG410.zipped" xml:space="preserve">
+        <value>_gepackt</value>
+    </data>
+    <data name="AG410.zipped.tt" xml:space="preserve">
+        <value>Sollen die Dateien im Ziel in einer Datei gepackt werden?</value>
+    </data>
+    <data name="AG410.quelle" xml:space="preserve">
+        <value>_Quell-Verzeichnisse</value>
+    </data>
+    <data name="AG410.quelle.tt" xml:space="preserve">
+        <value>Quell-Verzeichnisse mit Semikolon getrennt</value>
+    </data>
+
+    <data name="AG420.title" xml:space="preserve">
+        <value>Kennwort für Verschlüsselung</value>
+    </data>
+    <data name="AG420.target" xml:space="preserve">
+        <value>Ziel-Verzeichnis</value>
+    </data>
+    <data name="AG420.target.tt" xml:space="preserve">
+        <value>Ziel-Verzeichnis</value>
+    </data>
+    <data name="AG420.password" xml:space="preserve">
+        <value>Kennwort</value>
+    </data>
+    <data name="AG420.password.tt" xml:space="preserve">
+        <value>Kennwort für Verschlüsselung</value>
+    </data>
+
+    <data name="AM000.title" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="AM000.client" xml:space="preserve">
+        <value>Cl_ient</value>
+    </data>
+    <data name="AM000.client.tt" xml:space="preserve">
+        <value>Type in client number, beginning with 1.</value>
+    </data>
+    <data name="AM000.user" xml:space="preserve">
+        <value>_User</value>
+    </data>
+    <data name="AM000.user.tt" xml:space="preserve">
+        <value>Type in user ID.</value>
+    </data>
+    <data name="AM000.password" xml:space="preserve">
+        <value>_Password</value>
+    </data>
+    <data name="AM000.password.tt" xml:space="preserve">
+        <value>Type in password.</value>
+    </data>
+    <data name="AM000.save" xml:space="preserve">
+        <value>_Save password</value>
+    </data>
+    <data name="AM000.save.tt" xml:space="preserve">
+        <value>Save the password?</value>
+    </data>
+    <data name="AM000.login" xml:space="preserve">
+        <value>_Login</value>
+    </data>
+    <data name="AM000.login.tt" xml:space="preserve">
+        <value>Do login.</value>
+    </data>
+    <data name="AM000.reset" xml:space="preserve">
+        <value>_Reset</value>
+    </data>
+    <data name="AM000.reset.tt" xml:space="preserve">
+        <value>Move main window to main screen.</value>
+    </data>
+    <data name="AM000.cancel" xml:space="preserve">
+        <value>_Cancel</value>
+    </data>
+    <data name="AM000.cancel.tt" xml:space="preserve">
+        <value>Cancel login.</value>
+    </data>
+
+    <data name="AM100.title" xml:space="preserve">
+        <value>Change Password</value>
+    </data>
+    <data name="AM100.mandant" xml:space="preserve">
+        <value>_Client</value>
+    </data>
+    <data name="AM100.mandant.tt" xml:space="preserve">
+        <value>Client number</value>
+    </data>
+    <data name="AM100.benutzer" xml:space="preserve">
+        <value>_User</value>
+    </data>
+    <data name="AM100.benutzer.tt" xml:space="preserve">
+        <value>User ID</value>
+    </data>
+    <data name="AM100.kennwortAlt" xml:space="preserve">
+        <value>Old _Password</value>
+    </data>
+    <data name="AM100.kennwortAlt.tt" xml:space="preserve">
+        <value>Old Password</value>
+    </data>
+    <data name="AM100.kennwortNeu" xml:space="preserve">
+        <value>_New Password</value>
+    </data>
+    <data name="AM100.kennwortNeu.tt" xml:space="preserve">
+        <value>New Password</value>
+    </data>
+    <data name="AM100.kennwortNeu2" xml:space="preserve">
+        <value>_Repetition</value>
+    </data>
+    <data name="AM100.kennwortNeu2.tt" xml:space="preserve">
+        <value>Password repetition</value>
+    </data>
+    <data name="AM100.speichern" xml:space="preserve">
+        <value>_Save password</value>
+    </data>
+    <data name="AM100.speichern.tt" xml:space="preserve">
+        <value>Save the password?</value>
+    </data>
+
+    <data name="AM500.title" xml:space="preserve">
+        <value>Options</value>
+    </data>
+    <data name="AM500.einstellungen" xml:space="preserve">
+        <value>_Options</value>
+    </data>
+    <data name="AM500.einstellungen.tt" xml:space="preserve">
+        <value>Options</value>
+    </data>
+    <data name="AM500.einstellungen.columns" xml:space="preserve">
+        <value>Client;Key;Value_e;Comment;Default;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="AM510.title" xml:space="preserve">
+        <value>Starting Dialogs</value>
+    </data>
+    <data name="AM510.dialoge" xml:space="preserve">
+        <value>_Dialogs</value>
+    </data>
+    <data name="AM510.dialoge.tt" xml:space="preserve">
+        <value>All dialogs</value>
+    </data>
+    <data name="AM510.dialoge.columns" xml:space="preserve">
+        <value>No.;Abbreviation;Title</value>
+    </data>
+    <data name="AM510.zuordnen" xml:space="preserve">
+        <value>&gt;</value>
+    </data>
+    <data name="AM510.zuordnen.tt" xml:space="preserve">
+        <value>Add</value>
+    </data>
+    <data name="AM510.entfernen" xml:space="preserve">
+        <value>&lt;</value>
+    </data>
+    <data name="AM510.entfernen.tt" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="AM510.zudialoge" xml:space="preserve">
+        <value>_Starting dialogs</value>
+    </data>
+    <data name="AM510.zudialoge.tt" xml:space="preserve">
+        <value>Selected starting dialogs</value>
+    </data>
+    <data name="AM510.zudialoge.columns" xml:space="preserve">
+        <value>No.;Abbreviation;Title</value>
+    </data>
+    <data name="AM510.oben" xml:space="preserve">
+        <value>^</value>
+    </data>
+    <data name="AM510.oben.tt" xml:space="preserve">
+        <value>Selected starting dialog up</value>
+    </data>
+    <data name="AM510.unten" xml:space="preserve">
+        <value>v</value>
+    </data>
+    <data name="AM510.unten.tt" xml:space="preserve">
+        <value>Selected starting dialog down</value>
+    </data>
+
+    <data name="FZ100.title" xml:space="preserve">
+        <value>Statistics</value>
+    </data>
+    <data name="FZ100.datum" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="FZ100.datum.tt" xml:space="preserve">
+        <value>Reference date for statistics</value>
+    </data>
+    <data name="FZ100.bilanz" xml:space="preserve">
+        <value>_Balance</value>
+    </data>
+    <data name="FZ100.bilanz.tt" xml:space="preserve">
+        <value>Balance overview</value>
+    </data>
+    <data name="FZ100.buecher" xml:space="preserve">
+        <value>Books</value>
+    </data>
+    <data name="FZ100.buecher.tt" xml:space="preserve">
+        <value>Book statistics</value>
+    </data>
+    <data name="FZ100.fahrrad" xml:space="preserve">
+        <value>_Bike</value>
+    </data>
+    <data name="FZ100.fahrrad.tt" xml:space="preserve">
+        <value>Bike statistics</value>
+    </data>
+
+    <data name="FZ200.title" xml:space="preserve">
+        <value>Bikes</value>
+    </data>
+    <data name="FZ200.bikes" xml:space="preserve">
+        <value>_Bikes</value>
+    </data>
+    <data name="FZ200.bikes.tt" xml:space="preserve">
+        <value>Bicycles</value>
+    </data>
+    <data name="FZ200.bikes.columns" xml:space="preserve">
+        <value>No.;Description;Type;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="FZ210.title" xml:space="preserve">
+        <value>Bike</value>
+    </data>
+    <data name="FZ210.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="FZ210.nr.tt" xml:space="preserve">
+        <value>Bike number</value>
+    </data>
+    <data name="FZ210.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="FZ210.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="FZ210.typ" xml:space="preserve">
+        <value>Typ</value>
+    </data>
+    <data name="FZ210.typ1" xml:space="preserve">
+        <value>Tour</value>
+    </data>
+    <data name="FZ210.typ1.tt" xml:space="preserve">
+        <value>Daily mileage</value>
+    </data>
+    <data name="FZ210.typ2" xml:space="preserve">
+        <value>Weekly</value>
+    </data>
+    <data name="FZ210.typ2.tt" xml:space="preserve">
+        <value>Weekly mileage</value>
+    </data>
+
+    <data name="FZ250.title" xml:space="preserve">
+        <value>Mileages</value>
+    </data>
+    <data name="FZ250.fahrradstaende" xml:space="preserve">
+        <value>Bike _mileages</value>
+    </data>
+    <data name="FZ250.fahrradstaende.tt" xml:space="preserve">
+        <value>Bike mileages</value>
+    </data>
+    <data name="FZ250.fahrradstaende.columns" xml:space="preserve">
+        <value>No.;Bike;Date;No.;Odometer_r;Km_r;Average_r;Description;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="FZ250.fahrrad" xml:space="preserve">
+        <value>_Bike</value>
+    </data>
+    <data name="FZ250.fahrrad.tt" xml:space="preserve">
+        <value>Bike</value>
+    </data>
+    <data name="FZ250.text" xml:space="preserve">
+        <value>Te_xt</value>
+    </data>
+    <data name="FZ250.text.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="FZ250.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="FZ250.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+
+    <data name="FZ260.title" xml:space="preserve">
+        <value>Bike mileage</value>
+    </data>
+    <data name="FZ260.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="FZ260.nr.tt" xml:space="preserve">
+        <value>Bike mileage number</value>
+    </data>
+    <data name="FZ260.fahrrad" xml:space="preserve">
+        <value>_Bike</value>
+    </data>
+    <data name="FZ260.fahrrad.tt" xml:space="preserve">
+        <value>Bike</value>
+    </data>
+    <data name="FZ260.datum" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="FZ260.datum.tt" xml:space="preserve">
+        <value>Date</value>
+    </data>
+    <data name="FZ260.zaehler" xml:space="preserve">
+        <value>_Odometer</value>
+    </data>
+    <data name="FZ260.zaehler.tt" xml:space="preserve">
+        <value>Odometer reading</value>
+    </data>
+    <data name="FZ260.km" xml:space="preserve">
+        <value>_Km</value>
+    </data>
+    <data name="FZ260.km.tt" xml:space="preserve">
+        <value>Daily or weekly km</value>
+    </data>
+    <data name="FZ260.schnitt" xml:space="preserve">
+        <value>_Average</value>
+    </data>
+    <data name="FZ260.schnitt.tt" xml:space="preserve">
+        <value>Average speed</value>
+    </data>
+    <data name="FZ260.beschreibung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="FZ260.beschreibung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+
+    <data name="FZ300.title" xml:space="preserve">
+        <value>Authors</value>
+    </data>
+    <data name="FZ300.autoren" xml:space="preserve">
+        <value>_Authors</value>
+    </data>
+    <data name="FZ300.autoren.tt" xml:space="preserve">
+        <value>Authors of books</value>
+    </data>
+    <data name="FZ300.autoren.columns" xml:space="preserve">
+        <value>No.;Name;First name;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="FZ300.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="FZ300.name.tt" xml:space="preserve">
+        <value>Surname</value>
+    </data>
+    <data name="FZ300.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="FZ300.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+
+    <data name="FZ310.title" xml:space="preserve">
+        <value>Author</value>
+    </data>
+    <data name="FZ310.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="FZ310.nr.tt" xml:space="preserve">
+        <value>Author number</value>
+    </data>
+    <data name="FZ310.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="FZ310.name.tt" xml:space="preserve">
+        <value>Surname</value>
+    </data>
+    <data name="FZ310.vorname" xml:space="preserve">
+        <value>_First name</value>
+    </data>
+    <data name="FZ310.vorname.tt" xml:space="preserve">
+        <value>First name</value>
+    </data>
+
+    <data name="FZ320.title" xml:space="preserve">
+        <value>Series</value>
+    </data>
+    <data name="FZ320.serien" xml:space="preserve">
+        <value>_Series</value>
+    </data>
+    <data name="FZ320.serien.tt" xml:space="preserve">
+        <value>Serial books</value>
+    </data>
+    <data name="FZ320.serien.columns" xml:space="preserve">
+        <value>No.;Name;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="FZ320.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="FZ320.name.tt" xml:space="preserve">
+        <value>Series name</value>
+    </data>
+    <data name="FZ320.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="FZ320.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+
+    <data name="FZ330.title" xml:space="preserve">
+        <value>Series</value>
+    </data>
+    <data name="FZ330.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="FZ330.nr.tt" xml:space="preserve">
+        <value>Serial number</value>
+    </data>
+    <data name="FZ330.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="FZ330.name.tt" xml:space="preserve">
+        <value>Series name</value>
+    </data>
+
+    <data name="FZ340.title" xml:space="preserve">
+        <value>Books</value>
+    </data>
+    <data name="FZ340.buecher" xml:space="preserve">
+        <value>_Books</value>
+    </data>
+    <data name="FZ340.buecher.tt" xml:space="preserve">
+        <value>Books</value>
+    </data>
+    <data name="FZ340.buecher.columns" xml:space="preserve">
+        <value>No.;Title;Author;Series;No._r;Pages_r;Language;Pos.;Read;Heard;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="FZ340.titel" xml:space="preserve">
+        <value>_Title</value>
+    </data>
+    <data name="FZ340.titel.tt" xml:space="preserve">
+        <value>Book title</value>
+    </data>
+    <data name="FZ340.autor" xml:space="preserve">
+        <value>_Author</value>
+    </data>
+    <data name="FZ340.autor.tt" xml:space="preserve">
+        <value>Author of books</value>
+    </data>
+    <data name="FZ340.serie" xml:space="preserve">
+        <value>_Series</value>
+    </data>
+    <data name="FZ340.serie.tt" xml:space="preserve">
+        <value>Serial book</value>
+    </data>
+    <data name="FZ340.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="FZ340.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+
+    <data name="FZ350.title" xml:space="preserve">
+        <value>Book</value>
+    </data>
+    <data name="FZ350.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="FZ350.nr.tt" xml:space="preserve">
+        <value>Book number</value>
+    </data>
+    <data name="FZ350.titel" xml:space="preserve">
+        <value>_Title</value>
+    </data>
+    <data name="FZ350.titel.tt" xml:space="preserve">
+        <value>Book title</value>
+    </data>
+    <data name="FZ350.autor" xml:space="preserve">
+        <value>_Author</value>
+    </data>
+    <data name="FZ350.autor.tt" xml:space="preserve">
+        <value>Author of books</value>
+    </data>
+    <data name="FZ350.autorneu" xml:space="preserve">
+        <value>N_ew Author</value>
+    </data>
+    <data name="FZ350.autorneu.tt" xml:space="preserve">
+        <value>Create new Author</value>
+    </data>
+    <data name="FZ350.serie" xml:space="preserve">
+        <value>_Series</value>
+    </data>
+    <data name="FZ350.serie.tt" xml:space="preserve">
+        <value>Serial book</value>
+    </data>
+    <data name="FZ350.serieneu" xml:space="preserve">
+        <value>Ne_w Series</value>
+    </data>
+    <data name="FZ350.serieneu.tt" xml:space="preserve">
+        <value>Create new Series</value>
+    </data>
+    <data name="FZ350.seriennummer" xml:space="preserve">
+        <value>Serial number</value>
+    </data>
+    <data name="FZ350.seriennummer.tt" xml:space="preserve">
+        <value>No. within the series</value>
+    </data>
+    <data name="FZ350.seiten" xml:space="preserve">
+        <value>Pages</value>
+    </data>
+    <data name="FZ350.seiten.tt" xml:space="preserve">
+        <value>Number of pages</value>
+    </data>
+    <data name="FZ350.sprache" xml:space="preserve">
+        <value>L_anguage</value>
+    </data>
+    <data name="FZ350.sprache1" xml:space="preserve">
+        <value>German</value>
+    </data>
+    <data name="FZ350.sprache1.tt" xml:space="preserve">
+        <value>German</value>
+    </data>
+    <data name="FZ350.sprache2" xml:space="preserve">
+        <value>English</value>
+    </data>
+    <data name="FZ350.sprache2.tt" xml:space="preserve">
+        <value>English</value>
+    </data>
+    <data name="FZ350.sprache3" xml:space="preserve">
+        <value>French</value>
+    </data>
+    <data name="FZ350.sprache3.tt" xml:space="preserve">
+        <value>French</value>
+    </data>
+    <data name="FZ350.sprache4" xml:space="preserve">
+        <value>Other</value>
+    </data>
+    <data name="FZ350.sprache4.tt" xml:space="preserve">
+        <value>Other Language</value>
+    </data>
+    <data name="FZ350.besitz" xml:space="preserve">
+        <value>_Possession</value>
+    </data>
+    <data name="FZ350.besitz.tt" xml:space="preserve">
+        <value>Do You own the book?</value>
+    </data>
+    <data name="FZ350.lesedatum" xml:space="preserve">
+        <value>Date of _reading</value>
+    </data>
+    <data name="FZ350.lesedatum.tt" xml:space="preserve">
+        <value>Date of reading</value>
+    </data>
+    <data name="FZ350.hoerdatum" xml:space="preserve">
+        <value>Date of _hearing</value>
+    </data>
+    <data name="FZ350.hoerdatum.tt" xml:space="preserve">
+        <value>Date of hearing</value>
+    </data>
+
+    <data name="FZ700.title" xml:space="preserve">
+        <value>Memos</value>
+    </data>
+    <data name="FZ700.notizen" xml:space="preserve">
+        <value>_Memos</value>
+    </data>
+    <data name="FZ700.notizen.tt" xml:space="preserve">
+        <value>Memos</value>
+    </data>
+    <data name="FZ700.notizen.columns" xml:space="preserve">
+        <value>No.;Topic;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="FZ700.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="FZ700.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="FZ700.text" xml:space="preserve">
+        <value>Te_xt</value>
+    </data>
+    <data name="FZ700.text.tt" xml:space="preserve">
+        <value>Text for search</value>
+    </data>
+
+    <data name="FZ710.title" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="FZ710.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="FZ710.nr.tt" xml:space="preserve">
+        <value>Memo number</value>
+    </data>
+    <data name="FZ710.thema" xml:space="preserve">
+        <value>_Topic</value>
+    </data>
+    <data name="FZ710.thema.tt" xml:space="preserve">
+        <value>Topic</value>
+    </data>
+    <data name="FZ710.notiz" xml:space="preserve">
+        <value>_Memo</value>
+    </data>
+    <data name="FZ710.notiz.tt" xml:space="preserve">
+        <value>Memo text</value>
+    </data>
+    <data name="FZ710.tabelle.tt" xml:space="preserve">
+        <value>Memo table</value>
+    </data>
+    <data name="FZ710.tabelle.columns" xml:space="preserve">
+        <value>FZ710.tabelle.columns;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="HH100.title" xml:space="preserve">
+        <value>Periods</value>
+    </data>
+    <data name="HH100.perioden" xml:space="preserve">
+        <value>_Periods</value>
+    </data>
+    <data name="HH100.perioden.tt" xml:space="preserve">
+        <value>Periods</value>
+    </data>
+    <data name="HH100.perioden.columns" xml:space="preserve">
+        <value>No.;No._r;Time span;From;To;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="HH100.anfang" xml:space="preserve">
+        <value>Start</value>
+    </data>
+    <data name="HH100.anfang.tt" xml:space="preserve">
+        <value>Starting date of first period</value>
+    </data>
+    <data name="HH100.ende" xml:space="preserve">
+        <value>End</value>
+    </data>
+    <data name="HH100.ende.tt" xml:space="preserve">
+        <value>End date of last period</value>
+    </data>
+    <data name="HH100.laenge" xml:space="preserve">
+        <value>Period _length</value>
+    </data>
+    <data name="HH100.laenge1" xml:space="preserve">
+        <value>Month</value>
+    </data>
+    <data name="HH100.laenge1.tt" xml:space="preserve">
+        <value>Monthly period</value>
+    </data>
+    <data name="HH100.laenge2" xml:space="preserve">
+        <value>Quarter of the year</value>
+    </data>
+    <data name="HH100.laenge2.tt" xml:space="preserve">
+        <value>Quarter of the year period</value>
+    </data>
+    <data name="HH100.laenge3" xml:space="preserve">
+        <value>Half year</value>
+    </data>
+    <data name="HH100.laenge3.tt" xml:space="preserve">
+        <value>Half year period</value>
+    </data>
+    <data name="HH100.laenge4" xml:space="preserve">
+        <value>Year</value>
+    </data>
+    <data name="HH100.laenge4.tt" xml:space="preserve">
+        <value>Year period</value>
+    </data>
+    <data name="HH100.art" xml:space="preserve">
+        <value>_When</value>
+    </data>
+    <data name="HH100.art1" xml:space="preserve">
+        <value>Start</value>
+    </data>
+    <data name="HH100.art1.tt" xml:space="preserve">
+        <value>Add periode at the beginning</value>
+    </data>
+    <data name="HH100.art2" xml:space="preserve">
+        <value>End</value>
+    </data>
+    <data name="HH100.art2.tt" xml:space="preserve">
+        <value>Add periode at the end</value>
+    </data>
+
+    <data name="HH200.title" xml:space="preserve">
+        <value>Accounts</value>
+    </data>
+    <data name="HH200.konten" xml:space="preserve">
+        <value>_Accounts</value>
+    </data>
+    <data name="HH200.konten.tt" xml:space="preserve">
+        <value>Accounts</value>
+    </data>
+    <data name="HH200.konten.columns" xml:space="preserve">
+        <value>No.;Type;Attr.;Description;Valid from;Valid to;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="HH200.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="HH200.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="HH200.text" xml:space="preserve">
+        <value>Te_xt</value>
+    </data>
+    <data name="HH200.text.tt" xml:space="preserve">
+        <value>Text for search</value>
+    </data>
+
+    <data name="HH210.title" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="HH210.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="HH210.nr.tt" xml:space="preserve">
+        <value>Account number</value>
+    </data>
+    <data name="HH210.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="HH210.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="HH210.kennzeichen" xml:space="preserve">
+        <value>Attribute</value>
+    </data>
+    <data name="HH210.kennzeichen1" xml:space="preserve">
+        <value>Without</value>
+    </data>
+    <data name="HH210.kennzeichen1.tt" xml:space="preserve">
+        <value>Without attribute</value>
+    </data>
+    <data name="HH210.kennzeichen2" xml:space="preserve">
+        <value>Proprietary</value>
+    </data>
+    <data name="HH210.kennzeichen2.tt" xml:space="preserve">
+        <value>Proprietary account</value>
+    </data>
+    <data name="HH210.kennzeichen3" xml:space="preserve">
+        <value>Profit and loss</value>
+    </data>
+    <data name="HH210.kennzeichen3.tt" xml:space="preserve">
+        <value>Profit and loss account</value>
+    </data>
+    <data name="HH210.kennzeichen4" xml:space="preserve">
+        <value>Portfolio</value>
+    </data>
+    <data name="HH210.kennzeichen4.tt" xml:space="preserve">
+        <value>Portfolio account</value>
+    </data>
+    <data name="HH210.kontoart" xml:space="preserve">
+        <value>Account type</value>
+    </data>
+    <data name="HH210.kontoart1" xml:space="preserve">
+        <value>Asset (AK)</value>
+    </data>
+    <data name="HH210.kontoart1.tt" xml:space="preserve">
+        <value>Asset account</value>
+    </data>
+    <data name="HH210.kontoart2" xml:space="preserve">
+        <value>Liability (PK)</value>
+    </data>
+    <data name="HH210.kontoart2.tt" xml:space="preserve">
+        <value>Liability account</value>
+    </data>
+    <data name="HH210.kontoart3" xml:space="preserve">
+        <value>Expense (AW)</value>
+    </data>
+    <data name="HH210.kontoart3.tt" xml:space="preserve">
+        <value>Expense account</value>
+    </data>
+    <data name="HH210.kontoart4" xml:space="preserve">
+        <value>Income (ER)</value>
+    </data>
+    <data name="HH210.kontoart4.tt" xml:space="preserve">
+        <value>Income account</value>
+    </data>
+    <data name="HH210.von" xml:space="preserve">
+        <value>Valid _from</value>
+    </data>
+    <data name="HH210.von.tt" xml:space="preserve">
+        <value>Valid from</value>
+    </data>
+    <data name="HH210.bis" xml:space="preserve">
+        <value>_to</value>
+    </data>
+    <data name="HH210.bis.tt" xml:space="preserve">
+        <value>Valid to</value>
+    </data>
+
+    <data name="HH300.title" xml:space="preserve">
+        <value>Events</value>
+    </data>
+    <data name="HH300.ereignisse" xml:space="preserve">
+        <value>_Events</value>
+    </data>
+    <data name="HH300.ereignisse.tt" xml:space="preserve">
+        <value>Booking events</value>
+    </data>
+    <data name="HH300.ereignisse.columns" xml:space="preserve">
+        <value>No.;Description;Posting text;Debit account;Credit account;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="HH300.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="HH300.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="HH300.text" xml:space="preserve">
+        <value>Te_xt</value>
+    </data>
+    <data name="HH300.text.tt" xml:space="preserve">
+        <value>Text for search</value>
+    </data>
+
+    <data name="HH310.title" xml:space="preserve">
+        <value>Event</value>
+    </data>
+    <data name="HH310.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="HH310.nr.tt" xml:space="preserve">
+        <value>Event number</value>
+    </data>
+    <data name="HH310.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="HH310.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="HH310.kennzeichen" xml:space="preserve">
+        <value>_Attribute</value>
+    </data>
+    <data name="HH310.kennzeichen.tt" xml:space="preserve">
+        <value>Attribute</value>
+    </data>
+    <data name="HH310.eText" xml:space="preserve">
+        <value>Posting te_xt</value>
+    </data>
+    <data name="HH310.eText.tt" xml:space="preserve">
+        <value>Posting text</value>
+    </data>
+    <data name="HH310.sollkonto" xml:space="preserve">
+        <value>_Debit account</value>
+    </data>
+    <data name="HH310.sollkonto.tt" xml:space="preserve">
+        <value>Debit account</value>
+    </data>
+    <data name="HH310.sollkonto.columns" xml:space="preserve">
+        <value>No.;Description</value>
+    </data>
+    <data name="HH310.habenkonto" xml:space="preserve">
+        <value>C_redit account</value>
+    </data>
+    <data name="HH310.habenkonto.tt" xml:space="preserve">
+        <value>Credit account</value>
+    </data>
+    <data name="HH310.habenkonto.columns" xml:space="preserve">
+        <value>No.;Description</value>
+    </data>
+    <data name="HH310.kontentausch" xml:space="preserve">
+        <value>_Exchange accounts</value>
+    </data>
+    <data name="HH310.kontentausch.tt" xml:space="preserve">
+        <value>Exchange accounts</value>
+    </data>
+
+    <data name="HH400.title" xml:space="preserve">
+        <value>Bookings</value>
+    </data>
+    <data name="HH400.buchungen" xml:space="preserve">
+        <value>_Bookings</value>
+    </data>
+    <data name="HH400.buchungen.tt" xml:space="preserve">
+        <value>Bookings</value>
+    </data>
+    <data name="HH400.buchungen.columns" xml:space="preserve">
+        <value>No.;Value date;A.;Value_r;Posting text;Debit account;Credit account;Receipt;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="HH400.buchungenStatus" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="HH400.kennzeichen" xml:space="preserve">
+        <value>_Search for</value>
+    </data>
+    <data name="HH400.kennzeichen1" xml:space="preserve">
+        <value>Value date</value>
+    </data>
+    <data name="HH400.kennzeichen1.tt" xml:space="preserve">
+        <value>Value date</value>
+    </data>
+    <data name="HH400.kennzeichen2" xml:space="preserve">
+        <value>Revision</value>
+    </data>
+    <data name="HH400.kennzeichen2.tt" xml:space="preserve">
+        <value>Create and change date</value>
+    </data>
+    <data name="HH400.von" xml:space="preserve">
+        <value>_From</value>
+    </data>
+    <data name="HH400.von.tt" xml:space="preserve">
+        <value>Date from</value>
+    </data>
+    <data name="HH400.bis" xml:space="preserve">
+        <value>_To</value>
+    </data>
+    <data name="HH400.bis.tt" xml:space="preserve">
+        <value>Date to</value>
+    </data>
+    <data name="HH400.bText" xml:space="preserve">
+        <value>Te_xt</value>
+    </data>
+    <data name="HH400.bText.tt" xml:space="preserve">
+        <value>Posting text</value>
+    </data>
+    <data name="HH400.betrag" xml:space="preserve">
+        <value>Valu_e</value>
+    </data>
+    <data name="HH400.betrag.tt" xml:space="preserve">
+        <value>Value</value>
+    </data>
+    <data name="HH400.konto" xml:space="preserve">
+        <value>_Account</value>
+    </data>
+    <data name="HH400.konto.tt" xml:space="preserve">
+        <value>Debit or credit account</value>
+    </data>
+    <data name="HH400.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="HH400.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="HH400.select.file" xml:space="preserve">
+        <value>bookings.csv</value>
+    </data>
+
+    <data name="HH410.title" xml:space="preserve">
+        <value>Booking</value>
+    </data>
+    <data name="HH410.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="HH410.nr.tt" xml:space="preserve">
+        <value>Booking number</value>
+    </data>
+    <data name="HH410.valuta" xml:space="preserve">
+        <value>_Value date</value>
+    </data>
+    <data name="HH410.valuta.tt" xml:space="preserve">
+        <value>Value date</value>
+    </data>
+    <data name="HH410.betrag" xml:space="preserve">
+        <value>V_alue</value>
+    </data>
+    <data name="HH410.betrag.tt" xml:space="preserve">
+        <value>Value</value>
+    </data>
+    <data name="HH410.summe" xml:space="preserve">
+        <value>Sum</value>
+    </data>
+    <data name="HH410.summe.tt" xml:space="preserve">
+        <value>Sum of value</value>
+    </data>
+    <data name="HH410.ereignis" xml:space="preserve">
+        <value>_Event</value>
+    </data>
+    <data name="HH410.ereignis.tt" xml:space="preserve">
+        <value>Event</value>
+    </data>
+    <data name="HH410.ereignis.columns" xml:space="preserve">
+        <value>No.;Description</value>
+    </data>
+    <data name="HH410.sollkonto" xml:space="preserve">
+        <value>_Debit account</value>
+    </data>
+    <data name="HH410.sollkonto.tt" xml:space="preserve">
+        <value>Debit account</value>
+    </data>
+    <data name="HH410.sollkonto.columns" xml:space="preserve">
+        <value>No.;Description</value>
+    </data>
+    <data name="HH410.habenkonto" xml:space="preserve">
+        <value>Credit accou_nt</value>
+    </data>
+    <data name="HH410.habenkonto.tt" xml:space="preserve">
+        <value>Credit account</value>
+    </data>
+    <data name="HH410.habenkonto.columns" xml:space="preserve">
+        <value>No.;Description</value>
+    </data>
+    <data name="HH410.bText" xml:space="preserve">
+        <value>_Posting text</value>
+    </data>
+    <data name="HH410.bText.tt" xml:space="preserve">
+        <value>Posting text</value>
+    </data>
+    <data name="HH410.belegNr" xml:space="preserve">
+        <value>Rece_ipt</value>
+    </data>
+    <data name="HH410.belegNr.tt" xml:space="preserve">
+        <value>Receipt number</value>
+    </data>
+    <data name="HH410.neueNr" xml:space="preserve">
+        <value>Ne_w No.</value>
+    </data>
+    <data name="HH410.neueNr.tt" xml:space="preserve">
+        <value>Calculate new receipt number</value>
+    </data>
+    <data name="HH410.belegDatum" xml:space="preserve">
+        <value>From</value>
+    </data>
+    <data name="HH410.belegDatum.tt" xml:space="preserve">
+        <value>Receipt date</value>
+    </data>
+    <data name="HH410.buchung" xml:space="preserve">
+        <value>Last Booking</value>
+    </data>
+    <data name="HH410.buchung.tt" xml:space="preserve">
+        <value>Last Booking</value>
+    </data>
+    <data name="HH410.kontentausch" xml:space="preserve">
+        <value>E_xchange accounts</value>
+    </data>
+    <data name="HH410.kontentausch.tt" xml:space="preserve">
+        <value>Exchange accounts</value>
+    </data>
+    <data name="HH410.addition" xml:space="preserve">
+        <value>Add</value>
+    </data>
+    <data name="HH410.addition.tt" xml:space="preserve">
+        <value>Add, multiply or divide to sum</value>
+    </data>
+
+    <data name="HH500.title" xml:space="preserve">
+        <value>Balance sheets</value>
+    </data>
+    <data name="HH500.title.EB" xml:space="preserve">
+        <value>Opening balance</value>
+    </data>
+    <data name="HH500.title.GV" xml:space="preserve">
+        <value>Profit and loss account</value>
+    </data>
+    <data name="HH500.title.SB" xml:space="preserve">
+        <value>Final balance</value>
+    </data>
+    <data name="HH500.berechnen.tt" xml:space="preserve">
+        <value>Calculate balance sheets</value>
+    </data>
+    <data name="HH500.soll" xml:space="preserve">
+        <value>_Debit</value>
+    </data>
+    <data name="HH500.soll.EB" xml:space="preserve">
+        <value>_Assets</value>
+    </data>
+    <data name="HH500.soll.GV" xml:space="preserve">
+        <value>_Expense</value>
+    </data>
+    <data name="HH500.soll.tt" xml:space="preserve">
+        <value>Left side of T account</value>
+    </data>
+    <data name="HH500.soll.columns" xml:space="preserve">
+        <value>No.;Description;Value_r;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="HH500.haben" xml:space="preserve">
+        <value>_Credit</value>
+    </data>
+    <data name="HH500.haben.EB" xml:space="preserve">
+        <value>_Liabilities</value>
+    </data>
+    <data name="HH500.haben.GV" xml:space="preserve">
+        <value>_Income</value>
+    </data>
+    <data name="HH500.haben.tt" xml:space="preserve">
+        <value>Right side of T account</value>
+    </data>
+    <data name="HH500.haben.columns" xml:space="preserve">
+        <value>No.;Description;Value_r;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="HH500.sollSumme" xml:space="preserve">
+        <value>Sum</value>
+    </data>
+    <data name="HH500.habenSumme" xml:space="preserve">
+        <value>Sum</value>
+    </data>
+    <data name="HH500.von" xml:space="preserve">
+        <value>_From</value>
+    </data>
+    <data name="HH500.von.EB" xml:space="preserve">
+        <value>_At</value>
+    </data>
+    <data name="HH500.von.tt" xml:space="preserve">
+        <value>Balance date</value>
+    </data>
+    <data name="HH500.bis" xml:space="preserve">
+        <value>_To</value>
+    </data>
+    <data name="HH500.bis.tt" xml:space="preserve">
+        <value>End date</value>
+    </data>
+    <data name="HH500.konto" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="HH500.oben" xml:space="preserve">
+        <value>  ^  </value>
+    </data>
+    <data name="HH500.oben.tt" xml:space="preserve">
+        <value>Change selected account with upper account</value>
+    </data>
+    <data name="HH500.unten" xml:space="preserve">
+        <value>  v  </value>
+    </data>
+    <data name="HH500.unten.tt" xml:space="preserve">
+        <value>Change selected account with lower account</value>
+    </data>
+
+    <data name="HH510.title" xml:space="preserve">
+        <value>Print</value>
+    </data>
+    <data name="HH510.titel" xml:space="preserve">
+        <value>_Title</value>
+    </data>
+    <data name="HH510.titel.tt" xml:space="preserve">
+        <value>Report title</value>
+    </data>
+    <data name="HH510.von" xml:space="preserve">
+        <value>Time span _from</value>
+    </data>
+    <data name="HH510.von.tt" xml:space="preserve">
+        <value>Date from</value>
+    </data>
+    <data name="HH510.bis" xml:space="preserve">
+        <value>_Bi_Tos</value>
+    </data>
+    <data name="HH510.bis.tt" xml:space="preserve">
+        <value>Date to</value>
+    </data>
+    <data name="HH510.berichte0" xml:space="preserve">
+        <value>Reports</value>
+    </data>
+    <data name="HH510.eb" xml:space="preserve">
+        <value>Opening balance</value>
+    </data>
+    <data name="HH510.eb.tt" xml:space="preserve">
+        <value>Opening balance</value>
+    </data>
+    <data name="HH510.gv" xml:space="preserve">
+        <value>Profit and loss account</value>
+    </data>
+    <data name="HH510.gv.tt" xml:space="preserve">
+        <value>Profit and loss account</value>
+    </data>
+    <data name="HH510.sb" xml:space="preserve">
+        <value>Final balance</value>
+    </data>
+    <data name="HH510.sb.tt" xml:space="preserve">
+        <value>Final balance</value>
+    </data>
+    <data name="HH510.kassenbericht" xml:space="preserve">
+        <value>Cash report</value>
+    </data>
+    <data name="HH510.kassenbericht.tt" xml:space="preserve">
+        <value>Cash report</value>
+    </data>
+    <data name="HH510.datei" xml:space="preserve">
+        <value>_File</value>
+    </data>
+    <data name="HH510.datei.tt" xml:space="preserve">
+        <value>Name of CSV file</value>
+    </data>
+    <data name="HH510.dateiAuswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="HH510.dateiAuswahl.tt" xml:space="preserve">
+        <value>Select file</value>
+    </data>
+    <data name="HH510.loeschen" xml:space="preserve">
+        <value>Delete all bookings</value>
+    </data>
+    <data name="HH510.loeschen.tt" xml:space="preserve">
+        <value>Delete all bookings before import</value>
+    </data>
+    <data name="HH510.import1" xml:space="preserve">
+        <value>_Import bookings</value>
+    </data>
+    <data name="HH510.import1.tt" xml:space="preserve">
+        <value>Import bookings from file</value>
+    </data>
+    <data name="HH510.select.file" xml:space="preserve">
+        <value>bookings.csv</value>
+    </data>
+    <data name="HH510.select.ext" xml:space="preserve">
+        <value>CSV files (.csv)</value>
+    </data>
+
+    <data name="SB200.title" xml:space="preserve">
+        <value>Ancestors</value>
+    </data>
+    <data name="SB200.ahnen" xml:space="preserve">
+        <value>A_ncestors</value>
+    </data>
+    <data name="SB200.ahnen.tt" xml:space="preserve">
+        <value>Ancestors</value>
+    </data>
+    <data name="SB200.ahnen.columns" xml:space="preserve">
+        <value>No.;Maiden name;First names;Surname;G.;Born;Dead;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="SB200.ahnenStatus" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="SB200.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="SB200.name.tt" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="SB200.vorname" xml:space="preserve">
+        <value>_First names</value>
+    </data>
+    <data name="SB200.vorname.tt" xml:space="preserve">
+        <value>First names</value>
+    </data>
+    <data name="SB200.filtern" xml:space="preserve">
+        <value>Filtern</value>
+    </data>
+    <data name="SB200.filtern.tt" xml:space="preserve">
+        <value>Should the ancestors be filtered by name?</value>
+    </data>
+    <data name="SB200.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="SB200.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="SB200.springen" xml:space="preserve">
+        <value>Select</value>
+    </data>
+    <data name="SB200.spName" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="SB200.spName.tt" xml:space="preserve">
+        <value>Select next suitable name</value>
+    </data>
+    <data name="SB200.spVater" xml:space="preserve">
+        <value>Father</value>
+    </data>
+    <data name="SB200.spVater.tt" xml:space="preserve">
+        <value>Select the father</value>
+    </data>
+    <data name="SB200.spMutter" xml:space="preserve">
+        <value>Mother</value>
+    </data>
+    <data name="SB200.spMutter.tt" xml:space="preserve">
+        <value>Select the mother</value>
+    </data>
+    <data name="SB200.spKind" xml:space="preserve">
+        <value>1st Child</value>
+    </data>
+    <data name="SB200.spKind.tt" xml:space="preserve">
+        <value>Select 1st child</value>
+    </data>
+    <data name="SB200.spEhegatte" xml:space="preserve">
+        <value>Spouse</value>
+    </data>
+    <data name="SB200.spEhegatte.tt" xml:space="preserve">
+        <value>Select next spouse</value>
+    </data>
+    <data name="SB200.spGeschwister" xml:space="preserve">
+        <value>Sibling</value>
+    </data>
+    <data name="SB200.spGeschwister.tt" xml:space="preserve">
+        <value>Select next sibling</value>
+    </data>
+    <data name="SB200.spFamilie" xml:space="preserve">
+        <value>Family</value>
+    </data>
+    <data name="SB200.spFamilie.tt" xml:space="preserve">
+        <value>Select family</value>
+    </data>
+    <data name="SB200.spFamilienKind" xml:space="preserve">
+        <value>Familiy child</value>
+    </data>
+    <data name="SB200.spFamilienKind.tt" xml:space="preserve">
+        <value>Select family in which the ancestor is a child</value>
+    </data>
+
+    <data name="SB210.title" xml:space="preserve">
+        <value>Ancestor</value>
+    </data>
+    <data name="SB210.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="SB210.nr.tt" xml:space="preserve">
+        <value>Ancestor number</value>
+    </data>
+    <data name="SB210.geburtsname" xml:space="preserve">
+        <value>_Maiden name</value>
+    </data>
+    <data name="SB210.geburtsname.tt" xml:space="preserve">
+        <value>Maiden name</value>
+    </data>
+    <data name="SB210.vorname" xml:space="preserve">
+        <value>_First names</value>
+    </data>
+    <data name="SB210.vorname.tt" xml:space="preserve">
+        <value>First names</value>
+    </data>
+    <data name="SB210.name" xml:space="preserve">
+        <value>_Name</value>
+    </data>
+    <data name="SB210.name.tt" xml:space="preserve">
+        <value>Surname</value>
+    </data>
+    <data name="SB210.geschlecht" xml:space="preserve">
+        <value>Gender</value>
+    </data>
+    <data name="SB210.geschlecht1" xml:space="preserve">
+        <value>Male</value>
+    </data>
+    <data name="SB210.geschlecht1.tt" xml:space="preserve">
+        <value>Male</value>
+    </data>
+    <data name="SB210.geschlecht2" xml:space="preserve">
+        <value>Female</value>
+    </data>
+    <data name="SB210.geschlecht2.tt" xml:space="preserve">
+        <value>Female</value>
+    </data>
+    <data name="SB210.geschlecht3" xml:space="preserve">
+        <value>Unknown</value>
+    </data>
+    <data name="SB210.geschlecht3.tt" xml:space="preserve">
+        <value>Unknown</value>
+    </data>
+    <data name="SB210.bilddaten" xml:space="preserve">
+        <value>Picture data</value>
+    </data>
+    <data name="SB210.bilddaten.tt" xml:space="preserve">
+        <value>Data of pictures</value>
+    </data>
+    <data name="SB210.geburtsdatum" xml:space="preserve">
+        <value>Born</value>
+    </data>
+    <data name="SB210.geburtsdatum.tt" xml:space="preserve">
+        <value>Date of birth</value>
+    </data>
+    <data name="SB210.geburtsort" xml:space="preserve">
+        <value>Place</value>
+    </data>
+    <data name="SB210.geburtsort.tt" xml:space="preserve">
+        <value>Place of birth</value>
+    </data>
+    <data name="SB210.geburtsbem" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="SB210.geburtsbem.tt" xml:space="preserve">
+        <value>Memos of birth</value>
+    </data>
+    <data name="SB210.taufdatum" xml:space="preserve">
+        <value>Baptized</value>
+    </data>
+    <data name="SB210.taufdatum.tt" xml:space="preserve">
+        <value>Date of baptism</value>
+    </data>
+    <data name="SB210.taufort" xml:space="preserve">
+        <value>Place</value>
+    </data>
+    <data name="SB210.taufort.tt" xml:space="preserve">
+        <value>Place of baptism</value>
+    </data>
+    <data name="SB210.taufbem" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="SB210.taufbem.tt" xml:space="preserve">
+        <value>Memos of baptism</value>
+    </data>
+    <data name="SB210.todesdatum" xml:space="preserve">
+        <value>Dead</value>
+    </data>
+    <data name="SB210.todesdatum.tt" xml:space="preserve">
+        <value>Date of death</value>
+    </data>
+    <data name="SB210.todesort" xml:space="preserve">
+        <value>Place</value>
+    </data>
+    <data name="SB210.todesort.tt" xml:space="preserve">
+        <value>Place of death</value>
+    </data>
+    <data name="SB210.todesbem" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="SB210.todesbem.tt" xml:space="preserve">
+        <value>Memos of death</value>
+    </data>
+    <data name="SB210.begraebnisdatum" xml:space="preserve">
+        <value>Buried</value>
+    </data>
+    <data name="SB210.begraebnisdatum.tt" xml:space="preserve">
+        <value>Date of burial</value>
+    </data>
+    <data name="SB210.begraebnisort" xml:space="preserve">
+        <value>Place</value>
+    </data>
+    <data name="SB210.begraebnisort.tt" xml:space="preserve">
+        <value>Place of burial</value>
+    </data>
+    <data name="SB210.begraebnisbem" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="SB210.begraebnisbem.tt" xml:space="preserve">
+        <value>Memos of burial</value>
+    </data>
+    <data name="SB210.konfession" xml:space="preserve">
+        <value>_Confession</value>
+    </data>
+    <data name="SB210.konfession.tt" xml:space="preserve">
+        <value>Religious denomination</value>
+    </data>
+    <data name="SB210.titel" xml:space="preserve">
+        <value>_Title</value>
+    </data>
+    <data name="SB210.titel.tt" xml:space="preserve">
+        <value>Academic title</value>
+    </data>
+    <data name="SB210.bemerkung" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="SB210.bemerkung.tt" xml:space="preserve">
+        <value>General memos</value>
+    </data>
+    <data name="SB210.gatte" xml:space="preserve">
+        <value>Spouses</value>
+    </data>
+    <data name="SB210.gatte.tt" xml:space="preserve">
+        <value>Spouses</value>
+    </data>
+    <data name="SB210.gatteNr" xml:space="preserve">
+        <value>New spouse</value>
+    </data>
+    <data name="SB210.gatteNr.tt" xml:space="preserve">
+        <value>Spouse number</value>
+    </data>
+    <data name="SB210.vater" xml:space="preserve">
+        <value>Father</value>
+    </data>
+    <data name="SB210.vater.tt" xml:space="preserve">
+        <value>Father</value>
+    </data>
+    <data name="SB210.vaterNr" xml:space="preserve">
+        <value>New father</value>
+    </data>
+    <data name="SB210.vaterNr.tt" xml:space="preserve">
+        <value>Father number</value>
+    </data>
+    <data name="SB210.mutter" xml:space="preserve">
+        <value>Mother</value>
+    </data>
+    <data name="SB210.mutter.tt" xml:space="preserve">
+        <value>Mother</value>
+    </data>
+    <data name="SB210.mutterNr" xml:space="preserve">
+        <value>New mother</value>
+    </data>
+    <data name="SB210.mutterNr.tt" xml:space="preserve">
+        <value>Mother number</value>
+    </data>
+    <data name="SB210.quelle" xml:space="preserve">
+        <value>_Reference</value>
+    </data>
+    <data name="SB210.quelle.tt" xml:space="preserve">
+        <value>Reference</value>
+    </data>
+    <data name="SB210.status1" xml:space="preserve">
+        <value>State 1</value>
+    </data>
+    <data name="SB210.status1.tt" xml:space="preserve">
+        <value>State 1</value>
+    </data>
+    <data name="SB210.status2" xml:space="preserve">
+        <value>State 2</value>
+    </data>
+    <data name="SB210.status2.tt" xml:space="preserve">
+        <value>State 2</value>
+    </data>
+    <data name="SB210.status3" xml:space="preserve">
+        <value>State 3</value>
+    </data>
+    <data name="SB210.status3.tt" xml:space="preserve">
+        <value>State 3</value>
+    </data>
+    <data name="SB210.hinzufuegen" xml:space="preserve">
+        <value>Add _picture</value>
+    </data>
+    <data name="SB210.hinzufuegen.tt" xml:space="preserve">
+        <value>Add picture</value>
+    </data>
+    <data name="SB210.select.file" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="SB210.select.ext" xml:space="preserve">
+        <value>PNG files (.png)</value>
+    </data>
+
+    <data name="SB220.title" xml:space="preserve">
+        <value>Print</value>
+    </data>
+    <data name="SB220.person" xml:space="preserve">
+        <value>_Ancestor</value>
+    </data>
+    <data name="SB220.person.tt" xml:space="preserve">
+        <value>Ancestor</value>
+    </data>
+    <data name="SB220.generation" xml:space="preserve">
+        <value>_Generations</value>
+    </data>
+    <data name="SB220.generation.tt" xml:space="preserve">
+        <value>Number of generations</value>
+    </data>
+    <data name="SB220.vorfahren" xml:space="preserve">
+        <value>_Forebears</value>
+    </data>
+    <data name="SB220.vorfahren.tt" xml:space="preserve">
+        <value>List of forebears</value>
+    </data>
+    <data name="SB220.geschwister" xml:space="preserve">
+        <value>_With siblings</value>
+    </data>
+    <data name="SB220.geschwister.tt" xml:space="preserve">
+        <value>With siblings</value>
+    </data>
+    <data name="SB220.nachfahren" xml:space="preserve">
+        <value>_Descendants</value>
+    </data>
+    <data name="SB220.nachfahren.tt" xml:space="preserve">
+        <value>List of descendants</value>
+    </data>
+
+    <data name="SB300.title" xml:space="preserve">
+        <value>Families</value>
+    </data>
+    <data name="SB300.familien" xml:space="preserve">
+        <value>_Families</value>
+    </data>
+    <data name="SB300.familien.tt" xml:space="preserve">
+        <value>Families</value>
+    </data>
+    <data name="SB300.familien.columns" xml:space="preserve">
+        <value>No.;Father;Mother;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="SB300.springen" xml:space="preserve">
+        <value>Select</value>
+    </data>
+    <data name="SB300.spVater" xml:space="preserve">
+        <value>Father</value>
+    </data>
+    <data name="SB300.spVater.tt" xml:space="preserve">
+        <value>Select the father</value>
+    </data>
+    <data name="SB300.spMutter" xml:space="preserve">
+        <value>Mother</value>
+    </data>
+    <data name="SB300.spMutter.tt" xml:space="preserve">
+        <value>Select the mother</value>
+    </data>
+    <data name="SB300.spKind" xml:space="preserve">
+        <value>1st child</value>
+    </data>
+    <data name="SB300.spKind.tt" xml:space="preserve">
+        <value>Select 1st child</value>
+    </data>
+
+    <data name="SB310.title" xml:space="preserve">
+        <value>Family</value>
+    </data>
+    <data name="SB310.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="SB310.nr.tt" xml:space="preserve">
+        <value>Family number</value>
+    </data>
+    <data name="SB310.vater" xml:space="preserve">
+        <value>_Father</value>
+    </data>
+    <data name="SB310.vater.tt" xml:space="preserve">
+        <value>Father</value>
+    </data>
+    <data name="SB310.mutter" xml:space="preserve">
+        <value>_Mother</value>
+    </data>
+    <data name="SB310.mutter.tt" xml:space="preserve">
+        <value>Mother</value>
+    </data>
+    <data name="SB310.heiratsdatum" xml:space="preserve">
+        <value>Married</value>
+    </data>
+    <data name="SB310.heiratsdatum.tt" xml:space="preserve">
+        <value>Date of marriage</value>
+    </data>
+    <data name="SB310.heiratsort" xml:space="preserve">
+        <value>in</value>
+    </data>
+    <data name="SB310.heiratsort.tt" xml:space="preserve">
+        <value>Place of marriage</value>
+    </data>
+    <data name="SB310.heiratsbem" xml:space="preserve">
+        <value>M_emo</value>
+    </data>
+    <data name="SB310.heiratsbem.tt" xml:space="preserve">
+        <value>Memos of marriage</value>
+    </data>
+    <data name="SB310.kinder" xml:space="preserve">
+        <value>C_hildren</value>
+    </data>
+    <data name="SB310.kinder.tt" xml:space="preserve">
+        <value>Children of the family</value>
+    </data>
+    <data name="SB310.kinder.columns" xml:space="preserve">
+        <value>No.;Maiden name;First names;Surname;G.;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="SB310.kind" xml:space="preserve">
+        <value>Ch_ild</value>
+    </data>
+    <data name="SB310.kind.tt" xml:space="preserve">
+        <value>Child for adding</value>
+    </data>
+    <data name="SB310.hinzufuegen" xml:space="preserve">
+        <value>_Add</value>
+    </data>
+    <data name="SB310.hinzufuegen.tt" xml:space="preserve">
+        <value>Add a child to the family</value>
+    </data>
+    <data name="SB310.entfernen" xml:space="preserve">
+        <value>_Remove</value>
+    </data>
+    <data name="SB310.entfernen.tt" xml:space="preserve">
+        <value>Remove selected child from the family</value>
+    </data>
+
+    <data name="SB400.title" xml:space="preserve">
+        <value>References</value>
+    </data>
+    <data name="SB400.quellen" xml:space="preserve">
+        <value>_References</value>
+    </data>
+    <data name="SB400.quellen.tt" xml:space="preserve">
+        <value>References</value>
+    </data>
+    <data name="SB400.quellen.columns" xml:space="preserve">
+        <value>No.;Author;Description;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="SB410.title" xml:space="preserve">
+        <value>Reference</value>
+    </data>
+    <data name="SB410.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="SB410.nr.tt" xml:space="preserve">
+        <value>Reference number</value>
+    </data>
+    <data name="SB410.autor" xml:space="preserve">
+        <value>_Author</value>
+    </data>
+    <data name="SB410.autor.tt" xml:space="preserve">
+        <value>Author</value>
+    </data>
+    <data name="SB410.beschreibung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="SB410.beschreibung.tt" xml:space="preserve">
+        <value>Description or title</value>
+    </data>
+    <data name="SB410.zitat" xml:space="preserve">
+        <value>_Quotation</value>
+    </data>
+    <data name="SB410.zitat.tt" xml:space="preserve">
+        <value>Quotation</value>
+    </data>
+    <data name="SB410.bemerkung" xml:space="preserve">
+        <value>_Memo</value>
+    </data>
+    <data name="SB410.bemerkung.tt" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+
+    <data name="SB500.title" xml:space="preserve">
+        <value>GEDCOM Interface</value>
+    </data>
+    <data name="SB500.name" xml:space="preserve">
+        <value>Family tree _name</value>
+    </data>
+    <data name="SB500.name.tt" xml:space="preserve">
+        <value>Name of the family tree</value>
+    </data>
+    <data name="SB500.datei" xml:space="preserve">
+        <value>_File</value>
+    </data>
+    <data name="SB500.datei.tt" xml:space="preserve">
+        <value>Name of GED file</value>
+    </data>
+    <data name="SB500.dateiAuswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="SB500.dateiAuswahl.tt" xml:space="preserve">
+        <value>Select file</value>
+    </data>
+    <data name="SB500.filter" xml:space="preserve">
+        <value>Filter</value>
+    </data>
+    <data name="SB500.filter.tt" xml:space="preserve">
+        <value>Filter for ancestors</value>
+    </data>
+    <data name="SB500.export" xml:space="preserve">
+        <value>Exp_ort</value>
+    </data>
+    <data name="SB500.export.tt" xml:space="preserve">
+        <value>Export of family tree in file</value>
+    </data>
+    <data name="SB500.importieren" xml:space="preserve">
+        <value>_Import</value>
+    </data>
+    <data name="SB500.importieren.tt" xml:space="preserve">
+        <value>Import of family tree from file</value>
+    </data>
+    <data name="SB500.select.file" xml:space="preserve">
+        <value>ancestor.ged</value>
+    </data>
+    <data name="SB500.select.ext" xml:space="preserve">
+        <value>GED files (.ged)</value>
+    </data>
+
+    <data name="TB100.title" xml:space="preserve">
+        <value>Diary</value>
+    </data>
+    <data name="TB100.before1" xml:space="preserve">
+        <value>1 day before</value>
+    </data>
+    <data name="TB100.before1.tt" xml:space="preserve">
+        <value>Entry of previous day</value>
+    </data>
+    <data name="TB100.before2" xml:space="preserve">
+        <value>1 month before</value>
+    </data>
+    <data name="TB100.before2.tt" xml:space="preserve">
+        <value>Entry of previous month</value>
+    </data>
+    <data name="TB100.before3" xml:space="preserve">
+        <value>1 year before</value>
+    </data>
+    <data name="TB100.before3.tt" xml:space="preserve">
+        <value>Entry of previous year</value>
+    </data>
+    <data name="TB100.after1" xml:space="preserve">
+        <value>1 day after</value>
+    </data>
+    <data name="TB100.after1.tt" xml:space="preserve">
+        <value>Entry of next day</value>
+    </data>
+    <data name="TB100.after2" xml:space="preserve">
+        <value>1 month after</value>
+    </data>
+    <data name="TB100.after2.tt" xml:space="preserve">
+        <value>Entry of next month</value>
+    </data>
+    <data name="TB100.after3" xml:space="preserve">
+        <value>1 year after</value>
+    </data>
+    <data name="TB100.after3.tt" xml:space="preserve">
+        <value>Entry of next year</value>
+    </data>
+    <data name="TB100.date" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="TB100.date.tt" xml:space="preserve">
+        <value>Date of entry</value>
+    </data>
+    <data name="TB100.entry" xml:space="preserve">
+        <value>En_try</value>
+    </data>
+    <data name="TB100.entry.tt" xml:space="preserve">
+        <value>Entry of diary</value>
+    </data>
+    <data name="TB100.positions" xml:space="preserve">
+        <value>Position</value>
+    </data>
+    <data name="TB100.positions.tt" xml:space="preserve">
+        <value>Locations or positions at this day.</value>
+    </data>
+    <data name="TB100.positions.columns" xml:space="preserve">
+        <value>No.;Description;Latitude_r;Longitude_r;From;To;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="TB100.new.tt" xml:space="preserve">
+        <value>Create new location or position.</value>
+    </data>
+    <data name="TB100.remove.tt" xml:space="preserve">
+        <value>Remove location or position.</value>
+    </data>
+    <data name="TB100.posbefore" xml:space="preserve">
+        <value>P. Yesterday</value>
+    </data>
+    <data name="TB100.posbefore.tt" xml:space="preserve">
+        <value>Add yesterday's positions.</value>
+    </data>
+    <data name="TB100.position" xml:space="preserve">
+        <value>Position</value>
+    </data>
+    <data name="TB100.position.tt" xml:space="preserve">
+        <value>Location or position to add.</value>
+    </data>
+    <data name="TB100.add.tt" xml:space="preserve">
+        <value>Add selected location or position.</value>
+    </data>
+    <data name="TB100.search0" xml:space="preserve">
+        <value>_Search (Placeholders % and _; Sequence check with ####)</value>
+    </data>
+    <data name="TB100.search1" xml:space="preserve">
+        <value>(</value>
+    </data>
+    <data name="TB100.search2" xml:space="preserve">
+        <value>  or </value>
+    </data>
+    <data name="TB100.search3" xml:space="preserve">
+        <value>  or </value>
+    </data>
+    <data name="TB100.search4" xml:space="preserve">
+        <value>)</value>
+    </data>
+    <data name="TB100.search5" xml:space="preserve">
+        <value> and (</value>
+    </data>
+    <data name="TB100.search6" xml:space="preserve">
+        <value> or </value>
+    </data>
+    <data name="TB100.search7" xml:space="preserve">
+        <value> or </value>
+    </data>
+    <data name="TB100.search8" xml:space="preserve">
+        <value>)</value>
+    </data>
+    <data name="TB100.search9" xml:space="preserve">
+        <value> and not (</value>
+    </data>
+    <data name="TB100.search10" xml:space="preserve">
+        <value> or </value>
+    </data>
+    <data name="TB100.search11" xml:space="preserve">
+        <value> or </value>
+    </data>
+    <data name="TB100.search12" xml:space="preserve">
+        <value>)</value>
+    </data>
+    <data name="TB100.first.tt" xml:space="preserve">
+        <value>Go to first entry.</value>
+    </data>
+    <data name="TB100.back.tt" xml:space="preserve">
+        <value>Go to previous entry.</value>
+    </data>
+    <data name="TB100.forward.tt" xml:space="preserve">
+        <value>Go to next entry.</value>
+    </data>
+    <data name="TB100.last.tt" xml:space="preserve">
+        <value>Go to last entry.</value>
+    </data>
+    <data name="TB100.clear.tt" xml:space="preserve">
+        <value>Clear the search criteria.</value>
+    </data>
+
+    <data name="TB110.title" xml:space="preserve">
+        <value>To date of position</value>
+    </data>
+    <data name="TB110.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="TB110.nr.tt" xml:space="preserve">
+        <value>Position number</value>
+    </data>
+    <data name="TB110.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="TB110.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="TB110.datum" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="TB110.datum.tt" xml:space="preserve">
+        <value>To date of position</value>
+    </data>
+
+    <data name="TB210.title" xml:space="preserve">
+        <value>Position</value>
+    </data>
+    <data name="TB210.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="TB210.nr.tt" xml:space="preserve">
+        <value>Position number</value>
+    </data>
+    <data name="TB210.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="TB210.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="TB210.breite" xml:space="preserve">
+        <value>L_atitude</value>
+    </data>
+    <data name="TB210.breite.tt" xml:space="preserve">
+        <value>Latitude</value>
+    </data>
+    <data name="TB210.laenge" xml:space="preserve">
+        <value>_Longitude</value>
+    </data>
+    <data name="TB210.laenge.tt" xml:space="preserve">
+        <value>Longitude</value>
+    </data>
+    <data name="TB210.hoehe" xml:space="preserve">
+        <value>_Altitude</value>
+    </data>
+    <data name="TB210.hoehe.tt" xml:space="preserve">
+        <value>Altitude</value>
+    </data>
+    <data name="TB210.notiz" xml:space="preserve">
+        <value>_Memo</value>
+    </data>
+    <data name="TB210.notiz.tt" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+
+    <data name="WP100.title" xml:space="preserve">
+        <value>Point and Figure</value>
+    </data>
+    <data name="WP100.daten" xml:space="preserve">
+        <value>_Data</value>
+    </data>
+    <data name="WP100.daten.tt" xml:space="preserve">
+        <value>Data for chart</value>
+    </data>
+    <data name="WP100.chart" xml:space="preserve">
+        <value>Chart</value>
+    </data>
+    <data name="WP100.daten.columns" xml:space="preserve">
+        <value>Date;Date;Open_r;High_r;Low_r;Close_r</value>
+    </data>
+    <data name="WP100.von" xml:space="preserve">
+        <value>_From</value>
+    </data>
+    <data name="WP100.von.tt" xml:space="preserve">
+        <value>Date from</value>
+    </data>
+    <data name="WP100.bis" xml:space="preserve">
+        <value>_To</value>
+    </data>
+    <data name="WP100.bis.tt" xml:space="preserve">
+        <value>Date to</value>
+    </data>
+    <data name="WP100.wertpapier" xml:space="preserve">
+        <value>_Stock</value>
+    </data>
+    <data name="WP100.wertpapier.tt" xml:space="preserve">
+        <value>Stock</value>
+    </data>
+    <data name="WP100.box" xml:space="preserve">
+        <value>Bo_x size</value>
+    </data>
+    <data name="WP100.box.tt" xml:space="preserve">
+        <value>Box size absolute or percentage</value>
+    </data>
+    <data name="WP100.skala.tt" xml:space="preserve">
+        <value>Method of box scaling</value>
+    </data>
+    <data name="WP100.umkehr" xml:space="preserve">
+        <value>_Reversal</value>
+    </data>
+    <data name="WP100.umkehr.tt" xml:space="preserve">
+        <value>Number of boxes for reversal</value>
+    </data>
+    <data name="WP100.methode" xml:space="preserve">
+        <value>_Method</value>
+    </data>
+    <data name="WP100.methode.tt" xml:space="preserve">
+        <value>Method for chart evaluation</value>
+    </data>
+    <data name="WP100.relativ" xml:space="preserve">
+        <value>_Relative</value>
+    </data>
+    <data name="WP100.relativ.tt" xml:space="preserve">
+        <value>Relative chart to another stock?</value>
+    </data>
+
+    <data name="WP200.title" xml:space="preserve">
+        <value>WP200.title</value>
+    </data>
+    <data name="WP200.wertpapiere" xml:space="preserve">
+        <value>WP200.wertpapiere</value>
+    </data>
+    <data name="WP200.wertpapiere.tt" xml:space="preserve">
+        <value>WP200.wertpapiere.tt</value>
+    </data>
+    <data name="WP200.wertpapiere.columns" xml:space="preserve">
+        <value>No.;Description;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="WP200.bis" xml:space="preserve">
+        <value>WP200.bis</value>
+    </data>
+    <data name="WP200.bis.tt" xml:space="preserve">
+        <value>WP200.bis.tt</value>
+    </data>
+    <data name="WP200.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="WP200.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="WP200.berechnen" xml:space="preserve">
+        <value>Calculate rating</value>
+    </data>
+    <data name="WP200.berechnen.tt" xml:space="preserve">
+        <value>Calculate rating for all active stocks?</value>
+    </data>
+    <data name="WP200.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP200.bezeichnung.tt" xml:space="preserve">
+        <value>Search description</value>
+    </data>
+    <data name="WP200.muster" xml:space="preserve">
+        <value>_Pattern</value>
+    </data>
+    <data name="WP200.muster.tt" xml:space="preserve">
+        <value>Search pattern</value>
+    </data>
+    <data name="WP200.konfiguration" xml:space="preserve">
+        <value>_Configuration</value>
+    </data>
+    <data name="WP200.konfiguration.tt" xml:space="preserve">
+        <value>Configuration for rating</value>
+    </data>
+
+    <data name="WP210.title" xml:space="preserve">
+        <value>Stock</value>
+    </data>
+    <data name="WP210.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="WP210.nr.tt" xml:space="preserve">
+        <value>Stock number</value>
+    </data>
+    <data name="WP210.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP210.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="WP210.provider" xml:space="preserve">
+        <value>_Provider</value>
+    </data>
+    <data name="WP210.provider.tt" xml:space="preserve">
+        <value>Provider for prices</value>
+    </data>
+    <data name="WP210.kuerzel" xml:space="preserve">
+        <value>_Shortcut</value>
+    </data>
+    <data name="WP210.kuerzel.tt" xml:space="preserve">
+        <value>Shortcut for provider</value>
+    </data>
+    <data name="WP210.status" xml:space="preserve">
+        <value>_State</value>
+    </data>
+    <data name="WP210.status.tt" xml:space="preserve">
+        <value>State for calculating</value>
+    </data>
+    <data name="WP210.aktKurs" xml:space="preserve">
+        <value>Current price</value>
+    </data>
+    <data name="WP210.aktKurs.tt" xml:space="preserve">
+        <value>Current price of last calculation</value>
+    </data>
+    <data name="WP210.stopKurs" xml:space="preserve">
+        <value>Stop order</value>
+    </data>
+    <data name="WP210.stopKurs.tt" xml:space="preserve">
+        <value>Stop order of last calculation</value>
+    </data>
+    <data name="WP210.signalKurs1" xml:space="preserve">
+        <value>Price _target</value>
+    </data>
+    <data name="WP210.signalKurs1.tt" xml:space="preserve">
+        <value>Manual price target</value>
+    </data>
+    <data name="WP210.muster" xml:space="preserve">
+        <value>Last pattern</value>
+    </data>
+    <data name="WP210.muster.tt" xml:space="preserve">
+        <value>Last pattern of last calculation</value>
+    </data>
+    <data name="WP210.typ" xml:space="preserve">
+        <value>_Type</value>
+    </data>
+    <data name="WP210.typ.tt" xml:space="preserve">
+        <value>Share (if empty) or bond</value>
+    </data>
+    <data name="WP210.waehrung" xml:space="preserve">
+        <value>C_urrency</value>
+    </data>
+    <data name="WP210.waehrung.tt" xml:space="preserve">
+        <value>Currency for price provider; EUR, GBP, USD, ...</value>
+    </data>
+    <data name="WP210.sortierung" xml:space="preserve">
+        <value>Sortin_g</value>
+    </data>
+    <data name="WP210.sortierung.tt" xml:space="preserve">
+        <value>String for sorting</value>
+    </data>
+    <data name="WP210.relation" xml:space="preserve">
+        <value>_Relation</value>
+    </data>
+    <data name="WP210.relation.tt" xml:space="preserve">
+        <value>Relation to another stock or index</value>
+    </data>
+    <data name="WP210.notiz" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="WP210.notiz.tt" xml:space="preserve">
+        <value>Memos</value>
+    </data>
+
+    <data name="WP250.title" xml:space="preserve">
+        <value>Investments</value>
+    </data>
+    <data name="WP250.anlagen" xml:space="preserve">
+        <value>_Investments</value>
+    </data>
+    <data name="WP250.anlagen.tt" xml:space="preserve">
+        <value>Stock investments</value>
+    </data>
+    <data name="WP250.anlagen.columns" xml:space="preserve">
+        <value>No.;Description;Provider;Payment_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="WP250.anlagenStatus" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="WP250.bis" xml:space="preserve">
+        <value>T_o</value>
+    </data>
+    <data name="WP250.bis.tt" xml:space="preserve">
+        <value>Date for calculation</value>
+    </data>
+     <data name="WP250.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP250.bezeichnung.tt" xml:space="preserve">
+        <value>Search description</value>
+    </data>
+    <data name="WP250.wertpapier" xml:space="preserve">
+        <value>_Stock</value>
+    </data>
+    <data name="WP250.wertpapier.tt" xml:space="preserve">
+        <value>Search stock</value>
+    </data>
+    <data name="WP250.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="WP250.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="WP250.berechnen" xml:space="preserve">
+        <value>Calculate rating</value>
+    </data>
+    <data name="WP250.berechnen.tt" xml:space="preserve">
+        <value>Calculate rating for all active stocks?</value>
+    </data>
+    <data name="WP250.auchinaktiv" xml:space="preserve">
+        <value>also inactive</value>
+    </data>
+    <data name="WP250.auchinaktiv.tt" xml:space="preserve">
+        <value>Show also inactive investments?</value>
+    </data>
+
+    <data name="WP260.title" xml:space="preserve">
+        <value>Investment</value>
+    </data>
+    <data name="WP260.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="WP260.nr.tt" xml:space="preserve">
+        <value>Investments number</value>
+    </data>
+    <data name="WP260.wertpapier" xml:space="preserve">
+        <value>_Stock</value>
+    </data>
+    <data name="WP260.wertpapier.tt" xml:space="preserve">
+        <value>Reference to stock</value>
+    </data>
+    <data name="WP260.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP260.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="WP260.status" xml:space="preserve">
+        <value>_State</value>
+    </data>
+    <data name="WP260.status.tt" xml:space="preserve">
+        <value>State for calculating</value>
+    </data>
+    <data name="WP260.depot" xml:space="preserve">
+        <value>Portfolio account</value>
+    </data>
+    <data name="WP260.depot.tt" xml:space="preserve">
+        <value>Portfolio account for simultaneous booking</value>
+    </data>
+    <data name="WP260.abrechnung" xml:space="preserve">
+        <value>Settlement account</value>
+    </data>
+    <data name="WP260.abrechnung.tt" xml:space="preserve">
+        <value>Settlement account for simultaneous booking</value>
+    </data>
+    <data name="WP260.ertrag" xml:space="preserve">
+        <value>Income account</value>
+    </data>
+    <data name="WP260.ertrag.tt" xml:space="preserve">
+        <value>Income account for simultaneous booking</value>
+    </data>
+    <data name="WP260.notiz" xml:space="preserve">
+        <value>_Memo</value>
+    </data>
+    <data name="WP260.notiz.tt" xml:space="preserve">
+        <value>Memos</value>
+    </data>
+    <data name="WP260.daten" xml:space="preserve">
+        <value>_Information</value>
+    </data>
+    <data name="WP260.daten.tt" xml:space="preserve">
+        <value>Informations</value>
+    </data>
+
+    <data name="WP300.title" xml:space="preserve">
+        <value>Configurations</value>
+    </data>
+    <data name="WP300.konfigurationen" xml:space="preserve">
+        <value>_Configurations</value>
+    </data>
+    <data name="WP300.konfigurationen.tt" xml:space="preserve">
+        <value>Stock configurations</value>
+    </data>
+    <data name="WP300.konfigurationen.columns" xml:space="preserve">
+        <value>No.;Description;Changed at;Changed by;Created at;Created by</value>
+    </data>
+
+    <data name="WP310.title" xml:space="preserve">
+        <value>Configuration</value>
+    </data>
+    <data name="WP310.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="WP310.nr.tt" xml:space="preserve">
+        <value>Configuration number</value>
+    </data>
+    <data name="WP310.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP310.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="WP310.box" xml:space="preserve">
+        <value>Bo_x size</value>
+    </data>
+    <data name="WP310.box.tt" xml:space="preserve">
+        <value>Box size absolute or percentage</value>
+    </data>
+    <data name="WP310.skala.tt" xml:space="preserve">
+        <value>Method of box scaling</value>
+    </data>
+    <data name="WP310.umkehr" xml:space="preserve">
+        <value>_Reversal</value>
+    </data>
+    <data name="WP310.umkehr.tt" xml:space="preserve">
+        <value>Number of boxes for reversal</value>
+    </data>
+    <data name="WP310.methode" xml:space="preserve">
+        <value>_Method</value>
+    </data>
+    <data name="WP310.methode.tt" xml:space="preserve">
+        <value>Method for chart evaluation</value>
+    </data>
+    <data name="WP310.dauer" xml:space="preserve">
+        <value>_Period</value>
+    </data>
+    <data name="WP310.dauer.tt" xml:space="preserve">
+        <value>Number of days to calculate</value>
+    </data>
+    <data name="WP310.relativ" xml:space="preserve">
+        <value>_Relative</value>
+    </data>
+    <data name="WP310.relativ.tt" xml:space="preserve">
+        <value>Relative chart to another stock or index?</value>
+    </data>
+    <data name="WP310.status" xml:space="preserve">
+        <value>_State</value>
+    </data>
+    <data name="WP310.status.tt" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="WP310.notiz" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="WP310.notiz.tt" xml:space="preserve">
+        <value>Memos</value>
+    </data>
+
+    <data name="WP400.title" xml:space="preserve">
+        <value>Investment bookings</value>
+    </data>
+    <data name="WP400.buchungen" xml:space="preserve">
+        <value>_Bookings</value>
+    </data>
+    <data name="WP400.buchungen.tt" xml:space="preserve">
+        <value>Bookings</value>
+    </data>
+    <data name="WP400.buchungen.columns" xml:space="preserve">
+        <value>No.;Stock;Description;Date;Posting text;Payment_r;Discount_r;Shares_r;Interest_r;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="WP400.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP400.bezeichnung.tt" xml:space="preserve">
+        <value>Search description</value>
+    </data>
+    <data name="WP400.anlage" xml:space="preserve">
+        <value>_Investment</value>
+    </data>
+    <data name="WP400.anlage.tt" xml:space="preserve">
+        <value>Search investment</value>
+    </data>
+    <data name="WP400.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="WP400.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+
+    <data name="WP410.title" xml:space="preserve">
+        <value>Investment booking</value>
+    </data>
+    <data name="WP410.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="WP410.nr.tt" xml:space="preserve">
+        <value>Booking number</value>
+    </data>
+    <data name="WP410.anlage" xml:space="preserve">
+        <value>_Investment</value>
+    </data>
+    <data name="WP410.anlage.tt" xml:space="preserve">
+        <value>Reference to investment</value>
+    </data>
+    <data name="WP410.valuta" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="WP410.valuta.tt" xml:space="preserve">
+        <value>Date for price</value>
+    </data>
+    <data name="WP410.preis" xml:space="preserve">
+        <value>Price</value>
+    </data>
+    <data name="WP410.preis.tt" xml:space="preserve">
+        <value>Price at date</value>
+    </data>
+    <data name="WP410.betrag" xml:space="preserve">
+        <value>_Payment</value>
+    </data>
+    <data name="WP410.betrag.tt" xml:space="preserve">
+        <value>Payment amount</value>
+    </data>
+    <data name="WP410.rabatt" xml:space="preserve">
+        <value>_Discount</value>
+    </data>
+    <data name="WP410.rabatt.tt" xml:space="preserve">
+        <value>Discount amount</value>
+    </data>
+    <data name="WP410.anteile" xml:space="preserve">
+        <value>_Shares</value>
+    </data>
+    <data name="WP410.anteile.tt" xml:space="preserve">
+        <value>Difference of number or shares</value>
+    </data>
+    <data name="WP410.preis2" xml:space="preserve">
+        <value>Price</value>
+    </data>
+    <data name="WP410.preis2.tt" xml:space="preserve">
+        <value>Calculated price per share</value>
+    </data>
+    <data name="WP410.zinsen" xml:space="preserve">
+        <value>_Interest</value>
+    </data>
+    <data name="WP410.zinsen.tt" xml:space="preserve">
+        <value>Interest, profit without change in shares</value>
+    </data>
+    <data name="WP410.bText" xml:space="preserve">
+        <value>Posting te_xt</value>
+    </data>
+    <data name="WP410.bText.tt" xml:space="preserve">
+        <value>Posting text</value>
+    </data>
+    <data name="WP410.buchung" xml:space="preserve">
+        <value>Last Booking</value>
+    </data>
+    <data name="WP410.buchung.tt" xml:space="preserve">
+        <value>Last Booking</value>
+    </data>
+    <data name="WP410.hhbuchung" xml:space="preserve">
+        <value>Budget booking</value>
+    </data>
+    <data name="WP410.hhbuchung.tt" xml:space="preserve">
+        <value>Budget booking number</value>
+    </data>
+    <data name="WP410.hhaendern" xml:space="preserve">
+        <value>Change</value>
+    </data>
+    <data name="WP410.hhaendern.tt" xml:space="preserve">
+        <value>Change budget booking</value>
+    </data>
+    <data name="WP410.hhstorno" xml:space="preserve">
+        <value>Reverse</value>
+    </data>
+    <data name="WP410.hhstorno.tt" xml:space="preserve">
+        <value>Reverse budget booking</value>
+    </data>
+    <data name="WP410.hhvaluta" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="WP410.hhvaluta.tt" xml:space="preserve">
+        <value>Date for booking</value>
+    </data>
+    <data name="WP410.hhbetrag" xml:space="preserve">
+        <value>_Payment</value>
+    </data>
+    <data name="WP410.hhbetrag.tt" xml:space="preserve">
+        <value>Payment amount</value>
+    </data>
+    <data name="WP410.hhereignis" xml:space="preserve">
+        <value>Booking event</value>
+    </data>
+    <data name="WP410.hhereignis.tt" xml:space="preserve">
+        <value>Event for booking</value>
+    </data>
+    <data name="WP410.hhereignis.columns" xml:space="preserve">
+        <value>No.;Description</value>
+    </data>
+
+    <data name="WP500.title" xml:space="preserve">
+        <value>Prices</value>
+    </data>
+    <data name="WP500.staende" xml:space="preserve">
+        <value>_Prices</value>
+    </data>
+    <data name="WP500.staende.tt" xml:space="preserve">
+        <value>Stock prices</value>
+    </data>
+    <data name="WP500.staende.columns" xml:space="preserve">
+        <value>No.;Stock;Date;Price_r;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="WP500.wertpapier" xml:space="preserve">
+        <value>_Stock</value>
+    </data>
+    <data name="WP500.wertpapier.tt" xml:space="preserve">
+        <value>Search stock</value>
+    </data>
+    <data name="WP500.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="WP500.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="WP500.von" xml:space="preserve">
+        <value>Date _from</value>
+    </data>
+    <data name="WP500.von.tt" xml:space="preserve">
+        <value>Date from</value>
+    </data>
+    <data name="WP500.bis" xml:space="preserve">
+        <value>_To</value>
+    </data>
+    <data name="WP500.bis.tt" xml:space="preserve">
+        <value>Date to</value>
+    </data>
+
+    <data name="WP510.title" xml:space="preserve">
+        <value>Price</value>
+    </data>
+    <data name="WP510.wertpapier" xml:space="preserve">
+        <value>_Stock</value>
+    </data>
+    <data name="WP510.wertpapier.tt" xml:space="preserve">
+        <value>Reference to stock</value>
+    </data>
+    <data name="WP510.valuta" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="WP510.valuta.tt" xml:space="preserve">
+        <value>Date for price</value>
+    </data>
+    <data name="WP510.betrag" xml:space="preserve">
+        <value>_Price</value>
+    </data>
+    <data name="WP510.betrag.tt" xml:space="preserve">
+        <value>Price at date</value>
+    </data>
+
+</root>

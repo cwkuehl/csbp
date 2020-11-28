@@ -1,0 +1,30 @@
+:wp220-title: Wertpapier-Export
+anchor:WP220[{wp220-title}]
+
+==== Dialog {wp220-title}
+
+Dieser Dialog erstellt Exporte für mehrere Wertpapiere über mehrere Konfigurationen hinweg:
+
+* CSV-Export für den Kursvergleich von Wertpapieren an aufeinander folgenden Werktagen.
+* XLS-Export für den Kursvergleich von Wertpapieren zu drei Zeipunkten. (Nicht implementiert!)
+
+image:WP220.png[{wp220-title},title={wp220-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Datum        |Ein Bezugsdatum für den CSV-Export muss ausgewählt werden. Es wird der aktuelle oder letzte Werktag vorgeblendet.
+|Anzahl Werktage|Die Anzahl der Werktage für den CSV-Export muss erfasst werden, standardmäßig 5 für eine Woche.
+|Bezeichnung  |Die Bezeichnung wählt die Wertpapiere für den CSV-Export aus.
+|Konfigurationen|Auswahl der Konfigurationen für die Berechnung beider Exporte.
+|Datei        |Textfeld zum Eingeben des Namens der CSV-Export-Datei.
+|...          |Diese Schaltfläche öffnet den Datei-Dialog zum Selektieren der CSV-Export-Datei.
+|Export       |Diese Schaltfläche startet den CSV-Export. Am Ende öffnet sich die erstellte CSV-Datei.
+|Zeitpunkte   |Drei Zeitpunkte für den XLS-Export müssen ausgewählt werden.
+|Wertpapiere  |Auswahl von beliebig vielen Wertpapieren für den XLS-Export.
+|Datei        |Textfeld zum Eingeben des Namens der XLS-Export-Datei.
+|...          |Diese Schaltfläche öffnet den Datei-Dialog zum Selektieren der XLS-Export-Datei.
+|Export       |Diese Schaltfläche startet den CSV-Export. Am Ende öffnet sich die erstellte XLS-Datei.
+|Abbrechen    |Diese Schaltfläche bricht den laufenden Export ab oder schließt den Dialog.
+|Status       |Der Status beim Erstellen eines Exports wird angezeigt.
+|==========================

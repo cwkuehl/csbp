@@ -1,0 +1,21 @@
+:sb500-title: GEDCOM-Schnittstelle
+anchor:SB500[{sb500-title}]
+
+==== Dialog {sb500-title}
+
+Dieser Dialog ermöglicht den Datenaustausch der Ahnen-Daten über die GEDCOM-Schnittstelle.
+Es wird die Version 5.5 der Schnittstelle unterstützt.
+
+image:SB500.png[{sb500-title},title={sb500-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Stammbaum-Name|Textfeld für den Name des Stammbaums in der Export-Datei.
+|Datei        |Textfeld für den Name der Datei, die die Stammbaum-Daten aufnehmen soll.
+|...          |Diese Schaltfläche öffnet den Datei-Dialog zum Selektieren der Import- bzw. Export-Datei.
+|Filter       |Textfeld für Filter-Kriterium. Nur die dem Kriterium entsprechenden Ahnen und Familien werden exportiert. Es sollten nur die Daten von Person veröffentlicht werden, die mindestens 10 Jahre tot sind, also z.B. Status1<=1995.
+|Export       |Schaltfläche zum Erstellen der GEDCOM-Export-Datei.
+|Import       |Schaltfläche zum Importieren der Daten aus der angegebenen GEDCOM-Export-Datei. Der Import erfordert das vorherige Löschen aller Ahnen-Daten.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog.
+|==========================

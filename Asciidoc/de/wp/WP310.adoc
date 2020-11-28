@@ -1,0 +1,27 @@
+:wp310-title: Konfiguration
+anchor:WP310[{wp310-title}]
+
+==== Dialog {wp310-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Konfigurations-Datensatzes.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:WP310.png[{wp310-title},title={wp310-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Konfigurations-Datensatzes.
+|Bezeichnung  |Die Bezeichnung der Konfiguration muss eingegeben werden.
+|Boxgröße     |Eingabe der Boxgröße als Absolut- oder Prozentwert. Sie muss größer als 0 sein. Außerdem kann die Art der Boxgröße eingestellt werden: fest, prozentual oder dynamisch. 
+|Umkehr       |Anzahl der Boxen für Umkehr. Sie muss größer als 0 sein.
+|Methode      |Auswahl der Methode für Kursberechnung: Schlusskurse, High-Low-Trendfolge, High-Low-Trendumkehr, Open-High-Low-Close, Typischer Preis.
+|Dauer        |Anzahl der Tage, die ausgewertet werden sollen.
+|Relativ      |Soll die Auswertung relativ zur Relation (meist Index) erfolgen?
+|Status       |Ein Status des Konfiguration-Datensatzes muss ausgewählt werden. Bei inaktiv ist diese Konfiguration in keiner Kombinationsliste.
+|Notiz        |Eine beliebig lange Notiz kann erfasst werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht den Konfigurations-Datensatz und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

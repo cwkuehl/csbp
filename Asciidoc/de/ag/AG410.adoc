@@ -1,0 +1,19 @@
+:ag410-title: Sicherungseintrag
+anchor:AG410[{ag410-title}]
+
+==== Dialog {ag410-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Sicherungseintrags.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:AG410.png[{ag410-title},title={ag410-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Sicherungseintrags.
+|Ziel-Verzeichnis|Textfeld zum Eingeben des Ziel-Verzeichnisses.
+|Quell-Verzeichnisse|Textfeld zum Eingeben der Quell-Verzeichnisse. Die Verzeichnisse werden durch Semikolon (;) getrennt.
+|OK           |Diese Schaltfläche speichert oder löscht den Sicherungseintrag und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

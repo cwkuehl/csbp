@@ -1,0 +1,28 @@
+:wp410-title: WP-Buchung
+anchor:WP410[{wp410-title}]
+
+==== Dialog {wp410-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Stornieren einer Anlage-Buchung.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:WP410.png[{wp410-title},title={wp410-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Konfigurations-Datensatzes.
+|Anlage       |Eine Anlage muss ausgewählt werden.
+|Datum        |Das Wertstellungsdatum der Buchung muss eingegeben werden.
+|Preis        |Ein Preis pro Anteil (Stand) kann eingegeben werden bzw. wird angezeigt, wenn an dem Datum ein Stand gespeichert ist.
+|Betrag       |Ein Zahlungsbetrag kann eingegeben werden. 
+|Rabatt       |Ein Rabattbetrag wird positiv erfasst, Aufschläge (z.B. Ausgabeaufschläge) negativ.
+|Anteile      |Eine Änderung der Anteile kann erfasst werden, positiv beim Kauf, negativ beim Verkauf.
+|Preis        |Der berechnete Preis aus Betrag / Anteile wird angezeigt.
+|Zinsen       |Ein Ertragsbetrag kann erfasst werden, positiv bei z.B. Zinsen oder Dividenden. 
+|Buchungstext |Ein Buchungstext, der die Anlage-Buchung erklärt, muss erfasst werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht den Konfigurations-Datensatz und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

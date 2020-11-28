@@ -1,0 +1,18 @@
+:fz100-title: Statistik
+anchor:FZ100[{fz100-title}]
+
+==== Formular {fz100-title}
+
+Dieses Formular zeigt eine Übersicht über verschiedene Informationen, die im Programm erfasst sind, zu einem variablen Datum.
+
+image:FZ100.png[{fz100-title},title={fz100-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Informationen.
+|Datum        |Das Datum, auf das sich die Informationen beziehen, kann eingestellt werden.
+|Bilanz       |Das Eigenkapital aus den Schlussbilanzen der letzten Jahre wird angezeigt.
+|Bücher       |Daten aus den Bücher-Dialogen: Für den aktuellen Benutzer werden folgende Daten angezeigt: Person (Benutzer-ID), Lebenstage, Anzahl der erfassten Bücher, gelesen (davon), Englische Bücher, Perry Rhoden-Hefte, PR-Hefte gelesen, gelesene Buch-Seiten (nicht PR), gelesene PR-Seiten, gelesene Seiten, gelesene Seiten/Tag.
+|Fahrrad      |Daten aus den Fahrrad-Dialogen: Für alle erfassten Fahrräder werden die Gesamt- und Jahres-Kilometer angezeigt. Ab dem Datum der ersten Tour werden die durchschnittlichen Tages- und Jahres-Kilometer präsentiert. Zum Schluss werden alle Daten auch noch als Summe aufgeführt.
+|==========================

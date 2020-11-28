@@ -1,0 +1,1028 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with unit test GenerateForm -->
+<interface>
+  <requires lib="gtk+" version="3.20" />
+  <object class="GtkGrid" id="AD110Person">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">5</property>
+    <property name="margin_right">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="row_spacing">5</property>
+    <property name="column_spacing">5</property>
+    <child>
+      <object class="GtkLabel" id="nr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.nr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">nr</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="nr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.nr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.nr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="sitzNr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.sitzNr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.sitzNr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="adressNr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.adressNr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.adressNr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">1</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="titel0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.titel</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">titel</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="titel">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.titel.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.titel.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="vorname0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.vorname</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">vorname</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="vorname">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.vorname.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.vorname.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">2</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="praedikat0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.praedikat</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">praedikat</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="praedikat">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.praedikat.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.praedikat.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="name10">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.name1</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">name1</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="name1">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.name1.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.name1.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">3</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="name20">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.name2</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">name2</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="name2">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.name2.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.name2.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">4</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geschlecht0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.geschlecht</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id11">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkRadioButton" id="geschlecht1">
+            <property name="label">AD110.neutrum</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.neutrum.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">geschlecht1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="geschlecht2">
+            <property name="label">AD110.mann</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.mann.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">False</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">geschlecht1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="geschlecht3">
+            <property name="label">AD110.frau</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.frau.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">False</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">geschlecht1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">5</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geburt0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.geburt</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geburt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="geburt">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="personStatus0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.personStatus</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id13">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkRadioButton" id="personStatus1">
+            <property name="label">AD110.personAktuell</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.personAktuell.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">personStatus1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="personStatus2">
+            <property name="label">AD110.personAlt</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.personAlt.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">False</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">personStatus1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">7</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="name0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.name</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">name</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="name">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.name.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.name.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">8</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="strasse0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.strasse</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">strasse</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="strasse">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.strasse.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.strasse.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">9</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="hausnr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.hausnr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">hausnr</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="hausnr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.hausnr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.hausnr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">9</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="postfach0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.postfach</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">postfach</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">10</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="postfach">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.postfach.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.postfach.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">10</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="staat0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.staat</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">staat</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">10</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="staat">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.staat.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.staat.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">10</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="plz0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.plz</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">plz</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">11</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="plz">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.plz.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.plz.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">11</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="ort0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.ort</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">ort</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">11</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="ort">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.ort.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.ort.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">11</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="telefon0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.telefon</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">telefon</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="telefon">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.telefon.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.telefon.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">12</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="fax0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.fax</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">fax</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="fax">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.fax.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.fax.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">12</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="mobil0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.mobil</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">mobil</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="mobil">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.mobil.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.mobil.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">13</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="homepage0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.homepage</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">homepage</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="homepage">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.homepage.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.homepage.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">13</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="email0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.email</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">email</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">14</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="email">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.email.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.email.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">14</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="notiz0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.notiz</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">notiz</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">15</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="notizsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.notiz.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="notiz">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="sensitive">True</property>
+            <property name="wrap_mode">word</property>
+            <property name="hscroll_policy">natural</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">15</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="sitzStatus0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.sitzStatus</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">16</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id27">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkRadioButton" id="sitzStatus1">
+            <property name="label">AD110.sitzAktuell</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.sitzAktuell.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">sitzStatus1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="sitzStatus2">
+            <property name="label">AD110.sitzAlt</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">AD110.sitzAlt.tt</property>
+            <property name="receives_default">False</property>
+            <property name="active">False</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">sitzStatus1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">16</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="adresseAnzahl0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AD110.adresseAnzahl</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">adresseAnzahl</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">17</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="adresseAnzahl">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">AD110.adresseAnzahl.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">AD110.adresseAnzahl.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">17</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="angelegt0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.created</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">angelegt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">18</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="angelegt">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">Forms.created.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.created.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">18</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geaendert0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.changed</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geaendert</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">19</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geaendert">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">Forms.changed.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.changed.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">19</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id31">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="ok">
+            <property name="label">Forms.ok</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="tooltip_text">Forms.ok.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnOkClicked" swapped="no" />
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="adresseDupl">
+            <property name="label">AD110.adresseDupl</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">False</property>
+            <property name="tooltip_text">AD110.adresseDupl.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAdresseduplClicked" swapped="no" />
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="adresseWechseln">
+            <property name="label">AD110.adresseWechseln</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">False</property>
+            <property name="tooltip_text">AD110.adresseWechseln.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAdressewechselnClicked" swapped="no" />
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="abbrechen">
+            <property name="label">Forms.cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">False</property>
+            <property name="tooltip_text">Forms.cancel.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAbbrechenClicked" swapped="no" />
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">20</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+  </object>
+</interface>

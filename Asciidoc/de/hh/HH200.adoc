@@ -1,0 +1,22 @@
+:hh200-title: Konten
+anchor:HH200[{hh200-title}]
+
+==== Formular {hh200-title}
+
+Dieses Formular dient der Verwaltung der Konten.
+Hier können die Konten angezeigt, erstellt, geändert und eingeschränkt gelöscht werden.
+
+image:HH200.png[{hh200-title},title={hh200-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Konten.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Kontos. <<HH210>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Kontos.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Kontos.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Mit dieser Schaltfläche wird geprüft, ob das Konto gelöscht werden darf. Es darf nicht gelöscht werden, wenn es Buchungen (auch stornierte!) beinhaltet, oder es sich um das Eigenkapital- oder Gewinn/Verlust-Konto	handelt. Falls dies nicht der Fall ist, wird das Konto aus den Bilanzen und Ereignissen automatisch gelöscht.
+|Konten       |Liste mit allen bestehenden Konten.
+|==========================

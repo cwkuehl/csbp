@@ -1,0 +1,25 @@
+:SB300-title: Familien
+anchor:SB300[{sb300-title}]
+
+==== Formular {sb300-title}
+
+Dieses Formular verwaltet alle Ahnen-Familien. Eine Familie besteht aus einem Vater, einer Mutter und einer beliebigen Anzahl von Kindern.
+Die Angabe von Mutter oder Vater ist ausreichend.
+
+image:SB300.png[{sb300-title},title={sb300-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Familien.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Familie. <<SB310>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Familie.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Familie.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Familie.
+|Familien     |Liste mit allen Familien.
+|Vater        |Schaltfläche zum Anzeigen des Vaters der ausgewählten Familie im Ahnen-Dialog.
+|Mutter       |Schaltfläche zum Anzeigen der Mutter der ausgewählten Familie im Ahnen-Dialog.
+|1. Kind      |Schaltfläche zum Anzeigen des ersten Kindes der ausgewählten Familie im Ahnen-Dialog.
+|==========================

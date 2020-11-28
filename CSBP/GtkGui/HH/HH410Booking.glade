@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<!-- Created with unit test GenerateForm -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkGrid" id="HH410Booking">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">5</property>
+    <property name="margin_right">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="row_spacing">5</property>
+    <property name="column_spacing">5</property>
+    <child>
+      <object class="GtkLabel" id="nr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.nr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">nr</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="nr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">HH410.nr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH410.nr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="valuta0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.valuta</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">valuta</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="valuta">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="betrag0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.betrag</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">betrag</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="betrag">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">HH410.betrag.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH410.betrag.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="summe0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.summe</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">summe</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="summe">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">HH410.summe.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH410.summe.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="ereignis0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.ereignis</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">ereignis</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="ereignissw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTreeView" id="ereignis">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">HH410.ereignis.tt</property>
+            <signal name="cursor-changed" handler="OnEreignisCursorChanged" swapped="no"/>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="sollkonto0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.sollkonto</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">sollkonto</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="sollkontosw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTreeView" id="sollkonto">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">HH410.sollkonto.tt</property>
+            <signal name="row-activated" handler="OnSollkontoRowActivated" swapped="no"/>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="habenkonto0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.habenkonto</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">habenkonto</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="habenkontosw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTreeView" id="habenkonto">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">HH410.habenkonto.tt</property>
+            <signal name="row-activated" handler="OnHabenkontoRowActivated" swapped="no"/>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="bText0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.bText</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">bText</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="bText">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">HH410.bText.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH410.bText.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">5</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="belegNr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.belegNr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">belegNr</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="belegNr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">HH410.belegNr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH410.belegNr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="neueNr">
+        <property name="label">HH410.neueNr</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text">HH410.neueNr.tt</property>
+        <property name="use_underline">True</property>
+        <signal name="clicked" handler="OnNeuenrClicked" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id13">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkLabel" id="belegDatum0">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <property name="label">HH410.belegDatum</property>
+            <property name="use_underline">True</property>
+            <property name="mnemonic_widget">belegDatum</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="belegDatum">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="angelegt0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.created</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">angelegt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="angelegt">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">Forms.created.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.created.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">7</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geaendert0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.changed</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geaendert</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geaendert">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">Forms.changed.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.changed.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">8</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="buchung0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH410.buchung</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">buchung</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="buchung">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">HH410.buchung.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH410.buchung.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">9</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id18">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="ok">
+            <property name="label">Forms.ok</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">Forms.ok.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnOkClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="kontentausch">
+            <property name="label">HH410.kontentausch</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">HH410.kontentausch.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnKontentauschClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="addition">
+            <property name="label">HH410.addition</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">HH410.addition.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAdditionClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="abbrechen">
+            <property name="label">Forms.cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">Forms.cancel.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAbbrechenClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">10</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+</interface>

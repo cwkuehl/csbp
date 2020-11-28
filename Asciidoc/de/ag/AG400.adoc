@@ -1,0 +1,28 @@
+:ag400-title: Sicherung
+anchor:AG400[{ag400-title}]
+
+==== Formular {ag400-title}
+
+Dieses Formular bietet eine einfache Durchführung von Sicherungen auf Verzeichnis-Ebene an.
+Die Sicherungseinträge werden mit einem Ziel- und evtl. mehreren Quell-Verzeichnissen erfasst.
+Der Abgleich der Dateien wird durch das Änderungszeitpunkt vorgenommen.
+In FAT32-Partitionen wird die Zeit nur auf 2 Sekunden genau abgespeichert.
+Daher gelten Änderungszeitpunkte als gleich, wenn sie sich nicht mehr als 2 Sekunden unterscheiden.
+
+image:AG400.png[{ag400-title},title={ag400-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Sicherungseinträgen.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Sicherungseintrages. <<AG410>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Sicherungseintrages.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Sicherungseintrages.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sicherungseintrages.
+|Sicherungseinträge|Liste mit allen einzelnen Sicherungseinträgen. Eine Sicherungseintrag besteht aus einem Ziel- und evtl. mehreren Quell-Verzeichnissen.
+|Sicherung    |Schaltfläche zum Durchführen der ausgewählten Sicherung.
+|Differenz-Sicherung|Schaltfläche zum Durchführen der ausgewählten Sicherung als Differenz-Sicherung. Die sich unterscheidenden Dateien werden im Sicherungsverzeichnis im Unterordner _diff_Zeitpunkt gespeichert.
+|Rück-Sicherung|Schaltfläche zum Durchführen der ausgewählten Sicherung als Rück-Sicherung. Dabei wird die Kopierrichtung umgedreht.
+|Abbrechen    |Schaltfläche zum Abbrechen der laufenden Sicherung.
+|Status       |Textfeld zum Anzeigen des Status während der Sicherung von Verzeichnissen.
+|==========================

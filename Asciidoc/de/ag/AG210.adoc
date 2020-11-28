@@ -1,0 +1,23 @@
+:ag210-title: Benutzer
+anchor:AG210[{ag210-title}]
+
+==== Dialog {ag210-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Benutzers.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:AG210.png[{ag210-title},title={ag210-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Benutzers.
+|Benutzer-ID  |Eine Benutzerkennung muss erfasst werden.
+|Kennwort     |Ein Kennwort kann angegeben werden.
+|Berechtigung |Es muss ein Berechtigung ausgewählt werden. Die Berechtigung Benutzer erlaubt alle Funktion außer dem Bereich Administration. Die Berechtigung Administrator erlaubt zusätzlich die Funktionen der Administration, allerdings nur für den eigenen Mandanten. Die Berechtigung Alles erlaubt zusätzlich den Zugriff auf alle Mandanten. Dem Benutzer kann grundsätzlich keine höhere Berechtigung gegeben werden als der aktuelle angemeldete Benutzer hat.
+|Geburt       |Das Geburtsdatum des Benutzers kann erfasst werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht den Benutzer und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

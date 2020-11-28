@@ -1,0 +1,50 @@
+:sb210-title: Ahn
+anchor:SB210[{sb210-title}]
+
+==== Dialog {sb210-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Ahnen.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:SB210.png[{sb210-title},title={sb210-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Ahnen.
+|Geburtsname  |Der Geburtsname des Ahnen muss erfasst werden.
+|Vorname      |Vorname des Ahnen.
+|Name         |Angenommener Name des Ahnen. Bei Frauen überlicherweise der Name des Mannes. Bei Männern in der Regel gleich dem Geburtsnamen.
+|Geschlecht   |Geschlecht des Ahnen.
+|Bilddaten    |Die Metadaten der Bilder können bearbeitet werden. Der Text wird als Tooltipp angezeigt.
+|geboren      |Geburtsdatum des Ahnen.
+|Geburtsort   |Geburtsort des Ahnen.
+|Geburtsbemerkung|Sonstige Hinweise zur Geburt des Ahnen.
+|getauft      |Taufdatum des Ahnen.
+|Taufort      |Taufort des Ahnen.
+|Taufbemerkung|Sonstige Hinweise zur Taufe des Ahnen.
+|gestorben    |Todesdatum des Ahnen.
+|Todesort     |Todesort des Ahnen.
+|Todesbemerkung|Sonstige Hinweise zum Tod des Ahnen.
+|begraben     |Begräbnisdatum des Ahnen.
+|Begräbnisort |Begräbnisort des Ahnen.
+|Begräbnisbemerkung|Sonstige Hinweise zum Begräbnis des Ahnen.
+|Konfession   |Konfession des Ahnen kann 20 Zeichen haben, z.B. ev für	evangelisch, rk für römisch-katholisch.
+|Titel        |Titel des Ahnen, z.B. Dr. med.
+|Bemerkung    |Allgemeine Bemerkung zum Ahnen.
+|Ehegatte(n)  |Anzeigefeld für Ehegatten des Ahnen.
+|neuer Gatte  |Wenn die Nr. des Gatten eingegeben wird, wird automatisch auch eine Familie angelegt, in der der Ahn Mutter oder Vater ist.
+|Vater        |Anzeigefeld für den Vater des Ahnen.
+|neuer Vater  |Wenn die Nr. des Vaters eingegeben wird, wird automatisch auch eine Familie angelegt, in der der Ahn Kind ist.
+|Mutter       |Anzeigefeld für die Mutter des Ahnen.
+|neue Mutter  |Wenn die Nr. der Mutter eingegeben wird, wird automatisch auch eine Familie angelegt, in der der Ahn Kind ist.
+|Quelle       |Eine Quellen für die Daten des Ahnen kann ausgewählt werden.
+|Status1      |Hier kann das Todesjahr bzw. das geschätzte Todesjahr eingetragen werden.
+|Status2      |Beliebige Nummer wird für den GEDCOM-Export benutzt, und sollte nicht verwendet werden.
+|Status3      |Beliebige Nummer wird vom Programm bisher nicht benutzt.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht den Ahnen	und schließt den Dialog.
+|Bild Hinzufügen|Mit dieser Schaltfläche können beliebig viele Bilder zu einem Ahnen hinzugefügt werden.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

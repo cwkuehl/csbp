@@ -1,0 +1,21 @@
+:wp300-title: Konfigurationen
+anchor:WP300[{wp300-title}]
+
+==== Formular {wp300-title}
+
+Dieses Formular verwaltet alle Point and Figure-Konfigurationen zur Auswertung von Wertpapieren.
+
+image:WP300.png[{wp300-title},title={wp300-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Point and Figure-Konfigurationen.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Konfigurations-Datensatzes. <<WP310>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Konfigurations-Datensatzes.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Konfigurations-Datensatzes.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Konfigurations-Datensatzes.
+|Konfigurationen|Liste von ausgewählten Wertpapier-Konfigurationen.
+|==========================

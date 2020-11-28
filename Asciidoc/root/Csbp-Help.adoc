@@ -1,0 +1,19 @@
+= CSBP Documentation
+Wolfgang Kuehl <wolfgang@cwkuehl.de>
+v1.0, 2020-04-17
+:homepage: http://cwkuehl.de
+:toc:
+:icons: font
+:imagesdir: en/assets
+:doctype: book
+:lang: en
+:embedAssets:
+
+== Installation
+
+.Title
+NOTE: Still *not* ready. 
+
+== Dialogs
+
+include::../en/am/AM000.adoc[]

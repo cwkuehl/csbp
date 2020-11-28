@@ -1,0 +1,25 @@
+:hh310-title: Ereignis
+anchor:HH310[{hh310-title}]
+
+==== Dialog {hh310-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Ereignisses.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:HH310.png[{hh310-title},title={hh310-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Ereignisses.
+|Bezeichnung  |Die Bezeichnung des Ereignisses muss eingegeben werden. Die Bezeichnung wird in der Liste des Buchungs-Dialoges angezeigt.
+|Kennzeichen  |Einstelliges Kennzeichen wird momentan nicht verwendet.
+|Buchungstext |Ein Buchungstext muss eingegeben werden.	Dieser Buchungstext wird im Buchungs-Dialog voreingestellt.
+|Sollkonto    |Dieses Sollkonto wird im Buchungs-Dialog voreingestellt.
+|Habenkonto   |Dieses Habenkonto wird im Buchungs-Dialog voreingestellt.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht das Ereignis und schließt den Dialog.
+|Kontentausch |Schaltfläche zum Vertauschen von Soll- und Habenkonto.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

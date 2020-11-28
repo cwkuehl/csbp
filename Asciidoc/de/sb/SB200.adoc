@@ -1,0 +1,36 @@
+:SB200-title: Ahnen
+anchor:SB200[{sb200-title}]
+
+==== Formular {sb200-title}
+
+Dieses Formular verwaltet alle Ahnen.
+
+image:SB200.png[{sb200-title},title={sb200-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Ahnen.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Ahnen. <<SB210>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Ahnen.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ahnen.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ahnen.
+|image:icon/icons8-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Öffnen des Dialogs <<SB220>>.
+|image:icon/icons8-save.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Dialog <<SB500>>.
+|Ahnen        |Liste mit allen ausgewählten Ahnen.
+|Status       |Anzeige von Informationen zur aktuellen Ahnenliste.
+|Name         |Suchfeld für den Namen.
+|Vorname      |Suchfeld für den Vornamen.
+|filter       |Soll die Liste nach Name und Vorname gefiltert werden?
+|Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
+|Name         |Schaltfläche zum Auswählen des nächsten Ahnen, der den Suchkriterien entspricht.
+|Vater        |Schaltfläche zum Auswählen des Vaters des Ahnen.
+|Mutter       |Schaltfläche zum Auswählen der Mutter des Ahnen.
+|1. Kind      |Schaltfläche zum Auswählen des 1. Kindes des Ahnen.
+|Ehegatte     |Schaltfläche zum Auswählen des (1.) Ehegatten des Ahnen.
+|Geschwister  |Schaltfläche zum Auswählen des nächsten Geschwisters des Ahnen.
+|Familie      |Schaltfläche zum Auswählen der Familie des Ahnen als Vater oder Mutter im Familien-Dialog.
+|Familien-Kind|Schaltfläche zum Auswählen der Familie des Ahnen als Kind im Familien-Dialog.
+|==========================

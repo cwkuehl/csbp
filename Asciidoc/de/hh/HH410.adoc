@@ -1,0 +1,52 @@
+:hh410-title: Buchung
+anchor:HH410[{hh410-title}]
+
+==== Dialog {hh410-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Stornieren einer Buchung.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+*Idealer Buchungsablauf für Buchungen am selben Tag:* Beim Aufruf des Dialogs ist der Buchungstag (Wert der Buchung, Valuta)
+das aktuelle Tagesdatum und der Cursor blinkt im Betragsfeld. Sie brauchen nur den richtigen Betrag der Buchung eingeben.
+Mit der Tab-Taste erreichen Sie die Liste der Ereignissse. Wenn Sie die ersten Buchstaben des Ereignisses eintippen,
+sind Sie spätestens nach ein paar Malen bei dem gewünschten Ereignis. Damit sind automatisch Soll-und Habenkonten sowie ein Buchungstext
+angegeben. Mit drei weiteren Tabs sind Sie im Buchungstextfeld, das sie noch ändern können. Mit der Tastenkombination Alt+O bzw. Enter
+wird die Buchung abgeschlossen.
+
+*Ändern des Buchungstages (Valuta):* Mit der Tastenkombination Alt+V gelangen Sie direkt in das Eingabefeld,
+ wo Sie das gewünschte Datum eintragen können. Schneller ist meistens die Möglichkeit, das Datum um einen Tag zu erhöhen
+ oder zu erniedrigen. Dazu benutzen Sie die Tastenkombinationen Strg+P oder Strg+M.
+ 
+*Ändern der Soll- und Habenkonten:* Um beliebige Buchungen durchführen zu können, sind die Listen der Soll- und Habenkonten
+individuell einstellbar. Diese Möglichkeit ist für seltene Buchungenarten vorgesehen, für die kein Ereigniss erstellt wurde.
+Die Eigenkapital- und Gewinn/Verlust-Konten können nicht für Buchungen verwendet werden, da sie die Summen der anderen Konten aufnehmen.
+
+*Addition von Beträgen:* Wenn Sie mehrere Beträge zu einer Buchung zusammenfassen möchten, geht dies mit der Schaltfläche Addition
+oder der Tastenkombination Alt+A. Nach dem Eingeben eines Teilbetrages im Eingabefeld Betrag und dem Betätigen der Schaltfläche
+wird dieser zu der daneben angezeigten Summe addiert. Es sind auch negative Teilbeträge möglich.
+Ebenso ist Multiplikation, z.B. '*4', oder Division, z.B. '/7', möglich.
+
+image:HH410.png[{hh410-title},title={hh410-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Buchungsnummer der ausgewählten Buchung oder leer, wenn eine neue Buchung erfasst wird.
+|Valuta       |Wertstellungsdatum der Buchung. Bei einer Änderung wird auch das Belegdatum auf das gleiche Datum gesetzt.
+|Betrag       |Der (Teil-)Betrag der Buchung (in EUR) muss eingegeben werden. In die Buchung geht die Summe aus Betrag und Summe ein.
+|Summe        |Der (Teil-)Betrag der Buchung in EUR wird durch Schaltfläche Addition verändert. In die Buchung geht die Summe aus Betrag und Summe ein.
+|Ereignis     |Liste von Ereignis-Bezeichnungen. Ein ausgewähltes Ereignis steuert Soll-, Habenkonto und Buchungstext vor.
+|Sollkonto    |Liste von Konten. Das Ausgewählte stellt das	Sollkonto der Buchung dar.
+|Habenkonto   |Liste von Konten. Das Ausgewählte stellt das Habenkonto der Buchung dar.
+|Buchungstext |Ein Buchungstext, der die Buchung erklärt, muss erfasst werden.
+|Beleg        |Belegtext erläutert einen evtl. vorhandenen Beleg und kann leer sein.
+|Neue Nr.     |Schaltfläche zum Erzeugen einer neuen Belegnummer, falls das Feld Beleg leer ist. Sie besteht in den ersten acht Stellen aus dem Valuta-Datum und einer zweistelligen laufenden Nummer (Format JJJJMMTTNN).
+|Vom          |Belegdatum wird angepasst, wenn Valuta geändert wird. Danach kann es beliebig geändert werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|Letzte Buchung|Anzeige der zuletzt erfassten Buchung.
+|OK           |Diese Schaltfläche speichert oder storniert die Buchung und schließt den Dialog.
+|Kontentausch |Schaltfläche zum Vertauschen von Soll- und Habenkonto.
+|Addition     |Schaltfläche zum Addieren des Betrags zur Summe, anschließend wird der Betrag geleert. Der Betrag kann auch kleiner als 0 sein. Es kann auch multipliziert oder dividiert werden, indem vor den Betrag * oder / geschrieben wird.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

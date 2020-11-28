@@ -1,0 +1,29 @@
+:ag000-title: Informationen über JHH6
+anchor:AG000[{ag000-title}]
+
+==== Dialog {ag000-title}
+
+Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufzeit-Umgebung, Anmeldung und Lizenzen:
+
+* Programm-Version: ab 1.0.
+* Erstellung am: Zeitpunkt der Programmerzeugung.
+* Betriebssystem: ab Windows Vista oder Linux.
+* Java-Version: ab 1.6.0.
+* Java-Verzeichnis.
+* Benutzer-Verzeichnis.
+* Datenbank: Verbindungszeichenfolge zur Datenbank.
+* Mandantnummer.
+* Angemeldeter Benutzer.
+* Lizenzen.
+
+image:AG000.png[{ag000-title},title={ag000-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Laufzeit-Umgebung|Anzeige von Information über die Laufzeit-Umgebung.
+|Anmeldung    |Anzeige von Information über die Anmeldung.
+|Lizenzen     |Anzeige von Information über die Lizenzen des Programms und der verwendeten Bibliotheken und Icons mit weiterführenden Links.
+|OK           |Schaltfläche zum Schließen des Dialogs.
+|Zurück       |Schaltfläche zum Zurückspringen von verfolgten Links.
+|==========================

@@ -1,0 +1,23 @@
+:sb410-title: Quelle
+anchor:SB410[{sb410-title}]
+
+==== Dialog {sb410-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen einer Quelle.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:SB410.png[{sb410-title},title={sb410-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Quelle.
+|Autor        |Ein Name des Autors muss angegeben werden.
+|Beschreibung |Eine Beschreibung oder Titel der Quelle muss angegeben werden.
+|Zitat        |Textfeld für optionales, beliebig langes Zitat aus der Quelle.
+|Bemerkung    |Textfeld für optionale, beliebig lange Bemerkung über die Quelle.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht die Quelle und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

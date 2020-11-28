@@ -1,0 +1,29 @@
+:wp210-title: Wertpapier
+anchor:WP210[{wp210-title}]
+
+==== Dialog {wp210-title}
+
+Dieser Dialog dient dem Erstellen, Kopieren, Ändern und Löschen eines Wertpapier-Datensatzes.
+Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
+
+image:WP210.png[{wp210-title},title={wp210-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Wertpapier-Datensatzes.
+|Bezeichnung  |Die Bezeichnung des Wertpapiers muss eingegeben werden.
+|Kürzel       |Das Kürzel für Kursabfrage des Wertpapiers bei Yahoo muss eingegeben werden, z.B. ^GDAXI für den DAX oder FRA.DE für Fraport AG.
+|Status       |Ein Status des Wertpapier-Datensatzes muss erfasst werden. Bei inaktiv wird keine Bewertung berechnet.
+|Aktueller Kurs|Anzeige des letzten Kurses.
+|Stop-Kurs    |Anzeige des Stop-Kurses. Der Kurs wird als 5% unter dem letzten Tief berechnet.
+|Kursziel     |Ein Kursziel kann eingegeben werden.
+|Letztes Muster|Anzeige des letztes Musters aus der Berechnung.
+|Sortierung   |Ein Sortierkriterium für die Wertpapier-Liste kann eingegeben werden.
+|Relation     |Es kann ein anderes Wertpapier (meist ein Index) ausgewählt werden, zu dem das aktuelle Wertpapier in Relation gesetzt werden kann (abhängig von der Konfiguration).
+|Notiz        |Eine beliebig lange Notiz kann erfasst werden.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
+|Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|OK           |Diese Schaltfläche speichert oder löscht den Wertpapier-Datensatz und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
+|==========================

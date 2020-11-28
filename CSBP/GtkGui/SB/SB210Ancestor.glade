@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<!-- Created with unit test GenerateForm -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkGrid" id="SB210Ancestor">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">5</property>
+    <property name="margin_right">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="row_spacing">5</property>
+    <property name="column_spacing">5</property>
+    <child>
+      <object class="GtkLabel" id="nr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.nr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">nr</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="nr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.nr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.nr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geburtsname0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.geburtsname</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geburtsname</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geburtsname">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.geburtsname.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.geburtsname.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="vorname0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.vorname</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">vorname</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="vorname">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.vorname.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.vorname.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="name0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.name</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">name</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="name">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.name.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.name.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geschlecht0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.geschlecht</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id8">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkRadioButton" id="geschlecht1">
+            <property name="label">SB210.geschlecht1</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">SB210.geschlecht1.tt</property>
+            <property name="use_underline">True</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">geschlecht1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="geschlecht2">
+            <property name="label">SB210.geschlecht2</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">SB210.geschlecht2.tt</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">geschlecht1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="geschlecht3">
+            <property name="label">SB210.geschlecht3</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">SB210.geschlecht3.tt</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">geschlecht1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">4</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="bilddaten0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.bilddaten</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">bilddaten</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="bilddatensw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.bilddaten.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="bilddaten">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscroll_policy">natural</property>
+            <property name="wrap_mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">5</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geburtsdatum0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.geburtsdatum</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geburtsdatum</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geburtsdatum">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.geburtsdatum.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.geburtsdatum.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geburtsort0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.geburtsort</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geburtsort</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geburtsort">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.geburtsort.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.geburtsort.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geburtsbem0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.geburtsbem</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geburtsbem</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="geburtsbemsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.geburtsbem.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="geburtsbem">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscroll_policy">natural</property>
+            <property name="wrap_mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">6</property>
+        <property name="height">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="taufdatum0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.taufdatum</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">taufdatum</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="taufdatum">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.taufdatum.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.taufdatum.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="taufort0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.taufort</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">taufort</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="taufort">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.taufort.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.taufort.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="taufbem0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.taufbem</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">taufbem</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">8</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="taufbemsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.taufbem.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="taufbem">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscroll_policy">natural</property>
+            <property name="wrap_mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">8</property>
+        <property name="height">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="todesdatum0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.todesdatum</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">todesdatum</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">10</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="todesdatum">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.todesdatum.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.todesdatum.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">10</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="todesort0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.todesort</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">todesort</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">11</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="todesort">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.todesort.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.todesort.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">11</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="todesbem0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.todesbem</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">todesbem</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">10</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="todesbemsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.todesbem.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="todesbem">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscroll_policy">natural</property>
+            <property name="wrap_mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">10</property>
+        <property name="height">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="begraebnisdatum0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.begraebnisdatum</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">begraebnisdatum</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="begraebnisdatum">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.begraebnisdatum.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.begraebnisdatum.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="begraebnisort0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.begraebnisort</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">begraebnisort</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="begraebnisort">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.begraebnisort.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.begraebnisort.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="begraebnisbem0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.begraebnisbem</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">begraebnisbem</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="begraebnisbemsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.begraebnisbem.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="begraebnisbem">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscroll_policy">natural</property>
+            <property name="wrap_mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">12</property>
+        <property name="height">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="konfession0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.konfession</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">konfession</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">14</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="konfession">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.konfession.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.konfession.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">14</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="titel0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.titel</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">titel</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">15</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="titel">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.titel.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.titel.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">15</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="bemerkung0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.bemerkung</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">bemerkung</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">14</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="bemerkungsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.bemerkung.tt</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="bemerkung">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscroll_policy">natural</property>
+            <property name="wrap_mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">14</property>
+        <property name="height">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="gatte0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.gatte</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">gatte</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">16</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="gatte">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.gatte.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.gatte.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">16</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="gatteNr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.gatteNr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">gatteNr</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">16</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="gatteNr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.gatteNr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.gatteNr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">16</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="vater0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.vater</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">vater</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">17</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="vater">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.vater.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.vater.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">17</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="vaterNr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.vaterNr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">vaterNr</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">17</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="vaterNr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.vaterNr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.vaterNr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">17</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="mutter0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.mutter</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">mutter</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">18</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="mutter">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.mutter.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.mutter.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">18</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="mutterNr0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.mutterNr</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">mutterNr</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">18</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="mutterNr">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">SB210.mutterNr.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">SB210.mutterNr.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">18</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="quelle0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.quelle</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">quelle</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">19</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="quelle">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">SB210.quelle.tt</property>
+        <property name="has_entry">True</property>
+        <signal name="changed" handler="OnQuelleChanged" swapped="no"/>
+        <child internal-child="entry">
+          <object class="GtkEntry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">19</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="status10">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">SB210.status1</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">20</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id32">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkEntry" id="status1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">SB210.status1.tt</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="activates_default">True</property>
+            <property name="placeholder_text">SB210.status1.tt</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="status20">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <property name="label">SB210.status2</property>
+            <property name="use_underline">True</property>
+            <property name="mnemonic_widget">status2</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="status2">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">SB210.status2.tt</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="activates_default">True</property>
+            <property name="placeholder_text">SB210.status2.tt</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="status30">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <property name="label">SB210.status3</property>
+            <property name="use_underline">True</property>
+            <property name="mnemonic_widget">status3</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="status3">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">SB210.status3.tt</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="activates_default">True</property>
+            <property name="placeholder_text">SB210.status3.tt</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">20</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="angelegt0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.created</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">angelegt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">21</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="angelegt">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">Forms.created.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.created.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">21</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="geaendert0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">Forms.changed</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">geaendert</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">21</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="geaendert">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">Forms.changed.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">Forms.changed.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">21</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id38">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="ok">
+            <property name="label">Forms.ok</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">Forms.ok.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnOkClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="hinzufuegen">
+            <property name="label">SB210.hinzufuegen</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">SB210.hinzufuegen.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnHinzufuegenClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="abbrechen">
+            <property name="label">Forms.cancel</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">Forms.cancel.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnAbbrechenClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">22</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="bildersw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+      <object class="GtkBox" id="bilder">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">0</property>
+        <property name="height">5</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+</interface>

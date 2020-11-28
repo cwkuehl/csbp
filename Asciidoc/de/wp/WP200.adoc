@@ -1,0 +1,30 @@
+:wp200-title: Wertpapiere
+anchor:WP200[{wp200-title}]
+
+==== Formular {wp200-title}
+
+Dieses Formular verwaltet alle Wertpapiere. Zu allen aktiven Wertpapieren wird eine Bewertung an Hand der ausgewählten Konfiguration berechnet:
+Für die Boxgröße von 2 bis 5 werden die bewerteten Signale der letzten Säule (nur am Tag des Auftretens) addiert.
+
+image:WP200.png[{wp200-title},title={wp200-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Wertpapieren inkl. der Bewertungen.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Wertpapier-Datensatzes. <<WP210>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Wertpapier-Datensatzes.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Wertpapier-Datensatzes.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Wertpapier-Datensatzes.
+|image:icon/icons8-save.png[title="Export",width={icon-width}]          |Diese Schaltfläche öffnet den Dialog <<WP220>>.
+|Wertpapiere  |Liste von ausgewählten Wertpapier-Datensätzen inkl. der berechneten Bewertung.
+|Bis          |End-Datum für die Bewertung festlegen.
+|Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
+|Bewertungen berechnen|Schaltfläche zum Starten der Bewertungsberechnung für alle selektierten und aktiven Wertpapiere.
+|Abbrechen    |Schaltfläche zum Abbrechen der laufenden Bewertungsberechnung.
+|Bezeichnung  |Die Bezeichnung der Wertpapiere kann mit Platzhaltern gesucht werden, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'..
+|Muster       |Das letzte Muster der Bewertung kann mit Platzhaltern gesucht werden.
+|Konfiguration|Konfiguration für die Bewertung festlegen.
+|==========================

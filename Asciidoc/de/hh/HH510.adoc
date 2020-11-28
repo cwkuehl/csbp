@@ -1,0 +1,22 @@
+:hh510-title: Drucken
+anchor:HH510[{hh510-title}]
+
+==== Dialog {hh510-title}
+
+Dieser Dialog erstellt einen Bericht mit beliebigen Bilanzen.
+
+image:HH510.png[{hh510-title},title={hh510-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Titel        |Der Berichttitel kann geändert werden.
+|Zeitraum von |Das Start-Datum für die ausgewählten Bilanzen kann geändert werden.
+|Bis          |Das End-Datum für die ausgewählten Bilanzen kann geändert werden.
+|Eröffnungsbilanz|Wenn diese Kontrollkästchen gesetzt ist, wird die Eröffnungsbilanz in den Bericht aufgenommen.
+|Gewinn+Verlust-Rechnung|Wenn diese Kontrollkästchen gesetzt ist, wird die Gewinn+Verlust-Rechnung in den Bericht aufgenommen.
+|Schlussbilanz|Wenn diese Kontrollkästchen gesetzt ist, wird die Schlussbilanz in den Bericht aufgenommen.
+|Kassenbericht|Wenn diese Kontrollkästchen gesetzt ist, wird der Kassenbericht in den Bericht aufgenommen.
+|OK           |Diese Schaltfläche erzeugt eine Bericht mit Bilanzen als PDF-Datei. Die Datei wird anschließend geöffnet.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog.
+|==========================

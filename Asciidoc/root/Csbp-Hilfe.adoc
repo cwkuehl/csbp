@@ -1,0 +1,399 @@
+= CSBP Dokumentation (C) 2020 cwkuehl.de
+Wolfgang Kühl <wolfgang@cwkuehl.de>
+v1.0, 2020-04-17
+:homepage: http://cwkuehl.de
+:toc2:
+:icons: font
+:data-uri:
+:imagesdir: ../de/assets
+////
+Bilder einbetten bzw. separat
+:imagesdir: de/assets
+////
+:doctype: book
+:lang: de
+:toc-title: Inhaltsverzeichnis
+:note-caption: Anmerkung
+:warning-caption: Achtung
+:tip-caption: Tipp
+:icon-width: 32
+
+== Beste Funktionen
+
+Das Haushalts-Programm enthält eine Sammlung von Funktionen und Dialogen, die fast jeder verwenden kann:
+
+- *Haushaltsführung* mit doppelter Buchführung, Eröffnungs- und Schlussbilanz sowie Gewinn- und Verlustrechnung (<<HH0>>)
+- *Adressenverwaltung* mit beliebig vielen Adressen pro Person und Geburtstagsliste beim Start (<<FZ0>>)
+- *Tagebuch* speichert pro Tag einen beliebig langen Text (<<FZ0>>)
+- *Stammbaum* mit Ahnen, Familien, Quellen und GEDCOM-Schnittstelle (<<SB0>>)
+- *Wertpapiere* mit Point and Figure-Charts (<<WP0>>)
+
+
+== Installation
+
+Generell wird eine aktuelle Java-Installation vorausgesetzt.
+
+Herunterladen der zum Betriebsystem passenden Batch-Datei von http://cwkuehl.de/jhh6[JHH6 Download].
+
+=== Installation für Windows
+- Speichern der Batch-Datei als #InstallUpdateJhh6.cmd in einem leeren Verzeichnis, z.B. D:\Haushalt\JHH6.
+
+TIP: Dazu ist es notwendig, dass die Dateiendungen angezeigt werden.
+In Windows erreicht man die Einstellung über den Windows Explorer, im Bereich Datei, Optionen die Auswahl ‚Ordner- und Suchoptionen ändern‘.
+Hier muss im Tab Ansicht der Haken bei der Einstellung ‚Erweiterungen bei bekannten Dateitypen ausblenden‘ entfernt werden.
+
+- Starten von cmd.exe.
+- Wechseln in das Verzeichnis:
+----
+ D:
+ cd \Haushalt\JHH6
+----
+- Ausführen der Datei:
+----
+ #InstallUpdateJhh6.cmd
+----
+- Beim nächsten Mal starten mit:
+----
+ #JHH6.cmd
+----
+
+=== Installation für Linux
+.(getestet für Ubuntu 16.04)
+- Speichern der Batch-Datei als #InstallUpdateJhh6.sh in einem leeren Verzeichnis, z.B. /opt/Haushalt/JHH6.
+- Starten einer Terminal-Sitzung.
+- Wechseln in das Verzeichnis und Ausführungsberechtigung setzen:
+----
+ cd /opt/Haushalt/JHH6
+ chmod 755 #InstallUpdateJhh6.sh
+----
+- Ausführen der Datei:
+----
+ ./#InstallUpdateJhh6.sh
+----
+- Beim nächsten Mal starten mit:
+----
+ ./#JHH6.sh
+----
+
+== Starten des Programms
+
+=== Starten für Windows
+Ausführen der Datei:
+----
+ #JHH6.cmd
+----
+im Installtionsverzeichnis.
+
+=== Starten für Linux
+Ausführen der Datei:
+----
+ ./#JHH6.sh
+----
+im Installtionsverzeichnis.
+
+=== Erste Anmeldung
+Beim ersten Starten des Programms wird die Benutzer-ID und das Kennwort des Administrator-Benutzers festgelegt.
+Den Eintrag 1 beim Mandanten sollte nicht geändert werden. Die Felder Benutzer und Kennwort müssen mit den gewünschten
+Werten gefüllt werden, bevor die Schaltfläche Anmelden betätigt werden kann. Siehe auch <<AM000>>.
+
+=== Konfiguration
+Nach der Installation ist alles so eingestellt, dass das Programm starten kann.
+Der Speicherplatz der HSQLDB-Datenbank ist in der Konfigurationsdatei _ServerConfig.properties_ im Installationsverzeichnis hinterlegt: 
+
+.Beispiel für _ServerConfig.properties_ unter Linux
+----
+DB_DRIVER_CLASS=org.hsqldb.jdbc.JDBCDriver
+DB_DRIVER_CONNECT=jdbc:hsqldb:file:/home/user/hsqldb/JHH6
+DB_DRIVER_USERNAME=SA
+DB_DRIVER_PASSWORD=
+----
+
+
+== Benutzer-Oberfläche
+
+Nach dem Starten öffnet sich das Hauptfenster. Es ist in die vier Bereiche unterteilt: Titelzeile, Menü, Formulare, Statuszeile.
+Das Hauptfenster lässt sich beliebig positionieren und in der Größe ändern. Beim nächsten Starten erscheint das Hauptfenster an der
+gleichen Stelle in der gleichen Größe.
+
+image:Main.png[Hauptfenster]
+
+=== Titelzeile
+.In der Titelzeile wird der Name des Programms mit zusätzlichen Informationen angezeigt:
+- Falls das Programm in Testmodus gestartet wurde, beginnt die Zeile mit dem Text "Test-".
+- Falls noch kein Benutzer angemeldet ist, wird dies mit dem Text "(nicht angemeldet)" am Ende angezeigt.
+- Falls ein Benutzer mit einem anderen Mandanten als 1 angemeldet ist, wird dies am Ende der Titelzeile angezeigt, z.B. "(Mandant 2)". 
+
+=== Menü-Bereich
+Im Menü werden alle aktuell verfügbaren Menüpunkte angezeigt. Die meisten Menüpunkte sind erst nach der Anmeldung sichtbar.
+Mit den Einstellungen lassen sich einige Hauptmenüpunkte komplett aus- bzw. einblenden.
+Das Menü umfasst folgende Punkte:
+
+[width="100%",cols="<1,<1,<4",frame="all",options="header"]
+|==========================
+|Menü            |Menüpunkt           |Erklärung
+.7+|Datei        |                    |Aufruf der Funktionen und Dialoge aus den Bereichen Datei und Administration.
+                 |Rückgängig          |Die letzte Änderung der Daten wird rückgängig gemacht.
+                 |Wiederherstellen    |Die Daten vor der letzten Rückgängig-Aktion werden wiederhergestellt. 
+                 |Mandanten           |Dieses Formular verwaltet Mandanten, d.h. getrennte Datenbestände. <<AG100>>
+                 |Benutzer            |Dieses Formular verwaltet alle Benutzer des aktuellen Mandanten. <<AG200>>
+                 |Sicherungen         |Dieses Formular bietet eine einfache Durchführung von Sicherungen auf Verzeichnis-Ebene an. <<AG400>>
+                 |Beenden             |Das Programm wird ohne Nachfrage beendet.
+.6+|Benutzer     |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Benutzer.
+                 |Anmelden / Abmelden |Dialog zum Anmelden, falls dies noch nicht geschehen ist. Abmelden, wenn man angemeldet ist. <<AM000>>
+                 |Kennwort ändern     |Dialog zum Ändern des Kennworts. <<AM100>>
+                 |Einstellungen       |Dialog zum Ändern von Einstellungen. <<AM500>>
+                 |Start-Formulare     |Dialog zum Auswählen von Formularen, die nach dem Anmelden geöffnet werden. <<AM510>>
+                 |Dialoge zurücksetzen|Die Positionen und Größen aller Dialoge werden zurückgesetzt.
+.12+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
+                 |Tagebuch            |Dieses Formular verwaltet beliebig lange textliche Eintragungen für jeden Tag. <<TB100>>
+                 |Notizen             |Dieses Formular verwaltet beliebig lange Notizen in Text- und Tabellenform für jede Gelegenheit. <<FZ700>>
+                 |Personen            |Dieses Formular verwaltet Personen, Geburtstage und Adressen. <<AD100>>
+                 |Fahrradstände       |Dieses Formular verwaltet Fahrrad-Touren und Fahrradstände. <<FZ250>>
+                 |Fahrräder           |Dieses Formular verwaltet Fahrräder. <<FZ200>>
+                 |Bücher              |Dieses Formular verwaltet Bücher. <<FZ350>>
+                 |Autoren             |Dieses Formular verwaltet Buch-Autoren. <<FZ300>>
+                 |Serien              |Dieses Formular verwaltet Buch-Serien. <<FZ320>>
+                 |Statistik           |Dieses Formular zeigt eine Übersicht über verschiedene Informationen, die im Programm erfasst sind. <<FZ100>>
+                 |Sudoku              |Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln. <<SO100>>
+                 |Detektiv            |Dieses Formular erlaubt das Prüfen und Lösen von Detektiv-Rätseln. <<SO200>>
+.8+|Haushalt     |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Haushalt.
+                 |Buchungen           |Dieses Formular erlaubt das komfortable Erfassen, Kopieren, Ändern und Stornieren von Buchungen. <<HH400>>
+                 |Ereignisse          |Dieses Formular erlaubt das Bearbeiten von Ereignissen, also vorgefertigten Buchungen. <<HH300>>
+                 |Konten              |Dieses Formular dient der Verwaltung der Konten. Hier können die Konten angezeigt, erstellt, geändert und eingeschränkt gelöscht werden. <<HH200>>
+                 |Perioden            |Mit diesem Formular werden die Perioden bearbeitet. <<HH100>>
+                 |Schlussbilanz       |In diesem Formular wird die Schlussbilanz (SB) als T-Konto dargestellt. <<HH500>>
+                 |G+V-Rechnung        |In diesem Formular wird die Gewinn- und Verlustrechnung (GV) als T-Konto dargestellt. <<HH500>>
+                 |Eröffnungsbilanz    |In diesem Formular wird die Eröffnungsbilanz (EB) als T-Konto dargestellt. <<HH500>>
+.4+|Stammbaum    |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Stammbaum.
+                 |Ahnen               |Dieses Formular verwaltet alle Ahnen. <<SB200>>
+                 |Familien            |Dieses Formular verwaltet alle Ahnen-Familien. <<SB300>>
+                 |Quellen             |Dieses Formular verwaltet die Quellen-Angaben für die Ahnen. <<SB400>>
+.8+|Wertpapiere  |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Wertpapiere.
+                 |Wertpapiere         |Dieses Formular verwaltet alle Wertpapiere. <<WP200>>
+                 |Konfigurationen     |Dieses Formular verwaltet alle Point and Figure-Konfigurationen zur Auswertung von Wertpapieren. <<WP300>>
+                 |Wertpapier-Chart    |Dieses Formular zeigt die Kurse und das Point and Figure-Chart eines Wertpapiers. <<WP100>>
+                 |PnF-Charts          |Dieses Formular zeigt drei Point and Figure-Charts. <<WP110>>
+                 |Anlagen             |Dieses Formular verwaltet alle Anlagen in Wertpapiere. <<WP250>>
+                 |WP-Buchungen        |Dieses Formular erlaubt das komfortable Erfassen, Kopieren, Ändern und Stornieren von Anlage-Buchungen. <<WP400>>
+                 |Stände              |Dieses Formular verwaltet alle Preise von Wertpapieren. <<WP500>>
+.3+|Hilfe        |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Hilfe.
+                 |Über JHH6           |Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufzeit-Umgebung, Anmeldung und Lizenzen. <<AG000>>
+                 |Hilfe               |Dieser Dialog zeigt diese Hilfe an. <<AG010>>
+|==========================
+
+=== Formular-Bereich
+In diesem Tabulator-Bereich wird immer höchstens ein Formular angezeigt. Wenn mehrere Formulare offen sind, kann mit Hilfe der
+Tabulator-Köpfe eines auswählen. Über das X nach dem Formulartitel kann ein Formular geschlossen werden.
+
+=== Statuszeile
+Hier werden Hinweise oder Fehlermeldungen angezeigt.
+
+
+== Formulare und Dialoge
+
+Es gibt zwei verschiedene Arten von Formularen. Die erste Art wird im Formularbereich geöffnet und ist somit von der Größe an das
+Hauptfenster gebunden, z.B. das Tagebuch-Formular. Die andere Art öffnet sich meist als Folgeformular der ersten Art
+und kann in Größe und Position beliebig geändert werden. Die zweite Art wird als Dialog bezeichnet. Diese Dialoge behalten sich die letzte Position und Größe für das
+nächste Öffnen.
+
+In Dialogen müssen einige Felder ausgefüllt werden und heißen daher Pflichtfelder. Diese sind mit einer fetten Bezeichnung gekennzeichnet. 
+
+.Fenster verschwunden?
+NOTE: Falls einzelne Dialoge verschwunden sind, können die Positionen und Größe zurückgesetzt werden, und zwar mit dem Menüpunkt
+_Benutzer_ - _Dialoge zurücksetzen_. Falls das Hauptfenster nicht mehr sichtbar ist, kann es über die Schaltfläche Zurücksetzen auf den
+Hauptbildschirm zurückgeholt werden.
+
+
+=== Bereich Datei und Administration
+Dieser Bereich stellt administrative Dialoge zur Verfügung.
+Außerdem können Sicherungen auf Verzeichnis-Ebene im Sicherung-Dialog durchgeführt werden.
+Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<AG100>>
+* <<AG110>>
+* <<AG200>>
+* <<AG210>>
+* <<AG400>>
+* <<AG410>>
+
+include::../de/ag/AG100.adoc[]
+include::../de/ag/AG110.adoc[]
+include::../de/ag/AG200.adoc[]
+include::../de/ag/AG210.adoc[]
+include::../de/ag/AG400.adoc[]
+include::../de/ag/AG410.adoc[]
+
+
+=== Bereich Benutzer
+In diesem Bereich werden die Einstellungen des Benutzers vorgenommen.
+Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<AM000>>
+* <<AM100>>
+* <<AM500>>
+* <<AM510>>
+
+include::../de/am/AM000.adoc[]
+include::../de/am/AM100.adoc[]
+include::../de/am/AM500.adoc[]
+include::../de/am/AM510.adoc[]
+
+
+:fz0-title: Bereich Privat und Freizeit
+anchor:FZ0[{fz0-title}]
+
+=== {fz0-title}
+In diesem Bereich sind verschiedenartige Dialoge zusammengefasst, die persönliche Daten betreffen.
+Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<TB100>>
+* <<FZ700>>
+* <<FZ710>>
+* <<AD100>>
+* <<AD110>>
+* <<AD120>>
+* <<AD130>>
+* <<AD200>>
+* <<FZ200>>
+* <<FZ210>>
+* <<FZ250>>
+* <<FZ260>>
+* <<FZ300>>
+* <<FZ310>>
+* <<FZ320>>
+* <<FZ330>>
+* <<FZ340>>
+* <<FZ350>>
+* <<FZ100>>
+* <<SO100>>
+* <<SO200>>
+* <<SO210>>
+
+include::../de/tb/TB100.adoc[]
+include::../de/fz/FZ700.adoc[]
+include::../de/fz/FZ710.adoc[]
+include::../de/ad/AD100.adoc[]
+include::../de/ad/AD110.adoc[]
+include::../de/ad/AD120.adoc[]
+include::../de/ad/AD130.adoc[]
+include::../de/ad/AD200.adoc[]
+include::../de/fz/FZ200.adoc[]
+include::../de/fz/FZ210.adoc[]
+include::../de/fz/FZ250.adoc[]
+include::../de/fz/FZ260.adoc[]
+include::../de/fz/FZ300.adoc[]
+include::../de/fz/FZ310.adoc[]
+include::../de/fz/FZ320.adoc[]
+include::../de/fz/FZ330.adoc[]
+include::../de/fz/FZ340.adoc[]
+include::../de/fz/FZ350.adoc[]
+include::../de/fz/FZ100.adoc[]
+include::../de/so/SO100.adoc[]
+include::../de/so/SO200.adoc[]
+include::../de/so/SO210.adoc[]
+
+
+:hh0-title: Bereich Haushalt
+anchor:HH0[{hh0-title}]
+
+=== {hh0-title}
+In diesem Bereich ist eine Haushaltsführung mit doppelter Buchführung, Eröffnungs- und Schlussbilanz sowie Gewinn- und Verlustrechnung möglich.
+Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<HH100>>
+* <<HH200>>
+* <<HH210>>
+* <<HH300>>
+* <<HH310>>
+* <<HH400>>
+* <<HH410>>
+* <<HH500>>
+* <<HH510>>
+
+include::../de/hh/HH100.adoc[]
+include::../de/hh/HH200.adoc[]
+include::../de/hh/HH210.adoc[]
+include::../de/hh/HH300.adoc[]
+include::../de/hh/HH310.adoc[]
+include::../de/hh/HH400.adoc[]
+include::../de/hh/HH410.adoc[]
+include::../de/hh/HH500.adoc[]
+include::../de/hh/HH510.adoc[]
+
+
+:sb0-title: Bereich Stammbaum
+anchor:SB0[{sb0-title}]
+
+=== {sb0-title}
+In diesem Bereich können Ahnen verwaltet werden. Die verwandtschaftlichen Verhältnisse und Quellen-Angaben werden dabei erfasst.
+Die Daten können selektiv als GEDCOM-Datei exportiert und importiert werden.
+Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<SB200>>
+* <<SB210>>
+* <<SB220>>
+* <<SB300>>
+* <<SB310>>
+* <<SB400>>
+* <<SB410>>
+* <<SB500>>
+
+include::../de/sb/SB200.adoc[]
+include::../de/sb/SB210.adoc[]
+include::../de/sb/SB220.adoc[]
+include::../de/sb/SB300.adoc[]
+include::../de/sb/SB310.adoc[]
+include::../de/sb/SB400.adoc[]
+include::../de/sb/SB410.adoc[]
+include::../de/sb/SB500.adoc[]
+
+
+:wp0-title: Bereich Wertpapiere
+anchor:WP0[{wp0-title}]
+
+=== {wp0-title}
+In diesem Bereich können Wertpapiere verwaltet werden.
+Die Kurse der Wertpapiere können als Point and Figure-Chart visualisiert und bewertet werden.
+Darüberhinaus können Anlagen, d.h. Investitionen in Wertpapiere, inklusive Gebühren, Zinsen gebucht werden.
+Die Anlagen bilden ein Depot, das tagesaktuell preislich bewertet werden kann.
+Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<WP100>>
+* <<WP110>>
+* <<WP120>>
+* <<WP200>>
+* <<WP210>>
+* <<WP220>>
+* <<WP250>>
+* <<WP260>>
+* <<WP300>>
+* <<WP310>>
+* <<WP400>>
+* <<WP410>>
+* <<WP500>>
+* <<WP510>>
+
+include::../de/wp/WP100.adoc[]
+include::../de/wp/WP110.adoc[]
+include::../de/wp/WP120.adoc[]
+include::../de/wp/WP200.adoc[]
+include::../de/wp/WP210.adoc[]
+include::../de/wp/WP220.adoc[]
+include::../de/wp/WP250.adoc[]
+include::../de/wp/WP260.adoc[]
+include::../de/wp/WP300.adoc[]
+include::../de/wp/WP310.adoc[]
+include::../de/wp/WP400.adoc[]
+include::../de/wp/WP410.adoc[]
+include::../de/wp/WP500.adoc[]
+include::../de/wp/WP510.adoc[]
+
+
+=== Bereich Hilfe
+Dieser Bereich bietet Hilfe-Funktionen. Dieser Bereich besteht aus folgenden Dialogen:
+
+* <<AG000>>
+* <<AG010>>
+
+include::../de/ag/AG000.adoc[]
+include::../de/ag/AG010.adoc[]

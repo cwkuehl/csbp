@@ -1,0 +1,24 @@
+:fz250-title: Fahrradstände
+anchor:FZ250[{fz250-title}]
+
+==== Formular {fz250-title}
+
+Dieser Dialog verwaltet Fahrrad-Touren und Fahrradstände.
+
+image:FZ250.png[{fz250-title},title={fz250-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Fahrradständen.
+|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Fahrradstandes. <<FZ260>>
+|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Fahrradstandes.
+|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Fahrradstandes.
+|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Fahrradstandes.
+|Fahrradstände|Liste mit allen bestehenden Fahrradständen.
+|Fahrrad      |Ein Fahrrad kann ausgewählt werden. Es werden nur die Fahrradstände des ausgewählten Fahrrads angezeigt.
+|Text         |Suchfeld für die Beschreibung mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Fahrradstände mit der passenden Beschreibung angezeigt.
+|Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
+|==========================

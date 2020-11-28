@@ -1,0 +1,16 @@
+:ad130-title: Adressen
+anchor:AD130[{ad130-title}]
+
+==== Dialog {ad130-title}
+
+In diesem Dialog wird eine bestehende Adresse ausgewählt.
+
+image:AD130.png[{ad130-title},title={ad130-title}]
+
+[width="100%",cols="<1,<5",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Adressen     |Liste von allen vorhandenen Adressen. Eine Adresse kann ausgewählt werden.
+|OK           |Schaltfläche zum Bestätigen der ausgewählten Adresse und Schließen des Dialog.
+|Abbrechen    |Schaltfläche zum Schließen des Dialog ohne Adress-Auswahl.
+|==========================
