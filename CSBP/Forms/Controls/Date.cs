@@ -167,15 +167,15 @@ namespace CSBP.Forms.Controls
       Attach(date, 1, 0, 1, 1);
       down = new Button
       {
-        Label = "",
+        Label = "v",
         Visible = true,
         CanFocus = true,
         ReceivesDefault = true,
-        Image = new Image
-        {
-          Pixbuf = Gtk.IconTheme.Default.LoadIcon("gtk-go-down", 8, 0)
-        },
-        AlwaysShowImage = true,
+        // Image = new Image
+        // {
+        //   Pixbuf = Gtk.IconTheme.Default.LoadIcon("gtk-go-down", 8, 0)
+        // },
+        // AlwaysShowImage = true,
         NoShowAll = true,
       };
       down.Clicked += OnDownClicked;
