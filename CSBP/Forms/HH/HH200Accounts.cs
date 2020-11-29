@@ -102,9 +102,9 @@ namespace CSBP.Forms.HH
         var values = new List<string[]>();
         foreach (var e in l)
         {
-          // Nr.;Art;Ken.;Bezeichnung;Gültig von;Gültig bis;Geändert am;Geändert von;Angelegt am;Angelegt von
+          // Nr.;Art;Ken.;Bezeichnung;Gültig von;Gültig bis;Betrag;Geändert am;Geändert von;Angelegt am;Angelegt von
           values.Add(new string[] { e.Uid, e.Art, e.Kz, e.Name,
-            Functions.ToString(e.Gueltig_Von), Functions.ToString(e.Gueltig_Bis),
+            Functions.ToString(e.Gueltig_Von), Functions.ToString(e.Gueltig_Bis), Functions.ToString(e.EBetrag, 2),
             Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
             Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
         }

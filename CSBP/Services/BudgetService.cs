@@ -187,9 +187,10 @@ namespace CSBP.Services
     /// <param name="desc">Affected description.</param>
     /// <param name="from">Affected type.</param>
     /// <param name="to">Affected type.</param>
+    /// <param name="value">Affected value on date from.</param>
     /// <returns>Possibly errors.</returns>
     public ServiceErgebnis SaveAccount(ServiceDaten daten, string uid, string type, string attr,
-        string desc, DateTime? from, DateTime? to)
+        string desc, DateTime? from, DateTime? to, decimal value)
     {
       var knr = uid;
       var lVon = Constants.MIN_PERIODE;
@@ -211,6 +212,8 @@ namespace CSBP.Services
       if (!(string.IsNullOrEmpty(attr) || attr == Constants.KZK_EK || attr == Constants.KZK_GV || attr == Constants.KZK_DEPOT)
           || (!string.IsNullOrEmpty(attr) && attr.Length > 1))
         throw new MessageException(HH009(attr));
+      if (!IstAktivPassivKontoIntern(type) && value != 0)
+        throw new MessageException(HH083);
       if (IstSpezialKontokennzeichen(attr))
       {
         if (HhKontoRep.GetMin(daten, uid, attr) == null)
@@ -300,7 +303,7 @@ namespace CSBP.Services
         if (anzahl <= 0)
           throw new MessageException(HH018);
         hhKonto = HhKontoRep.Save(daten, daten.MandantNr, knr, sort, type, attr, strN,
-            from, to, lVon, lBis, 0, 0);
+          from, to, lVon, lBis, Functions.konvDM(value), value);
       }
       else
       {
@@ -345,7 +348,28 @@ namespace CSBP.Services
         hhKonto.Gueltig_Bis = to;
         hhKonto.Periode_Von = lVon;
         hhKonto.Periode_Bis = lBis;
+        hhKonto.EBetrag = value;
+        hhKonto.Betrag = Functions.konvDM(value);
         HhKontoRep.Update(daten, hhKonto);
+      }
+      if (IstAktivPassivKontoIntern(type))
+      {
+        SaveChanges(daten);
+        var p0 = HhPeriodeRep.GetMaxMin(daten, true, from);
+        var bi = HhBilanzRep.Get(daten, daten.MandantNr, p0.Nr, Constants.KZBI_EROEFFNUNG, hhKonto.Uid);
+        if (bi.EBetrag != value)
+        {
+          // Anfangswerte ändern und in allen Periode
+          var diff = value - bi.EBetrag;
+          var blist = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, p0.Nr, auid: hhKonto.Uid);
+          blist.AddRange(HhBilanzRep.GetList(daten, Constants.KZBI_SCHLUSS, p0.Nr, auid: hhKonto.Uid));
+          foreach (var b in blist)
+          {
+            b.EBetrag += diff;
+            b.Betrag = Functions.konvDM(b.EBetrag);
+            HhBilanzRep.Update(daten, b);
+          }
+        }
       }
       //if (string.IsNullOrEmpty(s) && string.IsNullOrEmpty(huid) && string.IsNullOrEmpty(wuid) && string.IsNullOrEmpty(muid) && string.IsNullOrEmpty(n)) {
       //    if (vermietung && !insert) {

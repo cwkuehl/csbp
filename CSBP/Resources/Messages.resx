@@ -473,6 +473,9 @@
     <data name="HH082" xml:space="preserve">
         <value>HH082Posting text</value>
     </data>
+    <data name="HH083" xml:space="preserve">
+        <value>HH083The value must be 0.</value>
+    </data>
 
     <data name="SB001" xml:space="preserve">
         <value>SB001Type in a maiden name.</value>
@@ -2328,7 +2331,7 @@
         <value>Accounts</value>
     </data>
     <data name="HH200.konten.columns" xml:space="preserve">
-        <value>No.;Type;Attr.;Description;Valid from;Valid to;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Type;Attr.;Description;Valid from;Valid to;Value_r;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="HH200.alle" xml:space="preserve">
         <value>A_ll</value>
@@ -2423,6 +2426,12 @@
     </data>
     <data name="HH210.bis.tt" xml:space="preserve">
         <value>Valid to</value>
+    </data>
+    <data name="HH210.betrag" xml:space="preserve">
+        <value>Valu_e</value>
+    </data>
+    <data name="HH210.betrag.tt" xml:space="preserve">
+        <value>Value at date from</value>
     </data>
 
     <data name="HH300.title" xml:space="preserve">

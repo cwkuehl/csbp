@@ -473,6 +473,9 @@
     <data name="HH082" xml:space="preserve">
         <value>HH082Text</value>
     </data>
+    <data name="HH083" xml:space="preserve">
+        <value>HH083Der Betrag muss 0 sein.</value>
+    </data>
 
     <data name="SB001" xml:space="preserve">
         <value>SB001Der Geburtsname darf nicht leer sein.</value>
@@ -2328,7 +2331,7 @@
         <value>Konten</value>
     </data>
     <data name="HH200.konten.columns" xml:space="preserve">
-        <value>Nr.;Art;Ken.;Bezeichnung;Gültig von;Gültig bis;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Art;Ken.;Bezeichnung;Gültig von;Gültig bis;Betrag_r;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="HH200.alle" xml:space="preserve">
         <value>A_lle</value>
@@ -2423,6 +2426,12 @@
     </data>
     <data name="HH210.bis.tt" xml:space="preserve">
         <value>Gültig bis</value>
+    </data>
+    <data name="HH210.betrag" xml:space="preserve">
+        <value>B_etrag</value>
+    </data>
+    <data name="HH210.betrag.tt" xml:space="preserve">
+        <value>Betrag am 1. Gültigkeitstag</value>
     </data>
 
     <data name="HH300.title" xml:space="preserve">

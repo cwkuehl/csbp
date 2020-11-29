@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
-  <requires lib="gtk+" version="3.20" />
+  <requires lib="gtk+" version="3.20"/>
   <object class="GtkGrid" id="HH210Account">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -96,11 +97,11 @@
         <child>
           <object class="GtkRadioButton" id="kennzeichen1">
             <property name="label">HH210.kennzeichen1</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kennzeichen1.tt</property>
             <property name="receives_default">False</property>
+            <property name="tooltip_text">HH210.kennzeichen1.tt</property>
+            <property name="use_underline">True</property>
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kennzeichen1</property>
@@ -114,12 +115,11 @@
         <child>
           <object class="GtkRadioButton" id="kennzeichen2">
             <property name="label">HH210.kennzeichen2</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kennzeichen2.tt</property>
             <property name="receives_default">False</property>
-            <property name="active">False</property>
+            <property name="tooltip_text">HH210.kennzeichen2.tt</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kennzeichen1</property>
           </object>
@@ -132,12 +132,11 @@
         <child>
           <object class="GtkRadioButton" id="kennzeichen3">
             <property name="label">HH210.kennzeichen3</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kennzeichen3.tt</property>
             <property name="receives_default">False</property>
-            <property name="active">False</property>
+            <property name="tooltip_text">HH210.kennzeichen3.tt</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kennzeichen1</property>
           </object>
@@ -150,12 +149,11 @@
         <child>
           <object class="GtkRadioButton" id="kennzeichen4">
             <property name="label">HH210.kennzeichen4</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kennzeichen4.tt</property>
             <property name="receives_default">False</property>
-            <property name="active">False</property>
+            <property name="tooltip_text">HH210.kennzeichen4.tt</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kennzeichen1</property>
           </object>
@@ -194,11 +192,11 @@
         <child>
           <object class="GtkRadioButton" id="kontoart1">
             <property name="label">HH210.kontoart1</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kontoart1.tt</property>
             <property name="receives_default">False</property>
+            <property name="tooltip_text">HH210.kontoart1.tt</property>
+            <property name="use_underline">True</property>
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kontoart1</property>
@@ -212,12 +210,11 @@
         <child>
           <object class="GtkRadioButton" id="kontoart2">
             <property name="label">HH210.kontoart2</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kontoart2.tt</property>
             <property name="receives_default">False</property>
-            <property name="active">False</property>
+            <property name="tooltip_text">HH210.kontoart2.tt</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kontoart1</property>
           </object>
@@ -230,12 +227,11 @@
         <child>
           <object class="GtkRadioButton" id="kontoart3">
             <property name="label">HH210.kontoart3</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kontoart3.tt</property>
             <property name="receives_default">False</property>
-            <property name="active">False</property>
+            <property name="tooltip_text">HH210.kontoart3.tt</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kontoart1</property>
           </object>
@@ -248,12 +244,11 @@
         <child>
           <object class="GtkRadioButton" id="kontoart4">
             <property name="label">HH210.kontoart4</property>
-            <property name="use_underline">True</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">HH210.kontoart4.tt</property>
             <property name="receives_default">False</property>
-            <property name="active">False</property>
+            <property name="tooltip_text">HH210.kontoart4.tt</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">kontoart1</property>
           </object>
@@ -288,7 +283,33 @@
       <object class="GtkGrid" id="von">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="visible">True</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -314,7 +335,33 @@
       <object class="GtkGrid" id="bis">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="visible">True</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -333,7 +380,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
+        <property name="top_attach">7</property>
       </packing>
     </child>
     <child>
@@ -348,7 +395,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">6</property>
+        <property name="top_attach">7</property>
       </packing>
     </child>
     <child>
@@ -363,7 +410,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">7</property>
+        <property name="top_attach">8</property>
       </packing>
     </child>
     <child>
@@ -375,21 +422,6 @@
         <property name="hexpand">True</property>
         <property name="activates_default">True</property>
         <property name="placeholder_text">Forms.changed.tt</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="buchung">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">center</property>
-        <property name="label">
-        </property>
-        <property name="use_underline">True</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -408,27 +440,71 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text">Forms.ok.tt</property>
             <property name="use_underline">True</property>
-            <signal name="clicked" handler="OnOkClicked" swapped="no" />
+            <signal name="clicked" handler="OnOkClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="abbrechen">
             <property name="label">Forms.cancel</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="can_default">False</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text">Forms.cancel.tt</property>
             <property name="use_underline">True</property>
-            <signal name="clicked" handler="OnAbbrechenClicked" swapped="no" />
+            <signal name="clicked" handler="OnAbbrechenClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>
         <property name="left_attach">1</property>
         <property name="top_attach">9</property>
       </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="betrag0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">HH210.betrag</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">bezeichnung</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="betrag">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">HH210.betrag.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">HH210.betrag.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>

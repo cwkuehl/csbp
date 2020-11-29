@@ -94,6 +94,14 @@ namespace CSBP.Forms.HH
     //[Builder.Object]
     private Date bis;
 
+    /// <summary>Label betrag0.</summary>
+    [Builder.Object]
+    private Label betrag0;
+
+    /// <summary>Entry betrag.</summary>
+    [Builder.Object]
+    private Entry betrag;
+
     /// <summary>Label angelegt0.</summary>
     [Builder.Object]
     private Label angelegt0;
@@ -199,6 +207,7 @@ namespace CSBP.Forms.HH
           SetText(kontoart1, k.Art);
           von.Value = k.Gueltig_Von;
           bis.Value = k.Gueltig_Bis;
+          betrag.Text = Functions.ToString(k.EBetrag, 2);
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
@@ -210,6 +219,7 @@ namespace CSBP.Forms.HH
           a.Sensitive = !(loeschen || aendern);
         von.Sensitive = !loeschen;
         bis.Sensitive = !loeschen;
+        betrag.IsEditable = !loeschen;
         angelegt.IsEditable = false;
         geaendert.IsEditable = false;
         if (loeschen)
@@ -242,7 +252,7 @@ namespace CSBP.Forms.HH
       {
         r = FactoryService.BudgetService.SaveAccount(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(kontoart1),
-          GetText(kennzeichen1), bezeichnung.Text, von.Value, bis.Value);
+          GetText(kennzeichen1), bezeichnung.Text, von.Value, bis.Value, Functions.ToDecimal(betrag.Text) ?? 0);
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

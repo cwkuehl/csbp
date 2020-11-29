@@ -63,9 +63,10 @@ namespace CSBP.Apis.Services
     /// <param name="desc">Affected description.</param>
     /// <param name="from">Affected type.</param>
     /// <param name="to">Affected type.</param>
+    /// <param name="value">Affected value on date from.</param>
     /// <returns>Possibly errors.</returns>
     ServiceErgebnis SaveAccount(ServiceDaten daten, string uid, string type, string attr,
-        string desc, DateTime? from, DateTime? to);
+        string desc, DateTime? from, DateTime? to, decimal value);
 
     /// <summary>
     /// Deletes an account.

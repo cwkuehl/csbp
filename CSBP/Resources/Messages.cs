@@ -787,6 +787,11 @@ namespace CSBP.Resources
       get { return rm.GetString("HH082"); }
     }
 
+    public static string HH083
+    {
+      get { return rm.GetString("HH083"); }
+    }
+
     public static string SB001
     {
       get { return rm.GetString("SB001"); }
@@ -3935,6 +3940,16 @@ namespace CSBP.Resources
     public static string HH210_bis_tt
     {
       get { return rm.GetString("HH210.bis.tt"); }
+    }
+
+    public static string HH210_betrag
+    {
+      get { return rm.GetString("HH210.betrag"); }
+    }
+
+    public static string HH210_betrag_tt
+    {
+      get { return rm.GetString("HH210.betrag.tt"); }
     }
 
     public static string HH300_title
