@@ -1062,7 +1062,7 @@ namespace CSBP.Services.Pnf
       }
       if (dauer > 0)
       {
-        sb.Append(", ").Append(WP046(dauer, true));
+        sb.Append(", ").Append(WP046(dauer));
       }
       sb.Append(")");
       return sb.ToString();
@@ -1216,13 +1216,13 @@ namespace CSBP.Services.Pnf
     public decimal Ziel
     {
       get { return ziel; }
-       set { ziel = value;}
+      set { ziel = value; }
     }
 
     public decimal Stop
     {
       get { return stop; }
-       set { stop = value;}
+      set { stop = value; }
     }
 
     public decimal GetTrend()

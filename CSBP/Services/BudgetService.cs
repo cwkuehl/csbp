@@ -121,6 +121,7 @@ namespace CSBP.Services
         // Wenn Periode nicht vorhanden ist.
         pdiff = 0;
       }
+      SaveChanges(daten);
       SetzeBerPeriode(daten, lNr + pdiff);
       var r = new ServiceErgebnis();
       return r;

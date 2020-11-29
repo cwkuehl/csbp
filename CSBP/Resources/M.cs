@@ -60,9 +60,9 @@ namespace CSBP.Resources
 
     public static string FZ029(int i, bool cut = false) => string.Format(M0(FZ029_, cut), i);
 
-    public static string FZ036(string s, bool cut = true) => string.Format(M0(FZ036_, cut), s);
+    public static string FZ036(string s, bool cut = false) => string.Format(M0(FZ036_, cut), s);
 
-    public static string HH005(int p) => string.Format(M0(HH005_), p);
+    public static string HH005(int p, bool cut = false) => string.Format(M0(HH005_, cut), p);
 
     public static string HH006(int p, string kz, string sh, string nr, bool cut = true) => string.Format(M0(HH006_, cut), p, kz, sh, nr);
 
@@ -96,7 +96,7 @@ namespace CSBP.Resources
 
     public static string HH047(string p, string t, DateTime d, bool cut = true) => string.Format(M0(HH047_, cut), p, t, d);
 
-    public static string HH051(string c, bool cut = true) => string.Format(M0(HH051_, cut), c);
+    public static string HH051(string c, bool cut = false) => string.Format(M0(HH051_, cut), c);
 
     public static string HH053(int c, bool cut = true) => string.Format(M0(HH053_, cut), c);
 
@@ -126,7 +126,7 @@ namespace CSBP.Resources
 
     public static string SB012(string d, bool cut = false) => string.Format(M0(SB012_, cut), d);
 
-    public static string SB017(string d, bool cut = true) => string.Format(M0(SB017_, cut), d);
+    public static string SB017(string d, bool cut = false) => string.Format(M0(SB017_, cut), d);
 
     public static string SB018(DateTime d, bool cut = true) => string.Format(M0(SB018_, cut), d);
 
@@ -152,7 +152,7 @@ namespace CSBP.Resources
 
     public static string TB003(string[] s) => string.Format(M0(TB003_), s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8]);
 
-    public static string TB004(DateTime d, string act, long exp) => string.Format(TB004_, d, act, exp);
+    public static string TB004(DateTime d, string act, long exp, bool cut = false) => string.Format(M0(TB004_, cut), d, act, exp);
 
     public static string TB006(DateTime d, string entry) => string.Format(M0(TB006_), d, entry);
 
@@ -176,7 +176,7 @@ namespace CSBP.Resources
 
     public static string WP039(int r, bool cut = false) => string.Format(M0(WP039_, cut), r);
 
-    public static string WP046(int d, bool cut = false) => string.Format(M0(WP046_, cut), d);
+    public static string WP046(int d, bool cut = true) => string.Format(M0(WP046_, cut), d);
 
     public static string WP047(DateTime d1, DateTime d2, bool cut = false) => string.Format(M0(WP047_, cut), d1, d2);
 
@@ -184,7 +184,7 @@ namespace CSBP.Resources
 
     public static string WP051(DateTime d, bool cut = true) => string.Format(M0(WP051_, cut), d);
 
-    public static string WP054(string c, string e, bool cut = true) => string.Format(M0(WP054_, cut), c, e);
+    public static string WP054(string c, string e, bool cut = false) => string.Format(M0(WP054_, cut), c, e);
 
     public static string M1011(DateTime date, string of, bool cut = false) => string.Format(M0(M1011_, cut), date, of);
 
