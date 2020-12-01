@@ -128,7 +128,8 @@ namespace CSBP.Services
           Zaehler_km = schnitt
         };
         v.Add(s);
-        d = d.AddYears(1).AddDays(1 - d.DayOfYear);
+        d = d.AddYears(1);
+        d = d.AddDays(1 - d.DayOfYear); // wegen Schaltjahr getrennte Befehle.
       }
       return r;
     }

@@ -162,7 +162,7 @@ namespace CSBP.Forms.Controls
         Visible = true,
         CanFocus = true,
         Hexpand = false,
-        WidthChars = 9
+        WidthChars = 10,
       };
       Attach(date, 1, 0, 1, 1);
       down = new Button
@@ -185,7 +185,8 @@ namespace CSBP.Forms.Controls
         Text = "",
         Visible = true,
         Hexpand = false, // true
-        MarginStart = 5
+        MarginStart = 5,
+        WidthChars = 10,
       };
       Attach(daytext, 3, 0, 1, 1);
       yesterday = new Button
