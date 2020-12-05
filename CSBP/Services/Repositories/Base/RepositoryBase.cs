@@ -61,6 +61,37 @@ namespace CSBP.Services.Repositories.Base
     }
 
     /// <summary>
+    /// Nachbildung der Funktion Like mit StartsWith, Contains und EndsWith.
+    /// </summary>
+    /// <param name="s">Zu prüfender String.</param>
+    /// <param name="exp">Betroffene Like-Expression.</param>
+    /// <returns></returns>
+    protected bool Like(string s, string exp)
+    {
+      // The 'Like' method is not supported because the query has switched to client-evaluation.
+      // This usually happens when the arguments to the method cannot be translated to server.
+      // Rewrite the query to avoid client evaluation of arguments so that method can be translated to server.
+      if (!Functions.IsLike(exp))
+        return true;
+      if (string.IsNullOrEmpty(s))
+        return false;
+      var arr = exp.Split('%', StringSplitOptions.None);
+      if (!string.IsNullOrEmpty(arr[0]))
+        if (!s.StartsWith(arr[0], StringComparison.CurrentCultureIgnoreCase))
+          return false;
+      if (arr.Length > 1 && !string.IsNullOrEmpty(arr[arr.Length - 1]))
+        if (!s.EndsWith(arr[arr.Length - 1], StringComparison.CurrentCultureIgnoreCase))
+          return false;
+      for (var i = 1; i < arr.Length - 1; i++)
+      {
+        if (!string.IsNullOrEmpty(arr[i]) && !s.Contains(arr[i], StringComparison.CurrentCultureIgnoreCase))
+          return false;
+      }
+      return true;
+      // return EF.Functions.Like(s, exp);
+    }
+
+    /// <summary>
     /// Eintragungen in Spalten Angelegt_Von und Angelegt_Am.
     /// </summary>
     /// <param name="b">Entity als ModelBase.</param>

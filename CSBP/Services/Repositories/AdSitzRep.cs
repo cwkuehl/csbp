@@ -50,7 +50,8 @@ namespace CSBP.Services.Repositories
       if (actual)
         pl = pl.Where(a => a.Person_Status == 0);
       var al = db.AD_Adresse.Where(a => a.Mandant_Nr == daten.MandantNr);
-      IEnumerable<AdSitz> l;
+      //IEnumerable<AdSitz> l;
+      List<AdSitz> l;
       if (Functions.MachNichts() == 0)
       { // !string.IsNullOrEmpty(suid)
         // Es muss immer einen Sitz zu der Person geben.
@@ -66,7 +67,7 @@ namespace CSBP.Services.Repositories
             site.Person = a.person;
             site.Address = a.address;
             return site;
-          });
+          }).ToList();
       }
       else
       {
@@ -83,20 +84,36 @@ namespace CSBP.Services.Repositories
             site.Person = a.person;
             site.Address = a.address;
             return site;
-          });
+          }).ToList();
       }
       if (Functions.IsLike(search))
       {
-        l = l.Where(a => EF.Functions.Like(a.Person.Name1, search) || EF.Functions.Like(a.Person.Name2, search)
-          || EF.Functions.Like(a.Person.Praedikat, search) || EF.Functions.Like(a.Person.Vorname, search)
-          || EF.Functions.Like(a.Person.Titel, search)
-          || EF.Functions.Like(a.Name, search) || EF.Functions.Like(a.Telefon, search)
-          || EF.Functions.Like(a.Fax, search) || EF.Functions.Like(a.Mobil, search)
-          || EF.Functions.Like(a.Email, search) || EF.Functions.Like(a.Homepage, search)
-          || EF.Functions.Like(a.Postfach, search) || EF.Functions.Like(a.Bemerkung, search)
-          || (a.Address != null && (EF.Functions.Like(a.Address.Staat, search) || EF.Functions.Like(a.Address.Plz, search)
-          || EF.Functions.Like(a.Address.Ort, search) || EF.Functions.Like(a.Address.Strasse, search)
-          || EF.Functions.Like(a.Address.HausNr, search))));
+        // l = l.Where(a => Like(a.Person.Name1, search) || Like(a.Person.Name2, search)
+        //   || Like(a.Person.Praedikat, search) || Like(a.Person.Vorname, search)
+        //   || Like(a.Person.Titel, search)
+        //   || Like(a.Name, search) || Like(a.Telefon, search)
+        //   || Like(a.Fax, search) || Like(a.Mobil, search)
+        //   || Like(a.Email, search) || Like(a.Homepage, search)
+        //   || Like(a.Postfach, search) || Like(a.Bemerkung, search)
+        //   || (a.Address != null && (Like(a.Address.Staat, search) || Like(a.Address.Plz, search)
+        //   || Like(a.Address.Ort, search) || Like(a.Address.Strasse, search)
+        //   || Like(a.Address.HausNr, search)))).ToList();
+        var ll = new List<AdSitz>();
+        foreach (var a in l)
+        {
+          if (Like(a.Person.Name1, search) || Like(a.Person.Name2, search)
+          || Like(a.Person.Praedikat, search) || Like(a.Person.Vorname, search)
+          || Like(a.Person.Titel, search)
+          || Like(a.Name, search) || Like(a.Telefon, search)
+          || Like(a.Fax, search) || Like(a.Mobil, search)
+          || Like(a.Email, search) || Like(a.Homepage, search)
+          || Like(a.Postfach, search) || Like(a.Bemerkung, search)
+          || (a.Address != null && (Like(a.Address.Staat, search) || Like(a.Address.Plz, search)
+          || Like(a.Address.Ort, search) || Like(a.Address.Strasse, search)
+          || Like(a.Address.HausNr, search))))
+            ll.Add(a);
+        }
+        l = ll;
       }
       var l2 = l.OrderBy(a => a?.Person?.Name1).ThenBy(a => a?.Person?.Vorname).ThenBy(a => a?.Person?.Uid)
         .ThenBy(a => a?.Reihenfolge).ThenBy(a => a?.Uid).ToList();

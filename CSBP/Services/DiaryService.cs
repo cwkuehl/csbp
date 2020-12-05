@@ -294,13 +294,9 @@ namespace CSBP.Services
         {
           muster = str.Replace("####", "\\D*(\\d+)");
           if (muster.StartsWith("%", StringComparison.Ordinal))
-          {
             muster = muster.Substring(1);
-          }
           if (muster.EndsWith("%", StringComparison.Ordinal))
-          {
             muster = muster.Substring(0, muster.Length - 1);
-          }
           str = str.Replace("####", "");
           rf = true;
         }
@@ -408,40 +404,26 @@ namespace CSBP.Services
     void CheckSearch(string[] suche)
     {
       if (suche == null || suche.Length != 9)
-      {
         throw new MessageException(TB001);
-      }
       var str = suche[0];
       if (str == null || str == "%%")
-      {
         str = "%";
-      }
       suche[0] = str;
       for (var i = 1; i < 9; i++)
       {
         str = suche[i];
-        if (string.IsNullOrEmpty(str) || str == "%" || str == "%%")
-        {
+        if (!Functions.IsLike(str))
           str = "";
-        }
         suche[i] = str;
       }
       if (suche[3] == "" && suche[4] != "")
-      {
         suche[3] = suche[4];
-      }
       if (suche[3] == "" && suche[5] != "")
-      {
         suche[3] = suche[5];
-      }
       if (suche[6] == "" && suche[7] != "")
-      {
         suche[6] = suche[7];
-      }
       if (suche[6] == "" && suche[8] != "")
-      {
         suche[6] = suche[8];
-      }
     }
   }
 }
