@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": ".NET Core Launch (console)",
+      "name": ".NET Core Launch (console) Linux",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -14,6 +14,22 @@
       "program": "${workspaceFolder}/CSBP/bin/Debug/net5.0/CSBP.dll",
       "args": [
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
+      ],
+      "cwd": "${workspaceFolder}/CSBP",
+      // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET Core Launch (console) Windows",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      // If you have changed target frameworks, make sure to update the program path.
+      // "program": "${workspaceFolder}/CSBP/bin/Debug/netcoreapp3.1/CSBP.dll",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net5.0/CSBP.dll",
+      "args": [
+        "DB_DRIVER_CONNECT=Data Source=C:\\Users\\Benni\\Documents\\csbp\\csbp.db"
       ],
       "cwd": "${workspaceFolder}/CSBP",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
