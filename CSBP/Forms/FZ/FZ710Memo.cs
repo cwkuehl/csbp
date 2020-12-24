@@ -105,7 +105,10 @@ namespace CSBP.Forms.FZ
     {
       SetBold(thema0);
       InitData(0);
-      notiz.GrabFocus();
+      if (string.IsNullOrEmpty(thema.Text))
+        thema.GrabFocus();
+      else
+        notiz.GrabFocus();
     }
 
     /// <summary>Model-Daten initialisieren.</summary>
@@ -136,9 +139,12 @@ namespace CSBP.Forms.FZ
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
+        else
+          GetMemo(null);
         nr.IsEditable = false;
         thema.IsEditable = !loeschen;
         notiz.Editable = !loeschen;
+        tabelle.Sensitive = !loeschen;
         angelegt.IsEditable = false;
         geaendert.IsEditable = false;
         if (loeschen)
@@ -189,10 +195,30 @@ namespace CSBP.Forms.FZ
       dialog.Hide();
     }
 
+    private string InitMemo()
+    {
+      var zeilen = 1;
+      var spalten = 2;
+      var teiler = 0;
+      var doc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+      var table = new XElement("tabelle", new XAttribute("spalten", $"{spalten - 2}")
+        , new XAttribute("zeilen", $"{zeilen}"), new XAttribute("teiler", $"{teiler}")
+        , new XAttribute("breite0", "50"), new XAttribute("hoehe0", "30")
+        );
+      doc.Add(table);
+      using (var sw = new StringWriter())
+      using (var tw = XmlWriter.Create(sw))
+      {
+        doc.WriteTo(tw);
+        tw.Flush();
+        return sw.GetStringBuilder().ToString();
+      }
+    }
+
     private string GetMemo(string xml)
     {
       if (string.IsNullOrWhiteSpace(xml))
-        return null;
+        xml = InitMemo();
       var doc = new XmlDocument();
       doc.Load(new StringReader(xml));
       var root = doc.DocumentElement;
@@ -247,9 +273,9 @@ namespace CSBP.Forms.FZ
       }
       var doc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
       var table = new XElement("tabelle", new XAttribute("spalten", $"{spalten - 2}")
-          , new XAttribute("zeilen", $"{zeilen}"), new XAttribute("teiler", $"{teiler}")
-          , new XAttribute("breite0", "50"), new XAttribute("hoehe0", "30")
-          );
+        , new XAttribute("zeilen", $"{zeilen}"), new XAttribute("teiler", $"{teiler}")
+        , new XAttribute("breite0", "50"), new XAttribute("hoehe0", "30")
+        );
       doc.Add(table);
       if (model.GetIterFirst(out it))
       {

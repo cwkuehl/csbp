@@ -659,9 +659,7 @@ namespace CSBP.Services
       var r = new ServiceErgebnis<FzNotiz>();
       topic = topic.TrimNull();
       if (string.IsNullOrWhiteSpace(topic))
-      {
         r.Errors.Add(Message.New(FZ035));
-      }
       if (!r.Ok)
         return r;
       r.Ergebnis = FzNotizRep.Save(daten, daten.MandantNr, uid, topic, notes);
