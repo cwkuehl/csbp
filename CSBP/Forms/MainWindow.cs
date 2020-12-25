@@ -298,7 +298,8 @@ namespace CSBP.Forms
       Notebook.RemovePage(0);
       MainClass.InitDb(new ServiceDaten(0, "Admin"));
 #if DEBUG
-      MainClass.Login(new ServiceDaten(1, "Wolfgang")); // Automatische Anmeldung
+      var username = Environment.UserName;
+      MainClass.Login(new ServiceDaten(1, username.ToFirstUpper())); // Automatische Anmeldung mit aktuellem Benutzer.
       // MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
       var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
