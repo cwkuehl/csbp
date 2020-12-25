@@ -3838,6 +3838,12 @@
     <data name="WP260.wertpapier.tt" xml:space="preserve">
         <value>Reference to stock</value>
     </data>
+    <data name="WP260.wpdetails" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="WP260.wpdetails.tt" xml:space="preserve">
+        <value>Show stock details</value>
+    </data>
     <data name="WP260.bezeichnung" xml:space="preserve">
         <value>_Description</value>
     </data>

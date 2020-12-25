@@ -6257,6 +6257,16 @@ namespace CSBP.Resources
       get { return rm.GetString("WP260.wertpapier.tt"); }
     }
 
+    public static string WP260_wpdetails
+    {
+      get { return rm.GetString("WP260.wpdetails"); }
+    }
+
+    public static string WP260_wpdetails_tt
+    {
+      get { return rm.GetString("WP260.wpdetails.tt"); }
+    }
+
     public static string WP260_bezeichnung
     {
       get { return rm.GetString("WP260.bezeichnung"); }

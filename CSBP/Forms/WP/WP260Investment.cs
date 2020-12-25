@@ -216,6 +216,15 @@ namespace CSBP.Forms.WP
     {
     }
 
+    /// <summary>Behandlung von Wpdetails.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnWpdetailsClicked(object sender, EventArgs e)
+    {
+      var uid = GetText(wertpapier);
+      Start(typeof(WP210Stock), WP210_title, DialogTypeEnum.Edit, uid, csbpparent: this);
+    }
+
     /// <summary>Behandlung von Status.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
