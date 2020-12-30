@@ -3770,6 +3770,12 @@
     <data name="WP210.notiz.tt" xml:space="preserve">
         <value>Memos</value>
     </data>
+    <data name="WP210.anlage" xml:space="preserve">
+        <value>Create investment</value>
+    </data>
+    <data name="WP210.anlage.tt" xml:space="preserve">
+        <value>Create investment for stock?</value>
+    </data>
 
     <data name="WP250.title" xml:space="preserve">
         <value>Investments</value>

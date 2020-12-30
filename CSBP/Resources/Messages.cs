@@ -6147,6 +6147,16 @@ namespace CSBP.Resources
       get { return rm.GetString("WP210.notiz.tt"); }
     }
 
+    public static string WP210_anlage
+    {
+      get { return rm.GetString("WP210.anlage"); }
+    }
+
+    public static string WP210_anlage_tt
+    {
+      get { return rm.GetString("WP210.anlage.tt"); }
+    }
+
     public static string WP250_title
     {
       get { return rm.GetString("WP250.title"); }

@@ -46,10 +46,11 @@ namespace CSBP.Apis.Services
     /// <param name="memo">Affected memo.</param>
     /// <param name="type">Affected type.</param>
     /// <param name="currency">Affected currency.</param>
+    /// <param name="inv">Create also an investment?</param>
     /// <returns>Created or changed stock.</returns>
     ServiceErgebnis<WpWertpapier> SaveStock(ServiceDaten daten, string uid, string desc,
-      string abbreviation, decimal? signal1, string sort, string source,
-      string state, string relationuid, string memo, string type = null, string currency = null);
+      string abbreviation, decimal? signal1, string sort, string source, string state,
+      string relationuid, string memo, string type = null, string currency = null, bool inv = false);
 
     /// <summary>
     /// Deletes a stock.

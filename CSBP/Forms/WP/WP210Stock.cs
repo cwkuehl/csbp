@@ -5,6 +5,7 @@
 namespace CSBP.Forms.WP
 {
   using System;
+  using System.Linq;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
@@ -149,6 +150,10 @@ namespace CSBP.Forms.WP
     [Builder.Object]
     private Entry geaendert;
 
+    /// <summary>CheckButton anlage.</summary>
+    [Builder.Object]
+    private CheckButton anlage;
+
     /// <summary>Button ok.</summary>
     [Builder.Object]
     private Button ok;
@@ -193,8 +198,11 @@ namespace CSBP.Forms.WP
     {
       if (step <= 0)
       {
-        AddColumns(provider, Get(FactoryService.StockService.GetProviderList(ServiceDaten)));
+        var pl = Get(FactoryService.StockService.GetProviderList(ServiceDaten));
+        AddColumns(provider, pl);
         AddColumns(status, Get(FactoryService.StockService.GetStateList(ServiceDaten)));
+        if (pl != null && pl.Any())
+          SetText(provider, pl.First().Schluessel);
         SetText(status, "1");
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
@@ -229,6 +237,8 @@ namespace CSBP.Forms.WP
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
+        else
+          anlage.Active = true;
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;
         provider.Sensitive = !loeschen;
@@ -245,6 +255,7 @@ namespace CSBP.Forms.WP
         notiz.Editable = !loeschen;
         angelegt.IsEditable = false;
         geaendert.IsEditable = false;
+        anlage.Sensitive = !loeschen;
         if (loeschen)
           ok.Label = Forms_delete;
         var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, null, null, copy ? null : Model?.Uid));
@@ -284,13 +295,13 @@ namespace CSBP.Forms.WP
     {
       ServiceErgebnis r = null;
       if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
-          || DialogType == DialogTypeEnum.Edit)
+        || DialogType == DialogTypeEnum.Edit)
       {
         r = FactoryService.StockService.SaveStock(ServiceDaten,
-            DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, kuerzel.Text,
-            Functions.ToDecimal(signalKurs1.Text, 4), sortierung.Text,
-            GetText(provider), GetText(status), GetText(relation), notiz.Buffer.Text,
-            typ.Text, waehrung.Text);
+          DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, kuerzel.Text,
+          Functions.ToDecimal(signalKurs1.Text, 4), sortierung.Text,
+          GetText(provider), GetText(status), GetText(relation), notiz.Buffer.Text,
+          typ.Text, waehrung.Text, anlage.Active);
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.2 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
@@ -567,7 +567,20 @@
       </packing>
     </child>
     <child>
-      <placeholder/>
+      <object class="GtkCheckButton" id="anlage">
+            <property name="label">WP210.anlage</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">WP210.anlage.tt</property>
+            <property name="valign">start</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">12</property>
+      </packing>
     </child>
   </object>
 </interface>

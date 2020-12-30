@@ -3770,6 +3770,12 @@
     <data name="WP210.notiz.tt" xml:space="preserve">
         <value>Notizen</value>
     </data>
+    <data name="WP210.anlage" xml:space="preserve">
+        <value>Anlage erstellen</value>
+    </data>
+    <data name="WP210.anlage.tt" xml:space="preserve">
+        <value>Soll für das Wertpapier auch eine Anlage erstellt werden?</value>
+    </data>
 
     <data name="WP250.title" xml:space="preserve">
         <value>Anlagen</value>

@@ -74,10 +74,11 @@ namespace CSBP.Services
     /// <param name="notice">Affected abbreviation.</param>
     /// <param name="type">Affected type.</param>
     /// <param name="currency">Affected currency.</param>
+    /// <param name="inv">Create also an investment?</param>
     /// <returns>Created or changed stock.</returns>
     public ServiceErgebnis<WpWertpapier> SaveStock(ServiceDaten daten, string uid, string desc,
       string abbreviation, decimal? signal1, string sort, string source, string state,
-      string relationuid, string notice, string type = null, string currency = null)
+      string relationuid, string notice, string type = null, string currency = null, bool inv = false)
     {
       desc = desc.TrimNull();
       abbreviation = abbreviation.TrimNull();
@@ -110,6 +111,14 @@ namespace CSBP.Services
       wp.Currency = currency;
       r.Ergebnis = WpWertpapierRep.Save(daten, daten.MandantNr, uid, desc, abbreviation, wp.Parameter,
         source, state, relationuid, notice);
+      if (inv && r.Ergebnis != null)
+      {
+        // Create an investment.
+        SaveChanges(daten);
+        var st = r.Ergebnis;
+        var bez = (string.IsNullOrEmpty(st.Sorting) ? "" : st.Sorting.ToUpper() + " ") + st.Bezeichnung;
+        WpAnlageRep.Save(daten, st.Mandant_Nr, null, st.Uid, bez, null, null);
+      }
       return r;
     }
 
