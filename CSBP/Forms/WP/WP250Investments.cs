@@ -154,7 +154,7 @@ namespace CSBP.Forms.WP
       if (step <= 1)
       {
         var l = Get(FactoryService.StockService.GetInvestmentList(ServiceDaten, auchinaktiv.Active,
-          bezeichnung.Text, null, GetText(wertpapier))) ?? new List<WpAnlage>();
+          null, null, GetText(wertpapier), bezeichnung.Text)) ?? new List<WpAnlage>();
         var values = new List<string[]>();
         var anz = l.Count;
         var summe = 0m;

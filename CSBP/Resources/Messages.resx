@@ -3799,10 +3799,10 @@
         <value>Date for calculation</value>
     </data>
      <data name="WP250.bezeichnung" xml:space="preserve">
-        <value>_Description</value>
+        <value>_Text</value>
     </data>
     <data name="WP250.bezeichnung.tt" xml:space="preserve">
-        <value>Search description</value>
+        <value>Search text</value>
     </data>
     <data name="WP250.wertpapier" xml:space="preserve">
         <value>_Stock</value>

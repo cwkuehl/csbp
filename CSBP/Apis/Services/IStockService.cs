@@ -153,9 +153,10 @@ namespace CSBP.Apis.Services
     /// <param name="desc">Affected Description.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="stuid">Affected stock ID.</param>
+    /// <param name="search">Affected text search.</param>
     /// <returns>List of investments.</returns>
     ServiceErgebnis<List<WpAnlage>> GetInvestmentList(ServiceDaten daten, bool inactive,
-      string desc = null, string uid = null, string stuid = null);
+      string desc = null, string uid = null, string stuid = null, string search = null);
 
     /// <summary>
     /// Gets an investment.

@@ -17,8 +17,18 @@ namespace CSBP.Services.Repositories
   /// </summary>
   public partial class WpAnlageRep
   {
+    /// <summary>
+    /// Gets a list of investments.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="mandantnr">Affected client.</param>
+    /// <param name="desc">Affected Description.</param>
+    /// <param name="uid">Affected ID.</param>
+    /// <param name="stuid">Affected stock ID.</param>
+    /// <param name="search">Affected text search.</param>
+    /// <returns>List of investments.</returns>
     public List<WpAnlage> GetList(ServiceDaten daten, int mandantnr, string desc,
-        string uid = null, string stuid = null)
+        string uid = null, string stuid = null, string search = null)
     {
       var db = GetDb(daten);
       var wl = db.WP_Anlage.Where(a => a.Mandant_Nr == mandantnr);
@@ -41,6 +51,23 @@ namespace CSBP.Services.Repositories
             return a.investment;
           })
           ;
+      if (Functions.IsLike(search))
+      {
+        // l = l.ToList().Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text)
+        //   || EF.Functions.Like(a.StockDescription, text) || EF.Functions.Like(a.StockProvider, text)
+        //   || EF.Functions.Like(a.StockShortcut, text) || EF.Functions.Like(a.StockType, text)
+        //   || EF.Functions.Like(a.StockCurrency, text));
+        var ll = new List<WpAnlage>();
+        foreach (var a in l)
+        {
+          if (Like(a.Bezeichnung, search) || Like(a.Notiz, search)
+          || Like(a.StockDescription, search) || Like(a.StockProvider, search)
+          || Like(a.StockShortcut, search) || Like(a.StockType, search)
+          || Like(a.StockCurrency, search))
+            ll.Add(a);
+        }
+        l = ll;
+      }
       return l.OrderBy(a => a.Bezeichnung).ToList();
     }
   }

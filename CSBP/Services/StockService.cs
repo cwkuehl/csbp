@@ -350,11 +350,12 @@ namespace CSBP.Services
     /// <param name="desc">Affected Description.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="stuid">Affected stock ID.</param>
+    /// <param name="search">Affected text search.</param>
     /// <returns>List of investments.</returns>
     public ServiceErgebnis<List<WpAnlage>> GetInvestmentList(ServiceDaten daten, bool inactive,
-        string desc = null, string uid = null, string stuid = null)
+        string desc = null, string uid = null, string stuid = null, string search = null)
     {
-      var l = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid);
+      var l = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
       if (!inactive)
         l = l.Where(a => a.State != 0).ToList();
       var r = new ServiceErgebnis<List<WpAnlage>>(l);
