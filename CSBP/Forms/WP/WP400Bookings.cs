@@ -244,6 +244,8 @@ namespace CSBP.Forms.WP
     void StartDialog(DialogTypeEnum dt)
     {
       var uid = GetValue<string>(buchungen, dt != DialogTypeEnum.New);
+      if (dt == DialogTypeEnum.New)
+        uid = GetText(anlage);
       Start(typeof(WP410Booking), WP410_title, dt, uid, csbpparent: this);
     }
   }

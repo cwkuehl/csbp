@@ -237,7 +237,7 @@ namespace CSBP.Forms.WP
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
-        else
+        if (neu || copy)
           anlage.Active = true;
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;

@@ -116,8 +116,25 @@ namespace CSBP.Services
         // Create an investment.
         SaveChanges(daten);
         var st = r.Ergebnis;
+        string parameter = null;
+        if (!string.IsNullOrEmpty(st.Sorting))
+        {
+          var ilist = WpAnlageRep.GetList(daten, daten.MandantNr, st.Sorting.ToUpper() + " %");
+          var i = ilist.FirstOrDefault(a => !string.IsNullOrEmpty(a.PortfolioAccountUid) && a.State == 1);
+          if (i != null)
+          {
+            var i0 = new WpAnlage
+            {
+              State = 1,
+              PortfolioAccountUid = i.PortfolioAccountUid,
+              SettlementAccountUid = i.SettlementAccountUid,
+              IncomeAccountUid = i.IncomeAccountUid,
+            };
+            parameter = i0.Parameter;
+          }
+        }
         var bez = (string.IsNullOrEmpty(st.Sorting) ? "" : st.Sorting.ToUpper() + " ") + st.Bezeichnung;
-        WpAnlageRep.Save(daten, st.Mandant_Nr, null, st.Uid, bez, null, null);
+        WpAnlageRep.Save(daten, st.Mandant_Nr, null, st.Uid, bez, parameter, null);
       }
       return r;
     }

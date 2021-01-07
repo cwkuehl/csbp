@@ -235,6 +235,11 @@ namespace CSBP.Forms.WP
         var loeschen = DialogType == DialogTypeEnum.Delete || DialogType == DialogTypeEnum.Reverse;
         var kopieren = DialogType == DialogTypeEnum.Copy;
         var uid = Parameter1 as string;
+        if (neu && uid != null)
+        {
+          SetText(anlage, uid);
+          EventList(uid);
+        }
         if (!neu && uid != null)
         {
           var k = Get(FactoryService.StockService.GetBooking(ServiceDaten, uid));

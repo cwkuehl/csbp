@@ -133,6 +133,7 @@ namespace CSBP.Forms.WP
       };
       bis.DateChanged += OnBisDateChanged;
       bis.Show();
+      ObservableEventThrottle(refreshAction, delegate { RefreshTreeView(wertpapiere, 1); });
       // SetBold(client0);
       InitData(0);
       wertpapiere.GrabFocus();
@@ -185,7 +186,7 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnRefreshClicked(object sender, EventArgs e)
     {
-      RefreshTreeView(wertpapiere, 1);
+      // RefreshTreeView(wertpapiere, 1);
     }
 
     /// <summary>Behandlung von Undo.</summary>
