@@ -163,8 +163,8 @@ namespace CSBP.Forms.WP
         var diff = 0m;
         foreach (var e in l)
         {
-          // Nr.;Wertpapier;Bezeichnung;Betrag;Wert;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
-          values.Add(new string[] { e.Uid, e.Bezeichnung, e.StockProvider, Functions.ToString(e.Payment, 2),
+          // Nr.;Bezeichnung;Provider;Kürzel;Betrag;Wert;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
+          values.Add(new string[] { e.Uid, e.Bezeichnung, e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
             Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2), Functions.ToString(e.Value2 == 0 ? 0 : e.Value - e.Value2, 2),
             Functions.ToString(e.PriceDate), e.Currency, Functions.ToString(e.Geaendert_Am, true),
             e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
