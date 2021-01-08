@@ -108,7 +108,7 @@ namespace CSBP.Apis.Models
     [NotMapped]
     public DateTime? PriceDate { get; set; }
 
-    /// <summary>Holt oder setzt das Kursdatum.</summary>
+    /// <summary>Holt oder setzt den Wechsel.</summary>
     [NotMapped]
     public string Xo { get; set; }
 

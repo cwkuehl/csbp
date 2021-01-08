@@ -144,7 +144,7 @@ namespace CSBP.Forms.WP
         EventsActive = false;
         bis.Value = daten.Heute;
         bezeichnung.Text = "%%";
-        var rl = Get(FactoryService.StockService.GetStockList(daten, true, null, null, null));
+        var rl = Get(FactoryService.StockService.GetStockList(daten, true));
         var rs = AddColumns(wertpapier, emptyentry: true);
         foreach (var p in rl)
           rs.AppendValues(p.Bezeichnung, p.Uid);

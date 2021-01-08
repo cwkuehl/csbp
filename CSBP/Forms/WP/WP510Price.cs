@@ -119,7 +119,7 @@ namespace CSBP.Forms.WP
       if (step <= 0)
       {
         valuta.Value = LastValuta;
-        var rl = Get(FactoryService.StockService.GetStockList(daten, true, null, null, null)) ?? new List<WpWertpapier>();
+        var rl = Get(FactoryService.StockService.GetStockList(daten, true)) ?? new List<WpWertpapier>();
         var rs = AddColumns(wertpapier);
         foreach (var p in rl)
           rs.AppendValues(p.Bezeichnung, p.Uid);

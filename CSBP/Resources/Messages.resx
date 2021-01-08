@@ -3665,10 +3665,10 @@
         <value>Calculate rating for all active stocks?</value>
     </data>
     <data name="WP200.bezeichnung" xml:space="preserve">
-        <value>_Description</value>
+        <value>_Text</value>
     </data>
     <data name="WP200.bezeichnung.tt" xml:space="preserve">
-        <value>Search description</value>
+        <value>Search text</value>
     </data>
     <data name="WP200.muster" xml:space="preserve">
         <value>_Pattern</value>

@@ -158,7 +158,7 @@ namespace CSBP.Forms.WP
       }
       if (step <= 1)
       {
-        var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, bezeichnung.Text, muster.Text));
+        var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, null, muster.Text, null, bezeichnung.Text));
         // Nr.;Sort.;Name;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
         var values = new List<string[]>();
         foreach (var e in l)

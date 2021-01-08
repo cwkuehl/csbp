@@ -31,11 +31,12 @@ namespace CSBP.Services
     /// <param name="desc">Affected Description.</param>
     /// <param name="pattern">Affected Pattern.</param>
     /// <param name="uid">Affected ID.</param>
+    /// <param name="search">Affected text search.</param>
     /// <returns>List of stocks.</returns>
     public ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool extended,
-        string desc = null, string pattern = null, string uid = null)
+        string desc = null, string pattern = null, string uid = null, string search = null)
     {
-      var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, null, uid, null, false);
+      var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, null, uid, false, search);
       foreach (var w in l)
       {
         if (extended)
