@@ -6347,6 +6347,16 @@ namespace CSBP.Resources
       get { return rm.GetString("WP260.daten.tt"); }
     }
 
+    public static string WP260_stand
+    {
+      get { return rm.GetString("WP260.stand"); }
+    }
+
+    public static string WP260_stand_tt
+    {
+      get { return rm.GetString("WP260.stand.tt"); }
+    }
+
     public static string WP300_title
     {
       get { return rm.GetString("WP300.title"); }

@@ -396,9 +396,12 @@ namespace CSBP.Services
     /// <param name="pfuid">Affected portfolio account ID.</param>
     /// <param name="smuid">Affected settlement account ID.</param>
     /// <param name="icuid">Affected income account ID.</param>
+    /// <param name="valuta">Affected value date.</param>
+    /// <param name="value">Affected value.</param>
     /// <returns>Created or changed investment.</returns>
     public ServiceErgebnis<WpAnlage> SaveInvestment(ServiceDaten daten, string uid, string stuid,
-      string desc, string memo, int state, string pfuid, string smuid, string icuid)
+      string desc, string memo, int state, string pfuid, string smuid, string icuid,
+      DateTime? valuta, decimal value)
     {
       var r = new ServiceErgebnis<WpAnlage>();
       desc = desc.TrimNull();
@@ -427,6 +430,13 @@ namespace CSBP.Services
       inv.SettlementAccountUid = smuid;
       inv.IncomeAccountUid = icuid;
       r.Ergebnis = WpAnlageRep.Save(daten, daten.MandantNr, uid, stuid, desc, inv.Parameter, memo);
+      if (valuta.HasValue && value > 0 && inv.Shares > 0)
+      {
+        SaveChanges(daten);
+        var i = r.Ergebnis;
+        var sv = Functions.Round4(value / i.Shares) ?? 0;
+        WpStandRep.Save(daten, daten.MandantNr, i.Wertpapier_Uid, valuta.Value, sv);
+      }
       return r;
     }
 

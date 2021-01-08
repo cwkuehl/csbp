@@ -11,6 +11,7 @@ namespace CSBP.Forms.WP
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
+  using CSBP.Forms.Controls;
   using CSBP.Services.Factory;
   using Gtk;
   using static CSBP.Resources.Messages;
@@ -99,6 +100,14 @@ namespace CSBP.Forms.WP
     [Builder.Object]
     private Entry geaendert;
 
+    /// <summary>Date Valuta.</summary>
+    //[Builder.Object]
+    private Date valuta;
+
+    /// <summary>Entry stand.</summary>
+    [Builder.Object]
+    private Entry stand;
+
     /// <summary>Button ok.</summary>
     [Builder.Object]
     private Button ok;
@@ -129,6 +138,14 @@ namespace CSBP.Forms.WP
     public WP260Investment(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
         : base(b, h, d, dt, p1, p)
     {
+      valuta = new Date(Builder.GetObject("valuta").Handle)
+      {
+        IsNullable = false,
+        IsWithCalendar = true,
+        IsCalendarOpen = false
+      };
+      // valuta.DateChanged += OnValutaDateChanged;
+      valuta.Show();
       SetBold(wertpapier0);
       SetBold(bezeichnung0);
       SetBold(status0);
@@ -166,6 +183,7 @@ namespace CSBP.Forms.WP
           if (p.Art == Constants.ARTK_ERTRAGSKONTO && (keind || p.Kz == Constants.KZK_DEPOT))
             re.AppendValues(p.Name, p.Uid);
         }
+        valuta.Value = daten.Heute;
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var uid = Parameter1 as string;
@@ -243,7 +261,8 @@ namespace CSBP.Forms.WP
       {
         r = FactoryService.StockService.SaveInvestment(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(wertpapier), bezeichnung.Text,
-          notiz.Buffer.Text, Functions.ToInt32(GetText(status)), GetText(depot), GetText(abrechnung), GetText(ertrag));
+          notiz.Buffer.Text, Functions.ToInt32(GetText(status)), GetText(depot), GetText(abrechnung), GetText(ertrag),
+          valuta.Value, Functions.ToDecimal(stand.Text, 2) ?? 0);
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

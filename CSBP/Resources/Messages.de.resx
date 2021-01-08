@@ -3892,6 +3892,12 @@
     <data name="WP260.daten.tt" xml:space="preserve">
         <value>Daten</value>
     </data>
+    <data name="WP260.stand" xml:space="preserve">
+        <value>_Stand</value>
+    </data>
+    <data name="WP260.stand.tt" xml:space="preserve">
+        <value>Wert aller Anteile der Anlage am Datum</value>
+    </data>
 
     <data name="WP300.title" xml:space="preserve">
         <value>Konfigurationen</value>

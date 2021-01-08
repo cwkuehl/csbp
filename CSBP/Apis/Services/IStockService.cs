@@ -178,9 +178,12 @@ namespace CSBP.Apis.Services
     /// <param name="pfuid">Affected portfolio account ID.</param>
     /// <param name="smuid">Affected settlement account ID.</param>
     /// <param name="icuid">Affected income account ID.</param>
+    /// <param name="valuta">Affected value date.</param>
+    /// <param name="value">Affected value.</param>
     /// <returns>Created or changed investment.</returns>
     ServiceErgebnis<WpAnlage> SaveInvestment(ServiceDaten daten, string uid, string stuid,
-      string desc, string memo, int state, string pfuid, string smuid, string icuid);
+      string desc, string memo, int state, string pfuid, string smuid, string icuid,
+      DateTime? valuta, decimal value);
 
     /// <summary>
     /// Deletes an investment.

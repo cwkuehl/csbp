@@ -326,7 +326,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">11</property>
+        <property name="top_attach">12</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -446,6 +446,50 @@
       <packing>
         <property name="left_attach">3</property>
         <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="stand0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP260.stand</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">stand</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">11</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="stand">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">WP260.stand.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">WP260.stand.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">11</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="valuta">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">11</property>
+        <property name="width">2</property>
       </packing>
     </child>
     <child>
