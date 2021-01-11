@@ -925,7 +925,32 @@ namespace CSBP.Services
       if (string.IsNullOrEmpty(accesskey))
         throw new MessageException(WP049);
       var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
-      var v = ExecuteHttps(url, false);
+      List<string> v = null;
+      try
+      {
+        v = ExecuteHttps(url, false);
+      }
+      catch (Exception)
+      {
+        decimal? kurs = null;
+        if (shortcut == "USD")
+          kurs = 1.216197m; // TODO Standard-Devisen-Kurse auslagern
+        else if (shortcut == "CHF")
+          kurs = 1.081803m;
+        if (kurs.HasValue)
+        {
+          var k = new SoKurse
+          {
+            Datum = date,
+            Close = 1 / kurs.Value,
+            Bewertung = shortcut,
+          };
+          Wkurse.Add(key, k);
+          return k;
+        }
+        else
+          throw;
+      }
       if (v != null && v.Count > 0)
       {
         var jr = JObject.Parse(v[0]);
