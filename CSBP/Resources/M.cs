@@ -22,7 +22,7 @@ namespace CSBP.Resources
 
     public static string FZ001(string s, DateTime? d, decimal n, bool cut = true) => string.Format(M0(FZ001_, cut), s, d, n);
 
-    public static string FZ002(string s, bool cut = true) => string.Format(M0(FZ002_, cut), s);
+    public static string FZ002(decimal s, bool cut = true) => string.Format(M0(FZ002_, cut), s);
 
     public static string FZ003(string s, bool cut = true) => string.Format(M0(FZ003_, cut), s);
 

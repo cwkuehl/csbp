@@ -706,7 +706,7 @@ namespace CSBP.Services
           {
             db = euro ? e.EBetrag : e.Betrag;
             if (alt.HasValue)
-              sb.Append(FZ002(Functions.ToString(alt.Value - db)));
+              sb.Append(FZ002(alt.Value - db));
             if (sb.Length > 0)
               sb.Append(Constants.CRLF);
             sb.Append(FZ001(M0(HH001), e.Geaendert_Am, db));
