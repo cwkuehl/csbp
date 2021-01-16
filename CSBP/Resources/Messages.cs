@@ -5992,6 +5992,16 @@ namespace CSBP.Resources
       get { return rm.GetString("WP200.muster.tt"); }
     }
 
+    public static string WP200_auchinaktiv
+    {
+      get { return rm.GetString("WP200.auchinaktiv"); }
+    }
+
+    public static string WP200_auchinaktiv_tt
+    {
+      get { return rm.GetString("WP200.auchinaktiv.tt"); }
+    }
+
     public static string WP200_konfiguration
     {
       get { return rm.GetString("WP200.konfiguration"); }

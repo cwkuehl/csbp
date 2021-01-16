@@ -3676,6 +3676,12 @@
     <data name="WP200.muster.tt" xml:space="preserve">
         <value>Search pattern</value>
     </data>
+    <data name="WP200.auchinaktiv" xml:space="preserve">
+        <value>also inactive</value>
+    </data>
+    <data name="WP200.auchinaktiv.tt" xml:space="preserve">
+        <value>Show also inactive stocks?</value>
+    </data>
     <data name="WP200.konfiguration" xml:space="preserve">
         <value>_Configuration</value>
     </data>

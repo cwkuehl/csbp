@@ -95,6 +95,10 @@ namespace CSBP.Forms.WP
     [Builder.Object]
     private Entry muster;
 
+    /// <summary>CheckButton auchinaktiv.</summary>
+    [Builder.Object]
+    private CheckButton auchinaktiv;
+
     /// <summary>Label konfiguration0.</summary>
     [Builder.Object]
     private Label konfiguration0;
@@ -158,7 +162,7 @@ namespace CSBP.Forms.WP
       }
       if (step <= 1)
       {
-        var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, null, muster.Text, null, bezeichnung.Text));
+        var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
         // Nr.;Sort.;Name;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
         var values = new List<string[]>();
         foreach (var e in l)
@@ -283,6 +287,16 @@ namespace CSBP.Forms.WP
     protected void OnAlleClicked(object sender, EventArgs e)
     {
       RefreshTreeView(wertpapiere, 0);
+    }
+
+    /// <summary>Behandlung von Auchinaktiv.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnAuchinaktivChanged(object sender, EventArgs e)
+    {
+      if (!EventsActive)
+        return;
+      refreshAction.Click();
     }
 
     /// <summary>Behandlung von Berechnen.</summary>

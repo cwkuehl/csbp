@@ -3676,6 +3676,12 @@
     <data name="WP200.muster.tt" xml:space="preserve">
         <value>Zu suchendes Muster</value>
     </data>
+    <data name="WP200.auchinaktiv" xml:space="preserve">
+        <value>auch inaktive</value>
+    </data>
+    <data name="WP200.auchinaktiv.tt" xml:space="preserve">
+        <value>Sollen auch inaktive Wertpapiere angezeigt werden?</value>
+    </data>
     <data name="WP200.konfiguration" xml:space="preserve">
         <value>_Konfiguration</value>
     </data>

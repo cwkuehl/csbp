@@ -27,22 +27,19 @@ namespace CSBP.Services
     /// Gets a list of stocks.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <param name="extended">Get more data?</param>
+    /// <param name="inactive">Get also inactive investments?</param>
     /// <param name="desc">Affected Description.</param>
     /// <param name="pattern">Affected Pattern.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="search">Affected text search.</param>
     /// <returns>List of stocks.</returns>
-    public ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool extended,
+    public ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool inactive,
         string desc = null, string pattern = null, string uid = null, string search = null)
     {
-      var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, null, uid, false, search);
+      var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, null, uid, !inactive, search);
       foreach (var w in l)
       {
-        if (extended)
-        {
-          w.Description = w.Bezeichnung;
-        }
+        w.Description = w.Bezeichnung;
       }
       return new ServiceErgebnis<List<WpWertpapier>>(l);
     }
@@ -414,7 +411,7 @@ namespace CSBP.Services
       if (string.IsNullOrEmpty(stuid) || WpWertpapierRep.Get(daten, daten.MandantNr, stuid) == null)
         r.Errors.Add(Message.New(WP017));
       if (string.IsNullOrEmpty(pfuid) != string.IsNullOrEmpty(smuid) || string.IsNullOrEmpty(smuid) != string.IsNullOrEmpty(icuid)
-        || pfuid == smuid || smuid == icuid)
+        || (!string.IsNullOrEmpty(pfuid) && (pfuid == smuid || smuid == icuid)))
         r.Errors.Add(Message.New(WP055));
       if (!string.IsNullOrEmpty(pfuid) && HhKontoRep.Get(daten, daten.MandantNr, pfuid) == null)
         r.Errors.Add(Message.New(HH019(pfuid)));

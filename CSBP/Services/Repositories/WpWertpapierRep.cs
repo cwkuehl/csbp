@@ -56,7 +56,7 @@ namespace CSBP.Services.Repositories
         });
       var ls = Functions.IsLike(search);
       var lp = Functions.IsLike(pattern);
-      if (ls || lp)
+      if (ls || lp || onlyactive)
       {
         // l = l.ToList().Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text)
         //   || EF.Functions.Like(a.StockDescription, text) || EF.Functions.Like(a.StockProvider, text)
@@ -68,7 +68,8 @@ namespace CSBP.Services.Repositories
           if ((!ls || (Like(a.Bezeichnung, search) || Like(a.Notiz, search)
             || Like(a.Datenquelle, search) || Like(a.Kuerzel, search)
             || Like(a.Type, search) || Like(a.Currency, search) || Like(a.Sorting, search)))
-            && (!lp || Like(a.Pattern, pattern)))
+            && (!lp || Like(a.Pattern, pattern))
+            && (!onlyactive || a.Status != "0"))
             ll.Add(a);
         }
         l = ll;

@@ -323,6 +323,24 @@
             <property name="position">4</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkCheckButton" id="auchinaktiv">
+            <property name="label">WP200.auchinaktiv</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text">WP200.auchinaktiv.tt</property>
+            <property name="valign">center</property>
+            <property name="use_underline">True</property>
+            <property name="draw_indicator">True</property>
+            <signal name="toggled" handler="OnAuchinaktivChanged" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
       </object>
       <packing>
         <property name="left_attach">0</property>

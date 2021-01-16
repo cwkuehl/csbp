@@ -15,13 +15,13 @@ namespace CSBP.Apis.Services
     /// Gets a list of stocks.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <param name="extended">Get more data?</param>
+    /// <param name="inactive">Get also inactive investments?</param>
     /// <param name="desc">Affected Description.</param>
     /// <param name="pattern">Affected Pattern.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="search">Affected text search.</param>
     /// <returns>List of stocks.</returns>
-    ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool extended,
+    ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool inactive,
       string desc = null, string pattern = null, string uid = null, string search = null);
 
     /// <summary>
