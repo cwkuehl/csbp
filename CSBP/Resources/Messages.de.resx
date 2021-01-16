@@ -3665,7 +3665,7 @@
         <value>Soll die Bewertung für jedes aktive Wertpapier berechnet werden?</value>
     </data>
     <data name="WP200.bezeichnung" xml:space="preserve">
-        <value>_Text</value>
+        <value>_Suche</value>
     </data>
     <data name="WP200.bezeichnung.tt" xml:space="preserve">
         <value>Zu suchender Text</value>
@@ -3799,7 +3799,7 @@
         <value>Datum für die Bewertung</value>
     </data>
     <data name="WP250.bezeichnung" xml:space="preserve">
-        <value>_Text</value>
+        <value>_Suche</value>
     </data>
     <data name="WP250.bezeichnung.tt" xml:space="preserve">
         <value>Zu suchender Text</value>

@@ -3665,7 +3665,7 @@
         <value>Calculate rating for all active stocks?</value>
     </data>
     <data name="WP200.bezeichnung" xml:space="preserve">
-        <value>_Text</value>
+        <value>_Search</value>
     </data>
     <data name="WP200.bezeichnung.tt" xml:space="preserve">
         <value>Search text</value>
@@ -3799,7 +3799,7 @@
         <value>Date for calculation</value>
     </data>
      <data name="WP250.bezeichnung" xml:space="preserve">
-        <value>_Text</value>
+        <value>_Search</value>
     </data>
     <data name="WP250.bezeichnung.tt" xml:space="preserve">
         <value>Search text</value>
