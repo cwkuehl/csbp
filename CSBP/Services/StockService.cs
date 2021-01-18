@@ -479,17 +479,18 @@ namespace CSBP.Services
     /// <param name="stuid">Affected stock ID.</param>
     /// <param name="date">Affected date.</param>
     /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="search">Affected text search.</param>
     /// <param name="status">Status of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
     public ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
-        DateTime date, bool inactive, StringBuilder status, StringBuilder cancel)
+        DateTime date, bool inactive, string search, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
         throw new ArgumentException();
       var from = date.AddDays(-7);
       var dictlist = new Dictionary<string, List<SoKurse>>();
       var dictresponse = new Dictionary<string, StockUrl>();
-      var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid);
+      var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
       if (!inactive)
         list = list.Where(a => a.State == 1).ToList(); // Nur aktive Anlagen berechnen.
       var l = list.Count;

@@ -350,8 +350,8 @@ namespace CSBP.Forms.WP
         Cancel.Clear();
         var r = await Task.Run(() =>
         {
-          var r0 = FactoryService.StockService.CalculateInvestments(ServiceDaten, bezeichnung.Text,
-            null, GetText(wertpapier), bis.ValueNn, auchinaktiv.Active, Status, Cancel);
+          var r0 = FactoryService.StockService.CalculateInvestments(ServiceDaten, null,
+            null, GetText(wertpapier), bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, Status, Cancel);
           return r0;
         });
         r.ThrowAllErrors();

@@ -204,10 +204,11 @@ namespace CSBP.Apis.Services
     /// <param name="stuid">Affected stock ID.</param>
     /// <param name="date">Affected date.</param>
     /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="search">Affected text search.</param>
     /// <param name="status">Status of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
     ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
-      DateTime date, bool inactive, StringBuilder status, StringBuilder cancel);
+      DateTime date, bool inactive, string search, StringBuilder status, StringBuilder cancel);
 
     /// <summary>
     /// Gets a list of bookings.
