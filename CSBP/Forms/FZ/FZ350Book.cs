@@ -215,7 +215,7 @@ namespace CSBP.Forms.FZ
         if (sl.Any())
           SetText(serie, sl.First().Uid);
         sprache1.Active = true;
-        besitz.Active = true;
+        besitz.Active = false;
         lesedatum.Value = daten.Heute;
         hoerdatum.Value = null; // daten.Heute;
         var neu = DialogType == DialogTypeEnum.New;
