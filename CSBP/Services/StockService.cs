@@ -17,6 +17,7 @@ namespace CSBP.Services
   using static CSBP.Resources.M;
   using System.Threading.Tasks;
   using System.Diagnostics;
+  using System.Threading;
 
   public class StockService : ServiceBase, IStockService
   {
@@ -521,6 +522,8 @@ namespace CSBP.Services
       foreach (var su in dictresponse.Values)
       {
         su.Task = ExecuteHttpsClient(su.Url);
+        // Verzögerung wegen onvista.de notwendig. 500 OK.
+        Thread.Sleep(500);
       }
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
       Task.WaitAll(tasks, HttpTimeout);
@@ -1010,9 +1013,13 @@ namespace CSBP.Services
       {
         if (string.IsNullOrWhiteSpace(type))
         {
+          //var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
+          //var span = $"{d}D";
+          //var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
+          var fr = from.ToString("dd.MM.yyyy");
           var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
-          var span = $"{d}D";
-          var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
+          var span = d <= 31 ? "M1" : "Y1";
+          var url = $"https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId={shortcut}&dateStart={fr}&interval={span}";
           urls.Add((to, url));
         }
         else
@@ -1152,14 +1159,18 @@ namespace CSBP.Services
       {
         if (string.IsNullOrWhiteSpace(type))
         {
+          //var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
+          //var span = $"{d}D";
+          //var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
+          var fr = from.ToString("dd.MM.yyyy");
           var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
-          var span = $"{d}D";
-          var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
+          var span = d <= 31 ? "M1" : "Y1";
+          var url = $"https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId={shortcut}&dateStart={fr}&interval={span}";
           string response = null;
           if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
             response = resp.Response;
           var v = response == null ? ExecuteHttps(url, true) : Functions.SplitLines(response, true);
-          var f = "Datum;Eröffnung;Hoch;Tief;Schluss;Volumen";
+          var f = "Datum;Eroeffnung;Hoch;Tief;Schluss;Volumen";
           if (v[0] != f)
             throw new MessageException(WP050(v[0], f));
           for (var i = 1; i < v.Count; i++)
