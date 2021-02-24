@@ -521,11 +521,12 @@ namespace CSBP.Services
         }
       }
       Debug.Print($"{DateTime.Now} Start.");
+      var l1 = dictresponse.Count;
       var i1 = 1;
       foreach (var su in dictresponse.Values)
       {
         su.Task = ExecuteHttpsClient(su.Url);
-        status.Clear().Append(WP008(i1, l + l, su.Description, su.Date, null));
+        status.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
         Gtk.Application.Invoke(delegate
         {
           MainClass.MainWindow.SetError(status.ToString());
@@ -548,7 +549,7 @@ namespace CSBP.Services
       {
         // Kurse berechnen.
         var inv = list[i];
-        status.Clear().Append(WP008(l + i + 1, l + l, inv.Bezeichnung, date, null));
+        status.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
         Gtk.Application.Invoke(delegate
         {
           MainClass.MainWindow.SetError(status.ToString());

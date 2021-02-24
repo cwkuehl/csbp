@@ -630,7 +630,10 @@
         <value>WP007Falsche Skala.</value>
     </data>
     <data name="WP008_" xml:space="preserve">
-        <value>WP008({0} von {1}) Berechnung von {2} am {3:yyyy-MM-dd} {4}</value>
+        <value>WP008({0} von {1}) Lesen von {2} am {3:yyyy-MM-dd} {4}</value>
+    </data>
+    <data name="WP009_" xml:space="preserve">
+        <value>WP009({0} von {1}) Berechnung von {2} am {3:yyyy-MM-dd} {4}</value>
     </data>
     <data name="WP010" xml:space="preserve">
         <value>WP010Ohne</value>
