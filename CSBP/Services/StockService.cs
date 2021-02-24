@@ -460,6 +460,7 @@ namespace CSBP.Services
     {
       public string Key { get { return GetKey(Uid, Date); } }
       public string Uid { get; set; }
+      public string Description { get; set; }
       public DateTime Date { get; set; }
       public string Url { get; set; }
       public Task<string> Task { get; set; }
@@ -509,6 +510,7 @@ namespace CSBP.Services
           var su = new StockUrl
           {
             Uid = inv.Wertpapier_Uid,
+            Description = inv.Bezeichnung,
             Date = url.Item1,
             Url = url.Item2,
           };
@@ -519,11 +521,18 @@ namespace CSBP.Services
         }
       }
       Debug.Print($"{DateTime.Now} Start.");
+      var i1 = 1;
       foreach (var su in dictresponse.Values)
       {
         su.Task = ExecuteHttpsClient(su.Url);
+        status.Clear().Append(WP008(i1, l + l, su.Description, su.Date, null));
+        Gtk.Application.Invoke(delegate
+        {
+          MainClass.MainWindow.SetError(status.ToString());
+        });
         // Verzögerung wegen onvista.de notwendig. 500 OK.
         Thread.Sleep(500);
+        i1++;
       }
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
       Task.WaitAll(tasks, HttpTimeout);
@@ -539,7 +548,7 @@ namespace CSBP.Services
       {
         // Kurse berechnen.
         var inv = list[i];
-        status.Clear().Append(WP008(i + 1, l, inv.Bezeichnung, date, null));
+        status.Clear().Append(WP008(l + i + 1, l + l, inv.Bezeichnung, date, null));
         Gtk.Application.Invoke(delegate
         {
           MainClass.MainWindow.SetError(status.ToString());
@@ -548,8 +557,6 @@ namespace CSBP.Services
         inv.MinDate = blist.FirstOrDefault()?.Datum;
         if (!dictlist.TryGetValue(inv.Wertpapier_Uid, out var klist))
         {
-          // try
-          // {
           string response = null;
           if (dictresponse.TryGetValue(StockUrl.GetKey(inv.Wertpapier_Uid, date), out var resp))
             response = resp.Response;
@@ -557,11 +564,6 @@ namespace CSBP.Services
             inv.StockCurrency, inv.Price, inv.Wertpapier_Uid, dictresponse);
           klist = pl.Skip(Math.Max(0, pl.Count - 2)).ToList(); // Max. die letzten beiden Kurse.
           dictlist.Add(inv.Wertpapier_Uid, klist);
-          // }
-          // catch (Exception ex)
-          // {
-          //   Functions.MachNichts(ex);
-          // }
         }
         SoKurse k = null;
         SoKurse k1 = null;
