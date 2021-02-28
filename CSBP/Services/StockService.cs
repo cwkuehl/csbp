@@ -532,7 +532,7 @@ namespace CSBP.Services
           MainClass.MainWindow.SetError(status.ToString());
         });
         // Verzögerung wegen onvista.de notwendig. 500 OK.
-        Thread.Sleep(500);
+        Thread.Sleep(490);
         i1++;
       }
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();

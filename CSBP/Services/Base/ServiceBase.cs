@@ -77,7 +77,26 @@ namespace CSBP.Services.Base
     protected static readonly WpStandRep WpStandRep = new WpStandRep();
     protected static readonly WpWertpapierRep WpWertpapierRep = new WpWertpapierRep();
 
-    protected static HttpClient httpsclient = new HttpClient();
+    protected static readonly HttpClient httpsclient = new HttpClient();
+    // protected static readonly HttpClient httpsclient = new HttpClient(new SocketsHttpHandler()
+    // {
+    //   // Enable multiple HTTP/2 connections.
+    //   EnableMultipleHttp2Connections = true,
+
+    //   // Log each newly created connection and create the connection the same way as it would be without the callback.
+    //   ConnectCallback = async (context, token) =>
+    //   {
+    //     Debug.Print($"New connection to {context.DnsEndPoint} with request:{Environment.NewLine}{context.InitialRequestMessage}");
+    //     var socket = new Socket(SocketType.Stream, ProtocolType.Tcp) { NoDelay = true };
+    //     await socket.ConnectAsync(context.DnsEndPoint, token).ConfigureAwait(false);
+    //     return new NetworkStream(socket, ownsSocket: true);
+    //   },
+    // })
+    // {
+    //   // Allow only HTTP/2, no downgrades or upgrades.
+    //   DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact,
+    //   DefaultRequestVersion = HttpVersion.Version20
+    // };
 
     protected const int HttpTimeout = 5000;
 
@@ -89,7 +108,7 @@ namespace CSBP.Services.Base
       // 20.05.2020 TLS 1.2 eingestellt wegen Fehler bei yahoo und fixer.io (oder Router-Problem).
       // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
       httpsclient.Timeout = TimeSpan.FromMilliseconds(HttpTimeout);
-      //httpsclient.EnableMultipleHttp2Connections = true;
+      // EnableMultipleHttp2Connections = true;
     }
 
     private static bool MyRemoteCertificateValidationCallback(System.Object sender,
