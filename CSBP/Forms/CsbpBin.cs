@@ -413,6 +413,16 @@ namespace CSBP.Forms
         tv.Model.GetValue(iter, column, ref v);
         value = v.Val as T;
       }
+      else if (s.Length <= 0 && tv.Model.IterNChildren() == 1)
+      {
+        Functions.MachNichts();
+        if (tv.Model.GetIterFirst(out var iter1))
+        {
+          var v = new GLib.Value();
+          tv.Model.GetValue(iter1, column, ref v);
+          value = v.Val as T;
+        };
+      }
       if (mandatory && value == null)
         throw new MessageException(M1013);
       return value;
