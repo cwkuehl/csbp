@@ -532,7 +532,7 @@ namespace CSBP.Services
           MainClass.MainWindow.SetError(status.ToString());
         });
         // Verzögerung wegen onvista.de notwendig. 500 OK.
-        Thread.Sleep(490);
+        Thread.Sleep(500);
         i1++;
       }
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
@@ -1183,7 +1183,7 @@ namespace CSBP.Services
             {
               var k = new SoKurse
               {
-                Datum = Functions.ToDateTimeDe(c[0]) ?? daten.Heute,
+                Datum = Functions.ToDateTimeDe(Functions.TrimNull(c[0])) ?? daten.Heute,
                 Open = Functions.ToDecimalDe(c[1]) ?? 0,
                 High = Functions.ToDecimalDe(c[2]) ?? 0,
                 Low = Functions.ToDecimalDe(c[3]) ?? 0,
