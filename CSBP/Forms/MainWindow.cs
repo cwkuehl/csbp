@@ -846,9 +846,9 @@ namespace CSBP.Forms
     }
 
     /// <summary>
-    /// Liefert die .Net Core Version.
+    /// Liefert die .Net Version.
     /// </summary>
-    /// <returns>.Net Core Version als String.</returns>
+    /// <returns>.Net Version als String.</returns>
     public static string GetNetCoreVersion()
     {
       var assembly = typeof(System.Runtime.GCSettings).GetTypeInfo().Assembly;
@@ -870,7 +870,7 @@ namespace CSBP.Forms
         Title = "", // Titel geht nicht.
         ProgramName = "CSharp Budget Program",
         Version = "1.0, Runtime " + GetNetCoreVersion(),
-        Copyright = "(c) 2019-2020 Wolfgang Kuehl",
+        Copyright = "(c) 2019-2021 Wolfgang Kuehl",
         Comments = $@"CSBP is a simple budget program.
 Client: {daten.MandantNr}
 User: {daten.BenutzerId}",
