@@ -525,23 +525,31 @@ namespace CSBP.Services
       var i1 = 1;
       foreach (var su in dictresponse.Values)
       {
+        if (cancel.Length > 0)
+          break;
         su.Task = ExecuteHttpsClient(su.Url);
         status.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
         Gtk.Application.Invoke(delegate
         {
           MainClass.MainWindow.SetError(status.ToString());
         });
-        // Verzögerung wegen onvista.de notwendig. 500 OK.
-        Thread.Sleep(500);
+        if (i1 < l1)
+        {
+          // Verzögerung wegen onvista.de notwendig. 500 OK.
+          Thread.Sleep(500);
+        }
         i1++;
       }
-      var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
-      Task.WaitAll(tasks, HttpTimeout);
-      foreach (var su in dictresponse.Values)
+      if (cancel.Length <= 0)
       {
-        su.Response = su.Task.Result;
-        su.Task.Dispose();
-        su.Task = null;
+        var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
+        Task.WaitAll(tasks, HttpTimeout);
+        foreach (var su in dictresponse.Values)
+        {
+          su.Response = su.Task.Result;
+          su.Task.Dispose();
+          su.Task = null;
+        }
       }
       Debug.Print($"{DateTime.Now} Ende.");
 
