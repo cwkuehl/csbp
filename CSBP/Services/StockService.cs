@@ -724,6 +724,15 @@ namespace CSBP.Services
           Soll_Konto_Uid = inv.SettlementAccountUid,
           Haben_Konto_Uid = inv.IncomeAccountUid
         });
+        if (!anleihe)
+          r.Ergebnis.Add(new HhEreignis
+          {
+            Uid = Functions.GetUid(),
+            Bezeichnung = "Ertragsgutschrift",
+            EText = "2",
+            Soll_Konto_Uid = inv.SettlementAccountUid,
+            Haben_Konto_Uid = inv.IncomeAccountUid
+          });
         r.Ergebnis.Add(new HhEreignis
         {
           Uid = Functions.GetUid(),
