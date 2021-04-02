@@ -39,6 +39,10 @@ namespace CSBP.Forms.FZ
     [Builder.Object]
     private Entry titel;
 
+    /// <summary>Entry untertitel.</summary>
+    [Builder.Object]
+    private Entry untertitel;
+
     /// <summary>Label autor0.</summary>
     [Builder.Object]
     private Label autor0;
@@ -122,6 +126,10 @@ namespace CSBP.Forms.FZ
     /// <summary>Date Hoerdatum.</summary>
     //[Builder.Object]
     private Date hoerdatum;
+
+    /// <summary>TextView notiz.</summary>
+    [Builder.Object]
+    private TextView notiz;
 
     /// <summary>Label angelegt0.</summary>
     [Builder.Object]
@@ -235,6 +243,7 @@ namespace CSBP.Forms.FZ
           Model = k;
           nr.Text = k.Uid;
           titel.Text = k.Titel ?? "";
+          untertitel.Text = k.Untertitel ?? "";
           SetText(autor, k.Autor_Uid);
           SetText(serie, k.Serie_Uid);
           seriennummer.Text = Functions.ToString(k.Seriennummer == 0 ? (int?)null : k.Seriennummer);
@@ -243,11 +252,13 @@ namespace CSBP.Forms.FZ
           besitz.Active = k.StatePossession;
           lesedatum.Value = k.StateRead;
           hoerdatum.Value = k.StateHeard;
+          notiz.Buffer.Text = k.Notiz ?? "";
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         titel.IsEditable = !loeschen;
+        untertitel.IsEditable = !loeschen;
         autor.Sensitive = !loeschen;
         serie.Sensitive = !loeschen;
         seriennummer.IsEditable = !loeschen;
@@ -257,6 +268,7 @@ namespace CSBP.Forms.FZ
         besitz.Sensitive = !loeschen;
         lesedatum.Sensitive = !loeschen;
         hoerdatum.Sensitive = !loeschen;
+        notiz.Editable = !loeschen;
         angelegt.IsEditable = false;
         geaendert.IsEditable = false;
         if (loeschen)
@@ -335,9 +347,9 @@ namespace CSBP.Forms.FZ
       {
         r = FactoryService.PrivateService.SaveBook(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(autor), GetText(serie),
-            Functions.ToInt32(seriennummer.Text), titel.Text, Functions.ToInt32(seiten.Text),
+            Functions.ToInt32(seriennummer.Text), titel.Text, untertitel.Text, Functions.ToInt32(seiten.Text),
             Functions.ToInt32(GetText(sprache1)), besitz.Active, lesedatum.Value,
-            hoerdatum.Value);
+            hoerdatum.Value, notiz.Buffer.Text);
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

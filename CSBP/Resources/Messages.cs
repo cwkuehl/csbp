@@ -3442,6 +3442,16 @@ namespace CSBP.Resources
       get { return rm.GetString("FZ350.titel.tt"); }
     }
 
+    public static string FZ350_untertitel
+    {
+      get { return rm.GetString("FZ350.untertitel"); }
+    }
+
+    public static string FZ350_untertitel_tt
+    {
+      get { return rm.GetString("FZ350.untertitel.tt"); }
+    }
+
     public static string FZ350_autor
     {
       get { return rm.GetString("FZ350.autor"); }
@@ -3575,6 +3585,16 @@ namespace CSBP.Resources
     public static string FZ350_hoerdatum_tt
     {
       get { return rm.GetString("FZ350.hoerdatum.tt"); }
+    }
+
+    public static string FZ350_notiz
+    {
+      get { return rm.GetString("FZ350.notiz"); }
+    }
+
+    public static string FZ350_notiz_tt
+    {
+      get { return rm.GetString("FZ350.notiz.tt"); }
     }
 
     public static string FZ700_title

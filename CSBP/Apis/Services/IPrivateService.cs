@@ -202,14 +202,17 @@ namespace CSBP.Apis.Services
     /// <param name="seuid">Affected series ID.</param>
     /// <param name="serialnr">Affected serial number.</param>
     /// <param name="title">Affected book title.</param>
+    /// <param name="subtitle">Affected book subtitle.</param>
     /// <param name="pages">Affected number of pages.</param>
     /// <param name="lang">Affected language.</param>
     /// <param name="poss">Affected possession.</param>
     /// <param name="read">Affected reading date.</param>
     /// <param name="heard">Affected heard date.</param>
+    /// <param name="memo">Affected memo.</param>
     /// <returns>Created or changed book.</returns>
     ServiceErgebnis<FzBuch> SaveBook(ServiceDaten daten, string uid, string auuid, string seuid,
-        int serialnr, string title, int pages, int lang, bool poss, DateTime? read, DateTime? heard);
+        int serialnr, string title, string subtitle, int pages, int lang, bool poss, DateTime? read,
+        DateTime? heard, string memo);
 
     /// <summary>
     /// Deletes a book.

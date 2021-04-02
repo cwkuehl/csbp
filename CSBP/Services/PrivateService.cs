@@ -424,7 +424,7 @@ namespace CSBP.Services
       {
         throw new MessageException(FZ032);
       }
-      r.Ergebnis = FzBuchautorRep.Save(daten, daten.MandantNr, uid, name, firstname);
+      r.Ergebnis = FzBuchautorRep.Save(daten, daten.MandantNr, uid, name, firstname, null);
       return r;
     }
 
@@ -483,7 +483,7 @@ namespace CSBP.Services
       {
         throw new MessageException(FZ033);
       }
-      r.Ergebnis = FzBuchserieRep.Save(daten, daten.MandantNr, uid, name);
+      r.Ergebnis = FzBuchserieRep.Save(daten, daten.MandantNr, uid, name, null);
       return r;
     }
 
@@ -541,17 +541,21 @@ namespace CSBP.Services
     /// <param name="seuid">Affected series ID.</param>
     /// <param name="serialnr">Affected serial number.</param>
     /// <param name="title">Affected book title.</param>
+    /// <param name="subtitle">Affected book subtitle.</param>
     /// <param name="pages">Affected number of pages.</param>
     /// <param name="lang">Affected language.</param>
     /// <param name="poss">Affected possession.</param>
     /// <param name="read">Affected reading date.</param>
     /// <param name="heard">Affected heard date.</param>
+    /// <param name="memo">Affected memo.</param>
     /// <returns>Created or changed book.</returns>
     public ServiceErgebnis<FzBuch> SaveBook(ServiceDaten daten, string uid, string auuid, string seuid,
-        int serialnr, string title, int pages, int lang, bool poss, DateTime? read, DateTime? heard)
+        int serialnr, string title, string subtitle, int pages, int lang, bool poss, DateTime? read,
+        DateTime? heard, string memo)
     {
       var r = new ServiceErgebnis<FzBuch>();
       title = title.TrimNull();
+      subtitle = subtitle.TrimNull();
       if (string.IsNullOrWhiteSpace(title))
         r.Errors.Add(Message.New(FZ041));
       if (string.IsNullOrWhiteSpace(auuid))
@@ -602,7 +606,7 @@ namespace CSBP.Services
         }
       }
       r.Ergebnis = FzBuchRep.Save(daten, daten.MandantNr, uid, auuid, seuid, seriennummer,
-          title, Math.Abs(seiten), lang);
+          title, subtitle, Math.Abs(seiten), lang, memo);
       FzBuchstatusRep.Save(daten, daten.MandantNr, r.Ergebnis.Uid, poss, read, heard);
       return r;
     }

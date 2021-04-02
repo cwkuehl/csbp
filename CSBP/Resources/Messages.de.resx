@@ -2122,6 +2122,12 @@
     <data name="FZ350.titel.tt" xml:space="preserve">
         <value>Buchtitel</value>
     </data>
+    <data name="FZ350.untertitel" xml:space="preserve">
+        <value>_Untertitel</value>
+    </data>
+    <data name="FZ350.untertitel.tt" xml:space="preserve">
+        <value>Buchuntertitel</value>
+    </data>
     <data name="FZ350.autor" xml:space="preserve">
         <value>_Autor</value>
     </data>
@@ -2202,6 +2208,12 @@
     </data>
     <data name="FZ350.hoerdatum.tt" xml:space="preserve">
         <value>Hördatum</value>
+    </data>
+    <data name="FZ350.notiz" xml:space="preserve">
+        <value>Notiz</value>
+    </data>
+    <data name="FZ350.notiz.tt" xml:space="preserve">
+        <value>Notizen</value>
     </data>
 
     <data name="FZ700.title" xml:space="preserve">

@@ -60,7 +60,7 @@ namespace CSBP.Services.Repositories
       }
     }
 
-    public FzBuchserie Save(ServiceDaten daten, int mandantnr, string uid, string name, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+    public FzBuchserie Save(ServiceDaten daten, int mandantnr, string uid, string name, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
     {
       var db = GetDb(daten);
       var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
@@ -68,6 +68,7 @@ namespace CSBP.Services.Repositories
       e.Mandant_Nr = mandantnr;
       e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
       e.Name = name;
+      e.Notiz = notiz;
       if (a == null)
       {
         MachAngelegt(e, daten, angelegtam, angelegtvon);

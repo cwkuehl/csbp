@@ -60,7 +60,7 @@ namespace CSBP.Services.Repositories
       }
     }
 
-    public FzBuch Save(ServiceDaten daten, int mandantnr, string uid, string autoruid, string serieuid, int seriennummer, string titel, int seiten, int sprachenr, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+    public FzBuch Save(ServiceDaten daten, int mandantnr, string uid, string autoruid, string serieuid, int seriennummer, string titel, string untertitel, int seiten, int sprachenr, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
     {
       var db = GetDb(daten);
       var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
@@ -71,8 +71,10 @@ namespace CSBP.Services.Repositories
       e.Serie_Uid = serieuid;
       e.Seriennummer = seriennummer;
       e.Titel = titel;
+      e.Untertitel = untertitel;
       e.Seiten = seiten;
       e.Sprache_Nr = sprachenr;
+      e.Notiz = notiz;
       if (a == null)
       {
         MachAngelegt(e, daten, angelegtam, angelegtvon);
