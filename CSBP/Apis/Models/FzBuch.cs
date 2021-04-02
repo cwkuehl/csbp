@@ -39,11 +39,17 @@ namespace CSBP.Apis.Models
     /// <summary>Holt oder setzt den Wert der Spalte Titel.</summary>
     public string Titel { get; set; }
 
+    /// <summary>Holt oder setzt den Wert der Spalte Untertitel.</summary>
+    public string Untertitel { get; set; }
+
     /// <summary>Holt oder setzt den Wert der Spalte Seiten.</summary>
     public int Seiten { get; set; }
 
     /// <summary>Holt oder setzt den Wert der Spalte Sprache_Nr.</summary>
     public int Sprache_Nr { get; set; }
+
+    /// <summary>Holt oder setzt den Wert der Spalte Notiz.</summary>
+    public string Notiz { get; set; }
 
     /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Von.</summary>
     public string Angelegt_Von { get; set; }

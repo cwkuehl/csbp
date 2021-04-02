@@ -30,6 +30,9 @@ namespace CSBP.Apis.Models
     /// <summary>Holt oder setzt den Wert der Spalte Name.</summary>
     public string Name { get; set; }
 
+    /// <summary>Holt oder setzt den Wert der Spalte Notiz.</summary>
+    public string Notiz { get; set; }
+
     /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Von.</summary>
     public string Angelegt_Von { get; set; }
 

@@ -15,7 +15,8 @@ namespace CSBP.UnitTest
 {
   public class Tests
   {
-    const string pfad = "/home/wolfgang/mono";
+    const string pfadmono = "/home/wolfgang/mono";
+    const string pfad = "/home/wolfgang/cs";
     const string formpath = "/home/wolfgang/git/jhh6/Jhh/src/main/resources/dialog";
 
     [SetUp]
@@ -36,7 +37,7 @@ namespace CSBP.UnitTest
     public void MergeXml()
     {
       Assert.IsNull(null);
-      var l = Directory.GetFiles(pfad, "*.xml");
+      var l = Directory.GetFiles(pfadmono, "*.xml");
       Assert.IsTrue(l.Length > 0);
       var g = XDocument.Load(l[0]);
       var node = g.Root;
@@ -45,7 +46,7 @@ namespace CSBP.UnitTest
         var xml = XDocument.Load(l[i]);
         node.Add(xml.Descendants("table").First());
       }
-      g.Save(Path.Combine(pfad, "#CSBP.xml.txt"));
+      g.Save(Path.Combine(pfadmono, "#CSBP.xml.txt"));
     }
 
     private string GetCsType(string dbtype, bool nullable)
@@ -69,7 +70,7 @@ namespace CSBP.UnitTest
     [Test]
     public void GenerierenModelCs()
     {
-      var g = XDocument.Load(Path.Combine(pfad, "CSBP/CSBP/Resources/Tables.xml"));
+      var g = XDocument.Load(Path.Combine(pfad, "csbp/CSBP/Resources/Tables.xml"));
       var tables = g.Descendants("table");
       var sets = new StringBuilder();
       var keys = new StringBuilder();
@@ -153,7 +154,7 @@ namespace CSBP.Apis.Models
   }}
 }}
 ";
-        File.WriteAllText(Path.Combine(pfad, "CSBP/CSBP/Apis/Models", tab + ".cs"), model);
+        File.WriteAllText(Path.Combine(pfad, "csbp/CSBP/Apis/Models", tab + ".cs"), model);
       }
       var context = $@"// <copyright file=""CsbpContext2.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
@@ -182,7 +183,7 @@ namespace CSBP.Services.Repositories.Base
   }}
 }}
 ";
-      File.WriteAllText(Path.Combine(pfad, "CSBP/CSBP/Services/Repositories/Base", "CsbpContext2.cs"), context);
+      File.WriteAllText(Path.Combine(pfad, "csbp/CSBP/Services/Repositories/Base", "CsbpContext2.cs"), context);
     }
 
     /// <summary>
@@ -191,7 +192,7 @@ namespace CSBP.Services.Repositories.Base
     [Test]
     public void GenerierenReps()
     {
-      var g = XDocument.Load(Path.Combine(pfad, "CSBP/CSBP/Resources/Tables.xml"));
+      var g = XDocument.Load(Path.Combine(pfad, "csbp/CSBP/Resources/Tables.xml"));
       var tables = g.Descendants("table");
       var sets = new StringBuilder();
       var keys = new StringBuilder();
@@ -377,7 +378,7 @@ namespace CSBP.Services.Repositories
   }}
 }}
 ";
-        File.WriteAllText(Path.Combine(pfad, "CSBP/CSBP/Services/Repositories/Gen", $"{rep}.cs"), s);
+        File.WriteAllText(Path.Combine(pfad, "csbp/CSBP/Services/Repositories/Gen", $"{rep}.cs"), s);
 
         s = $@"// <copyright file=""{rep}.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
@@ -395,7 +396,7 @@ namespace CSBP.Services.Repositories
   }}
 }}
 ";
-        var datei = Path.Combine(pfad, "CSBP/CSBP/Services/Repositories", $"{rep}.cs");
+        var datei = Path.Combine(pfad, "csbp/CSBP/Services/Repositories", $"{rep}.cs");
         if (!File.Exists(datei))
           File.WriteAllText(datei, s);
       }
@@ -482,7 +483,7 @@ namespace CSBP.Services.Repositories
         <value>{fileshort}.title</value>
     </data>");
       AddElement(gc, root, w, 0);
-      var xmlfile = Path.Combine(pfad, $"CSBP/CSBP/GtkGui/{unit.ToUpper()}", filenew + ".glade");
+      var xmlfile = Path.Combine(pfad, $"csbp/CSBP/GtkGui/{unit.ToUpper()}", filenew + ".glade");
       //var settings = new XmlWriterSettings { OmitXmlDeclaration = false, Indent = true, Encoding = Encoding.UTF8 };
       //using (var xw = XmlWriter.Create(xmlfile, settings))
       //  doc.Save(xw); // UTF-8 mit BOM
@@ -554,7 +555,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
   }}
 }}
 ";
-      var datei = Path.Combine(pfad, $"CSBP/CSBP/Forms/{unit.ToUpper()}", $"{filenew}.cs");
+      var datei = Path.Combine(pfad, $"csbp/CSBP/Forms/{unit.ToUpper()}", $"{filenew}.cs");
       if (!File.Exists(datei))
       {
         File.WriteAllText(datei, s);

@@ -954,10 +954,12 @@ namespace CSBP.Services
       catch (Exception)
       {
         decimal? kurs = null;
+        // TODO Standard-Devisen-Kurse auslagern
+        // Kurse vom 02.04.2021
         if (shortcut == "USD")
-          kurs = 1.216197m; // TODO Standard-Devisen-Kurse auslagern
+          kurs = 1.1779m;
         else if (shortcut == "CHF")
-          kurs = 1.081803m;
+          kurs = 1.1079m;
         if (kurs.HasValue)
         {
           var k = new SoKurse

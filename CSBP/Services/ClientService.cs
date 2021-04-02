@@ -56,7 +56,37 @@ namespace CSBP.Services
       var versionalt = version;
       while (weiter)
       {
-        if (version <= 55)
+        if (version <= 53)
+        {
+          var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+          var mout = new List<string>();
+          var tab = "WP_Wertpapier";
+          dba.addTab0();
+          dba.addTab1("Mandant_Nr", "D_INTEGER", false);
+          dba.addTab1("Uid", "D_REPL_ID", false);
+          dba.addTab1("Bezeichnung", "D_STRING_50", false);
+          dba.addTab1("Kuerzel", "D_STRING_20", false); // vorher 10
+          dba.addTab1("Parameter", "D_MEMO", true);
+          dba.addTab1("Datenquelle", "D_STRING_35", false);
+          dba.addTab1("Status", "D_STRING_10", false);
+          dba.addTab1("Relation_Uid", "D_REPL_ID", true);
+          dba.addTab1("Notiz", "D_MEMO", true);
+          dba.addTab1("Angelegt_Von", "D_STRING_20", true);
+          dba.addTab1("Angelegt_Am", "D_DATETIME", true);
+          dba.addTab1("Geaendert_Von", "D_STRING_20", true);
+          dba.addTab1("Geaendert_Am", "D_DATETIME", true);
+          dba.addTab2(mout, tab, "Mandant_Nr, Uid", "Mandant_Nr, Uid");
+          MaMandantRep.Execute(daten, mout);
+          version = 54;
+        }
+        else if (version <= 54)
+        {
+          var mout = new List<string>();
+          mout.Add("update sb_person set quelle_uid=null where quelle_uid='0'");
+          MaMandantRep.Execute(daten, mout);
+          version = 55;
+        }
+        else if (version <= 55)
         {
           var mp = MaParameterRep.Get(daten, 0, Constants.EINST_DATENBANK);
           if (mp == null)
@@ -135,6 +165,53 @@ namespace CSBP.Services
           mout.Add($"DELETE FROM MA_PARAMETER WHERE MANDANT_NR=0 AND NOT SCHLUESSEL IN ('{Constants.EINST_DATENBANK}','{Constants.EINST_DB_INIT}','{Constants.EINST_DB_VERSION}');");
           MaMandantRep.Execute(daten, mout);
           version = 56;
+        }
+        else if (version <= 56)
+        {
+          var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+          var mout = new List<string>();
+          var tab = "FZ_Buch";
+          dba.addTab0();
+          dba.addTab1("Mandant_Nr", "D_INTEGER", false);
+          dba.addTab1("Uid", "D_REPL_ID", false);
+          dba.addTab1("Autor_Uid", "D_REPL_ID", false);
+          dba.addTab1("Serie_Uid", "D_REPL_ID", false);
+          dba.addTab1("Seriennummer", "D_INTEGER", false);
+          dba.addTab1("Titel", "D_STRING_255", false); // vorher 100
+          dba.addTab1a("Untertitel", "D_STRING_255", true, "NULL");
+          dba.addTab1("Seiten", "D_INTEGER", false);
+          dba.addTab1("Sprache_Nr", "D_INTEGER", false);
+          dba.addTab1a("Notiz", "D_MEMO", true, "NULL");
+          dba.addTab1("Angelegt_Von", "D_STRING_20", true);
+          dba.addTab1("Angelegt_Am", "D_DATETIME", true);
+          dba.addTab1("Geaendert_Von", "D_STRING_20", true);
+          dba.addTab1("Geaendert_Am", "D_DATETIME", true);
+          dba.addTab2(mout, tab, "Mandant_Nr, Uid", "Mandant_Nr, Uid");
+          tab = "FZ_Buchautor";
+          dba.addTab0();
+          dba.addTab1("Mandant_Nr", "D_INTEGER", false);
+          dba.addTab1("Uid", "D_REPL_ID", false);
+          dba.addTab1("Name", "D_STRING_255", false); // vorher 50
+          dba.addTab1("Vorname", "D_STRING_255", true); // vorher 50
+          dba.addTab1a("Notiz", "D_MEMO", true, "NULL");
+          dba.addTab1("Angelegt_Von", "D_STRING_20", true);
+          dba.addTab1("Angelegt_Am", "D_DATETIME", true);
+          dba.addTab1("Geaendert_Von", "D_STRING_20", true);
+          dba.addTab1("Geaendert_Am", "D_DATETIME", true);
+          dba.addTab2(mout, tab, "Mandant_Nr, Uid", "Mandant_Nr, Uid");
+          tab = "FZ_Buchserie";
+          dba.addTab0();
+          dba.addTab1("Mandant_Nr", "D_INTEGER", false);
+          dba.addTab1("Uid", "D_REPL_ID", false);
+          dba.addTab1("Name", "D_STRING_255", false);
+          dba.addTab1a("Notiz", "D_MEMO", true, "NULL");
+          dba.addTab1("Angelegt_Von", "D_STRING_20", true);
+          dba.addTab1("Angelegt_Am", "D_DATETIME", true);
+          dba.addTab1("Geaendert_Von", "D_STRING_20", true);
+          dba.addTab1("Geaendert_Am", "D_DATETIME", true);
+          dba.addTab2(mout, tab, "Mandant_Nr, Uid", "Mandant_Nr, Uid");
+          MaMandantRep.Execute(daten, mout);
+          version = 57;
         }
         if (versionalt < version)
         {

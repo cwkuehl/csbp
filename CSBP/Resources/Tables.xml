@@ -109,9 +109,11 @@
     <column name="Autor_Uid" type="VARCHAR" length="35" nullable="false" />
     <column name="Serie_Uid" type="VARCHAR" length="35" nullable="false" />
     <column name="Seriennummer" type="INTEGER" nullable="false" />
-    <column name="Titel" type="VARCHAR" length="100" nullable="false" />
+    <column name="Titel" type="VARCHAR" length="255" nullable="false" />
+    <column name="Untertitel" type="VARCHAR" length="255" nullable="true" />
     <column name="Seiten" type="INTEGER" nullable="false" />
     <column name="Sprache_Nr" type="INTEGER" nullable="false" />
+    <column name="Notiz" type="VARCHAR" length="-1" nullable="true" />
     <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
     <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
     <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />
@@ -124,8 +126,9 @@
   <table name="FZ_Buchautor">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />
-    <column name="Name" type="VARCHAR" length="50" nullable="false" />
-    <column name="Vorname" type="VARCHAR" length="50" nullable="true" />
+    <column name="Name" type="VARCHAR" length="255" nullable="false" />
+    <column name="Vorname" type="VARCHAR" length="255" nullable="true" />
+    <column name="Notiz" type="VARCHAR" length="-1" nullable="true" />
     <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
     <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
     <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />
@@ -138,7 +141,8 @@
   <table name="FZ_Buchserie">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />
-    <column name="Name" type="VARCHAR" length="100" nullable="false" />
+    <column name="Name" type="VARCHAR" length="255" nullable="false" />
+    <column name="Notiz" type="VARCHAR" length="-1" nullable="true" />
     <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
     <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
     <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />
@@ -933,7 +937,7 @@
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />
     <column name="Bezeichnung" type="VARCHAR" length="50" nullable="false" />
-    <column name="Kuerzel" type="VARCHAR" length="10" nullable="false" />
+    <column name="Kuerzel" type="VARCHAR" length="20" nullable="false" />
     <column name="Parameter" type="VARCHAR" length="-1" nullable="true" extension="true" />
     <column name="Datenquelle" type="VARCHAR" length="35" nullable="false" />
     <column name="Status" type="VARCHAR" length="10" nullable="false" />
