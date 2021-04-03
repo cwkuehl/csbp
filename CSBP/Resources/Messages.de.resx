@@ -2028,6 +2028,12 @@
     <data name="FZ310.vorname.tt" xml:space="preserve">
         <value>Vorname</value>
     </data>
+    <data name="FZ310.notiz" xml:space="preserve">
+        <value>Notiz</value>
+    </data>
+    <data name="FZ310.notiz.tt" xml:space="preserve">
+        <value>Notizen</value>
+    </data>
 
     <data name="FZ320.title" xml:space="preserve">
         <value>Serien</value>
@@ -2068,6 +2074,12 @@
     </data>
     <data name="FZ330.name.tt" xml:space="preserve">
         <value>Serien-Name</value>
+    </data>
+    <data name="FZ330.notiz" xml:space="preserve">
+        <value>Notiz</value>
+    </data>
+    <data name="FZ330.notiz.tt" xml:space="preserve">
+        <value>Notizen</value>
     </data>
 
     <data name="FZ340.title" xml:space="preserve">

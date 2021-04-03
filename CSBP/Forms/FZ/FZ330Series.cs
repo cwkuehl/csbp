@@ -36,6 +36,10 @@ namespace CSBP.Forms.FZ
     [Builder.Object]
     private Entry name;
 
+    /// <summary>TextView notiz.</summary>
+    [Builder.Object]
+    private TextView notiz;
+
     /// <summary>Label angelegt0.</summary>
     [Builder.Object]
     private Label angelegt0;
@@ -110,11 +114,13 @@ namespace CSBP.Forms.FZ
           Model = k;
           nr.Text = k.Uid;
           name.Text = k.Name;
+          notiz.Buffer.Text = k.Notiz ?? "";
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         name.IsEditable = !loeschen;
+        notiz.Editable = !loeschen;
         angelegt.IsEditable = false;
         geaendert.IsEditable = false;
         if (loeschen)
@@ -133,7 +139,7 @@ namespace CSBP.Forms.FZ
           || DialogType == DialogTypeEnum.Edit)
       {
         var r1 = FactoryService.PrivateService.SaveSeries(ServiceDaten,
-            DialogType == DialogTypeEnum.Edit ? nr.Text : null, name.Text);
+          DialogType == DialogTypeEnum.Edit ? nr.Text : null, name.Text, notiz.Buffer.Text);
         series = r1.Ergebnis;
         r = r1;
       }

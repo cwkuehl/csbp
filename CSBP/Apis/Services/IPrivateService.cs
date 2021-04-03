@@ -129,8 +129,9 @@ namespace CSBP.Apis.Services
     /// <param name="uid">Affected ID.</param>
     /// <param name="name">Affected name.</param>
     /// <param name="firstname">Affected first name.</param>
+    /// <param name="memo">Affected memo.</param>
     /// <returns>Created or changed author.</returns>
-    ServiceErgebnis<FzBuchautor> SaveAuthor(ServiceDaten daten, string uid, string name, string firstname);
+    ServiceErgebnis<FzBuchautor> SaveAuthor(ServiceDaten daten, string uid, string name, string firstname, string memo);
 
     /// <summary>
     /// Deletes an author.
@@ -162,8 +163,9 @@ namespace CSBP.Apis.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="name">Affected name.</param>
+    /// <param name="memo">Affected memo.</param>
     /// <returns>Created or changed series.</returns>
-    ServiceErgebnis<FzBuchserie> SaveSeries(ServiceDaten daten, string uid, string name);
+    ServiceErgebnis<FzBuchserie> SaveSeries(ServiceDaten daten, string uid, string name, string memo);
 
     /// <summary>
     /// Deletes a series.

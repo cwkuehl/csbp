@@ -414,17 +414,17 @@ namespace CSBP.Services
     /// <param name="uid">Affected ID.</param>
     /// <param name="name">Affected name.</param>
     /// <param name="firstname">Affected first name.</param>
+    /// <param name="memo">Affected memo.</param>
     /// <returns>Created or changed author.</returns>
-    public ServiceErgebnis<FzBuchautor> SaveAuthor(ServiceDaten daten, string uid, string name, string firstname)
+    public ServiceErgebnis<FzBuchautor> SaveAuthor(ServiceDaten daten, string uid, string name, string firstname, string memo)
     {
       var r = new ServiceErgebnis<FzBuchautor>();
       name = name.TrimNull();
       firstname = firstname.TrimNull();
+      memo = memo.TrimNull();
       if (string.IsNullOrWhiteSpace(name))
-      {
         throw new MessageException(FZ032);
-      }
-      r.Ergebnis = FzBuchautorRep.Save(daten, daten.MandantNr, uid, name, firstname, null);
+      r.Ergebnis = FzBuchautorRep.Save(daten, daten.MandantNr, uid, name, firstname, memo);
       return r;
     }
 
@@ -473,17 +473,17 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="name">Affected name.</param>
+    /// <param name="memo">Affected memo.</param>
     /// <returns>Created or changed series.</returns>
-    public ServiceErgebnis<FzBuchserie> SaveSeries(ServiceDaten daten, string uid, string name)
+    public ServiceErgebnis<FzBuchserie> SaveSeries(ServiceDaten daten, string uid, string name, string memo)
     {
       var r = new ServiceErgebnis<FzBuchserie>();
       if (name != null && !name.ToLower().EndsWith(FZ034.ToLower(), StringComparison.CurrentCulture))
-        name = name.TrimNull();
+        name = name.TrimEnd();
+      memo = memo.TrimNull();
       if (string.IsNullOrWhiteSpace(name))
-      {
         throw new MessageException(FZ033);
-      }
-      r.Ergebnis = FzBuchserieRep.Save(daten, daten.MandantNr, uid, name, null);
+      r.Ergebnis = FzBuchserieRep.Save(daten, daten.MandantNr, uid, name, memo);
       return r;
     }
 

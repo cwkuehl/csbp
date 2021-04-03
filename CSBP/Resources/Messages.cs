@@ -3292,6 +3292,16 @@ namespace CSBP.Resources
       get { return rm.GetString("FZ310.vorname.tt"); }
     }
 
+    public static string FZ310_notiz
+    {
+      get { return rm.GetString("FZ310.notiz"); }
+    }
+
+    public static string FZ310_notiz_tt
+    {
+      get { return rm.GetString("FZ310.notiz.tt"); }
+    }
+
     public static string FZ320_title
     {
       get { return rm.GetString("FZ320.title"); }
@@ -3355,6 +3365,16 @@ namespace CSBP.Resources
     public static string FZ330_name_tt
     {
       get { return rm.GetString("FZ330.name.tt"); }
+    }
+
+    public static string FZ330_notiz
+    {
+      get { return rm.GetString("FZ330.notiz"); }
+    }
+
+    public static string FZ330_notiz_tt
+    {
+      get { return rm.GetString("FZ330.notiz.tt"); }
     }
 
     public static string FZ340_title
