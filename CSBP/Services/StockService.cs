@@ -1017,7 +1017,7 @@ namespace CSBP.Services
         string source, string shortcut, string type)
     {
       var urls = new List<(DateTime, string)>();
-      if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(shortcut))
+      if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx")
         return urls;
       if (source == "yahoo")
       {
