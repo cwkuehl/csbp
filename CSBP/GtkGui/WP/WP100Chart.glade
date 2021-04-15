@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.2 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
@@ -91,7 +91,7 @@
         <property name="valign">center</property>
         <property name="label">WP100.daten</property>
         <property name="use_underline">True</property>
-        <property name="mnemonic_widget">chart0</property>
+        <property name="mnemonic_widget">data</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -106,7 +106,7 @@
         <property name="valign">center</property>
         <property name="label">WP100.chart</property>
         <property name="use_underline">True</property>
-        <property name="mnemonic_widget">split</property>
+        <property name="mnemonic_widget">chartpane</property>
       </object>
       <packing>
         <property name="left_attach">1</property>

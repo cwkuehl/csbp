@@ -1081,7 +1081,7 @@ namespace CSBP.Services
       string uid = null, Dictionary<string, StockUrl> dictresponse = null)
     {
       var l = new List<SoKurse>();
-      if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(shortcut))
+      if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx")
         return l;
       if (source == "yahoo")
       {
