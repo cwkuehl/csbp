@@ -700,6 +700,7 @@ namespace CSBP.Services
         var st = WpWertpapierRep.Get(daten, daten.MandantNr, inv.Wertpapier_Uid);
         var anleihe = st != null && !string.IsNullOrEmpty(st.Type);
         if (!anleihe)
+        {
           r.Ergebnis.Add(new HhEreignis
           {
             Uid = Functions.GetUid(),
@@ -708,6 +709,15 @@ namespace CSBP.Services
             Soll_Konto_Uid = inv.PortfolioAccountUid,
             Haben_Konto_Uid = inv.SettlementAccountUid
           });
+          r.Ergebnis.Add(new HhEreignis
+          {
+            Uid = Functions.GetUid(),
+            Bezeichnung = "Kauf aus Ertrag",
+            EText = "1",
+            Soll_Konto_Uid = inv.PortfolioAccountUid,
+            Haben_Konto_Uid = inv.SettlementAccountUid
+          });
+        }
         r.Ergebnis.Add(new HhEreignis
         {
           Uid = Functions.GetUid(),
@@ -796,7 +806,8 @@ namespace CSBP.Services
       if (!r.Ok)
         return r;
 
-      if (string.IsNullOrEmpty(buid) && !string.IsNullOrEmpty(duid) && !string.IsNullOrEmpty(cuid) && !string.IsNullOrEmpty(text))
+      if (Functions.compDouble(v, 0) != 0 && string.IsNullOrEmpty(buid)
+          && !string.IsNullOrEmpty(duid) && !string.IsNullOrEmpty(cuid) && !string.IsNullOrEmpty(text))
       {
         var vdm = Functions.konvDM(v);
         var btext = $"{text} {inv?.Bezeichnung}";
@@ -1005,19 +1016,29 @@ namespace CSBP.Services
     }
 
     /// <summary>
+    /// Is the shortcut to be ignored for calculation?
+    /// </summary>
+    /// <param name="shortcut">Affected shortcut for source.</param>
+    /// <returns>Is the shortcut to be ignored for calculation?</returns>
+    private bool IgnoreShortcut(string shortcut)
+    {
+      return string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx";
+    }
+
+    /// <summary>
     /// Gets a list of URLs for price request.
     /// </summary>
     /// <param name="from">Beginning of the period.</param>
     /// <param name="to">End of the period.</param>
     /// <param name="source">Affected provider for prices.</param>
-    /// <param name="shortcut">Affected shortcut for source</param>
-    /// <param name="type">Affected type (stock or bond)</param>
+    /// <param name="shortcut">Affected shortcut for source.</param>
+    /// <param name="type">Affected type (stock or bond).</param>
     /// <returns>List of URLs for price request.</returns>
     private List<(DateTime, string)> GetPriceUrlsIntern(DateTime from, DateTime to,
         string source, string shortcut, string type)
     {
       var urls = new List<(DateTime, string)>();
-      if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx")
+      if (string.IsNullOrEmpty(source) || IgnoreShortcut(shortcut))
         return urls;
       if (source == "yahoo")
       {
@@ -1035,6 +1056,7 @@ namespace CSBP.Services
       {
         if (string.IsNullOrWhiteSpace(type))
         {
+          // https://api.onvista.de/api/v1/instruments/FUND/103926/times_and_sales?endDate=2021-04-19T23%3A59%3A59.000%2B00%3A00&idNotation=120531642&order=DESC&startDate=2021-04-19T00%3A00%3A00.000%2B00%3A00
           //var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
           //var span = $"{d}D";
           //var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
@@ -1081,7 +1103,7 @@ namespace CSBP.Services
       string uid = null, Dictionary<string, StockUrl> dictresponse = null)
     {
       var l = new List<SoKurse>();
-      if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx")
+      if (string.IsNullOrEmpty(source) || IgnoreShortcut(shortcut))
         return l;
       if (source == "yahoo")
       {
