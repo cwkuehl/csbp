@@ -964,26 +964,11 @@ namespace CSBP.Services
       }
       catch (Exception)
       {
-        decimal? kurs = null;
-        // TODO Standard-Devisen-Kurse auslagern
-        // Kurse vom 02.04.2021
-        if (shortcut == "USD")
-          kurs = 1.1779m;
-        else if (shortcut == "CHF")
-          kurs = 1.1079m;
-        if (kurs.HasValue)
-        {
-          var k = new SoKurse
-          {
-            Datum = date,
-            Close = 1 / kurs.Value,
-            Bewertung = shortcut,
-          };
-          Wkurse.Add(key, k);
-          return k;
-        }
-        else
+        var k = GetCurrencyPriceDb(daten, date, shortcut);
+        if (k == null)
           throw;
+        Wkurse.Add(key, k);
+        return k;
       }
       if (v != null && v.Count > 0)
       {
@@ -1003,12 +988,77 @@ namespace CSBP.Services
             Close = Functions.ToDecimal(jresult[shortcut].ToString()) ?? 0,
             Bewertung = shortcut
           };
+          var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
+          if (wp != null)
+          {
+            WpStandRep.Save(daten, daten.MandantNr, wp.Uid, date, k.Close);
+            SaveChanges(daten);
+          }
           if (k.Close != 0)
             k.Close = Functions.Round4(1 / k.Close) ?? 0;
-          k.Open = k.Close;
-          k.High = k.Close;
-          k.Low = k.Close;
           Wkurse.Add(key, k);
+          return k;
+        }
+      }
+      return null;
+    }
+
+    /// <summary>
+    /// Gets currency price in relation to EUR from Database.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="date">Affected date.</param>
+    /// <param name="shortcut">Affected currency shortcut.</param>
+    /// <returns>List of prices.</returns>
+    private SoKurse GetCurrencyPriceDb(ServiceDaten daten, DateTime date, string shortcut)
+    {
+      if (string.IsNullOrEmpty(shortcut))
+        return null;
+      shortcut = shortcut.ToUpper();
+      if (shortcut == "EUR")
+        return new SoKurse
+        {
+          Datum = date,
+          Close = 1,
+          Bewertung = shortcut
+        };
+      var desc = $"EUR-{shortcut}";
+      var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc);
+      var wp = l.FirstOrDefault();
+      if (wp == null)
+      {
+        var r = SaveStock(daten, null, desc, "0", null, "cur", "onvista", "1", null, null, null, shortcut, false);
+        SaveChanges(daten);
+        wp = r.Ergebnis;
+        decimal? kurs = null;
+        // TODO Standard-Devisen-Kurse auslagern
+        // Kurse vom 28.04.2021
+        if (shortcut == "USD")
+          kurs = 1.2065m;
+        else if (shortcut == "CHF")
+          kurs = 1.1064m;
+        if (kurs.HasValue)
+        {
+          var k = new SoKurse
+          {
+            Datum = date,
+            Close = Functions.Round4(1 / kurs.Value) ?? 0,
+            Bewertung = shortcut,
+          };
+          return k;
+        }
+      }
+      if (wp != null)
+      {
+        var st = WpStandRep.GetLatest(daten, daten.MandantNr, wp.Uid, date);
+        if (st != null)
+        {
+          var k = new SoKurse
+          {
+            Datum = st.Datum,
+            Close = st.Stueckpreis == 0 ? 0 : (Functions.Round4(1 / st.Stueckpreis) ?? 0),
+            Bewertung = shortcut,
+          };
           return k;
         }
       }
