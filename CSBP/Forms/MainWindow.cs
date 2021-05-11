@@ -21,7 +21,6 @@ namespace CSBP.Forms
   using CSBP.Forms.HH;
   using CSBP.Forms.WP;
   using CSBP.Forms.SB;
-  using CSBP.Services.Factory;
   using System.Reflection;
 
   /// <summary>Main Window.</summary>

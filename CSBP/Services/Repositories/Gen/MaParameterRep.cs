@@ -9,7 +9,6 @@ namespace CSBP.Services.Repositories
   using System.Linq;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
-  using CSBP.Base;
   using CSBP.Services.Repositories.Base;
 
   /// <summary>

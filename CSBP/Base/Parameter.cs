@@ -86,15 +86,22 @@ namespace CSBP.Base
       AppConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".csbp.json");
       if (File.Exists(AppConfig))
       {
-        using (StreamReader file = File.OpenText(AppConfig))
-        using (JsonTextReader reader = new JsonTextReader(file))
+        try
         {
-          var jo = (JObject)JToken.ReadFrom(reader);
-          foreach (var jt in jo.Values())
+          using (StreamReader file = File.OpenText(AppConfig))
+          using (JsonTextReader reader = new JsonTextReader(file))
           {
-            if (jt.Type == JTokenType.String)
-              Params2[jt.Path] = jt.Value<string>();
+            var jo = (JObject)JToken.ReadFrom(reader);
+            foreach (var jt in jo.Values())
+            {
+              if (jt.Type == JTokenType.String)
+                Params2[jt.Path] = jt.Value<string>();
+            }
           }
+        }
+        catch (Exception)
+        {
+          Functions.MachNichts();
         }
       }
       foreach (var p in Params)

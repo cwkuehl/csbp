@@ -41,12 +41,6 @@ namespace CSBP.Forms
 
     protected bool EventsActive;
 
-    // public static CsbpBin Create(string name)
-    // {
-    //   var builder = new Builder(null, $"CSBP.GtkGui.{name}.glade", null);
-    //   return new CsbpBin(builder, builder.GetObject(name).Handle);
-    // }
-
     protected static Builder GetBuilder(string name, out IntPtr handle)
     {
       var builder = new Builder($"CSBP.GtkGui.{name.Substring(0, 2)}.{name}.glade");
@@ -58,15 +52,6 @@ namespace CSBP.Forms
     virtual protected void SetupHandlers()
     {
     }
-
-    /// <summary>Konstruktor.</summary>
-    // public CsbpBin(Builder builder, IntPtr handle, object parameter1 = null, CsbpBin csbpparent = null) : base(handle)
-    // {
-    //   CsbpParent = csbpparent;
-    //   Parameter1 = parameter1;
-    //   builder.Autoconnect(this);
-    //   SetupHandlers();
-    // }
 
     /// <summary>Konstruktor für modalen Dialog.</summary>
     /// <param name="builder">Betroffener Builder.</param>
