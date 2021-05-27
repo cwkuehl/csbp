@@ -437,7 +437,6 @@
         <property name="label">WP260.wpdetails</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="can_default">True</property>
         <property name="receives_default">False</property>
         <property name="tooltip_text">WP260.wpdetails.tt</property>
         <property name="use_underline">True</property>
@@ -482,6 +481,30 @@
       <object class="GtkGrid" id="valuta">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
         <child>
           <placeholder/>
         </child>
