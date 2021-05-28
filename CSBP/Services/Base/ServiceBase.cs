@@ -98,7 +98,7 @@ namespace CSBP.Services.Base
     //   DefaultRequestVersion = HttpVersion.Version20
     // };
 
-    protected const int HttpTimeout = 5000;
+    protected const int HttpTimeout = 10000; // Für fixer.io statt 5000.
 
     static ServiceBase()
     {
