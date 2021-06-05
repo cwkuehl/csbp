@@ -34,7 +34,7 @@ namespace CSBP.Services
       return r;
     }
 
-    public ServiceErgebnis Login(ServiceDaten daten, string kennwort, bool speichern)
+    public ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern)
     {
       if (daten.MandantNr < 0)
       {
@@ -47,24 +47,26 @@ namespace CSBP.Services
         throw new MessageException(AM001);
       }
 
-      var r = new ServiceErgebnis();
+      var r = new ServiceErgebnis<string>();
       var benutzer = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId);
       if (benutzer != null)
       {
         // Benutzer vorhanden.
-        Log.Debug(AM003(daten.MandantNr, daten.BenutzerId));
+        var benutzerId = benutzer.Benutzer_ID;
+        r.Ergebnis = benutzerId;
+        Log.Debug(AM003(daten.MandantNr, benutzerId));
 
         var wert = getOhneAnmelden(daten);
-        if (!string.IsNullOrEmpty(wert) && string.Compare(wert, daten.BenutzerId, true) == 0)
+        if (!string.IsNullOrEmpty(wert) && string.Compare(wert, benutzerId, true) == 0)
         {
           // Anmeldung ohne Kennwort
-          Speichern(daten, daten.MandantNr, daten.BenutzerId, speichern);
+          Speichern(daten, daten.MandantNr, benutzerId, speichern);
           return r;
         }
         if (string.IsNullOrEmpty(benutzer.Passwort) && string.IsNullOrEmpty(kennwort))
         {
           // Anmeldung mit leerem Kennwort
-          Speichern(daten, daten.MandantNr, daten.BenutzerId, speichern);
+          Speichern(daten, daten.MandantNr, benutzerId, speichern);
           return r;
         }
         if (!string.IsNullOrEmpty(benutzer.Passwort) && !string.IsNullOrEmpty(kennwort))
@@ -72,7 +74,7 @@ namespace CSBP.Services
           // Anmeldung mit Kennwort
           if (benutzer.Passwort == kennwort)
           {
-            Speichern(daten, daten.MandantNr, daten.BenutzerId, speichern);
+            Speichern(daten, daten.MandantNr, benutzerId, speichern);
             return r;
           }
         }
@@ -83,6 +85,7 @@ namespace CSBP.Services
       if (liste.Count == 1 && Constants.USER_ID == liste[0].Benutzer_ID
         && !string.Equals(daten.BenutzerId, Constants.USER_ID, StringComparison.InvariantCultureIgnoreCase))
       {
+        r.Ergebnis = daten.BenutzerId;
         BenutzerRep.Save(daten, daten.MandantNr, daten.BenutzerId, kennwort, liste[0].Berechtigung, liste[0].Akt_Periode,
           liste[0].Person_Nr, liste[0].Geburt, liste[0].Angelegt_Von, liste[0].Angelegt_Am, daten.BenutzerId, daten.Jetzt);
         BenutzerRep.Delete(daten, liste[0]);

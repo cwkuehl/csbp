@@ -13,7 +13,7 @@ namespace CSBP.Apis.Services
     /// <returns>Is anything changed?</returns>
     ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten);
 
-    ServiceErgebnis Login(ServiceDaten daten, string kennwort, bool speichern);
+    ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern);
     ServiceErgebnis ChangePassword(ServiceDaten daten, int client, string id, string passwordold,
         string passwordnew, bool speichern);
     ServiceErgebnis Logout(ServiceDaten daten);

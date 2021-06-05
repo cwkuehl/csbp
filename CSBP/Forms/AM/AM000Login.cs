@@ -96,15 +96,20 @@ namespace CSBP.Forms.AM
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnLogin(object sender, EventArgs a)
     {
-      var daten = new ServiceDaten(Functions.ToInt32(client.Text), user.Text);
-      if (Get(FactoryService.LoginService.Login(daten, password.Text, save.Active)))
+      var id = user.Text;
+      var daten = new ServiceDaten(Functions.ToInt32(client.Text), id);
+      var r = FactoryService.LoginService.Login(daten, password.Text, save.Active);
+      Get(r);
+      if (r.Ok)
       {
+        id = r.Ergebnis;
+        daten = new ServiceDaten(daten.MandantNr, id);
         dialog.Hide();
         Response = ResponseType.Ok;
         MainClass.Login(daten);
       }
       Parameter.LoginClient = client.Text;
-      Parameter.LoginUser = user.Text;
+      Parameter.LoginUser = id;
       Parameter.Save();
     }
 
