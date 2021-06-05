@@ -1,4 +1,10 @@
-echo off
+@rem Installationsvoraussetzungen:
+@rem Installation von
+@rem VSCodeSetup-x64-1.51.1.exe oder neuer
+@rem dotnet-sdk-5.0.100-win-x64.exe oder neuer
+@rem GTK durch Starten im vscode.
+
+@echo off
 set src=%~dp0
 echo %src%
 set tgt=C:\Eigen\Haushalt\CSBP1\publish\
@@ -12,3 +18,5 @@ del %tgt%Resources\M*.*
 
 echo cd %tgt% >%tgt%csbp.cmd
 echo start CSBP.exe "DB_DRIVER_CONNECT=Data Source=%userprofile%\Documents\csbp\csbp.db" >>%tgt%csbp.cmd
+
+pause
