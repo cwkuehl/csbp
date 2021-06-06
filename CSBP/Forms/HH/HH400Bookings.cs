@@ -162,7 +162,12 @@ namespace CSBP.Forms.HH
       };
       bis.DateChanged += OnBisDateChanged;
       bis.Show();
-      ObservableEventThrottle(refreshAction, delegate { RefreshTreeView(buchungen, 1); });
+      ObservableEventThrottle(refreshAction, delegate
+      {
+        var uid = HH410Booking.lastcopyuid;
+        HH410Booking.lastcopyuid = null;
+        RefreshTreeView(buchungen, 1, uid);
+      });
       // SetBold(client0);
       InitData(0);
       buchungen.GrabFocus();
@@ -215,6 +220,12 @@ namespace CSBP.Forms.HH
         }
         buchungenStatus.Text = HH054(anz, summe);
         AddStringColumnsSort(buchungen, HH400_buchungen_columns, values);
+        // var uid = HH410Booking.lastcopyuid;
+        // if (uid != null)
+        // {
+        //   SetText(buchungen, uid);
+        //   HH410Booking.lastcopyuid = null;
+        // }
       }
     }
 

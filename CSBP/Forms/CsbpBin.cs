@@ -304,9 +304,9 @@ namespace CSBP.Forms
       MainClass.ShowError(s, dialog);
     }
 
-    protected void RefreshTreeView(TreeView tv, int step)
+    protected void RefreshTreeView(TreeView tv, int step, string value = null)
     {
-      var v = GetValue<string>(tv, false);
+      var v = value ?? GetValue<string>(tv, false);
       var s = tv.Selection.GetSelectedRows();
       var si = -1;
       var so = SortType.Ascending;

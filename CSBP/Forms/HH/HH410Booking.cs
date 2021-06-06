@@ -25,6 +25,8 @@ namespace CSBP.Forms.HH
     private static DateTime lastvaluedate = DateTime.Today;
     private static DateTime lastreceiptdate = DateTime.Today;
 
+    public static string lastcopyuid = null;
+
 #pragma warning disable 169, 649
 
     /// <summary>Label nr0.</summary>
@@ -357,9 +359,12 @@ namespace CSBP.Forms.HH
       if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
         || DialogType == DialogTypeEnum.Edit)
       {
-        r = FactoryService.BudgetService.SaveBooking(ServiceDaten,
+        var rb = FactoryService.BudgetService.SaveBooking(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, valuta.ValueNn, vdm, v,
           GetText(sollkonto), GetText(habenkonto), bText.Text, belegNr.Text, belegDatum.ValueNn);
+        r = rb;
+        if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
+          lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Reverse)
         r = FactoryService.BudgetService.ReverseBooking(ServiceDaten, Model);
