@@ -220,12 +220,6 @@ namespace CSBP.Forms.HH
         }
         buchungenStatus.Text = HH054(anz, summe);
         AddStringColumnsSort(buchungen, HH400_buchungen_columns, values);
-        // var uid = HH410Booking.lastcopyuid;
-        // if (uid != null)
-        // {
-        //   SetText(buchungen, uid);
-        //   HH410Booking.lastcopyuid = null;
-        // }
       }
     }
 

@@ -172,6 +172,9 @@ namespace CSBP.Forms.WP
     /// <summary>Aktuelle Ereignisse zur Anlage.</summary>
     private List<HhEreignis> events;
 
+    /// <summary>Zuletzt kopiert ID.</summary>
+    public static string lastcopyuid = null;
+
 #pragma warning restore 169, 649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
@@ -423,12 +426,15 @@ namespace CSBP.Forms.WP
       {
         var euid = GetText(hhereignis);
         var ev = events.FirstOrDefault(a => a.Uid == euid);
-        r = FactoryService.StockService.SaveBooking(ServiceDaten,
+        var rb = FactoryService.StockService.SaveBooking(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(anlage), valuta.ValueNn,
           Functions.ToDecimal(betrag.Text, 2) ?? 0, Functions.ToDecimal(rabatt.Text, 2) ?? 0,
           Functions.ToDecimal(anteile.Text, 5) ?? 0, Functions.ToDecimal(zinsen.Text, 2) ?? 0,
           bText.Text, null, Functions.ToDecimal(preis.Text, 4) ?? 0, hhbuchung.Text, hhvaluta.ValueNn,
           Functions.ToDecimal(hhbetrag.Text, 2) ?? 0, ev?.Soll_Konto_Uid, ev?.Haben_Konto_Uid, ev?.Bezeichnung);
+        r = rb;
+        if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
+          lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

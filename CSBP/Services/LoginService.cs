@@ -16,10 +16,10 @@ namespace CSBP.Services
   public class LoginService : ServiceBase, ILoginService
   {
     /// <summary>
-    /// Is login wihtout password.
+    /// Is login wihtout password?
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <returns>Is anything changed?</returns>
+    /// <returns>Is login wihtout password?</returns>
     public ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten)
     {
       var r = new ServiceErgebnis<bool>(false);

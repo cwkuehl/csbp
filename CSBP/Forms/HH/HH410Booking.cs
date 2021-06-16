@@ -25,6 +25,7 @@ namespace CSBP.Forms.HH
     private static DateTime lastvaluedate = DateTime.Today;
     private static DateTime lastreceiptdate = DateTime.Today;
 
+    /// <summary>Zuletzt kopiert ID.</summary>
     public static string lastcopyuid = null;
 
 #pragma warning disable 169, 649

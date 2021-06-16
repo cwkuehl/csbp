@@ -7,10 +7,10 @@ namespace CSBP.Apis.Services
   public interface ILoginService
   {
     /// <summary>
-    /// Is login wihtout password.
+    /// Is login wihtout password?
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <returns>Is anything changed?</returns>
+    /// <returns>Is login wihtout password?</returns>
     ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten);
 
     ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern);

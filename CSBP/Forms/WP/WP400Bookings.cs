@@ -148,7 +148,9 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnRefreshClicked(object sender, EventArgs e)
     {
-      RefreshTreeView(buchungen, 1);
+      var uid = WP410Booking.lastcopyuid;
+      WP410Booking.lastcopyuid = null;
+      RefreshTreeView(buchungen, 1, uid);
     }
 
     /// <summary>Behandlung von Undo.</summary>
