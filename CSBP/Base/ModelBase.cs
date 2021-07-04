@@ -55,7 +55,7 @@ namespace CSBP.Base
       {
         datum = GetType().GetProperty("Angelegt_Am")?.GetGetMethod().Invoke(this, null) as DateTime?;
       }
-      if (datum == null || jetzt == null || (jetzt.Value - datum.Value).Milliseconds <= Constants.AEND_ZEIT)
+      if (datum == null || jetzt == null || (jetzt.Value - datum.Value).TotalMilliseconds > Constants.AEND_ZEIT)
       {
         am.GetSetMethod().Invoke(this, new object[] { jetzt });
         von.GetSetMethod().Invoke(this, new object[] { benutzer });

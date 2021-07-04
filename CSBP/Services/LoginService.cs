@@ -185,6 +185,9 @@ namespace CSBP.Services
       e = MaParameterRep.Get(daten, daten.MandantNr, "AG_BACKUPS");
       if (e != null)
         MaParameterRep.Delete(daten, e);
+      e = MaParameterRep.Get(daten, daten.MandantNr, "ANWENDUNGS_TITEL");
+      if (e != null)
+        MaParameterRep.Delete(daten, e);
     }
 
     /// <summary>
