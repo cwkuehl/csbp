@@ -1496,7 +1496,7 @@
         <value>All clients</value>
     </data>
     <data name="AG100.mandanten.columns" xml:space="preserve">
-        <value>No.;Description;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;No.;Description;Changed at;Changed by;Created at;Created by</value>
     </data>
 
     <data name="AG110.title" xml:space="preserve">

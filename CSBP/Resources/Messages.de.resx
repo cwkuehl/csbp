@@ -1496,7 +1496,7 @@
         <value>Mandanten</value>
     </data>
     <data name="AG100.mandanten.columns" xml:space="preserve">
-        <value>Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
 
     <data name="AG110.title" xml:space="preserve">

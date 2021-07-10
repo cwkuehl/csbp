@@ -89,8 +89,8 @@ namespace CSBP.Forms.AG
         var values = new List<string[]>();
         foreach (var e in l)
         {
-          // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
-          values.Add(new string[] { e.Nr.ToString(), e.Beschreibung,
+          // Nr.;Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
+          values.Add(new string[] { e.Nr.ToString(), e.Nr.ToString(), e.Beschreibung,
             Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
             Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
         }
