@@ -66,7 +66,7 @@
         <value>AD001Geburtstage zwischen {0:yyyy-MM-dd} und {1:yyyy-MM-dd}:</value>
     </data>
     <data name="AD002_" xml:space="preserve">
-        <value>AD002{0:yyyy-MM-dd} {1} ({2} years)</value>
+        <value>AD002{0:yyyy-MM-dd} {1} ({2} Jahre)</value>
     </data>
     <data name="AD003_" xml:space="preserve">
         <value>AD003Adressenliste vom {0:yyyy-MM-dd HH:mm:ss}</value>
