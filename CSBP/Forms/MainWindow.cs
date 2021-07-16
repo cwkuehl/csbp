@@ -427,64 +427,54 @@ namespace CSBP.Forms
     /// <param name="label">Betroffene Bezeichnung.</param>
     public void AppendPage(CsbpBin widget, string label)
     {
-      // var pb = Gtk.IconTheme.Default.LoadIcon("gtk-cancel", 1, 0);
-      // var b = new Button
-      // {
-      //   CanFocus = false,
-      //   Label = "x",
-      //   BorderWidth = 0,
-      //   HeightRequest = 15,
-      //   WidthRequest = 15,
-      //   Hexpand = false,
-      //   Vexpand = false,
-      //   // Image = new Image
-      //   // {
-      //   //   Pixbuf = pb,
-      //   //   // HeightRequest = 5,
-      //   //   // WidthRequest = 5,
-      //   // },
-      // };
-      // //b.SetSizeRequest(pb.Width + 6, pb.Height + 7); // Button möglichst klein
-      // b.Clicked += (object sender, EventArgs e) =>
-      // {
-      //   Notebook.Remove(widget);
-      //   widget.Close();
-      //   widget.Dispose();
-      // };
-      var labelenc = label.Replace("_", "").Replace("&", "&amp;");
-      var l = new Label
+      var title = label.Replace("_", "").Replace("&", "&amp;");
+      if (Functions.MachNichts() == 0)
       {
-        UseMarkup = true,
-        Markup = $"<span size='small'>{labelenc}</span> <span color='red' size='large'>x</span>"
-      };
-      var eb = new EventBox();
-      eb.Add(l);
-      eb.Events = Gdk.EventMask.ButtonPressMask;
-      eb.ButtonPressEvent += (object sender, ButtonPressEventArgs e) =>
-      {
-        if (e.Event.Button == 1 && e.Event.X >= e.Event.Window.Width - (e.Event.Window.Height / 2))
+        var closeImage = Image.NewFromIconName("window-close", IconSize.Button);
+        var button = new Button();
+        var lbl = new Label(title);
+        var tab = new Box(Orientation.Horizontal, 0);
+        button.Relief = ReliefStyle.None;
+        button.Add(closeImage);
+        tab.PackStart(lbl, false, false, 0);
+        tab.PackStart(button, false, false, 0);
+        tab.ShowAll();
+        var p = Notebook.AppendPage(widget, tab);
+        Notebook.SetTabReorderable(widget, true);
+        button.Clicked += (object sender, EventArgs e) =>
         {
-          // Click im linken Bereich beim x.
           Notebook.Remove(widget);
           widget.Close();
           widget.Dispose();
-        }
-      };
-      eb.ShowAll();
-      // var hbox = new HBox
-      // {
-      //   Spacing = 0,
-      //   BorderWidth = 0,
-      //   HeightRequest = 15,
-      //   Hexpand = false,
-      // };
-      // hbox.PackStart(eb, false, false, 1);
-      // hbox.PackStart(b, false, false, 0);
-      // hbox.ShowAll();
-      var p = Notebook.AppendPage(widget, eb);
-      Notebook.SetTabReorderable(widget, true);
-      Notebook.ShowAll();
-      Notebook.Page = p;
+        };
+        Notebook.Page = p;
+      }
+      else
+      {
+        var l = new Label
+        {
+          UseMarkup = true,
+          Markup = $"<span size='small'>{title}</span> <span color='red' size='large'>x</span>"
+        };
+        var eb = new EventBox();
+        eb.Add(l);
+        eb.Events = Gdk.EventMask.ButtonPressMask;
+        eb.ButtonPressEvent += (object sender, ButtonPressEventArgs e) =>
+        {
+          if (e.Event.Button == 1 && e.Event.X >= e.Event.Window.Width - (e.Event.Window.Height / 2))
+          {
+            // Click im linken Bereich beim x.
+            Notebook.Remove(widget);
+            widget.Close();
+            widget.Dispose();
+          }
+        };
+        eb.ShowAll();
+        var p = Notebook.AppendPage(widget, eb);
+        Notebook.SetTabReorderable(widget, true);
+        Notebook.ShowAll();
+        Notebook.Page = p;
+      }
     }
 
     /// <summary>Schließen aller Tabs.</summary>
