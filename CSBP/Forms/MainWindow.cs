@@ -8,7 +8,6 @@ namespace CSBP.Forms
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Resources;
-  using CSBP.Services.Factory;
   using static CSBP.Resources.Messages;
   using Gtk;
   using System.Collections.Generic;
@@ -196,6 +195,7 @@ namespace CSBP.Forms
     /// <param name="handle">Betroffenes Handle.</param>
     protected MainWindow(Builder builder, IntPtr handle) : base(handle)
     {
+      Settings.Default.ApplicationPreferDarkTheme = true;
       builder.Autoconnect(this);
       var l = GetChildren();
       l.ForEach(c =>
