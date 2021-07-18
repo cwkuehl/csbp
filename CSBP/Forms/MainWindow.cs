@@ -8,6 +8,7 @@ namespace CSBP.Forms
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Resources;
+  using CSBP.Services.Factory; // Muss für build bleiben.
   using static CSBP.Resources.Messages;
   using Gtk;
   using System.Collections.Generic;
