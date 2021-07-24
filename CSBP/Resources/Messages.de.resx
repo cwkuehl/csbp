@@ -99,6 +99,9 @@
     <data name="AM003_" xml:space="preserve">
         <value>AM003Benutzer {0}/{1} vorhanden.</value>
     </data>
+    <data name="AM004" xml:space="preserve">
+        <value>AM004Der aktuelle Mandant kann nicht gelöscht werden.</value>
+    </data>
     <data name="AM008" xml:space="preserve">
         <value>AM008Die Beschreibung darf nicht leer sein.</value>
     </data>

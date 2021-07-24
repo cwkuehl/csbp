@@ -99,6 +99,9 @@
     <data name="AM003_" xml:space="preserve">
         <value>AM003User {0}/{1} exists.</value>
     </data>
+    <data name="AM004" xml:space="preserve">
+        <value>AM004The actual client cannot be deleted.</value>
+    </data>
     <data name="AM008" xml:space="preserve">
         <value>AM008Type in a description.</value>
     </data>

@@ -290,6 +290,12 @@ namespace CSBP.Services
     /// <returns>Possibly errors.</returns>
     public ServiceErgebnis DeleteClient(ServiceDaten daten, MaMandant e)
     {
+      if (e != null && e.Nr == daten.MandantNr)
+      {
+        // Der aktuelle Mandant kann nicht gelöscht werden.
+        throw new MessageException(AM004);
+      }
+
       // Delete client in all tables.
       foreach (var t in GetAllTables())
       {
