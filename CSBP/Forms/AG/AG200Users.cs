@@ -8,11 +8,9 @@ namespace CSBP.Forms.AG
   using System.Collections.Generic;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
-  using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Factory;
   using Gtk;
-  using static CSBP.Resources.M;
   using static CSBP.Resources.Messages;
 
   /// <summary>Controller für AG200Users Dialog.</summary>

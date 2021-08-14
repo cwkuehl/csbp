@@ -1164,10 +1164,24 @@ namespace {ns}
       // var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
       var url = "http://data.fixer.io/api/2020-10-01?symbols=USD&access_key=4b1846822a23c8e9d4ad08c0e30f28f4";
       // var url = "https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation=295567847&datetimeTzStartRange=24.09.2020&timeSpan=7D&codeResolution=1D";
+      System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
       var httpsclient = new System.Net.Http.HttpClient();
       httpsclient.Timeout = TimeSpan.FromMilliseconds(5000);
-      var task = httpsclient.GetStringAsync(url);
-      task.Wait();
+      // httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
+      if (Functions.MachNichts() == 0)
+      {
+        // The request was canceled due to the configured HttpClient.Timeout of 5 seconds elapsing.
+        url = "https://query1.finance.yahoo.com/v7/finance/chart/GC=F?period1=1628294400&period2=1628899200&interval=1d&indicators=quote&includeTimestamps=true";
+        // httpsclient.Timeout = TimeSpan.FromMilliseconds(10000);
+        httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0");
+        var wr = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
+        var s = httpsclient.Send(wr);
+      }
+      else
+      {
+        var task = httpsclient.GetStringAsync(url);
+        task.Wait();
+      }
     }
 
     /// <summary>Tests für Serialisierung.</summary>

@@ -104,7 +104,7 @@ namespace CSBP.Services.Base
     {
       // Alle Zertifikate akzeptieren, TLS 1.3 als Standard-Protokoll
       ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
-      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 | SecurityProtocolType.Tls12;
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13; // | SecurityProtocolType.Tls12;
       // 20.05.2020 TLS 1.2 eingestellt wegen Fehler bei yahoo und fixer.io (oder Router-Problem).
       // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
       httpsclient.Timeout = TimeSpan.FromMilliseconds(HttpTimeout);
