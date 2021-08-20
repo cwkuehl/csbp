@@ -67,7 +67,7 @@ namespace CSBP.Forms.Controls
       {
         if (value != null)
         {
-          value.MnemonicWidget = date;
+          value.MnemonicWidget = calendar;
         }
       }
     }
