@@ -120,7 +120,8 @@ namespace CSBP.Forms.AG
       {
         IsNullable = false,
         IsWithCalendar = true,
-        IsCalendarOpen = true
+        IsCalendarOpen = true,
+        Label = geburt0,
       };
       geburt.Show();
       geburt.DateChanged += OnGeburtDateChanged;
@@ -190,7 +191,7 @@ namespace CSBP.Forms.AG
         || DialogType == DialogTypeEnum.Edit)
       {
         r = FactoryService.ClientService.SaveUser(ServiceDaten,
-          Functions.ToInt32(nr.Text), benutzerId.Text, kennwort.Text,
+          DialogType == DialogTypeEnum.Edit ? Functions.ToInt32(nr.Text) : 0, benutzerId.Text, kennwort.Text,
           Functions.ToInt32(GetText(berechtigung1)), geburt.Value);
       }
       else if (DialogType == DialogTypeEnum.Delete)

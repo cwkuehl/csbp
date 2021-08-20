@@ -352,7 +352,7 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="nr">Affected user number.</param>
     /// <param name="id">Affected user ID.</param>
-    /// <param name="password">Affected passwordD.</param>
+    /// <param name="password">Affected password.</param>
     /// <param name="permission">Affected permission.</param>
     /// <param name="birthday">Affected birthday.</param>
     /// <returns>Created or changed entity.</returns>

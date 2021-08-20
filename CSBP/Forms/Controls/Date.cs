@@ -60,6 +60,18 @@ namespace CSBP.Forms.Controls
 
     public bool IsCalendarOpen { get; set; }
 
+    public Label Label
+    {
+      private get { return null; }
+      set
+      {
+        if (value != null)
+        {
+          value.MnemonicWidget = date;
+        }
+      }
+    }
+
     public string YesterdayAccel
     {
       set
