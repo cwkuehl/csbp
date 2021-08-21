@@ -322,52 +322,57 @@ namespace CSBP.Forms
       InitData(step);
       if (si > 0)
       {
-        // Sortierung asynchron wiederherstellen
-        Task.Run(() =>
-        {
-          var x = 0;
-          try
-          {
-            // tv.GetColumn(si).SortOrder = SortType.Ascending;
-            Debug.WriteLine($"1 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
-            Application.Invoke(delegate
-            {
-              tv.GetColumn(si).Button.Activate();
-              x = 1;
-            });
-            while (x < 1)
-              Thread.Sleep(100);
-            // Debug.WriteLine($"2 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
-            if (so == SortType.Descending)
-            {
-              Thread.Sleep(300);
-              Application.Invoke(delegate
-              {
-                tv.GetColumn(si).Button.Activate();
-                x = 2;
-              });
-              while (x < 2)
-                Thread.Sleep(100);
-              // Debug.WriteLine($"3 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
-            }
-            Thread.Sleep(200);
-            Application.Invoke(delegate
-            {
-              if (string.IsNullOrEmpty(v))
-              {
-                foreach (var p in s)
-                  tv.Selection.SelectPath(p);
-              }
-              else
-                SetText(tv, v);
-            });
-          }
-          catch (Exception ex)
-          {
-            Functions.MachNichts(ex);
-          }
-          return 0;
-        });
+        // Sortierung wiederherstellen
+        tv.GetColumn(si).Button.Activate();
+        if (so == SortType.Descending)
+          tv.GetColumn(si).Button.Activate();
+        // if (Functions.MachNichts() == 1)
+        //   Task.Run(() =>
+        //   {
+        //     // Sortierung asynchron wiederherstellen
+        //     var x = 0;
+        //     try
+        //     {
+        //       // tv.GetColumn(si).SortOrder = SortType.Ascending;
+        //       Debug.WriteLine($"1 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
+        //       Application.Invoke(delegate
+        //       {
+        //         tv.GetColumn(si).Button.Activate();
+        //         x = 1;
+        //       });
+        //       while (x < 1)
+        //         Thread.Sleep(100);
+        //       // Debug.WriteLine($"2 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
+        //       if (so == SortType.Descending)
+        //       {
+        //         Thread.Sleep(300);
+        //         Application.Invoke(delegate
+        //         {
+        //           tv.GetColumn(si).Button.Activate();
+        //           x = 2;
+        //         });
+        //         while (x < 2)
+        //           Thread.Sleep(100);
+        //         // Debug.WriteLine($"3 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
+        //       }
+        //       Thread.Sleep(200);
+        //       Application.Invoke(delegate
+        //       {
+        //         if (string.IsNullOrEmpty(v))
+        //         {
+        //           foreach (var p in s)
+        //             tv.Selection.SelectPath(p);
+        //         }
+        //         else
+        //           SetText(tv, v);
+        //       });
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //       Functions.MachNichts(ex);
+        //     }
+        //     return 0;
+        //   });
       }
       else
       {

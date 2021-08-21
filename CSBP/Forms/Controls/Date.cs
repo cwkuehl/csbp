@@ -312,6 +312,7 @@ namespace CSBP.Forms.Controls
 
     protected void OnDateChanged(object sender, EventArgs e)
     {
+      // nicht verwendet: Problem bei einstelligen Tagen und Monaten.
       if (entrecursion || date.Text.Length != 10)
       {
         return;
