@@ -22,6 +22,9 @@ namespace CSBP.Forms.WP
     /// <summary>Dialog Model.</summary>
     private WpAnlage Model;
 
+    /// <summary>Zuletzt kopierte ID.</summary>
+    public static string lastcopyuid = null;
+
 #pragma warning disable 169, 649
 
     /// <summary>Label nr0.</summary>
@@ -259,10 +262,13 @@ namespace CSBP.Forms.WP
       if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
         || DialogType == DialogTypeEnum.Edit)
       {
-        r = FactoryService.StockService.SaveInvestment(ServiceDaten,
+        var rb = FactoryService.StockService.SaveInvestment(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(wertpapier), bezeichnung.Text,
           notiz.Buffer.Text, Functions.ToInt32(GetText(status)), GetText(depot), GetText(abrechnung), GetText(ertrag),
           valuta.Value, Functions.ToDecimal(stand.Text, 2) ?? 0);
+        r = rb;
+        if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
+          lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

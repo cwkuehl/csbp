@@ -29,14 +29,10 @@ namespace CSBP.Services.Repositories
       var db = GetDb(daten);
       var pl = db.AD_Person.Where(a => a.Mandant_Nr == daten.MandantNr && a.Person_Status == 0
           && a.GeburtK != 0);
-      if (to.Year != from.Year)
-      {
-        pl = pl.Where(a => a.GeburtK < t || a.GeburtK > f);
-      }
-      else
-      {
+      if (to.Year == from.Year)
         pl = pl.Where(a => a.GeburtK >= f && a.GeburtK <= t);
-      }
+      else
+        pl = pl.Where(a => a.GeburtK < t || a.GeburtK > f);
       return pl.OrderBy(a => a.GeburtK).ThenBy(a => a.Name1).ThenBy(a => a.Vorname)
           .ThenBy(a => a.Uid).ToList();
     }

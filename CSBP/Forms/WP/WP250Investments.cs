@@ -127,7 +127,12 @@ namespace CSBP.Forms.WP
       };
       bis.DateChanged += OnBisDateChanged;
       bis.Show();
-      ObservableEventThrottle(refreshAction, delegate { RefreshTreeView(anlagen, 1); });
+      ObservableEventThrottle(refreshAction, delegate
+      {
+        var uid = WP260Investment.lastcopyuid;
+        WP260Investment.lastcopyuid = null;
+        RefreshTreeView(anlagen, 1, uid);
+      });
       // SetBold(client0);
       InitData(0);
       // anlagen.GrabFocus();
