@@ -6,7 +6,6 @@ namespace CSBP.Forms.AM
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
   using CSBP.Apis.Enums;
   using CSBP.Base;
   using CSBP.Services.Factory;
