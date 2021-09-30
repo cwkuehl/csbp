@@ -734,6 +734,7 @@
                 <property name="tooltip_text">TB100.first.tt</property>
                 <property name="hexpand">True</property>
                 <property name="image">gotoFirstImage</property>
+                <property name="always_show_image">True</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="OnFirstClicked" swapped="no"/>
               </object>
@@ -752,6 +753,7 @@
                 <property name="tooltip_text">TB100.back.tt</property>
                 <property name="hexpand">True</property>
                 <property name="image">goBackImage</property>
+                <property name="always_show_image">True</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="OnBackClicked" swapped="no"/>
               </object>
@@ -770,6 +772,7 @@
                 <property name="tooltip_text">TB100.forward.tt</property>
                 <property name="hexpand">True</property>
                 <property name="image">goForwardImage</property>
+                <property name="always_show_image">True</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="OnForwardClicked" swapped="no"/>
               </object>
@@ -788,6 +791,7 @@
                 <property name="tooltip_text">TB100.last.tt</property>
                 <property name="hexpand">True</property>
                 <property name="image">gotoLastImage</property>
+                <property name="always_show_image">True</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="OnLastClicked" swapped="no"/>
               </object>
@@ -806,6 +810,7 @@
                 <property name="tooltip_text">TB100.clear.tt</property>
                 <property name="hexpand">True</property>
                 <property name="image">clearImage</property>
+                <property name="always_show_image">True</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="OnClearClicked" swapped="no"/>
               </object>
@@ -875,6 +880,7 @@
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes">TB100.new.tt</property>
                 <property name="image">newImage</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="OnNewClicked" swapped="no"/>
               </object>
               <packing>
@@ -890,6 +896,7 @@
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes">TB100.remove.tt</property>
                 <property name="image">removeImage</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="OnRemoveClicked" swapped="no"/>
               </object>
               <packing>
@@ -940,6 +947,7 @@
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes">TB100.add.tt</property>
                 <property name="image">addImage</property>
+                <property name="always_show_image">True</property>
                 <signal name="clicked" handler="OnAddClicked" swapped="no"/>
               </object>
               <packing>
