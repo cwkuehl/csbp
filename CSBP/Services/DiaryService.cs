@@ -133,10 +133,6 @@ namespace CSBP.Services
         }
         var listep = TbEintragOrtRep.GetList(daten, from, to, puid);
         var vop = listep.FirstOrDefault();
-        var listeb = TbEintragOrtRep.GetList(daten, from.AddDays(-1), puid);
-        var listea = TbEintragOrtRep.GetList(daten, to.AddDays(1), puid);
-        var bef = listeb.FirstOrDefault();
-        var aft = listea.FirstOrDefault();
         var vo = liste.FirstOrDefault(a => a.Ort_Uid == puid);
         if (vo != null)
           liste.Remove(vo); // nicht mehr löschen
