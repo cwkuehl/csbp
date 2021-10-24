@@ -399,27 +399,36 @@ namespace CSBP.Services
 
     void CheckSearch(string[] suche)
     {
-      if (suche == null || suche.Length != 9)
+      const int Columns = 3;
+      const int Rows = 3;
+      if (suche == null || suche.Length != Columns * Rows)
         throw new MessageException(TB001);
-      var str = suche[0];
-      if (str == null || str == "%%")
-        str = "%";
-      suche[0] = str;
-      for (var i = 1; i < 9; i++)
+      for (var i = 0; i < Columns * Rows; i++)
       {
-        str = suche[i];
-        if (!Functions.IsLike(str))
-          str = "";
-        suche[i] = str;
+        if (!Functions.IsLike(suche[i]))
+          suche[i] = "";
       }
-      if (suche[3] == "" && suche[4] != "")
-        suche[3] = suche[4];
-      if (suche[3] == "" && suche[5] != "")
-        suche[3] = suche[5];
-      if (suche[6] == "" && suche[7] != "")
-        suche[6] = suche[7];
-      if (suche[6] == "" && suche[8] != "")
-        suche[6] = suche[8];
+      // Pack search pattern
+      for (var y = 0; y < Rows; y++)
+      {
+        var i = 0;
+        for (var x = 0; x < Columns - 1; x++)
+        {
+          if (string.IsNullOrEmpty(suche[y * Columns + x]))
+          {
+            if (!string.IsNullOrEmpty(suche[y * Columns + x + 1]))
+            {
+              suche[y * Columns + i] = suche[y * Columns + x + 1];
+              suche[y * Columns + x + 1] = "";
+              i++;
+            }
+          }
+          else
+            i++;
+        }
+      }
+      if (string.IsNullOrEmpty(suche[0]))
+        suche[0] = "%";
     }
   }
 }
