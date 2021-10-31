@@ -294,6 +294,7 @@ namespace CSBP.Forms.TB
         IsWithCalendar = true,
         IsCalendarOpen = false,
         IsWithoutNullLabel = true,
+        IsWithoutDayOfWeek = true,
       };
       from.Show();
       to = new Date(Builder.GetObject("to").Handle)
@@ -302,6 +303,7 @@ namespace CSBP.Forms.TB
         IsWithCalendar = true,
         IsCalendarOpen = false,
         IsWithoutNullLabel = true,
+        IsWithoutDayOfWeek = true,
       };
       to.Show();
       SetBold(date0);

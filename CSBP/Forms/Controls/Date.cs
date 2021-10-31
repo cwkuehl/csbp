@@ -62,6 +62,8 @@ namespace CSBP.Forms.Controls
 
     public bool IsWithoutNullLabel { get; set; }
 
+    public bool IsWithoutDayOfWeek { get; set; }
+
     public Label Label
     {
       private get { return null; }
@@ -349,22 +351,18 @@ namespace CSBP.Forms.Controls
       else
         unknown.Hide();
       if (IsWithCalendar)
-      {
         down.Show();
-      }
       else
       {
         down.Hide();
         IsCalendarOpen = false;
       }
       if (IsCalendarOpen)
-      {
         calendar.Show();
-      }
       else
-      {
         calendar.Hide();
-      }
+      if (IsWithoutDayOfWeek)
+        daytext.Hide();
     }
 
     protected void OnDownClicked(object sender, EventArgs e)
