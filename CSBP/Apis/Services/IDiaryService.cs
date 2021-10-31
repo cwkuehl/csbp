@@ -46,8 +46,11 @@ namespace CSBP.Apis.Services
     /// <param name="stelle">Gewünschte Such-Richtung.</param>
     /// <param name="aktDatum">Aufsetzpunkt der Suche.</param>
     /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
     ServiceErgebnis<DateTime?> SearchDate(ServiceDaten daten, SearchDirectionEnum stelle,
-      DateTime? aktDatum, string[] suche);
+      DateTime? aktDatum, string[] suche, string puid, DateTime? from, DateTime? to);
 
     /// <summary>
     /// Erzeugung einer Datei, die alle Tagebuch-Einträge enthält, die dem Such-String entsprechen.
@@ -56,7 +59,10 @@ namespace CSBP.Apis.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="suche">Such-String, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.
     /// Bei der Suche kann auch ein Zähler geprüft werden, z.B. %####. BGS: %</param>
-    ServiceErgebnis<List<string>> GetFile(ServiceDaten daten, string[] suche);
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
+    ServiceErgebnis<List<string>> GetFile(ServiceDaten daten, string[] suche, string puid, DateTime? from, DateTime? to);
 
     /// <summary>
     /// Gets the position.

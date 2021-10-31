@@ -42,12 +42,15 @@ namespace CSBP.Services.Repositories
     /// <param name="stelle">Gewünschte Such-Richtung.</param>
     /// <param name="aktDatum">Aufsetzpunkt der Suche.</param>
     /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
-    public DateTime? SearchDate(ServiceDaten daten, SearchDirectionEnum stelle,
-                                                 DateTime? aktDatum, string[] suche)
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
+    public DateTime? SearchDate(ServiceDaten daten, SearchDirectionEnum stelle, DateTime? aktDatum, string[] suche,
+      string puid, DateTime? from, DateTime? to)
     {
       if (stelle == SearchDirectionEnum.None)
         return null;
-      var l = GetSearch(daten, stelle, aktDatum, suche);
+      var l = GetSearch(daten, stelle, aktDatum, suche, puid, from, to);
       if (stelle == SearchDirectionEnum.First || stelle == SearchDirectionEnum.Forward)
         return l.Any() ? l.Min(a => a.Datum) : (DateTime?)null;
       return l.Any() ? l.Max(a => a.Datum) : (DateTime?)null;
@@ -59,9 +62,12 @@ namespace CSBP.Services.Repositories
     /// <returns>Liste aller passenden Einträge.</returns>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
-    public List<TbEintrag> SearchEntries(ServiceDaten daten, string[] suche)
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
+    public List<TbEintrag> SearchEntries(ServiceDaten daten, string[] suche, string puid, DateTime? from, DateTime? to)
     {
-      var l = GetSearch(daten, SearchDirectionEnum.First, null, suche);
+      var l = GetSearch(daten, SearchDirectionEnum.First, null, suche, puid, from, to);
       return l.ToList();
     }
 
@@ -73,11 +79,14 @@ namespace CSBP.Services.Repositories
     /// <param name="stelle">Gewünschte Such-Richtung.</param>
     /// <param name="aktDatum">Aufsetzpunkt der Suche.</param>
     /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
-    IQueryable<TbEintrag> GetSearch(ServiceDaten daten, SearchDirectionEnum stelle,
-                                                 DateTime? aktDatum, string[] suche)
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
+    IQueryable<TbEintrag> GetSearch(ServiceDaten daten, SearchDirectionEnum stelle, DateTime? aktDatum, string[] suche,
+      string puid, DateTime? from, DateTime? to)
     {
       var db = GetDb(daten);
-      var l = db.TB_Eintrag.Where(a => a.Mandant_Nr == daten.MandantNr);
+      var l = db.TB_Eintrag.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
       if (aktDatum.HasValue)
       {
         if (stelle == SearchDirectionEnum.Back)
@@ -112,6 +121,15 @@ namespace CSBP.Services.Repositories
                            || EF.Functions.Like(a.Eintrag, suche[7])));
       else if (!string.IsNullOrEmpty(suche[6]))
         l = l.Where(a => !EF.Functions.Like(a.Eintrag, suche[6]));
+      if (!string.IsNullOrEmpty(puid))
+      {
+        var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr && a.Ort_Uid == puid);
+        l = l.Where(a => eo.Any(b => b.Datum_Von <= a.Datum && a.Datum <= b.Datum_Bis));
+      }
+      if (from.HasValue)
+        l = l.Where(a => a.Datum >= from.Value);
+      if (to.HasValue)
+        l = l.Where(a => a.Datum <= to.Value);
       return l;
     }
   }

@@ -247,15 +247,19 @@ namespace CSBP.Services
     /// <param name="stelle">Gewünschte Such-Richtung.</param>
     /// <param name="aktDatum">Aufsetzpunkt der Suche.</param>
     /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
     public ServiceErgebnis<DateTime?> SearchDate(ServiceDaten daten, SearchDirectionEnum stelle,
-      DateTime? aktDatum, string[] suche)
+      DateTime? aktDatum, string[] suche, string puid, DateTime? from, DateTime? to)
     {
       var r = new ServiceErgebnis<DateTime?>();
       if (aktDatum.HasValue)
       {
         CheckSearch(suche);
-        var datum = TbEintragRep.SearchDate(daten, stelle, aktDatum, suche);
-        if (datum.HasValue && stelle == SearchDirectionEnum.Last && (suche[0] == "%" && suche[3] == "" && suche[6] == ""))
+        var datum = TbEintragRep.SearchDate(daten, stelle, aktDatum, suche, puid, from, to);
+        if (datum.HasValue && stelle == SearchDirectionEnum.Last
+          && (suche[0] == "%" && suche[3] == "" && suche[6] == "" && string.IsNullOrEmpty(puid)))
         {
           datum = datum.Value.AddDays(1);
         }
@@ -271,7 +275,11 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="suche">Such-String, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.
     /// Bei der Suche kann auch ein Zähler geprüft werden, z.B. %####. BGS: %</param>
-    public ServiceErgebnis<List<string>> GetFile(ServiceDaten daten, string[] suche)
+    /// <param name="puid">Affected position uid.</param>
+    /// <param name="from">Affected from date.</param>
+    /// <param name="to">Affected from date.</param>
+    public ServiceErgebnis<List<string>> GetFile(ServiceDaten daten, string[] suche,
+      string puid, DateTime? from, DateTime? to)
     {
       CheckSearch(suche);
       var v = new List<string>();
@@ -305,7 +313,7 @@ namespace CSBP.Services
       // oder '%6$s') und nicht ('%7$s' oder '%8$s' oder '%9$s')%10$s
       v.Add(TB003(suche));
       v.Add(string.Empty);
-      var liste = TbEintragRep.SearchEntries(daten, suche);
+      var liste = TbEintragRep.SearchEntries(daten, suche, puid, from, to);
       foreach (var e in liste)
       {
         v.Add(TB006(e.Datum, e.Eintrag));

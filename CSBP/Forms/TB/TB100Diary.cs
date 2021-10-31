@@ -377,9 +377,10 @@ namespace CSBP.Forms.TB
     {
       // Bericht erzeugen
       BearbeiteEintraege(true, false);
+      var puid = GetText(position);
       var pfad = Parameter.TempPath;
       var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
-      UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray())), pfad, datei, true);
+      UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray(), puid, null, null)), pfad, datei, true);
     }
 
     /// <summary>Behandlung von Date.</summary>
@@ -685,7 +686,8 @@ namespace CSBP.Forms.TB
     void SearchEntry(SearchDirectionEnum stelle)
     {
       BearbeiteEintraege(true, false);
-      var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, GetSearchArray()));
+      var puid = GetText(position);
+      var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, GetSearchArray(), puid, null, null));
       if (d.HasValue)
       {
         date.Value = d;
