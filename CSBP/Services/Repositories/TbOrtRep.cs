@@ -36,14 +36,15 @@ namespace CSBP.Services.Repositories
         wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text));
       if (!string.IsNullOrEmpty(puid))
         wl = wl.Where(a => a.Uid == puid);
-      var l2 = desc ? wl.OrderByDescending(a => a.Bezeichnung).ThenByDescending(a => a.Uid)
-          : wl.OrderBy(a => a.Bezeichnung).ThenBy(a => a.Uid);
-      var l3 = l2.Take(max <= 0 ? int.MaxValue : max).ToList();
-      // .Select(a =>
-      // {
-      //   a.mileage.BikeDescription = a.bike.Bezeichnung;
-      //   return a.mileage;
-      // });
+      // var l2 = desc ? wl.OrderByDescending(a => a.Bezeichnung).ThenByDescending(a => a.Uid)
+      //     : wl.OrderBy(a => a.Bezeichnung).ThenBy(a => a.Uid);
+      // var l3 = l2.Take(max <= 0 ? int.MaxValue : max);
+      // return l3.ToList();
+      var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+      var gj = wl.ToList().GroupJoin(eo, a => new { a.Mandant_Nr, a.Uid }, b => new { b.Mandant_Nr, Uid = b.Ort_Uid }, (a, b) => new { ort = a, anzahl = b.Sum(a => (a.Datum_Bis - a.Datum_Von).TotalDays) });
+      var l2 = desc ? gj.OrderByDescending(a => a.anzahl)
+          : gj.OrderBy(a => a.anzahl);
+      var l3 = l2.Take(max <= 0 ? int.MaxValue : max).Select(a => a.ort);
       return l3.ToList();
     }
 

@@ -54,7 +54,7 @@ namespace CSBP.Services.Repositories
       List<AdSitz> l;
       if (Functions.MachNichts() == 0)
       { // !string.IsNullOrEmpty(suid)
-        // Es muss immer einen Sitz zu der Person geben.
+        // Es muss immer einen Sitz zu der Person geben. Adresse ist optional.
         l = pl.Join(sl, a => new { a.Mandant_Nr, a.Uid },
           b => new { b.Mandant_Nr, Uid = b.Person_Uid }, (a, b) => new { person = a, site = b })
           .GroupJoin(al, a => new { a.site.Mandant_Nr, Uid = a.site.Adresse_Uid },
