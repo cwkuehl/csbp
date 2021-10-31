@@ -255,7 +255,7 @@ namespace CSBP.Services
       {
         CheckSearch(suche);
         var datum = TbEintragRep.SearchDate(daten, stelle, aktDatum, suche);
-        if (datum.HasValue && stelle == SearchDirectionEnum.Last && suche[0] == "%")
+        if (datum.HasValue && stelle == SearchDirectionEnum.Last && (suche[0] == "%" && suche[3] == "" && suche[6] == ""))
         {
           datum = datum.Value.AddDays(1);
         }
