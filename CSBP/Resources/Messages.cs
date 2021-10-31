@@ -1012,6 +1012,16 @@ namespace CSBP.Resources
       get { return rm.GetString("TB009"); }
     }
 
+    public static string TB010_
+    {
+      get { return rm.GetString("TB010_"); }
+    }
+
+    public static string TB011_
+    {
+      get { return rm.GetString("TB011_"); }
+    }
+
     public static string WP001
     {
       get { return rm.GetString("WP001"); }
@@ -5745,6 +5755,26 @@ namespace CSBP.Resources
     public static string TB100_search12
     {
       get { return rm.GetString("TB100.search12"); }
+    }
+
+    public static string TB100_from
+    {
+      get { return rm.GetString("TB100.from"); }
+    }
+
+    public static string TB100_from_tt
+    {
+      get { return rm.GetString("TB100.from.tt"); }
+    }
+
+    public static string TB100_to
+    {
+      get { return rm.GetString("TB100.to"); }
+    }
+
+    public static string TB100_to_tt
+    {
+      get { return rm.GetString("TB100.to.tt"); }
     }
 
     public static string TB100_first_tt

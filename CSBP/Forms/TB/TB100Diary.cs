@@ -200,6 +200,14 @@ namespace CSBP.Forms.TB
     [Builder.Object]
     private Label search120;
 
+    /// <summary>From date.</summary>
+    //[Builder.Object]
+    private Date from;
+
+    /// <summary>To date.</summary>
+    //[Builder.Object]
+    private Date to;
+
     /// <summary>Button first.</summary>
     [Builder.Object]
     private Button first;
@@ -280,6 +288,22 @@ namespace CSBP.Forms.TB
       date.DateChanged += OnDateDateChanged;
       date.MonthChanged += OnDateMonthChanged;
       date.Show();
+      from = new Date(Builder.GetObject("from").Handle)
+      {
+        IsNullable = true,
+        IsWithCalendar = true,
+        IsCalendarOpen = false,
+        IsWithoutNullLabel = true,
+      };
+      from.Show();
+      to = new Date(Builder.GetObject("to").Handle)
+      {
+        IsNullable = true,
+        IsWithCalendar = true,
+        IsCalendarOpen = false,
+        IsWithoutNullLabel = true,
+      };
+      to.Show();
       SetBold(date0);
       SetBold(entry0);
       InitData(0);
@@ -297,6 +321,10 @@ namespace CSBP.Forms.TB
         ClearSearch();
         EntryOld.Datum = DateTime.Today;
         date.Value = EntryOld.Datum;
+        from.Value = EntryOld.Datum.AddYears(-1);
+        // from.Value = null;
+        to.Value = EntryOld.Datum;
+        // to.Value = null;
         BearbeiteEintraege(false);
         last.Click();
         before1.Editable = false;
@@ -380,7 +408,8 @@ namespace CSBP.Forms.TB
       var puid = GetText(position);
       var pfad = Parameter.TempPath;
       var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
-      UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray(), puid, null, null)), pfad, datei, true);
+      UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray(),
+        puid, from.Value, to.Value)), pfad, datei, true);
     }
 
     /// <summary>Behandlung von Date.</summary>
@@ -687,7 +716,8 @@ namespace CSBP.Forms.TB
     {
       BearbeiteEintraege(true, false);
       var puid = GetText(position);
-      var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, GetSearchArray(), puid, null, null));
+      var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, GetSearchArray(),
+        puid, from.Value, to.Value));
       if (d.HasValue)
       {
         date.Value = d;

@@ -610,6 +610,12 @@
     <data name="TB009" xml:space="preserve">
         <value>TB009Die Länge muss zwischen -180 und +180 sein.</value>
     </data>
+    <data name="TB010_" xml:space="preserve">
+        <value>TB010Position: {0}</value>
+    </data>
+    <data name="TB011_" xml:space="preserve">
+        <value>TB011Zeitraum: {0:yyyy-MM-dd} - {1:yyyy-MM-dd}</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Die Bezeichnung darf nicht leer sein.</value>
@@ -1132,7 +1138,7 @@
         <value>Unbekannt</value>
     </data>
     <data name="Date.unknown.tt" xml:space="preserve">
-        <value>Kein Datum vorhanden</value>
+        <value>Kein Datum vorhanden?</value>
     </data>
     <data name="Date.yesterday" xml:space="preserve">
         <value>-</value>
@@ -1427,7 +1433,7 @@
         <value>_Geburtstage</value>
     </data>
     <data name="AD120.geburtstage.tt" xml:space="preserve">
-        <value>Personen die im ausgewählten Zeitraum Geburtstag haben</value>
+        <value>Personen, die im ausgewählten Zeitraum Geburtstag haben</value>
     </data>
     <data name="AD120.starten" xml:space="preserve">
         <value>Nach dem Anmelden _anzeigen</value>
@@ -3524,6 +3530,18 @@
     </data>
     <data name="TB100.search12" xml:space="preserve">
         <value>)</value>
+    </data>
+    <data name="TB100.from" xml:space="preserve">
+        <value>Von</value>
+    </data>
+    <data name="TB100.from.tt" xml:space="preserve">
+        <value>Von-Datum für Suche</value>
+    </data>
+    <data name="TB100.to" xml:space="preserve">
+        <value>Bis</value>
+    </data>
+    <data name="TB100.to.tt" xml:space="preserve">
+        <value>Bis-Datum für Suche</value>
     </data>
     <data name="TB100.first.tt" xml:space="preserve">
         <value>Sprung zum ersten Eintrag.</value>

@@ -610,6 +610,12 @@
     <data name="TB009" xml:space="preserve">
         <value>TB009The longitude must be between -180 and +180.</value>
     </data>
+    <data name="TB010_" xml:space="preserve">
+        <value>TB010Position: {0}</value>
+    </data>
+    <data name="TB011_" xml:space="preserve">
+        <value>TB011TimePeriod: {0} - {1}</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Type in a description.</value>
@@ -3481,7 +3487,7 @@
         <value>Position</value>
     </data>
     <data name="TB100.position.tt" xml:space="preserve">
-        <value>Location or position to add.</value>
+        <value>Location or position to add or for search.</value>
     </data>
     <data name="TB100.add.tt" xml:space="preserve">
         <value>Add selected location or position.</value>
@@ -3524,6 +3530,18 @@
     </data>
     <data name="TB100.search12" xml:space="preserve">
         <value>)</value>
+    </data>
+    <data name="TB100.from" xml:space="preserve">
+        <value>from</value>
+    </data>
+    <data name="TB100.from.tt" xml:space="preserve">
+        <value>From date for search</value>
+    </data>
+    <data name="TB100.to" xml:space="preserve">
+        <value>to</value>
+    </data>
+    <data name="TB100.to.tt" xml:space="preserve">
+        <value>To date for search</value>
     </data>
     <data name="TB100.first.tt" xml:space="preserve">
         <value>Go to first entry.</value>

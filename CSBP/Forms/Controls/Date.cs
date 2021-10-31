@@ -60,6 +60,8 @@ namespace CSBP.Forms.Controls
 
     public bool IsCalendarOpen { get; set; }
 
+    public bool IsWithoutNullLabel { get; set; }
+
     public Label Label
     {
       private get { return null; }
@@ -340,7 +342,10 @@ namespace CSBP.Forms.Controls
     protected void OnShown(object sender, EventArgs e)
     {
       if (IsNullable)
+      {
+        unknown.Label = IsWithoutNullLabel ? "" : Date_unknown;
         unknown.Show();
+      }
       else
         unknown.Hide();
       if (IsWithCalendar)

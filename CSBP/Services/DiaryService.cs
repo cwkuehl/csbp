@@ -307,11 +307,24 @@ namespace CSBP.Services
       }
       suche[0] = str;
 
-      // Bericht vom: %1$s
+      // Bericht vom: {0}
       v.Add(TB002(daten.Jetzt));
-      // Suche nach: ('%1$s' oder '%2$s' oder '%3$s') und ('%4$s' oder '%5$s'
-      // oder '%6$s') und nicht ('%7$s' oder '%8$s' oder '%9$s')%10$s
+      // Suche nach: (/{0}/ oder /{1}/ oder /{2}/) und (/{3}/ oder /{4}/ oder /{5}/) und nicht (/{6}/ oder /{7}/ oder /{8}/)
       v.Add(TB003(suche));
+      if (!string.IsNullOrEmpty(puid))
+      {
+        var pos = TbOrtRep.Get(daten, daten.MandantNr, puid);
+        if (pos != null)
+        {
+          // Position: {0}
+          v.Add(TB010(pos.Bezeichnung));
+        }
+      }
+      if (from.HasValue || to.HasValue)
+      {
+        // Zeitraum: {0} - {1}
+        v.Add(TB011(from, to));
+      }
       v.Add(string.Empty);
       var liste = TbEintragRep.SearchEntries(daten, suche, puid, from, to);
       foreach (var e in liste)
