@@ -143,13 +143,27 @@ namespace CSBP.Services
         }
         else if (listep.Count == 1)
         {
-          var mfrom = vop.Datum_Von < from ? vop.Datum_Von : from;
-          var mto = vop.Datum_Bis > to ? vop.Datum_Bis : to;
-          if (!(vop.Datum_Von == mfrom && vop.Datum_Bis == mto))
+          if (vop.Datum_Von == from && vop.Datum_Bis == to)
           {
-            // Maximaler Zeitraum
-            OptimizePositions(daten, puid, mfrom, mto, vop.Angelegt_Von, vop.Angelegt_Am);
+            Functions.MachNichts();
+          }
+          else if (vop.Datum_Von <= from && vop.Datum_Bis >= to)
+          {
+            // Zeitraum wird verkürzt.
+            TbEintragOrtRep.Save(daten, daten.MandantNr, puid, from, to, vop.Angelegt_Von, vop.Angelegt_Am);
             TbEintragOrtRep.Delete(daten, vop);
+          }
+          else
+          {
+            // Nicht verkürzen.
+            var mfrom = vop.Datum_Von < from ? vop.Datum_Von : from;
+            var mto = vop.Datum_Bis > to ? vop.Datum_Bis : to;
+            if (!(vop.Datum_Von == mfrom && vop.Datum_Bis == mto))
+            {
+              // Maximaler Zeitraum
+              OptimizePositions(daten, puid, mfrom, mto, vop.Angelegt_Von, vop.Angelegt_Am);
+              TbEintragOrtRep.Delete(daten, vop);
+            }
           }
         }
         else
