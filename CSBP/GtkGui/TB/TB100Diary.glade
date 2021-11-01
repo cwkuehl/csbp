@@ -314,21 +314,6 @@
             <child>
               <placeholder/>
             </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -375,7 +360,7 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">7</property>
+                <property name="width">5</property>
               </packing>
             </child>
             <child>
@@ -479,7 +464,6 @@
                 <property name="valign">center</property>
                 <property name="label">TB100.search4</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">search50</property>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -587,7 +571,6 @@
                 <property name="valign">center</property>
                 <property name="label">TB100.search8</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">search90</property>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -701,6 +684,61 @@
                 <property name="top_attach">3</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton" id="clear">
+                <property name="label">TB100.clear</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text">TB100.clear.tt</property>
+                <property name="hexpand">True</property>
+                <property name="image">clearImage</property>
+                <property name="use_underline">True</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="OnClearClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">5</property>
+                <property name="top_attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="position20">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="label">TB100.position2</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">position2</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="position2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text">TB100.position2.tt</property>
+                <property name="hexpand">True</property>
+                <property name="has_entry">True</property>
+                <child internal-child="entry">
+                  <object class="GtkEntry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="width_chars">10</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">4</property>
+                <property name="width">6</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -714,6 +752,7 @@
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="spacing">5</property>
+            <property name="homogeneous">True</property>
             <child>
               <object class="GtkButton" id="first">
                 <property name="label">TB100.first</property>
@@ -791,17 +830,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="clear">
-                <property name="label">TB100.clear</property>
+              <object class="GtkButton" id="saveAction">
+                <property name="label" translatable="yes">TB100.save</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text">TB100.clear.tt</property>
-                <property name="hexpand">True</property>
-                <property name="image">clearImage</property>
-                <property name="use_underline">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text">TB100.save.tt</property>
+                <property name="image">saveImage</property>
                 <property name="always_show_image">True</property>
-                <signal name="clicked" handler="OnClearClicked" swapped="no"/>
+                <signal name="clicked" handler="OnSaveClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -901,6 +938,7 @@
                 <property name="valign">center</property>
                 <property name="label">TB100.position</property>
                 <property name="use_underline">True</property>
+                <property name="mnemonic_widget">position</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -1086,21 +1124,6 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1140,42 +1163,11 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="saveAction">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text">Action.save</property>
-                <property name="image">saveImage</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="OnSaveClicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
               </packing>
             </child>
           </object>

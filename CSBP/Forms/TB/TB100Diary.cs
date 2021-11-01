@@ -44,10 +44,6 @@ namespace CSBP.Forms.TB
     [Builder.Object]
     private Button redoAction;
 
-    /// <summary>Button SaveAction.</summary>
-    [Builder.Object]
-    private Button saveAction;
-
     /// <summary>Label before10.</summary>
     [Builder.Object]
     private Label before10;
@@ -115,6 +111,10 @@ namespace CSBP.Forms.TB
     /// <summary>Label search00.</summary>
     [Builder.Object]
     private Label search00;
+
+    /// <summary>Button clear.</summary>
+    [Builder.Object]
+    private Button clear;
 
     /// <summary>Label search10.</summary>
     [Builder.Object]
@@ -200,6 +200,10 @@ namespace CSBP.Forms.TB
     [Builder.Object]
     private Label search120;
 
+    /// <summary>ComboBox position2.</summary>
+    [Builder.Object]
+    private ComboBox position2;
+
     /// <summary>From date.</summary>
     //[Builder.Object]
     private Date from;
@@ -223,10 +227,6 @@ namespace CSBP.Forms.TB
     /// <summary>Button last.</summary>
     [Builder.Object]
     private Button last;
-
-    /// <summary>Button clear.</summary>
-    [Builder.Object]
-    private Button clear;
 
     /// <summary>Label after10.</summary>
     [Builder.Object]
@@ -323,10 +323,6 @@ namespace CSBP.Forms.TB
         ClearSearch();
         EntryOld.Datum = DateTime.Today;
         date.Value = EntryOld.Datum;
-        from.Value = EntryOld.Datum.AddYears(-1);
-        // from.Value = null;
-        to.Value = EntryOld.Datum;
-        // to.Value = null;
         BearbeiteEintraege(false);
         last.Click();
         before1.Editable = false;
@@ -350,13 +346,18 @@ namespace CSBP.Forms.TB
     /// <summary>Initialisierung der Listen.</summary>
     private void InitLists()
     {
-      var uid = GetText(position);
       var daten = ServiceDaten;
       var rl = Get(FactoryService.DiaryService.GetPositionList(daten));
+      var uid = GetText(position);
       var rs = AddColumns(position, emptyentry: true);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
       SetText(position, uid);
+      var uid2 = GetText(position2);
+      var rs2 = AddColumns(position2, emptyentry: true);
+      foreach (var p in rl)
+        rs2.AppendValues(p.Bezeichnung, p.Uid);
+      SetText(position2, uid2);
     }
 
     /// <summary>Behandlung von Copy.</summary>
@@ -407,7 +408,7 @@ namespace CSBP.Forms.TB
     {
       // Bericht erzeugen
       BearbeiteEintraege(true, false);
-      var puid = GetText(position);
+      var puid = GetText(position2);
       var pfad = Parameter.TempPath;
       var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
       UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray(),
@@ -702,6 +703,11 @@ namespace CSBP.Forms.TB
       search7.Text = "%%";
       search8.Text = "%%";
       search9.Text = "%%";
+      SetText(position2, null);
+      from.Value = DateTime.Today.AddYears(-1);
+      // from.Value = null;
+      to.Value = DateTime.Today;
+      // to.Value = null;
     }
 
     string[] GetSearchArray()
@@ -717,7 +723,7 @@ namespace CSBP.Forms.TB
     void SearchEntry(SearchDirectionEnum stelle)
     {
       BearbeiteEintraege(true, false);
-      var puid = GetText(position);
+      var puid = GetText(position2);
       var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, GetSearchArray(),
         puid, from.Value, to.Value));
       if (d.HasValue)

@@ -3495,6 +3495,9 @@
     <data name="TB100.search0" xml:space="preserve">
         <value>_Suche (Platzhalter % und __; Reihenfolge-Prüfung ####)</value>
     </data>
+    <data name="TB100.clear.tt" xml:space="preserve">
+        <value>Leeren der Such-Kriterien.</value>
+    </data>
     <data name="TB100.search1" xml:space="preserve">
         <value>(</value>
     </data>
@@ -3531,6 +3534,12 @@
     <data name="TB100.search12" xml:space="preserve">
         <value>)</value>
     </data>
+    <data name="TB100.position2" xml:space="preserve">
+        <value>Position</value>
+    </data>
+    <data name="TB100.position2.tt" xml:space="preserve">
+        <value>Ort oder Position zum Suchen.</value>
+    </data>
     <data name="TB100.from" xml:space="preserve">
         <value>Von</value>
     </data>
@@ -3555,8 +3564,8 @@
     <data name="TB100.last.tt" xml:space="preserve">
         <value>Sprung zum letzten Eintrag.</value>
     </data>
-    <data name="TB100.clear.tt" xml:space="preserve">
-        <value>Leeren der Such-Kriterien.</value>
+    <data name="TB100.save.tt" xml:space="preserve">
+        <value>Speichern aller passenden Einträge in einer Datei.</value>
     </data>
 
     <data name="TB110.title" xml:space="preserve">

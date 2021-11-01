@@ -7,6 +7,7 @@ namespace CSBP.Forms.TB
   using System;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
+  using CSBP.Base;
   using CSBP.Forms.Controls;
   using CSBP.Services.Factory;
   using Gtk;
@@ -118,7 +119,7 @@ namespace CSBP.Forms.TB
           date.Value = p.Item2;
         }
         nr.IsEditable = false;
-        bezeichnung.Sensitive = false;
+        bezeichnung.Sensitive = !loeschen;
         date.Sensitive = !loeschen;
         if (loeschen)
           ok.Label = Forms_delete;
@@ -131,30 +132,18 @@ namespace CSBP.Forms.TB
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnOkClicked(object sender, EventArgs e)
     {
-      // ServiceErgebnis r = null;
+      var daten = ServiceDaten;
+      var p = Get(FactoryService.DiaryService.GetPosition(daten, nr.Text));
+      if (p != null && p.Bezeichnung != bezeichnung.Text)
+      {
+        var r = FactoryService.DiaryService.SavePosition(daten, p.Uid, bezeichnung.Text, Functions.ToString(p.Breite, 5), Functions.ToString(p.Laenge, 5), Functions.ToString(p.Hoehe, 2), p.Notiz);
+        Get(r);
+        if (!r.Ok)
+          return;
+      }
       var d = date.ValueNn;
       Response = d;
       dialog.Hide();
-      // if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
-      //     || DialogType == DialogTypeEnum.Edit)
-      // {
-      //   r = FactoryService.DiaryService.SavePosition(ServiceDaten,
-      //     DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, breite.Text,
-      //     laenge.Text, hoehe.Text, notiz.Buffer.Text);
-      // }
-      // else if (DialogType == DialogTypeEnum.Delete)
-      // {
-      //   r = FactoryService.PedigreeService.DeleteSource(ServiceDaten, Model);
-      // }
-      // if (r != null)
-      // {
-      //   Get(r);
-      //   if (r.Ok)
-      //   {
-      //     UpdateParent();
-      //     dialog.Hide();
-      //   }
-      // }
     }
 
     /// <summary>Behandlung von Abbrechen.</summary>

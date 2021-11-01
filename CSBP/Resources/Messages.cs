@@ -5697,6 +5697,11 @@ namespace CSBP.Resources
       get { return rm.GetString("TB100.search0"); }
     }
 
+    public static string TB100_clear_tt
+    {
+      get { return rm.GetString("TB100.clear.tt"); }
+    }
+
     public static string TB100_search1
     {
       get { return rm.GetString("TB100.search1"); }
@@ -5757,6 +5762,16 @@ namespace CSBP.Resources
       get { return rm.GetString("TB100.search12"); }
     }
 
+    public static string TB100_position2
+    {
+      get { return rm.GetString("TB100.position2"); }
+    }
+
+    public static string TB100_position2_tt
+    {
+      get { return rm.GetString("TB100.position2.tt"); }
+    }
+
     public static string TB100_from
     {
       get { return rm.GetString("TB100.from"); }
@@ -5797,9 +5812,9 @@ namespace CSBP.Resources
       get { return rm.GetString("TB100.last.tt"); }
     }
 
-    public static string TB100_clear_tt
+    public static string TB100_save_tt
     {
-      get { return rm.GetString("TB100.clear.tt"); }
+      get { return rm.GetString("TB100.save.tt"); }
     }
 
     public static string TB110_title

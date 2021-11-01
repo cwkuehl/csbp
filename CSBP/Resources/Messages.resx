@@ -3487,13 +3487,16 @@
         <value>Position</value>
     </data>
     <data name="TB100.position.tt" xml:space="preserve">
-        <value>Location or position to add or for search.</value>
+        <value>Location or position to add.</value>
     </data>
     <data name="TB100.add.tt" xml:space="preserve">
         <value>Add selected location or position.</value>
     </data>
     <data name="TB100.search0" xml:space="preserve">
         <value>_Search (Placeholders % and _; Sequence check with ####)</value>
+    </data>
+    <data name="TB100.clear.tt" xml:space="preserve">
+        <value>Clear the search criteria.</value>
     </data>
     <data name="TB100.search1" xml:space="preserve">
         <value>(</value>
@@ -3531,6 +3534,12 @@
     <data name="TB100.search12" xml:space="preserve">
         <value>)</value>
     </data>
+    <data name="TB100.position2" xml:space="preserve">
+        <value>Position</value>
+    </data>
+    <data name="TB100.position2.tt" xml:space="preserve">
+        <value>Location or position for search.</value>
+    </data>
     <data name="TB100.from" xml:space="preserve">
         <value>from</value>
     </data>
@@ -3555,8 +3564,8 @@
     <data name="TB100.last.tt" xml:space="preserve">
         <value>Go to last entry.</value>
     </data>
-    <data name="TB100.clear.tt" xml:space="preserve">
-        <value>Clear the search criteria.</value>
+    <data name="TB100.save.tt" xml:space="preserve">
+        <value>Save all affected entries in a file.</value>
     </data>
 
     <data name="TB110.title" xml:space="preserve">
