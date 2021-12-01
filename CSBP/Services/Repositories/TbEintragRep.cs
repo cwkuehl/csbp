@@ -123,8 +123,16 @@ namespace CSBP.Services.Repositories
         l = l.Where(a => !EF.Functions.Like(a.Eintrag, suche[6]));
       if (!string.IsNullOrEmpty(puid))
       {
-        var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr && a.Ort_Uid == puid);
-        l = l.Where(a => eo.Any(b => b.Datum_Von <= a.Datum && a.Datum <= b.Datum_Bis));
+        if (puid == "0")
+        {
+          var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+          l = l.Where(a => !eo.Any(b => b.Datum_Von <= a.Datum && a.Datum <= b.Datum_Bis));
+        }
+        else
+        {
+          var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr && a.Ort_Uid == puid);
+          l = l.Where(a => eo.Any(b => b.Datum_Von <= a.Datum && a.Datum <= b.Datum_Bis));
+        }
       }
       if (from.HasValue)
         l = l.Where(a => a.Datum >= from.Value);

@@ -23,7 +23,7 @@ namespace CSBP.Forms
   [System.ComponentModel.ToolboxItem(false)]
   public partial class CsbpBin : Bin
   {
-    public static int TitleHeight { get; private set; } = 37;
+    public static int TitleHeight { get; private set; } = Functions.IsLinux() ? 37 : 10;
 
     protected Builder Builder { get; private set; }
 

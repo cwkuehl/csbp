@@ -281,7 +281,7 @@ namespace CSBP.Forms.TB
       {
         IsNullable = false,
         IsWithCalendar = true,
-        IsCalendarOpen = true,
+        IsCalendarOpen = Functions.IsLinux() ? true : false,
         YesterdayAccel = "m",
         TomorrowAccel = "p",
       };
@@ -355,6 +355,7 @@ namespace CSBP.Forms.TB
       SetText(position, uid);
       var uid2 = GetText(position2);
       var rs2 = AddColumns(position2, emptyentry: true);
+      rl.Insert(0, new TbOrt { Uid = "0", Bezeichnung = M0(TB012) });
       foreach (var p in rl)
         rs2.AppendValues(p.Bezeichnung, p.Uid);
       SetText(position2, uid2);
@@ -704,8 +705,7 @@ namespace CSBP.Forms.TB
       search8.Text = "%%";
       search9.Text = "%%";
       SetText(position2, null);
-      from.Value = DateTime.Today.AddYears(-1);
-      // from.Value = null;
+      from.Value = Functions.IsLinux() ? DateTime.Today.AddYears(-1) : null;
       to.Value = DateTime.Today;
       // to.Value = null;
     }

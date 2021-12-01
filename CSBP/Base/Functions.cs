@@ -107,6 +107,11 @@ namespace CSBP.Base
       return null;
     }
 
+    /// <summary>
+    /// Wandelt String in nullable bool um.
+    /// </summary>
+    /// <param name="s">Betroffener String</param>
+    /// <returns>String als nullabel bool.</returns>
     public static bool? ToBool(string s)
     {
       if (!string.IsNullOrWhiteSpace(s) && bool.TryParse(s, out var d))
@@ -1085,5 +1090,14 @@ namespace CSBP.Base
       return null;
     }
 
+    /// <summary>
+    /// Läuft das Programm unter Linux?
+    /// </summary>
+    /// <returns>Läuft das Programm unter Linux?</returns>
+    public static bool IsLinux()
+    {
+      var linux = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux);
+      return linux;
+    }
   }
 }

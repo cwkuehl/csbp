@@ -616,6 +616,9 @@
     <data name="TB011_" xml:space="preserve">
         <value>TB011TimePeriod: {0} - {1}</value>
     </data>
+    <data name="TB012" xml:space="preserve">
+        <value>TB012Without position</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Type in a description.</value>
