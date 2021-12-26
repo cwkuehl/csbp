@@ -41,7 +41,7 @@ namespace CSBP.Services.Repositories
       // var l3 = l2.Take(max <= 0 ? int.MaxValue : max);
       // return l3.ToList();
       var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
-      var gj = wl.ToList().GroupJoin(eo, a => new { a.Mandant_Nr, a.Uid }, b => new { b.Mandant_Nr, Uid = b.Ort_Uid }, (a, b) => new { ort = a, anzahl = b.Sum(a => (a.Datum_Bis - a.Datum_Von).TotalDays) });
+      var gj = wl.ToList().GroupJoin(eo, a => new { a.Mandant_Nr, a.Uid }, b => new { b.Mandant_Nr, Uid = b.Ort_Uid }, (a, b) => new { ort = a, anzahl = b.Sum(a => (a.Datum_Bis - a.Datum_Von).TotalDays + 1) });
       var l2 = desc ? gj.OrderByDescending(a => a.anzahl)
           : gj.OrderBy(a => a.anzahl);
       var l3 = l2.Take(max <= 0 ? int.MaxValue : max).Select(a => a.ort);
