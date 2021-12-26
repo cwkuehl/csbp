@@ -77,6 +77,10 @@ namespace CSBP.Forms
     [Builder.Object]
     private MenuItem MenuDiary;
 
+    /// <summary>Menüpunkt Positionen.</summary>
+    [Builder.Object]
+    private MenuItem MenuPositions;
+
     /// <summary>Menüpunkt Notizen.</summary>
     [Builder.Object]
     private MenuItem MenuNotes;
@@ -317,6 +321,7 @@ namespace CSBP.Forms
       // MenuOptions.Activate();
       // MenuDialogs.Activate();
       // MenuDiary.Activate();
+      // MenuPositions.Activate();
       // MenuNotes.Activate();
       // MenuPersons.Activate();
       // MenuMileages.Activate();
@@ -371,6 +376,7 @@ namespace CSBP.Forms
       MenuReset.Visible = true;
 
       MenuDiary.Visible = b;
+      MenuPositions.Visible = b;
       MenuNotes.Visible = b;
       MenuPersons.Visible = b;
       MenuMileages.Visible = b;
@@ -626,6 +632,14 @@ namespace CSBP.Forms
     protected void OnMenuDiary(object sender, EventArgs e)
     {
       AppendPage(TB100Diary.Create(), TB100_title);
+    }
+
+    /// <summary>Menüpunkt Positionen.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnMenuPositions(object sender, EventArgs e)
+    {
+      AppendPage(TB200Positions.Create(), TB200_title);
     }
 
     /// <summary>Menüpunkt Notizen.</summary>

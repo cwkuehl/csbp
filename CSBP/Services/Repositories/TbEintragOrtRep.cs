@@ -23,11 +23,12 @@ namespace CSBP.Services.Repositories
     /// <param name="date">Affected date.</param>
     /// <param name="puid">Affected position uid.</param>
     /// <returns>List of positions.</returns>
-    public List<TbEintragOrt> GetList(ServiceDaten daten, DateTime date, string puid = null)
+    public List<TbEintragOrt> GetList(ServiceDaten daten, DateTime? date, string puid = null)
     {
       var db = GetDb(daten);
-      var l = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr
-        && a.Datum_Von <= date && a.Datum_Bis >= date);
+      var l = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+      if (date.HasValue)
+        l = l.Where(a => a.Datum_Von <= date.Value && a.Datum_Bis >= date.Value);
       if (!string.IsNullOrEmpty(puid))
         l = l.Where(a => a.Ort_Uid == puid);
       return l.OrderBy(a => a.Ort_Uid).ThenBy(a => a.Datum_Von).ToList();

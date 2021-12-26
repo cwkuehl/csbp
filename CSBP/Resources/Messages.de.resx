@@ -619,6 +619,9 @@
     <data name="TB012" xml:space="preserve">
         <value>TB012Ohne Position</value>
     </data>
+    <data name="TB013_" xml:space="preserve">
+        <value>TB013Die Position wird in Tagebucheinträgen verwendet und kann nicht gelöscht werden, z.B. {0:yyyy-MM-dd}.</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Die Bezeichnung darf nicht leer sein.</value>
@@ -845,6 +848,9 @@
     <data name="Menu.diary" xml:space="preserve">
         <value>_Tagebuch</value>
     </data>
+    <data name="Menu.positions" xml:space="preserve">
+        <value>  P_ositionen</value>
+    </data>
     <data name="Menu.notes" xml:space="preserve">
         <value>_Notizen</value>
     </data>
@@ -855,16 +861,16 @@
         <value>Fa_hrradstände</value>
     </data>
     <data name="Menu.bikes" xml:space="preserve">
-        <value>_Fahrräder</value>
+        <value>  _Fahrräder</value>
     </data>
     <data name="Menu.books" xml:space="preserve">
         <value>_Bücher</value>
     </data>
     <data name="Menu.authors" xml:space="preserve">
-        <value>_Autoren</value>
+        <value>  _Autoren</value>
     </data>
     <data name="Menu.series" xml:space="preserve">
-        <value>S_erien</value>
+        <value>  S_erien</value>
     </data>
     <data name="Menu.statistics" xml:space="preserve">
         <value>_Statistik</value>
@@ -883,22 +889,22 @@
         <value>_Buchungen</value>
     </data>
     <data name="Menu.events" xml:space="preserve">
-        <value>_Ereignisse</value>
+        <value>  _Ereignisse</value>
     </data>
     <data name="Menu.accounts" xml:space="preserve">
-        <value>_Konten</value>
+        <value>  _Konten</value>
     </data>
     <data name="Menu.periods" xml:space="preserve">
-        <value>_Perioden</value>
+        <value>  _Perioden</value>
     </data>
     <data name="Menu.finalbalance" xml:space="preserve">
         <value>_Schlussbilanz</value>
     </data>
     <data name="Menu.plbalance" xml:space="preserve">
-        <value>_G+V-Rechnung</value>
+        <value>  _G+V-Rechnung</value>
     </data>
     <data name="Menu.openingbalance" xml:space="preserve">
-        <value>Erö_ffnungsbilanz</value>
+        <value>  Erö_ffnungsbilanz</value>
     </data>
 
     <data name="Menu.pedigree5" xml:space="preserve">
@@ -3569,6 +3575,31 @@
     </data>
     <data name="TB100.save.tt" xml:space="preserve">
         <value>Speichern aller passenden Einträge in einer Datei.</value>
+    </data>
+
+    <data name="TB200.title" xml:space="preserve">
+        <value>Positionen</value>
+    </data>
+    <data name="TB200.positions" xml:space="preserve">
+        <value>_Positionen</value>
+    </data>
+    <data name="TB200.positions.tt" xml:space="preserve">
+        <value>Positionen</value>
+    </data>
+    <data name="TB200.positions.columns" xml:space="preserve">
+        <value>Nr.;Bezeichnung;Breite_r;Länge_r;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="TB200.search" xml:space="preserve">
+        <value>_Suche</value>
+    </data>
+    <data name="TB200.search.tt" xml:space="preserve">
+        <value>Selektions-Text</value>
+    </data>
+    <data name="TB200.all" xml:space="preserve">
+        <value>A_lle</value>
+    </data>
+    <data name="TB200.all.tt" xml:space="preserve">
+        <value>Selektionskriterien zurücksetzen</value>
     </data>
 
     <data name="TB110.title" xml:space="preserve">

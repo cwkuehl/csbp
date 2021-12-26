@@ -93,5 +93,13 @@ namespace CSBP.Apis.Services
     /// <param name="memo">Affected memos.</param>
     /// <returns>Saved entity.</returns>
     ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string memo);
+
+    /// <summary>
+    /// Deletes a position.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="e">Affected entity.</param>
+    /// <returns>Possibly errors.</returns>
+    ServiceErgebnis DeletePosition(ServiceDaten daten, TbOrt e);
   }
 }

@@ -198,7 +198,7 @@ namespace CSBP.Forms.TB
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {
-        // r = FactoryService.PedigreeService.DeleteSource(ServiceDaten, Model);
+        r = FactoryService.DiaryService.DeletePosition(ServiceDaten, Model);
       }
       if (r != null)
       {

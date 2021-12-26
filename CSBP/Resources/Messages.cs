@@ -1027,6 +1027,11 @@ namespace CSBP.Resources
       get { return rm.GetString("TB012"); }
     }
 
+    public static string TB013_
+    {
+      get { return rm.GetString("TB013_"); }
+    }
+
     public static string WP001
     {
       get { return rm.GetString("WP001"); }
@@ -1390,6 +1395,11 @@ namespace CSBP.Resources
     public static string Menu_diary
     {
       get { return rm.GetString("Menu.diary"); }
+    }
+
+    public static string Menu_positions
+    {
+      get { return rm.GetString("Menu.positions"); }
     }
 
     public static string Menu_notes
@@ -5855,6 +5865,46 @@ namespace CSBP.Resources
     public static string TB110_datum_tt
     {
       get { return rm.GetString("TB110.datum.tt"); }
+    }
+
+    public static string TB200_title
+    {
+      get { return rm.GetString("TB200.title"); }
+    }
+
+    public static string TB200_positions
+    {
+      get { return rm.GetString("TB200.positions"); }
+    }
+
+    public static string TB200_positions_tt
+    {
+      get { return rm.GetString("TB200.positions.tt"); }
+    }
+
+    public static string TB200_positions_columns
+    {
+      get { return rm.GetString("TB200.positions.columns"); }
+    }
+
+    public static string TB200_search
+    {
+      get { return rm.GetString("TB200.search"); }
+    }
+
+    public static string TB200_search_tt
+    {
+      get { return rm.GetString("TB200.search.tt"); }
+    }
+
+    public static string TB200_all
+    {
+      get { return rm.GetString("TB200.all"); }
+    }
+
+    public static string TB200_all_tt
+    {
+      get { return rm.GetString("TB200.all.tt"); }
     }
 
     public static string TB210_title

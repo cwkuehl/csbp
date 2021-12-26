@@ -619,6 +619,9 @@
     <data name="TB012" xml:space="preserve">
         <value>TB012Without position</value>
     </data>
+    <data name="TB013_" xml:space="preserve">
+        <value>TB013The Position is used in diary entries and cannot be deleted, e.g. {0:yyyy-MM-dd}.</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Type in a description.</value>
@@ -845,6 +848,9 @@
     <data name="Menu.diary" xml:space="preserve">
         <value>_Diary</value>
     </data>
+    <data name="Menu.positions" xml:space="preserve">
+        <value>  P_ositions</value>
+    </data>
     <data name="Menu.notes" xml:space="preserve">
         <value>_Notes</value>
     </data>
@@ -855,16 +861,16 @@
         <value>_Mileages</value>
     </data>
     <data name="Menu.bikes" xml:space="preserve">
-        <value>B_ikes</value>
+        <value>  B_ikes</value>
     </data>
     <data name="Menu.books" xml:space="preserve">
         <value>_Books</value>
     </data>
     <data name="Menu.authors" xml:space="preserve">
-        <value>_Authors</value>
+        <value>  _Authors</value>
     </data>
     <data name="Menu.series" xml:space="preserve">
-        <value>S_eries</value>
+        <value>  S_eries</value>
     </data>
     <data name="Menu.statistics" xml:space="preserve">
         <value>_Statistics</value>
@@ -883,22 +889,22 @@
         <value>_Bookings</value>
     </data>
     <data name="Menu.events" xml:space="preserve">
-        <value>_Events</value>
+        <value>  _Events</value>
     </data>
     <data name="Menu.accounts" xml:space="preserve">
-        <value>_Accounts</value>
+        <value>  _Accounts</value>
     </data>
     <data name="Menu.periods" xml:space="preserve">
-        <value>_Periods</value>
+        <value>  _Periods</value>
     </data>
     <data name="Menu.finalbalance" xml:space="preserve">
         <value>_Final balance</value>
     </data>
     <data name="Menu.plbalance" xml:space="preserve">
-        <value>_Profit and loss account</value>
+        <value>  _Profit and loss account</value>
     </data>
     <data name="Menu.openingbalance" xml:space="preserve">
-        <value>Opening balance</value>
+        <value>  Opening balance</value>
     </data>
 
     <data name="Menu.pedigree5" xml:space="preserve">
@@ -921,19 +927,19 @@
         <value>_Stocks</value>
     </data>
     <data name="Menu.configurations" xml:space="preserve">
-        <value>_Configurations</value>
+        <value>  _Configurations</value>
     </data>
     <data name="Menu.investments" xml:space="preserve">
         <value>_Investments</value>
     </data>
     <data name="Menu.bookings3" xml:space="preserve">
-        <value>Investment _bookings</value>
+        <value>  Investment _bookings</value>
     </data>
     <data name="Menu.prices" xml:space="preserve">
-        <value>_Prices</value>
+        <value>  _Prices</value>
     </data>
     <data name="Menu.chart" xml:space="preserve">
-        <value>_Stock chart</value>
+        <value>  _Stock chart</value>
     </data>
 
     <data name="Menu.help" xml:space="preserve">
@@ -1147,19 +1153,19 @@
         <value>-</value>
     </data>
     <data name="Date.yesterday.tt" xml:space="preserve">
-        <value>-</value>
+        <value>Day before date</value>
     </data>
     <data name="Date.today" xml:space="preserve">
         <value> t</value>
     </data>
     <data name="Date.today.tt" xml:space="preserve">
-        <value> t</value>
+        <value> Today</value>
     </data>
     <data name="Date.tomorrow" xml:space="preserve">
         <value>+</value>
     </data>
     <data name="Date.tomorrow.tt" xml:space="preserve">
-        <value>+</value>
+        <value>Day after date</value>
     </data>
 
     <!-- Dialoge -->
@@ -3591,6 +3597,31 @@
     </data>
     <data name="TB110.datum.tt" xml:space="preserve">
         <value>To date of position</value>
+    </data>
+
+    <data name="TB200.title" xml:space="preserve">
+        <value>Positions</value>
+    </data>
+    <data name="TB200.positions" xml:space="preserve">
+        <value>_Positions</value>
+    </data>
+    <data name="TB200.positions.tt" xml:space="preserve">
+        <value>Positions</value>
+    </data>
+    <data name="TB200.positions.columns" xml:space="preserve">
+        <value>No.;Description;Latitude_r;Longitude_r;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="TB200.search" xml:space="preserve">
+        <value>_Search</value>
+    </data>
+    <data name="TB200.search.tt" xml:space="preserve">
+        <value>Search text</value>
+    </data>
+    <data name="TB200.all" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="TB200.all.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
     </data>
 
     <data name="TB210.title" xml:space="preserve">

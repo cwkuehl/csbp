@@ -465,5 +465,22 @@ namespace CSBP.Services
       if (string.IsNullOrEmpty(suche[0]))
         suche[0] = "%";
     }
+
+    /// <summary>
+    /// Deletes a position.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="e">Affected entity.</param>
+    /// <returns>Possibly errors.</returns>
+    public ServiceErgebnis DeletePosition(ServiceDaten daten, TbOrt e)
+    {
+      var r = new ServiceErgebnis();
+      var plist = TbEintragOrtRep.GetList(daten, null, e.Uid);
+      var p = plist.FirstOrDefault();
+      if (p != null)
+        throw new MessageException(TB013(p.Datum_Von));
+      TbOrtRep.Delete(daten, e);
+      return r;
+    }
   }
 }

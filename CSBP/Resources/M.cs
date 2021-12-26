@@ -156,6 +156,8 @@ namespace CSBP.Resources
 
     public static string TB006(DateTime d, string entry) => string.Format(M0(TB006_), d, entry);
 
+    public static string TB013(DateTime d, bool cut = false) => string.Format(M0(TB013_, cut), d);
+
     public static string WP008(int i, int l, string desc, DateTime d, string ext = null, bool cut = true) => string.Format(M0(WP008_, cut), i, l, desc, d, ext);
 
     public static string TB010(string s) => string.Format(M0(TB010_), s);
