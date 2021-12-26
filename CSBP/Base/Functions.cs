@@ -1072,7 +1072,8 @@ namespace CSBP.Base
       return rc;
     }
 
-    private static Regex RxCoordinates = new Regex(@"^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)(,\s*(-?\d+(\.\d+)?)z?)?$", RegexOptions.Compiled);
+    //private static Regex RxCoordinates = new Regex(@"^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)(,\s*(-?\d+(\.\d+)?)z?)?$", RegexOptions.Compiled);
+    private static Regex RxCoordinates = new Regex(@"^(-?\d+(\.\d+)),\s*(-?\d+(\.\d+))(,\s*(-?\d+(\.\d+))z?)?$", RegexOptions.Compiled);
 
     /// <summary>String in Koordinaten in Dezimalform.</summary>
     /// <param name="s">Betroffener String.</param>
