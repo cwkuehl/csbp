@@ -2,7 +2,7 @@
 @rem Installation von
 @rem VSCodeSetup-x64-1.51.1.exe oder neuer
 @rem dotnet-sdk-5.0.100-win-x64.exe oder neuer
-@rem GTK durch Starten im vscode.
+@rem GTK durch Starten im vscode oder https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases/download/2021-04-29/gtk3-runtime-3.24.29-2021-04-29-ts-win64.exe.
 
 @echo off
 set src=%~dp0
