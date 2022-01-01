@@ -846,58 +846,71 @@ namespace CSBP.Forms
         store.AppendValues("", "");
       if (!cb.Data.ContainsKey("KeyReleaseEvent"))
       {
-        var sb = new StringBuilder();
         cb.Data.Add("KeyReleaseEvent", "");
-        cb.KeyReleaseEvent += (object o, KeyReleaseEventArgs e) =>
+        var sb = new StringBuilder();
+        var completion = new Gtk.EntryCompletion();
+        completion.Model = cb.Model;
+        completion.TextColumn = cb.EntryTextColumn;
+        completion.MatchFunc = (EntryCompletion completion, string key, TreeIter iter) =>
         {
-          var k = e.Event.Key;
-          try
-          {
-            if (k == Gdk.Key.Tab || k == Gdk.Key.Escape)
-            {
-              sb.Length = 0;
-              // Debug.WriteLine("Tab");
-              return;
-            }
-            if (k == Gdk.Key.Down || k == Gdk.Key.Up
-              || ((int)e.Event.State & ((int)Gdk.ModifierType.ShiftMask | (int)Gdk.ModifierType.ControlMask | (int)Gdk.ModifierType.Mod1Mask)) != 0)
-              return;
-            if (k == Gdk.Key.BackSpace || k == Gdk.Key.Delete || k == Gdk.Key.KP_Delete)
-            {
-              if (sb.Length > 0)
-                sb.Length--;
-              return;
-            }
-            if (e.Event.KeyValue <= 255)
-            {
-              sb.Append((char)e.Event.KeyValue);
-            }
-            if (sb.Length <= 0)
-              return;
-            var found = false;
-            var s = sb.ToString().ToLower();
-            if (cb.Model.GetIterFirst(out TreeIter iter))
-            {
-              var valid = true;
-              while (valid)
-              {
-                if (matches(s, ((cb.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
-                {
-                  cb.SetActiveIter(iter);
-                  found = true;
-                  break;
-                }
-                valid = cb.Model.IterNext(ref iter);
-              }
-            }
-            if (!found && sb.Length > 0)
-              sb.Length--;
-          }
-          finally
-          {
-            Debug.WriteLine(e.Event.Key + " " + e.Event.State + " " + e.Event.KeyValue + ": " + sb);
-          }
+          if (!string.IsNullOrEmpty(key) && matches(key.ToLower(), ((completion.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
+            return true;
+          return false;
         };
+        var entry = cb.Child as Entry;
+        if (entry != null)
+          entry.Completion = completion;
+        // else
+        //   cb.KeyReleaseEvent += (object o, KeyReleaseEventArgs e) =>
+        //   {
+        //     var k = e.Event.Key;
+        //     try
+        //     {
+        //       if (k == Gdk.Key.Tab || k == Gdk.Key.Escape)
+        //       {
+        //         sb.Length = 0;
+        //         // Debug.WriteLine("Tab");
+        //         return;
+        //       }
+        //       if (k == Gdk.Key.Down || k == Gdk.Key.Up
+        //         || ((int)e.Event.State & ((int)Gdk.ModifierType.ShiftMask | (int)Gdk.ModifierType.ControlMask | (int)Gdk.ModifierType.Mod1Mask)) != 0)
+        //         return;
+        //       if (k == Gdk.Key.BackSpace || k == Gdk.Key.Delete || k == Gdk.Key.KP_Delete)
+        //       {
+        //         if (sb.Length > 0)
+        //           sb.Length--;
+        //         return;
+        //       }
+        //       if (e.Event.KeyValue <= 255)
+        //       {
+        //         sb.Append((char)e.Event.KeyValue);
+        //       }
+        //       if (sb.Length <= 0)
+        //         return;
+        //       var found = false;
+        //       var s = sb.ToString().ToLower();
+        //       if (cb.Model.GetIterFirst(out TreeIter iter))
+        //       {
+        //         var valid = true;
+        //         while (valid)
+        //         {
+        //           if (matches(s, ((cb.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
+        //           {
+        //             cb.SetActiveIter(iter);
+        //             found = true;
+        //             break;
+        //           }
+        //           valid = cb.Model.IterNext(ref iter);
+        //         }
+        //       }
+        //       if (!found && sb.Length > 0)
+        //         sb.Length--;
+        //     }
+        //     finally
+        //     {
+        //       Debug.WriteLine(e.Event.Key + " " + e.Event.State + " " + e.Event.KeyValue + ": " + sb);
+        //     }
+        //   };
       }
       return store;
     }
