@@ -149,9 +149,14 @@ namespace CSBP.Services
           }
           else if (vop.Datum_Von <= from && vop.Datum_Bis >= to)
           {
-            // Zeitraum wird verkürzt.
-            TbEintragOrtRep.Save(daten, daten.MandantNr, puid, from, to, vop.Angelegt_Von, vop.Angelegt_Am);
-            TbEintragOrtRep.Delete(daten, vop);
+            if (from == to)
+              Functions.MachNichts(); // Fall: Aus Versehen gelöscht und wieder hinzugefügt.
+            else
+            {
+              // Zeitraum wird verkürzt.
+              TbEintragOrtRep.Save(daten, daten.MandantNr, puid, from, to, vop.Angelegt_Von, vop.Angelegt_Am);
+              TbEintragOrtRep.Delete(daten, vop);
+            }
           }
           else
           {
