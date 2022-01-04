@@ -46,13 +46,13 @@ namespace CSBP.Forms.TB
     [Builder.Object]
     private Button deleteAction;
 
-    /// <summary>Label autoren0.</summary>
+    /// <summary>Label positions0.</summary>
     [Builder.Object]
-    private Label autoren0;
+    private Label positions0;
 
-    /// <summary>TreeView autoren.</summary>
+    /// <summary>TreeView positions.</summary>
     [Builder.Object]
-    private TreeView autoren;
+    private TreeView positions;
 
     /// <summary>Label name0.</summary>
     [Builder.Object]
@@ -88,10 +88,10 @@ namespace CSBP.Forms.TB
     public TB200Positions(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
         : base(b, h, d, dt, p1, p)
     {
-      ObservableEventThrottle(refreshAction, delegate { RefreshTreeView(autoren, 1); });
+      ObservableEventThrottle(refreshAction, delegate { RefreshTreeView(positions, 1); });
       // SetBold(client0);
       InitData(0);
-      autoren.GrabFocus();
+      positions.GrabFocus();
     }
 
     /// <summary>Model-Daten initialisieren.</summary>
@@ -116,7 +116,7 @@ namespace CSBP.Forms.TB
             Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
             Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
         }
-        AddStringColumnsSort(autoren, TB200_positions_columns, values);
+        AddStringColumnsSort(positions, TB200_positions_columns, values);
       }
     }
 
@@ -131,7 +131,7 @@ namespace CSBP.Forms.TB
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnRefreshClicked(object sender, EventArgs e)
     {
-      // RefreshTreeView(autoren, 1);
+      // RefreshTreeView(positions, 1);
     }
 
     /// <summary>Behandlung von Undo.</summary>
@@ -184,10 +184,10 @@ namespace CSBP.Forms.TB
       StartDialog(DialogTypeEnum.Delete);
     }
 
-    /// <summary>Behandlung von Autoren.</summary>
+    /// <summary>Behandlung von Positions.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnAutorenRowActivated(object sender, RowActivatedArgs e)
+    protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
     {
       StartDialog(DialogTypeEnum.Edit);
     }
@@ -200,19 +200,19 @@ namespace CSBP.Forms.TB
       refreshAction.Click();
     }
 
-    /// <summary>Behandlung von Alle.</summary>
+    /// <summary>Behandlung von All.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnAlleClicked(object sender, EventArgs e)
+    protected void OnAllClicked(object sender, EventArgs e)
     {
-      RefreshTreeView(autoren, 0);
+      RefreshTreeView(positions, 0);
     }
 
     /// <summary>Starten des Details-Dialogs.</summary>
     /// <param name="dt">Betroffener Dialog-Typ.</param>
     void StartDialog(DialogTypeEnum dt)
     {
-      var uid = GetValue<string>(autoren, dt != DialogTypeEnum.New);
+      var uid = GetValue<string>(positions, dt != DialogTypeEnum.New);
       Start(typeof(TB210Position), TB210_title, dt, uid, csbpparent: this);
     }
   }

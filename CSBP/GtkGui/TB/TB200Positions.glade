@@ -159,14 +159,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="autoren0">
+      <object class="GtkLabel" id="positions0">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">TB200.autoren</property>
+        <property name="label">TB200.positions</property>
         <property name="use_underline">True</property>
-        <property name="mnemonic_widget">autoren</property>
+        <property name="mnemonic_widget">positions</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -174,18 +174,18 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="autorensw">
+      <object class="GtkScrolledWindow" id="positionssw">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="shadow_type">in</property>
         <child>
-          <object class="GtkTreeView" id="autoren">
+          <object class="GtkTreeView" id="positions">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_text">TB200.autoren.tt</property>
-            <signal name="row-activated" handler="OnAutorenRowActivated" swapped="no"/>
+            <property name="tooltip_text">TB200.positions.tt</property>
+            <signal name="row-activated" handler="OnPositionsRowActivated" swapped="no"/>
             <child internal-child="selection">
               <object class="GtkTreeSelection"/>
             </child>
@@ -203,14 +203,14 @@
         <property name="can_focus">False</property>
         <property name="spacing">5</property>
         <child>
-          <object class="GtkButton" id="alle">
-            <property name="label">TB200.alle</property>
+          <object class="GtkButton" id="all">
+            <property name="label">TB200.all</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text">TB200.alle.tt</property>
+            <property name="tooltip_text">TB200.all.tt</property>
             <property name="use_underline">True</property>
-            <signal name="clicked" handler="OnAlleClicked" swapped="no"/>
+            <signal name="clicked" handler="OnAllClicked" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
