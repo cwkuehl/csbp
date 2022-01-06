@@ -54,13 +54,13 @@ namespace CSBP.Forms.TB
     [Builder.Object]
     private TreeView positions;
 
-    /// <summary>Label name0.</summary>
+    /// <summary>Label search0.</summary>
     [Builder.Object]
-    private Label name0;
+    private Label search0;
 
-    /// <summary>Entry name.</summary>
+    /// <summary>Entry search.</summary>
     [Builder.Object]
-    private Entry name;
+    private Entry search;
 
     /// <summary>Button alle.</summary>
     [Builder.Object]
@@ -101,12 +101,12 @@ namespace CSBP.Forms.TB
       if (step <= 0)
       {
         EventsActive = false;
-        name.Text = "%%";
+        search.Text = "%%";
         EventsActive = true;
       }
       if (step <= 1)
       {
-        var l = Get(FactoryService.DiaryService.GetPositionList(ServiceDaten, null, name.Text))
+        var l = Get(FactoryService.DiaryService.GetPositionList(ServiceDaten, null, search.Text))
           ?? new List<TbOrt>();
         var values = new List<string[]>();
         foreach (var e in l)
@@ -192,10 +192,10 @@ namespace CSBP.Forms.TB
       StartDialog(DialogTypeEnum.Edit);
     }
 
-    /// <summary>Behandlung von Name.</summary>
+    /// <summary>Behandlung von Search.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnNameKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
+    protected void OnSearchKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
     {
       refreshAction.Click();
     }

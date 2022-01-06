@@ -643,7 +643,7 @@ namespace CSBP.Forms.TB
       foreach (var e in PositionList)
       {
         // Nr.;Bezeichnung;Breite;Länge;Von;Bis;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Ort_Uid, e.Bezeichnung, Functions.ToString(e.Breite, 4), Functions.ToString(e.Laenge, 4),
+        values.Add(new string[] { e.Ort_Uid, e.Bezeichnung, Functions.ToString(e.Breite, 5), Functions.ToString(e.Laenge, 5),
           Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
