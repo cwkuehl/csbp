@@ -235,7 +235,10 @@ namespace CSBP.Services
       if (bef == null)
       {
         if (aft == null)
-          TbEintragOrtRep.Save(daten, daten.MandantNr, puid, from, to, angelegtvon, angelegtam); // neu
+        {
+          // Neu
+          TbEintragOrtRep.Save(daten, daten.MandantNr, puid, from, to, angelegtvon, angelegtam);
+        }
         else
         {
           // Zeitraum vorne anhängen
@@ -268,7 +271,7 @@ namespace CSBP.Services
     /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
     /// <param name="puid">Affected position uid.</param>
     /// <param name="from">Affected from date.</param>
-    /// <param name="to">Affected from date.</param>
+    /// <param name="to">Affected to date.</param>
     public ServiceErgebnis<DateTime?> SearchDate(ServiceDaten daten, SearchDirectionEnum stelle,
       DateTime? aktDatum, string[] suche, string puid, DateTime? from, DateTime? to)
     {
@@ -422,6 +425,8 @@ namespace CSBP.Services
     public ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string memo)
     {
       var r = new ServiceErgebnis<TbOrt>();
+      desc = Functions.TrimNull(desc);
+      memo = Functions.TrimNull(memo);
       if (string.IsNullOrEmpty(desc))
         r.Errors.Add(Message.New(TB007));
       var b = Functions.ToDecimal(lat) ?? 0;

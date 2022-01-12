@@ -150,7 +150,7 @@ namespace CSBP.Forms.TB
           bezeichnung.Buffer.Text = k.Bezeichnung ?? "";
           breite.Buffer.Text = Functions.ToString(k.Breite, 5);
           laenge.Buffer.Text = Functions.ToString(k.Laenge, 5);
-          hoehe.Buffer.Text = Functions.ToString(k.Hoehe, 5);
+          hoehe.Buffer.Text = Functions.ToString(k.Hoehe, 2);
           notiz.Buffer.Text = k.Notiz ?? "";
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
