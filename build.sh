@@ -1,6 +1,16 @@
 # Installation des SDKs:
+# sudo apt-get update; \
+#   sudo apt-get install -y apt-transport-https && \
+#   sudo apt-get update && \
+#   sudo apt-get install -y dotnet-sdk-6.0
+# Keine Snaps verwendet!
 # sudo snap install dotnet-sdk --channel=5.0/stable --classic
 # sudo snap alias dotnet-sdk.dotnet dotnet
+# sudo snap install dotnet-sdk --channel=6.0/stable --classic
+# sudo snap alias dotnet-sdk.dotnet dotnet
+# sudo snap install dotnet-runtime-60 --classic
+# sudo snap alias dotnet-runtime-60.dotnet dotnet
+#
 # ==> Beim Starten fehlen gtk-DLLs.
 # sudo wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 # sudo dpkg -i packages-microsoft-prod.deb
