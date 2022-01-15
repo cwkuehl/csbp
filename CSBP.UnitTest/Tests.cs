@@ -19,6 +19,18 @@ namespace CSBP.UnitTest
     const string pfad = "/home/wolfgang/cs";
     const string formpath = "/home/wolfgang/git/jhh6/Jhh/src/main/resources/dialog";
 
+    /// <summary>
+    /// Starting tests manually.
+    /// </summary>
+    /// <param name="args">Parameters are ignored.</param>
+    static void Main(string[] args)
+    {
+      Debug.Print("CSBP.UnitTest gestartet.");
+      var t = new Tests();
+      t.MachNichts();
+      t.GenerateResxDesigner();
+    }
+
     [SetUp]
     public void Setup()
     {
@@ -1096,9 +1108,10 @@ namespace CSBP.Forms.{unit.ToUpper()}
     }
 
     /// <summary>Generieren der .Designer.cs-Datei aus .resx-Datei.</summary>
-    [TestCase("CSBP/Resources/Messages.resx")]
-    public void GenerateResxDesigner(string fn)
+    [Test]
+    public void GenerateResxDesigner()
     {
+      var fn = "CSBP/Resources/Messages.resx";
       var slnpfad = "/home/wolfgang/cs/csbp";
       var ns = Path.GetDirectoryName(fn).Replace('/', '.');
       var filename = Path.GetFileNameWithoutExtension(fn);

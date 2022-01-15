@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": ".NET 5 Launch (console) Linux",
+      "name": ".NET 5 Launch Linux",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -19,7 +19,20 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET 6 Launch (console) Linux",
+      "name": ".NET 5 Test Linux",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net5.0/CSBP.UnitTest.dll",
+      "args": [
+        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
+      ],
+      "cwd": "${workspaceFolder}/CSBP.UnitTest",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET 6 Launch Linux",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -33,7 +46,20 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET Core Launch (console) Windows",
+      "name": ".NET 6 Test Linux",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net6.0/CSBP.UnitTest.dll",
+      "args": [
+        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
+      ],
+      "cwd": "${workspaceFolder}/CSBP.UnitTest",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET 5 Launch Windows",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
