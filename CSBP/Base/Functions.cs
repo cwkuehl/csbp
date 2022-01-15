@@ -19,7 +19,7 @@ namespace CSBP.Base
 
   public static class Functions
   {
-    static readonly RNGCryptoServiceProvider csp = new RNGCryptoServiceProvider();
+    static readonly RandomNumberGenerator csp = RandomNumberGenerator.Create();
     private static CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("de-DE");
     private static readonly CultureInfo CultureInfoDe = CultureInfo.CreateSpecificCulture("de-DE");
     public static CultureInfo CultureInfoEn = CultureInfo.CreateSpecificCulture("en-GB");

@@ -1244,7 +1244,7 @@ Lokal: {e.Eintrag}";
     public static byte[] GenerateRandomSalt()
     {
       var data = new byte[32];
-      using (var rng = new RNGCryptoServiceProvider())
+      using (var rng = RandomNumberGenerator.Create())
       {
         for (int i = 0; i < 10; i++)
         {
@@ -1276,7 +1276,7 @@ Lokal: {e.Eintrag}";
       var passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
 
       //Set Rijndael symmetric encryption algorithm
-      var AES = new RijndaelManaged();
+      var AES = Aes.Create();
       AES.KeySize = 256;
       AES.BlockSize = 128;
       AES.Padding = PaddingMode.PKCS7;
@@ -1331,7 +1331,7 @@ Lokal: {e.Eintrag}";
       var fsCrypt = new FileStream(inputFile, FileMode.Open);
       fsCrypt.Read(salt, 0, salt.Length);
 
-      var AES = new RijndaelManaged();
+      var AES = Aes.Create();
       AES.KeySize = 256;
       AES.BlockSize = 128;
       var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000);
