@@ -587,7 +587,7 @@
         <value>TB001The search parameter is invalid.</value>
     </data>
     <data name="TB002_" xml:space="preserve">
-        <value>TB002Report: {0:yyyy-MM-dd HH:mm:ss}</value>
+        <value>TB002Diary report: {0:yyyy-MM-dd HH:mm:ss}</value>
     </data>
     <data name="TB003_" xml:space="preserve">
         <value>TB003Search: (/{0}/ or /{1}/ or /{2}/) and (/{3}/ or /{4}/ or /{5}/) and not (/{6}/ or /{7}/ or /{8}/)</value>
@@ -614,7 +614,7 @@
         <value>TB010Position: {0}</value>
     </data>
     <data name="TB011_" xml:space="preserve">
-        <value>TB011TimePeriod: {0} - {1}</value>
+        <value>TB011Time period: {0} - {1}</value>
     </data>
     <data name="TB012" xml:space="preserve">
         <value>TB012Without position</value>
