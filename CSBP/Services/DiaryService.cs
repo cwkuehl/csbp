@@ -311,21 +311,16 @@ namespace CSBP.Services
       var muster = "";
 
       if (string.IsNullOrEmpty(str))
-      {
         str = "";
-      }
-      else
+      else if (str.Contains("####"))
       {
-        if (str.Contains("####"))
-        {
-          muster = str.Replace("####", "\\D*(\\d+)");
-          if (muster.StartsWith("%", StringComparison.Ordinal))
-            muster = muster.Substring(1);
-          if (muster.EndsWith("%", StringComparison.Ordinal))
-            muster = muster.Substring(0, muster.Length - 1);
-          str = str.Replace("####", "");
-          rf = true;
-        }
+        muster = Regex.Escape(str).Replace("\\#\\#\\#\\#", "\\D*(\\d+)");
+        if (muster.StartsWith("%", StringComparison.Ordinal))
+          muster = muster.Substring(1);
+        if (muster.EndsWith("%", StringComparison.Ordinal))
+          muster = muster.Substring(0, muster.Length - 1);
+        str = str.Replace("####", "");
+        rf = true;
       }
       suche[0] = str;
 
@@ -370,13 +365,10 @@ namespace CSBP.Services
               {
                 z = l;
               }
-              else
+              else if (z != l)
               {
-                if (z != l)
-                {
-                  // Falscher Zähler am %1$s: %2$s, erwartet: %3$s
-                  throw new MessageException(TB004(e.Datum, m.Groups[1].Value, z));
-                }
+                // Falscher Zähler am %1$s: %2$s, erwartet: %3$s
+                throw new MessageException(TB004(e.Datum, m.Groups[1].Value, z));
               }
               z++;
             }
