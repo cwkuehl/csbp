@@ -108,7 +108,7 @@ namespace CSBP.Services
         else
         {
           lNr--;
-          dBis = dVon.AddDays(1);
+          dBis = dVon.AddDays(-1);
           dVon = dVon.AddMonths(-months);
         }
       }

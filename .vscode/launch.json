@@ -68,7 +68,19 @@
         "DB_DRIVER_CONNECT=Data Source=C:\\Users\\Benni\\Documents\\csbp\\csbp.db"
       ],
       "cwd": "${workspaceFolder}/CSBP",
-      // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET 6 Launch Windows",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net6.0/CSBP.dll",
+      "args": [
+        "DB_DRIVER_CONNECT=Data Source=C:\\Users\\Deborah\\Documents\\csbp\\csbp.db"
+      ],
+      "cwd": "${workspaceFolder}/CSBP",
       "console": "internalConsole",
       "stopAtEntry": false
     },

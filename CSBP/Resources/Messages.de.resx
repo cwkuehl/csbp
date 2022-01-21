@@ -261,7 +261,7 @@
         <value>HH003Keine Perioden gefunden.</value>
     </data>
     <data name="HH004" xml:space="preserve">
-        <value>HH004ie letzte Periode kann nicht gelöscht werden.</value>
+        <value>HH004Die letzte Periode kann nicht gelöscht werden.</value>
     </data>
     <data name="HH005_" xml:space="preserve">
         <value>HH005Periode {0} fehlt.</value>
