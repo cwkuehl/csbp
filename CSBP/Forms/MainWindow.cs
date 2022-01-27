@@ -851,17 +851,19 @@ namespace CSBP.Forms
     }
 
     /// <summary>
-    /// Liefert die .Net Version.
+    /// Get the .NET version.
     /// </summary>
-    /// <returns>.Net Version als String.</returns>
+    /// <returns>.NET version as string.</returns>
     public static string GetNetCoreVersion()
     {
       var assembly = typeof(System.Runtime.GCSettings).GetTypeInfo().Assembly;
       var assemblyPath = assembly.Location.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
       int netCoreAppIndex = Array.IndexOf(assemblyPath, "Microsoft.NETCore.App");
       if (netCoreAppIndex > 0 && netCoreAppIndex < assemblyPath.Length - 2)
-        return assemblyPath[netCoreAppIndex + 1];
-      return null;
+        return assemblyPath[netCoreAppIndex + 1]; // e.g. 5.0.13
+      // return null;
+      var ver = Assembly.GetEntryAssembly()?.GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?.FrameworkName;
+      return ver; // e.g. .NETCoreApp,Version=v6.0
     }
 
     /// <summary>Menüpunkt Über.</summary>
@@ -870,11 +872,12 @@ namespace CSBP.Forms
     protected void OnMenuAbout(object sender, EventArgs e)
     {
       var daten = MainClass.ServiceDaten;
+      var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.0";
       using (var about = new AboutDialog
       {
         Title = "", // Titel geht nicht.
         ProgramName = "CSharp Budget Program",
-        Version = "1.0, Runtime " + GetNetCoreVersion(),
+        Version = ver + ", Runtime " + GetNetCoreVersion(),
         Copyright = "(c) 2019-2022 Wolfgang Kuehl",
         Comments = $@"CSBP is a simple budget program.
 Client: {daten.MandantNr} User: {daten.BenutzerId}",
