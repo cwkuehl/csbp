@@ -218,7 +218,7 @@ namespace CSBP.Forms
             imi.Label = m;
         }
       });
-      SetIconFromFile("Resources/Icons/WKHH.gif");
+      Icon = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif");
       SetupHandlers();
       var size = Parameter.GetDialogSize(typeof(MainWindow));
       // WidthRequest = size.Width;
@@ -875,12 +875,11 @@ namespace CSBP.Forms
         Title = "", // Titel geht nicht.
         ProgramName = "CSharp Budget Program",
         Version = "1.0, Runtime " + GetNetCoreVersion(),
-        Copyright = "(c) 2019-2021 Wolfgang Kuehl",
+        Copyright = "(c) 2019-2022 Wolfgang Kuehl",
         Comments = $@"CSBP is a simple budget program.
-Client: {daten.MandantNr}
-User: {daten.BenutzerId}",
+Client: {daten.MandantNr} User: {daten.BenutzerId}",
         Website = "https://cwkuehl.de",
-        Logo = new Gdk.Pixbuf("Resources/Icons/WKHH.gif")
+        Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif")
       })
       {
         about.Run();
