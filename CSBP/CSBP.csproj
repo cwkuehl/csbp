@@ -35,6 +35,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources/Icons/WKHH.gif" />
     <EmbeddedResource Include="GtkGui/**/*.glade" />
   </ItemGroup>
 </Project>
