@@ -385,8 +385,8 @@ namespace CSBP.Forms
       MenuAuthors.Visible = b;
       MenuSeries.Visible = b;
       MenuStatistics.Visible = b;
-      MenuSudoku.Visible = b;
-      MenuDetective.Visible = b;
+      MenuSudoku.Visible = false;
+      MenuDetective.Visible = false;
 
       MenuBookings.Visible = b;
       MenuEvents.Visible = b;

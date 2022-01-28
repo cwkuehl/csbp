@@ -1,6 +1,6 @@
 = CSBP Dokumentation (C) 2020 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-v1.0, 2020-04-17
+v1.0, 2022-01-28
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -31,35 +31,38 @@ Das Haushalts-Programm enthält eine Sammlung von Funktionen und Dialogen, die f
 
 == Installation
 
-Generell wird eine aktuelle Java-Installation vorausgesetzt.
+Generell wird die Installation einer aktuellen .NET-Runtime 5.0.x vorausgesetzt.
+Außerdem muss [GTK+ 3.24] installiert sein.
 
-Herunterladen der zum Betriebsystem passenden Batch-Datei von http://cwkuehl.de/jhh6[JHH6 Download].
+Herunterladen der zum Betriebsystem passenden Batch-Datei von http://cwkuehl.de/csbp[CSBP Download].
 
 === Installation für Windows
-- Speichern der Batch-Datei als #InstallUpdateJhh6.cmd in einem leeren Verzeichnis, z.B. D:\Haushalt\JHH6.
+- Die .NET-Runtime kann bei https://dotnet.microsoft.com/en-us/download/dotnet/5.0[Microsoft] heruntergeladen werden.
+- GTK+ 3.24 kann beispielsweise https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases/download/2022-01-04/gtk3-runtime-3.24.31-2022-01-04-ts-win64.exe[hier] heruntergeladen werden.
+- Speichern der Batch-Datei als #InstallUpdateCsbp.cmd in einem leeren Verzeichnis, z.B. D:\Haushalt\CSBP.
 
 TIP: Dazu ist es notwendig, dass die Dateiendungen angezeigt werden.
-In Windows erreicht man die Einstellung über den Windows Explorer, im Bereich Datei, Optionen die Auswahl ‚Ordner- und Suchoptionen ändern‘.
-Hier muss im Tab Ansicht der Haken bei der Einstellung ‚Erweiterungen bei bekannten Dateitypen ausblenden‘ entfernt werden.
+In Windows erreicht man die Einstellung über den Windows Explorer, im Bereich Datei, Optionen die Auswahl 'Ordner- und Suchoptionen ändern'.
+Hier muss im Tab Ansicht der Haken bei der Einstellung 'Erweiterungen bei bekannten Dateitypen ausblenden' entfernt werden.
 
 - Starten von cmd.exe.
 - Wechseln in das Verzeichnis:
 ----
  D:
- cd \Haushalt\JHH6
+ cd \Haushalt\CSBP
 ----
 - Ausführen der Datei:
 ----
- #InstallUpdateJhh6.cmd
+ #InstallUpdateCsbp.cmd
 ----
 - Beim nächsten Mal starten mit:
 ----
- #JHH6.cmd
+ #Csbp.cmd
 ----
 
 === Installation für Linux
-.(getestet für Ubuntu 16.04)
-- Speichern der Batch-Datei als #InstallUpdateJhh6.sh in einem leeren Verzeichnis, z.B. /opt/Haushalt/JHH6.
+.(getestet für Ubuntu 20.04)
+- Speichern der Batch-Datei als #InstallUpdateCsbp.sh in einem leeren Verzeichnis, z.B. /opt/Haushalt/CSBP.
 - Starten einer Terminal-Sitzung.
 - Wechseln in das Verzeichnis und Ausführungsberechtigung setzen:
 ----
@@ -98,7 +101,7 @@ Werten gefüllt werden, bevor die Schaltfläche Anmelden betätigt werden kann. 
 
 === Konfiguration
 Nach der Installation ist alles so eingestellt, dass das Programm starten kann.
-Der Speicherplatz der HSQLDB-Datenbank ist in der Konfigurationsdatei _ServerConfig.properties_ im Installationsverzeichnis hinterlegt: 
+Der Speicherplatz der HSQLDB-Datenbank ist in der Konfigurationsdatei _ServerConfig.properties_ im Installationsverzeichnis hinterlegt:
 
 .Beispiel für _ServerConfig.properties_ unter Linux
 ----
@@ -121,7 +124,7 @@ image:Main.png[Hauptfenster]
 .In der Titelzeile wird der Name des Programms mit zusätzlichen Informationen angezeigt:
 - Falls das Programm in Testmodus gestartet wurde, beginnt die Zeile mit dem Text "Test-".
 - Falls noch kein Benutzer angemeldet ist, wird dies mit dem Text "(nicht angemeldet)" am Ende angezeigt.
-- Falls ein Benutzer mit einem anderen Mandanten als 1 angemeldet ist, wird dies am Ende der Titelzeile angezeigt, z.B. "(Mandant 2)". 
+- Falls ein Benutzer mit einem anderen Mandanten als 1 angemeldet ist, wird dies am Ende der Titelzeile angezeigt, z.B. "(Mandant 2)".
 
 === Menü-Bereich
 Im Menü werden alle aktuell verfügbaren Menüpunkte angezeigt. Die meisten Menüpunkte sind erst nach der Anmeldung sichtbar.
@@ -133,7 +136,7 @@ Das Menü umfasst folgende Punkte:
 |Menü            |Menüpunkt           |Erklärung
 .7+|Datei        |                    |Aufruf der Funktionen und Dialoge aus den Bereichen Datei und Administration.
                  |Rückgängig          |Die letzte Änderung der Daten wird rückgängig gemacht.
-                 |Wiederherstellen    |Die Daten vor der letzten Rückgängig-Aktion werden wiederhergestellt. 
+                 |Wiederherstellen    |Die Daten vor der letzten Rückgängig-Aktion werden wiederhergestellt.
                  |Mandanten           |Dieses Formular verwaltet Mandanten, d.h. getrennte Datenbestände. <<AG100>>
                  |Benutzer            |Dieses Formular verwaltet alle Benutzer des aktuellen Mandanten. <<AG200>>
                  |Sicherungen         |Dieses Formular bietet eine einfache Durchführung von Sicherungen auf Verzeichnis-Ebene an. <<AG400>>
@@ -196,7 +199,7 @@ Hauptfenster gebunden, z.B. das Tagebuch-Formular. Die andere Art öffnet sich m
 und kann in Größe und Position beliebig geändert werden. Die zweite Art wird als Dialog bezeichnet. Diese Dialoge behalten sich die letzte Position und Größe für das
 nächste Öffnen.
 
-In Dialogen müssen einige Felder ausgefüllt werden und heißen daher Pflichtfelder. Diese sind mit einer fetten Bezeichnung gekennzeichnet. 
+In Dialogen müssen einige Felder ausgefüllt werden und heißen daher Pflichtfelder. Diese sind mit einer fetten Bezeichnung gekennzeichnet.
 
 .Fenster verschwunden?
 NOTE: Falls einzelne Dialoge verschwunden sind, können die Positionen und Größe zurückgesetzt werden, und zwar mit dem Menüpunkt

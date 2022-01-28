@@ -1,7 +1,8 @@
--- CSBP-Datenbank vom 01.09.2018
+-- CSBP-Datenbank vom 02.04.2021
 -- Ausführen mit sqlite3:  .open csbp.db  .read csbp-sqlite.sql
---SELECT name, assignment_id FROM GrammarAssignments ORDER BY name COLLATE LOCALIZED ASC;
+-- SELECT name, assignment_id FROM GrammarAssignments ORDER BY name COLLATE LOCALIZED ASC;
 -- Zusammenlegung der Tabellen ZEINSTELLUNG, MA_EINSTELLUNG in MA_PARAMETER
+-- WP_WERTPAPIER.KUERZEL auf 20 Zeichen verlängert
 
 DROP TABLE IF EXISTS AD_ADRESSE;
 DROP TABLE IF EXISTS AD_PERSON;
