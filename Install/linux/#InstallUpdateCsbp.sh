@@ -1,7 +1,6 @@
 #! /bin/bash
 SCRIPT="${BASH_SOURCE[0]}"
-if [ $SCRIPT = "./#InstallUpdateCsbp.sh" ]
-then
+if [[ $SCRIPT = "./#InstallUpdateCsbp.sh" ]]; then
   cp -a $SCRIPT _.sh
   exec ./_.sh
   # exit
@@ -18,43 +17,38 @@ function download {
   rm ./temp/csbp.zip
 }
 
-if test ! -d temp
-then
+if test ! -d temp; then
   mkdir temp
 fi
 
-if test -e Jhh-1.0.jar
-then
-  download
-  rm ./Empty*.*
+download
+
+DBNAME=""
+if [ -e ~/csbp/csbp.db ] || [ -e ~/hsqldb/csbp.db ]; then
+  echo "Database exists."
+  rm ./EmptyCsbp.db
 else
-  download
+  echo "Database initializing."
+  if test ! -d ~/csbp; then
+    mkdir ~/csbp
+  fi
+  DBNAME="$HOME/csbp/csbp.db"
+  mv ./EmptyCsbp.db ~/csbp/csbp.db
 fi
 
-# if test ! -e log4j.properties
-# then
-#   cp Leerlog4j.properties log4j.properties
-# fi
-
-# if test ! -e ServerConfig.properties
-# then
-#   cp LeerServerConfig.properties ServerConfig.properties
-# fi
-
-if test ! -d ~/csbp
-then
-  mkdir ~/csbp
+# Generate start script and start CSBP
+if [ -e ./#Csbp.sh ]; then
+ mv ./#Csbp.sh ./#Csbp0.sh
 fi
-
-# if test ! -d ~/hsqldb/JHH6.properties
-# then
-#   cp LeerJHH6.properties ~/hsqldb/JHH6.properties
-#   cp LeerJHH6.script ~/hsqldb/JHH6.script
-# fi
-
+echo "#! /bin/bash" > ./#Csbp.sh
+echo "# Start program CSBP (c) 2022 cwkuehl.de" >> ./#Csbp.sh
+echo "cd $PWD/publish" >> ./#Csbp.sh
+if test -z "$DBNAME"; then
+  echo "dotnet CSBP.dll" >> ./#Csbp.sh
+else
+  echo "dotnet CSBP.dll \"DB_DRIVER_CONNECT=Data Source=$DBNAME\"" >> ./#Csbp.sh
+fi
 chmod +x ./#Csbp.sh
-
-# Start CSBP
 (./#Csbp.sh)&
 
 rm ./_.sh
