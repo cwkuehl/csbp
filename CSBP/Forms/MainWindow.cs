@@ -873,6 +873,7 @@ namespace CSBP.Forms
     {
       var daten = MainClass.ServiceDaten;
       var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.0";
+      var db = Parameter.Connect;
       using (var about = new AboutDialog
       {
         Title = "", // Titel geht nicht.
@@ -880,6 +881,7 @@ namespace CSBP.Forms
         Version = ver + ", Runtime " + GetNetCoreVersion(),
         Copyright = "(c) 2019-2022 Wolfgang Kuehl",
         Comments = $@"CSBP is a simple budget program.
+Database: {db}
 Client: {daten.MandantNr} User: {daten.BenutzerId}",
         Website = "https://cwkuehl.de",
         Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif")

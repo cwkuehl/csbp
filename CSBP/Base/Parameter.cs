@@ -147,6 +147,17 @@ namespace CSBP.Base
         Params2[Setting] = Value;
     }
 
+    /// <summary>
+    /// Connection string to database.
+    /// </summary>
+    /// <value>Connection string.</value>
+    public static string Connect
+    {
+      get { return GetValue(DB_DRIVER_CONNECT); }
+      set { SetValue(DB_DRIVER_CONNECT, value); }
+    }
+
+
     public static string LoginClient
     {
       get { return GetValue("LoginClient"); }

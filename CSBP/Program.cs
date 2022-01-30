@@ -50,7 +50,10 @@ namespace CSBP
         {
           var m = re.Match(arg);
           if (m.Success)
+          {
             CsbpContext.DbDriverConnect = m.Groups[1].Value;
+            Parameter.Connect = m.Groups[1].Value;
+          }
         }
       }
       Application.Init();

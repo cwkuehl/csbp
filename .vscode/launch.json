@@ -11,6 +11,7 @@
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/CSBP/bin/Debug/net5.0/CSBP.dll",
       "args": [
+        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/csbp/csbp.db",
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
       ],
       "cwd": "${workspaceFolder}/CSBP",

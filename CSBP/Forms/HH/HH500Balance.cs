@@ -290,7 +290,10 @@ namespace CSBP.Forms.HH
               }
             }
             else
-              Get(r);
+              Application.Invoke(delegate
+              {
+                Get(r);
+              });
           }
         }
         catch (Exception ex)

@@ -31,7 +31,8 @@ namespace CSBP.Services.Repositories.Base
     {
       if (string.IsNullOrWhiteSpace(ConString))
       {
-        var con = DbDriverConnect ?? Parameter.GetValue(Parameter.DB_DRIVER_CONNECT) ?? "Data Source=../../../Data/csbp.db";
+        var con = DbDriverConnect ?? Parameter.Connect ?? "Data Source=../../../Data/csbp.db";
+        Parameter.Connect = con;
         Log.Debug($"Connection: {con}");
         // if (con.Contains(";"))
         // {

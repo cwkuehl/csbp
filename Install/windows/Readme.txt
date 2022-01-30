@@ -1,4 +1,4 @@
-Installation for program CSBP (c) 2022 cwkuehl.de
+Installation of program CSBP (c) 2022 cwkuehl.de
 
 Generell wird die Installation einer aktuellen .NET-Runtime 5.0.x vorausgesetzt.
 Außerdem muss GTK+ 3.24 installiert sein.
