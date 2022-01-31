@@ -872,7 +872,7 @@ namespace CSBP.Forms
     protected void OnMenuAbout(object sender, EventArgs e)
     {
       var daten = MainClass.ServiceDaten;
-      var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.0";
+      var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.1";
       var db = Parameter.Connect;
       using (var about = new AboutDialog
       {
