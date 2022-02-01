@@ -426,12 +426,13 @@ namespace CSBP.Forms.WP
       {
         var euid = GetText(hhereignis);
         var ev = events.FirstOrDefault(a => a.Uid == euid);
+        var booktext = bText.Text ?? ev?.Bezeichnung;
         var rb = FactoryService.StockService.SaveBooking(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(anlage), valuta.ValueNn,
           Functions.ToDecimal(betrag.Text, 2) ?? 0, Functions.ToDecimal(rabatt.Text, 2) ?? 0,
           Functions.ToDecimal(anteile.Text, 5) ?? 0, Functions.ToDecimal(zinsen.Text, 2) ?? 0,
           bText.Text, null, Functions.ToDecimal(preis.Text, 4) ?? 0, hhbuchung.Text, hhvaluta.ValueNn,
-          Functions.ToDecimal(hhbetrag.Text, 2) ?? 0, ev?.Soll_Konto_Uid, ev?.Haben_Konto_Uid, ev?.Bezeichnung);
+          Functions.ToDecimal(hhbetrag.Text, 2) ?? 0, ev?.Soll_Konto_Uid, ev?.Haben_Konto_Uid, booktext);
         r = rb;
         if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
           lastcopyuid = rb.Ergebnis.Uid;
