@@ -19,11 +19,11 @@
 # sudo apt-get update
 # sudo apt-get install -y dotnet-sdk-5.0
 # ==> OK
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net5.0 -r ubuntu-x64 --self-contained false -p:Version=1.1
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained false -p:Version=1.1
 #dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained true -p:Version=1.1
-#dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net5.0 -r win-x64 --self-contained true -p:Version=1.1
+#dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r win-x64 --self-contained true -p:Version=1.1
 
-cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net5.0/ubuntu-x64/publish/ /opt/Haushalt/CSBP/
+cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net6.0/ubuntu-x64/publish/ /opt/Haushalt/CSBP/
 #cp -rf /home/wolfgang/cs/csbp/CSBP/Resources/ /opt/Haushalt/CSBP/publish
 #rm /opt/Haushalt/CSBP/publish/Resources/T*
 #rm /opt/Haushalt/CSBP/publish/Resources/M*

@@ -6,17 +6,17 @@ if [[ $SCRIPT = "./#InstallUpdateCsbp.sh" || $SCRIPT = "$PWD/#InstallUpdateCsbp.
   # exit
 fi
 
-CURRENTDATE=`date +"%Y-%m-%d %T"`
-echo "$CURRENTDATE Installation and update for program CSBP (c) 2022 cwkuehl.de" >> ./Log.txt
-
 function download {
-  curl -o ./temp/csbp.zip 'https://cwkuehl.de/wp-content/uploads/2022/01/csbp-net5-ubuntu-x64.zip'
+  curl -o ./temp/csbp.zip 'https://cwkuehl.de/wp-content/uploads/2022/01/csbp-net6-ubuntu-x64-runtime.zip'
   rm -rf temp/zip
   unzip ./temp/csbp.zip -d ./temp/zip
   cp -rf ./temp/zip/csbp/* .
   rm -rf temp/zip
   rm ./temp/csbp.zip
 }
+
+CURRENTDATE=`date +"%Y-%m-%d %T"`
+echo "$CURRENTDATE Installation and update for program CSBP (c) 2022 cwkuehl.de" >> ./Log.txt
 
 if [[ ! -d temp ]]; then
   mkdir temp
