@@ -182,9 +182,9 @@ namespace CSBP.Services.Repositories.Base
       else if (zieldb == DatabaseTypeEnum.MySql)
       {
         sql = string.Format("ALTER TABLE {0}{1} ADD {2} {3}({4}){5}", tab, Constants.CRLF, unique ? "UNIQUE" : "INDEX", index, spalten, ende);
-        // ALTER TABLE `JHH2`.`VM_Buchung_2` ADD INDEX `Schluessel` (
+        // ALTER TABLE `DB`.`VM_Buchung_2` ADD INDEX `Schluessel` (
         // `Mandant_Nr` , `Schluessel` )
-        // ALTER TABLE `JHH2`.`VM_Buchung_2` ADD UNIQUE `Schluessel` (
+        // ALTER TABLE `DB`.`VM_Buchung_2` ADD UNIQUE `Schluessel` (
         // `Mandant_Nr` , `Schluessel` )
       }
       else if (zieldb == DatabaseTypeEnum.HsqlDb)

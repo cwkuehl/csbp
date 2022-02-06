@@ -1,4 +1,4 @@
-:ag000-title: Informationen über JHH6
+:ag000-title: Informationen über CSBP
 anchor:AG000[{ag000-title}]
 
 ==== Dialog {ag000-title}

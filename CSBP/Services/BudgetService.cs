@@ -1134,7 +1134,7 @@ namespace CSBP.Services
      * Neuberechnung der Bilanzen in einer oder mehreren Perioden.
      * @param bAlles True, wenn alle neu zu berechnenden Perioden in einer Schleife berechnet werden; sonst nur eine.
      * @return 0 alles aktuell; 1 eine Periode aktualisiert; 2 noch eine weitere kann Periode aktualisiert werden.
-     * @throws JhhException im unerwarteten Fehlerfalle.
+     * @throws Exception im unerwarteten Fehlerfalle.
      */
     private int AktualisierenBilanz(ServiceDaten daten, StringBuilder status, StringBuilder cancel, int pber, bool bAlles)
     {

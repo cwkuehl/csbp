@@ -1037,7 +1037,7 @@ namespace CSBP.Services
     //  * Automatisches Setzen von Status-Feldern.
     //  * @param stufe Gibt die Status-Nummer an.
     //  * @param nr Gibt die Nummer f�r bestimmte Stufen an.
-    //  * @throws JhhException im unerwarteten Fehlerfalle.
+    //  * @throws Exception im unerwarteten Fehlerfalle.
     //  */
     // public Void setzeStatus(int stufe, int nr)
     // {

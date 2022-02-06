@@ -1,6 +1,6 @@
-= CSBP Dokumentation (C) 2020 cwkuehl.de
+= CSBP Dokumentation (C) 2022 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-v1.0, 2022-01-28
+Version 2022-02-06
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -31,13 +31,13 @@ Das Haushalts-Programm enthält eine Sammlung von Funktionen und Dialogen, die f
 
 == Installation
 
-Generell wird die Installation einer aktuellen .NET-Runtime 5.0.x vorausgesetzt.
-Außerdem muss [GTK+ 3.24] installiert sein.
+Generell wird die Installation mit einer aktuellen https://dotnet.microsoft.com/en-us/download/dotnet/6.0[Microsoft .NET-Runtime] ausgeliefert.
+Außerdem muss GTK+ 3.24 installiert sein.
 
 Herunterladen der zum Betriebsystem passenden Batch-Datei von http://cwkuehl.de/csbp[CSBP Download].
 
 === Installation für Windows
-- Die .NET-Runtime kann bei https://dotnet.microsoft.com/en-us/download/dotnet/5.0[Microsoft] heruntergeladen werden.
+.(getestet für Windows 7 und 10)
 - GTK+ 3.24 kann beispielsweise https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases/download/2022-01-04/gtk3-runtime-3.24.31-2022-01-04-ts-win64.exe[hier] heruntergeladen werden.
 - Speichern der Batch-Datei als #InstallUpdateCsbp.cmd in einem leeren Verzeichnis, z.B. D:\Haushalt\CSBP.
 
@@ -45,6 +45,7 @@ TIP: Dazu ist es notwendig, dass die Dateiendungen angezeigt werden.
 In Windows erreicht man die Einstellung über den Windows Explorer, im Bereich Datei, Optionen die Auswahl 'Ordner- und Suchoptionen ändern'.
 Hier muss im Tab Ansicht der Haken bei der Einstellung 'Erweiterungen bei bekannten Dateitypen ausblenden' entfernt werden.
 
+- Nur für Windows 7, weil Powershell zu alt ist: Es muss https://curl.se/download.html[curl.zip] heruntergeladen werden. Die Datei curl.exe daraus muss in das Verzeichnis kopiert werden.
 - Starten von cmd.exe.
 - Wechseln in das Verzeichnis:
 ----
@@ -62,20 +63,21 @@ Hier muss im Tab Ansicht der Haken bei der Einstellung 'Erweiterungen bei bekann
 
 === Installation für Linux
 .(getestet für Ubuntu 20.04)
+- GTK+ 3 ist im allgemeinen schon installiert.
 - Speichern der Batch-Datei als #InstallUpdateCsbp.sh in einem leeren Verzeichnis, z.B. /opt/Haushalt/CSBP.
 - Starten einer Terminal-Sitzung.
 - Wechseln in das Verzeichnis und Ausführungsberechtigung setzen:
 ----
- cd /opt/Haushalt/JHH6
- chmod 755 #InstallUpdateJhh6.sh
+ cd /opt/Haushalt/CSBP
+ chmod 755 #InstallUpdateCsbp.sh
 ----
 - Ausführen der Datei:
 ----
- ./#InstallUpdateJhh6.sh
+ ./#InstallUpdateCsbp.sh
 ----
 - Beim nächsten Mal starten mit:
 ----
- ./#JHH6.sh
+ ./#Csbp.sh
 ----
 
 == Starten des Programms
@@ -83,32 +85,32 @@ Hier muss im Tab Ansicht der Haken bei der Einstellung 'Erweiterungen bei bekann
 === Starten für Windows
 Ausführen der Datei:
 ----
- #JHH6.cmd
+ #Csbp.cmd
 ----
 im Installtionsverzeichnis.
 
 === Starten für Linux
 Ausführen der Datei:
 ----
- ./#JHH6.sh
+ ./#Csbp.sh
 ----
 im Installtionsverzeichnis.
 
 === Erste Anmeldung
 Beim ersten Starten des Programms wird die Benutzer-ID und das Kennwort des Administrator-Benutzers festgelegt.
-Den Eintrag 1 beim Mandanten sollte nicht geändert werden. Die Felder Benutzer und Kennwort müssen mit den gewünschten
+Der Eintrag 1 beim Mandanten sollte nicht geändert werden. Die Felder Benutzer und Kennwort müssen mit den gewünschten
 Werten gefüllt werden, bevor die Schaltfläche Anmelden betätigt werden kann. Siehe auch <<AM000>>.
 
 === Konfiguration
 Nach der Installation ist alles so eingestellt, dass das Programm starten kann.
-Der Speicherplatz der HSQLDB-Datenbank ist in der Konfigurationsdatei _ServerConfig.properties_ im Installationsverzeichnis hinterlegt:
+Der Speicherplatz der SQLite-Datenbank ist in der Start-Batch-Datei Installationsverzeichnis hinterlegt:
 
-.Beispiel für _ServerConfig.properties_ unter Linux
+.Beispiel für _#Csbp.sh_ unter Linux
 ----
-DB_DRIVER_CLASS=org.hsqldb.jdbc.JDBCDriver
-DB_DRIVER_CONNECT=jdbc:hsqldb:file:/home/user/hsqldb/JHH6
-DB_DRIVER_USERNAME=SA
-DB_DRIVER_PASSWORD=
+#! /bin/bash
+# Start program CSBP (c) 2022 cwkuehl.de
+cd /opt/Haushalt/CSBP/publish
+dotnet CSBP.dll "DB_DRIVER_CONNECT=Data Source=/home/user/xxx/csbp/csbp.db"
 ----
 
 
@@ -158,7 +160,6 @@ Das Menü umfasst folgende Punkte:
                  |Serien              |Dieses Formular verwaltet Buch-Serien. <<FZ320>>
                  |Statistik           |Dieses Formular zeigt eine Übersicht über verschiedene Informationen, die im Programm erfasst sind. <<FZ100>>
                  |Sudoku              |Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln. <<SO100>>
-                 |Detektiv            |Dieses Formular erlaubt das Prüfen und Lösen von Detektiv-Rätseln. <<SO200>>
 .8+|Haushalt     |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Haushalt.
                  |Buchungen           |Dieses Formular erlaubt das komfortable Erfassen, Kopieren, Ändern und Stornieren von Buchungen. <<HH400>>
                  |Ereignisse          |Dieses Formular erlaubt das Bearbeiten von Ereignissen, also vorgefertigten Buchungen. <<HH300>>
@@ -175,12 +176,11 @@ Das Menü umfasst folgende Punkte:
                  |Wertpapiere         |Dieses Formular verwaltet alle Wertpapiere. <<WP200>>
                  |Konfigurationen     |Dieses Formular verwaltet alle Point and Figure-Konfigurationen zur Auswertung von Wertpapieren. <<WP300>>
                  |Wertpapier-Chart    |Dieses Formular zeigt die Kurse und das Point and Figure-Chart eines Wertpapiers. <<WP100>>
-                 |PnF-Charts          |Dieses Formular zeigt drei Point and Figure-Charts. <<WP110>>
                  |Anlagen             |Dieses Formular verwaltet alle Anlagen in Wertpapiere. <<WP250>>
                  |WP-Buchungen        |Dieses Formular erlaubt das komfortable Erfassen, Kopieren, Ändern und Stornieren von Anlage-Buchungen. <<WP400>>
                  |Stände              |Dieses Formular verwaltet alle Preise von Wertpapieren. <<WP500>>
 .3+|Hilfe        |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Hilfe.
-                 |Über JHH6           |Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufzeit-Umgebung, Anmeldung und Lizenzen. <<AG000>>
+                 |Über CSBP           |Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufzeit-Umgebung, Anmeldung und Lizenzen. <<AG000>>
                  |Hilfe               |Dieser Dialog zeigt diese Hilfe an. <<AG010>>
 |==========================
 
@@ -269,8 +269,6 @@ Dieser Bereich besteht aus folgenden Dialogen:
 * <<FZ350>>
 * <<FZ100>>
 * <<SO100>>
-* <<SO200>>
-* <<SO210>>
 
 include::../de/tb/TB100.adoc[]
 include::../de/fz/FZ700.adoc[]
@@ -292,8 +290,6 @@ include::../de/fz/FZ340.adoc[]
 include::../de/fz/FZ350.adoc[]
 include::../de/fz/FZ100.adoc[]
 include::../de/so/SO100.adoc[]
-include::../de/so/SO200.adoc[]
-include::../de/so/SO210.adoc[]
 
 
 :hh0-title: Bereich Haushalt
@@ -362,7 +358,6 @@ Die Anlagen bilden ein Depot, das tagesaktuell preislich bewertet werden kann.
 Dieser Bereich besteht aus folgenden Dialogen:
 
 * <<WP100>>
-* <<WP110>>
 * <<WP120>>
 * <<WP200>>
 * <<WP210>>
@@ -377,7 +372,6 @@ Dieser Bereich besteht aus folgenden Dialogen:
 * <<WP510>>
 
 include::../de/wp/WP100.adoc[]
-include::../de/wp/WP110.adoc[]
 include::../de/wp/WP120.adoc[]
 include::../de/wp/WP200.adoc[]
 include::../de/wp/WP210.adoc[]
