@@ -1,0 +1,930 @@
+﻿License notice for GtkSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for Microsoft.EntityFrameworkCore.Sqlite (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.Extensions.Logging.Debug (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Newtonsoft.Json (v12.0.3)
+------------------------------------
+
+https://github.com/JamesNK/Newtonsoft.Json at 7c3d7f8da7e35dde8fa74188b0decff70f8f10e3
+
+https://www.newtonsoft.com/json
+
+Copyright © James Newton-King 2008
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for NLog (v4.7.5)
+------------------------------------
+
+https://github.com/NLog/NLog.git
+
+https://nlog-project.org/
+
+Copyright (c) 2004-2020 NLog Project - https://nlog-project.org/
+
+License available at https://github.com/NLog/NLog/blob/master/LICENSE.txt
+
+
+License notice for System.Reactive (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/reactive at 103c252a0ec94eac753f353131ad95cc0be1b390
+
+Copyright (c) .NET Foundation and Contributors.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Reflection.DispatchProxy (v4.7.1)
+------------------------------------
+
+https://github.com/dotnet/corefx
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for AtkSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for CairoSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for GdkSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for GioSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for GLibSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for Microsoft.Data.Sqlite.Core (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/dotnet/standard/data/sqlite/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.DotNet.PlatformAbstractions (v3.1.6)
+------------------------------------
+
+git://github.com/dotnet/core-setup at 3acd9b0cd16596bad450c82be08780875a73c05c
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Available at https://aka.ms/deprecateLicenseUrl
+
+LICENSE.TXT
+
+
+License notice for Microsoft.EntityFrameworkCore (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.EntityFrameworkCore.Abstractions (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.EntityFrameworkCore.Analyzers (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.EntityFrameworkCore.Relational (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.EntityFrameworkCore.Sqlite.Core (v5.0.0)
+------------------------------------
+
+https://github.com/dotnet/efcore at 33570d0337f76208fa3a814f7f6d3a506bd9c0be
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for Microsoft.Extensions.Caching.Abstractions (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Caching.Memory (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Configuration.Abstractions (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.DependencyInjection (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.DependencyInjection.Abstractions (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.DependencyModel (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Logging (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Logging.Abstractions (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Options (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Primitives (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for PangoSharp (v3.22.25.128)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for SQLitePCLRaw.bundle_e_sqlite3 (v2.0.4)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2020 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for SQLitePCLRaw.core (v2.0.4)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2020 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for SQLitePCLRaw.lib.e_sqlite3 (v2.0.4)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2020 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for SQLitePCLRaw.provider.dynamic_cdecl (v2.0.4)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2020 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for System.Collections.Immutable (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.ComponentModel.Annotations (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Diagnostics.DiagnosticSource (v5.0.0)
+------------------------------------
+
+git://github.com/dotnet/runtime at cf258a14b70ad9069470a108f13765e0e5988f51
+
+https://github.com/dotnet/runtime
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Memory (v4.5.3)
+------------------------------------
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+License available at https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
+
+
+License notice for GtkSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for Microsoft.EntityFrameworkCore.Sqlite (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Logging.Debug (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for NLog (v4.7.13)
+------------------------------------
+
+https://github.com/NLog/NLog.git
+
+https://nlog-project.org/
+
+Copyright (c) 2004-2021 NLog Project - https://nlog-project.org/
+
+License available at https://github.com/NLog/NLog/blob/master/LICENSE.txt
+
+
+License notice for AtkSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for CairoSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for GdkSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for GioSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for GLibSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for Microsoft.Data.Sqlite.Core (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/dotnet/standard/data/sqlite/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.EntityFrameworkCore (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.EntityFrameworkCore.Abstractions (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.EntityFrameworkCore.Analyzers (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.EntityFrameworkCore.Relational (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.EntityFrameworkCore.Sqlite.Core (v6.0.1)
+------------------------------------
+
+https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+
+https://docs.microsoft.com/ef/core/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Caching.Abstractions (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Caching.Memory (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Configuration.Abstractions (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.DependencyInjection (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.DependencyInjection.Abstractions (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.DependencyModel (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Logging (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Logging.Abstractions (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Options (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for Microsoft.Extensions.Primitives (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for PangoSharp (v3.24.24.34)
+------------------------------------
+
+https://github.com/GtkSharp/GtkSharp
+
+License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
+
+
+License notice for SQLitePCLRaw.bundle_e_sqlite3 (v2.0.6)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2021 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for SQLitePCLRaw.core (v2.0.6)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2021 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for SQLitePCLRaw.lib.e_sqlite3 (v2.0.6)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2021 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for SQLitePCLRaw.provider.e_sqlite3 (v2.0.6)
+------------------------------------
+
+https://github.com/ericsink/SQLitePCL.raw
+
+Copyright 2014-2021 SourceGear, LLC
+
+Licensed under Apache-2.0
+
+Available at https://licenses.nuget.org/Apache-2.0
+
+
+License notice for System.Buffers (v4.5.1)
+------------------------------------
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+License available at https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
+
+
+License notice for System.Collections.Immutable (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Diagnostics.DiagnosticSource (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Memory (v4.5.4)
+------------------------------------
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+License available at https://github.com/dotnet/corefx/blob/master/LICENSE.TXT
+
+
+License notice for System.Runtime.CompilerServices.Unsafe (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Text.Encodings.Web (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+
+License notice for System.Text.Json (v6.0.0)
+------------------------------------
+
+https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+
+https://dot.net/
+
+Copyright © Microsoft Corporation. All rights reserved.
+
+Licensed under MIT
+
+Available at https://licenses.nuget.org/MIT
+
+

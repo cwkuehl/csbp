@@ -20,6 +20,7 @@
 # sudo apt-get install -y dotnet-sdk-5.0
 # ==> OK
 dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained false -p:Version=1.1
+thirdlicense --project ./CSBP/CSBP.csproj
 #dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained true -p:Version=1.1
 #dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r win-x64 --self-contained true -p:Version=1.1
 
