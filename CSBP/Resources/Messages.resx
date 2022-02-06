@@ -19,10 +19,10 @@
         <value>This text will be part of the title, e.g. AG_ANWENDUNGS_TITEL=CSharp Budget Program</value>
     </data>
     <data name="parm.AG_HILFE_DATEI.value" xml:space="preserve">
-        <value>doc/Csbp-Help.html</value>
+        <value>../Csbp-Help.html</value>
     </data>
     <data name="parm.AG_HILFE_DATEI.text" xml:space="preserve">
-        <value>Name of HTML help file, e.g. HILFE_DATEI=doc/Csbp-Help.html</value>
+        <value>Name of HTML help file, e.g. HILFE_DATEI=../Csbp-Help.html</value>
     </data>
     <data name="parm.AG_STARTDIALOGE.value" xml:space="preserve">
         <value></value>

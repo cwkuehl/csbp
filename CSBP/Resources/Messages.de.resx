@@ -19,10 +19,10 @@
         <value>Der Text wird in den Titel der Anwendung eingebaut, z.B. AG_ANWENDUNGS_TITEL=C#-Haushalts-Programm</value>
     </data>
     <data name="parm.AG_HILFE_DATEI.value" xml:space="preserve">
-        <value>doc/Csbp-Hilfe.html</value>
+        <value>../Csbp-Hilfe.html</value>
     </data>
     <data name="parm.AG_HILFE_DATEI.text" xml:space="preserve">
-        <value>Name der HTML-Hilfe-Datei, z.B. HILFE_DATEI=doc/Csbp-Hilfe.html</value>
+        <value>Name der HTML-Hilfe-Datei, z.B. HILFE_DATEI=../Csbp-Hilfe.html</value>
     </data>
     <data name="parm.AG_STARTDIALOGE.value" xml:space="preserve">
         <value>#FZ100</value>
