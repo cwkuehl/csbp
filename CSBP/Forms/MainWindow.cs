@@ -352,8 +352,10 @@ namespace CSBP.Forms
     /// </summary>
     public void RefreshTitle()
     {
+      var daten = MainClass.ServiceDaten;
       var test = Parameter.GetValue(Parameter.AG_TEST_PRODUKTION) == "TEST" ? "Test-" : "";
-      Title = $"{test}CSBP {Parameter.GetValue(Parameter.AG_ANWENDUNGS_TITEL)} W. Kuehl";
+      var client = daten.MandantNr == 0 ? M.AM005 : daten.MandantNr == 1 ? "" : $" ({M.AG110_title} {daten.MandantNr})";
+      Title = $"{test}CSBP {Parameter.GetValue(Parameter.AG_ANWENDUNGS_TITEL)} W. Kuehl{client}";
     }
 
     /// <summary>

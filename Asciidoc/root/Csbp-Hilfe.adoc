@@ -125,7 +125,7 @@ image:Main.png[Hauptfenster]
 === Titelzeile
 .In der Titelzeile wird der Name des Programms mit zusätzlichen Informationen angezeigt:
 - Falls das Programm in Testmodus gestartet wurde, beginnt die Zeile mit dem Text "Test-".
-- Falls noch kein Benutzer angemeldet ist, wird dies mit dem Text "(nicht angemeldet)" am Ende angezeigt.
+- Falls noch kein Benutzer angemeldet ist, wird dies mit dem Text "(Nicht angemeldet)" am Ende angezeigt.
 - Falls ein Benutzer mit einem anderen Mandanten als 1 angemeldet ist, wird dies am Ende der Titelzeile angezeigt, z.B. "(Mandant 2)".
 
 === Menü-Bereich
@@ -149,10 +149,10 @@ Das Menü umfasst folgende Punkte:
                  |Einstellungen       |Dialog zum Ändern von Einstellungen. <<AM500>>
                  |Start-Formulare     |Dialog zum Auswählen von Formularen, die nach dem Anmelden geöffnet werden. <<AM510>>
                  |Dialoge zurücksetzen|Die Positionen und Größen aller Dialoge werden zurückgesetzt.
-.12+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
+.11+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
                  |Tagebuch            |Dieses Formular verwaltet beliebig lange textliche Eintragungen für jeden Tag. <<TB100>>
                  |Notizen             |Dieses Formular verwaltet beliebig lange Notizen in Text- und Tabellenform für jede Gelegenheit. <<FZ700>>
-                 |Personen            |Dieses Formular verwaltet Personen, Geburtstage und Adressen. <<AD100>>
+                 |Personen / Adressen |Dieses Formular verwaltet Personen, Geburtstage und Adressen. <<AD100>>
                  |Fahrradstände       |Dieses Formular verwaltet Fahrrad-Touren und Fahrradstände. <<FZ250>>
                  |Fahrräder           |Dieses Formular verwaltet Fahrräder. <<FZ200>>
                  |Bücher              |Dieses Formular verwaltet Bücher. <<FZ350>>
@@ -172,7 +172,7 @@ Das Menü umfasst folgende Punkte:
                  |Ahnen               |Dieses Formular verwaltet alle Ahnen. <<SB200>>
                  |Familien            |Dieses Formular verwaltet alle Ahnen-Familien. <<SB300>>
                  |Quellen             |Dieses Formular verwaltet die Quellen-Angaben für die Ahnen. <<SB400>>
-.8+|Wertpapiere  |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Wertpapiere.
+.7+|Wertpapiere  |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Wertpapiere.
                  |Wertpapiere         |Dieses Formular verwaltet alle Wertpapiere. <<WP200>>
                  |Konfigurationen     |Dieses Formular verwaltet alle Point and Figure-Konfigurationen zur Auswertung von Wertpapieren. <<WP300>>
                  |Wertpapier-Chart    |Dieses Formular zeigt die Kurse und das Point and Figure-Chart eines Wertpapiers. <<WP100>>

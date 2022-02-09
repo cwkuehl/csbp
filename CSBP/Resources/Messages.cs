@@ -172,6 +172,11 @@ namespace CSBP.Resources
       get { return rm.GetString("AM004"); }
     }
 
+    public static string AM005
+    {
+      get { return rm.GetString("AM005"); }
+    }
+
     public static string AM008
     {
       get { return rm.GetString("AM008"); }

@@ -102,6 +102,9 @@
     <data name="AM004" xml:space="preserve">
         <value>AM004The actual client cannot be deleted.</value>
     </data>
+    <data name="AM005" xml:space="preserve">
+        <value>AM005 (Not logged in)</value>
+    </data>
     <data name="AM008" xml:space="preserve">
         <value>AM008Type in a description.</value>
     </data>
