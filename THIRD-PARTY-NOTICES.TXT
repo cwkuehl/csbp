@@ -478,10 +478,10 @@ https://github.com/GtkSharp/GtkSharp
 License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
 
-License notice for Microsoft.EntityFrameworkCore.Sqlite (v6.0.1)
+License notice for Microsoft.EntityFrameworkCore.Sqlite (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/ef/core/
 
@@ -558,10 +558,10 @@ https://github.com/GtkSharp/GtkSharp
 License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
 
-License notice for Microsoft.Data.Sqlite.Core (v6.0.1)
+License notice for Microsoft.Data.Sqlite.Core (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/dotnet/standard/data/sqlite/
 
@@ -572,10 +572,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore (v6.0.1)
+License notice for Microsoft.EntityFrameworkCore (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/ef/core/
 
@@ -586,10 +586,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Abstractions (v6.0.1)
+License notice for Microsoft.EntityFrameworkCore.Abstractions (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/ef/core/
 
@@ -600,10 +600,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Analyzers (v6.0.1)
+License notice for Microsoft.EntityFrameworkCore.Analyzers (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/ef/core/
 
@@ -614,10 +614,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Relational (v6.0.1)
+License notice for Microsoft.EntityFrameworkCore.Relational (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/ef/core/
 
@@ -628,10 +628,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Sqlite.Core (v6.0.1)
+License notice for Microsoft.EntityFrameworkCore.Sqlite.Core (v6.0.2)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 41e6aaaf6216de904530de11b0bfd4af43fb13f7
+https://github.com/dotnet/efcore at d93f389536054e13de2f820fe89197aa374c01eb
 
 https://docs.microsoft.com/ef/core/
 
@@ -656,10 +656,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.Extensions.Caching.Memory (v6.0.0)
+License notice for Microsoft.Extensions.Caching.Memory (v6.0.1)
 ------------------------------------
 
-https://github.com/dotnet/runtime at 4822e3c3aa77eb82b2fb33c9321f923cf11ddde6
+https://github.com/dotnet/runtime at 839cdfb0ecca5e0be3dbccd926e7651ef50fdf10
 
 https://dot.net/
 
