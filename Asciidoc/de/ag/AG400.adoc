@@ -14,11 +14,11 @@ image:AG400.png[{ag400-title},title={ag400-title}]
 [width="100%",cols="<1,<5",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Sicherungseinträgen.
-|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Sicherungseintrages. <<AG410>>
-|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Sicherungseintrages.
-|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Sicherungseintrages.
-|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sicherungseintrages.
+|image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Sicherungseinträgen.
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Sicherungseintrages. <<AG410>>
+|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Sicherungseintrages.
+|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Sicherungseintrages.
+|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sicherungseintrages.
 |Sicherungseinträge|Liste mit allen einzelnen Sicherungseinträgen. Eine Sicherungseintrag besteht aus einem Ziel- und evtl. mehreren Quell-Verzeichnissen.
 |Sicherung    |Schaltfläche zum Durchführen der ausgewählten Sicherung.
 |Differenz-Sicherung|Schaltfläche zum Durchführen der ausgewählten Sicherung als Differenz-Sicherung. Die sich unterscheidenden Dateien werden im Sicherungsverzeichnis im Unterordner _diff_Zeitpunkt gespeichert.

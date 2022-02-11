@@ -28,11 +28,11 @@ image:HH100.png[{hh100-title},title={hh100-title}]
 [width="100%",cols="<1,<5",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Perioden.
-|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
-|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Periode.
-|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen einer Periode am Anfang oder Ende.
+|image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Perioden.
+|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Periode.
+|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen einer Periode am Anfang oder Ende.
 |Fahrräder    |Liste mit allen bestehenden Fahrrädern.
 |Perioden     |Liste von allen Perioden mit Periodennummer sowie Anfangs- und Enddatum.
 |Anfang       |Anfangsdatum der ersten Periode.

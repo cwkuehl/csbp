@@ -116,7 +116,11 @@ namespace CSBP
         if (Functions.MachNichts() == 0)
         {
           // Start-Dialoge starten
+#if DEBUG
+          var sd = "";
+#else
           var sd = Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "";
+#endif
           var arr = sd.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
           foreach (var d in arr)
           {

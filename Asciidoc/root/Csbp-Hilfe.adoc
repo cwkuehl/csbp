@@ -181,12 +181,12 @@ Das Menü umfasst folgende Punkte:
                  |Stände              |Dieses Formular verwaltet alle Preise von Wertpapieren. <<WP500>>
 .3+|Hilfe        |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Hilfe.
                  |Über CSBP           |Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufzeit-Umgebung, Anmeldung und Lizenzen. <<AG000>>
-                 |Hilfe               |Dieser Dialog zeigt diese Hilfe an. <<AG010>>
+                 |Hilfe               |Dieser Dialog zeigt diese Hilfe an. Der Pfad zur Hilfe kann in den <<AM500>> eingetragen werden.
 |==========================
 
 === Formular-Bereich
 In diesem Tabulator-Bereich wird immer höchstens ein Formular angezeigt. Wenn mehrere Formulare offen sind, kann mit Hilfe der
-Tabulator-Köpfe eines auswählen. Über das X nach dem Formulartitel kann ein Formular geschlossen werden.
+Tabulator-Köpfe eines auswählen. Über das X neben dem Formulartitel kann ein Formular geschlossen werden.
 
 === Statuszeile
 Hier werden Hinweise oder Fehlermeldungen angezeigt.
@@ -196,8 +196,7 @@ Hier werden Hinweise oder Fehlermeldungen angezeigt.
 
 Es gibt zwei verschiedene Arten von Formularen. Die erste Art wird im Formularbereich geöffnet und ist somit von der Größe an das
 Hauptfenster gebunden, z.B. das Tagebuch-Formular. Die andere Art öffnet sich meist als Folgeformular der ersten Art
-und kann in Größe und Position beliebig geändert werden. Die zweite Art wird als Dialog bezeichnet. Diese Dialoge behalten sich die letzte Position und Größe für das
-nächste Öffnen.
+und kann in Größe und Position beliebig geändert werden. Die zweite Art wird als Dialog bezeichnet. Diese Dialoge behalten sich die letzte Position und Größe für das nächste Öffnen.
 
 In Dialogen müssen einige Felder ausgefüllt werden und heißen daher Pflichtfelder. Diese sind mit einer fetten Bezeichnung gekennzeichnet.
 

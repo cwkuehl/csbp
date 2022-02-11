@@ -10,10 +10,10 @@ image:TB100.png[{tb100-title},title={tb100-title}]
 [width="100%",cols="<1,<5",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Merken des aktuellen Eintrags.
+|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Merken des aktuellen Eintrags.
 |image:icon/icons8-paste.png[title="Einfügen",width={icon-width}]       |Diese Schaltfläche überschreibt den aktuellen Eintrag mit dem zuvor kopierten Eintrag.
-|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
-|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
 |image:icon/icons8-save.png[title="Export",width={icon-width}]          |Schaltfläche zum Schreiben einer Datei mit allen Einträgen, die der Such-Maske entsprechen.
 |1 Tag vorher |Eintrag vom vorherigen Tag wird nur angezeigt.
 |1 Monat vorher|Eintrag vom vorherigen Monat wird nur angezeigt.

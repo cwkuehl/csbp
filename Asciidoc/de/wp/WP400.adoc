@@ -4,20 +4,20 @@ anchor:WP400[{wp400-title}]
 ==== Formular {wp400-title}
 
 Dieses Formular erlaubt das komfortable Erfassen, Kopieren, Ändern und Stornieren von Anlage-Buchungen.
-Buchungen können Zahlungen, Rabatte, Zinsen und Anteilsänderungen beinhalten. 
+Buchungen können Zahlungen, Rabatte, Zinsen und Anteilsänderungen beinhalten.
 
 image:WP400.png[{wp400-title},title={wp400-title}]
 
 [width="100%",cols="<1,<5",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Buchungen.
-|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
-|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Buchung. <<WP410>>
-|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Buchung.
-|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Buchung.
-|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Buchung.
+|image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Buchungen.
+|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Buchung. <<WP410>>
+|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Buchung.
+|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Buchung.
+|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Buchung.
 |Buchungen    |Liste von ausgewählten Buchungen.
 |Buchungstext |Der Buchungstext der Buchungen kann mit Platzhaltern gesucht werden, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'..
 |Anlage       |Auswahlliste für Anlagen.

@@ -10,13 +10,13 @@ image:WP250.png[{wp250-title},title={wp250-title}]
 [width="100%",cols="<1,<5",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Anlagen inkl. aktuellen Werte.
-|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
-|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Anlage. <<WP260>>
-|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Anlage.
-|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Anlage.
-|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Anlage.
+|image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Anlagen inkl. aktuellen Werte.
+|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Anlage. <<WP260>>
+|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Anlage.
+|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Anlage.
+|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Anlage.
 |Anlagen      |Liste von ausgewählten Anlagen inkl. der aktuellen Werte.
 |Status       |Anzeige von Informationen zur aktuellen Anlagenliste: Anzahl der Datensätze, Summe der angelegten Beträge, Werte und sich daraus ergebenen Gewinne.
 |Bezeichnung  |Die Bezeichnung der Anlage kann mit Platzhaltern gesucht werden, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'..

@@ -219,6 +219,28 @@ namespace CSBP.Forms
         }
       });
       Icon = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif");
+      // Icon.Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icon/test.png", "png");
+      // this.RenderIconPixbuf("gtk-refresh", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-refresh.png", "png");
+      // this.RenderIconPixbuf("gtk-undo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-undo.png", "png");
+      // this.RenderIconPixbuf("gtk-redo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-redo.png", "png");
+      // this.RenderIconPixbuf("gtk-new", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-new.png", "png");
+      // this.RenderIconPixbuf("gtk-copy", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-copy.png", "png");
+      // this.RenderIconPixbuf("gtk-edit", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-edit.png", "png");
+      // this.RenderIconPixbuf("gtk-delete", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-delete.png", "png");
+      // this.RenderIconPixbuf("gtk-floppy", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-floppy.png", "png");
+      // this.RenderIconPixbuf("gtk-print", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-print.png", "png");
+      // this.RenderIconPixbuf("gtk-paste", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-paste.png", "png");
+      // this.RenderIconPixbuf("gtk-clear", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-clear.png", "png");
+      // this.RenderIconPixbuf("gtk-add", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-add.png", "png");
+      // this.RenderIconPixbuf("gtk-remove", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-remove.png", "png");
+      // this.RenderIconPixbuf("gtk-save", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-save.png", "png");
+      // this.RenderIconPixbuf("gtk-goto-first", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-goto-first.png", "png");
+      // this.RenderIconPixbuf("gtk-go-back", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-go-back.png", "png");
+      // this.RenderIconPixbuf("gtk-go-forward", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-go-forward.png", "png");
+      // this.RenderIconPixbuf("gtk-goto-last", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-goto-last.png", "png");
+      // this.RenderIconPixbuf("gtk-justify-fill", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-justify-fill.png", "png");
+      // this.RenderIconPixbuf("gtk-select-color", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-select-color.png", "png");
+
       SetupHandlers();
       var size = Parameter.GetDialogSize(typeof(MainWindow));
       // WidthRequest = size.Width;
@@ -304,8 +326,8 @@ namespace CSBP.Forms
       MainClass.InitDb(new ServiceDaten(0, "Admin"));
 #if DEBUG
       var username = Environment.UserName;
-      MainClass.Login(new ServiceDaten(1, username.ToFirstUpper())); // Automatische Anmeldung mit aktuellem Benutzer.
-      // MainClass.Login(new ServiceDaten(3, "Wolfgang"));
+      // MainClass.Login(new ServiceDaten(1, username.ToFirstUpper())); // Automatische Anmeldung mit aktuellem Benutzer.
+      MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
       var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
       var r = FactoryService.LoginService.IsWithoutPassword(daten);
@@ -354,7 +376,11 @@ namespace CSBP.Forms
     {
       var daten = MainClass.ServiceDaten;
       var test = Parameter.GetValue(Parameter.AG_TEST_PRODUKTION) == "TEST" ? "Test-" : "";
+#if DEBUG
+      var client = "";
+#else
       var client = daten.MandantNr == 0 ? M.AM005 : daten.MandantNr == 1 ? "" : $" ({M.AG110_title} {daten.MandantNr})";
+#endif
       Title = $"{test}CSBP {Parameter.GetValue(Parameter.AG_ANWENDUNGS_TITEL)} W. Kuehl{client}";
     }
 
@@ -366,7 +392,7 @@ namespace CSBP.Forms
     {
       RefreshTitle();
 
-      MenuClients.Visible = b;
+      MenuClients.Visible = b; // TODO Permission
       MenuUsers.Visible = b;
       MenuBackups.Visible = b;
 

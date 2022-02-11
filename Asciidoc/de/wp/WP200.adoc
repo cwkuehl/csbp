@@ -11,13 +11,13 @@ image:WP200.png[{wp200-title},title={wp200-title}]
 [width="100%",cols="<1,<5",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icon/icons8-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Wertpapieren inkl. der Bewertungen.
-|image:icon/icons8-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
-|image:icon/icons8-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icon/icons8-new-document.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Wertpapier-Datensatzes. <<WP210>>
-|image:icon/icons8-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Wertpapier-Datensatzes.
-|image:icon/icons8-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Wertpapier-Datensatzes.
-|image:icon/icons8-remove.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Wertpapier-Datensatzes.
+|image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Wertpapieren inkl. der Bewertungen.
+|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Wertpapier-Datensatzes. <<WP210>>
+|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Wertpapier-Datensatzes.
+|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Wertpapier-Datensatzes.
+|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Wertpapier-Datensatzes.
 |image:icon/icons8-save.png[title="Export",width={icon-width}]          |Diese Schaltfläche öffnet den Dialog <<WP220>>.
 |Wertpapiere  |Liste von ausgewählten Wertpapier-Datensätzen inkl. der berechneten Bewertung.
 |Bis          |End-Datum für die Bewertung festlegen.
