@@ -8,13 +8,13 @@ Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
 
 image:FZ710.png[{fz710-title},title={fz710-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Nr.          |Die Nummer der Notiz wird angezeigt.
 |Thema        |Das Thema der Notiz muss eingegeben werden.
 |Notiz        |Textfeld zum Eingeben der Notiz zum Thema.
-|Tabelle      |Editierbare Tabelle für Notizen in Tabellen-Form. 
+|Tabelle      |Editierbare Tabelle für Notizen in Tabellen-Form.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
 |OK           |Diese Schaltfläche speichert oder löscht die Notiz	und schließt den Dialog.

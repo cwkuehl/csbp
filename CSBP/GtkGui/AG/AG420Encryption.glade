@@ -20,7 +20,7 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">AG410.target</property>
+        <property name="label">AG420.target</property>
         <property name="use_underline">True</property>
         <property name="mnemonic_widget">target</property>
       </object>
@@ -33,7 +33,7 @@
       <object class="GtkEntry" id="target">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="tooltip_text">AG410.target.tt</property>
+        <property name="tooltip_text">AG420.target.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates_default">True</property>
@@ -50,7 +50,7 @@
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">AG410.password</property>
+        <property name="label">AG420.password</property>
         <property name="use_underline">True</property>
         <property name="mnemonic_widget">password</property>
       </object>
@@ -63,11 +63,11 @@
       <object class="GtkEntry" id="password">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="tooltip_text">AG410.password.tt</property>
+        <property name="tooltip_text">AG420.password.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates_default">True</property>
-        <property name="placeholder_text">AG410.password.tt</property>
+        <property name="placeholder_text">AG420.password.tt</property>
       </object>
       <packing>
         <property name="left_attach">1</property>

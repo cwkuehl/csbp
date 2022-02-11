@@ -10,7 +10,7 @@ mit der Ausnahme, dass die Boxgröße im zweiten Chart halbiert und im dritten v
 
 image:WP120.png[{wp120-title},title={wp120-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Wertpapier 1 |Wertpapier für Chart links oben.

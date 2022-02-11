@@ -8,7 +8,7 @@ Es wird die Version 5.5 der Schnittstelle unterstützt.
 
 image:SB500.png[{sb500-title},title={sb500-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Stammbaum-Name|Textfeld für den Name des Stammbaums in der Export-Datei.

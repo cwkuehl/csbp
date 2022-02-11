@@ -16,13 +16,13 @@ Die Bilanzen (EB, SB) können zu jedem beliebigen Datum dargestellt werden.
 Die Gewinn- und Verlustrechnung (GV) kann auf einen beliebigen Zeitraum eingeschrät werden.
 
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Berechnen",width={icon-width}]    |Schaltfläche zum Berechnen aller aktuellen Bilanzen ab der zu berechnenden Periode. Am Ende wird das angezeigte Bilanzkonto aktualisiert.
 |image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icon/icons8-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Starten des Drucken-Dialogs. <<HH510>>
+|image:icons/gtk-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Starten des Drucken-Dialogs. <<HH510>>
 |Soll         |Je nach Art des Kontos wird in dieser Liste die linke Seite des T-Kontos angezeigt: Aktiva (EB/SB) oder Aufwand (GV)
 |Haben        |Je nach Art des Kontos wird in dieser Liste die rechte Seite	des T-Kontos angezeigt: Passiva (EB/SB) oder Ertrag (GV)
 |Summe        |Summe der Beträge der linken Seite.

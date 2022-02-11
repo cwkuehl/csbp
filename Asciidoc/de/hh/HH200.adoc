@@ -8,7 +8,7 @@ Hier können die Konten angezeigt, erstellt, geändert und eingeschränkt gelös
 
 image:HH200.png[{hh200-title},title={hh200-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Konten.

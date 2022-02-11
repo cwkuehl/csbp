@@ -7,7 +7,7 @@ Mit diesem Dialog meldet sich der Benutzer bei einem Mandanten an.
 
 image:AM000.png[{am000-title},title={am000-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Mandant      |Die Mandantennummer muss eingegeben werden. Der Standardwert ist 1. Die zuletzt verwendete Nummer wird vorgeblendet.

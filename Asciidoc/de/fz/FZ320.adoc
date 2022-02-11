@@ -8,7 +8,7 @@ Als erstes sollte ein Serie mit dem Namen ' Keine Serie' angelegt werden, damit 
 
 image:FZ320.png[{fz320-title},title={fz320-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Serien.

@@ -18,7 +18,7 @@ Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufz
 
 image:AG000.png[{ag000-title},title={ag000-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Laufzeit-Umgebung|Anzeige von Information über die Laufzeit-Umgebung.

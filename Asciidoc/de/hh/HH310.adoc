@@ -8,7 +8,7 @@ Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
 
 image:HH310.png[{hh310-title},title={hh310-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Nr.          |Eindeutige Nummer des ausgewählten Ereignisses.

@@ -8,7 +8,7 @@ Buchungen können Zahlungen, Rabatte, Zinsen und Anteilsänderungen beinhalten.
 
 image:WP400.png[{wp400-title},title={wp400-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Buchungen.

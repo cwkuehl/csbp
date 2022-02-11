@@ -7,7 +7,7 @@ Dieser Dialog ermöglicht das Erstellen von PDF-Dateien und somit Drucken von Ah
 
 image:SB220.png[{sb220-title},title={sb220-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Ahn          |Ein Ahn muss ausgewählt werden. Er dient als Ausgangspunkt in den zu erstellenden Berichten.

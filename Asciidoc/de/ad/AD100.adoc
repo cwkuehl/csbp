@@ -12,7 +12,7 @@ Natürlich können auch Firmen erfasst werden, die Sitze sind dann Filialen oder
 
 image:AD100.png[{ad100-title},title={ad100-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Personen-Liste.
@@ -22,8 +22,8 @@ image:AD100.png[{ad100-title},title={ad100-title}]
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Person.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Person sowie Sitz und Adresse.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sitzes. Falls der letzte Sitz einer Person gelöscht wird, wird auch die Person gelöscht.
-|image:icon/icons8-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Drucken einer kompletten 2-spaltigen Adressenliste. Nicht aktuelle Personen oder Sitze werden nicht gedruckt.
-|image:icon/icons8-save.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Adressen-Schnittstelle-Dialog. <<AD200>>
+|image:icons/gtk-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Drucken einer kompletten 2-spaltigen Adressenliste. Nicht aktuelle Personen oder Sitze werden nicht gedruckt.
+|image:icons/gtk-floppy.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Adressen-Schnittstelle-Dialog. <<AD200>>
 |Personen     |Liste mit allen Personen und Sitzen. Eingeklammerte Personen und Sitze sind vom Status her nicht aktuell. Falls eine Person mehrere Sitze hat, wird der Name ab dem 2. Sitz leer angezeigt.
 |Name         |Suchfeld für den Namen. Die Liste wird nach dem Verlassen des Feldes aktualisiert.
 |Vorname      |Suchfeld für den Vornamen. Die Liste wird nach dem Verlassen des Feldes aktualisiert.

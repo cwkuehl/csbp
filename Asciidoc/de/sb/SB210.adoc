@@ -8,7 +8,7 @@ Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
 
 image:SB210.png[{sb210-title},title={sb210-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Nr.          |Eindeutige Nummer des ausgewählten Ahnen.

@@ -7,7 +7,7 @@ In diesem Dialog wird eine bestehende Adresse ausgewählt.
 
 image:AD130.png[{ad130-title},title={ad130-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Adressen     |Liste von allen vorhandenen Adressen. Eine Adresse kann ausgewählt werden.

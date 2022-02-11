@@ -8,12 +8,12 @@ Abhängig von der Art des Aufrufes sind die Felder editierbar oder nicht.
 
 image:WP310.png[{wp310-title},title={wp310-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Nr.          |Eindeutige Nummer des ausgewählten Konfigurations-Datensatzes.
 |Bezeichnung  |Die Bezeichnung der Konfiguration muss eingegeben werden.
-|Boxgröße     |Eingabe der Boxgröße als Absolut- oder Prozentwert. Sie muss größer als 0 sein. Außerdem kann die Art der Boxgröße eingestellt werden: fest, prozentual oder dynamisch. 
+|Boxgröße     |Eingabe der Boxgröße als Absolut- oder Prozentwert. Sie muss größer als 0 sein. Außerdem kann die Art der Boxgröße eingestellt werden: fest, prozentual oder dynamisch.
 |Umkehr       |Anzahl der Boxen für Umkehr. Sie muss größer als 0 sein.
 |Methode      |Auswahl der Methode für Kursberechnung: Schlusskurse, High-Low-Trendfolge, High-Low-Trendumkehr, Open-High-Low-Close, Typischer Preis.
 |Dauer        |Anzahl der Tage, die ausgewertet werden sollen.

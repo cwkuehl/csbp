@@ -7,7 +7,7 @@ Dieser Dialog erstellt einen Bericht mit beliebigen Bilanzen.
 
 image:HH510.png[{hh510-title},title={hh510-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Titel        |Der Berichttitel kann geändert werden.

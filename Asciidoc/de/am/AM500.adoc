@@ -9,7 +9,7 @@ TIP: Nach dem Ändern eines Wert muss Enter gedrückt werden, damit der neue Wer
 
 image:AM500.png[{am500-title},title={am500-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Einstellungen|Die Liste zeigt alle Einstellungen an. Die Werte können in der Liste direkt geändert werden.

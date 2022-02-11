@@ -7,7 +7,7 @@ Dieser Dialog dient dem Import und Export von Personen mit Sitz und Adresse. Die
 
 image:AD200.png[{ad200-title},title={ad200-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Vorhandene Adressen löschen|Wenn das Kontrollkästchen gesetzt ist, werden alle Personen, Sitze und Adressen vor dem Import gelöscht.

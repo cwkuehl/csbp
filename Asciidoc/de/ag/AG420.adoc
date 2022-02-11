@@ -1,0 +1,19 @@
+:ag420-title: Kennwort für Verschlüsselung
+anchor:AG420[{ag420-title}]
+
+==== Dialog {ag420-title}
+
+Dieser Dialog dient der Kennwort-Eingabe bei Sichern oder Rücksichern mit Verschlüsselung.
+
+WARNING: Das Kennwort muss man sich merken, da es nicht gespeichert wird. Ohne das Kennwort kann die Rücksicherung die Dateien nicht wieder entschlüsseln.
+
+image:AG420.png[{ag420-title},title={ag420-title}]
+
+[width="100%",cols="1,5a",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Ziel-Verzeichnis|Das Ziel-Verzeichnis für die zu verschlüsselnden oder zu entschlüsselnden Dateien wird angezeigt.
+|Kennwort     |Wenn diese Option gewählt ist, werden alle Dateien im Ziel-Verzeichnis verschlüsselt.
+|OK           |Diese Schaltfläche startet die Sicherung bzw. Rücksicherung und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche bricht die zuvor gewählte Aktion ab und schließt den Dialog.
+|==========================

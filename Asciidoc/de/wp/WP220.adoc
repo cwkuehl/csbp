@@ -10,7 +10,7 @@ Dieser Dialog erstellt Exporte für mehrere Wertpapiere über mehrere Konfigurat
 
 image:WP220.png[{wp220-title},title={wp220-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Datum        |Ein Bezugsdatum für den CSV-Export muss ausgewählt werden. Es wird der aktuelle oder letzte Werktag vorgeblendet.

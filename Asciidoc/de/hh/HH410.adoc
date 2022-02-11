@@ -16,7 +16,7 @@ wird die Buchung abgeschlossen.
 *Ändern des Buchungstages (Valuta):* Mit der Tastenkombination Alt+V gelangen Sie direkt in das Eingabefeld,
  wo Sie das gewünschte Datum eintragen können. Schneller ist meistens die Möglichkeit, das Datum um einen Tag zu erhöhen
  oder zu erniedrigen. Dazu benutzen Sie die Tastenkombinationen Strg+P oder Strg+M.
- 
+
 *Ändern der Soll- und Habenkonten:* Um beliebige Buchungen durchführen zu können, sind die Listen der Soll- und Habenkonten
 individuell einstellbar. Diese Möglichkeit ist für seltene Buchungenarten vorgesehen, für die kein Ereigniss erstellt wurde.
 Die Eigenkapital- und Gewinn/Verlust-Konten können nicht für Buchungen verwendet werden, da sie die Summen der anderen Konten aufnehmen.
@@ -28,7 +28,7 @@ Ebenso ist Multiplikation, z.B. '*4', oder Division, z.B. '/7', möglich.
 
 image:HH410.png[{hh410-title},title={hh410-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |Nr.          |Buchungsnummer der ausgewählten Buchung oder leer, wenn eine neue Buchung erfasst wird.

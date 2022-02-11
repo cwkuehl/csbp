@@ -7,7 +7,7 @@ Dieser Dialog verwaltet Fahrrad-Touren und Fahrradstände.
 
 image:FZ250.png[{fz250-title},title={fz250-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Fahrradständen.

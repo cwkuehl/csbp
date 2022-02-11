@@ -7,7 +7,7 @@ Dieses Formular verwaltet alle Anlagen, d.h. Investitionen in Wertpapiere.
 
 image:WP250.png[{wp250-title},title={wp250-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Anlagen inkl. aktuellen Werte.

@@ -7,7 +7,7 @@ Dieses Formular verwaltet alle Ahnen.
 
 image:SB200.png[{sb200-title},title={sb200-title}]
 
-[width="100%",cols="<1,<5",frame="all",options="header"]
+[width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Ahnen.
@@ -17,8 +17,8 @@ image:SB200.png[{sb200-title},title={sb200-title}]
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Ahnen.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ahnen.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ahnen.
-|image:icon/icons8-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Öffnen des Dialogs <<SB220>>.
-|image:icon/icons8-save.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Dialog <<SB500>>.
+|image:icons/gtk-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Öffnen des Dialogs <<SB220>>.
+|image:icons/gtk-floppy.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Dialog <<SB500>>.
 |Ahnen        |Liste mit allen ausgewählten Ahnen.
 |Status       |Anzeige von Informationen zur aktuellen Ahnenliste.
 |Name         |Suchfeld für den Namen.
