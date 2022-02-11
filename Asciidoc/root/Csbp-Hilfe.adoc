@@ -27,6 +27,7 @@ Das Haushalts-Programm enthält eine Sammlung von Funktionen und Dialogen, die f
 - *Tagebuch* speichert pro Tag einen beliebig langen Text (<<FZ0>>)
 - *Stammbaum* mit Ahnen, Familien, Quellen und GEDCOM-Schnittstelle (<<SB0>>)
 - *Wertpapiere* mit Point and Figure-Charts (<<WP0>>)
+- Alle Aktionen (außer Mandanten löschen) lassen sich vollständig rückgängig machen und wiederherstellen, solange das Programm nicht geschlossen wird.
 
 
 == Installation
