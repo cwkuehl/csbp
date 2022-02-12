@@ -9,7 +9,7 @@
     <!--PublishTrimmed>true</PublishTrimmed-->
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
+  <!--ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
     <PackageReference Include="gtksharp" Version="3.22.25.128" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
@@ -17,7 +17,7 @@
     <PackageReference Include="NLog" Version="4.7.5" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="System.Reflection.DispatchProxy" Version="4.7.1" />
-  </ItemGroup>
+  </ItemGroup-->
   <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
     <PackageReference Include="gtksharp" Version="3.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.*" />
