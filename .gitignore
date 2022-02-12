@@ -442,6 +442,6 @@ Asciidoc/Csbp-Hilfe.html
 Asciidoc/Csbp-Hilfe.pdf
 
 # Installation
-Install/#Deploy.sh
+Install/#Upload.sh
 Install/*.zip
 Install/csbp/*
