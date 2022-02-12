@@ -423,6 +423,7 @@ namespace CSBP.Services
           && !a.Schluessel.StartsWith("MO_", StringComparison.Ordinal)
           && !a.Schluessel.StartsWith("SO_", StringComparison.Ordinal)
           && !a.Schluessel.StartsWith("VM_", StringComparison.Ordinal)
+          && !a.Schluessel.StartsWith("AG_SMTP_SERVER", StringComparison.Ordinal)
           ).ToList();
       foreach (var p in parameter)
       {
