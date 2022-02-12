@@ -36,13 +36,14 @@ cp -a windows/#InstallUpdateCsbp.cmd ./InstallUpdateCsbp.cmd_.txt
 cp -a csbp/Csbp-Hilfe.html .
 
 cat << EOT >ftp.txt
-#put InstallUpdateCsbp.sh_.txt
-#put InstallUpdateCsbp.cmd_.txt
-#put Csbp-Hilfe.html
-#put csbp-net6-ubuntu-x64-runtime.zip
+put InstallUpdateCsbp.sh_.txt
+put InstallUpdateCsbp.cmd_.txt
+put Csbp-Hilfe.html
+put csbp-net6-ubuntu-x64-runtime.zip
 put csbp-net6-win-x64-runtime.zip
 EOT
 
+# Upload via sftp
 ./#Upload.sh ftp.txt
 
 rm ./ftp.txt
