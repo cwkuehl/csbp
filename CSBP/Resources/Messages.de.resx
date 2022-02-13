@@ -2293,7 +2293,7 @@
         <value>_Notiz</value>
     </data>
     <data name="FZ710.notiz.tt" xml:space="preserve">
-        <value>Text-Notiz</value>
+        <value>Notizen als Text.</value>
     </data>
     <data name="FZ710.tabelle.tt" xml:space="preserve">
         <value>Tabellarische Notizen</value>
@@ -3664,7 +3664,7 @@
         <value>_Notiz</value>
     </data>
     <data name="TB210.notiz.tt" xml:space="preserve">
-        <value>Notiz</value>
+        <value>Notizen</value>
     </data>
 
     <data name="WP100.title" xml:space="preserve">

@@ -17,5 +17,5 @@ image:FZ700.png[{fz700-title},title={fz700-title}]
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Notiz.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Notiz.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Notiz.
-|Notizen      |Liste mit allen bestehenden Themen.
+|Notiz        |Liste mit allen bestehenden Themen.
 |==========================

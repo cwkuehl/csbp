@@ -150,8 +150,9 @@ Das Menü umfasst folgende Punkte:
                  |Einstellungen       |Dialog zum Ändern von Einstellungen. <<AM500>>
                  |Start-Formulare     |Dialog zum Auswählen von Formularen, die nach dem Anmelden geöffnet werden. <<AM510>>
                  |Dialoge zurücksetzen|Die Positionen und Größen aller Dialoge werden zurückgesetzt.
-.11+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
+.12+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
                  |Tagebuch            |Dieses Formular verwaltet beliebig lange textliche Eintragungen für jeden Tag. <<TB100>>
+                 |Positionen          |Dieses Formular verwaltet Positionen für Tagebuch-Einträge. <<TB200>>
                  |Notizen             |Dieses Formular verwaltet beliebig lange Notizen in Text- und Tabellenform für jede Gelegenheit. <<FZ700>>
                  |Personen / Adressen |Dieses Formular verwaltet Personen, Geburtstage und Adressen. <<AD100>>
                  |Fahrradstände       |Dieses Formular verwaltet Fahrrad-Touren und Fahrradstände. <<FZ250>>
