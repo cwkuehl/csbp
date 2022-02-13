@@ -23,8 +23,10 @@ image:FZ710.png[{fz710-title},title={fz710-title}]
 
 TIP: Die Tablle wird mit einem Kontext-Menü gesteuert, das mit der rechten Maustaste aktiviert wird.
 Die Zeilen, Spalten und Zellen lassen sich somit verändern.
+
+////
 Die Zellen können auch Funktionen enthalten: today, now, sum, count.
 Beispiele: =today, =now, =sum(a1:b7), =count(b2:e5)
 Die Berechnung bzw. Aktualisierung der Funktionen erfolgt durch das Klicken auf die linke Spaltenüberschrift ohne Bezeichnung.
 Damit wird auch die gesamte Tabelle markiert.
-
+////

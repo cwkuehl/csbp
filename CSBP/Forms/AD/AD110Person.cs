@@ -294,7 +294,7 @@ namespace CSBP.Forms.AD
     {
       geburt = new Date(Builder.GetObject("geburt").Handle)
       {
-        IsNullable = false,
+        IsNullable = true,
         IsWithCalendar = true,
         IsCalendarOpen = false
       };

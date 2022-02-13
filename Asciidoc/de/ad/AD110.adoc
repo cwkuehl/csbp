@@ -17,8 +17,8 @@ image:AD110.png[{ad110-title},title={ad110-title}]
 |Prädikat     |Prädikat der Person, z.B. de.
 |(Nach-)Name  |Nachname der Person oder Firmenname.
 |Name 2       |Weiterer Namensteil für die Person oder Firma.
-|Geschlecht   |Geschlecht der Person. Neutrum für Firmen oder sonstige Dinge.
-|Geburt       |Geburtsdatum der Person. Falls es nicht bekannt ist, sollte der Haken unbekannt gesetzt werden.
+|Geschlecht   |Geschlecht der Person. Neutrum auch für Firmen oder sonstige Dinge.
+|Geburt       |Geburtsdatum der Person. Falls es nicht bekannt ist, sollte der Haken Unbekannt gesetzt werden.
 |Person-Status|Optionen für den Status der Person. Nicht aktuelle Personen werden in der Liste eingeklammert und beim Drucken nicht ausgedruckt.
 |Sitz         |Bezeichnung für der Sitz, z.B. Sitz, Eltern, Firma.
 |Straße       |Straße des Sitzes.
@@ -34,7 +34,7 @@ image:AD110.png[{ad110-title},title={ad110-title}]
 |Email        |Email-Adresse der Person.
 |Bemerkung    |Bemerkung zum Sitz.
 |Sitz-Status  |Optionen für den Status des Sitzes. Nicht aktuelle Sitze werden in der Liste eingeklammert und beim Drucken nicht ausgedruckt.
-|# gleiche Adresse|Anzahl der Personen (Sitze), die die gleiche Adresse verwenden.
+|# gleiche Adresse|Anzahl der Personen bzw. Sitze, die die gleiche Adresse verwenden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
 |OK           |Diese Schaltfläche speichert oder löscht die Person bzw. den Sitz und schließt den Dialog.

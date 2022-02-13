@@ -640,6 +640,7 @@ namespace CSBP.Forms
 
     private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
     {
+      // TODO Formatierung der Tabelle.
       var mi = o as MenuItem;
       if (mi == null)
         return;
