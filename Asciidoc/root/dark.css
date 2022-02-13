@@ -95,7 +95,7 @@ a {
 .sidebarblock {
   background: var(--sidebarbackground);
 }
-.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+.literalblock pre/*, .listingblock pre:not(.highlight)*/, .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
   background: var(--sidebarbackground);
   color: var(--white);
 }
