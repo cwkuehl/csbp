@@ -1,18 +1,21 @@
 = CSBP Documentation
 Wolfgang Kuehl <wolfgang@cwkuehl.de>
-v1.0, 2020-04-17
+Version 2020-04-17
 :homepage: http://cwkuehl.de
-:toc:
+:toc2:
 :icons: font
-:imagesdir: en/assets
+:data-uri:
+:imagesdir: ../en/assets
 :doctype: book
 :lang: en
-:embedAssets:
+:stylesheet: dark.css
+:icon-width: 32
+
 
 == Installation
 
 .Title
-NOTE: Still *not* ready. 
+NOTE: Still *not* ready.
 
 == Dialogs
 

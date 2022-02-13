@@ -1,6 +1,6 @@
 = CSBP Dokumentation (C) 2022 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-Version 2022-02-11
+Version 2022-02-13
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -12,6 +12,7 @@ Bilder einbetten bzw. separat
 ////
 :doctype: book
 :lang: de
+:stylesheet: dark.css
 :toc-title: Inhaltsverzeichnis
 :note-caption: Anmerkung
 :warning-caption: Achtung
