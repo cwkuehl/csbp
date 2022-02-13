@@ -39,18 +39,18 @@ else
 fi
 
 # Generate start script and start CSBP
-if [[ -e ./#Csbp.sh && ! -e ./#Csbp0.sh ]]; then
-  mv ./#Csbp.sh ./#Csbp0.sh
-fi
-echo "#! /bin/bash" > ./#Csbp.sh
-echo "# Start program CSBP (c) 2022 cwkuehl.de" >> ./#Csbp.sh
-echo "cd $PWD/publish" >> ./#Csbp.sh
+echo "#! /bin/bash" > ./#Csbp0.sh
+echo "# Start program CSBP (c) 2022 cwkuehl.de" >> ./#Csbp0.sh
+echo "cd $PWD/publish" >> ./#Csbp0.sh
 if [[ -z "$DBNAME" ]]; then
-  echo "dotnet CSBP.dll" >> ./#Csbp.sh
+  echo "dotnet CSBP.dll" >> ./#Csbp0.sh
 else
-  echo "dotnet CSBP.dll \"DB_DRIVER_CONNECT=Data Source=$DBNAME\"" >> ./#Csbp.sh
+  echo "dotnet CSBP.dll \"DB_DRIVER_CONNECT=Data Source=$DBNAME\"" >> ./#Csbp0.sh
 fi
-chmod +x ./#Csbp.sh
+chmod +x ./#Csbp0.sh
+if [[ ! -e ./#Csbp.sh ]]; then
+  mv ./#Csbp0.sh ./#Csbp.sh
+fi
 (./#Csbp.sh)&
 
 rm ./_.sh

@@ -46,14 +46,15 @@ echo %mydate% %time% Database exists. >> Log.txt
 del EmptyCsbp.db
 
 :Script
-if exist #Csbp.cmd if not exist #Csbp0.cmd move #Csbp.cmd #Csbp0.cmd
-echo :: Start program CSBP (c) 2022 cwkuehl.de > #Csbp.cmd
-echo cd %~dp0\publish >> #Csbp.cmd
+:: Generate start script and start CSBP
+echo :: Start program CSBP (c) 2022 cwkuehl.de > #Csbp0.cmd
+echo cd %~dp0\publish >> #Csbp0.cmd
 if "%DBNAME%"=="" (
-  echo start CSBP.exe >> #Csbp.cmd
+  echo start CSBP.exe >> #Csbp0.cmd
 ) else (
-  echo start CSBP.exe "DB_DRIVER_CONNECT=Data Source=%DBNAME%" >> #Csbp.cmd
+  echo start CSBP.exe "DB_DRIVER_CONNECT=Data Source=%DBNAME%" >> #Csbp0.cmd
 )
+if not exist #Csbp.cmd move #Csbp0.cmd #Csbp.cmd
 
 :Ende
 start cmd /k "#Csbp.cmd && exit"
