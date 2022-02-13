@@ -1,0 +1,19 @@
+:tb110-title: Datum der Position
+anchor:TB110[{tb110-title}]
+
+==== Formular {tb110-title}
+
+In diesem Formular wird ein neues Anfangs- oder End-Datum einer Position angegeben. Beim Öffnen des Formulars wird das aktuelle End-Datum der Position angezeigt.
+
+image:TB110.png[{tb110-title},title={tb110-title}]
+
+[width="100%",cols="1,5a",frame="all",options="header"]
+|==========================
+|Steuerelement|Erklärung
+|Nr.          |Eindeutige Nummer des ausgewählten Position.
+|Bezeichnung  |Die Bezeichnung der Position kann geändert werden.
+|Datum        |Das Datum kann geändert werden. Wenn ein späteres Datum gewählt wird, verlängert sich der Zeitraum der Position. Wenn ein früheres Datum gewählt wird, verkürzt sich der Zeitraum der Position. Ist das Datum vor dem Datum im Formular <<TB100>>, ändert sich das Anfangs-Datum der Position.
+|OK           |Diese Schaltfläche gibt das ausgewählte Datum an das Formular <<TB100>> zurück und schließt den Dialog.
+|Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Datums-Rückgabe.
+|==========================
+
