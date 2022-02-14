@@ -16,7 +16,7 @@ image:WP410.png[{wp410-title},title={wp410-title}]
 |Datum        |Das Wertstellungsdatum der Buchung muss eingegeben werden.
 |Preis        |Ein Preis pro Anteil (Stand) kann eingegeben werden bzw. wird angezeigt, wenn an dem Datum ein Stand gespeichert ist.
 |Betrag       |Ein Zahlungsbetrag kann eingegeben werden.
-|Rabatt       |Ein Rabattbetrag wird positiv erfasst, Aufschläge (z.B. Ausgabeaufschläge) negativ.
+|Rabatt       |Ein Rabattbetrag wird positiv erfasst, Aufschläge (z.B. Ausgabeaufschläge) negativ. Beim Erhalt von Zinsen müssen Steuerabzüge negativ eingetragen werden.
 |Anteile      |Eine Änderung der Anteile kann erfasst werden, positiv beim Kauf, negativ beim Verkauf.
 |Preis        |Der berechnete Preis aus Betrag / Anteile wird angezeigt.
 |Zinsen       |Ein Ertragsbetrag kann erfasst werden, positiv bei z.B. Zinsen oder Dividenden.

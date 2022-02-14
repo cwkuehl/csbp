@@ -369,7 +369,7 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnBtextFocusInEvent(object o, FocusInEventArgs e)
     {
-      Debug.WriteLine("OnBtextFocusInEvent");
+      // Debug.WriteLine("OnBtextFocusInEvent");
     }
 
     /// <summary>Behandlung von Ereignis.</summary>
@@ -388,11 +388,15 @@ namespace CSBP.Forms.WP
         {
           bText.Text = text;
           if (ev?.EText == "1")
+          {
+            // Bestandsänderungen ohne Zinsen
             zinsen.Text = "";
+          }
           else if (ev?.EText == "2")
           {
+            // Zinsen ohne Bestandsänderungen
             betrag.Text = "";
-            rabatt.Text = "";
+            // rabatt.Text = "";
             anteile.Text = "";
           }
         }
@@ -493,11 +497,16 @@ namespace CSBP.Forms.WP
         return;
       var p = Functions.ToDecimal(betrag.Text);
       var s = Functions.ToDecimal(anteile.Text);
+      var z = Functions.ToDecimal(zinsen.Text) ?? 0;
       preis2.Text = Functions.ToString(Functions.compDouble4(p, 0) == 0
         || Functions.compDouble4(s, 0) == 0 ? null : p / s, 6);
       if (string.IsNullOrEmpty(hhbuchung.Text))
-        hhbetrag.Text = Functions.ToString(Math.Abs((p ?? 0) - (Functions.ToDecimal(rabatt.Text) ?? 0)
-        + (Functions.ToDecimal(zinsen.Text) ?? 0)), 2);
+      {
+        if (z == 0)
+          hhbetrag.Text = Functions.ToString(Math.Abs((p ?? 0) - (Functions.ToDecimal(rabatt.Text) ?? 0)), 2);
+        else
+          hhbetrag.Text = Functions.ToString(Math.Abs(z + (Functions.ToDecimal(rabatt.Text) ?? 0)), 2);
+      }
     }
 
     /// <summary>Starten des Details-Dialogs.</summary>
