@@ -117,7 +117,7 @@ namespace CSBP
         {
           // Start-Dialoge starten
 #if DEBUG
-          var sd = "";
+          var sd = daten.MandantNr == 1 ? Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "" : "";
 #else
           var sd = Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "";
 #endif
