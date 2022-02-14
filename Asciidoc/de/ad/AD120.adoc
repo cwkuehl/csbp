@@ -13,5 +13,6 @@ image:AD120.png[{ad120-title},title={ad120-title}]
 |Datum        |Das Datum, das den Mittelpunkt den Zeitraums bildet, kann geändert werden. Die Geburtstagsliste wird sofort angepasst.
 |Anzahl Tage  |Die Anzahl der Tage werden zum das Datum	hinzugezählt und von ihm abgezogen und bildet den Geburtstagszeitraum. Das Textfeld kann geändert werden. Die Geburtstagsliste wird sofort angepasst.
 |Geburtstage  |Liste von Geburtstagen mit Personen und dem zugehörigen Alter.
+|Nach dem Anmelden anzeigen|Wenn die Option gesetzt ist, wird dieser Dialog direkt nach dem Anmelden angezeigt. Wenn es keine Geburtstag in dem Zeitraum gibt, wird der Dialog erst gar nicht sichtbar. So wird kein Geburtstag mehr vergessen.
 |OK           |Schaltfläche zum Schließen des Dialog.
 |==========================
