@@ -155,6 +155,8 @@ namespace CSBP.Forms.FZ
           rs.AppendValues(p.Bezeichnung, p.Uid);
         if (rl.Any())
           SetText(fahrrad, rl.First().Uid);
+        else
+          SetText(fahrrad, "");
         datum.Value = daten.Heute;
         var neu = DialogType == DialogTypeEnum.New;
         var copy = DialogType == DialogTypeEnum.Copy;

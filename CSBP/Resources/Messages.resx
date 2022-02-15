@@ -1184,11 +1184,11 @@
     <data name="AD100.personen.columns" xml:space="preserve">
         <value>No.;Description;Site;Changed at;Changed by;Created at;Created by</value>
     </data>
-    <data name="AD100.suche.tt" xml:space="preserve">
-        <value>General search</value>
-    </data>
     <data name="AD100.suche" xml:space="preserve">
         <value>_Search</value>
+    </data>
+    <data name="AD100.suche.tt" xml:space="preserve">
+        <value>General search</value>
     </data>
     <data name="AD100.name" xml:space="preserve">
         <value>_Name</value>
@@ -1945,10 +1945,10 @@
         <value>Bike</value>
     </data>
     <data name="FZ250.text" xml:space="preserve">
-        <value>Te_xt</value>
+        <value>_Search</value>
     </data>
     <data name="FZ250.text.tt" xml:space="preserve">
-        <value>Description</value>
+        <value>Search for description</value>
     </data>
     <data name="FZ250.alle" xml:space="preserve">
         <value>A_ll</value>
@@ -3618,7 +3618,7 @@
         <value>_Search</value>
     </data>
     <data name="TB200.search.tt" xml:space="preserve">
-        <value>Search text</value>
+        <value>Search for text</value>
     </data>
     <data name="TB200.all" xml:space="preserve">
         <value>A_ll</value>
@@ -3762,7 +3762,7 @@
         <value>_Search</value>
     </data>
     <data name="WP200.bezeichnung.tt" xml:space="preserve">
-        <value>Search text</value>
+        <value>Search for text</value>
     </data>
     <data name="WP200.muster" xml:space="preserve">
         <value>_Pattern</value>
@@ -3902,7 +3902,7 @@
         <value>_Search</value>
     </data>
     <data name="WP250.bezeichnung.tt" xml:space="preserve">
-        <value>Search text</value>
+        <value>Search for text</value>
     </data>
     <data name="WP250.wertpapier" xml:space="preserve">
         <value>_Stock</value>

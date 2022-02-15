@@ -1184,14 +1184,14 @@
     <data name="AD100.personen.columns" xml:space="preserve">
         <value>Nr.;Bezeichnung;Sitz;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
-    <data name="AD100.name" xml:space="preserve">
-        <value>_Name</value>
+    <data name="AD100.suche" xml:space="preserve">
+        <value>_Suche</value>
     </data>
     <data name="AD100.suche.tt" xml:space="preserve">
         <value>Allgemeine Suche</value>
     </data>
-    <data name="AD100.suche" xml:space="preserve">
-        <value>_Suche</value>
+    <data name="AD100.name" xml:space="preserve">
+        <value>_Name</value>
     </data>
     <data name="AD100.name.tt" xml:space="preserve">
         <value>Selektions-Name</value>
@@ -1945,10 +1945,10 @@
         <value>Selektions-Fahrrad</value>
     </data>
     <data name="FZ250.text" xml:space="preserve">
-        <value>Te_xt</value>
+        <value>_Suche</value>
     </data>
     <data name="FZ250.text.tt" xml:space="preserve">
-        <value>Selektions-Beschreibung</value>
+        <value>Suche nach Beschreibung</value>
     </data>
     <data name="FZ250.alle" xml:space="preserve">
         <value>A_lle</value>
