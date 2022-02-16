@@ -299,8 +299,10 @@ include::../de/fz/FZ330.adoc[]
 include::../de/fz/FZ340.adoc[]
 include::../de/fz/FZ350.adoc[]
 include::../de/fz/FZ100.adoc[]
+////
+TODO Sudoku
 include::../de/so/SO100.adoc[]
-
+////
 
 :hh0-title: Bereich Haushalt
 anchor:HH0[{hh0-title}]
