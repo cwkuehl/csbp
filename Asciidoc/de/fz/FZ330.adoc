@@ -13,6 +13,7 @@ image:FZ330.png[{fz330-title},title={fz330-title}]
 |Steuerelement|Erklärung
 |Nr.          |Eindeutige Nummer der ausgewählten Serie.
 |Name         |Der Name der Serie muss eingegeben werden.
+|Notiz        |Eine beliebig lange Notiz kann erfasst werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
 |OK           |Diese Schaltfläche speichert oder löscht die Serie und schließt den Dialog.

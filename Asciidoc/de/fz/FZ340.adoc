@@ -13,13 +13,13 @@ image:FZ340.png[{fz340-title},title={fz340-title}]
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Büchern.
 |image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Buches. <<FZ350>>
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Buches. <<FZ350>>
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Buches.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Buches.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Buches.
 |Bücher       |Liste mit allen bestehenden Büchern.
-|Titel        |Der Buchtitel kann mit Platzhaltern gesucht werden.
+|Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
+|Titel        |Der Buchtitel oder Untertitel kann mit Platzhaltern gesucht werden.
 |Autor        |Auswahlliste zum Selektieren des Autors.
 |Serie        |Auswahlliste zum Selektieren der Serie.
-|Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
 |==========================

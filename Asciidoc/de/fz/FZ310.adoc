@@ -14,6 +14,7 @@ image:FZ310.png[{fz310-title},title={fz310-title}]
 |Nr.          |Eindeutige Nummer des ausgewählten Autors.
 |Name         |Der Name des Autors muss eingegeben werden.
 |Vorname      |Der Vorname des Autors kann eingegeben werden.
+|Notiz        |Eine beliebig lange Notiz kann erfasst werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
 |OK           |Diese Schaltfläche speichert oder löscht den Autor und schließt den Dialog.

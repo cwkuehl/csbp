@@ -41,7 +41,7 @@ namespace CSBP.Services.Repositories
       if (!string.IsNullOrEmpty(seuid))
         wl = wl.Where(a => a.Serie_Uid == seuid);
       if (Functions.IsLike(name))
-        wl = wl.Where(a => EF.Functions.Like(a.Titel, name));
+        wl = wl.Where(a => EF.Functions.Like(a.Titel, name) || EF.Functions.Like(a.Untertitel, name));
       if (no > 0)
         wl = wl.Where(a => a.Seriennummer == no);
       var l = wl.Join(db.FZ_Buchautor.Where(a => a.Mandant_Nr == daten.MandantNr),

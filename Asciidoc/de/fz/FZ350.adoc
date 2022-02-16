@@ -13,6 +13,7 @@ image:FZ350.png[{fz350-title},title={fz350-title}]
 |Steuerelement|Erklärung
 |Nr.          |Eindeutige Nummer des ausgewählten Buches.
 |Titel        |Der Titel des Buches muss eingegeben werden.
+|Untertitel   |Ein Untertitel des Buches kann eingegeben werden.
 |Autor        |Ein Autor muss ausgewählt werden.
 |Neuer Autor  |Mit dieser Schaltfläche kann ein neuer Autor erfasst werden.
 |Serie        |Eine Serie muss ausgewählt werden.
@@ -23,6 +24,7 @@ image:FZ350.png[{fz350-title},title={fz350-title}]
 |Besitz       |Mit dem Kontrollkästchen wird festgelegt, ob man das Buch besitzt.
 |Lesedatum    |Es kann ein Datum angegeben werden, an dem das Buch gelesen wurde.
 |Hördatum     |Es kann ein Datum angegeben werden, an dem das Buch gehört wurde.
+|Notiz        |Eine beliebig lange Notiz kann erfasst werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
 |OK           |Diese Schaltfläche speichert oder löscht das Buch und schließt den Dialog.
