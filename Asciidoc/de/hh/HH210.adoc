@@ -20,9 +20,9 @@ image:HH210.png[{hh210-title},title={hh210-title}]
 |Betrag       |Für Aktiv- und Passiv-Konten kann ein Betrag für den 1. Gültigkeitstag in der Eröffnungsbilanz angegeben werden. Für Aktiv-Konten muss ein positiver Bestand mit negativem Vorzeichen angegeben werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
-////
-|Buchung      |In diesem Zeitraum gibt es Buchungen auf diesem Konto und Einträge in der Bilanz.
-////
 |OK           |Diese Schaltfläche speichert oder löscht das Konto und schließt den Dialog.
 |Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
 |==========================
+////
+|Buchung      |In diesem Zeitraum gibt es Buchungen auf diesem Konto und Einträge in der Bilanz.
+////
