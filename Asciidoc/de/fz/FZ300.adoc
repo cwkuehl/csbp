@@ -19,5 +19,5 @@ image:FZ300.png[{fz300-title},title={fz300-title}]
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Autors.
 |Autoren      |Liste mit allen bestehenden Autoren.
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
-|Name         |Suchfeld für Name und Vorname mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Autoren mit dem passenden Namen angezeigt.
+|Suche        |Suchfeld für Name und Vorname mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Autoren mit dem passenden Namen angezeigt.
 |==========================

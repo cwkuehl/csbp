@@ -20,5 +20,5 @@ image:FZ320.png[{fz320-title},title={fz320-title}]
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Serie.
 |Serien       |Liste mit allen bestehenden Serien.
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
-|Name         |Suchfeld für Name mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Serien mit dem passenden Namen angezeigt.
+|Suche        |Suchfeld für Name mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Serien mit dem passenden Namen angezeigt.
 |==========================

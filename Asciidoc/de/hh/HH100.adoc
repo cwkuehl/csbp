@@ -4,9 +4,9 @@ anchor:HH100[{hh100-title}]
 ==== Formular {hh100-title}
 
 Mit diesem Formular werden die Perioden bearbeitet.
-Wenn noch keine Perioden vorhanden sind, muss eine Periode angelegt werden. Die erste Periode beginnt am 1.1. der aktuellen Jahres.
+Wenn noch keine Perioden vorhanden sind, muss eine Periode angelegt werden. Die erste Periode beginnt am 01.01. der aktuellen Jahres.
 Man sollte sich vor dem Anlegen überlegen, mit welcher Periodenlänge gearbeitet wird, da man die letzte Periode nicht löschen kann.
-Bei einer monatlichen Länge im Jahr 2018 ergibt sich eine erste Periode vom 01.01.2018 bis 31.01.2018.
+Bei einer monatlichen Länge im Jahr 2022 ergibt sich eine erste Periode vom 01.01.2022 bis 31.01.2022.
 Eine Periode kann folgende Periodenlänge haben: 1 Monat, Vierteljahr (3 Monate), Halbjahr (6 Monate) und 1 Jahr (12 Monate).
 Die Periode beginnt mit dem ersten Tag eines Monats und schließt mit dem Monatsende.
 
@@ -31,9 +31,8 @@ image:HH100.png[{hh100-title},title={hh100-title}]
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Perioden.
 |image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen einer neuen Periode.
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Periode.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen einer Periode am Anfang oder Ende.
-|Fahrräder    |Liste mit allen bestehenden Fahrrädern.
 |Perioden     |Liste von allen Perioden mit Periodennummer sowie Anfangs- und Enddatum.
 |Anfang       |Anfangsdatum der ersten Periode.
 |Ende         |Enddatum der letzten Periode.

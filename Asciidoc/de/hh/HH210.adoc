@@ -17,9 +17,12 @@ image:HH210.png[{hh210-title},title={hh210-title}]
 |Kontoart     |Eine Kontoart muss ausgewählt werden: Aktivkonto (AK), Passivkonto (PK), Aufwandskonto (AW) und Ertragskonto (ER).
 |Gültigkeit von|Wenn ein Von-Datum angegeben wird, kann davor keine Buchung für das Konto erfasst werden.
 |Bis          |Wenn ein Bis-Datum angegeben wird, kann danach keine Buchung für das Konto erfasst werden.
+|Betrag       |Für Aktiv- und Passiv-Konten kann ein Betrag für den 1. Gültigkeitstag in der Eröffnungsbilanz angegeben werden. Für Aktiv-Konten muss ein positiver Bestand mit negativem Vorzeichen angegeben werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+////
 |Buchung      |In diesem Zeitraum gibt es Buchungen auf diesem Konto und Einträge in der Bilanz.
+////
 |OK           |Diese Schaltfläche speichert oder löscht das Konto und schließt den Dialog.
 |Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
 |==========================

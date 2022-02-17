@@ -19,7 +19,7 @@ image:FZ340.png[{fz340-title},title={fz340-title}]
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Buches.
 |Bücher       |Liste mit allen bestehenden Büchern.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
-|Titel        |Der Buchtitel oder Untertitel kann mit Platzhaltern gesucht werden.
+|Suche        |Suchfeld für Buchtitel und Untertitel mit Platzhaltern, z.B. '_ind%'.
 |Autor        |Auswahlliste zum Selektieren des Autors.
 |Serie        |Auswahlliste zum Selektieren der Serie.
 |==========================

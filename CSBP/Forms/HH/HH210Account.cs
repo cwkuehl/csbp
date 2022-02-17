@@ -210,6 +210,7 @@ namespace CSBP.Forms.HH
           betrag.Text = Functions.ToString(k.EBetrag, 2);
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          // TODO Anzeige des Zeitraums von vorhandenen Buchungen.
         }
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;

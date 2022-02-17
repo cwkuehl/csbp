@@ -1188,19 +1188,19 @@
         <value>_Suche</value>
     </data>
     <data name="AD100.suche.tt" xml:space="preserve">
-        <value>Allgemeine Suche</value>
+        <value>Suche für alle Texte</value>
     </data>
     <data name="AD100.name" xml:space="preserve">
         <value>_Name</value>
     </data>
     <data name="AD100.name.tt" xml:space="preserve">
-        <value>Selektions-Name</value>
+        <value>Suche für Name</value>
     </data>
     <data name="AD100.vorname" xml:space="preserve">
         <value>_Vorname</value>
     </data>
     <data name="AD100.vorname.tt" xml:space="preserve">
-        <value>Selektions-Vorname</value>
+        <value>Suche für Vorname</value>
     </data>
     <data name="AD100.alle" xml:space="preserve">
         <value>A_lle</value>
@@ -2016,10 +2016,10 @@
         <value>Nr.;Name;Vorname;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="FZ300.name" xml:space="preserve">
-        <value>_Name</value>
+        <value>_Suche</value>
     </data>
     <data name="FZ300.name.tt" xml:space="preserve">
-        <value>Selektions-Name</value>
+        <value>Suche für Name und Vorname</value>
     </data>
     <data name="FZ300.alle" xml:space="preserve">
         <value>A_lle</value>
@@ -2069,10 +2069,10 @@
         <value>Nr.;Name;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="FZ320.name" xml:space="preserve">
-        <value>_Name</value>
+        <value>_Suche</value>
     </data>
     <data name="FZ320.name.tt" xml:space="preserve">
-        <value>Selektions-Name</value>
+        <value>Suche für Name</value>
     </data>
     <data name="FZ320.alle" xml:space="preserve">
         <value>A_lle</value>
@@ -2116,10 +2116,10 @@
         <value>Nr.;Titel;Autor;Serie;Nr._r;Seiten_r;Sprache;Besitz;Gelesen;Gehört;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="FZ340.titel" xml:space="preserve">
-        <value>_Titel</value>
+        <value>_Suche</value>
     </data>
     <data name="FZ340.titel.tt" xml:space="preserve">
-        <value>Selektions-Titel</value>
+        <value>Suche für Titel und Untertitel</value>
     </data>
     <data name="FZ340.autor" xml:space="preserve">
         <value>_Autor</value>
@@ -2388,10 +2388,10 @@
         <value>Selektionskriterien zurücksetzen</value>
     </data>
     <data name="HH200.text" xml:space="preserve">
-        <value>Te_xt</value>
+        <value>_Suche</value>
     </data>
     <data name="HH200.text.tt" xml:space="preserve">
-        <value>Suchtext</value>
+        <value>Suche für alle Textfelder</value>
     </data>
 
     <data name="HH210.title" xml:space="preserve">
@@ -3596,7 +3596,7 @@
         <value>_Suche</value>
     </data>
     <data name="TB200.search.tt" xml:space="preserve">
-        <value>Selektions-Text</value>
+        <value>Suche für Text</value>
     </data>
     <data name="TB200.all" xml:space="preserve">
         <value>A_lle</value>
@@ -3762,7 +3762,7 @@
         <value>_Suche</value>
     </data>
     <data name="WP200.bezeichnung.tt" xml:space="preserve">
-        <value>Zu suchender Text</value>
+        <value>Suche in allen Textfeldern</value>
     </data>
     <data name="WP200.muster" xml:space="preserve">
         <value>_Muster</value>
@@ -3902,7 +3902,7 @@
         <value>_Suche</value>
     </data>
     <data name="WP250.bezeichnung.tt" xml:space="preserve">
-        <value>Zu suchender Text</value>
+        <value>Suche in allen Textfeldern</value>
     </data>
     <data name="WP250.wertpapier" xml:space="preserve">
         <value>_Wertpapier</value>

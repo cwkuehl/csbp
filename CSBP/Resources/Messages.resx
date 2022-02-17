@@ -2016,10 +2016,10 @@
         <value>No.;Name;First name;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="FZ300.name" xml:space="preserve">
-        <value>_Name</value>
+        <value>_Search</value>
     </data>
     <data name="FZ300.name.tt" xml:space="preserve">
-        <value>Surname</value>
+        <value>Search for surname and first name</value>
     </data>
     <data name="FZ300.alle" xml:space="preserve">
         <value>A_ll</value>
@@ -2069,10 +2069,10 @@
         <value>No.;Name;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="FZ320.name" xml:space="preserve">
-        <value>_Name</value>
+        <value>_Search</value>
     </data>
     <data name="FZ320.name.tt" xml:space="preserve">
-        <value>Series name</value>
+        <value>Search for series name</value>
     </data>
     <data name="FZ320.alle" xml:space="preserve">
         <value>A_ll</value>
@@ -2116,10 +2116,10 @@
         <value>No.;Title;Author;Series;No._r;Pages_r;Language;Pos.;Read;Heard;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="FZ340.titel" xml:space="preserve">
-        <value>_Title</value>
+        <value>_Search</value>
     </data>
     <data name="FZ340.titel.tt" xml:space="preserve">
-        <value>Book title</value>
+        <value>Search for title and subtitle</value>
     </data>
     <data name="FZ340.autor" xml:space="preserve">
         <value>_Author</value>
@@ -2388,10 +2388,10 @@
         <value>Clear selection criteria</value>
     </data>
     <data name="HH200.text" xml:space="preserve">
-        <value>Te_xt</value>
+        <value>_Serach</value>
     </data>
     <data name="HH200.text.tt" xml:space="preserve">
-        <value>Text for search</value>
+        <value>Search for text</value>
     </data>
 
     <data name="HH210.title" xml:space="preserve">

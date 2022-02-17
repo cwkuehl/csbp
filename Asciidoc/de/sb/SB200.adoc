@@ -21,8 +21,8 @@ image:SB200.png[{sb200-title},title={sb200-title}]
 |image:icons/gtk-floppy.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Dialog <<SB500>>.
 |Ahnen        |Liste mit allen ausgewählten Ahnen.
 |Status       |Anzeige von Informationen zur aktuellen Ahnenliste.
-|Name         |Suchfeld für den Namen.
-|Vorname      |Suchfeld für den Vornamen.
+|Name         |Suchfeld für den Namen mit Platzhaltern, z.B. '_ind%'.
+|Vorname      |Suchfeld für den Vornamen mit Platzhaltern, z.B. '_ind%'.
 |filter       |Soll die Liste nach Name und Vorname gefiltert werden?
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
 |Name         |Schaltfläche zum Auswählen des nächsten Ahnen, der den Suchkriterien entspricht.
