@@ -27,7 +27,7 @@ namespace CSBP.Services.Reports
     {
       get
       {
-        return !(Ebliste == null || Gvliste == null || Sbliste == null);
+        return !(Ebliste == null && Gvliste == null && Sbliste == null);
       }
     }
 

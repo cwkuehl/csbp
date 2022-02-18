@@ -3,20 +3,24 @@ anchor:HH510[{hh510-title}]
 
 ==== Dialog {hh510-title}
 
-Dieser Dialog erstellt einen Bericht mit beliebigen Bilanzen.
+Dieser Dialog erstellt Berichte mit verschiedenen Bilanzen. Außerdem können Buchungen importiert werden.
 
 image:HH510.png[{hh510-title},title={hh510-title}]
 
 [width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|Titel        |Der Berichttitel kann geändert werden.
+|Titel        |Der Berichttitel kann geändert und mit OK gespeichert werden.
 |Zeitraum von |Das Start-Datum für die ausgewählten Bilanzen kann geändert werden.
 |Bis          |Das End-Datum für die ausgewählten Bilanzen kann geändert werden.
 |Eröffnungsbilanz|Wenn diese Kontrollkästchen gesetzt ist, wird die Eröffnungsbilanz in den Bericht aufgenommen.
 |Gewinn+Verlust-Rechnung|Wenn diese Kontrollkästchen gesetzt ist, wird die Gewinn+Verlust-Rechnung in den Bericht aufgenommen.
 |Schlussbilanz|Wenn diese Kontrollkästchen gesetzt ist, wird die Schlussbilanz in den Bericht aufgenommen.
 |Kassenbericht|Wenn diese Kontrollkästchen gesetzt ist, wird der Kassenbericht in den Bericht aufgenommen.
-|OK           |Diese Schaltfläche erzeugt eine Bericht mit Bilanzen als PDF-Datei. Die Datei wird anschließend geöffnet.
+|OK           |Diese Schaltfläche erzeugt die gewünschten Berichte mit Bilanzen als HTML-Dateien. Die Dateien werden anschließend im Browser geöffnet.
 |Abbrechen    |Diese Schaltfläche schließt den Dialog.
+|Datei        |Textfeld zum Eingeben des Namens der Import-Datei.
+|...          |Diese Schaltfläche öffnet den Datei-Dialog zum Selektieren der Import-Datei.
+|Vorhandene Daten löschen|Wenn das Kontrollkästchen gesetzt ist, werden alle Buchungen vor dem Import gelöscht.
+|Import       |Diese Schaltfläche startet den Import aller Buchungen, die in der angegebenen CSV-Datei gespeichert sind. Wenn das Kontrollkästchen Vorhandene Daten löschen gesetzt ist, werden alle Buchungen vorher gelöscht.
 |==========================

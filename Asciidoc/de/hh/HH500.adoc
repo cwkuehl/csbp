@@ -13,8 +13,7 @@ image:HH500GV.png[G+V-Rechnung,title=G+V-Rechnung]
 image:HH500SB.png[Schlussbilanz,title=Schlussbilanz]
 
 Die Bilanzen (EB, SB) können zu jedem beliebigen Datum dargestellt werden.
-Die Gewinn- und Verlustrechnung (GV) kann auf einen beliebigen Zeitraum eingeschrät werden.
-
+Die Gewinn- und Verlustrechnung (GV) kann auf einen beliebigen Zeitraum eingeschränkt werden.
 
 [width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
