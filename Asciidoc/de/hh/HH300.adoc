@@ -18,4 +18,6 @@ image:HH300.png[{hh300-title},title={hh300-title}]
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ereignisses.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ereignisses.
 |Ereignisse   |Liste mit allen bestehenden Ereignissen.
+|Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
+|Suche        |Suchfeld für alle Textfelder mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Ereignisse mit den passenden Texten angezeigt.
 |==========================

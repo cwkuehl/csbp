@@ -2501,10 +2501,10 @@
         <value>Clear selection criteria</value>
     </data>
     <data name="HH300.text" xml:space="preserve">
-        <value>Te_xt</value>
+        <value>_Search</value>
     </data>
     <data name="HH300.text.tt" xml:space="preserve">
-        <value>Text for search</value>
+        <value>Search for text</value>
     </data>
 
     <data name="HH310.title" xml:space="preserve">

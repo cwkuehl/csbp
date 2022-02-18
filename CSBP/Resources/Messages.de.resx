@@ -2501,10 +2501,10 @@
         <value>Selektionskriterien zurücksetzen</value>
     </data>
     <data name="HH300.text" xml:space="preserve">
-        <value>Te_xt</value>
+        <value>_Suche</value>
     </data>
     <data name="HH300.text.tt" xml:space="preserve">
-        <value>Suchtext</value>
+        <value>Suchfeld für alle Textfelder</value>
     </data>
 
     <data name="HH310.title" xml:space="preserve">

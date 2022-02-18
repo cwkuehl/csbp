@@ -46,7 +46,8 @@ namespace CSBP.Services.Repositories
         hl = hl.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= to);
       }
       if (Functions.IsLike(text))
-        l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.EText, text));
+        l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.EText, text)
+          || EF.Functions.Like(a.Kz, text));
       var l2 = l.Join(sl, a => a.Soll_Konto_Uid, b => b.Uid, (a, b) => new { ev = a, debit = b });
       var l3 = l2.Join(hl, a => a.ev.Haben_Konto_Uid, b => b.Uid, (a, b) => new { a.ev, a.debit, credit = b });
       var l4 = l3.OrderBy(a => a.ev.Mandant_Nr).ThenBy(a => a.ev.Bezeichnung).ThenBy(a => a.ev.Uid).ToList()
