@@ -14,7 +14,7 @@ image:SB310.png[{sb310-title},title={sb310-title}]
 |Nr.          |Eindeutige Nummer der ausgewählten Familie.
 |Vater        |Auswahlliste mit allen männlichen Ahnen, die Vater in einer Familie sein können.
 |Mutter       |Auswahlliste mit allen weiblichen Ahnen, die Mutter in einer Familie sein können.
-|geheiratet   |Textfeld für das Hochzeitsdatum.
+|Geheiratet   |Textfeld für das Hochzeitsdatum.
 |in           |Textfeld für den Ort der Hochzeit.
 |Bemerkung    |Textfeld für die Bemerkung zur Hochzeit.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.

@@ -15,6 +15,6 @@ image:SB220.png[{sb220-title},title={sb220-title}]
 |Vorfahren    |Dieses Kontrollkästchen legt fest, ob der Vorfahren-Bericht erstellt wird.
 |Mit Geschwistern|Dieses Kontrollkästchen legt fest, ob im Vorfahren-Bericht auch Geschwister aufgenommen werden.
 |Nachfahren   |Dieses Kontrollkästchen legt fest, ob der Nachfahren-Bericht erstellt wird.
-|OK           |Schaltfläche zum Erstellen und Öffnen der ausgewählten PDF-Berichte.
+|OK           |Schaltfläche zum Erstellen und Öffnen der ausgewählten HTML-Berichte.
 |Abbrechen    |Diese Schaltfläche schließt den Dialog.
 |==========================

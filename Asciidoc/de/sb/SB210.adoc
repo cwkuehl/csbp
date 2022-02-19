@@ -16,19 +16,20 @@ image:SB210.png[{sb210-title},title={sb210-title}]
 |Vorname      |Vorname des Ahnen.
 |Name         |Angenommener Name des Ahnen. Bei Frauen überlicherweise der Name des Mannes. Bei Männern in der Regel gleich dem Geburtsnamen.
 |Geschlecht   |Geschlecht des Ahnen.
+|Bildbereich  |In diesem Bereich werden die hinzugefügten Bilder angezeigt.
 |Bilddaten    |Die Metadaten der Bilder können bearbeitet werden. Der Text wird als Tooltipp angezeigt.
-|geboren      |Geburtsdatum des Ahnen.
+|Geboren      |Geburtsdatum des Ahnen.
 |Geburtsort   |Geburtsort des Ahnen.
-|Geburtsbemerkung|Sonstige Hinweise zur Geburt des Ahnen.
-|getauft      |Taufdatum des Ahnen.
+|Bemerkung    |Sonstige Hinweise zur Geburt des Ahnen.
+|Getauft      |Taufdatum des Ahnen.
 |Taufort      |Taufort des Ahnen.
-|Taufbemerkung|Sonstige Hinweise zur Taufe des Ahnen.
-|gestorben    |Todesdatum des Ahnen.
+|Bemerkung    |Sonstige Hinweise zur Taufe des Ahnen.
+|Gestorben    |Todesdatum des Ahnen.
 |Todesort     |Todesort des Ahnen.
-|Todesbemerkung|Sonstige Hinweise zum Tod des Ahnen.
-|begraben     |Begräbnisdatum des Ahnen.
+|Bemerkung    |Sonstige Hinweise zum Tod des Ahnen.
+|Begraben     |Begräbnisdatum des Ahnen.
 |Begräbnisort |Begräbnisort des Ahnen.
-|Begräbnisbemerkung|Sonstige Hinweise zum Begräbnis des Ahnen.
+|Bemerkung    |Sonstige Hinweise zum Begräbnis des Ahnen.
 |Konfession   |Konfession des Ahnen kann 20 Zeichen haben, z.B. ev für	evangelisch, rk für römisch-katholisch.
 |Titel        |Titel des Ahnen, z.B. Dr. med.
 |Bemerkung    |Allgemeine Bemerkung zum Ahnen.
