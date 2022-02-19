@@ -1922,14 +1922,14 @@ namespace CSBP.Resources
       get { return rm.GetString("AD100.personen.columns"); }
     }
 
-    public static string AD100_suche_tt
-    {
-      get { return rm.GetString("AD100.suche.tt"); }
-    }
-
     public static string AD100_suche
     {
       get { return rm.GetString("AD100.suche"); }
+    }
+
+    public static string AD100_suche_tt
+    {
+      get { return rm.GetString("AD100.suche.tt"); }
     }
 
     public static string AD100_name

@@ -108,6 +108,7 @@ namespace CSBP.Services.Base
       // 20.05.2020 TLS 1.2 eingestellt wegen Fehler bei yahoo und fixer.io (oder Router-Problem).
       // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
       httpsclient.Timeout = TimeSpan.FromMilliseconds(HttpTimeout);
+      httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
       // EnableMultipleHttp2Connections = true;
     }
 

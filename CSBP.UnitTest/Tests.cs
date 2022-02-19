@@ -29,6 +29,7 @@ namespace CSBP.UnitTest
       var t = new Tests();
       t.MachNichts();
       t.GenerateResxDesigner();
+      // t.Tls();
     }
 
     [SetUp]
@@ -1184,9 +1185,10 @@ namespace {ns}
       if (Functions.MachNichts() == 0)
       {
         // The request was canceled due to the configured HttpClient.Timeout of 5 seconds elapsing.
-        url = "https://query1.finance.yahoo.com/v7/finance/chart/GC=F?period1=1628294400&period2=1628899200&interval=1d&indicators=quote&includeTimestamps=true";
+        url = "https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId=9385716&dateStart=20.08.2021&interval=Y1";
+        // url = "https://query1.finance.yahoo.com/v7/finance/chart/GC=F?period1=1628294400&period2=1628899200&interval=1d&indicators=quote&includeTimestamps=true";
         // httpsclient.Timeout = TimeSpan.FromMilliseconds(10000);
-        httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0");
+        httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
         var wr = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
         var s = httpsclient.Send(wr);
       }
