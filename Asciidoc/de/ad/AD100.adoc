@@ -23,7 +23,7 @@ image:AD100.png[{ad100-title},title={ad100-title}]
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Person sowie Sitz und Adresse.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sitzes. Falls der letzte Sitz einer Person gelöscht wird, wird auch die Person gelöscht.
 |image:icons/gtk-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Drucken einer kompletten 2-spaltigen Adressenliste. Nicht aktuelle Personen oder Sitze werden nicht gedruckt.
-|image:icons/gtk-floppy.png[title="Import-Export",width={icon-width}]   |Diese Schaltfläche öffnet den Adressen-Schnittstelle-Dialog. <<AD200>>
+|image:icons/gtk-floppy.png[title="Import-Export",width={icon-width}] |Diese Schaltfläche öffnet den Adressen-Schnittstelle-Dialog. <<AD200>>
 |Personen     |Liste mit allen Personen und Sitzen. Eingeklammerte Personen und Sitze sind vom Status her nicht aktuell. Falls eine Person mehrere Sitze hat, wird der Name ab dem 2. Sitz leer angezeigt.
 |Suche        |Suchfeld für alle Textfelder in Person, Sitz und Adresse mit Platzhaltern, z.B. '_ind%'. Die Liste wird schon aktualisiert, wenn man aufhört einzugeben.
 |Name         |Suchfeld für den Namen mit Platzhaltern, z.B. '_ind%'. Die Liste wird schon aktualisiert, wenn man aufhört einzugeben.

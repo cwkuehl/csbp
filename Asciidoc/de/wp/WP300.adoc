@@ -13,7 +13,7 @@ image:WP300.png[{wp300-title},title={wp300-title}]
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Point and Figure-Konfigurationen.
 |image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Konfigurations-Datensatzes. <<WP310>>
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Konfigurations-Datensatzes. <<WP310>>
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Konfigurations-Datensatzes.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Konfigurations-Datensatzes.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Konfigurations-Datensatzes.

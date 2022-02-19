@@ -14,9 +14,15 @@ image:WP260.png[{wp260-title},title={wp260-title}]
 |Nr.          |Eindeutige Nummer der ausgewählten Anlage.
 |Wertpapier   |Ein Wertpapier als Grundlage der Anlage muss ausgewählt werden.
 |Bezeichnung  |Die Bezeichnung des Wertpapiers muss eingegeben werden.
+|Status       |Ein Status des Anlage-Datensatzes muss erfasst werden. Bei inaktiv wird keine Bewertung berechnet.
+|Depot-Konto  |Falls alle 3 Konten ausgewählt werden, kann gleichzeitig mit der WP-Buchung eine normale Buchung im Haushaltsbereich erzeugt werden. Ein Aktiv-Konto (AK) kann als Depot-Konto festgelegt werden.
+|Abrechnungs-Konto|Ein Aktiv-Konto (AK) kann als Depotabrechnungs-Konto festgelegt werden.
+|Ertrags-Konto|Ein Ertrags-Konto (ER) kann als Depotertrags-Konto festgelegt werden.
 |Notiz        |Eine beliebig lange Notiz kann erfasst werden.
-|Daten        |Die aktuelle Berechnung mit folgenden Werten wird angezeigt: Zahlungssumme, Anteilssumme, Preis/Anteil, Zinsen, Aktueller Preis, Aktueller Wert, Gewinn/Verlust.
+|Daten        |Die aktuelle Berechnung mit folgenden Werten wird angezeigt: Zahlungssumme, Anteilssumme, Preis/Anteil, Zinsen, Aktueller Preis, Aktueller Wert, Gewinn/Verlust, Änderung zum Vortag.
+|Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|Stand        |Dies ermöglicht eine Kurseingabe von Hand. Ein Datum muss ausgewählt werden. Falls im Betragsfeld ein Wert eingegeben wird, wird dieser Betrag auf alle aktuellen Anteile umgerechnet.
 |OK           |Diese Schaltfläche speichert oder löscht die Anlage und schließt den Dialog.
 |Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
 |==========================

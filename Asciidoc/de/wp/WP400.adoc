@@ -19,7 +19,7 @@ image:WP400.png[{wp400-title},title={wp400-title}]
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Buchung.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Buchung.
 |Buchungen    |Liste von ausgewählten Buchungen.
-|Buchungstext |Der Buchungstext der Buchungen kann mit Platzhaltern gesucht werden, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'..
+|Buchungstext |Der Buchungstext der Buchungen kann mit Platzhaltern gesucht werden, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'.
 |Anlage       |Auswahlliste für Anlagen.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
 |==========================

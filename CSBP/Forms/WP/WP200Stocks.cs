@@ -55,9 +55,9 @@ namespace CSBP.Forms.WP
     [Builder.Object]
     private Button deleteAction;
 
-    /// <summary>Button SaveAction.</summary>
+    /// <summary>Button FloppyAction.</summary>
     [Builder.Object]
-    private Button saveAction;
+    private Button floppyAction;
 
     /// <summary>Label wertpapiere0.</summary>
     [Builder.Object]
@@ -248,11 +248,12 @@ namespace CSBP.Forms.WP
       StartDialog(DialogTypeEnum.Delete);
     }
 
-    /// <summary>Behandlung von Save.</summary>
+    /// <summary>Behandlung von Floppy.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnSaveClicked(object sender, EventArgs e)
+    protected void OnFloppyClicked(object sender, EventArgs e)
     {
+      // TODP Floppy
     }
 
     /// <summary>Behandlung von Chart.</summary>

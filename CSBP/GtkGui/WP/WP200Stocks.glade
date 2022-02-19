@@ -38,10 +38,10 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
   </object>
-  <object class="GtkImage" id="saveImage">
+  <object class="GtkImage" id="floppyImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-save</property>
+    <property name="stock">gtk-floppy</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
@@ -163,14 +163,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="saveAction">
-            <property name="visible">True</property>
+          <object class="GtkButton" id="floppyAction">
+            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.save</property>
-            <property name="image">saveImage</property>
+            <property name="tooltip_text">Action.floppy</property>
+            <property name="image">floppyImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnSaveClicked" swapped="no"/>
+            <signal name="clicked" handler="OnFloppyClicked" swapped="no"/>
           </object>
           <packing>
             <property name="position">7</property>

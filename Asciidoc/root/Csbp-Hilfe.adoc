@@ -375,10 +375,11 @@ Die Anlagen bilden ein Depot, das tagesaktuell preislich bewertet werden kann.
 Dieser Bereich besteht aus folgenden Dialogen:
 
 * <<WP100>>
-* <<WP120>>
 * <<WP200>>
 * <<WP210>>
+////
 * <<WP220>>
+////
 * <<WP250>>
 * <<WP260>>
 * <<WP300>>
@@ -389,10 +390,11 @@ Dieser Bereich besteht aus folgenden Dialogen:
 * <<WP510>>
 
 include::../de/wp/WP100.adoc[]
-include::../de/wp/WP120.adoc[]
 include::../de/wp/WP200.adoc[]
 include::../de/wp/WP210.adoc[]
+////
 include::../de/wp/WP220.adoc[]
+////
 include::../de/wp/WP250.adoc[]
 include::../de/wp/WP260.adoc[]
 include::../de/wp/WP300.adoc[]

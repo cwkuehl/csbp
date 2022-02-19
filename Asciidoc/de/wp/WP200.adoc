@@ -14,17 +14,21 @@ image:WP200.png[{wp200-title},title={wp200-title}]
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Wertpapieren inkl. der Bewertungen.
 |image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Wertpapier-Datensatzes. <<WP210>>
+|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Wertpapier-Datensatzes. <<WP210>>
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Wertpapier-Datensatzes.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Wertpapier-Datensatzes.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Wertpapier-Datensatzes.
-|image:icons/gtk-floppy.png[title="Export",width={icon-width}]          |Diese Schaltfläche öffnet den Dialog <<WP220>>.
+|image:icons/gtk-select-color.png[title="Chart",width={icon-width}]   |Schaltfläche zum Anzeigen des Point and Figure-Charts. <<WP100>>
 |Wertpapiere  |Liste von ausgewählten Wertpapier-Datensätzen inkl. der berechneten Bewertung.
-|Bis          |End-Datum für die Bewertung festlegen.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
-|Bewertungen berechnen|Schaltfläche zum Starten der Bewertungsberechnung für alle selektierten und aktiven Wertpapiere.
-|Abbrechen    |Schaltfläche zum Abbrechen der laufenden Bewertungsberechnung.
-|Bezeichnung  |Die Bezeichnung der Wertpapiere kann mit Platzhaltern gesucht werden, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'..
+|Suche        |Suchfeld für alle Texte der Wertpapiere mit Platzhaltern, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'.
 |Muster       |Das letzte Muster der Bewertung kann mit Platzhaltern gesucht werden.
+|Bewertungen berechnen|Noch nicht implementiert: Schaltfläche zum Starten der Bewertungsberechnung für alle selektierten und aktiven Wertpapiere.
+|Bis          |End-Datum für die Bewertung festlegen.
 |Konfiguration|Konfiguration für die Bewertung festlegen.
+|Abbrechen    |Schaltfläche zum Abbrechen der laufenden Bewertungsberechnung.
 |==========================
+////
+TODO Export WP220
+|image:icons/gtk-floppy.png[title="Export",width={icon-width}]        |Diese Schaltfläche öffnet den Dialog <<WP220>>.
+////

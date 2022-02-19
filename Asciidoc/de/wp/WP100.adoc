@@ -3,7 +3,7 @@ anchor:WP100[{wp100-title}]
 
 ==== Formular {wp100-title}
 
-Dieses Formular zeigt die Kurse und das Point and Figure-Chart eines Wertpapiers.
+Dieses Formular zeigt die Kurse und das Point and Figure-Chart eines Wertpapiers. Es kann über das Menü und über die Formulare <<WP200>> und <<WP250>> aufgerufen.
 
 image:WP100.png[{wp100-title},title={wp100-title}]
 
@@ -21,5 +21,4 @@ image:WP100.png[{wp100-title},title={wp100-title}]
 |Boxgröße     |Eingabe der Boxgröße als Absolut- oder Prozentwert. Sie muss größer als 0 sein. Außerdem kann die Art der Boxgröße eingestellt werden: fest, prozentual oder dynamisch.
 |Umkehr       |Anzahl der Boxen für Umkehr. Sie muss größer als 0 sein.
 |Methode      |Auswahl der Methode für Kursberechnung: Schlusskurse, High-Low-Trendfolge, High-Low-Trendumkehr, Open-High-Low-Close, Typischer Preis.
-|Relativ      |Soll die Auswertung relativ zur Relation (meist Index) erfolgen?
 |==========================
