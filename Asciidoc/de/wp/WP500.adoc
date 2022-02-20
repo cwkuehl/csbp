@@ -18,8 +18,8 @@ image:WP500.png[{wp500-title},title={wp500-title}]
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Standes.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Standes.
 |Stände       |Liste von ausgewählten Ständen. Wenn keine Datums-Begrenzungen vorliegen, werden maximal 100 Datensätze angezeigt.
-|Wertpapier   |Auswahlliste für ein Wertpapier. Das zuletzt ausgewählte Wertpapier wird beim Öffnen wieder angezeigt.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
+|Wertpapier   |Auswahlliste für ein Wertpapier. Das zuletzt ausgewählte Wertpapier wird beim Öffnen wieder angezeigt.
 |Datum von    |Selektionsdatum für Stände, die nach diesem Datum liegen.
 |Bis          |Selektionsdatum für Stände, die vor diesem Datum liegen.
 |==========================

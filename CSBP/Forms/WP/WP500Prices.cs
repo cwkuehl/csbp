@@ -227,6 +227,15 @@ namespace CSBP.Forms.WP
       editAction.Activate();
     }
 
+    /// <summary>Behandlung von Alle.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnAlleClicked(object sender, EventArgs e)
+    {
+      RefreshTreeView(staende, 0);
+      SetText(wertpapier, null);
+    }
+
     /// <summary>Behandlung von Wertpapier.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
