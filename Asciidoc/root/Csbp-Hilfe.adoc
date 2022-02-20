@@ -1,6 +1,6 @@
 = CSBP Dokumentation (C) 2022 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-Version 2022-02-13
+Version 2022-02-20
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -186,7 +186,7 @@ Das Menü umfasst folgende Punkte:
                  |Hilfe               |Dieser Dialog zeigt diese Hilfe an. Der Pfad zur Hilfe kann in den <<AM500>> eingetragen werden.
 |==========================
 ////
-                 |Sudoku              |Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln. <<SO100>>
+                 |TODO Sudoku              |Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln. <<SO100>>
 ////
 
 === Formular-Bereich

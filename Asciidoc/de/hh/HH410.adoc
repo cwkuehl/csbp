@@ -44,7 +44,7 @@ image:HH410.png[{hh410-title},title={hh410-title}]
 |Vom          |Belegdatum wird angepasst, wenn Valuta geändert wird. Danach kann es beliebig geändert werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
-|Letzte Buchung|Anzeige der zuletzt erfassten Buchung.
+|Letzte Buchung|Anzeige der zuletzt erfassten Buchung, seitdem der Dialog geöffnet wurde.
 |OK           |Diese Schaltfläche speichert oder storniert die Buchung und schließt den Dialog.
 |Kontentausch |Schaltfläche zum Vertauschen von Soll- und Habenkonto.
 |Addition     |Schaltfläche zum Addieren des Betrags zur Summe, anschließend wird der Betrag geleert. Der Betrag kann auch kleiner als 0 sein. Es kann auch multipliziert oder dividiert werden, indem vor den Betrag * oder / geschrieben wird.

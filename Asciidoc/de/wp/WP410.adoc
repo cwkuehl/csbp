@@ -11,11 +11,11 @@ image:WP410.png[{wp410-title},title={wp410-title}]
 [width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|Nr.          |Eindeutige Nummer des ausgewählten Konfigurations-Datensatzes.
+|Nr.          |Eindeutige Nummer des ausgewählten WP-Buchung-Datensatzes.
 |Anlage       |Eine Anlage muss ausgewählt werden.
 |Datum        |Das Wertstellungsdatum der Buchung muss eingegeben werden.
 |Preis        |Ein Preis pro Anteil (Stand) kann eingegeben werden bzw. wird angezeigt, wenn an dem Datum ein Stand gespeichert ist.
-|Betrag       |Ein Zahlungsbetrag kann eingegeben werden.
+|Betrag       |Ein Zahlungsbetrag kann eingegeben werden. Ausgabebeträge beim Kauf von Wertpapieren werden positiv erfasst, Einnahmebeträge beim Verkauf negativ.
 |Rabatt       |Ein Rabattbetrag wird positiv erfasst, Aufschläge (z.B. Ausgabeaufschläge) negativ. Beim Erhalt von Zinsen müssen Steuerabzüge negativ eingetragen werden.
 |Anteile      |Eine Änderung der Anteile kann erfasst werden, positiv beim Kauf, negativ beim Verkauf.
 |Preis        |Der berechnete Preis aus Betrag / Anteile wird angezeigt.
@@ -23,6 +23,13 @@ image:WP410.png[{wp410-title},title={wp410-title}]
 |Buchungstext |Ein Buchungstext, der die Anlage-Buchung erklärt, muss erfasst werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
+|Letzte Buchung|Anzeige der zuletzt erfassten WP-Buchung, seitdem der Dialog geöffnet wurde.
+|HH-Buchung   |Anzeige der Nr. der Haushalts-Buchung, die mit der WP-Buchung erstellt wurde.
+|Ändern       |Schaltfläche zum Ändern der vorhandenen HH-Buchung im Dialog <<HH410>>.
+|Storno       |Schaltfläche zum Stornieren der vorhandenen HH-Buchung im Dialog <<HH410>>.
+|Valuta       |Beim Erfassen einer WP-Buchung kann das Valuta-Datum der HH-Buchung abweichend eingestellt werden, überlicherweise erfolgen die Zahlungen ein paar Tage später.
+|Betrag       |Beim Erfassen einer WP-Buchung kann der Betrag der HH-Buchung abweichend erfasst werden, standardmäßig sollte der berechnete Betrag aus den oberen Feldern Betrag, Rabatt und Zinsen richtig sein.
+|Ereignis     |Wenn noch keine HH-Buchung zur WP-Buchung erfasst und die ausgewählte Anlage mit den Buchungs-Konten wurde, kann hier ein Ereignis ausgewählt werden. Nur wenn ein Ereignis ausgewählt wird, wird auch eine HH-Buchung erzeugt. Das Ereignis legt die betroffenen Konten fest und schlägt einen Buchungstext für die HH- und WP-Buchungen vor. Der Buchungstext kann vor dem Speichern noch geändert werden.
 |OK           |Diese Schaltfläche speichert oder löscht den Konfigurations-Datensatz und schließt den Dialog.
 |Abbrechen    |Diese Schaltfläche schließt den Dialog ohne Speichern.
 |==========================
