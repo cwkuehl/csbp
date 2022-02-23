@@ -1452,11 +1452,6 @@ namespace CSBP.Resources
       get { return rm.GetString("Menu.sudoku"); }
     }
 
-    public static string Menu_detective
-    {
-      get { return rm.GetString("Menu.detective"); }
-    }
-
     public static string Menu_household2
     {
       get { return rm.GetString("Menu.household2"); }

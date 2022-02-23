@@ -881,9 +881,6 @@
     <data name="Menu.sudoku" xml:space="preserve">
         <value>S_udoku</value>
     </data>
-    <data name="Menu.detective" xml:space="preserve">
-        <value>_Detektiv</value>
-    </data>
 
     <data name="Menu.household2" xml:space="preserve">
         <value>Haushalt(_2)</value>

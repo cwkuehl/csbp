@@ -117,10 +117,6 @@ namespace CSBP.Forms
     [Builder.Object]
     private MenuItem MenuSudoku;
 
-    /// <summary>Menüpunkt Detektiv.</summary>
-    [Builder.Object]
-    private MenuItem MenuDetective;
-
     /// <summary>Menüpunkt Buchungen.</summary>
     [Builder.Object]
     private MenuItem MenuBookings;
@@ -414,7 +410,6 @@ namespace CSBP.Forms
       MenuSeries.Visible = b;
       MenuStatistics.Visible = b;
       MenuSudoku.Visible = false;
-      MenuDetective.Visible = false;
 
       MenuBookings.Visible = b;
       MenuEvents.Visible = b;
@@ -740,14 +735,6 @@ namespace CSBP.Forms
     protected void OnMenuSudoku(object sender, EventArgs e)
     {
       // TODO AppendPage(SO100Sudoku.Create(), SO100_title);
-    }
-
-    /// <summary>Menüpunkt Detektiv.</summary>
-    /// <param name="sender">Betroffener Sender.</param>
-    /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnMenuDetective(object sender, EventArgs e)
-    {
-      // TODO AppendPage(SO200Detektiv.Create(), SO200_title);
     }
 
     /// <summary>Menüpunkt Buchungen.</summary>
