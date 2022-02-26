@@ -1289,8 +1289,7 @@ Lokal: {e.Eintrag}";
       AES.IV = key.GetBytes(AES.BlockSize / 8);
 
       //Cipher modes: http://security.stackexchange.com/questions/52665/which-is-the-best-cipher-mode-and-padding-mode-for-aes-encryption
-      // TODO AES.Mode = CipherMode.CFB; // Wird nicht von .NET Core unterstützt
-      AES.Mode = CipherMode.CBC;
+      AES.Mode = CipherMode.CFB; // CBC
 
       // write salt to the begining of the output file, so in this case can be random every time
       fsCrypt.Write(salt, 0, salt.Length);
@@ -1339,8 +1338,7 @@ Lokal: {e.Eintrag}";
       AES.Key = key.GetBytes(AES.KeySize / 8);
       AES.IV = key.GetBytes(AES.BlockSize / 8);
       AES.Padding = PaddingMode.PKCS7;
-      // TODO AES.Mode = CipherMode.CFB; // Wird nicht von .NET Core unterstützt
-      AES.Mode = CipherMode.CBC;
+      AES.Mode = CipherMode.CFB; // CBC
 
       var cs = new CryptoStream(fsCrypt, AES.CreateDecryptor(), CryptoStreamMode.Read);
       File.Delete(outputFile);
