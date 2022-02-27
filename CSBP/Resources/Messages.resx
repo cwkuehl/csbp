@@ -3420,6 +3420,43 @@
         <value>GED files (.ged)</value>
     </data>
 
+    <data name="SO100.title" xml:space="preserve">
+        <value>Sudoku</value>
+    </data>
+    <data name="SO100.sudoku" xml:space="preserve">
+        <value>_Sudoku</value>
+    </data>
+    <data name="SO100.anzahl" xml:space="preserve">
+        <value>Filled</value>
+    </data>
+    <data name="SO100.zug" xml:space="preserve">
+        <value>1 _Move</value>
+    </data>
+    <data name="SO100.zug.tt" xml:space="preserve">
+        <value>Determine one number</value>
+    </data>
+    <data name="SO100.loesen" xml:space="preserve">
+        <value>_Resolve</value>
+    </data>
+    <data name="SO100.loesen.tt" xml:space="preserve">
+        <value>Determine all numbers</value>
+    </data>
+    <data name="SO100.test" xml:space="preserve">
+        <value>Test discrepancy</value>
+    </data>
+    <data name="SO100.test.tt" xml:space="preserve">
+        <value>Are there contradicting numbers?</value>
+    </data>
+    <data name="SO100.diagonal" xml:space="preserve">
+        <value>Diagonals different</value>
+    </data>
+    <data name="SO100.diagonal.tt" xml:space="preserve">
+        <value>Must all numbers on both diagonals be different? (Schuessler-Sudoku)</value>
+    </data>
+    <data name="SO100.leery" xml:space="preserve">
+        <value> </value>
+    </data>
+
     <data name="TB100.title" xml:space="preserve">
         <value>Diary</value>
     </data>

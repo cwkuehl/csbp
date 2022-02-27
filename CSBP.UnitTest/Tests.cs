@@ -28,6 +28,7 @@ namespace CSBP.UnitTest
       Debug.Print("CSBP.UnitTest gestartet.");
       var t = new Tests();
       t.MachNichts();
+      // t.GenerateForm();
       t.GenerateResxDesigner();
       // t.Tls();
     }
@@ -450,9 +451,9 @@ namespace CSBP.Services.Repositories
     [Test]
     public void GenerateForm()
     {
-      var unit = "fz";
-      var fileold = "FZ100Statistik";
-      var filenew = "FZ100Statistics";
+      var unit = "so";
+      var fileold = "SO100Sudoku";
+      var filenew = "SO100Sudoku";
       var fileshort = filenew.Substring(0, 5);
       var file = Path.Combine(formpath, unit, fileold + ".fxml");
       var g = XDocument.Load(file);

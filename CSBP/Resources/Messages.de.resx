@@ -3420,6 +3420,43 @@
         <value>GED-Dateien (.ged)</value>
     </data>
 
+    <data name="SO100.title" xml:space="preserve">
+        <value>Sudoku</value>
+    </data>
+    <data name="SO100.sudoku" xml:space="preserve">
+        <value>_Sudoku</value>
+    </data>
+    <data name="SO100.anzahl" xml:space="preserve">
+        <value>Gefüllt</value>
+    </data>
+    <data name="SO100.zug" xml:space="preserve">
+        <value>1 _Zug</value>
+    </data>
+    <data name="SO100.zug.tt" xml:space="preserve">
+        <value>Eine Zahl bestimmen und eintragen</value>
+    </data>
+    <data name="SO100.loesen" xml:space="preserve">
+        <value>Lösen</value>
+    </data>
+    <data name="SO100.loesen.tt" xml:space="preserve">
+        <value>Alle Zahlen bestimmen und eintragen</value>
+    </data>
+    <data name="SO100.test" xml:space="preserve">
+        <value>Widerspruch-_Test</value>
+    </data>
+    <data name="SO100.test.tt" xml:space="preserve">
+        <value>Widersprechen sich die bisherigen Zahlen?</value>
+    </data>
+    <data name="SO100.diagonal" xml:space="preserve">
+        <value>Diagonalen verschieden</value>
+    </data>
+    <data name="SO100.diagonal.tt" xml:space="preserve">
+        <value>Müssen die Diagonalen auch alle Zahlen enthalten? (Schüssler-Sudoku)</value>
+    </data>
+    <data name="SO100.leery" xml:space="preserve">
+        <value> </value>
+    </data>
+
     <data name="TB100.title" xml:space="preserve">
         <value>Tagebuch</value>
     </data>

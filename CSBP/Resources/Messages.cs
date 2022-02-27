@@ -5572,6 +5572,66 @@ namespace CSBP.Resources
       get { return rm.GetString("SB500.select.ext"); }
     }
 
+    public static string SO100_title
+    {
+      get { return rm.GetString("SO100.title"); }
+    }
+
+    public static string SO100_sudoku
+    {
+      get { return rm.GetString("SO100.sudoku"); }
+    }
+
+    public static string SO100_anzahl
+    {
+      get { return rm.GetString("SO100.anzahl"); }
+    }
+
+    public static string SO100_zug
+    {
+      get { return rm.GetString("SO100.zug"); }
+    }
+
+    public static string SO100_zug_tt
+    {
+      get { return rm.GetString("SO100.zug.tt"); }
+    }
+
+    public static string SO100_loesen
+    {
+      get { return rm.GetString("SO100.loesen"); }
+    }
+
+    public static string SO100_loesen_tt
+    {
+      get { return rm.GetString("SO100.loesen.tt"); }
+    }
+
+    public static string SO100_test
+    {
+      get { return rm.GetString("SO100.test"); }
+    }
+
+    public static string SO100_test_tt
+    {
+      get { return rm.GetString("SO100.test.tt"); }
+    }
+
+    public static string SO100_diagonal
+    {
+      get { return rm.GetString("SO100.diagonal"); }
+    }
+
+    public static string SO100_diagonal_tt
+    {
+      get { return rm.GetString("SO100.diagonal.tt"); }
+    }
+
+    public static string SO100_leery
+    {
+      get { return rm.GetString("SO100.leery"); }
+    }
+
     public static string TB100_title
     {
       get { return rm.GetString("TB100.title"); }

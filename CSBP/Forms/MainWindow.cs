@@ -23,6 +23,7 @@ namespace CSBP.Forms
   using CSBP.Forms.WP;
   using CSBP.Forms.SB;
   using System.Reflection;
+  using CSBP.Forms.SO;
 
   /// <summary>Main Window.</summary>
   public class MainWindow : Window
@@ -409,7 +410,7 @@ namespace CSBP.Forms
       MenuAuthors.Visible = b;
       MenuSeries.Visible = b;
       MenuStatistics.Visible = b;
-      MenuSudoku.Visible = false;
+      MenuSudoku.Visible = b;
 
       MenuBookings.Visible = b;
       MenuEvents.Visible = b;
@@ -734,7 +735,7 @@ namespace CSBP.Forms
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnMenuSudoku(object sender, EventArgs e)
     {
-      // TODO AppendPage(SO100Sudoku.Create(), SO100_title);
+      AppendPage(SO100Sudoku.Create(), SO100_title);
     }
 
     /// <summary>Menüpunkt Buchungen.</summary>
