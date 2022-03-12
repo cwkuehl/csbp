@@ -348,6 +348,7 @@ namespace CSBP.Forms
       // MenuBooks.Activate();
       // MenuAuthors.Activate();
       // MenuSeries.Activate();
+      // MenuSudoku.Activate();
       // MenuPeriods.Activate();
       // MenuAccounts.Activate();
       // MenuEvents.Activate();

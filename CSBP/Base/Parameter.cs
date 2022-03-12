@@ -268,6 +268,13 @@ namespace CSBP.Base
       set { SetValue("SB500Filter", value); }
     }
 
+    /// <summary>Get or set the sudoku field.</summary>
+    public static string SO100Sudoku
+    {
+      get { return GetValue("SO100Sudoku"); }
+      set { SetValue("SO100Sudoku", value); }
+    }
+
     /// <summary>Holt oder setzt die Wertpapier-Konfiguration.</summary>
     public static string WP200Configuration
     {

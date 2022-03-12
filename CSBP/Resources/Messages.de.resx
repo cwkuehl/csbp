@@ -586,6 +586,37 @@
         <value>SB035{0} oder {1}</value>
     </data>
 
+    <data name="SO002_" xml:space="preserve">
+        <value>SO002{0} Zelle(n) gefüllt</value>
+    </data>
+    <data name="SO007_" xml:space="preserve">
+        <value>SO007Widerspruch in Zeile {0} mit Zahl {1}.</value>
+    </data>
+    <data name="SO008_" xml:space="preserve">
+        <value>SO008Widerspruch in Spalte {0} mit Zahl {1}.</value>
+    </data>
+    <data name="SO009_" xml:space="preserve">
+        <value>SO009Widerspruch in Kasten {0} mit Zahl {1}.</value>
+    </data>
+    <data name="SO010_" xml:space="preserve">
+        <value>SO010Widerspruch in Diagonale {0} Zeile {1} mit Zahl {2}.</value>
+    </data>
+    <data name="SO011" xml:space="preserve">
+        <value>SO011Sudoku ist schon vollständig gelöst.</value>
+    </data>
+    <data name="SO012" xml:space="preserve">
+        <value>SO012Sudoku ist nicht lösbar (fehlende Variante).</value>
+    </data>
+    <data name="SO013" xml:space="preserve">
+        <value>SO013Sudoku lösbar, aber nicht eindeutig.</value>
+    </data>
+    <data name="SO014" xml:space="preserve">
+        <value>SO014TKeine Zahl mehr gefunden.</value>
+    </data>
+    <data name="SO015" xml:space="preserve">
+        <value>SO015Sudoku ist nicht vollständig lösbar.</value>
+    </data>
+
     <data name="TB001" xml:space="preserve">
         <value>TB001Der Such-Parameter ist ungültig.</value>
     </data>

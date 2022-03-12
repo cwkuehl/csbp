@@ -151,7 +151,7 @@ Das Menü umfasst folgende Punkte:
                  |Einstellungen       |Dialog zum Ändern von Einstellungen. <<AM500>>
                  |Start-Formulare     |Dialog zum Auswählen von Formularen, die nach dem Anmelden geöffnet werden. <<AM510>>
                  |Dialoge zurücksetzen|Die Positionen und Größen aller Dialoge werden zurückgesetzt.
-.11+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
+.12+|Privat      |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Privat.
                  |Tagebuch            |Dieses Formular verwaltet beliebig lange textliche Eintragungen für jeden Tag. <<TB100>>
                  |Positionen          |Dieses Formular verwaltet Positionen für Tagebuch-Einträge. <<TB200>>
                  |Notizen             |Dieses Formular verwaltet beliebig lange Notizen in Text- und Tabellenform für jede Gelegenheit. <<FZ700>>
@@ -162,6 +162,7 @@ Das Menü umfasst folgende Punkte:
                  |Autoren             |Dieses Formular verwaltet Buch-Autoren. <<FZ300>>
                  |Serien              |Dieses Formular verwaltet Buch-Serien. <<FZ320>>
                  |Statistik           |Dieses Formular zeigt eine Übersicht über verschiedene Informationen, die im Programm erfasst sind. <<FZ100>>
+                 |Sudoku              |Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln. <<SO100>>
 .8+|Haushalt     |                    |Aufruf der Funktionen und Dialoge aus dem Bereich Haushalt.
                  |Buchungen           |Dieses Formular erlaubt das komfortable Erfassen, Kopieren, Ändern und Stornieren von Buchungen. <<HH400>>
                  |Ereignisse          |Dieses Formular erlaubt das Bearbeiten von Ereignissen, also vorgefertigten Buchungen. <<HH300>>
@@ -185,9 +186,6 @@ Das Menü umfasst folgende Punkte:
                  |Über CSBP           |Aufruf des Dialog für Informationen über das Programm aus den Kategorien Laufzeit-Umgebung, Anmeldung und Lizenzen. <<AG000>>
                  |Hilfe               |Dieser Dialog zeigt diese Hilfe an. Der Pfad zur Hilfe kann in den <<AM500>> eingetragen werden.
 |==========================
-////
-                 |TODO Sudoku              |Dieses Formular erlaubt das Prüfen und Lösen von Sudoku-Rätseln. <<SO100>>
-////
 
 === Formular-Bereich
 In diesem Tabulator-Bereich wird immer höchstens ein Formular angezeigt. Wenn mehrere Formulare offen sind, kann mit Hilfe der
@@ -304,10 +302,7 @@ include::../de/fz/FZ330.adoc[]
 include::../de/fz/FZ340.adoc[]
 include::../de/fz/FZ350.adoc[]
 include::../de/fz/FZ100.adoc[]
-////
-TODO Sudoku
 include::../de/so/SO100.adoc[]
-////
 
 :hh0-title: Bereich Haushalt
 anchor:HH0[{hh0-title}]

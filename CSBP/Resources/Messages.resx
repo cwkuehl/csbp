@@ -586,6 +586,37 @@
         <value>SB035{0} or {1}</value>
     </data>
 
+    <data name="SO002_" xml:space="preserve">
+        <value>SO002{0} cell(s) filled.</value>
+    </data>
+    <data name="SO007_" xml:space="preserve">
+        <value>SO007Contradiction in row {0} with number {1}.</value>
+    </data>
+    <data name="SO008_" xml:space="preserve">
+        <value>SO008Contradiction in column {0} with number {1}.</value>
+    </data>
+    <data name="SO009_" xml:space="preserve">
+        <value>SO009Contradiction in box {0} with number {1}.</value>
+    </data>
+    <data name="SO010_" xml:space="preserve">
+        <value>SO010Contradiction in diagonal {0} row {1} with number {2}.</value>
+    </data>
+    <data name="SO011" xml:space="preserve">
+        <value>SO011Sudoku is completely solved.</value>
+    </data>
+    <data name="SO012" xml:space="preserve">
+        <value>SO012Sudoku is not solvable (no variant).</value>
+    </data>
+    <data name="SO013" xml:space="preserve">
+        <value>SO013Sudoku is solvable, but not unambiguous.</value>
+    </data>
+    <data name="SO014" xml:space="preserve">
+        <value>SO014There is no number any more.</value>
+    </data>
+    <data name="SO015" xml:space="preserve">
+        <value>SO015Sudoku is not completely solvable.</value>
+    </data>
+
     <data name="TB001" xml:space="preserve">
         <value>TB001The search parameter is invalid.</value>
     </data>

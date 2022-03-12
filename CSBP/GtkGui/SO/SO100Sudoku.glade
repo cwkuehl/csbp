@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
-  <requires lib="gtk+" version="3.20" />
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="deleteImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-delete</property>
+  </object>
   <object class="GtkImage" id="refreshImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
-  </object>
-  <object class="GtkImage" id="undoImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-undo</property>
   </object>
   <object class="GtkImage" id="saveImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-save</property>
   </object>
-  <object class="GtkImage" id="deleteImage">
+  <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-delete</property>
+    <property name="stock">gtk-undo</property>
   </object>
   <object class="GtkGrid" id="SO100Sudoku">
     <property name="visible">True</property>
@@ -46,7 +47,7 @@
             <property name="tooltip_text">Action.refresh</property>
             <property name="image">refreshImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnRefreshClicked" swapped="no" />
+            <signal name="clicked" handler="OnRefreshClicked" swapped="no"/>
           </object>
           <packing>
             <property name="position">0</property>
@@ -60,7 +61,7 @@
             <property name="tooltip_text">Action.undo</property>
             <property name="image">undoImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnUndoClicked" swapped="no" />
+            <signal name="clicked" handler="OnUndoClicked" swapped="no"/>
           </object>
           <packing>
             <property name="position">1</property>
@@ -74,7 +75,7 @@
             <property name="tooltip_text">Action.save</property>
             <property name="image">saveImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnSaveClicked" swapped="no" />
+            <signal name="clicked" handler="OnSaveClicked" swapped="no"/>
           </object>
           <packing>
             <property name="position">2</property>
@@ -88,7 +89,7 @@
             <property name="tooltip_text">Action.delete</property>
             <property name="image">deleteImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnDeleteClicked" swapped="no" />
+            <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
           </object>
           <packing>
             <property name="position">3</property>
@@ -109,7 +110,6 @@
         <property name="valign">center</property>
         <property name="label">SO100.sudoku</property>
         <property name="use_underline">True</property>
-        <property name="mnemonic_widget">anzahl</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -117,16 +117,79 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="anzahl">
+      <object class="GtkCheckButton" id="diagonal">
+        <property name="label">SO100.diagonal</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text">SO100.diagonal.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="use_underline">True</property>
+        <property name="draw_indicator">True</property>
+        <signal name="toggled" handler="OnDiagonal" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="leery">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">SO100.anzahl</property>
+        <property name="label">SO100.leery</property>
         <property name="use_underline">True</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="field">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_left">5</property>
+        <property name="margin_right">5</property>
+        <property name="margin_top">5</property>
+        <property name="margin_bottom">5</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="row_spacing">5</property>
+        <property name="column_spacing">5</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
         <property name="top_attach">2</property>
       </packing>
     </child>
@@ -141,88 +204,83 @@
             <property name="label">SO100.zug</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="can_default">False</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text">SO100.zug.tt</property>
             <property name="use_underline">True</property>
-            <signal name="clicked" handler="OnZugClicked" swapped="no" />
+            <signal name="clicked" handler="OnZugClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="loesen">
             <property name="label">SO100.loesen</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="can_default">False</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text">SO100.loesen.tt</property>
             <property name="use_underline">True</property>
-            <signal name="clicked" handler="OnLoesenClicked" swapped="no" />
+            <signal name="clicked" handler="OnLoesenClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="test">
             <property name="label">SO100.test</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="can_default">False</property>
+            <property name="receives_default">False</property>
             <property name="tooltip_text">SO100.test.tt</property>
             <property name="use_underline">True</property>
-            <signal name="clicked" handler="OnTestClicked" swapped="no" />
+            <signal name="clicked" handler="OnTestClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">4</property>
         <property name="width">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkCheckButton" id="diagonal">
-        <property name="label">SO100.diagonal</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">SO100.diagonal.tt</property>
-        <property name="valign">start</property>
-        <property name="hexpand">True</property>
-        <property name="draw_indicator">True</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="leery">
+      <object class="GtkLabel" id="anzahl">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">SO100.leery</property>
-        <property name="use_underline">True</property>
+        <property name="label">SO100.anzahl</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">3</property>
       </packing>
     </child>
     <child>
-      <object class="GtkGrid" id="id10">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="row_spacing">5</property>
-        <property name="column_spacing">5</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-      </packing>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>

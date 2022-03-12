@@ -148,6 +148,16 @@ namespace CSBP.Resources
 
     public static string SB035(string s, string s2, bool cut = true) => string.Format(M0(SB035_, cut), s, s2);
 
+    public static string SO002(int c, bool cut = true) => string.Format(M0(SO002_, cut), c);
+
+    public static string SO007(int r, int n, bool cut = false) => string.Format(M0(SO007_, cut), r, n);
+
+    public static string SO008(int c, int n, bool cut = false) => string.Format(M0(SO008_, cut), c, n);
+
+    public static string SO009(int b, int n, bool cut = false) => string.Format(M0(SO009_, cut), b, n);
+
+    public static string SO010(int d, int r, int n, bool cut = false) => string.Format(M0(SO010_, cut), d, r, n);
+
     public static string TB002(DateTime d) => string.Format(M0(TB002_), d);
 
     public static string TB003(string[] s) => string.Format(M0(TB003_), s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8]);

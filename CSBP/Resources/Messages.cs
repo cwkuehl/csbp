@@ -972,6 +972,56 @@ namespace CSBP.Resources
       get { return rm.GetString("SB035_"); }
     }
 
+    public static string SO002_
+    {
+      get { return rm.GetString("SO002_"); }
+    }
+
+    public static string SO007_
+    {
+      get { return rm.GetString("SO007_"); }
+    }
+
+    public static string SO008_
+    {
+      get { return rm.GetString("SO008_"); }
+    }
+
+    public static string SO009_
+    {
+      get { return rm.GetString("SO009_"); }
+    }
+
+    public static string SO010_
+    {
+      get { return rm.GetString("SO010_"); }
+    }
+
+    public static string SO011
+    {
+      get { return rm.GetString("SO011"); }
+    }
+
+    public static string SO012
+    {
+      get { return rm.GetString("SO012"); }
+    }
+
+    public static string SO013
+    {
+      get { return rm.GetString("SO013"); }
+    }
+
+    public static string SO014
+    {
+      get { return rm.GetString("SO014"); }
+    }
+
+    public static string SO015
+    {
+      get { return rm.GetString("SO015"); }
+    }
+
     public static string TB001
     {
       get { return rm.GetString("TB001"); }
