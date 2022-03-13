@@ -1,6 +1,6 @@
 = CSBP Dokumentation (C) 2022 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-Version 2022-02-20
+Version 2022-03-13
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -275,10 +275,7 @@ Dieser Bereich besteht aus folgenden Dialogen:
 * <<FZ340>>
 * <<FZ350>>
 * <<FZ100>>
-
-////
 * <<SO100>>
-////
 
 include::../de/tb/TB100.adoc[]
 include::../de/tb/TB110.adoc[]

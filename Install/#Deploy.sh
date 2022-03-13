@@ -24,7 +24,7 @@ thirdlicense --project ../CSBP/CSBP.csproj --output ../THIRD-PARTY-NOTICES.TXT
 cd ../Asciidoc
 ./asciidoc-csbp.sh
 cd ../Install
-cp -a csbp/Csbp-Hilfe.html /opt/Haushalt/CSBP
+cp -a ../Asciidoc/Csbp-Hilfe.html /opt/Haushalt/CSBP
 
 dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained true -p:Version=1.1
 build "net6.0/ubuntu-x64" "csbp-net6-ubuntu-x64-runtime.zip"
