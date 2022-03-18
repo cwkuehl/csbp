@@ -13,7 +13,15 @@ namespace CSBP.Apis.Services
     /// <returns>Is login wihtout password?</returns>
     ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten);
 
+    /// <summary>
+    /// Do login with all checks.
+    /// </summary>
+    /// <param name="daten">Affected client number and user id.</param>
+    /// <param name="kennwort">Affected password.</param>
+    /// <param name="speichern">Save password?</param>
+    /// <returns>Possibly errors.</returns>
     ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern);
+
     ServiceErgebnis ChangePassword(ServiceDaten daten, int client, string id, string passwordold,
         string passwordnew, bool speichern);
     ServiceErgebnis Logout(ServiceDaten daten);

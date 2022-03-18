@@ -20,6 +20,8 @@ namespace CSBP.Services.Repositories
       var l = db.Benutzer.Where(a => a.Mandant_Nr == daten.MandantNr);
       if (nr > 0)
         l = l.Where(a => a.Person_Nr == nr);
+      if (nr < 0)
+        l = l.Where(a => a.Benutzer_ID == daten.BenutzerId);
       if (nrne > 0)
         l = l.Where(a => a.Person_Nr != nrne);
       if (!string.IsNullOrEmpty(id))

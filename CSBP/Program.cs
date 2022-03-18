@@ -6,6 +6,7 @@ namespace CSBP
 {
   using System;
   using System.Text.RegularExpressions;
+  using CSBP.Apis.Enums;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Forms;
@@ -120,7 +121,9 @@ namespace CSBP
       {
         ServiceDaten = daten;
         Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr, Parameter.Params));
-        MainWindow.SetPermission(true);
+        var user = Get(FactoryService.ClientService.GetUser(daten, -1));
+        var per = user == null ? (int)PermissionEnum.Without : user.Berechtigung;
+        MainWindow.SetPermission(true, per);
 
         if (Functions.MachNichts() == 0)
         {

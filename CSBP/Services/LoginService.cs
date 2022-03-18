@@ -34,6 +34,13 @@ namespace CSBP.Services
       return r;
     }
 
+    /// <summary>
+    /// Do login with all checks.
+    /// </summary>
+    /// <param name="daten">Affected client number and user id.</param>
+    /// <param name="kennwort">Affected password.</param>
+    /// <param name="speichern">Save password?</param>
+    /// <returns>Possibly errors.</returns>
     public ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern)
     {
       if (daten.MandantNr < 0)

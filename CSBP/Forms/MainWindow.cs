@@ -24,6 +24,7 @@ namespace CSBP.Forms
   using CSBP.Forms.SB;
   using System.Reflection;
   using CSBP.Forms.SO;
+  using CSBP.Apis.Enums;
 
   /// <summary>Main Window.</summary>
   public class MainWindow : Window
@@ -394,14 +395,14 @@ namespace CSBP.Forms
     }
 
     /// <summary>
-    /// Setzen der Berechtigung für die Anwendung.
+    /// Set permissions for application.
     /// </summary>
-    /// <param name="b">Ist die Anmeldung erfolgt?</param>
-    public void SetPermission(bool b = false)
+    /// <param name="b">Is user logged in?</param>
+    public void SetPermission(bool b = false, int per = (int)PermissionEnum.Without)
     {
       RefreshTitle();
 
-      MenuClients.Visible = b; // TODO Permission
+      MenuClients.Visible = b && per >= (int)PermissionEnum.Admin;
       MenuUsers.Visible = b;
       MenuBackups.Visible = b;
 

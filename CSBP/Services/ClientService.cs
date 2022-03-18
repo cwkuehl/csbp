@@ -233,6 +233,10 @@ namespace CSBP.Services
     public ServiceErgebnis<List<MaMandant>> GetClientList(ServiceDaten daten)
     {
       var l = MaMandantRep.GetList(daten);
+      var user = BenutzerRep.GetList(daten, -1, null).FirstOrDefault();
+      var per = user == null ? (int)PermissionEnum.Without : user.Berechtigung;
+      if (per <= (int)PermissionEnum.Admin)
+        l = l.Where(a => a.Nr == daten.MandantNr).ToList();
       return new ServiceErgebnis<List<MaMandant>>(l);
     }
 
