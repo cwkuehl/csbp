@@ -1032,11 +1032,11 @@ namespace CSBP.Services
         wp = r.Ergebnis;
         decimal? kurs = null;
         // TODO Standard-Devisen-Kurse auslagern
-        // Kurse vom 28.04.2021
+        // Kurse vom 18.03.2022
         if (shortcut == "USD")
-          kurs = 1.2065m;
+          kurs = 1.1078m;
         else if (shortcut == "CHF")
-          kurs = 1.1064m;
+          kurs = 1.0312m;
         if (kurs.HasValue)
         {
           var k = new SoKurse
