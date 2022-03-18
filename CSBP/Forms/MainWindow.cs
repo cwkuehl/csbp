@@ -274,6 +274,17 @@ namespace CSBP.Forms
           }
         });
       });
+      KeyPressEvent += (object sender, KeyPressEventArgs e) =>
+      {
+        if (e.Event.Key == Gdk.Key.F1)
+        {
+          MainClass.Help();
+        }
+        else if (e.Event.Key == Gdk.Key.Escape)
+        {
+          MainClass.Quit();
+        }
+      };
     }
 
     /// <summary>Hauptfenster wieder zurücksetzen.</summary>
@@ -909,14 +920,12 @@ Client: {daten.MandantNr} User: {daten.BenutzerId}",
       }
     }
 
-    /// <summary>Menüpunkt Hilfe.</summary>
-    /// <param name="sender">Betroffener Sender.</param>
-    /// <param name="e">Betroffenes Ereignis.</param>
+    /// <summary>Menu Help.</summary>
+    /// <param name="sender">Affected sender.</param>
+    /// <param name="e">Affected event.</param>
     protected void OnMenuHelp2(object sender, EventArgs e)
     {
-      var fn = Parameter.GetValue(Parameter.AG_HILFE_DATEI);
-      if (!string.IsNullOrEmpty(fn))
-        UiTools.StartFile(fn);
+      MainClass.Help();
     }
 
     /// <summary>Schließen des Fensters und der Anwendung.</summary>

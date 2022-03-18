@@ -90,6 +90,15 @@ namespace CSBP
       });
     }
 
+    /// <summary>Start help file in Browser.</summary>
+    /// <param name="form">Affected form name.</param>
+    public static void Help(string form = null)
+    {
+      var fn = Parameter.GetValue(Parameter.AG_HILFE_DATEI);
+      if (!string.IsNullOrEmpty(fn))
+        UiTools.StartFile(fn); // TODO Start help for dialog.
+    }
+
     /// <summary>Schließen der Anwendung mit Schließen aller Tabs und Speichern der Parameter.</summary>
     public static void Quit()
     {
