@@ -61,6 +61,9 @@
     <data name="AG002" xml:space="preserve">
         <value>AG002Bitte ein Kennwort eingeben.</value>
     </data>
+    <data name="AG003" xml:space="preserve">
+        <value>AG003Es gibt Rückgängig- oder Wiederherstellungs-Aktionen, die beim Beenden verloren gehen. Soll das Programm beendet werden?</value>
+    </data>
 
     <data name="AD001_" xml:space="preserve">
         <value>AD001Geburtstage zwischen {0:yyyy-MM-dd} und {1:yyyy-MM-dd}:</value>

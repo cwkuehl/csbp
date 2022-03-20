@@ -10,6 +10,7 @@ namespace CSBP.Forms
   using CSBP.Resources;
   using CSBP.Services.Factory; // Muss für build bleiben.
   using static CSBP.Resources.Messages;
+  using static CSBP.Resources.M;
   using Gtk;
   using System.Collections.Generic;
   using CSBP.Forms.AM;
@@ -25,6 +26,7 @@ namespace CSBP.Forms
   using System.Reflection;
   using CSBP.Forms.SO;
   using CSBP.Apis.Enums;
+  using CSBP.Services.Base;
 
   /// <summary>Main Window.</summary>
   public class MainWindow : Window
@@ -283,7 +285,8 @@ namespace CSBP.Forms
         }
         else if (e.Event.Key == Gdk.Key.Escape)
         {
-          MainClass.Quit();
+          if (!ServiceBase.IsUndoRedo() || CsbpBin.ShowYesNoQuestion(M0(AG003)))
+            MainClass.Quit();
         }
       };
     }

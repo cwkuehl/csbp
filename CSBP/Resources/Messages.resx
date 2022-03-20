@@ -89,6 +89,9 @@
     <data name="AG002" xml:space="preserve">
         <value>AG002Type in a password.</value>
     </data>
+    <data name="AG003" xml:space="preserve">
+        <value>AG003The existing undo or redo actions will be deleted by quitting. Quit the program?</value>
+    </data>
 
     <data name="AM001" xml:space="preserve">
         <value>AM001Invalid login.</value>

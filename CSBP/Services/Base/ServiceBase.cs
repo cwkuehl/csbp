@@ -139,9 +139,18 @@ namespace CSBP.Services.Base
     }
 
     /// <summary>
+    /// Are there undo or redo actions?
+    /// </summary>
+    /// <returns>Are there undo or redo actions?</returns>
+    public static bool IsUndoRedo()
+    {
+      return UndoStack.Any() || RedoStack.Any();
+    }
+
+    /// <summary>
     /// Erzeugen einer Log-Eintrags auf der Stufe Error.
     /// </summary>
-    /// <param name="daten">Service-Daten für Datenbankzugriff.</param>
+    /// <param name="daten">Service data for database access.</param>
     /// <param name="text">Zu loggender Text.</param>
     /// <param name="error" >Schalter, ob Eintrag in Log-Datei als Error erfolgen soll?</param>
     public static void LogString(ServiceDaten daten, string text, bool error = false)
@@ -157,6 +166,11 @@ namespace CSBP.Services.Base
       Log.Error(sb.ToString());
     }
 
+    /// <summary>
+    /// Save database changes.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="transaction">Affected transaction.</param>
     public static void SaveChanges(ServiceDaten daten, IDbContextTransaction transaction = null)
     {
       var db = daten.Context as CsbpContext;
