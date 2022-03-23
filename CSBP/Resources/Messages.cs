@@ -532,6 +532,16 @@ namespace CSBP.Resources
       get { return rm.GetString("HH021"); }
     }
 
+    public static string HH022
+    {
+      get { return rm.GetString("HH022"); }
+    }
+
+    public static string HH023_
+    {
+      get { return rm.GetString("HH023_"); }
+    }
+
     public static string HH024
     {
       get { return rm.GetString("HH024"); }

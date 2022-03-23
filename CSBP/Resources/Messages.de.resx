@@ -320,6 +320,12 @@
     <data name="HH021" xml:space="preserve">
         <value>HH021Das Eigenkapital- und Gewinn+Verlust-Konto können nicht gelöscht werden.</value>
     </data>
+    <data name="HH022" xml:space="preserve">
+        <value>HH022Keine Buchungen.</value>
+    </data>
+    <data name="HH023_" xml:space="preserve">
+        <value>HH023Buchungen vom {0:yyyy-MM-dd} bis {1:yyyy-MM-dd}.</value>
+    </data>
     <data name="HH024" xml:space="preserve">
         <value>HH024Die Bezeichnung darf nicht leer sein.</value>
     </data>
@@ -2510,7 +2516,7 @@
         <value>B_etrag</value>
     </data>
     <data name="HH210.betrag.tt" xml:space="preserve">
-        <value>Betrag am 1. Gültigkeitstag</value>
+        <value>Betrag am 1. Gültigkeitstag für Aktiv- und Passivkonten, negativ für Aktivkonten.</value>
     </data>
 
     <data name="HH300.title" xml:space="preserve">

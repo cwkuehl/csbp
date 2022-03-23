@@ -77,6 +77,14 @@ namespace CSBP.Apis.Services
     ServiceErgebnis DeleteAccount(ServiceDaten daten, HhKonto e);
 
     /// <summary>
+    /// Get the booking span of an account.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="uid">Affected uid.</param>
+    /// <returns>Possibly errors.</returns>
+    ServiceErgebnis<string> GetBookingSpan(ServiceDaten daten, string uid);
+
+    /// <summary>
     /// Gets list of events.
     /// </summary>
     /// <returns>List of events.</returns>

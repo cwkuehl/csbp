@@ -78,6 +78,8 @@ namespace CSBP.Resources
 
     public static string HH019(string nr, bool cut = false) => string.Format(M0(HH019_, cut), nr);
 
+    public static string HH023(DateTime f, DateTime t, bool cut = true) => string.Format(M0(HH023_, cut), f, t);
+
     public static string HH025(string u, bool cut = true) => string.Format(M0(HH025_, cut), u);
 
     public static string HH026(int c, bool cut = false) => string.Format(M0(HH026_, cut), c);

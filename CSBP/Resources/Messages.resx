@@ -320,6 +320,12 @@
     <data name="HH021" xml:space="preserve">
         <value>HH021The equity capital account and profit and loss account cannot be deleted.</value>
     </data>
+    <data name="HH022" xml:space="preserve">
+        <value>HH022No bookings.</value>
+    </data>
+    <data name="HH023_" xml:space="preserve">
+        <value>HH023Bookings from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}.</value>
+    </data>
     <data name="HH024" xml:space="preserve">
         <value>HH024Type in a description.</value>
     </data>

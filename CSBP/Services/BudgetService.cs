@@ -417,6 +417,26 @@ namespace CSBP.Services
     }
 
     /// <summary>
+    /// Get the booking span of an account.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="uid">Affected uid.</param>
+    /// <returns>Possibly errors.</returns>
+    public ServiceErgebnis<string> GetBookingSpan(ServiceDaten daten, string uid)
+    {
+      var r = new ServiceErgebnis<string>(HH022);
+      var min = HhBuchungRep.GetList(daten, uid, null, desc: false, max: 1).FirstOrDefault();
+      if (min != null)
+      {
+        var max = HhBuchungRep.GetList(daten, uid, null, desc: true, max: 1).FirstOrDefault();
+        if (max != null)
+          r.Ergebnis = HH023(min.Soll_Valuta, max.Soll_Valuta);
+      }
+      return r;
+    }
+
+
+    /// <summary>
     /// Gets list of events.
     /// </summary>
     /// <returns>List of events.</returns>

@@ -191,7 +191,8 @@ namespace CSBP.Forms.HH
         var uid = Parameter1 as string;
         if (!neu && uid != null)
         {
-          var k = Get(FactoryService.BudgetService.GetAccount(ServiceDaten, uid));
+          var daten = ServiceDaten;
+          var k = Get(FactoryService.BudgetService.GetAccount(daten, uid));
           if (k == null)
           {
             Application.Invoke(delegate
@@ -210,7 +211,7 @@ namespace CSBP.Forms.HH
           betrag.Text = Functions.ToString(k.EBetrag, 2);
           angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
           geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
-          // TODO Anzeige des Zeitraums von vorhandenen Buchungen.
+          buchung.Text = Get(FactoryService.BudgetService.GetBookingSpan(daten, k.Uid));
         }
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;

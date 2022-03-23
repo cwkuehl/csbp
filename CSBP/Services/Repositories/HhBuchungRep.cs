@@ -32,9 +32,10 @@ namespace CSBP.Services.Repositories
     /// <param name="text">Affected posting text.</param>
     /// <param name="value">Affected value.</param>
     /// <param name="desc">Is the order descending?</param>
+    /// <param name="max">How many rows? 0 means all.</param>
     public List<HhBuchung> GetList(ServiceDaten daten, string auid, bool? debit, string attr = Constants.KZB_AKTIV,
       bool valuta = true, DateTime? from = null, DateTime? to = null, string text = null, string value = null,
-      bool desc = true, bool euro = true)
+      bool desc = true, bool euro = true, int max = 0)
     {
       var db = GetDb(daten);
       var l = db.HH_Buchung.Where(a => a.Mandant_Nr == daten.MandantNr);
@@ -98,7 +99,10 @@ namespace CSBP.Services.Repositories
           e.CreditType = a.credit.Art;
           return e;
         });
-      return l5.ToList();
+      if (max <= 0)
+        return l5.ToList();
+      else
+        return l5.Take(max).ToList();
     }
 
     /// <summary>
