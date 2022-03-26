@@ -338,8 +338,8 @@ namespace CSBP.Forms
       MainClass.InitDb(new ServiceDaten(0, "Admin"));
 #if DEBUG
       var username = Environment.UserName;
-      // MainClass.Login(new ServiceDaten(1, username.ToFirstUpper())); // Automatische Anmeldung mit aktuellem Benutzer.
-      MainClass.Login(new ServiceDaten(3, "Wolfgang"));
+      MainClass.Login(new ServiceDaten(1, username.ToFirstUpper())); // Automatische Anmeldung mit aktuellem Benutzer.
+      // MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
       var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
       var r = FactoryService.LoginService.IsWithoutPassword(daten);
@@ -474,12 +474,18 @@ namespace CSBP.Forms
     /// <param name="label">Betroffene Bezeichnung.</param>
     public void AppendPage(CsbpBin widget, string label)
     {
-      var title = label.Replace("_", "").Replace("&", "&amp;");
+      var title = label.Replace("_", ""); // .Replace("&", "&amp;");
       if (Functions.MachNichts() == 0)
       {
         var closeImage = Image.NewFromIconName("window-close", IconSize.Button);
         var button = new Button();
         var lbl = new Label(title);
+        if (title.Length > 18)
+        {
+          var sh = title.Left(18) + "...";
+          lbl.Text = sh;
+          lbl.TooltipText = title;
+        }
         var tab = new Box(Orientation.Horizontal, 0);
         button.Relief = ReliefStyle.None;
         button.Add(closeImage);

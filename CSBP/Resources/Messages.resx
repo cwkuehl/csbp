@@ -3961,7 +3961,7 @@
         <value>Stock investments</value>
     </data>
     <data name="WP250.anlagen.columns" xml:space="preserve">
-        <value>No.;Description;Provider;Shortcut;Payment_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Description;Provider;Shortcut;Payment_r;Value_r;Shares;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="WP250.anlagenStatus" xml:space="preserve">
         <value>State</value>

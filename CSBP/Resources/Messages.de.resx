@@ -3961,7 +3961,7 @@
         <value>Wertpapier-Anlagen</value>
     </data>
     <data name="WP250.anlagen.columns" xml:space="preserve">
-        <value>Nr.;Bezeichnung;Provider;Kürzel;Betrag_r;Wert_r;Gewinn_r;+/-_r;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Bezeichnung;Provider;Kürzel;Betrag_r;Wert_r;Anteile;Gewinn_r;+/-_r;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="WP250.anlagenStatus" xml:space="preserve">
         <value>Status</value>
