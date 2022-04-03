@@ -1010,6 +1010,18 @@
     <data name="Menu.table.delcol" xml:space="preserve">
         <value>Spalte(n) löschen</value>
     </data>
+    <data name="Menu.table.bold" xml:space="preserve">
+        <value>Format fett</value>
+    </data>
+    <data name="Menu.table.normal" xml:space="preserve">
+        <value>Format normal</value>
+    </data>
+    <data name="Menu.table.copy" xml:space="preserve">
+        <value>Kopieren</value>
+    </data>
+    <data name="Menu.table.print" xml:space="preserve">
+        <value>Drucken</value>
+    </data>
 
     <!-- Aufzählungen -->
     <data name="Enum.dialog.new" xml:space="preserve">
@@ -3961,7 +3973,7 @@
         <value>Wertpapier-Anlagen</value>
     </data>
     <data name="WP250.anlagen.columns" xml:space="preserve">
-        <value>Nr.;Bezeichnung;Provider;Kürzel;Betrag_r;Wert_r;Anteile_r;Gewinn_r;+/-_r;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Bezeichnung;Provider;Kürzel;Betrag_r;Anteile_r;Wert_r;Gewinn_r;+/-_r;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="WP250.anlagenStatus" xml:space="preserve">
         <value>Status</value>

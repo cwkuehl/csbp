@@ -534,7 +534,8 @@ namespace CSBP.Forms
       lbl.Show();
       col.Widget = lbl;
       col.PackStart(cell, true);
-      col.AddAttribute(cell, "text", i);
+      // col.AddAttribute(cell, "text", i);
+      col.AddAttribute(cell, "markup", i);
       if (i == 0)
         col.MaxWidth = 13; // Nicht 0 wegen: Negative content width -12 (allocation 1, extents 6x7) while allocating gadget (node button, owner GtkButton)
       return col;
@@ -635,12 +636,18 @@ namespace CSBP.Forms
       var cnr = (int)cr.Data["cnr"];
       var store = cr.Data["store"] as TreeStore;
       store.GetIter(out var it, new TreePath(args.Path));
-      store.SetValue(it, cnr, args.NewText);
+      var v = new GLib.Value();
+      store.GetValue(it, cnr, ref v);
+      var val = v.Val as string;
+      var newtext = args.NewText;
+      if (IsBold(val))
+        newtext = MakeBold(newtext); // Preserve boldness
+      store.SetValue(it, cnr, newtext);
     }
 
     private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
     {
-      // TODO Formatierung der Tabelle.
+      // TODO Formatierung der Tabelle: links, mitte, rechts, copy, drucken
       var mi = o as MenuItem;
       if (mi == null)
         return;
@@ -760,6 +767,35 @@ namespace CSBP.Forms
           AddStringColumns(tv, spalten - anz - 2, true, list);
         }
       }
+      else if (l == Menu_table_bold || l == Menu_table_normal)
+      {
+        // Make cells bold or normal.
+        var unbold = l == Menu_table_normal;
+        var cnr = (int)tv.Data["menucnr"]; // Affected column.
+        var rnr = (int)tv.Data["menurnr"]; // Affected row.
+        Debug.Print($"Bold cnr {cnr} rnry {rnr}");
+        var r = 0;
+        var cmin = cnr <= 1 ? 0 : cnr;
+        var cmax = cnr <= 1 ? (int)tv.NColumns - 1 : cnr;
+        if (store.GetIterFirst(out var i))
+        {
+          do
+          {
+            if (rnr < 0 || r == rnr)
+            {
+              var v = new GLib.Value();
+              for (var c = cmin; c <= cmax; c++)
+              {
+                store.GetValue(i, c, ref v);
+                var val = v.Val as string;
+                store.SetValue(i, c, MakeBold(val, unbold));
+              }
+            }
+            r++;
+          }
+          while ((rnr < 0 || r <= rnr) && store.IterNext(ref i));
+        }
+      }
       if (znummern)
       {
         // Debug.Print("znummern");
@@ -782,6 +818,26 @@ namespace CSBP.Forms
       }
     }
 
+    private bool IsBold(string s)
+    {
+      return s != null && s.StartsWith("<b>") && s.EndsWith("</b>");
+    }
+
+    private string MakeBold(string s, bool unbold = false)
+    {
+      if (s == null)
+        s = "";
+      if (unbold)
+      {
+        if (IsBold(s))
+          return s.Substring(3, s.Length - 7);
+        return s;
+      }
+      if (IsBold(s))
+        return s;
+      return $"<b>{s}</b>";
+    }
+
     private void OnTableButtonReleaseEvent(object o, ButtonReleaseEventArgs args)
     {
       var cr = o as Gtk.Widget;
@@ -791,6 +847,29 @@ namespace CSBP.Forms
       var store = cr.Data["store"] as TreeStore;
       if (args.Event.Button == 3)
       {
+        tv.GetPathAtPos((int)args.Event.X, (int)args.Event.Y, out var path, out var column, out var cx, out var cy);
+        var cnr = (int)column.Data["cnr"];
+        var rnr = path.Indices[0];
+        var r = tv.GetCellArea(path, column);
+        var rtv = tv.Window.GetOrigin(out var xtv, out var ytv);
+        if (r.Height > args.Event.YRoot - ytv)
+        {
+          // Header geklickt
+          rnr = -1;
+          cnr = 0;
+          var cmax = tv.Columns.GetLength(0);
+          var colx = xtv;
+          while (cnr < cmax && colx + tv.GetColumn(cnr).Width < args.Event.XRoot)
+          {
+            colx += tv.GetColumn(cnr).Width;
+            cnr++;
+          }
+        }
+        tv.Data["menucnr"] = cnr; // Affected column.
+        tv.Data["menurnr"] = rnr; // Affected row.
+        // Debug.Print($"Menu cnr {cnr} rnr {rnr} r {r} xtv {xtv} ytv {ytv} x {args.Event.X} y {args.Event.Y} xr {args.Event.XRoot} yr {args.Event.YRoot}");
+        // if (Functions.MachNichts() == 0)
+        //   return;
         var m = new Menu();
         var mi = new MenuItem(Menu_table_addrow);
         mi.Data["tv"] = tv;
@@ -822,6 +901,26 @@ namespace CSBP.Forms
         mi.Data["store"] = store;
         mi.ButtonPressEvent += OnTableMenuItemClick;
         m.Add(mi);
+        mi = new MenuItem(Menu_table_bold);
+        mi.Data["tv"] = tv;
+        mi.Data["store"] = store;
+        mi.ButtonPressEvent += OnTableMenuItemClick;
+        m.Add(mi);
+        mi = new MenuItem(Menu_table_normal);
+        mi.Data["tv"] = tv;
+        mi.Data["store"] = store;
+        mi.ButtonPressEvent += OnTableMenuItemClick;
+        m.Add(mi);
+        // TODO mi = new MenuItem(Menu_table_copy);
+        // mi.Data["tv"] = tv;
+        // mi.Data["store"] = store;
+        // mi.ButtonPressEvent += OnTableMenuItemClick;
+        // m.Add(mi);
+        // mi = new MenuItem(Menu_table_print);
+        // mi.Data["tv"] = tv;
+        // mi.Data["store"] = store;
+        // mi.ButtonPressEvent += OnTableMenuItemClick;
+        // m.Add(mi);
         m.ShowAll();
         m.Popup();
       }

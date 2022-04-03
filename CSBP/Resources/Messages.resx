@@ -1010,6 +1010,18 @@
     <data name="Menu.table.delcol" xml:space="preserve">
         <value>Delete column(s)</value>
     </data>
+    <data name="Menu.table.bold" xml:space="preserve">
+        <value>Format bold</value>
+    </data>
+    <data name="Menu.table.normal" xml:space="preserve">
+        <value>Format normal</value>
+    </data>
+    <data name="Menu.table.copy" xml:space="preserve">
+        <value>Copy</value>
+    </data>
+    <data name="Menu.table.print" xml:space="preserve">
+        <value>Print</value>
+    </data>
 
     <!-- Aufzählungen -->
     <data name="Enum.dialog.new" xml:space="preserve">
@@ -3961,7 +3973,7 @@
         <value>Stock investments</value>
     </data>
     <data name="WP250.anlagen.columns" xml:space="preserve">
-        <value>No.;Description;Provider;Shortcut;Payment_r;Value_r;Shares_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Description;Provider;Shortcut;Payment_r;Shares_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="WP250.anlagenStatus" xml:space="preserve">
         <value>State</value>

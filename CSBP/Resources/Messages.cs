@@ -1657,6 +1657,26 @@ namespace CSBP.Resources
       get { return rm.GetString("Menu.table.delcol"); }
     }
 
+    public static string Menu_table_bold
+    {
+      get { return rm.GetString("Menu.table.bold"); }
+    }
+
+    public static string Menu_table_normal
+    {
+      get { return rm.GetString("Menu.table.normal"); }
+    }
+
+    public static string Menu_table_copy
+    {
+      get { return rm.GetString("Menu.table.copy"); }
+    }
+
+    public static string Menu_table_print
+    {
+      get { return rm.GetString("Menu.table.print"); }
+    }
+
     public static string Enum_dialog_new
     {
       get { return rm.GetString("Enum.dialog.new"); }
