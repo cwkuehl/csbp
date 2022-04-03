@@ -79,7 +79,7 @@
             <signal name="clicked" handler="OnUndoClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -93,7 +93,7 @@
             <signal name="clicked" handler="OnRedoClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">0</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -107,7 +107,7 @@
             <signal name="clicked" handler="OnNewClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">0</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -121,7 +121,7 @@
             <signal name="clicked" handler="OnCopyClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">0</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -135,7 +135,7 @@
             <signal name="clicked" handler="OnEditClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">0</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -149,7 +149,7 @@
             <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">0</property>
+            <property name="position">6</property>
           </packing>
         </child>
       </object>
