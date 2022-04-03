@@ -1,7 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
-  <requires lib="gtk+" version="3.20" />
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="copyImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-copy</property>
+  </object>
+  <object class="GtkImage" id="deleteImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-delete</property>
+  </object>
+  <object class="GtkImage" id="editImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-edit</property>
+  </object>
+  <object class="GtkImage" id="newImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-new</property>
+  </object>
+  <object class="GtkImage" id="redoImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-redo</property>
+  </object>
   <object class="GtkImage" id="refreshImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -11,31 +37,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-undo</property>
-  </object>
-  <object class="GtkImage" id="redoImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-redo</property>
-  </object>
-  <object class="GtkImage" id="newImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-new</property>
-  </object>
-  <object class="GtkImage" id="copyImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
-  </object>
-  <object class="GtkImage" id="editImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-edit</property>
-  </object>
-  <object class="GtkImage" id="deleteImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-delete</property>
   </object>
   <object class="GtkGrid" id="AG100Clients">
     <property name="visible">True</property>
@@ -61,8 +62,11 @@
             <property name="tooltip_text">Action.refresh</property>
             <property name="image">refreshImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnRefreshClicked" swapped="no" />
+            <signal name="clicked" handler="OnRefreshClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="undoAction">
@@ -72,8 +76,11 @@
             <property name="tooltip_text">Action.undo</property>
             <property name="image">undoImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnUndoClicked" swapped="no" />
+            <signal name="clicked" handler="OnUndoClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="redoAction">
@@ -83,8 +90,11 @@
             <property name="tooltip_text">Action.redo</property>
             <property name="image">redoImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnRedoClicked" swapped="no" />
+            <signal name="clicked" handler="OnRedoClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="newAction">
@@ -94,8 +104,11 @@
             <property name="tooltip_text">Action.new</property>
             <property name="image">newImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnNewClicked" swapped="no" />
+            <signal name="clicked" handler="OnNewClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="copyAction">
@@ -105,8 +118,11 @@
             <property name="tooltip_text">Action.copy</property>
             <property name="image">copyImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnCopyClicked" swapped="no" />
+            <signal name="clicked" handler="OnCopyClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="editAction">
@@ -116,8 +132,11 @@
             <property name="tooltip_text">Action.edit</property>
             <property name="image">editImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnEditClicked" swapped="no" />
+            <signal name="clicked" handler="OnEditClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">5</property>
+          </packing>
         </child>
         <child>
           <object class="GtkButton" id="deleteAction">
@@ -127,10 +146,17 @@
             <property name="tooltip_text">Action.delete</property>
             <property name="image">deleteImage</property>
             <property name="always_show_image">True</property>
-            <signal name="clicked" handler="OnDeleteClicked" swapped="no" />
+            <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
           </object>
+          <packing>
+            <property name="position">6</property>
+          </packing>
         </child>
       </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
     </child>
     <child>
       <object class="GtkLabel" id="mandanten0">
@@ -158,7 +184,10 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="tooltip_text">AG100.mandanten.tt</property>
-            <signal name="row-activated" handler="OnMandantenRowActivated" swapped="no" />
+            <signal name="row-activated" handler="OnMandantenRowActivated" swapped="no"/>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
           </object>
         </child>
       </object>
