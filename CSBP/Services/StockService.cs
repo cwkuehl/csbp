@@ -633,7 +633,8 @@ namespace CSBP.Services
 
     private void CalculateInvestment(ServiceDaten daten, WpAnlage inv, List<WpBuchung> blist, SoKurse k)
     {
-      inv.Payment = blist.Sum(a => a.Zahlungsbetrag - a.Rabattbetrag);
+      // No Payment for interests.
+      inv.Payment = blist.Sum(a => a.Zahlungsbetrag - (a.Zahlungsbetrag == 0 ? 0 : a.Rabattbetrag));
       inv.Shares = blist.Sum(a => a.Anteile);
       inv.ShareValue = inv.Shares == 0 ? 0 : inv.Payment / inv.Shares;
       inv.Interest = blist.Sum(a => a.Zinsen);
