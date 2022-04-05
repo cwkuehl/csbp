@@ -534,8 +534,7 @@ namespace CSBP.Forms
       lbl.Show();
       col.Widget = lbl;
       col.PackStart(cell, true);
-      // col.AddAttribute(cell, "text", i);
-      col.AddAttribute(cell, "markup", i);
+      col.AddAttribute(cell, editable ? "markup" : "text", i);
       if (i == 0)
         col.MaxWidth = 13; // Nicht 0 wegen: Negative content width -12 (allocation 1, extents 6x7) while allocating gadget (node button, owner GtkButton)
       return col;
