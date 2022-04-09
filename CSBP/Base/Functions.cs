@@ -1092,6 +1092,37 @@ namespace CSBP.Base
     }
 
     /// <summary>
+    /// Is there a <b> tag around the string?
+    /// </summary>
+    /// <param name="s">Affected string</param>
+    /// <returns>Is there a <b> tag around the string?</returns>
+    public static bool IsBold(string s)
+    {
+      return s != null && s.StartsWith("<b>") && s.EndsWith("</b>");
+    }
+
+    /// <summary>
+    /// Put <b> tag around the string, if there is none. Or remove the <b> tag.
+    /// </summary>
+    /// <param name="s">Affected string.</param>
+    /// <param name="unbold">Remove the <b> tag?</param>
+    /// <returns>String with or  <b> around.</returns>
+    public static string MakeBold(string s, bool unbold = false)
+    {
+      if (s == null)
+        s = "";
+      if (unbold)
+      {
+        if (IsBold(s))
+          return s.Substring(3, s.Length - 7);
+        return s;
+      }
+      if (IsBold(s))
+        return s;
+      return $"<b>{s}</b>";
+    }
+
+    /// <summary>
     /// Läuft das Programm unter Linux?
     /// </summary>
     /// <returns>Läuft das Programm unter Linux?</returns>

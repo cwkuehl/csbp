@@ -19,6 +19,8 @@ namespace CSBP.Forms
   using System.Text;
   using System.Threading;
   using System.Threading.Tasks;
+  using CSBP.Forms.Controls;
+  using System.Linq;
 
   [System.ComponentModel.ToolboxItem(false)]
   public partial class CsbpBin : Bin
@@ -452,15 +454,6 @@ namespace CSBP.Forms
       }
     }
 
-    //protected TreeStore AddStringColumns(ComboBox tv, string headers)
-    //{
-    //    var titles = headers.Split(';');
-    //    var types = new Type[titles.Length];
-    //    for (var i = 0; i < titles.Length; i++)
-    //        types[i] = typeof(string);
-    //    return AddColumns(tv, titles, types);
-    //}
-
     [Obsolete("Use AddStringColumnsSort instead.")]
     protected TreeStore AddStringColumns(TreeView tv, string headers)
     {
@@ -475,7 +468,8 @@ namespace CSBP.Forms
 
     /// <summary>TreeView mit editierbaren Daten füllen.
     /// Die Spaltenüberschriften werden wie in Excel gebildet: A, B, C, ... Z.</summary>
-    protected void AddStringColumns(TreeView tv, int columns, bool editable = false, List<string[]> values = null)
+    protected void AddStringColumns(TreeView tv, int columns, bool editable = false, List<string[]> values = null,
+      List<Formula> flist = null)
     {
       var titles = new string[Math.Min(Math.Max(columns + 2, 1), 28)];
       var types = new Type[titles.Length];
@@ -487,69 +481,40 @@ namespace CSBP.Forms
           titles[i] = ((char)((i - 2) % 26 + 'A')).ToString();
         types[i] = typeof(string);
       }
-      AddColumns(tv, titles, types, editable, values);
-    }
-
-    /// <summary>Liefert eine TreeView-Spalte.</summary>
-    private TreeViewColumn GetColumn(string title, int i, bool editable, ITreeModel store)
-    {
-      var align = 0f; // left
-      if (title.EndsWith("_r", StringComparison.InvariantCulture))
-      {
-        title = title.Substring(0, title.Length - 2);
-        align = 1f; // right
-      }
-      else if (title.EndsWith("_e", StringComparison.InvariantCulture))
-      {
-        title = title.Substring(0, title.Length - 2);
-        editable = true;
-      }
-      var cell = new CellRendererText
-      // var cell = new CellRendererSpin
-      {
-        Xalign = align,
-        Editable = editable,
-      };
       if (editable)
       {
-        cell.Data["store"] = store;
-        cell.Data["cnr"] = i;
-        cell.Edited += TableCell_Edited;
+        tv.KeyReleaseEvent += (o, e) =>
+        {
+          if (e.Event.Key == Gdk.Key.Return)
+          {
+            var store = tv.Data["store"] as TreeStore;
+            var flist = tv.Data["flist"] as List<Formula>;
+            tv.GetCursor(out var path, out var c);
+            var cnr = (int)c.Data["cnr"];
+            store.GetIter(out var it, path);
+            var v = new GLib.Value();
+            store.GetValue(it, cnr, ref v);
+            var val = v.Val as string;
+            var rnr = path.Indices[0];
+            var f = flist?.FirstOrDefault(a => a.column == cnr - 2 && a.row == rnr);
+            if (f != null && val != f.formula)
+              store.SetValue(it, cnr, f.formula);
+          }
+        };
       }
-      var col = new TreeViewColumn
-      {
-        SortColumnId = i,
-        Resizable = true,
-        Alignment = align,
-      };
-      if (editable)
-      {
-        col.Data["cnr"] = i;
-      }
-      var lbl = new Label
-      {
-        LabelProp = $"<b>{title}</b>",
-        UseMarkup = true,
-      };
-      lbl.Show();
-      col.Widget = lbl;
-      col.PackStart(cell, true);
-      col.AddAttribute(cell, editable ? "markup" : "text", i);
-      if (i == 0)
-        col.MaxWidth = 13; // Nicht 0 wegen: Negative content width -12 (allocation 1, extents 6x7) while allocating gadget (node button, owner GtkButton)
-      return col;
+      AddColumns(tv, titles, types, editable, values, flist);
     }
 
     /// <summary>TreeView mit Spalten und evtl. Daten initialisieren.</summary>
     protected TreeStore AddColumns(TreeView tv, string[] titles, Type[] types, bool editable = false,
-        List<string[]> values = null)
+        List<string[]> values = null, List<Formula> flist = null)
     {
       foreach (var c in tv.Columns)
         tv.RemoveColumn(c);
       var store = new TreeStore(types);
       for (var i = 0; i < titles.Length; i++)
       {
-        var col = GetColumn(titles[i], i, editable, store);
+        var col = GetColumn(titles[i], i, editable, store, flist);
         tv.AppendColumn(col);
       }
       tv.Model = store;
@@ -558,10 +523,12 @@ namespace CSBP.Forms
         tv.Selection.Mode = SelectionMode.Multiple;
         tv.Data["tv"] = tv;
         tv.Data["store"] = store;
+        tv.Data["flist"] = flist;
         tv.ButtonReleaseEvent += OnTableButtonReleaseEvent;
         if (values != null)
           foreach (var arr in values)
             store.AppendValues(arr);
+        CalculateFormulas(store, flist);
       }
       if (titles.Length == 2)
       {
@@ -572,6 +539,34 @@ namespace CSBP.Forms
       else
         tv.EnableSearch = false;
       return store;
+    }
+
+    /// <summary>
+    /// Calculate all formulas.
+    /// </summary>
+    protected void CalculateFormulas(TreeStore store, List<Formula> flist)
+    {
+      if (store == null || flist == null)
+        return;
+      foreach (var f in flist)
+      {
+        string v = null;
+        if (f.function == "now")
+        {
+          v = Functions.ToString(DateTime.Now, true);
+        }
+        else if (f.function == "today")
+        {
+          v = Functions.ToString(DateTime.Today, false);
+        }
+        if (v != null)
+        {
+          f.value = v;
+          var tp = new TreePath(new[] { f.row });
+          store.GetIter(out var it, tp);
+          store.SetValue(it, f.column + 2, v);
+        }
+      }
     }
 
     protected void AddStringColumnsSort(TreeView tv, string headers, List<string[]> values = null)
@@ -594,7 +589,7 @@ namespace CSBP.Forms
       var store = new TreeStore(types);
       for (var i = 0; i < titles.Length; i++)
       {
-        var col = GetColumn(titles[i], i, editable, store);
+        var col = GetColumn(titles[i], i, editable, store, null);
         tv.AppendColumn(col);
       }
       if (values != null)
@@ -627,6 +622,62 @@ namespace CSBP.Forms
         tv.EnableSearch = false;
     }
 
+    /// <summary>Liefert eine TreeView-Spalte.</summary>
+    private TreeViewColumn GetColumn(string title, int i, bool editable, ITreeModel store, List<Formula> flist)
+    {
+      var align = 0f; // left
+      if (title.EndsWith("_r", StringComparison.InvariantCulture))
+      {
+        title = title.Substring(0, title.Length - 2);
+        align = 1f; // right
+      }
+      else if (title.EndsWith("_e", StringComparison.InvariantCulture))
+      {
+        title = title.Substring(0, title.Length - 2);
+        editable = true;
+      }
+      var cell = new CellRendererText
+      // var cell = new CellRendererSpin
+      {
+        Xalign = align,
+        Editable = editable,
+      };
+      if (editable)
+      {
+        cell.Data["store"] = store;
+        if (flist != null)
+          cell.Data["flist"] = flist;
+        cell.Data["cnr"] = i;
+        cell.Edited += TableCell_Edited;
+      }
+      var col = new TreeViewColumn
+      {
+        SortColumnId = i,
+        Resizable = true,
+        Alignment = align,
+      };
+      if (editable)
+      {
+        col.Data["cnr"] = i;
+        // col.Clicked += (o, e) =>
+        // {
+        //   Functions.MachNichts();
+        // };
+      }
+      var lbl = new Label
+      {
+        LabelProp = $"<b>{title}</b>",
+        UseMarkup = true,
+      };
+      lbl.Show();
+      col.Widget = lbl;
+      col.PackStart(cell, true);
+      col.AddAttribute(cell, editable ? "markup" : "text", i);
+      if (i == 0)
+        col.MaxWidth = 13; // Nicht 0 wegen: Negative content width -12 (allocation 1, extents 6x7) while allocating gadget (node button, owner GtkButton)
+      return col;
+    }
+
     private void TableCell_Edited(object o, EditedArgs args)
     {
       var cr = o as Gtk.CellRenderer;
@@ -634,14 +685,36 @@ namespace CSBP.Forms
         return;
       var cnr = (int)cr.Data["cnr"];
       var store = cr.Data["store"] as TreeStore;
-      store.GetIter(out var it, new TreePath(args.Path));
+      var flist = cr.Data["flist"] as List<Formula>;
+      var path = new TreePath(args.Path);
+      store.GetIter(out var it, path);
       var v = new GLib.Value();
       store.GetValue(it, cnr, ref v);
       var val = v.Val as string;
+      var rnr = path.Indices[0];
+      var f = flist?.FirstOrDefault(a => a.column == cnr - 2 && a.row == rnr);
       var newtext = args.NewText;
-      if (IsBold(val))
-        newtext = MakeBold(newtext); // Preserve boldness
-      store.SetValue(it, cnr, newtext);
+      if (Functions.IsBold(val))
+        newtext = Functions.MakeBold(newtext); // Preserve boldness
+      if (val == newtext)
+      {
+        if (f != null)
+          newtext = f.value;
+      }
+      if (val != newtext)
+      {
+        Debug.Print($"old {val} new {newtext}");
+        if (f != null)
+          flist.Remove(f);
+        var newf = Formula.Instance(newtext, cnr - 2, rnr);
+        if (newf == null)
+          store.SetValue(it, cnr, newtext);
+        else
+        {
+          flist.Add(newf);
+          CalculateFormulas(store, flist);
+        }
+      }
     }
 
     private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
@@ -787,7 +860,7 @@ namespace CSBP.Forms
               {
                 store.GetValue(i, c, ref v);
                 var val = v.Val as string;
-                store.SetValue(i, c, MakeBold(val, unbold));
+                store.SetValue(i, c, Functions.MakeBold(val, unbold));
               }
             }
             r++;
@@ -817,26 +890,11 @@ namespace CSBP.Forms
       }
     }
 
-    private bool IsBold(string s)
-    {
-      return s != null && s.StartsWith("<b>") && s.EndsWith("</b>");
-    }
-
-    private string MakeBold(string s, bool unbold = false)
-    {
-      if (s == null)
-        s = "";
-      if (unbold)
-      {
-        if (IsBold(s))
-          return s.Substring(3, s.Length - 7);
-        return s;
-      }
-      if (IsBold(s))
-        return s;
-      return $"<b>{s}</b>";
-    }
-
+    /// <summary>
+    /// ButtonReleaseEvent for TreeView.
+    /// </summary>
+    /// <param name="o">Affected object.</param>
+    /// <param name="args">Affected event args.</param>
     private void OnTableButtonReleaseEvent(object o, ButtonReleaseEventArgs args)
     {
       var cr = o as Gtk.Widget;
@@ -844,7 +902,23 @@ namespace CSBP.Forms
         return;
       var tv = cr.Data["tv"] as TreeView;
       var store = cr.Data["store"] as TreeStore;
-      if (args.Event.Button == 3)
+      if (tv == null || store == null)
+        return;
+      if (args.Event.Button == 1)
+      {
+        var flist = tv.Data["flist"] as List<Formula>;
+        tv.GetCursor(out var path, out var c);
+        var cnr = (int)c.Data["cnr"];
+        store.GetIter(out var it, path);
+        var v = new GLib.Value();
+        store.GetValue(it, cnr, ref v);
+        var val = v.Val as string;
+        var rnr = path.Indices[0];
+        var f = flist?.FirstOrDefault(a => a.column == cnr - 2 && a.row == rnr);
+        if (f != null && val != f.formula)
+          store.SetValue(it, cnr, f.formula);
+      }
+      else if (args.Event.Button == 3)
       {
         tv.GetPathAtPos((int)args.Event.X, (int)args.Event.Y, out var path, out var column, out var cx, out var cy);
         var cnr = (int)column.Data["cnr"];

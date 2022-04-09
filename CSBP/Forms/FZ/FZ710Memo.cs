@@ -13,6 +13,7 @@ namespace CSBP.Forms.FZ
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
+  using CSBP.Forms.Controls;
   using CSBP.Services.Factory;
   using Gtk;
   using static CSBP.Resources.Messages;
@@ -231,6 +232,7 @@ namespace CSBP.Forms.FZ
         var spalten = Math.Max(Functions.ToInt32(table.Attributes["spalten"]?.Value), 1);
         var zeilen = Math.Max(Functions.ToInt32(table.Attributes["zeilen"]?.Value), 1);
         var list = new List<string[]>();
+        var flist = new List<Formula>();
         for (var i = 0; i < zeilen; i++)
         {
           var arr = new string[spalten + 2];
@@ -242,10 +244,13 @@ namespace CSBP.Forms.FZ
             var x = Functions.ToInt32(z.Attributes["x"]?.Value);
             var formel = z.FirstChild?.InnerText;
             arr[x + 2] = formel;
+            var f = Formula.Instance(formel, x, i);
+            if (f != null)
+              flist.Add(f);
           }
           list.Add(arr);
         }
-        AddStringColumns(tabelle, spalten, DialogType != DialogTypeEnum.Delete, list);
+        AddStringColumns(tabelle, spalten, DialogType != DialogTypeEnum.Delete, list, flist);
       }
       var node = root.SelectSingleNode("//tabelle//notiz");
       if (node != null)
