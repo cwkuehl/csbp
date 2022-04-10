@@ -469,7 +469,7 @@ namespace CSBP.Forms
     /// <summary>TreeView mit editierbaren Daten füllen.
     /// Die Spaltenüberschriften werden wie in Excel gebildet: A, B, C, ... Z.</summary>
     protected void AddStringColumns(TreeView tv, int columns, bool editable = false, List<string[]> values = null,
-      List<Formula> flist = null)
+      Formulas flist = null)
     {
       var titles = new string[Math.Min(Math.Max(columns + 2, 1), 28)];
       var types = new Type[titles.Length];
@@ -488,17 +488,8 @@ namespace CSBP.Forms
           if (e.Event.Key == Gdk.Key.Return)
           {
             var store = tv.Data["store"] as TreeStore;
-            var flist = tv.Data["flist"] as List<Formula>;
-            tv.GetCursor(out var path, out var c);
-            var cnr = (int)c.Data["cnr"];
-            store.GetIter(out var it, path);
-            var v = new GLib.Value();
-            store.GetValue(it, cnr, ref v);
-            var val = v.Val as string;
-            var rnr = path.Indices[0];
-            var f = flist?.FirstOrDefault(a => a.column == cnr - 2 && a.row == rnr);
-            if (f != null && val != f.formula)
-              store.SetValue(it, cnr, f.formula);
+            var flist = tv.Data["flist"] as Formulas;
+            flist?.BeginEdit(tv, store);
           }
         };
       }
@@ -507,7 +498,7 @@ namespace CSBP.Forms
 
     /// <summary>TreeView mit Spalten und evtl. Daten initialisieren.</summary>
     protected TreeStore AddColumns(TreeView tv, string[] titles, Type[] types, bool editable = false,
-        List<string[]> values = null, List<Formula> flist = null)
+        List<string[]> values = null, Formulas flist = null)
     {
       foreach (var c in tv.Columns)
         tv.RemoveColumn(c);
@@ -528,7 +519,7 @@ namespace CSBP.Forms
         if (values != null)
           foreach (var arr in values)
             store.AppendValues(arr);
-        CalculateFormulas(store, flist);
+        flist?.CalculateFormulas(store);
       }
       if (titles.Length == 2)
       {
@@ -539,34 +530,6 @@ namespace CSBP.Forms
       else
         tv.EnableSearch = false;
       return store;
-    }
-
-    /// <summary>
-    /// Calculate all formulas.
-    /// </summary>
-    protected void CalculateFormulas(TreeStore store, List<Formula> flist)
-    {
-      if (store == null || flist == null)
-        return;
-      foreach (var f in flist)
-      {
-        string v = null;
-        if (f.function == "now")
-        {
-          v = Functions.ToString(DateTime.Now, true);
-        }
-        else if (f.function == "today")
-        {
-          v = Functions.ToString(DateTime.Today, false);
-        }
-        if (v != null)
-        {
-          f.value = v;
-          var tp = new TreePath(new[] { f.row });
-          store.GetIter(out var it, tp);
-          store.SetValue(it, f.column + 2, v);
-        }
-      }
     }
 
     protected void AddStringColumnsSort(TreeView tv, string headers, List<string[]> values = null)
@@ -623,7 +586,7 @@ namespace CSBP.Forms
     }
 
     /// <summary>Liefert eine TreeView-Spalte.</summary>
-    private TreeViewColumn GetColumn(string title, int i, bool editable, ITreeModel store, List<Formula> flist)
+    private TreeViewColumn GetColumn(string title, int i, bool editable, ITreeModel store, Formulas flist)
     {
       var align = 0f; // left
       if (title.EndsWith("_r", StringComparison.InvariantCulture))
@@ -685,36 +648,37 @@ namespace CSBP.Forms
         return;
       var cnr = (int)cr.Data["cnr"];
       var store = cr.Data["store"] as TreeStore;
-      var flist = cr.Data["flist"] as List<Formula>;
-      var path = new TreePath(args.Path);
-      store.GetIter(out var it, path);
-      var v = new GLib.Value();
-      store.GetValue(it, cnr, ref v);
-      var val = v.Val as string;
-      var rnr = path.Indices[0];
-      var f = flist?.FirstOrDefault(a => a.column == cnr - 2 && a.row == rnr);
-      var newtext = args.NewText;
-      if (Functions.IsBold(val))
-        newtext = Functions.MakeBold(newtext); // Preserve boldness
-      if (val == newtext)
-      {
-        if (f != null)
-          newtext = f.value;
-      }
-      if (val != newtext)
-      {
-        Debug.Print($"old {val} new {newtext}");
-        if (f != null)
-          flist.Remove(f);
-        var newf = Formula.Instance(newtext, cnr - 2, rnr);
-        if (newf == null)
-          store.SetValue(it, cnr, newtext);
-        else
-        {
-          flist.Add(newf);
-          CalculateFormulas(store, flist);
-        }
-      }
+      var flist = cr.Data["flist"] as Formulas;
+      flist?.EndEdit(store, cnr, args);
+      // var path = new TreePath(args.Path);
+      // store.GetIter(out var it, path);
+      // var v = new GLib.Value();
+      // store.GetValue(it, cnr, ref v);
+      // var val = v.Val as string;
+      // var rnr = path.Indices[0];
+      // var f = flist?.Get(cnr, rnr);
+      // var newtext = args.NewText;
+      // if (Functions.IsBold(val))
+      //   newtext = Functions.MakeBold(newtext); // Preserve boldness
+      // if (val == newtext)
+      // {
+      //   if (f != null)
+      //     newtext = f.Value;
+      // }
+      // if (val != newtext)
+      // {
+      //   Debug.Print($"old {val} new {newtext}");
+      //   if (f != null)
+      //     flist.List.Remove(f);
+      //   var newf = Formula.Instance(newtext, cnr - 2, rnr);
+      //   if (newf == null)
+      //     store.SetValue(it, cnr, newtext);
+      //   else
+      //   {
+      //     flist.List.Add(newf);
+      //     CalculateFormulas(store, flist);
+      //   }
+      // }
     }
 
     private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
@@ -845,6 +809,7 @@ namespace CSBP.Forms
         var unbold = l == Menu_table_normal;
         var cnr = (int)tv.Data["menucnr"]; // Affected column.
         var rnr = (int)tv.Data["menurnr"]; // Affected row.
+        var flist = tv.Data["flist"] as Formulas;
         Debug.Print($"Bold cnr {cnr} rnry {rnr}");
         var r = 0;
         var cmin = cnr <= 1 ? 0 : cnr;
@@ -860,6 +825,15 @@ namespace CSBP.Forms
               {
                 store.GetValue(i, c, ref v);
                 var val = v.Val as string;
+                if (c >= 2)
+                {
+                  var f = flist?.Get(c, r);
+                  if (f != null)
+                  {
+                    Debug.Print($"Formula bold cnr {c - 2} rnry {r}");
+                    f.bold = !unbold;
+                  }
+                }
                 store.SetValue(i, c, Functions.MakeBold(val, unbold));
               }
             }
@@ -906,17 +880,8 @@ namespace CSBP.Forms
         return;
       if (args.Event.Button == 1)
       {
-        var flist = tv.Data["flist"] as List<Formula>;
-        tv.GetCursor(out var path, out var c);
-        var cnr = (int)c.Data["cnr"];
-        store.GetIter(out var it, path);
-        var v = new GLib.Value();
-        store.GetValue(it, cnr, ref v);
-        var val = v.Val as string;
-        var rnr = path.Indices[0];
-        var f = flist?.FirstOrDefault(a => a.column == cnr - 2 && a.row == rnr);
-        if (f != null && val != f.formula)
-          store.SetValue(it, cnr, f.formula);
+        var flist = tv.Data["flist"] as Formulas;
+        flist?.BeginEdit(tv, store);
       }
       else if (args.Event.Button == 3)
       {

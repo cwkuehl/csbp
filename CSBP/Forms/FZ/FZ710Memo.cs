@@ -232,7 +232,7 @@ namespace CSBP.Forms.FZ
         var spalten = Math.Max(Functions.ToInt32(table.Attributes["spalten"]?.Value), 1);
         var zeilen = Math.Max(Functions.ToInt32(table.Attributes["zeilen"]?.Value), 1);
         var list = new List<string[]>();
-        var flist = new List<Formula>();
+        var flist = new Formulas();
         for (var i = 0; i < zeilen; i++)
         {
           var arr = new string[spalten + 2];
@@ -246,7 +246,7 @@ namespace CSBP.Forms.FZ
             arr[x + 2] = formel;
             var f = Formula.Instance(formel, x, i);
             if (f != null)
-              flist.Add(f);
+              flist.List.Add(f);
           }
           list.Add(arr);
         }
