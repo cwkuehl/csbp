@@ -152,7 +152,7 @@ public class Formulas
       else
         b = (cnr == cell.Item1 && rnr == cell.Item2);
     }
-    Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
+    // Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
     return b;
   }
 
@@ -172,13 +172,29 @@ public class Formulas
     store.GetValue(it, cnr, ref v);
     var val = v.Val as string;
     var rnr = path.Indices[0];
-    // Debug.Print($"Return cnr {cnr} rnr {rnr}");
+    Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
+    var cell = Cell;
+    if (cell != null && !(cell.Item1 == cnr && cell.Item2 == rnr))
+    {
+      // EndEdit for previous Edit
+      var f0 = Get(cell.Item1, cell.Item2);
+      if (f0 != null)
+      {
+        var path0 = new TreePath(new[] { cell.Item2 });
+        store.GetIter(out var it0, path0);
+        var v0 = new GLib.Value();
+        store.GetValue(it0, cell.Item1, ref v0);
+        var newtext = v0.Val as string;
+        EndEdit(store, cell.Item1, cell.Item2, newtext);
+      }
+      Cell = null;
+    }
     BeginEdit(cnr, rnr);
     var f = Get(cnr, rnr);
     if (f != null && val != f.formula)
     {
       store.SetValue(it, cnr, f.formula);
-      Debug.Print($"Bold {f.bold}");
+      // Debug.Print($"Bold {f.bold}");
     }
   }
 
@@ -193,13 +209,27 @@ public class Formulas
     if (store == null || args == null)
       return;
     var path = new TreePath(args.Path);
+    var rnr = path.Indices[0];
+    EndEdit(store, cnr, rnr, args.NewText);
+  }
+
+  /// <summary>
+  /// End the editing of a cell.
+  /// </summary>
+  /// <param name="store">Affected TreeView store.</param>
+  /// <param name="cnr">Affected column number.</param>
+  /// <param name="rnr">Affected ror number.</param>
+  /// <param name="newtext">Affected newtext.</param>
+  private void EndEdit(TreeStore store, int cnr, int rnr, string newtext)
+  {
+    if (store == null)
+      return;
+    var path = new TreePath(new[] { rnr });
     store.GetIter(out var it, path);
     var v = new GLib.Value();
     store.GetValue(it, cnr, ref v);
     var val = v.Val as string;
-    var rnr = path.Indices[0];
     var f = Get(cnr, rnr);
-    var newtext = args.NewText;
     if (Functions.IsBold(val))
       newtext = Functions.MakeBold(newtext); // Preserve boldness
     if (val == newtext)
@@ -228,6 +258,11 @@ public class Formulas
         CalculateFormulas(store);
       }
     }
+    var cell = Cell;
+    if (cell != null && cell.Item1 == cnr && cell.Item2 == rnr)
+      Cell = null;
+    else
+      Debug.Print($"No EndEdit cnr {cnr} rnr {rnr}");
   }
 
   /// <summary>
