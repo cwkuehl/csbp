@@ -2964,7 +2964,7 @@
         <value>First names</value>
     </data>
     <data name="SB200.filtern" xml:space="preserve">
-        <value>Filtern</value>
+        <value>filter</value>
     </data>
     <data name="SB200.filtern.tt" xml:space="preserve">
         <value>Should the ancestors be filtered by name?</value>

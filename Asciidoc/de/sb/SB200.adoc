@@ -24,7 +24,7 @@ image:SB200.png[{sb200-title},title={sb200-title}]
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
 |Name         |Suchfeld für den Namen mit Platzhaltern, z.B. '_ind%'.
 |Vorname      |Suchfeld für den Vornamen mit Platzhaltern, z.B. '_ind%'.
-|Filtern      |Soll die Liste nach Name und Vorname gefiltert werden? Wenn gefiltert wird, können die Auswahl-Schaltflächen für Verwandte evtl. nicht erfolgreich ausgeführt werden.
+|filtern      |Soll die Liste nach Name und Vorname gefiltert werden? Wenn gefiltert wird, können die Auswahl-Schaltflächen für Verwandte evtl. nicht erfolgreich ausgeführt werden.
 |Name         |Schaltfläche zum Auswählen des nächsten Ahnen, der den Suchkriterien entspricht.
 |Vater        |Schaltfläche zum Auswählen des Vaters des Ahnen.
 |Mutter       |Schaltfläche zum Auswählen der Mutter des Ahnen.

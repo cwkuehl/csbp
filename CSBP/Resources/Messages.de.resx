@@ -2964,7 +2964,7 @@
         <value>Selektions-Vornamen</value>
     </data>
     <data name="SB200.filtern" xml:space="preserve">
-        <value>Filtern</value>
+        <value>filtern</value>
     </data>
     <data name="SB200.filtern.tt" xml:space="preserve">
         <value>Sollen die Ahnen nach dem Namen gefiltert werden?</value>
