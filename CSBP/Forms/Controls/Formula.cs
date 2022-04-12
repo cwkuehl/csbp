@@ -166,6 +166,10 @@ public class Formulas
     if (tv == null || store == null)
       return;
     tv.GetCursor(out var path, out var c);
+    // tv.GetPathAtPos(10, 100, out var path1, out var c1, out var x1, out var y1);
+    // Debug.Print($"GetPathAtPos path {path1} c {c1.Data["cnr"]} x {x1} y {y1}");
+    if (path == null)
+      return;
     var cnr = (int)c.Data["cnr"];
     store.GetIter(out var it, path);
     var v = new GLib.Value();
@@ -285,11 +289,11 @@ public class Formulas
       }
       if (v != null)
       {
-        f.Value = v;
+        f.Value = Functions.MakeBold(v, !f.bold);
         Debug.Print($"Calculate {f.formula} {f.Value}");
         var tp = new TreePath(new[] { f.row });
         store.GetIter(out var it, tp);
-        store.SetValue(it, f.column + 2, v);
+        store.SetValue(it, f.column + 2, f.Value);
       }
     }
   }

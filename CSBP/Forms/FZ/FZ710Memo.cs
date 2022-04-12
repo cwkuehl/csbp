@@ -169,7 +169,7 @@ namespace CSBP.Forms.FZ
       if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
           || DialogType == DialogTypeEnum.Edit)
       {
-        var notes = SetMemo(tabelle.Model, notiz.Buffer.Text, splitpane.Position);
+        var notes = SetMemo(tabelle.Model, tabelle.Data["flist"] as Formulas, notiz.Buffer.Text, splitpane.Position);
         r = FactoryService.PrivateService.SaveMemo(ServiceDaten,
             DialogType == DialogTypeEnum.Edit ? nr.Text : null, thema.Text, notes);
       }
@@ -244,7 +244,7 @@ namespace CSBP.Forms.FZ
             var x = Functions.ToInt32(z.Attributes["x"]?.Value);
             var formel = z.FirstChild?.InnerText;
             arr[x + 2] = formel;
-            var f = Formula.Instance(formel, x, i);
+            var f = Formula.Instance(formel, x, i); // Read formula.
             if (f != null)
               flist.List.Add(f);
           }
@@ -266,7 +266,7 @@ namespace CSBP.Forms.FZ
      <notiz>Turniere</notiz></tabelle>
      */
 
-    private string SetMemo(ITreeModel model, string memo, int teiler)
+    private string SetMemo(ITreeModel model, Formulas flist, string memo, int teiler)
     {
       memo = memo.TrimNull();
       var spalten = model.NColumns;
@@ -289,9 +289,16 @@ namespace CSBP.Forms.FZ
         {
           for (var x = 0; x < spalten - 2; x++)
           {
-            var v = new GLib.Value();
-            model.GetValue(it, x + 2, ref v);
-            var value = v.Val as string;
+            var f = flist?.Get(x + 2, y); // Save formula instead of value.
+            var value = f?.formula;
+            if (string.IsNullOrEmpty(value))
+            {
+              var v = new GLib.Value();
+              model.GetValue(it, x + 2, ref v);
+              value = v.Val as string;
+            }
+            else if (f.bold)
+              value = Functions.MakeBold(value);
             if (!string.IsNullOrEmpty(value))
             {
               var e = new XElement("zelle", new XAttribute("x", $"{x}"),
