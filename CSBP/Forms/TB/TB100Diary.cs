@@ -413,7 +413,7 @@ namespace CSBP.Forms.TB
       var pfad = Parameter.TempPath;
       var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
       UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray(),
-        puid, from.Value, to.Value)), pfad, datei, true);
+        puid, from.Value, to.Value)), pfad, datei);
     }
 
     /// <summary>Behandlung von Date.</summary>

@@ -790,6 +790,9 @@
     <data name="M0000" xml:space="preserve">
         <value>M0000OK</value>
     </data>
+    <data name="M1000" xml:space="preserve">
+        <value>M1000Table</value>
+    </data>
     <data name="M1011_" xml:space="preserve">
         <value>M1011{0:s} of {1}</value>
     </data>

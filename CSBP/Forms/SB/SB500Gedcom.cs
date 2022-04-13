@@ -144,7 +144,7 @@ namespace CSBP.Forms.SB
       if (string.IsNullOrEmpty(datei.Text))
         throw new MessageException(M1012);
       var lines = Get(FactoryService.PedigreeService.ExportAncestorList(ServiceDaten, datei.Text, name.Text, filter.Buffer.Text));
-      UiTools.SaveFile(lines, datei.Text, open: true);
+      UiTools.SaveFile(lines, datei.Text);
     }
 
     /// <summary>Behandlung von Importieren.</summary>

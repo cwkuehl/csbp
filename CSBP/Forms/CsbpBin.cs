@@ -7,6 +7,7 @@ namespace CSBP.Forms
   using System;
   using System.Collections.Generic;
   using Gtk;
+  using static CSBP.Resources.M;
   using static CSBP.Resources.Messages;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Services;
@@ -20,7 +21,6 @@ namespace CSBP.Forms
   using System.Threading;
   using System.Threading.Tasks;
   using CSBP.Forms.Controls;
-  using System.Linq;
 
   [System.ComponentModel.ToolboxItem(false)]
   public partial class CsbpBin : Bin
@@ -650,40 +650,15 @@ namespace CSBP.Forms
       var store = cr.Data["store"] as TreeStore;
       var flist = cr.Data["flist"] as Formulas;
       flist?.EndEdit(store, cnr, args);
-      // var path = new TreePath(args.Path);
-      // store.GetIter(out var it, path);
-      // var v = new GLib.Value();
-      // store.GetValue(it, cnr, ref v);
-      // var val = v.Val as string;
-      // var rnr = path.Indices[0];
-      // var f = flist?.Get(cnr, rnr);
-      // var newtext = args.NewText;
-      // if (Functions.IsBold(val))
-      //   newtext = Functions.MakeBold(newtext); // Preserve boldness
-      // if (val == newtext)
-      // {
-      //   if (f != null)
-      //     newtext = f.Value;
-      // }
-      // if (val != newtext)
-      // {
-      //   Debug.Print($"old {val} new {newtext}");
-      //   if (f != null)
-      //     flist.List.Remove(f);
-      //   var newf = Formula.Instance(newtext, cnr - 2, rnr);
-      //   if (newf == null)
-      //     store.SetValue(it, cnr, newtext);
-      //   else
-      //   {
-      //     flist.List.Add(newf);
-      //     CalculateFormulas(store, flist);
-      //   }
-      // }
     }
 
+    /// <summary>
+    /// Perform context menu commands.
+    /// </summary>
+    /// <param name="o">Affected object.</param>
+    /// <param name="args">Affected event args.</param>
     private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
     {
-      // TODO Formatierung der Tabelle: links, mitte, rechts, copy, drucken
       var mi = o as MenuItem;
       if (mi == null)
         return;
@@ -842,6 +817,33 @@ namespace CSBP.Forms
           while ((rnr < 0 || r <= rnr) && store.IterNext(ref i));
         }
       }
+      else if (l == Menu_table_copy)
+      {
+        // Copy to CSV format.
+        var lines = new List<string>();
+        if (store.GetIterFirst(out var i))
+        {
+          var columns = store.NColumns;
+          do
+          {
+            var cells = new List<string>();
+            for (var j = 2; j < columns; j++)
+            {
+              var v = new GLib.Value();
+              store.GetValue(i, j, ref v);
+              var val = v.Val as string;
+              cells.Add(Functions.MakeBold(val ?? "", true));
+            }
+            lines.Add(Functions.EncodeCSV(cells));
+          } while (store.IterNext(ref i));
+        }
+        var csv = string.Join(Constants.CRLF, lines);
+        UiTools.SaveFile(lines, Parameter.TempPath, M0(M1000), true, "csv");
+      }
+      else if (l == Menu_table_print)
+      {
+        // TODO drucken
+      }
       if (znummern)
       {
         // Debug.Print("znummern");
@@ -949,16 +951,16 @@ namespace CSBP.Forms
         mi.Data["store"] = store;
         mi.ButtonPressEvent += OnTableMenuItemClick;
         m.Add(mi);
-        // TODO mi = new MenuItem(Menu_table_copy);
-        // mi.Data["tv"] = tv;
-        // mi.Data["store"] = store;
-        // mi.ButtonPressEvent += OnTableMenuItemClick;
-        // m.Add(mi);
-        // mi = new MenuItem(Menu_table_print);
-        // mi.Data["tv"] = tv;
-        // mi.Data["store"] = store;
-        // mi.ButtonPressEvent += OnTableMenuItemClick;
-        // m.Add(mi);
+        mi = new MenuItem(Menu_table_copy);
+        mi.Data["tv"] = tv;
+        mi.Data["store"] = store;
+        mi.ButtonPressEvent += OnTableMenuItemClick;
+        m.Add(mi);
+        mi = new MenuItem(Menu_table_print);
+        mi.Data["tv"] = tv;
+        mi.Data["store"] = store;
+        mi.ButtonPressEvent += OnTableMenuItemClick;
+        m.Add(mi);
         m.ShowAll();
         m.Popup();
       }

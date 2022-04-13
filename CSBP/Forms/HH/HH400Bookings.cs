@@ -295,7 +295,7 @@ namespace CSBP.Forms.HH
       var file = SelectFile(HH400_select_file);
       var lines = Get(FactoryService.BudgetService.ExportBookingList(ServiceDaten,
           GetText(kennzeichen1) == "1", von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text));
-      UiTools.SaveFile(lines, file, open: true);
+      UiTools.SaveFile(lines, file);
     }
 
     /// <summary>Behandlung von Buchungen.</summary>
