@@ -15,6 +15,7 @@ namespace CSBP.Services.Base
   using System.Security.Cryptography.X509Certificates;
   using System.Text;
   using System.Xml.Serialization;
+  using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Repositories;
@@ -193,7 +194,7 @@ namespace CSBP.Services.Base
           ul.List.AddRange(db.PreUndoList.List);
           db.PreUndoList.List.Clear();
         }
-        Commit(db, ul);
+        Commit(ul);
       }
     }
 
@@ -213,9 +214,13 @@ namespace CSBP.Services.Base
       return ul.List.Count <= 0 ? null : ul;
     }
 
-    internal static void Commit(DbContext db, UndoList ul)
+    /// <summary>
+    /// Commit a new undo list.
+    /// </summary>
+    /// <param name="ul">Affected undo list.</param>
+    internal static void Commit(UndoList ul)
     {
-      if (db == null || ul == null)
+      if (ul == null)
         return;
       if (ul.List.Count > 0)
       {
@@ -352,7 +357,16 @@ namespace CSBP.Services.Base
       var con = db.Database.GetDbConnection();
       foreach (var e in ul.List)
       {
-        if (e.IsInsert)
+        if (e.IsFileData)
+        {
+          if (e.IsInsert)
+          {
+            var fd = e.Actual as FileData;
+            if (fd != null)
+              File.Delete(fd.Name);
+          }
+        }
+        else if (e.IsInsert)
         {
           //db.Entry(e.Actual).State = EntityState.Deleted;
           Delete(con, e.Actual);
@@ -390,7 +404,16 @@ namespace CSBP.Services.Base
       var con = db.Database.GetDbConnection();
       foreach (var e in ul.List)
       {
-        if (e.IsInsert)
+        if (e.IsFileData)
+        {
+          if (e.IsInsert)
+          {
+            var fd = e.Actual as FileData;
+            if (fd != null)
+              File.WriteAllBytes(fd.Name, fd.Bytes);
+          }
+        }
+        else if (e.IsInsert)
         {
           //db.Entry(e.Actual).State = EntityState.Added;
           Insert(con, e.Actual);

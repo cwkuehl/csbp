@@ -9,6 +9,7 @@ namespace CSBP.Forms
   using System.IO;
   using System.Linq;
   using CSBP.Base;
+  using CSBP.Services.Factory;
 
   public class UiTools
   {
@@ -28,6 +29,7 @@ namespace CSBP.Forms
       var fn = Path.Combine(Parameter.TempPath,
           Functions.GetDateiname(name, daterandom, daterandom, ext));
       File.WriteAllBytes(fn, bytes);
+      FactoryService.ClientService.CommitFile(fn); // Put file into the undo stack.
       if (open)
         StartFile(fn);
     }
@@ -44,7 +46,6 @@ namespace CSBP.Forms
     public static void SaveFile(List<string> lines, string path, string file = null, bool daterandom = false,
         string ext = null, bool open = true)
     {
-      // TODO Put file into undo stack.
       if (lines == null)
         return;
       if (string.IsNullOrEmpty(path) && string.IsNullOrEmpty(file))
@@ -54,6 +55,7 @@ namespace CSBP.Forms
       var fn = string.IsNullOrEmpty(path) ? file : string.IsNullOrEmpty(file)
           ? path : Path.Combine(path ?? "", file);
       File.WriteAllLines(fn, lines);
+      FactoryService.ClientService.CommitFile(fn); // Put file into the undo stack.
       if (open)
         StartFile(fn);
     }

@@ -24,6 +24,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using CSBP.Services.Repositories.Base;
 using CSBP.Services.Reports;
+using CSBP.Services.Undo;
 
 public class ClientService : ServiceBase, IClientService
 {
@@ -1211,6 +1212,28 @@ Lokal: {e.Eintrag}";
       Lines = lines,
     };
     r.Ergebnis = rp.Generate();
+    return r;
+  }
+
+  /// <summary>
+  /// Commit a new file to the undo stack.
+  /// </summary>
+  /// <returns>Possibly errors.</returns>
+  /// <param name="name">Affected file name with path.</param>
+  public ServiceErgebnis CommitFile(string name)
+  {
+    var r = new ServiceErgebnis();
+    if (string.IsNullOrWhiteSpace(name))
+      throw new MessageException(M1012);
+    var bytes = File.ReadAllBytes(name);
+    var e = new FileData
+    {
+      Name = name,
+      Bytes = bytes
+    };
+    var ul = new UndoList();
+    ul.Insert(e);
+    Commit(ul);
     return r;
   }
 

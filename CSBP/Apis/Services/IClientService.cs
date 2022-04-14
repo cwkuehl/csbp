@@ -184,5 +184,12 @@ namespace CSBP.Apis.Services
     /// <param name="name">Affected table name.</param>
     /// <param name="lines">Affected table data.</param>
     ServiceErgebnis<byte[]> GetTableReport(ServiceDaten daten, string name, List<List<string>> lines);
+
+    /// <summary>
+    /// Commit a new file to the undo stack.
+    /// </summary>
+    /// <returns>Possibly errors.</returns>
+    /// <param name="name">Affected file name with path.</param>
+    ServiceErgebnis CommitFile(string name);
   }
 }
