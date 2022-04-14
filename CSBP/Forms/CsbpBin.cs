@@ -21,6 +21,7 @@ namespace CSBP.Forms
   using System.Threading;
   using System.Threading.Tasks;
   using CSBP.Forms.Controls;
+  using CSBP.Services.Factory;
 
   [System.ComponentModel.ToolboxItem(false)]
   public partial class CsbpBin : Bin
@@ -819,22 +820,30 @@ namespace CSBP.Forms
       }
       else if (l == Menu_table_copy)
       {
-        // Copy to CSV format.
+        // Copy with formulas to CSV format.
         var lines = new List<string>();
+        var r = 0;
         if (store.GetIterFirst(out var i))
         {
+          var flist = tv.Data["flist"] as Formulas;
           var columns = store.NColumns;
           do
           {
             var cells = new List<string>();
-            for (var j = 2; j < columns; j++)
+            for (var c = 2; c < columns; c++)
             {
-              var v = new GLib.Value();
-              store.GetValue(i, j, ref v);
-              var val = v.Val as string;
+              var f = flist?.Get(c, r);
+              var val = f?.formula;
+              if (val == null)
+              {
+                var v = new GLib.Value();
+                store.GetValue(i, c, ref v);
+                val = v.Val as string;
+              }
               cells.Add(Functions.MakeBold(val ?? "", true));
             }
             lines.Add(Functions.EncodeCSV(cells));
+            r++;
           } while (store.IterNext(ref i));
         }
         var csv = string.Join(Constants.CRLF, lines);
@@ -842,7 +851,26 @@ namespace CSBP.Forms
       }
       else if (l == Menu_table_print)
       {
-        // TODO drucken
+        // Copy with values to HTML format.
+        var lines = new List<List<string>>();
+        if (store.GetIterFirst(out var i))
+        {
+          var columns = store.NColumns;
+          do
+          {
+            var cells = new List<string>();
+            for (var c = 1; c < columns; c++)
+            {
+              var v = new GLib.Value();
+              store.GetValue(i, c, ref v);
+              var val = v.Val as string;
+              cells.Add(Functions.MakeBold(val ?? "", true));
+            }
+            lines.Add(cells);
+          } while (store.IterNext(ref i));
+          var r = Get(FactoryService.ClientService.GetTableReport(ServiceDaten, "", lines));
+          UiTools.SaveFile(r, M0(M1000));
+        }
       }
       if (znummern)
       {

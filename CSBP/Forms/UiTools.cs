@@ -44,6 +44,7 @@ namespace CSBP.Forms
     public static void SaveFile(List<string> lines, string path, string file = null, bool daterandom = false,
         string ext = null, bool open = true)
     {
+      // TODO Put file into undo stack.
       if (lines == null)
         return;
       if (string.IsNullOrEmpty(path) && string.IsNullOrEmpty(file))

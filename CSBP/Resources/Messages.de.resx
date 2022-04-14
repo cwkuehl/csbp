@@ -793,6 +793,9 @@
     <data name="M1000" xml:space="preserve">
         <value>M1000Tabelle</value>
     </data>
+    <data name="M1001_" xml:space="preserve">
+        <value>M1001Tabelle{0} vom {1:yyyy-MM-dd HH:mm:ss}</value>
+    </data>
     <data name="M1011_" xml:space="preserve">
         <value>M1011{0:s} von {1}</value>
     </data>
@@ -1020,10 +1023,10 @@
         <value>Format normal</value>
     </data>
     <data name="Menu.table.copy" xml:space="preserve">
-        <value>Kopieren</value>
+        <value>Kopieren (mit Formeln in CSV-Datei)</value>
     </data>
     <data name="Menu.table.print" xml:space="preserve">
-        <value>Drucken</value>
+        <value>Drucken (mit Werten in HTML-Datei)</value>
     </data>
 
     <!-- Aufzählungen -->

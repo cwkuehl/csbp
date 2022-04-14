@@ -1312,6 +1312,11 @@ namespace CSBP.Resources
       get { return rm.GetString("M1000"); }
     }
 
+    public static string M1001_
+    {
+      get { return rm.GetString("M1001_"); }
+    }
+
     public static string M1011_
     {
       get { return rm.GetString("M1011_"); }

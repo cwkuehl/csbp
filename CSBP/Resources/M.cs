@@ -206,6 +206,8 @@ namespace CSBP.Resources
 
     public static string WP054(string c, string e, bool cut = true) => string.Format(M0(WP054_, cut), c, e);
 
+    public static string M1001(string s, DateTime d) => string.Format(M0(M1001_), s, d);
+
     public static string M1011(DateTime date, string of, bool cut = false) => string.Format(M0(M1011_, cut), date, of);
 
     public static string M1019(int ch, string csv, bool cut = false) => string.Format(M0(M1019_, cut), ch, csv);

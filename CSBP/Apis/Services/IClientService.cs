@@ -175,5 +175,14 @@ namespace CSBP.Apis.Services
     /// <param name="mode">Affected mode.</param>
     /// <param name="json">Affected data as json string.</param>
     ServiceErgebnis<string> ReplicateTable(ServiceDaten daten, string table, string mode, string json);
+
+    /// <summary>
+    /// Get an table report.
+    /// </summary>
+    /// <returns>An table report.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="name">Affected table name.</param>
+    /// <param name="lines">Affected table data.</param>
+    ServiceErgebnis<byte[]> GetTableReport(ServiceDaten daten, string name, List<List<string>> lines);
   }
 }
