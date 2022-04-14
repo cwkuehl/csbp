@@ -8,6 +8,16 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
   </object>
+  <object class="GtkImage" id="undoImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-undo</property>
+  </object>
+  <object class="GtkImage" id="redoImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-redo</property>
+  </object>
   <object class="GtkGrid" id="FZ100Statistics">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -36,6 +46,34 @@
           </object>
           <packing>
             <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="undoAction">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip_text">Action.undo</property>
+            <property name="image">undoImage</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="OnUndoClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="redoAction">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip_text">Action.redo</property>
+            <property name="image">redoImage</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="OnRedoClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

@@ -139,6 +139,24 @@ namespace CSBP.Forms.FZ
       InitData(1);
     }
 
+    /// <summary>Behandlung von Undo.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnUndoClicked(object sender, EventArgs e)
+    {
+      if (MainClass.Undo())
+        refreshAction.Click();
+    }
+
+    /// <summary>Behandlung von Redo.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnRedoClicked(object sender, EventArgs e)
+    {
+      if (MainClass.Redo())
+        refreshAction.Click();
+    }
+
     /// <summary>Behandlung von datum.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
