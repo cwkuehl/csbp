@@ -170,11 +170,11 @@ public class Formulas
     if (path == null || c.Data["cnr"] == null)
       return;
     var cnr = (int)c.Data["cnr"];
+    var rnr = path.Indices[0];
     store.GetIter(out var it, path);
     var v = new GLib.Value();
     store.GetValue(it, cnr, ref v);
     var val = v.Val as string;
-    var rnr = path.Indices[0];
     Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
     var cell = Cell;
     if (cell != null && !(cell.Item1 == cnr && cell.Item2 == rnr))
@@ -197,7 +197,6 @@ public class Formulas
     if (f != null && val != f.formula)
     {
       store.SetValue(it, cnr, f.formula);
-      // Debug.Print($"Bold {f.bold}");
     }
   }
 

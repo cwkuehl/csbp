@@ -506,7 +506,7 @@ namespace CSBP.Forms
       var store = new TreeStore(types);
       for (var i = 0; i < titles.Length; i++)
       {
-        var col = GetColumn(titles[i], i, editable && i >= 2, store, flist);
+        var col = GetColumn(titles[i], i, editable && i >= 2, !editable, store, flist);
         tv.AppendColumn(col);
       }
       tv.Model = store;
@@ -553,7 +553,7 @@ namespace CSBP.Forms
       var store = new TreeStore(types);
       for (var i = 0; i < titles.Length; i++)
       {
-        var col = GetColumn(titles[i], i, editable && i >= 2, store, null);
+        var col = GetColumn(titles[i], i, editable && i >= 2, true, store, null);
         tv.AppendColumn(col);
       }
       if (values != null)
@@ -587,7 +587,7 @@ namespace CSBP.Forms
     }
 
     /// <summary>Liefert eine TreeView-Spalte.</summary>
-    private TreeViewColumn GetColumn(string title, int i, bool editable, ITreeModel store, Formulas flist)
+    private TreeViewColumn GetColumn(string title, int i, bool editable, bool sortable, ITreeModel store, Formulas flist)
     {
       var align = 0f; // left
       if (title.EndsWith("_r", StringComparison.InvariantCulture))
@@ -616,7 +616,7 @@ namespace CSBP.Forms
       }
       var col = new TreeViewColumn
       {
-        SortColumnId = i,
+        SortColumnId = sortable ? i : -1,
         Resizable = true,
         Alignment = align,
       };
