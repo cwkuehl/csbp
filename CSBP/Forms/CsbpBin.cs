@@ -506,7 +506,7 @@ namespace CSBP.Forms
       var store = new TreeStore(types);
       for (var i = 0; i < titles.Length; i++)
       {
-        var col = GetColumn(titles[i], i, editable, store, flist);
+        var col = GetColumn(titles[i], i, editable && i >= 2, store, flist);
         tv.AppendColumn(col);
       }
       tv.Model = store;
@@ -553,7 +553,7 @@ namespace CSBP.Forms
       var store = new TreeStore(types);
       for (var i = 0; i < titles.Length; i++)
       {
-        var col = GetColumn(titles[i], i, editable, store, null);
+        var col = GetColumn(titles[i], i, editable && i >= 2, store, null);
         tv.AppendColumn(col);
       }
       if (values != null)
@@ -650,6 +650,7 @@ namespace CSBP.Forms
       var cnr = (int)cr.Data["cnr"];
       var store = cr.Data["store"] as TreeStore;
       var flist = cr.Data["flist"] as Formulas;
+      // Debug.Print($"TableCell_Edited cnr {cnr}");
       flist?.EndEdit(store, cnr, args);
     }
 

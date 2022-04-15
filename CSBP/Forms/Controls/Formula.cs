@@ -103,6 +103,7 @@ public class Formula
     {
       return new Formula(formula, c, r, "today", bold);
     }
+    // TODO Add formula for sum, count, days.
     return null;
   }
 }
@@ -166,9 +167,7 @@ public class Formulas
     if (tv == null || store == null)
       return;
     tv.GetCursor(out var path, out var c);
-    // tv.GetPathAtPos(10, 100, out var path1, out var c1, out var x1, out var y1);
-    // Debug.Print($"GetPathAtPos path {path1} c {c1.Data["cnr"]} x {x1} y {y1}");
-    if (path == null)
+    if (path == null || c.Data["cnr"] == null)
       return;
     var cnr = (int)c.Data["cnr"];
     store.GetIter(out var it, path);
@@ -233,6 +232,13 @@ public class Formulas
     var v = new GLib.Value();
     store.GetValue(it, cnr, ref v);
     var val = v.Val as string;
+    if (cnr == 1)
+    {
+      // Do not change the row number.
+      if (val != newtext)
+        store.SetValue(it, cnr, val);
+      return;
+    }
     var f = Get(cnr, rnr);
     if (Functions.IsBold(val))
       newtext = Functions.MakeBold(newtext); // Preserve boldness
