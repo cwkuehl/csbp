@@ -97,7 +97,13 @@ namespace CSBP
     {
       var fn = Parameter.GetValue(Parameter.AG_HILFE_DATEI);
       if (!string.IsNullOrEmpty(fn))
-        UiTools.StartFile(fn); // TODO Start help for dialog.
+      {
+        var d = MainWindow.GetActiveDialog();
+        var f = d?.GetType().Name.Left(5);
+        ////if (f != null)
+        ////  fn = $"{fn}?#{f}";
+        UiTools.StartFile(fn, f); // TODO Start help for dialog.
+      }
     }
 
     /// <summary>Schließen der Anwendung mit Schließen aller Tabs und Speichern der Parameter.</summary>

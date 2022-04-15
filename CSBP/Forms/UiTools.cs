@@ -74,11 +74,14 @@ namespace CSBP.Forms
     /// Opens a file with default application or browser.
     /// </summary>
     /// <param name="fn">Affected file incl. path or URL.</param>
-    public static void StartFile(string fn)
+    /// <param name="args">Optional argument.</param>
+    public static void StartFile(string fn, string args = null)
     {
       var process = new Process();
       process.StartInfo.UseShellExecute = true;
       process.StartInfo.FileName = fn;
+      if (args != null)
+        process.StartInfo.Arguments = args;
       process.Start();
     }
   }

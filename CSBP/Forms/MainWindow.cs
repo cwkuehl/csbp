@@ -548,6 +548,20 @@ namespace CSBP.Forms
     }
 
     /// <summary>
+    /// Get active dialog of notebook.
+    /// </summary>
+    /// <returns>Active dialog of notebook.</returns>
+    public CsbpBin GetActiveDialog()
+    {
+      if (Notebook.NPages > 0)
+      {
+        var p = Notebook.GetNthPage(Notebook.Page) as CsbpBin;
+        return p;
+      }
+      return null;
+    }
+
+    /// <summary>
     /// Fokussieren bzw.async Wechseln zu einer Seite.
     /// </summary>
     /// <typeparam name="T">Betroffener Dialog-Type.</typeparam>
