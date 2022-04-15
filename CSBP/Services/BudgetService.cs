@@ -1635,8 +1635,7 @@ namespace CSBP.Services
     /// <param name="datum">Affected date.</param>
     private void SetzePassendeBerPeriode(ServiceDaten daten, DateTime datum)
     {
-      var nr = HolePassendePeriodeNr(daten, datum);
-      // TODO Fehlerfall: minimale passende Periode setzen
+      var nr = HolePassendePeriodeNr(daten, datum); // Exception in case of error
       SetzeBerPeriode(daten, nr);
     }
 
