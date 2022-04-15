@@ -412,7 +412,7 @@ namespace CSBP.Forms.TB
       var puid = GetText(position2);
       var pfad = Parameter.TempPath;
       var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
-      UiTools.SaveFile(Get(FactoryService.DiaryService.GetFile(ServiceDaten, GetSearchArray(),
+      UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, GetSearchArray(),
         puid, from.Value, to.Value)), pfad, datei);
     }
 

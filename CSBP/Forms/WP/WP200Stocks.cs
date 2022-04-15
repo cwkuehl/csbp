@@ -312,6 +312,7 @@ namespace CSBP.Forms.WP
     {
       try
       {
+        // TODO Calculate stocks.
         // var password = "";
         // var uid = GetValue<string>(verzeichnisse);
         // if (restore && !ShowYesNoQuestion(M0(AG001)))

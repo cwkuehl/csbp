@@ -300,7 +300,7 @@ namespace CSBP.Services
     /// <param name="puid">Affected position uid.</param>
     /// <param name="from">Affected from date.</param>
     /// <param name="to">Affected from date.</param>
-    public ServiceErgebnis<List<string>> GetFile(ServiceDaten daten, string[] suche,
+    public ServiceErgebnis<List<string>> GetDiaryReport(ServiceDaten daten, string[] suche,
       string puid, DateTime? from, DateTime? to)
     {
       CheckSearch(suche);
@@ -346,6 +346,8 @@ namespace CSBP.Services
       var liste = TbEintragRep.SearchEntries(daten, suche, puid, from, to);
       foreach (var e in liste)
       {
+        // TODO Positions
+        // TODO Without control characters
         v.Add(TB006(e.Datum, e.Eintrag));
       }
       if (rf)

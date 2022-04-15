@@ -23,7 +23,8 @@ image:WP200.png[{wp200-title},title={wp200-title}]
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
 |Suche        |Suchfeld für alle Texte der Wertpapiere mit Platzhaltern, z.B. '_ind%' findet alle Texte, die ein beliebiges 1. Zeichen, dann 'ind' haben und dann beliebig sind, wie 'Kinder' oder 'Rind'.
 |Muster       |Das letzte Muster der Bewertung kann mit Platzhaltern gesucht werden.
-|Bewertungen berechnen|Noch nicht implementiert: Schaltfläche zum Starten der Bewertungsberechnung für alle selektierten und aktiven Wertpapiere.
+|auch inaktive|Wenn das Kontrollkästchen aktiviert, werden auch die inaktiven Wertpapieren angezeigt.
+|Bewertungen berechnen|Noch nicht implementiert: Schaltfläche zum Starten der Bewertungsberechnung für alle selektierten Wertpapiere.
 |Bis          |End-Datum für die Bewertung festlegen.
 |Konfiguration|Konfiguration für die Bewertung festlegen.
 |Abbrechen    |Schaltfläche zum Abbrechen der laufenden Bewertungsberechnung.

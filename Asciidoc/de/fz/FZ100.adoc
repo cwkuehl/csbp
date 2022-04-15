@@ -11,6 +11,8 @@ image:FZ100.png[{fz100-title},title={fz100-title}]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/gtk-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Informationen.
+|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
 |Datum        |Das Datum, auf das sich die Informationen beziehen, kann eingestellt werden.
 |Bilanz       |Das Eigenkapital aus den Schlussbilanzen der letzten Jahre wird angezeigt.
 |Bücher       |Daten aus den Bücher-Dialogen: Für den aktuellen Benutzer werden folgende Daten angezeigt: Person (Benutzer-ID), Lebenstage, Anzahl der erfassten Bücher, gelesen (davon), Englische Bücher, Perry Rhoden-Hefte, PR-Hefte gelesen, gelesene Buch-Seiten (nicht PR), gelesene PR-Seiten, gelesene Seiten, gelesene Seiten/Tag.

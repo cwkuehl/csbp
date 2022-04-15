@@ -62,7 +62,7 @@ namespace CSBP.Apis.Services
     /// <param name="puid">Affected position uid.</param>
     /// <param name="from">Affected from date.</param>
     /// <param name="to">Affected from date.</param>
-    ServiceErgebnis<List<string>> GetFile(ServiceDaten daten, string[] suche, string puid, DateTime? from, DateTime? to);
+    ServiceErgebnis<List<string>> GetDiaryReport(ServiceDaten daten, string[] suche, string puid, DateTime? from, DateTime? to);
 
     /// <summary>
     /// Gets the position.
