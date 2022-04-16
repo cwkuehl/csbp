@@ -666,6 +666,7 @@ namespace CSBP.Forms
         return;
       var tv = mi.Data["tv"] as TreeView;
       var store = mi.Data["store"] as TreeStore;
+      var flist = tv.Data["flist"] as Formulas;
       var spalten = store.NColumns;
       var zeilen = 0;
       if (store.GetIterFirst(out var it))
@@ -677,7 +678,7 @@ namespace CSBP.Forms
       }
       var s = tv.Selection.GetSelectedRows();
       var znummern = false;
-      // Menüpunkte verarbeiten
+      // Handle menu items
       var l = (mi.Child as Label)?.Text;
       if (l == Menu_table_addrow)
       {
@@ -686,12 +687,14 @@ namespace CSBP.Forms
           var v = new GLib.Value();
           store.GetValue(i, 0, ref v);
           var value = Math.Max(1, Functions.ToInt32(v.Val as string));
+          flist?.AddRow(value - 1);
           store.InsertWithValues(value - 1, "0", "000");
           znummern = true;
         }
       }
       else if (l == Menu_table_addrow2)
       {
+        flist?.AddRow(zeilen);
         foreach (var sel in s)
         {
           zeilen++;
@@ -700,11 +703,17 @@ namespace CSBP.Forms
       }
       else if (l == Menu_table_delrow)
       {
+        if (s.Length > 0 && store.GetIter(out var it0, s[0]))
+        {
+          var v = new GLib.Value();
+          store.GetValue(it0, 0, ref v);
+          var value = Math.Max(1, Functions.ToInt32(v.Val as string));
+          flist?.DeleteRow(value - 1);
+        }
         var z = zeilen;
         for (var i = s.Length - 1; i >= 0 && z > 1; i--)
           if (store.GetIter(out var iter, s[i]))
           {
-            // var childIter = treeModelSort.ConvertIterToChildIter(iter);
             store.Remove(ref iter);
             z--;
             znummern = true;
@@ -743,7 +752,8 @@ namespace CSBP.Forms
               // Debug.Print(string.Join(" | ", arr));
             } while (store.IterNext(ref i));
           }
-          AddStringColumns(tv, spalten + anz - 2, true, list);
+          flist?.AddColumn(pos + anz - 2 - 1);
+          AddStringColumns(tv, spalten + anz - 2, true, list, flist);
         }
       }
       else if (l == Menu_table_delcol)
@@ -777,7 +787,8 @@ namespace CSBP.Forms
               // Debug.Print(string.Join(" | ", arr));
             } while (store.IterNext(ref i));
           }
-          AddStringColumns(tv, spalten - anz - 2, true, list);
+          flist?.DeleteColumn(pos + anz - 2 - 1);
+          AddStringColumns(tv, spalten - anz - 2, true, list, flist);
         }
       }
       else if (l == Menu_table_bold || l == Menu_table_normal)
@@ -786,7 +797,6 @@ namespace CSBP.Forms
         var unbold = l == Menu_table_normal;
         var cnr = (int)tv.Data["menucnr"]; // Affected column.
         var rnr = (int)tv.Data["menurnr"]; // Affected row.
-        var flist = tv.Data["flist"] as Formulas;
         Debug.Print($"Bold cnr {cnr} rnry {rnr}");
         var r = 0;
         var cmin = cnr <= 1 ? 0 : cnr;
@@ -826,7 +836,6 @@ namespace CSBP.Forms
         var r = 0;
         if (store.GetIterFirst(out var i))
         {
-          var flist = tv.Data["flist"] as Formulas;
           var columns = store.NColumns;
           do
           {

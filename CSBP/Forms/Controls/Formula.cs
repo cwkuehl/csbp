@@ -220,7 +220,7 @@ public class Formulas
   /// </summary>
   /// <param name="store">Affected TreeView store.</param>
   /// <param name="cnr">Affected column number.</param>
-  /// <param name="rnr">Affected ror number.</param>
+  /// <param name="rnr">Affected row number.</param>
   /// <param name="newtext">Affected newtext.</param>
   private void EndEdit(TreeStore store, int cnr, int rnr, string newtext)
   {
@@ -300,6 +300,76 @@ public class Formulas
         store.GetIter(out var it, tp);
         store.SetValue(it, f.column + 2, f.Value);
       }
+    }
+  }
+
+  /// <summary>
+  /// Add a row.
+  /// </summary>
+  /// <param name="rnr">Affected row number.</param>
+  public void AddRow(int rnr)
+  {
+    Debug.Print($"AddRow rnr {rnr}");
+    foreach (var f in List)
+    {
+      if (f.row >= rnr)
+        f.row++;
+    }
+  }
+
+  /// <summary>
+  /// Delete a row.
+  /// </summary>
+  /// <param name="rnr">Affected row number.</param>
+  public void DeleteRow(int rnr)
+  {
+    Debug.Print($"DeleteRow rnr {rnr}");
+    var l = new List<Formula>();
+    foreach (var f in List)
+    {
+      if (f.row == rnr)
+        l.Add(f);
+      if (f.row > rnr)
+        f.row--;
+    }
+    foreach (var f in l)
+    {
+      List.Remove(f);
+    }
+  }
+
+  /// <summary>
+  /// Add a column.
+  /// </summary>
+  /// <param name="cnr">Affected column number.</param>
+  public void AddColumn(int cnr)
+  {
+    Debug.Print($"AddColumn cnr {cnr}");
+    foreach (var f in List)
+    {
+      if (f.column >= cnr)
+        f.column++;
+    }
+  }
+
+  /// <summary>
+  /// Delete a column.
+  /// </summary>
+  /// <param name="cnr">Affected column number.</param>
+  public void DeleteColumn(int cnr)
+  {
+    Debug.Print($"DeleteColumn cnr {cnr}");
+    var l = new List<Formula>();
+    foreach (var f in List)
+    {
+      if (f.column == cnr)
+        l.Add(f);
+      if (f.column > cnr)
+        f.column--;
+    }
+    foreach (var f in l)
+    {
+      List.Remove(f);
     }
   }
 }
