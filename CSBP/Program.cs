@@ -5,6 +5,7 @@
 namespace CSBP
 {
   using System;
+  using System.IO;
   using System.Text.RegularExpressions;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Services;
@@ -99,10 +100,25 @@ namespace CSBP
       if (!string.IsNullOrEmpty(fn))
       {
         var d = MainWindow.GetActiveDialog();
-        var f = d?.GetType().Name.Left(5);
-        ////if (f != null)
-        ////  fn = $"{fn}?#{f}";
-        UiTools.StartFile(fn, f); // TODO Start help for dialog.
+        var f = form ?? d?.GetType().Name.Left(5);
+        if (f != null && fn.EndsWith(".html", StringComparison.CurrentCultureIgnoreCase))
+        {
+          // Start help for a dialog.
+          var fn0 = fn.Substring(0, fn.Length - 5) + "0.html";
+          var link = $"file://{fn}?#{f}";
+          var html = $@"<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='refresh' content=""0; url='{link}'""/>
+  </head>
+  <body>
+    <p>Please follow <a href='{link}'>{f}</a>.</p>
+  </body>
+</html>";
+          File.WriteAllText(fn0, html);
+          fn = fn0;
+        }
+        UiTools.StartFile(fn);
       }
     }
 
