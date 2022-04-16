@@ -1,6 +1,6 @@
 = CSBP Dokumentation (C) 2022 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-Version 2022-03-13
+Version 2022-04-16
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -139,8 +139,8 @@ Das Menü umfasst folgende Punkte:
 |==========================
 |Menü            |Menüpunkt           |Erklärung
 .7+|Datei        |                    |Aufruf der Funktionen und Dialoge aus den Bereichen Datei und Administration.
-                 |Rückgängig          |Die letzte Änderung der Daten wird rückgängig gemacht.
-                 |Wiederherstellen    |Die Daten vor der letzten Rückgängig-Aktion werden wiederhergestellt.
+                 |Rückgängig          |Die letzte Änderung der Daten und neue Dateien wird rückgängig gemacht.
+                 |Wiederherstellen    |Die Daten und Dateien vor der letzten Rückgängig-Aktion werden wiederhergestellt.
                  |Mandanten           |Dieses Formular verwaltet Mandanten, d.h. getrennte Datenbestände. <<AG100>>
                  |Benutzer            |Dieses Formular verwaltet alle Benutzer des aktuellen Mandanten. <<AG200>>
                  |Sicherungen         |Dieses Formular bietet eine einfache Durchführung von Sicherungen auf Verzeichnis-Ebene an. <<AG400>>
