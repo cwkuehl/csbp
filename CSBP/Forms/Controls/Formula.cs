@@ -25,22 +25,22 @@ public class Formula
   public int row { get; set; }
 
   /// <summary>Formula as string.</summary>
-  public string formula { get; private set; }
+  public string formula { get; internal set; }
 
   /// <summary>Affected function.</summary>
   public string function { get; private set; }
 
   /// <summary>Column number 1 of affected area.</summary>
-  public int column1 { get; private set; } = -1;
+  public int column1 { get; internal set; } = -1;
 
   /// <summary>Row number 1 of affected area.</summary>
-  public int row1 { get; private set; } = -1;
+  public int row1 { get; internal set; } = -1;
 
   /// <summary>Column number 2 of affected area.</summary>
-  public int column2 { get; private set; } = -1;
+  public int column2 { get; internal set; } = -1;
 
   /// <summary>Row number 2 of affected area.</summary>
-  public int row2 { get; private set; } = -1;
+  public int row2 { get; internal set; } = -1;
 
   /// <summary>Value as string.</summary>
   private string _value;
@@ -75,10 +75,10 @@ public class Formula
   private static Regex RxDays = new Regex(@"^=(days|tage)\(([a-z]+)(\d+);([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>Regex for formula today.</summary>
-  private static Regex RxToday = new Regex(@"^=(today|heute)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static Regex RxToday = new Regex(@"^=(today|heute)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>Regex for formula now.</summary>
-  private static Regex RxNow = new Regex(@"^=(now|jetzt)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static Regex RxNow = new Regex(@"^=(now|jetzt)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>
   /// Private constructor.
@@ -88,13 +88,22 @@ public class Formula
   /// <param name="r">Affected row.</param>
   /// <param name="function">Affected function.</param>
   /// <param name="bold">Is formula bold?</param>
-  private Formula(string formula, int c, int r, string function, bool bold)
+  /// <param name="c1">Affected column number 1.</param>
+  /// <param name="r1">Affected row number 1.</param>
+  /// <param name="c2">Affected column number 2.</param>
+  /// <param name="r2">Affected row number 2.</param>
+  private Formula(string formula, int c, int r, string function, bool bold, int c1 = -1, int r1 = -1, int c2 = -1, int r2 = -1)
   {
-    this.formula = formula;
+    // this.formula = formula;
     this.column = c;
     this.row = r;
     this.function = function;
     this.bold = bold;
+    this.column1 = c1;
+    this.row1 = r1;
+    this.column2 = c2;
+    this.row2 = r2;
+    this.formula = ToString();
     Debug.Print($"Formula {formula} {c} {r} {function} {bold}");
   }
 
@@ -102,8 +111,8 @@ public class Formula
   /// Create a Formula instance, if it is a formula.
   /// </summary>
   /// <param name="formula">Possible formula.</param>
-  /// <param name="c">Affected column.</param>
-  /// <param name="r">Affected row.</param>
+  /// <param name="c">Affected column number.</param>
+  /// <param name="r">Affected row number.</param>
   /// <returns>Formula instance or null.</returns>
   public static Formula Instance(string formula, int c, int r)
   {
@@ -118,35 +127,17 @@ public class Formula
     var m = RxSum.Match(formula);
     if (m.Success)
     {
-      return new Formula(formula, c, r, "sum", bold)
-      {
-        column1 = GetColumnIndex(m.Groups[2].Value),
-        row1 = Functions.ToInt32(m.Groups[3].Value) - 1,
-        column2 = GetColumnIndex(m.Groups[4].Value),
-        row2 = Functions.ToInt32(m.Groups[5].Value) - 1,
-      };
+      return new Formula(formula, c, r, "sum", bold, GetColumnIndex(m.Groups[2].Value), Functions.ToInt32(m.Groups[3].Value) - 1, GetColumnIndex(m.Groups[4].Value), Functions.ToInt32(m.Groups[5].Value) - 1);
     }
     m = RxCount.Match(formula);
     if (m.Success)
     {
-      return new Formula(formula, c, r, "count", bold)
-      {
-        column1 = GetColumnIndex(m.Groups[2].Value),
-        row1 = Functions.ToInt32(m.Groups[3].Value) - 1,
-        column2 = GetColumnIndex(m.Groups[4].Value),
-        row2 = Functions.ToInt32(m.Groups[5].Value) - 1,
-      };
+      return new Formula(formula, c, r, "count", bold, GetColumnIndex(m.Groups[2].Value), Functions.ToInt32(m.Groups[3].Value) - 1, GetColumnIndex(m.Groups[4].Value), Functions.ToInt32(m.Groups[5].Value) - 1);
     }
     m = RxDays.Match(formula);
     if (m.Success)
     {
-      return new Formula(formula, c, r, "days", bold)
-      {
-        column1 = GetColumnIndex(m.Groups[2].Value),
-        row1 = Functions.ToInt32(m.Groups[3].Value) - 1,
-        column2 = GetColumnIndex(m.Groups[4].Value),
-        row2 = Functions.ToInt32(m.Groups[5].Value) - 1,
-      };
+      return new Formula(formula, c, r, "days", bold, GetColumnIndex(m.Groups[2].Value), Functions.ToInt32(m.Groups[3].Value) - 1, GetColumnIndex(m.Groups[4].Value), Functions.ToInt32(m.Groups[5].Value) - 1);
     }
     m = RxNow.Match(formula);
     if (m.Success)
@@ -159,6 +150,28 @@ public class Formula
       return new Formula(formula, c, r, "today", bold);
     }
     return null;
+  }
+
+  /// <summary>
+  /// Get string with formatted formula.
+  /// </summary>
+  /// <returns>Formatted formula.</returns>
+  public override string ToString()
+  {
+    var en = !Functions.IsDe;
+    var f = en ? function
+      : function == "sum" ? "summe" : function == "count" ? "anzahl" : function == "days" ? "tage" : function == "now" ? "jetzt" : "heute";
+    var sb = new StringBuilder();
+    sb.Append("=").Append(f).Append("(");
+    if (column1 >= 0 && row1 >= 0)
+      sb.Append($"{GetColumnName(column1)}{row1 + 1}".ToLower());
+    if (column2 >= 0 && row2 >= 0)
+    {
+      sb.Append(function == "days" ? ";" : ":");
+      sb.Append($"{GetColumnName(column2)}{row2 + 1}".ToLower());
+    }
+    sb.Append(")");
+    return sb.ToString();
   }
 
   /// <summary>
@@ -464,12 +477,16 @@ public class Formulas
   /// <param name="rnr">Affected row number.</param>
   public void AddRow(int rnr)
   {
-    // TODO AddRow formula sum, count, days.
     Debug.Print($"AddRow rnr {rnr}");
     foreach (var f in List)
     {
       if (f.row >= rnr)
         f.row++;
+      if (f.row1 >= 0 && f.row1 >= rnr)
+        f.row1++;
+      if (f.row2 >= 0 && f.row2 >= rnr)
+        f.row2++;
+      f.formula = f.ToString();
     }
   }
 
@@ -485,8 +502,16 @@ public class Formulas
     {
       if (f.row == rnr)
         l.Add(f);
-      if (f.row > rnr)
-        f.row--;
+      else
+      {
+        if (f.row > rnr)
+          f.row--;
+        if (f.row1 >= 0 && f.row1 > rnr)
+          f.row1--;
+        if (f.row2 >= 0 && f.row2 > rnr)
+          f.row2--;
+        f.formula = f.ToString();
+      }
     }
     foreach (var f in l)
     {
@@ -505,6 +530,11 @@ public class Formulas
     {
       if (f.column >= cnr)
         f.column++;
+      if (f.column1 >= 0 && f.column1 >= cnr)
+        f.column1++;
+      if (f.column2 >= 0 && f.column2 >= cnr)
+        f.column2++;
+      f.formula = f.ToString();
     }
   }
 
@@ -520,8 +550,16 @@ public class Formulas
     {
       if (f.column == cnr)
         l.Add(f);
-      if (f.column > cnr)
-        f.column--;
+      else
+      {
+        if (f.column > cnr)
+          f.column--;
+        if (f.column1 >= 0 && f.column1 > cnr)
+          f.column1--;
+        if (f.column2 >= 0 && f.column2 > cnr)
+          f.column2--;
+        f.formula = f.ToString();
+      }
     }
     foreach (var f in l)
     {
