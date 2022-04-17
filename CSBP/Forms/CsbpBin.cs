@@ -479,7 +479,7 @@ namespace CSBP.Forms
         if (i < 2)
           titles[i] = "";
         else
-          titles[i] = ((char)((i - 2) % 26 + 'A')).ToString();
+          titles[i] = Formula.GetColumnName(i - 2); // ((char)((i - 2) % 26 + 'A')).ToString();
         types[i] = typeof(string);
       }
       if (editable)

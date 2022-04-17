@@ -108,6 +108,24 @@ namespace CSBP.Base
     }
 
     /// <summary>
+    /// Wandelt einen String in einen Decimal um, je nach CultureInfo.
+    /// </summary>
+    /// <returns>String als Decimal.</returns>
+    /// <param name="s">Zu konvertierender String.</param>
+    /// <param name="digits">Number of digits to round.</param>
+    /// <param name="english">Parse with English culture.</param>
+    public static decimal? ToDecimalCi(string s, int digits = -1)
+    {
+      if (!string.IsNullOrWhiteSpace(s) && decimal.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, CultureInfo, out var d))
+      {
+        if (digits >= 0)
+          d = Math.Round(d, digits, MidpointRounding.AwayFromZero);
+        return d;
+      }
+      return null;
+    }
+
+    /// <summary>
     /// Wandelt String in nullable bool um.
     /// </summary>
     /// <param name="s">Betroffener String</param>
