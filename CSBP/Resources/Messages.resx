@@ -642,7 +642,7 @@
         <value>TB005Diary</value>
     </data>
     <data name="TB006_" xml:space="preserve">
-        <value>TB006{0:yyyy-MM-dd} {1}</value>
+        <value>TB006{0:yyyy-MM-dd}{1} {2}</value>
     </data>
     <data name="TB007" xml:space="preserve">
         <value>TB007Type in a description.</value>

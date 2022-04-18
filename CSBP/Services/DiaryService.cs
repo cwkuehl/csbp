@@ -15,6 +15,7 @@ namespace CSBP.Services
   using CSBP.Apis.Enums;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Text;
 
   // Bodenheim 49.9353, 8.3184
 
@@ -344,11 +345,52 @@ namespace CSBP.Services
       }
       v.Add(string.Empty);
       var liste = TbEintragRep.SearchEntries(daten, suche, puid, from, to);
+      var plist = new Dictionary<string, TbOrt>();
+      var sb = new StringBuilder();
       foreach (var e in liste)
       {
-        // TODO Positions
         // TODO Without control characters
-        v.Add(TB006(e.Datum, e.Eintrag));
+        sb.Length = 0;
+        var pl = TbOrtRep.GetPositionList(daten, e.Datum);
+        if (pl.Any())
+        {
+          sb.Append(" [");
+          foreach (var p in pl)
+          {
+            if (sb.Length > 2)
+              sb.Append("; ");
+            sb.Append(p.Bezeichnung);
+            if (!plist.ContainsKey(p.Ort_Uid))
+            {
+              plist.Add(p.Ort_Uid, new TbOrt
+              {
+                Mandant_Nr = p.Mandant_Nr,
+                Uid = p.Ort_Uid,
+                Bezeichnung = p.Bezeichnung,
+                Breite = p.Breite,
+                Laenge = p.Laenge,
+                Hoehe = p.Hoehe
+              }
+              );
+            }
+          }
+          sb.Append("]");
+        }
+        v.Add(TB006(e.Datum, sb.ToString(), e.Eintrag));
+      }
+      if (plist.Any())
+      {
+        v.Add("");
+        foreach (var p in plist.Values)
+        {
+          sb.Length = 0;
+          sb.Append("[");
+          sb.Append(p.Bezeichnung).Append(": ").Append(Functions.ToString(p.Breite, 5)).Append(" ").Append(Functions.ToString(p.Laenge, 5));
+          if (p.Hoehe != 0)
+            sb.Append(Functions.ToString(p.Hoehe, 2));
+          sb.Append("]");
+          v.Add(sb.ToString());
+        }
       }
       if (rf)
       {

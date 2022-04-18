@@ -17,7 +17,7 @@ namespace CSBP.Services.Repositories
   public partial class TbEintragOrtRep
   {
     /// <summary>
-    /// Gets a list of positions.
+    /// Gets a list of positions for a date.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="date">Affected date.</param>
@@ -35,7 +35,7 @@ namespace CSBP.Services.Repositories
     }
 
     /// <summary>
-    /// Gets a list of positions.
+    /// Gets a list of positions for a period.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="from">Affected from date.</param>
