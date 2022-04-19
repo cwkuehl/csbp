@@ -3081,6 +3081,9 @@
     <data name="SB210.geschlecht3.tt" xml:space="preserve">
         <value>unbekannt</value>
     </data>
+    <data name="SB210.bilder.tt" xml:space="preserve">
+        <value>Bilder zum Ahnen</value>
+    </data>
     <data name="SB210.bilddaten" xml:space="preserve">
         <value>Bilddaten</value>
     </data>

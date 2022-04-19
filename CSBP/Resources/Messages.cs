@@ -5017,6 +5017,11 @@ namespace CSBP.Resources
       get { return rm.GetString("SB210.geschlecht3.tt"); }
     }
 
+    public static string SB210_bilder_tt
+    {
+      get { return rm.GetString("SB210.bilder.tt"); }
+    }
+
     public static string SB210_bilddaten
     {
       get { return rm.GetString("SB210.bilddaten"); }
