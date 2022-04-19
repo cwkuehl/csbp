@@ -761,7 +761,7 @@ public class ClientService : ServiceBase, IClientService
         {
           Mandant_Nr = daten.MandantNr,
           Datum = (DateTime)a["datum"], // 2020-03-27
-          Eintrag = (string)a["eintrag"],
+          Eintrag = Functions.FilterWindows1252((string)a["eintrag"]),
           Angelegt_Am = Functions.ToDateTimeLocal((DateTime?)a["angelegtAm"]), // 2020-03-27T16:39:20Z
           Angelegt_Von = (string)a["angelegtVon"],
           Geaendert_Am = Functions.ToDateTimeLocal((DateTime?)a["geaendertAm"]),
@@ -857,8 +857,8 @@ Lokal: {e.Eintrag}";
           EBetrag = (decimal)a["ebetrag"],
           Soll_Konto_Uid = (string)a["sollKontoUid"],
           Haben_Konto_Uid = (string)a["habenKontoUid"],
-          BText = (string)a["btext"],
-          Beleg_Nr = (string)a["belegNr"],
+          BText = Functions.FilterWindows1252((string)a["btext"]),
+          Beleg_Nr = Functions.FilterWindows1252((string)a["belegNr"]),
           Beleg_Datum = Functions.ToDateTimeLocal((DateTime)a["belegDatum"]) ?? today,
           Angelegt_Am = Functions.ToDateTimeLocal((DateTime?)a["angelegtAm"]), // 2020-03-27T16:39:20Z
           Angelegt_Von = (string)a["angelegtVon"],
@@ -994,7 +994,7 @@ Lokal: {e.Eintrag}";
           Zaehler_km = (decimal)a["zaehlerKm"],
           Periode_km = (decimal)a["periodeKm"],
           Periode_Schnitt = (decimal)a["periodeSchnitt"],
-          Beschreibung = (string)a["beschreibung"],
+          Beschreibung = Functions.FilterWindows1252((string)a["beschreibung"]),
           Angelegt_Am = Functions.ToDateTimeLocal((DateTime?)a["angelegtAm"]), // 2020-03-27T16:39:20Z
           Angelegt_Von = (string)a["angelegtVon"],
           Geaendert_Am = Functions.ToDateTimeLocal((DateTime?)a["geaendertAm"]),

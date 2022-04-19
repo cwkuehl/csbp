@@ -1158,5 +1158,169 @@ public static class Functions
     var linux = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux);
     return linux;
   }
-}
 
+  /// <summary>
+  /// Alle Windows-1252-Zeichen.
+  /// </summary>
+  private static readonly Regex RxWindow1252 = new Regex(@"^(
+[\u0000-\u007F]|
+\u20AC| # 80 Euro
+\u201A| # 82
+\u0192| # 83
+\u201E| # 84
+\u2026| # 85
+\u2020| # 86
+\u2021| # 87
+\u02C6| # 88
+\u2030| # 89
+\u0160| # 8A
+\u2039| # 8B
+\u0152| # 8C
+\u017D| # 8E
+\u2018| # 91
+\u2019| # 92
+\u201C| # 93
+\u201D| # 94
+\u2022| # 95
+\u2013| # 96
+\u2014| # 97
+\u02DC| # 98
+\u2122| # 99
+\u0161| # 9A
+\u203A| # 9B
+\u0153| # 9C
+\u017E| # 9E
+\u0178| # 9F
+[\u00A0-\u00FF]|
+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+
+  /// <summary>
+  /// Alle erlaubten Windows-1252-Zeichen für IRM@-Strings, ohne Steuerzeichen, mit CR, LF und Tab.
+  /// </summary>
+  private static readonly Regex RxWindow1252CrLfTab = new Regex(@"^(
+\u0009| # Tab
+\u000A| # LF
+\u000D| # CR
+[\u0020-\u007F]|
+\u20AC| # 80 Euro
+\u201A| # 82
+\u0192| # 83
+\u201E| # 84
+\u2026| # 85
+\u2020| # 86
+\u2021| # 87
+\u02C6| # 88
+\u2030| # 89
+\u0160| # 8A
+\u2039| # 8B
+\u0152| # 8C
+\u017D| # 8E
+\u2018| # 91
+\u2019| # 92
+\u201C| # 93
+\u201D| # 94
+\u2022| # 95
+\u2013| # 96
+\u2014| # 97
+\u02DC| # 98
+\u2122| # 99
+\u0161| # 9A
+\u203A| # 9B
+\u0153| # 9C
+\u017E| # 9E
+\u0178| # 9F
+[\u00A0-\u00FF]|
+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+
+  /// <summary>
+  /// Alle erlaubten Windows-1252-Zeichen für IRM@-Strings ohne Steuerzeichen.
+  /// </summary>
+  private static readonly Regex RxWindow1252Ohne = new Regex(@"^(
+[\u0020-\u007F]|
+\u20AC| # 80 Euro
+\u201A| # 82
+\u0192| # 83
+\u201E| # 84
+\u2026| # 85
+\u2020| # 86
+\u2021| # 87
+\u02C6| # 88
+\u2030| # 89
+\u0160| # 8A
+\u2039| # 8B
+\u0152| # 8C
+\u017D| # 8E
+\u2018| # 91
+\u2019| # 92
+\u201C| # 93
+\u201D| # 94
+\u2022| # 95
+\u2013| # 96
+\u2014| # 97
+\u02DC| # 98
+\u2122| # 99
+\u0161| # 9A
+\u203A| # 9B
+\u0153| # 9C
+\u017E| # 9E
+\u0178| # 9F
+[\u00A0-\u00FF]|
+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+
+  /// <summary>
+  /// Does the string only contain characters of codepage Windows-1252?
+  /// </summary>
+  /// <param name="value">Affected string.</param>
+  /// <param name="crlftab">Is carriage return, line feed or tab allowed?</param>
+  /// <param name="all">Are all characters incl. control characters (0-31) allowed?</param>
+  /// <returns>Only characters of codepage Windows-1252?</returns>
+  public static bool IsWindows1252(string value, bool crlftab = false, bool all = false)
+  {
+    if (string.IsNullOrEmpty(value))
+      return true;
+    if (all)
+    {
+      var m = RxWindow1252.Match(value);
+      return m.Success;
+    }
+    if (crlftab)
+    {
+      var m = RxWindow1252CrLfTab.Match(value);
+      return m.Success;
+    }
+    if (value.Contains("\n"))
+      return false; // \n is problematic in Regex.
+    var match = RxWindow1252Ohne.Match(value);
+    return match.Success;
+  }
+
+  /// <summary>
+  /// Filter all allowed characters of codepage Windows-1252, other characters are replaced.
+  /// </summary>
+  /// <param name="value">Affected string.</param>
+  /// <param name="crlftab">Is carriage return, line feed or tab allowed?</param>
+  /// <param name="all">Are all characters incl. control characters (0-31) allowed?</param>
+  /// <param name="replace">Replacement string for not allowed characters.</param>
+  /// <returns>String containing only allowed characters of codepage Windows-1252?</returns>
+  public static string FilterWindows1252(string value, bool crlftab = false, bool alle = false, string replace = " ")
+  {
+    if (value == null)
+      return null;
+    if (string.IsNullOrEmpty(value))
+      return "";
+    if (IsWindows1252(value, crlftab, alle))
+      return value;
+    replace = replace ?? " ";
+    var sb = new StringBuilder();
+    foreach (char c in value)
+    {
+      var s = char.ToString(c);
+      //// ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
+      if (IsWindows1252(s, crlftab, alle))
+        sb.Append(s);
+      else
+        sb.Append(replace);
+    }
+    return sb.ToString();
+  }
+}

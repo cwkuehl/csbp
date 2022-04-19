@@ -79,9 +79,7 @@ namespace CSBP.Services
     {
       var r = new ServiceErgebnis();
       if (!string.IsNullOrEmpty(entry))
-      {
-        entry = entry.Trim();
-      }
+        entry = Functions.FilterWindows1252(entry).Trim();
       var leer = string.IsNullOrEmpty(entry);
       var tbEintrag = TbEintragRep.Get(daten, daten.MandantNr, date);
       if (tbEintrag == null)
@@ -90,9 +88,7 @@ namespace CSBP.Services
         {
           tbEintrag = new TbEintrag();
           if (tbEintrag.Replikation_Uid == null)
-          {
             tbEintrag.Replikation_Uid = Functions.GetUid();
-          }
           tbEintrag.Mandant_Nr = daten.MandantNr;
           tbEintrag.Datum = date;
           tbEintrag.Eintrag = entry;
@@ -104,9 +100,7 @@ namespace CSBP.Services
         if (Functions.CompString(entry, tbEintrag.Eintrag) != 0)
         {
           if (tbEintrag.Replikation_Uid == null)
-          {
             tbEintrag.Replikation_Uid = Functions.GetUid();
-          }
           tbEintrag.Eintrag = entry;
           TbEintragRep.Update(daten, tbEintrag);
         }
@@ -145,9 +139,7 @@ namespace CSBP.Services
         else if (listep.Count == 1)
         {
           if (vop.Datum_Von == from && vop.Datum_Bis == to)
-          {
             Functions.MachNichts();
-          }
           else if (vop.Datum_Von <= from && vop.Datum_Bis >= to)
           {
             if (from == to)
@@ -349,7 +341,6 @@ namespace CSBP.Services
       var sb = new StringBuilder();
       foreach (var e in liste)
       {
-        // TODO Without control characters
         sb.Length = 0;
         var pl = TbOrtRep.GetPositionList(daten, e.Datum);
         if (pl.Any())
@@ -376,7 +367,8 @@ namespace CSBP.Services
           }
           sb.Append("]");
         }
-        v.Add(TB006(e.Datum, sb.ToString(), e.Eintrag));
+        // Without control characters
+        v.Add(TB006(e.Datum, sb.ToString(), Functions.FilterWindows1252(e.Eintrag, replace: " /// ")));
       }
       if (plist.Any())
       {
