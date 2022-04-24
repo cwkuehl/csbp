@@ -216,6 +216,11 @@ namespace CSBP.Forms.FZ
       }
     }
 
+    /// <summary>
+    /// Get memo from xml.
+    /// </summary>
+    /// <param name="xml">Affected xml.</param>
+    /// <returns>memo from xml</returns>
     private string GetMemo(string xml)
     {
       if (string.IsNullOrWhiteSpace(xml))
