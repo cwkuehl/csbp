@@ -3088,7 +3088,7 @@
         <value>Picture data</value>
     </data>
     <data name="SB210.bilddaten.tt" xml:space="preserve">
-        <value>Data of pictures</value>
+        <value>Data of pictures (Drop pictures here)</value>
     </data>
     <data name="SB210.geburtsdatum" xml:space="preserve">
         <value>Born</value>

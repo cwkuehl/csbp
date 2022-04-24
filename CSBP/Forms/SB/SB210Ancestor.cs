@@ -56,6 +56,10 @@ namespace CSBP.Forms.SB
     [Builder.Object]
     private Entry name;
 
+    /// <summary>Label bildersw.</summary>
+    [Builder.Object]
+    private ScrolledWindow bildersw;
+
     /// <summary>Box Biler.</summary>
     [Builder.Object]
     private Box bilder;
@@ -475,11 +479,13 @@ namespace CSBP.Forms.SB
         var arr = Regex.Split(e.SelectionData.Text, "\r\n|\r|\n");
         foreach (var file in arr)
         {
-          var m = Regex.Match(file, @"^(file:|file:\\\|file:\/\/)(.+?)$"); // Windows bzw. Linux
+          var m = Regex.Match(file, @"^(file:\/*)(.+?)$"); // Windows bzw. Linux
           if (m.Success)
           {
             var f = m.Groups[2].Value;
-            AppendImageFile(f);
+            if (Functions.IsLinux())
+              f = $"/{f}";
+            AppendImageFile(f, file);
           }
         }
       }
@@ -546,25 +552,38 @@ namespace CSBP.Forms.SB
       dialog.Hide();
     }
 
-    private void AppendImage(byte[] bytes, string metadaten)
+    /// <summary>
+    /// Append Image and meta data.
+    /// </summary>
+    /// <param name="bytes">Image as bytes.</param>
+    /// <param name="metadata">Affected meta data.</param>
+    /// <param name="dropname">Affected drop file name which has to be removed.</param>
+    private void AppendImage(byte[] bytes, string metadata, string dropname = null)
     {
-      if (bytes == null || string.IsNullOrEmpty(metadaten))
+      if (bytes == null || string.IsNullOrEmpty(metadata))
         return;
       var p = new Image
       {
         Pixbuf = new Gdk.Pixbuf(bytes)
       };
       bilder.Add(p);
-      bilddaten.Buffer.Text = Functions.Append(bilddaten.Buffer.Text, Constants.CRLF, metadaten);
+      if (!string.IsNullOrWhiteSpace(dropname))
+        bilddaten.Buffer.Text = bilddaten.Buffer.Text.Replace(dropname, "");
+      bilddaten.Buffer.Text = Functions.Append(bilddaten.Buffer.Text, Constants.CRLF, metadata);
     }
 
-    private void AppendImageFile(string file)
+    /// <summary>
+    /// Append image file.
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="dropname">Affected drop file name which has to be removed.</param>
+    private void AppendImageFile(string file, string dropname = null)
     {
       var bytes = File.ReadAllBytes(file);
       var date = File.GetCreationTimeUtc(file);
       var length = bytes.Length;
       var metadaten = $"<image><text>Bild</text><file>{file}</file><date>{date:yyyy-MM-dd'T'hh:mm:ss'Z'}</date><size>{length}</size></image>";
-      AppendImage(bytes, metadaten);
+      AppendImage(bytes, metadaten, dropname);
       bilder.ShowAll();
     }
   }
