@@ -1036,7 +1036,7 @@ namespace CSBP.Services
     // /**
     //  * Automatisches Setzen von Status-Feldern.
     //  * @param stufe Gibt die Status-Nummer an.
-    //  * @param nr Gibt die Nummer f�r bestimmte Stufen an.
+    //  * @param nr Gibt die Nummer für bestimmte Stufen an.
     //  * @throws Exception im unerwarteten Fehlerfalle.
     //  */
     // public Void setzeStatus(int stufe, int nr)
@@ -1053,7 +1053,7 @@ namespace CSBP.Services
     //     {
     //       log.warn("Anzahl Alle=" + anzahl1);
     //     }
-    //     // Todesjahr �bernehmen
+    //     // Todesjahr übernehmen
     //     sbEreignisKey.setMandantNr(mandantNr);
     //     sbEreignisKey.setNrTyp("INDI");
     //     sbEreignisKey.setTyp(GedcomEreignis.eTOD().wert());
@@ -1064,7 +1064,7 @@ namespace CSBP.Services
     //     {
     //       log.warn("Anzahl Todesjahr=" + anzahl2);
     //     }
-    //     // Geburtsjahr �bernehmen
+    //     // Geburtsjahr übernehmen
     //     sbEreignisKey.setTyp(GedcomEreignis.eGEBURT().wert());
     //     sbEreignisKey.setNr(alter);
     //     personDao.updateEreignis(sbEreignisKey);
@@ -1076,42 +1076,42 @@ namespace CSBP.Services
     //     do
     //     {
     //       anzahl2 = anzahl3;
-    //       // Status der Frau �bernehmen
+    //       // Status der Frau übernehmen
     //       personDao.updateStatusFrau(mandantNr);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)
     //       {
     //         log.warn("Anzahl mit Tod der Frau=" + anzahl3);
     //       }
-    //       // Status des Mannes �bernehmen
+    //       // Status des Mannes übernehmen
     //       personDao.updateStatusMann(mandantNr);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)
     //       {
     //         log.warn("Anzahl mit Tod des Mannes=" + anzahl3);
     //       }
-    //       // Status vom Kind her als Vater sch�tzen
+    //       // Status vom Kind her als Vater schätzen
     //       personDao.updateStatusMannKind(mandantNr, generation);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)
     //       {
     //         log.warn("Anzahl mit Tod des Vater-Kindes=" + anzahl3);
     //       }
-    //       // Status vom Kind her als Mutter sch�tzen
+    //       // Status vom Kind her als Mutter schätzen
     //       personDao.updateStatusFrauKind(mandantNr, generation);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)
     //       {
     //         log.warn("Anzahl mit Tod des Mutter-Kindes=" + anzahl3);
     //       }
-    //       // Status vom Vater her sch�tzen
+    //       // Status vom Vater her schätzen
     //       personDao.updateStatusVaterTod(mandantNr, generation);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)
     //       {
     //         log.warn("Anzahl mit Tod des Vaters=" + anzahl3);
     //       }
-    //       // Status von Mutter her sch�tzen
+    //       // Status von Mutter her schätzen
     //       personDao.updateStatusMutterTod(mandantNr, generation);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)
@@ -1132,13 +1132,13 @@ namespace CSBP.Services
     //     do
     //     {
     //       anzahl2 = anzahl3;
-    //       // Status der Frau �bernehmen
+    //       // Status der Frau übernehmen
     //       personDao.updateStatusFrau(mandantNr);
-    //       // Status des Mannes �bernehmen
+    //       // Status des Mannes übernehmen
     //       personDao.updateStatusMann(mandantNr);
-    //       // Status von Kind auf Mutter �bertragen
+    //       // Status von Kind auf Mutter übertragen
     //       personDao.updateStatusFrauKind(mandantNr, 0);
-    //       // Status von Kind auf Vater �bertragen
+    //       // Status von Kind auf Vater übertragen
     //       personDao.updateStatusMannKind(mandantNr, 0);
     //       anzahl3 = personDao.countStatus1(mandantNr);
     //       if (bLog)

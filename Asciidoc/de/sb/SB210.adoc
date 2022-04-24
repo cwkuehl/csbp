@@ -17,7 +17,7 @@ image:SB210.png[{sb210-title},title={sb210-title}]
 |Name         |Angenommener Name des Ahnen. Bei Frauen überlicherweise der Name des Mannes. Bei Männern in der Regel gleich dem Geburtsnamen.
 |Geschlecht   |Geschlecht des Ahnen.
 |Bildbereich  |In diesem Bereich werden die hinzugefügten Bilder angezeigt.
-|Bilddaten    |Die Metadaten der Bilder können bearbeitet werden. Der Text wird als Tooltipp angezeigt.
+|Bilddaten    |Neue Bilder-Dateien können in diesem Eingabefeld (per Drag and Drop) fallen gelassen werden. Die Metadaten der Bilder können bearbeitet werden.
 |Geboren      |Geburtsdatum des Ahnen.
 |Geburtsort   |Geburtsort des Ahnen.
 |Bemerkung    |Sonstige Hinweise zur Geburt des Ahnen.
