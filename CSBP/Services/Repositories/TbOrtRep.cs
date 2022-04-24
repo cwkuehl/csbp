@@ -68,6 +68,7 @@ namespace CSBP.Services.Repositories
           a.b.Breite = a.ort.Breite;
           a.b.Laenge = a.ort.Laenge;
           a.b.Hoehe = a.ort.Hoehe;
+          a.b.Notiz = a.ort.Notiz;
           return a.b;
         });
       return l1.ToList();

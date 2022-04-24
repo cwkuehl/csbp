@@ -627,24 +627,6 @@ namespace CSBP.Forms.SB
         var image = images[i];
         list[i].Metadaten = image.OuterXml;
       }
-      // var sb = new StringBuilder();
-      // String[] array = s.split("(" + Pattern.quote("</image>" + Constant.CRLF + "<image>") + "|"
-      //         + Pattern.quote("</image>" + Constant.LF + "<image>") + ")");
-      // for (int i = 0; array != null && i < array.length && i < byteliste.size(); i++)
-      // {
-      //   sb.setLength(0);
-      //   if (!array[i].startsWith("<image>"))
-      //   {
-      //     sb.append("<image>");
-      //   }
-      //   sb.append(array[i]);
-      //   if (!array[i].endsWith("</image>"))
-      //   {
-      //     sb.append("</image>");
-      //   }
-      //   ByteDaten bd = byteliste.get(i);
-      //   bd.setMetadaten(sb.toString());
-      // }
       return list;
     }
   }

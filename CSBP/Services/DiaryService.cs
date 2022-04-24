@@ -360,7 +360,8 @@ namespace CSBP.Services
                 Bezeichnung = p.Bezeichnung,
                 Breite = p.Breite,
                 Laenge = p.Laenge,
-                Hoehe = p.Hoehe
+                Hoehe = p.Hoehe,
+                Notiz = p.Notiz
               }
               );
             }
@@ -379,7 +380,9 @@ namespace CSBP.Services
           sb.Append("[");
           sb.Append(p.Bezeichnung).Append(": ").Append(Functions.ToString(p.Breite, 5)).Append(" ").Append(Functions.ToString(p.Laenge, 5));
           if (p.Hoehe != 0)
-            sb.Append(Functions.ToString(p.Hoehe, 2));
+            sb.Append(" ").Append(Functions.ToString(p.Hoehe, 2));
+          if (!string.IsNullOrEmpty(p.Notiz))
+            sb.Append(" (").Append(p.Notiz).Append(")");
           sb.Append("]");
           v.Add(sb.ToString());
         }

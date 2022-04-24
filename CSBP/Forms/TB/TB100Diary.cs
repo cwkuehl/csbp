@@ -502,6 +502,7 @@ namespace CSBP.Forms.TB
           Breite = k.Breite,
           Laenge = k.Laenge,
           Hoehe = k.Hoehe,
+          Notiz = k.Notiz
         };
         PositionList.Add(p);
         InitPositions();

@@ -28,6 +28,10 @@ namespace CSBP.Apis.Models
     [NotMapped]
     public decimal Hoehe { get; set; }
 
+    /// <summary>Holt oder setzt den Wert der Spalte Notiz.</summary>
+    [NotMapped]
+    public string Notiz { get; set; }
+
     /// <summary>
     /// Liefert Hash-Wert des Datensatzes.
     /// </summary>
