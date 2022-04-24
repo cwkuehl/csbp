@@ -5,9 +5,11 @@
 namespace CSBP.Forms.SB
 {
   using System;
+  using System.Collections.Generic;
   using System.IO;
   using System.Text;
   using System.Text.RegularExpressions;
+  using System.Xml;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
@@ -316,6 +318,9 @@ namespace CSBP.Forms.SB
     [Builder.Object]
     private Button abbrechen;
 
+    /// <summary>List of images.</summary>
+    private List<ByteDaten> imagelist = new List<ByteDaten>();
+
 #pragma warning restore 169, 649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
@@ -379,10 +384,10 @@ namespace CSBP.Forms.SB
           geburtsname.Text = k.Geburtsname ?? "";
           vorname.Text = k.Vorname ?? "";
           name.Text = k.Name ?? "";
-          var bytelist = Get(FactoryService.PedigreeService.GetBytes(daten, k.Uid));
-          if (bytelist != null)
+          imagelist = Get(FactoryService.PedigreeService.GetBytes(daten, k.Uid));
+          if (imagelist != null)
           {
-            foreach (var b in bytelist)
+            foreach (var b in imagelist)
             {
               AppendImage(b.Bytes, b.Metadaten);
             }
@@ -507,6 +512,7 @@ namespace CSBP.Forms.SB
       if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
           || DialogType == DialogTypeEnum.Edit)
       {
+        var list = ParseMetadata(imagelist, bilddaten.Buffer.Text);
         r = FactoryService.PedigreeService.SaveAncestor(ServiceDaten,
           DialogType == DialogTypeEnum.Edit ? nr.Text : null, name.Text, vorname.Text, geburtsname.Text,
           GetText(geschlecht1), titel.Text, konfession.Text, bemerkung.Buffer.Text, GetText(quelle),
@@ -515,7 +521,7 @@ namespace CSBP.Forms.SB
           taufdatum.Text, taufort.Text, taufbem.Buffer.Text, null,
           todesdatum.Text, todesort.Text, todesbem.Buffer.Text, null,
           begraebnisdatum.Text, begraebnisort.Text, begraebnisbem.Buffer.Text, null,
-          gatteNr.Text, vaterNr.Text, mutterNr.Text, null); // TODO Bytes
+          gatteNr.Text, vaterNr.Text, mutterNr.Text, list);
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {
@@ -553,12 +559,13 @@ namespace CSBP.Forms.SB
     }
 
     /// <summary>
-    /// Append Image and meta data.
+    /// Append image and meta data.
     /// </summary>
     /// <param name="bytes">Image as bytes.</param>
     /// <param name="metadata">Affected meta data.</param>
+    /// <param name="append">Append to imagelist.</param>
     /// <param name="dropname">Affected drop file name which has to be removed.</param>
-    private void AppendImage(byte[] bytes, string metadata, string dropname = null)
+    private void AppendImage(byte[] bytes, string metadata, bool append = false, string dropname = null)
     {
       if (bytes == null || string.IsNullOrEmpty(metadata))
         return;
@@ -570,12 +577,20 @@ namespace CSBP.Forms.SB
       if (!string.IsNullOrWhiteSpace(dropname))
         bilddaten.Buffer.Text = bilddaten.Buffer.Text.Replace(dropname, "");
       bilddaten.Buffer.Text = Functions.Append(bilddaten.Buffer.Text, Constants.CRLF, metadata);
+      if (append)
+      {
+        imagelist.Add(new ByteDaten
+        {
+          Metadaten = metadata,
+          Bytes = bytes
+        });
+      }
     }
 
     /// <summary>
     /// Append image file.
     /// </summary>
-    /// <param name="file"></param>
+    /// <param name="file">Affected file name.</param>
     /// <param name="dropname">Affected drop file name which has to be removed.</param>
     private void AppendImageFile(string file, string dropname = null)
     {
@@ -583,8 +598,54 @@ namespace CSBP.Forms.SB
       var date = File.GetCreationTimeUtc(file);
       var length = bytes.Length;
       var metadaten = $"<image><text>Bild</text><file>{file}</file><date>{date:yyyy-MM-dd'T'hh:mm:ss'Z'}</date><size>{length}</size></image>";
-      AppendImage(bytes, metadaten, dropname);
+      AppendImage(bytes, metadaten, true, dropname);
       bilder.ShowAll();
+    }
+
+    /// <summary>
+    /// Append image file.
+    /// </summary>
+    /// <param name="list">Affected image list.</param>
+    /// <param name="metadata">Affected meta data for all images.</param>
+    private List<ByteDaten> ParseMetadata(List<ByteDaten> list, string metadata)
+    {
+      if (list == null || list.Count <= 0)
+        return list;
+      var xml = $"<images>{metadata ?? ""}</images>";
+      var doc = new XmlDocument();
+      doc.Load(new StringReader(xml));
+      var root = doc.DocumentElement;
+      var images = root.SelectNodes("/images/image");
+      if (images.Count != list.Count)
+      {
+        throw new Exception("Parse error of meta data.");
+        // ShowError("Parse error of meta data.");
+        // return list;
+      }
+      for (var i = 0; i < list.Count; i++)
+      {
+        var image = images[i];
+        list[i].Metadaten = image.OuterXml;
+      }
+      // var sb = new StringBuilder();
+      // String[] array = s.split("(" + Pattern.quote("</image>" + Constant.CRLF + "<image>") + "|"
+      //         + Pattern.quote("</image>" + Constant.LF + "<image>") + ")");
+      // for (int i = 0; array != null && i < array.length && i < byteliste.size(); i++)
+      // {
+      //   sb.setLength(0);
+      //   if (!array[i].startsWith("<image>"))
+      //   {
+      //     sb.append("<image>");
+      //   }
+      //   sb.append(array[i]);
+      //   if (!array[i].endsWith("</image>"))
+      //   {
+      //     sb.append("</image>");
+      //   }
+      //   ByteDaten bd = byteliste.get(i);
+      //   bd.setMetadaten(sb.toString());
+      // }
+      return list;
     }
   }
 }
