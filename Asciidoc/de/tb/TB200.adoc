@@ -17,5 +17,6 @@ image:TB200.png[{tb200-title},title={tb200-title}]
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Position.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Position.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Position.
+|image:icons/gtk-select-color.png[title="Karte",width={icon-width}]   |Schaltfläche zum Anzeigen der ausgewählten Position in https://www.openstreetmap.de/karte[OpenStreetMap].
 |Positionen   |Liste mit allen Positionen.
 |==========================

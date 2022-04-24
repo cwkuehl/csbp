@@ -253,7 +253,7 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnFloppyClicked(object sender, EventArgs e)
     {
-      // TODP Floppy
+      // TODO Floppy
     }
 
     /// <summary>Behandlung von Chart.</summary>

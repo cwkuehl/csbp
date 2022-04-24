@@ -1147,7 +1147,7 @@
         <value>Löschen</value>
     </data>
     <data name="Action.chart" xml:space="preserve">
-        <value>Chart</value>
+        <value>Chart oder Karte</value>
     </data>
     <data name="Action.floppy" xml:space="preserve">
         <value>Importieren und Exportieren</value>

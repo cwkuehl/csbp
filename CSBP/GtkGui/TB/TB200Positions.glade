@@ -3,6 +3,11 @@
 <!-- Created with unit test GenerateForm -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="chartImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-select-color</property>
+  </object>
   <object class="GtkImage" id="copyImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -150,6 +155,20 @@
           </object>
           <packing>
             <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="chartAction">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip_text">Action.chart</property>
+            <property name="image">chartImage</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="OnChartClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">7</property>
           </packing>
         </child>
       </object>

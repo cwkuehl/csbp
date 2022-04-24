@@ -184,6 +184,19 @@ namespace CSBP.Forms.TB
       StartDialog(DialogTypeEnum.Delete);
     }
 
+    /// <summary>Handle Map.</summary>
+    /// <param name="sender">Betroffener Sender.</param>
+    /// <param name="e">Betroffenes Ereignis.</param>
+    protected void OnChartClicked(object sender, EventArgs e)
+    {
+      var uid = GetValue<string>(positions);
+      var p = Get(FactoryService.DiaryService.GetPosition(ServiceDaten, uid));
+      if (p != null)
+      {
+        UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Functions.ToString(p.Breite, 5, Functions.CultureInfoEn)}/{Functions.ToString(p.Laenge, 5, Functions.CultureInfoEn)}");
+      }
+    }
+
     /// <summary>Behandlung von Positions.</summary>
     /// <param name="sender">Betroffener Sender.</param>
     /// <param name="e">Betroffenes Ereignis.</param>
