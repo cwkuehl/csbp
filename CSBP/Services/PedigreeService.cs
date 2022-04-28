@@ -481,14 +481,18 @@ namespace CSBP.Services
         throw new MessageException(M1012);
       if (!(version == "4.0" || version == "5.5"))
         throw new MessageException(SB024);
-      var status2 = 1;
+      var status2 = 1; // Selected value for Status2.
       var op = ">=";
       var tot = 0;
       if (string.IsNullOrEmpty(filter))
       {
+        // Select all acestors and families.
         SbPersonRep.UpdateStatus2(daten, null, 0, status2);
+        SaveChanges(daten);
         SbFamilieRep.UpdateStatus2(daten, status2);
+        SaveChanges(daten);
         SbQuelleRep.UpdateStatus2(daten, status2);
+        SaveChanges(daten);
       }
       else
       {
@@ -501,14 +505,23 @@ namespace CSBP.Services
         }
         else
           throw new MessageException(SB025);
-        status2 = 0;
+        CalculateDeathYear(daten);
+        status2 = 0; // Unselect all ancestors.
         SbPersonRep.UpdateStatus2(daten, null, 0, status2);
+        SaveChanges(daten);
+        var c = SbPersonRep.CountStatus2(daten, status2);
         SbFamilieRep.UpdateStatus2(daten, status2);
+        SaveChanges(daten);
         SbQuelleRep.UpdateStatus2(daten, status2);
-        status2 = 1;
+        SaveChanges(daten);
+        status2 = 1; // Select affected ancestors.
         SbPersonRep.UpdateStatus2(daten, op, tot, status2);
+        SaveChanges(daten);
+        c = SbPersonRep.CountStatus2(daten, status2);
         SbFamilieRep.UpdateParentStatus2(daten, status2);
+        SaveChanges(daten);
         SbQuelleRep.UpdatePersonStatus2(daten, status2);
+        SaveChanges(daten);
       }
       var list = new List<String>();
       var map = new Dictionary<string, int>();
@@ -563,12 +576,21 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     public ServiceErgebnis CalculateDeathYear(ServiceDaten daten)
     {
+      // TODO Calculate death year in status1.
       // int anzahl1 = 0;
       // int anzahl2 = 0;
       // int anzahl3 = 0;
       // const int alter = 80;
       // const int generation = 30;
       var r = new ServiceErgebnis();
+      SbPersonRep.UpdateStatus1(daten, 0);
+      SaveChanges(daten);
+      // var c = SbPersonRep.CountStatus1(daten, 0);
+      // c = SbPersonRep.CountStatus1(daten, 1);
+      // SbPersonRep.UpdateStatus1(daten, 1);
+      // SaveChanges(daten);
+      // c = SbPersonRep.CountStatus1(daten, 0);
+      // c = SbPersonRep.CountStatus1(daten, 1);
       return r;
     }
 
