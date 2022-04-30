@@ -1188,6 +1188,22 @@ namespace CSBP.Forms
       {
         return cb.Model.GetValue(iter, id ? 1 : 0) as string;
       }
+      else
+      {
+        // EntryCompletion does not select active iter.
+        var s = (cb as ComboBoxText)?.ActiveText;
+        if (!string.IsNullOrEmpty(s))
+        {
+          if (cb.Model.GetIterFirst(out var it))
+          {
+            do
+            {
+              if (cb.Model.GetValue(it, 0) as string == s)
+                return cb.Model.GetValue(it, id ? 1 : 0) as string;
+            } while (cb.Model.IterNext(ref it));
+          }
+        }
+      }
       return null;
     }
 
