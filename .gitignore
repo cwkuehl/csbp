@@ -445,3 +445,5 @@ Asciidoc/Csbp-Hilfe.pdf
 Install/#Upload.sh
 Install/*.zip
 Install/csbp/*
+
+CSBP.Generator/*
