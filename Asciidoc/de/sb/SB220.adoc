@@ -11,7 +11,7 @@ image:SB220.png[{sb220-title},title={sb220-title}]
 |==========================
 |Steuerelement|Erklärung
 |Ahn          |Ein Ahn muss ausgewählt werden. Er dient als Ausgangspunkt in den zu erstellenden Berichten.
-|Generationen |Die Anzahl der Generationen, die in den Berichten berücksichtigt werden sollen,	muss eingegeben werden.
+|Generationen |Die Anzahl der Generationen, die in den Berichten berücksichtigt werden sollen, muss eingegeben werden.
 |Vorfahren    |Dieses Kontrollkästchen legt fest, ob der Vorfahren-Bericht erstellt wird.
 |Mit Geschwistern|Dieses Kontrollkästchen legt fest, ob im Vorfahren-Bericht auch Geschwister aufgenommen werden.
 |Nachfahren   |Dieses Kontrollkästchen legt fest, ob der Nachfahren-Bericht erstellt wird.

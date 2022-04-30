@@ -51,7 +51,16 @@ namespace CSBP.Services.Repositories
           fl = fl.Where(a => a.Status2 == status2.Value);
         l = l.Join(fl, a => new { Uid = a.Familie_Uid }, b => new { b.Uid }, (a, b) => a);
       }
-      return l.OrderBy(a => a.Familie_Uid).ThenBy(a => a.Kind_Uid).ToList();
+      var l2 = l.Join(db.SB_Person.Where(a => a.Mandant_Nr == mandantnr),
+        a => new { Uid = a.Kind_Uid }, b => new { b.Uid }, (a, b) => new { kind = a, child = b })
+        .ToList()
+        .Select(a =>
+        {
+          if (a.child != null)
+            a.kind.Child = a.child;
+          return a.kind;
+        });
+      return l2.OrderBy(a => a.Familie_Uid).ThenBy(a => a.Kind_Uid).ToList();
     }
   }
 }

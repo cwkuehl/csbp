@@ -29,10 +29,11 @@ public partial class SbPersonRep
   /// <param name="desc">Descending by name?</param>
   /// <param name="suid">Affected source uid.</param>
   /// <param name="fuid">Affected family uid.</param>
+  /// <param name="status1">Affected Status1.</param>
   /// <param name="status2">Affected Status2.</param>
   /// <returns>List of ancestors.</returns>
   public List<SbPerson> GetList(ServiceDaten daten, string name = null, string firstname = null, string uid = null,
-    bool desc = false, string suid = null, string fuid = null, int? status2 = null)
+    bool desc = false, string suid = null, string fuid = null, int? status1 = null, int? status2 = null)
   {
     var mandantnr = daten.MandantNr;
     var db = GetDb(daten);
@@ -47,6 +48,8 @@ public partial class SbPersonRep
       wl = wl.Where(a => a.Uid == uid);
     if (!string.IsNullOrEmpty(suid))
       wl = wl.Where(a => a.Quelle_Uid == suid);
+    if (status1.HasValue)
+      wl = wl.Where(a => a.Status1 == status1.Value);
     if (status2.HasValue)
       wl = wl.Where(a => a.Status2 == status2.Value);
     var birth = GedcomEventEnum.BIRTH.ToString();
@@ -215,15 +218,15 @@ public partial class SbPersonRep
     // else
     {
       if (op == "=")
-        l = l.Where(a => a.Status1 == status1);
+        l = l.Where(a => Math.Abs(a.Status1) == status1);
       else if (op == "<")
-        l = l.Where(a => a.Status1 < status1);
+        l = l.Where(a => Math.Abs(a.Status1) < status1);
       else if (op == "<=")
-        l = l.Where(a => a.Status1 <= status1);
+        l = l.Where(a => Math.Abs(a.Status1) <= status1);
       else if (op == ">=")
-        l = l.Where(a => a.Status1 >= status1);
+        l = l.Where(a => Math.Abs(a.Status1) >= status1);
       else if (op == ">")
-        l = l.Where(a => a.Status1 > status1);
+        l = l.Where(a => Math.Abs(a.Status1) > status1);
       else
         throw new ArgumentException($"Operator {op} missing.");
     }

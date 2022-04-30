@@ -18,6 +18,7 @@ namespace CSBP.Services
   using System.Text;
   using CSBP.Services.Reports;
   using System.Text.RegularExpressions;
+  using System.Diagnostics;
 
   public class PedigreeService : ServiceBase, IPedigreeService
   {
@@ -576,21 +577,110 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     public ServiceErgebnis CalculateDeathYear(ServiceDaten daten)
     {
-      // TODO Calculate death year in status1.
-      // int anzahl1 = 0;
-      // int anzahl2 = 0;
-      // int anzahl3 = 0;
-      // const int alter = 80;
-      // const int generation = 30;
+      const int alter = 80;
+      const int generation = 30;
       var r = new ServiceErgebnis();
       SbPersonRep.UpdateStatus1(daten, 0);
       SaveChanges(daten);
-      // var c = SbPersonRep.CountStatus1(daten, 0);
-      // c = SbPersonRep.CountStatus1(daten, 1);
-      // SbPersonRep.UpdateStatus1(daten, 1);
-      // SaveChanges(daten);
-      // c = SbPersonRep.CountStatus1(daten, 0);
-      // c = SbPersonRep.CountStatus1(daten, 1);
+      var anzahl1 = SbPersonRep.CountStatus1(daten, 0);
+      Debug.WriteLine($"CalculateDeathYear for {anzahl1} ancestors.");
+      var plist = SbPersonRep.GetList(daten, status1: 0);
+      var pd = new PedigreeTimeData();
+      foreach (var p in plist)
+      {
+        if (!string.IsNullOrEmpty(p.Deathdate))
+        {
+          pd.Parse(p.Deathdate);
+          if (pd.Date1.Jahr != 0)
+            p.Status1 = pd.Date1.Jahr;
+          else if (pd.Date2.Jahr != 0)
+            p.Status1 = pd.Date2.Jahr;
+        }
+        if (p.Status1 == 0 && !string.IsNullOrEmpty(p.Burialdate))
+        {
+          pd.Parse(p.Burialdate);
+          if (pd.Date1.Jahr != 0)
+            p.Status1 = pd.Date1.Jahr;
+          else if (pd.Date2.Jahr != 0)
+            p.Status1 = pd.Date2.Jahr;
+        }
+        if (p.Status1 == 0 && !string.IsNullOrEmpty(p.Birthdate))
+        {
+          pd.Parse(p.Birthdate);
+          if (pd.Date1.Jahr != 0)
+            p.Status1 = -(pd.Date1.Jahr + alter);
+          else if (pd.Date2.Jahr != 0)
+            p.Status1 = -(pd.Date2.Jahr + alter);
+        }
+        if (p.Status1 == 0 && !string.IsNullOrEmpty(p.Christdate))
+        {
+          pd.Parse(p.Christdate);
+          if (pd.Date1.Jahr != 0)
+            p.Status1 = -(pd.Date1.Jahr + alter);
+          else if (pd.Date2.Jahr != 0)
+            p.Status1 = -(pd.Date2.Jahr + alter);
+        }
+        // if (p.Status1 != 0)
+        //  SbPersonRep.Update(daten, p);
+      }
+      SaveChanges(daten);
+      var anzahl2 = 0;
+      var anzahl3 = SbPersonRep.CountStatus1(daten, 0);
+      Debug.WriteLine($"{anzahl3} ancestors without deatch date.");
+      do
+      {
+        anzahl2 = anzahl3;
+        plist = SbPersonRep.GetList(daten, status1: 0);
+        foreach (var p in plist)
+        {
+          var flist = SbFamilieRep.GetList(daten, personuid: p.Uid);
+          foreach (var f in flist)
+          {
+            if (p.Status1 != 0)
+              continue;
+            // State of wife or spouse.
+            if ((f.Father?.Status1 ?? 0) != 0)
+              p.Status1 = -Math.Abs(f.Father.Status1);
+            else if ((f.Mother?.Status1 ?? 0) != 0)
+              p.Status1 = -Math.Abs(f.Mother.Status1);
+            else
+            {
+              // State of child
+              var clist = SbKindRep.GetList(daten, fuid: f.Uid);
+              foreach (var c in clist)
+              {
+                if (p.Status1 != 0)
+                  continue;
+                if ((c.Child?.Status1 ?? 0) != 0)
+                  p.Status1 = -(Math.Abs(c.Child.Status1) - generation);
+              }
+            }
+          }
+          if (p.Status1 != 0)
+            continue;
+          var c2list = SbKindRep.GetList(daten, kuid: p.Uid);
+          foreach (var c2 in c2list)
+          {
+            if (p.Status1 != 0)
+              continue;
+            flist = SbFamilieRep.GetList(daten, uid: c2.Familie_Uid);
+            foreach (var f in flist)
+            {
+              if (p.Status1 != 0)
+                continue;
+              // State of father or mother.
+              if ((f.Father?.Status1 ?? 0) != 0)
+                p.Status1 = -(Math.Abs(f.Father.Status1) + generation);
+              else if ((f.Mother?.Status1 ?? 0) != 0)
+                p.Status1 = -(Math.Abs(f.Mother.Status1) + generation);
+            }
+          }
+        }
+        SaveChanges(daten);
+        anzahl3 = SbPersonRep.CountStatus1(daten, 0);
+        Debug.WriteLine($"{anzahl3} ancestors without deatch date.");
+      }
+      while (anzahl3 > 0 && anzahl3 != anzahl2);
       return r;
     }
 
@@ -1222,7 +1312,6 @@ namespace CSBP.Services
         var bem = p.Bemerkung;
         var konf = p.Konfession;
         var quid = p.Quelle_Uid;
-        // TODO VergleicheInt(Status1, op, tot)
         l.Add($"0 {GetXref(map, "INDI", uid)} INDI");
         l.Add("1 NAME " + pn);
         if (vers.CompareTo("5.5") >= 0)
@@ -1294,10 +1383,10 @@ namespace CSBP.Services
         var fuid = f.Frau_Uid;
         var mannTot = f.Father?.Status1 ?? 0;
         var frauTot = f.Mother?.Status1 ?? 0;
-        // TODO if (!Functions.VergleicheInt(mannTot, op, tot))
-        //   muid = null;
-        // if (!Functions.VergleicheInt(frauTot, op, tot))
-        //   fuid = null;
+        if (!Functions.VergleicheInt(Math.Abs(mannTot), op, tot))
+          muid = null;
+        if (!Functions.VergleicheInt(Math.Abs(frauTot), op, tot))
+          fuid = null;
         var filter = !string.IsNullOrEmpty(muid) || !string.IsNullOrEmpty(fuid);
         if (filter)
         {
@@ -1322,12 +1411,12 @@ namespace CSBP.Services
           var children = SbKindRep.GetList(daten, familienUid);
           foreach (var c in children)
           {
-            // TODO var kindUid = f.Kind_Uid;
-            // var kindTot = f.kindStatus1;
-            // if (!Functions.VergleicheInt(kindTot, op, tot))
-            //   kindUid = null;
-            // if (!string.IsNullOrEmpty(kindUid))
-            l.Add("1 CHIL " + GetXref(map, "INDI", c.Kind_Uid));
+            var kindUid = c.Kind_Uid;
+            var kindTot = c.Child?.Status1 ?? 0;
+            if (!Functions.VergleicheInt(Math.Abs(kindTot), op, tot))
+              kindUid = null;
+            if (!string.IsNullOrEmpty(kindUid))
+              l.Add("1 CHIL " + GetXref(map, "INDI", c.Kind_Uid));
           }
         }
       }
