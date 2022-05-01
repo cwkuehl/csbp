@@ -1086,7 +1086,9 @@ public static class Functions
   public static bool VergleicheInt(int variable, string op, int wert)
   {
     var rc = false;
-    if (op == null || op == "=")
+    if (op == null || op == "")
+      rc = true;
+    else if (op == "=")
       rc = variable == wert;
     else if (op == "<=")
       rc = variable <= wert;

@@ -90,7 +90,7 @@ namespace CSBP.Services.Repositories
       foreach (var e in l.ToList())
       {
         e.Status2 = status2;
-        Update(daten, e);
+        // Update(daten, e);
         anzahl++;
       }
       return anzahl;
@@ -119,7 +119,7 @@ namespace CSBP.Services.Repositories
       foreach (var e in l.ToList())
       {
         e.Status2 = status2;
-        Update(daten, e);
+        // Update(daten, e);
         anzahl++;
       }
       return anzahl;

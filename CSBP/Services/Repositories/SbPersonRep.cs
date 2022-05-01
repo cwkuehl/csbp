@@ -195,7 +195,7 @@ public partial class SbPersonRep
     foreach (var e in l.ToList())
     {
       e.Status1 = status1;
-      Update(daten, e);
+      // Update(daten, e);
       anzahl++;
     }
     return anzahl;
@@ -234,7 +234,7 @@ public partial class SbPersonRep
     foreach (var e in l.ToList())
     {
       e.Status2 = status2;
-      Update(daten, e);
+      // Update(daten, e);
       anzahl++;
     }
     return anzahl;

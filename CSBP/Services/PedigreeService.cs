@@ -483,54 +483,54 @@ namespace CSBP.Services
       if (!(version == "4.0" || version == "5.5"))
         throw new MessageException(SB024);
       var status2 = 1; // Selected value for Status2.
-      var op = ">=";
+      var op = ""; // ">=";
       var tot = 0;
       if (string.IsNullOrEmpty(filter))
       {
         // Select all acestors and families.
-        SbPersonRep.UpdateStatus2(daten, null, 0, status2);
-        SaveChanges(daten);
-        SbFamilieRep.UpdateStatus2(daten, status2);
-        SaveChanges(daten);
-        SbQuelleRep.UpdateStatus2(daten, status2);
-        SaveChanges(daten);
+        // SbPersonRep.UpdateStatus2(daten, null, 0, status2);
+        // SaveChanges(daten);
+        // SbFamilieRep.UpdateStatus2(daten, status2);
+        // SaveChanges(daten);
+        // SbQuelleRep.UpdateStatus2(daten, status2);
+        // SaveChanges(daten);
       }
       else
       {
-        var re = new Regex("^status1\\s*(<|<=|=|>=|>)\\s*(\\d+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var re = new Regex("^(tot|death)\\s*(<|<=|=|>=|>)\\s*(\\d+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         var m = re.Match(filter);
         if (m.Success)
         {
-          op = m.Groups[1].Value;
-          tot = Functions.ToInt32(m.Groups[2].Value);
+          op = m.Groups[2].Value;
+          tot = Functions.ToInt32(m.Groups[3].Value);
         }
         else
           throw new MessageException(SB025);
         CalculateDeathYear(daten);
-        status2 = 0; // Unselect all ancestors.
-        SbPersonRep.UpdateStatus2(daten, null, 0, status2);
-        SaveChanges(daten);
-        var c = SbPersonRep.CountStatus2(daten, status2);
-        SbFamilieRep.UpdateStatus2(daten, status2);
-        SaveChanges(daten);
-        SbQuelleRep.UpdateStatus2(daten, status2);
-        SaveChanges(daten);
-        status2 = 1; // Select affected ancestors.
-        SbPersonRep.UpdateStatus2(daten, op, tot, status2);
-        SaveChanges(daten);
-        c = SbPersonRep.CountStatus2(daten, status2);
-        SbFamilieRep.UpdateParentStatus2(daten, status2);
-        SaveChanges(daten);
-        SbQuelleRep.UpdatePersonStatus2(daten, status2);
-        SaveChanges(daten);
+        // status2 = 0; // Unselect all ancestors.
+        // SbPersonRep.UpdateStatus2(daten, null, 0, status2);
+        // SaveChanges(daten);
+        // var c = SbPersonRep.CountStatus2(daten, status2);
+        // SbFamilieRep.UpdateStatus2(daten, status2);
+        // SaveChanges(daten);
+        // SbQuelleRep.UpdateStatus2(daten, status2);
+        // SaveChanges(daten);
+        // status2 = 1; // Select affected ancestors.
+        // SbPersonRep.UpdateStatus2(daten, op, tot, status2);
+        // SaveChanges(daten);
+        // c = SbPersonRep.CountStatus2(daten, status2);
+        // SbFamilieRep.UpdateParentStatus2(daten, status2);
+        // SaveChanges(daten);
+        // SbQuelleRep.UpdatePersonStatus2(daten, status2);
+        // SaveChanges(daten);
       }
       var list = new List<String>();
       var map = new Dictionary<string, int>();
-      SchreibeKopf(daten, list, version, skript);
-      SchreibeIndividual(daten, list, map, version, status2);
-      SchreibeFamily(daten, list, map, status2, op, tot);
-      SchreibeSource(daten, list, map, status2);
-      SchreibeFuss(daten, list, version, name);
+      WriteHead(daten, list, version, skript);
+      WriteIndividual(daten, list, map, version, op, tot, status2);
+      WriteFamily(daten, list, map, op, tot, status2);
+      WriteSource(daten, list, map, op, tot, status2);
+      WriteFoot(daten, list, version, name);
       // var l = map.Where(a => a.Value < 0).Select(a => a.Key).ToList();
       // foreach (var i in l)
       //   Debug.WriteLine(i);
@@ -681,6 +681,29 @@ namespace CSBP.Services
         Debug.WriteLine($"{anzahl3} ancestors without deatch date.");
       }
       while (anzahl3 > 0 && anzahl3 != anzahl2);
+      var f2list = SbFamilieRep.GetList(daten, uid: null);
+      foreach (var f in f2list)
+      {
+        // Maximum of Status1 for family.
+        var max = f.Father?.Status1 ?? 0;
+        if (max != 0 && Math.Abs(max) < Math.Abs(f.Mother?.Status1 ?? 0))
+          max = f.Mother.Status1;
+        f.Status1 = max;
+      }
+      var slist = SbQuelleRep.GetList(daten, uid: null);
+      foreach (var s in slist)
+      {
+        // Minimum of Status1 for source.
+        var p2list = SbPersonRep.GetList(daten, suid: s.Uid);
+        var min = int.MaxValue;
+        foreach (var p in p2list)
+        {
+          if (Math.Abs(min) > Math.Abs(p.Status1))
+            min = p.Status1;
+        }
+        if (min != int.MaxValue)
+          s.Status1 = min;
+      }
       return r;
     }
 
@@ -1145,131 +1168,15 @@ namespace CSBP.Services
       return uid;
     }
 
-    // /**
-    //  * Automatisches Setzen von Status-Feldern.
-    //  * @param stufe Gibt die Status-Nummer an.
-    //  * @param nr Gibt die Nummer für bestimmte Stufen an.
-    //  * @throws Exception im unerwarteten Fehlerfalle.
-    //  */
-    // public Void setzeStatus(int stufe, int nr)
-    // {
-    //   int mandantNr = context.getMandantNr();
-    //   SbEreignisKey sbEreignisKey = new SbEreignisKey();
-    //   boolean bLog = false;
-
-    //   if (stufe == 1)
-    //   {
-    //     personDao.clearStatus1(mandantNr);
-    //     anzahl1 = personDao.countStatus1(mandantNr);
-    //     if (bLog)
-    //     {
-    //       log.warn("Anzahl Alle=" + anzahl1);
-    //     }
-    //     // Todesjahr übernehmen
-    //     sbEreignisKey.setMandantNr(mandantNr);
-    //     sbEreignisKey.setNrTyp("INDI");
-    //     sbEreignisKey.setTyp(GedcomEreignis.eTOD().wert());
-    //     sbEreignisKey.setNr(0);
-    //     personDao.updateEreignis(sbEreignisKey);
-    //     anzahl2 = personDao.countStatus1(mandantNr);
-    //     if (bLog)
-    //     {
-    //       log.warn("Anzahl Todesjahr=" + anzahl2);
-    //     }
-    //     // Geburtsjahr übernehmen
-    //     sbEreignisKey.setTyp(GedcomEreignis.eGEBURT().wert());
-    //     sbEreignisKey.setNr(alter);
-    //     personDao.updateEreignis(sbEreignisKey);
-    //     anzahl3 = personDao.countStatus1(mandantNr);
-    //     if (bLog)
-    //     {
-    //       log.warn("Anzahl mit Geburtsjahr=" + anzahl3);
-    //     }
-    //     do
-    //     {
-    //       anzahl2 = anzahl3;
-    //       // Status der Frau übernehmen
-    //       personDao.updateStatusFrau(mandantNr);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl mit Tod der Frau=" + anzahl3);
-    //       }
-    //       // Status des Mannes übernehmen
-    //       personDao.updateStatusMann(mandantNr);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl mit Tod des Mannes=" + anzahl3);
-    //       }
-    //       // Status vom Kind her als Vater schätzen
-    //       personDao.updateStatusMannKind(mandantNr, generation);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl mit Tod des Vater-Kindes=" + anzahl3);
-    //       }
-    //       // Status vom Kind her als Mutter schätzen
-    //       personDao.updateStatusFrauKind(mandantNr, generation);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl mit Tod des Mutter-Kindes=" + anzahl3);
-    //       }
-    //       // Status vom Vater her schätzen
-    //       personDao.updateStatusVaterTod(mandantNr, generation);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl mit Tod des Vaters=" + anzahl3);
-    //       }
-    //       // Status von Mutter her schätzen
-    //       personDao.updateStatusMutterTod(mandantNr, generation);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl mit Tod der Mutter=" + anzahl3);
-    //       }
-    //     } while (anzahl3 != anzahl2);
-    //   }
-    //   else if (stufe == 2)
-    //   {
-    //     SbPerson sbPerson = new SbPerson();
-    //     personDao.clearStatus1(mandantNr);
-    //     sbPerson.setMandantNr(mandantNr);
-    //     sbPerson.setNr(nr);
-    //     sbPerson.setStatus1(nr);
-    //     personDao.updateStatus1(sbPerson);
-    //     anzahl3 = personDao.countStatus1(mandantNr);
-    //     do
-    //     {
-    //       anzahl2 = anzahl3;
-    //       // Status der Frau übernehmen
-    //       personDao.updateStatusFrau(mandantNr);
-    //       // Status des Mannes übernehmen
-    //       personDao.updateStatusMann(mandantNr);
-    //       // Status von Kind auf Mutter übertragen
-    //       personDao.updateStatusFrauKind(mandantNr, 0);
-    //       // Status von Kind auf Vater übertragen
-    //       personDao.updateStatusMannKind(mandantNr, 0);
-    //       anzahl3 = personDao.countStatus1(mandantNr);
-    //       if (bLog)
-    //       {
-    //         log.warn("Anzahl Status1: " + anzahl3);
-    //       }
-    //     } while (anzahl3 != anzahl2);
-    //   }
-    //   return null;
-    // }
-
-    /**
-     * Schreibt den Kopf einer GEDCOM-Datei.
-     * @param daten Service-Daten mit Mandantennummer.
-     * @param l String-Liste zum Schreiben.
-     * @param version Version der zu schreibenden GEDCOM-Schnittstelle, z.B. '5.5'.
-     * @param datei Dateiname wird im Kopf vermerkt.
-     */
-    private void SchreibeKopf(ServiceDaten daten, List<string> l, string version, string datei)
+    /// <summary>
+    /// Write header to GEDCOM file.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="l">List of lines for GEDCOM file.</param>
+    /// <param name="map">Mapping for xref.</param>
+    /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
+    /// <param name="filename">Affected file name.</param>
+    private void WriteHead(ServiceDaten daten, List<string> l, string version, string filename)
     {
       l.Add("0 HEAD");
       l.Add("1 SOUR WKUEHL");
@@ -1283,7 +1190,7 @@ namespace CSBP.Services
         l.Add("1 SUBM @999999@"); // submitter
         l.Add("1 SUBN @999998@"); // submission
       }
-      l.Add("1 FILE " + datei);
+      l.Add("1 FILE " + filename);
       l.Add("1 GEDC");
       l.Add("2 VERS " + version);
       l.Add("2 FORM LINEAGE-LINKED");
@@ -1292,19 +1199,24 @@ namespace CSBP.Services
       l.Add("1 CHAR UTF-8");
     }
 
-    /**
-     * Schreibt einen Ahnen in eine GEDCOM-Datei.
-     * @param daten Service-Daten mit Mandantennummer.
-     * @param l String-Liste zum Schreiben.
-     * @param map Mapping zwischen Uid und Integer für Export kleinerer IDs.
-     * @param vers Version der zu schreibenden GEDCOM-Schnittstelle, z.B. '5.5'.
-     * @param strFilter Filter-Kriterium für Ahnen und Familien.
-     */
-    private void SchreibeIndividual(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string vers, int status2)
+    /// <summary>
+    /// Write all affected inviduals to GEDCOM file.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="l">List of lines for GEDCOM file.</param>
+    /// <param name="map">Mapping for xref.</param>
+    /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
+    /// <param name="op">Affected operator for Status1.</param>
+    /// <param name="tot">Affected comparison value for Status1.</param>
+    /// <param name="status2">Affected Status2.</param>
+    private void WriteIndividual(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string version,
+      string op, int tot, int status2 = 0)
     {
-      var liste = SbPersonRep.GetList(daten, status2: status2);
+      var liste = SbPersonRep.GetList(daten); // , status2: status2);
       foreach (var p in liste)
       {
+        if (!Functions.VergleicheInt(Math.Abs(p.Status1), op, tot))
+          continue;
         var uid = p.Uid;
         var vn = p.Vorname;
         var gn = p.Geburtsname;
@@ -1314,7 +1226,7 @@ namespace CSBP.Services
         var quid = p.Quelle_Uid;
         l.Add($"0 {GetXref(map, "INDI", uid)} INDI");
         l.Add("1 NAME " + pn);
-        if (vers.CompareTo("5.5") >= 0)
+        if (version.CompareTo("5.5") >= 0)
         {
           if (!string.IsNullOrEmpty(vn))
             l.Add("2 GIVN " + vn);
@@ -1363,19 +1275,18 @@ namespace CSBP.Services
       }
     }
 
-    /**
-     * Schreibt eine Familie in eine GEDCOM-Datei.
-     * @param daten Service-Daten mit Mandantennummer.
-     * @param l String-Vector zum Schreiben.
-     * @param map Mapping zwischen Uid und Integer für Export kleinerer IDs.
-     * @param strFilter Filter-Kriterium für Familien.
-     * @param op Vergleichsoperator für tot.
-     * @param tot Todesjahr zum Vergleichen und Filtern.
-     */
-    private void SchreibeFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map, int status2,
-      string op, int tot)
+    /// <summary>
+    /// Write all affected families to GEDCOM file.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="l">List of lines for GEDCOM file.</param>
+    /// <param name="map">Mapping for xref.</param>
+    /// <param name="op">Affected operator for Status1.</param>
+    /// <param name="tot">Affected comparison value for Status1.</param>
+    /// <param name="status2">Affected Status2.</param>
+    private void WriteFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string op, int tot, int status2 = 0)
     {
-      var familien = SbFamilieRep.GetList(daten, status2: status2);
+      var familien = SbFamilieRep.GetList(daten); //, status2: status2);
       foreach (var f in familien)
       {
         var familienUid = f.Uid;
@@ -1387,53 +1298,57 @@ namespace CSBP.Services
           muid = null;
         if (!Functions.VergleicheInt(Math.Abs(frauTot), op, tot))
           fuid = null;
-        var filter = !string.IsNullOrEmpty(muid) || !string.IsNullOrEmpty(fuid);
-        if (filter)
+        if (string.IsNullOrEmpty(muid) && string.IsNullOrEmpty(fuid))
+          continue;
+        l.Add(("0 " + GetXref(map, "FAM", familienUid)) + " FAM");
+        var ereignisse = SbEreignisRep.GetList(daten, null, familienUid);
+        foreach (var e in ereignisse)
         {
-          l.Add(("0 " + GetXref(map, "FAM", familienUid)) + " FAM");
-          var ereignisse = SbEreignisRep.GetList(daten, null, familienUid);
-          foreach (var e in ereignisse)
-          {
-            var zeitangabe = new PedigreeTimeData(e);
-            l.Add("1 " + e.Typ);
-            l.Add("2 DATE " + zeitangabe.Deparse(true).ToUpper());
-            var ort = e.Ort;
-            var ebem = e.Bemerkung;
-            if (!string.IsNullOrEmpty(ort))
-              l.Add("2 PLAC " + ort);
-            if (!string.IsNullOrEmpty(ebem))
-              SchreibeFortsetzung(l, 2, "NOTE", ebem);
-          }
-          if (!string.IsNullOrEmpty(muid))
-            l.Add("1 HUSB " + GetXref(map, "INDI", muid));
-          if (!string.IsNullOrEmpty(fuid))
-            l.Add("1 WIFE " + GetXref(map, "INDI", fuid));
-          var children = SbKindRep.GetList(daten, familienUid);
-          foreach (var c in children)
-          {
-            var kindUid = c.Kind_Uid;
-            var kindTot = c.Child?.Status1 ?? 0;
-            if (!Functions.VergleicheInt(Math.Abs(kindTot), op, tot))
-              kindUid = null;
-            if (!string.IsNullOrEmpty(kindUid))
-              l.Add("1 CHIL " + GetXref(map, "INDI", c.Kind_Uid));
-          }
+          var zeitangabe = new PedigreeTimeData(e);
+          l.Add("1 " + e.Typ);
+          l.Add("2 DATE " + zeitangabe.Deparse(true).ToUpper());
+          var ort = e.Ort;
+          var ebem = e.Bemerkung;
+          if (!string.IsNullOrEmpty(ort))
+            l.Add("2 PLAC " + ort);
+          if (!string.IsNullOrEmpty(ebem))
+            SchreibeFortsetzung(l, 2, "NOTE", ebem);
+        }
+        if (!string.IsNullOrEmpty(muid))
+          l.Add("1 HUSB " + GetXref(map, "INDI", muid));
+        if (!string.IsNullOrEmpty(fuid))
+          l.Add("1 WIFE " + GetXref(map, "INDI", fuid));
+        var children = SbKindRep.GetList(daten, familienUid);
+        foreach (var c in children)
+        {
+          var kindUid = c.Kind_Uid;
+          var kindTot = c.Child?.Status1 ?? 0;
+          if (!Functions.VergleicheInt(Math.Abs(kindTot), op, tot))
+            kindUid = null;
+          if (!string.IsNullOrEmpty(kindUid))
+            l.Add("1 CHIL " + GetXref(map, "INDI", c.Kind_Uid));
         }
       }
     }
 
-    /**
-     * Schreibt alle Quellen in eine GEDCOM-Datei.
-     * @param daten Service-Daten mit Mandantennummer.
-     * @param l String-Vector zum Schreiben.
-     * @param map Mapping zwischen Uid und Integer für Export kleinerer IDs.
-     * @param status2 Status2.
-     */
-    private void SchreibeSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map, int status2)
+    /// <summary>
+    /// Write all affected sources to GEDCOM file.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="l">List of lines for GEDCOM file.</param>
+    /// <param name="map">Mapping for xref.</param>
+    /// <param name="op">Affected operator for Status1.</param>
+    /// <param name="tot">Affected comparison value for Status1.</param>
+    /// <param name="status2">Affected Status2.</param>
+    private void WriteSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map, string op, int tot, int status2 = 0)
     {
-      var quellen = SbQuelleRep.GetList(daten, null, status2);
+      var quellen = SbQuelleRep.GetList(daten, null); // , status2);
       foreach (var q in quellen)
       {
+        // if (!Functions.VergleicheInt(Math.Abs(q.Status1), op, tot))
+        //   continue;
+        if (!map.ContainsKey(q.Uid))
+          continue;
         var quid = q.Uid;
         var autor = q.Autor;
         var beschreibung = q.Beschreibung;
@@ -1447,13 +1362,14 @@ namespace CSBP.Services
       }
     }
 
-    /**
-     * Schreibt den Schluss einer GEDCOM-Datei.
-     * @param l String-Vector zum Schreiben.
-     * @param version Version der zu schreibenden GEDCOM-Schnittstelle, z.B. '5.5'.
-     * @param name Bezeichnung des Stammbaums.
-     */
-    private void SchreibeFuss(ServiceDaten daten, List<String> l, String version, String name)
+    /// <summary>
+    /// Write footer to GEDCOM file.
+    /// </summary>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="l">List of lines for GEDCOM file.</param>
+    /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
+    /// <param name="name">Affected pedigree name.</param>
+    private void WriteFoot(ServiceDaten daten, List<String> l, String version, String name)
     {
       if (version.CompareTo("5.5") >= 0)
       {
