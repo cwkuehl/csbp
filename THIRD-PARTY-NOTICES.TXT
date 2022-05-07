@@ -1,9 +1,7 @@
-﻿License notice for GtkSharp (v3.24.24.34)
+﻿License notice for GtkSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
-
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
 
 License notice for Microsoft.EntityFrameworkCore.Sqlite (v6.0.4)
@@ -84,44 +82,34 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for AtkSharp (v3.24.24.34)
+License notice for AtkSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
 
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
-
-License notice for CairoSharp (v3.24.24.34)
+License notice for CairoSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
 
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
-
-License notice for GdkSharp (v3.24.24.34)
+License notice for GdkSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
 
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
-
-License notice for GioSharp (v3.24.24.34)
+License notice for GioSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
 
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
-
-License notice for GLibSharp (v3.24.24.34)
+License notice for GLibSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
-
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
 
 License notice for Microsoft.Data.Sqlite.Core (v6.0.4)
@@ -348,12 +336,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for PangoSharp (v3.24.24.34)
+License notice for PangoSharp (v3.24.24.38)
 ------------------------------------
 
 https://github.com/GtkSharp/GtkSharp
-
-License available at https://github.com/GtkSharp/GtkSharp/blob/cakecore/LICENSE
 
 
 License notice for SQLitePCLRaw.bundle_e_sqlite3 (v2.0.6)

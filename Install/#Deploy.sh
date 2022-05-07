@@ -46,7 +46,7 @@ EOT
 # Upload via sftp
 ./#Upload.sh ftp.txt
 
-rm ./ftp.txt
-rm ./InstallUpdateCsbp.sh_.txt
-rm ./InstallUpdateCsbp.cmd_.txt
-rm ./Csbp-Hilfe.html
+rm -f ./ftp.txt
+rm -f ./InstallUpdateCsbp.sh_.txt
+rm -f ./InstallUpdateCsbp.cmd_.txt
+rm -f ./Csbp-Hilfe.html
