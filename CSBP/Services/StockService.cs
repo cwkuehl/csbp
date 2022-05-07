@@ -954,13 +954,13 @@ namespace CSBP.Services
       Wkurse.TryGetValue(key, out var wert);
       if (wert != null)
         return wert;
-      var accesskey = Parameter.GetValue(Parameter.WP_FIXER_IO_ACCESS_KEY);
-      if (string.IsNullOrEmpty(accesskey))
-        throw new MessageException(WP049);
-      var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
       List<string> v = null;
       try
       {
+        var accesskey = Parameter.GetValue(Parameter.WP_FIXER_IO_ACCESS_KEY);
+        if (string.IsNullOrEmpty(accesskey))
+          throw new MessageException(WP049);
+        var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
         v = ExecuteHttps(url, false);
       }
       catch (Exception)
@@ -1032,12 +1032,12 @@ namespace CSBP.Services
         SaveChanges(daten);
         wp = r.Ergebnis;
         decimal? kurs = null;
-        // TODO Standard-Devisen-Kurse auslagern
-        // Kurse vom 18.03.2022
+        // Standard-Devisen-Kurse auslagern
+        // Kurse vom 06.05.2022
         if (shortcut == "USD")
-          kurs = 1.1078m;
+          kurs = 1.0548m;
         else if (shortcut == "CHF")
-          kurs = 1.0312m;
+          kurs = 1.0431m;
         if (kurs.HasValue)
         {
           var k = new SoKurse
