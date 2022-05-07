@@ -26,9 +26,10 @@ namespace CSBP.Services.Repositories
     /// <param name="personuid">Affected father or mother uid.</param>
     /// <param name="uidne">Not affected family uid.</param>
     /// <param name="status2">Affected Status2.</param>
+    /// <param name="status3">Affected Status3.</param>
     /// <returns>List of families.</returns>
     public List<SbFamilie> GetList(ServiceDaten daten, string uid = null, string muid = null, string fuid = null,
-      string personuid = null, string uidne = null, int? status2 = null)
+      string personuid = null, string uidne = null, int? status2 = null, int? status3 = null)
     {
       var mandantnr = daten.MandantNr;
       var db = GetDb(daten);
@@ -45,6 +46,8 @@ namespace CSBP.Services.Repositories
         l = l.Where(a => a.Mann_Uid == personuid || a.Frau_Uid == personuid);
       if (status2.HasValue)
         l = l.Where(a => a.Status2 == status2.Value);
+      if (status3.HasValue)
+        l = l.Where(a => a.Status3 == status3.Value);
       var marriage = GedcomEventEnum.MARRIAGE.ToString();
       var fl = l.GroupJoin(db.SB_Ereignis.Where(a => a.Mandant_Nr == mandantnr && a.Typ == marriage),
         a => new { a.Uid }, b => new { Uid = b.Familie_Uid }, (a, b) => new { family = a, marriage = b })

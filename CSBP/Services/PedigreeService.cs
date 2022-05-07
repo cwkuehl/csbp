@@ -482,9 +482,10 @@ namespace CSBP.Services
         throw new MessageException(M1012);
       if (!(version == "4.0" || version == "5.5"))
         throw new MessageException(SB024);
-      var status2 = 1; // Selected value for Status2.
       var op = ""; // ">=";
       var tot = 0;
+      var anc = "";
+      var desc = "";
       if (string.IsNullOrEmpty(filter))
       {
         // Select all acestors and families.
@@ -497,16 +498,36 @@ namespace CSBP.Services
       }
       else
       {
-        var re = new Regex("^(tot|death)\\s*(<|<=|=|>=|>)\\s*(\\d+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var re = new Regex("^(tot|death|status1)\\s*(<|<=|=|>=|>)\\s*(\\d+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         var m = re.Match(filter);
         if (m.Success)
         {
           op = m.Groups[2].Value;
           tot = Functions.ToInt32(m.Groups[3].Value);
+          CalculateDeathYear(daten);
         }
         else
+        {
+          var re2 = new Regex("^(vorfahre|ancestor|status2)\\s*(=)\\s*([a-z\\d\\-:]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+          m = re2.Match(filter);
+          if (m.Success)
+          {
+            anc = m.Groups[3].Value;
+            CalculateAncestor(daten, anc);
+          }
+          else
+          {
+            var re3 = new Regex("^(nachfahre|descendant|status3)\\s*(=)\\s*([a-z\\d\\-:]+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            m = re3.Match(filter);
+            if (m.Success)
+            {
+              desc = m.Groups[3].Value;
+              CalculateDescendant(daten, desc);
+            }
+          }
+        }
+        if (string.IsNullOrEmpty(op) && string.IsNullOrEmpty(anc) && string.IsNullOrEmpty(desc))
           throw new MessageException(SB025);
-        CalculateDeathYear(daten);
         // status2 = 0; // Unselect all ancestors.
         // SbPersonRep.UpdateStatus2(daten, null, 0, status2);
         // SaveChanges(daten);
@@ -527,9 +548,9 @@ namespace CSBP.Services
       var list = new List<String>();
       var map = new Dictionary<string, int>();
       WriteHead(daten, list, version, skript);
-      WriteIndividual(daten, list, map, version, op, tot, status2);
-      WriteFamily(daten, list, map, op, tot, status2);
-      WriteSource(daten, list, map, op, tot, status2);
+      WriteIndividual(daten, list, map, version, op, tot, anc, desc);
+      WriteFamily(daten, list, map, op, tot, anc, desc);
+      WriteSource(daten, list, map);
       WriteFoot(daten, list, version, name);
       // var l = map.Where(a => a.Value < 0).Select(a => a.Key).ToList();
       // foreach (var i in l)
@@ -707,7 +728,132 @@ namespace CSBP.Services
       return r;
     }
 
+    /// <summary>
+    /// Calculate the ancestors of a person (Status2).
+    /// </summary>
+    /// <returns>Possibly errors.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="anc">Affected number of root ancestor.</param>
+    public ServiceErgebnis CalculateAncestor(ServiceDaten daten, string anc)
+    {
+      var r = new ServiceErgebnis();
+      var plist = SbPersonRep.GetList(daten, daten.MandantNr);
+      anc = anc ?? "";
+      Debug.WriteLine($"CalculateAncestor for {plist.Count} ancestors.");
+      foreach (var p in plist)
+        p.Status2 = (p.Uid == anc) ? 1 : 0;
+      var flist = SbFamilieRep.GetList(daten, daten.MandantNr);
+      foreach (var f in flist)
+        f.Status2 = 0;
+      SaveChanges(daten);
+      var c0 = 0;
+      var c1 = c0;
+      do
+      {
+        plist = SbPersonRep.GetList(daten, status2: 1);
+        c1 = plist.Count;
+        if (c0 == c1)
+          break;
+        Debug.WriteLine($"{c1} selected ancestors.");
+        foreach (var p in plist)
+        {
+          // Debug.WriteLine($"{p.Geburtsname} {p.Name} {p.Vorname}.");
+          flist = SbFamilieRep.GetList(daten, personuid: p.Uid, status2: 0);
+          var clist = SbKindRep.GetList(daten, kuid: p.Uid);
+          foreach (var c in clist)
+          {
+            flist.AddRange(SbFamilieRep.GetList(daten, c.Familie_Uid));
+          }
+          foreach (var f in flist)
+          {
+            if (anc.StartsWith(f.Father?.Uid ?? "", StringComparison.CurrentCultureIgnoreCase)
+              || anc.StartsWith(f.Mother?.Uid ?? "", StringComparison.CurrentCultureIgnoreCase))
+              continue;
+            f.Status2 = 1;
+            if ((f.Father?.Status2 ?? 0) == 0)
+            {
+              var fa = SbPersonRep.Get(daten, daten.MandantNr, f.Father?.Uid);
+              if (fa != null)
+                fa.Status2 = 1;
+            }
+            if ((f.Mother?.Status2 ?? 0) == 0)
+            {
+              var mo = SbPersonRep.Get(daten, daten.MandantNr, f.Mother?.Uid);
+              if (mo != null)
+                mo.Status2 = 1;
+            }
+          }
+        }
+        SaveChanges(daten);
+        c0 = c1;
+      } while (true);
+      return r;
+    }
+
+    /// <summary>
+    /// Calculate the descendants of a person (Status3).
+    /// </summary>
+    /// <returns>Possibly errors.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="desc">Affected number of root descendant.</param>
+    public ServiceErgebnis CalculateDescendant(ServiceDaten daten, string desc)
+    {
+      var r = new ServiceErgebnis();
+      var plist = SbPersonRep.GetList(daten, daten.MandantNr);
+      desc = desc ?? "";
+      Debug.WriteLine($"CalculateDescendant for {plist.Count} descendants.");
+      foreach (var p in plist)
+        p.Status3 = (p.Uid == desc) ? 1 : 0;
+      var flist = SbFamilieRep.GetList(daten, daten.MandantNr);
+      foreach (var f in flist)
+        f.Status3 = 0;
+      SaveChanges(daten);
+      var c0 = 0;
+      var c1 = c0;
+      do
+      {
+        plist = SbPersonRep.GetList(daten, status3: 1);
+        c1 = plist.Count;
+        if (c0 == c1)
+          break;
+        Debug.WriteLine($"{c1} selected descendants.");
+        foreach (var p in plist)
+        {
+          // Debug.WriteLine($"{p.Geburtsname} {p.Name} {p.Vorname}.");
+          flist = SbFamilieRep.GetList(daten, personuid: p.Uid, status3: 0);
+          foreach (var f in flist)
+          {
+            f.Status3 = 1;
+            if ((f.Father?.Status3 ?? 0) == 0)
+            {
+              var fa = SbPersonRep.Get(daten, daten.MandantNr, f.Father?.Uid);
+              if (fa != null)
+                fa.Status3 = 1;
+            }
+            if ((f.Mother?.Status3 ?? 0) == 0)
+            {
+              var mo = SbPersonRep.Get(daten, daten.MandantNr, f.Mother?.Uid);
+              if (mo != null)
+                mo.Status3 = 1;
+            }
+            var clist = SbKindRep.GetList(daten, fuid: f.Uid);
+            foreach (var c in clist)
+            {
+              var ch = SbPersonRep.Get(daten, daten.MandantNr, c.Kind_Uid);
+              if (ch != null)
+                ch.Status3 = 1;
+            }
+          }
+        }
+        SaveChanges(daten);
+        c0 = c1;
+      } while (true);
+      return r;
+    }
+
+    /// <summary>Regex for level.</summary>
     private static Regex level = new Regex("^([\\d]+) (.*)$", RegexOptions.Compiled);
+    /// <summary>Regex for individual.</summary>
     private static Regex indi0 = new Regex("^0 @I([\\da-fA-F;\\-]+)@ INDI$", RegexOptions.Compiled); // 297f9764:141887cfc37:-8000-
     private static Regex name1 = new Regex("^1 NAME [^/]*/([^/]+)/$", RegexOptions.Compiled);
     private static Regex givn2 = new Regex("^2 GIVN (.*)$", RegexOptions.Compiled);
@@ -1208,14 +1354,18 @@ namespace CSBP.Services
     /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
     /// <param name="op">Affected operator for Status1.</param>
     /// <param name="tot">Affected comparison value for Status1.</param>
-    /// <param name="status2">Affected Status2.</param>
+    /// <param name="anc">Affected ancestor uid.</param>
+    /// <param name="desc">Affected descendant uid.</param>
     private void WriteIndividual(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string version,
-      string op, int tot, int status2 = 0)
+      string op, int tot, string anc = null, string desc = null)
     {
       var liste = SbPersonRep.GetList(daten); // , status2: status2);
+      var status2 = !string.IsNullOrEmpty(anc) ? (int?)null : 1;
+      var status3 = !string.IsNullOrEmpty(desc) ? (int?)null : 1;
       foreach (var p in liste)
       {
-        if (!Functions.VergleicheInt(Math.Abs(p.Status1), op, tot))
+        if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(p.Status1), op, tot)
+          || (!string.IsNullOrEmpty(anc) && p.Status2 != 1) || (!string.IsNullOrEmpty(desc) && p.Status3 != 1))
           continue;
         var uid = p.Uid;
         var vn = p.Vorname;
@@ -1260,10 +1410,10 @@ namespace CSBP.Services
           l.Add("1 SOUR " + GetXref(map, "SOUR", quid));
         if (!string.IsNullOrEmpty(bem))
           SchreibeFortsetzung(l, 1, "NOTE", bem);
-        var kind = SbKindRep.GetList(daten, kuid: uid, status2: status2).FirstOrDefault();
+        var kind = SbKindRep.GetList(daten, kuid: uid, status2: status2, status3: status3).FirstOrDefault();
         if (kind != null)
           l.Add("1 FAMC " + GetXref(map, "FAM", kind.Familie_Uid));
-        var eltern = SbFamilieRep.GetList(daten, personuid: uid, status2: status2);
+        var eltern = SbFamilieRep.GetList(daten, personuid: uid, status2: status2, status3: status3);
         string fuid = null;
         foreach (var f in eltern)
         {
@@ -1283,8 +1433,10 @@ namespace CSBP.Services
     /// <param name="map">Mapping for xref.</param>
     /// <param name="op">Affected operator for Status1.</param>
     /// <param name="tot">Affected comparison value for Status1.</param>
-    /// <param name="status2">Affected Status2.</param>
-    private void WriteFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string op, int tot, int status2 = 0)
+    /// <param name="anc">Affected ancestor uid.</param>
+    /// <param name="desc">Affected descendant uid.</param>
+    private void WriteFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map,
+      string op, int tot, string anc = null, string desc = null)
     {
       var familien = SbFamilieRep.GetList(daten); //, status2: status2);
       foreach (var f in familien)
@@ -1292,11 +1444,13 @@ namespace CSBP.Services
         var familienUid = f.Uid;
         var muid = f.Mann_Uid;
         var fuid = f.Frau_Uid;
-        var mannTot = f.Father?.Status1 ?? 0;
-        var frauTot = f.Mother?.Status1 ?? 0;
-        if (!Functions.VergleicheInt(Math.Abs(mannTot), op, tot))
+        // var mannTot = f.Father?.Status1 ?? 0;
+        // var frauTot = f.Mother?.Status1 ?? 0;
+        if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Father?.Status1 ?? 0), op, tot)
+          || (!string.IsNullOrEmpty(anc) && (f.Father?.Status3 ?? 0) != 1) || (!string.IsNullOrEmpty(desc) && (f.Father?.Status3 ?? 0) != 1))
           muid = null;
-        if (!Functions.VergleicheInt(Math.Abs(frauTot), op, tot))
+        if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Mother?.Status1 ?? 0), op, tot)
+          || (!string.IsNullOrEmpty(anc) && (f.Mother?.Status3 ?? 0) != 1) || (!string.IsNullOrEmpty(desc) && (f.Mother?.Status3 ?? 0) != 1))
           fuid = null;
         if (string.IsNullOrEmpty(muid) && string.IsNullOrEmpty(fuid))
           continue;
@@ -1337,10 +1491,7 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="l">List of lines for GEDCOM file.</param>
     /// <param name="map">Mapping for xref.</param>
-    /// <param name="op">Affected operator for Status1.</param>
-    /// <param name="tot">Affected comparison value for Status1.</param>
-    /// <param name="status2">Affected Status2.</param>
-    private void WriteSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map, string op, int tot, int status2 = 0)
+    private void WriteSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map)
     {
       var quellen = SbQuelleRep.GetList(daten, null); // , status2);
       foreach (var q in quellen)

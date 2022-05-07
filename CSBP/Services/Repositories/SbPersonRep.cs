@@ -31,9 +31,10 @@ public partial class SbPersonRep
   /// <param name="fuid">Affected family uid.</param>
   /// <param name="status1">Affected Status1.</param>
   /// <param name="status2">Affected Status2.</param>
+  /// <param name="status3">Affected Status3.</param>
   /// <returns>List of ancestors.</returns>
   public List<SbPerson> GetList(ServiceDaten daten, string name = null, string firstname = null, string uid = null,
-    bool desc = false, string suid = null, string fuid = null, int? status1 = null, int? status2 = null)
+    bool desc = false, string suid = null, string fuid = null, int? status1 = null, int? status2 = null, int? status3 = null)
   {
     var mandantnr = daten.MandantNr;
     var db = GetDb(daten);
@@ -52,6 +53,8 @@ public partial class SbPersonRep
       wl = wl.Where(a => a.Status1 == status1.Value);
     if (status2.HasValue)
       wl = wl.Where(a => a.Status2 == status2.Value);
+    if (status3.HasValue)
+      wl = wl.Where(a => a.Status3 == status3.Value);
     var birth = GedcomEventEnum.BIRTH.ToString();
     var death = GedcomEventEnum.DEATH.ToString();
     var christ = GedcomEventEnum.CHRIST.ToString();

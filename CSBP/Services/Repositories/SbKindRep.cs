@@ -25,9 +25,10 @@ namespace CSBP.Services.Repositories
     /// <param name="kuidgt">Affected child uid which is smaller.</param>
     /// <param name="personuid">Affected father or mother uid.</param>
     /// <param name="status2">Affected Status2.</param>
+    /// <param name="status3">Affected Status3.</param>
     /// <returns>List of children.</returns>
     public List<SbKind> GetList(ServiceDaten daten, string fuid = null, string kuid = null, string fuidne = null,
-      string kuidne = null, string kuidgt = null, string personuid = null, int? status2 = null)
+      string kuidne = null, string kuidgt = null, string personuid = null, int? status2 = null, int? status3 = null)
     {
       var mandantnr = daten.MandantNr;
       var db = GetDb(daten);
@@ -49,6 +50,8 @@ namespace CSBP.Services.Repositories
           fl = fl.Where(a => a.Mann_Uid == personuid || a.Frau_Uid == personuid);
         if (status2.HasValue)
           fl = fl.Where(a => a.Status2 == status2.Value);
+        if (status3.HasValue)
+          fl = fl.Where(a => a.Status3 == status3.Value);
         l = l.Join(fl, a => new { Uid = a.Familie_Uid }, b => new { b.Uid }, (a, b) => a);
       }
       var l2 = l.Join(db.SB_Person.Where(a => a.Mandant_Nr == mandantnr),
