@@ -48,6 +48,7 @@ namespace CSBP.Services.Repositories
             a.investment.StockShortcut = a.stock.Kuerzel;
             a.investment.StockType = a.stock.Type;
             a.investment.StockCurrency = a.stock.Currency;
+            a.investment.StockMemo = a.stock.Notiz;
             return a.investment;
           })
           ;
@@ -63,7 +64,7 @@ namespace CSBP.Services.Repositories
           if (Like(a.Bezeichnung, search) || Like(a.Notiz, search)
           || Like(a.StockDescription, search) || Like(a.StockProvider, search)
           || Like(a.StockShortcut, search) || Like(a.StockType, search)
-          || Like(a.StockCurrency, search))
+          || Like(a.StockCurrency, search) || Like(a.StockMemo, search))
             ll.Add(a);
         }
         l = ll;

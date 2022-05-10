@@ -34,6 +34,10 @@ namespace CSBP.Apis.Models
     [NotMapped]
     public string StockCurrency { get; set; }
 
+    /// <summary>Get or set stock memo.</summary>
+    [NotMapped]
+    public string StockMemo { get; set; }
+
     /// <summary>Holt oder setzt die Daten.</summary>
     [NotMapped]
     public string Data { get; set; }
