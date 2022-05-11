@@ -702,6 +702,12 @@
     <data name="WP014" xml:space="preserve">
         <value>WP014Das Kürzel darf nicht leer sein.</value>
     </data>
+    <data name="WP015" xml:space="preserve">
+        <value>WP015Das Wertpapier wird in einer Relation verwendet und kann nicht gelöscht werden.</value>
+    </data>
+    <data name="WP016" xml:space="preserve">
+        <value>WP016Das Wertpapier wird in einer Anlage verwendet und kann nicht gelöscht werden.</value>
+    </data>
     <data name="WP017" xml:space="preserve">
         <value>WP017Bitte ein Wertpapier auswählen.</value>
     </data>
@@ -1089,7 +1095,7 @@
         <value>Inaktiv</value>
     </data>
     <data name="Enum.state.nocalc" xml:space="preserve">
-        <value>Keine Berechnung</value>
+        <value>Nicht berechnet</value>
     </data>
 
     <data name="Enum.scale.fix" xml:space="preserve">
@@ -3833,7 +3839,7 @@
         <value>Wertpapiere</value>
     </data>
     <data name="WP200.wertpapiere.columns" xml:space="preserve">
-        <value>Nr.;Sort.;Name;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Sort.;Name;St.;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="WP200.bis" xml:space="preserve">
         <value>B_is</value>
@@ -3982,7 +3988,7 @@
         <value>Wertpapier-Anlagen</value>
     </data>
     <data name="WP250.anlagen.columns" xml:space="preserve">
-        <value>Nr.;Bezeichnung;Provider;Kürzel;Betrag_r;Anteile_r;Wert_r;Gewinn_r;+/-_r;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Bezeichnung;St.;Provider;Kürzel;Betrag_r;Anteile_r;Wert_r;Gewinn_r;+/-_r;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="WP250.anlagenStatus" xml:space="preserve">
         <value>Status</value>

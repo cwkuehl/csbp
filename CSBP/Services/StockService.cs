@@ -18,6 +18,7 @@ namespace CSBP.Services
   using System.Threading.Tasks;
   using System.Diagnostics;
   using System.Threading;
+  using CSBP.Services.Pnf;
 
   public class StockService : ServiceBase, IStockService
   {
@@ -146,8 +147,188 @@ namespace CSBP.Services
     /// <returns>Possibly errors.</returns>
     public ServiceErgebnis DeleteStock(ServiceDaten daten, WpWertpapier e)
     {
+      var r = new ServiceErgebnis();
+      var slist = WpWertpapierRep.GetList(daten, daten.MandantNr, null, reuid: e.Uid);
+      if (slist.Any())
+        r.Errors.Add(Message.New(WP015));
+      var ilist = WpAnlageRep.GetList(daten, daten.MandantNr, null, stuid: e.Uid);
+      if (ilist.Any())
+        r.Errors.Add(Message.New(WP016));
+      if (!r.Ok)
+        return r;
+      var plist = WpStandRep.GetList(daten, daten.MandantNr, null, null, e.Uid);
+      // Delete prices.
+      foreach (var p in plist)
+        WpStandRep.Delete(daten, p);
       WpWertpapierRep.Delete(daten, e);
-      return new ServiceErgebnis();
+      return r;
+    }
+
+    /// <summary>
+    /// Calculates all stocks.
+    /// </summary>
+    /// <returns>Possibly errors.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="desc">Affected description.</param>
+    /// <param name="pattern">Affected pattern.</param>
+    /// <param name="uid">Affected stock ID.</param>
+    /// <param name="date">Affected date.</param>
+    /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="search">Affected text search.</param>
+    /// <param name="kuid">Affected konfiguration ID.</param>
+    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="cancel">Cancel backup if not empty.</param>
+    public ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string uid,
+      DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel)
+    {
+      if (status == null || cancel == null)
+        throw new ArgumentException();
+      WpKonfiguration k = null;
+      if (!string.IsNullOrEmpty(kuid))
+      {
+        k = WpKonfigurationRep.Get(daten, daten.MandantNr, kuid, true);
+        if (k != null)
+          k.Bezeichnung = PnfChart.GetBezeichnung(k.Bezeichnung, 0, k.Scale, k.Reversal, k.Method, k.Relative, k.Duration, null, 0, 0);
+      }
+      var from = date.AddDays(k == null ? -182 : k.Duration);
+      var dictlist = new Dictionary<string, List<SoKurse>>();
+      var dictresponse = new Dictionary<string, StockUrl>();
+      var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
+      list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel)).ToList();
+      var l = list.Count;
+      status.Clear().Append(M0(WP053));
+      Gtk.Application.Invoke(delegate
+      {
+        MainClass.MainWindow.SetError(status.ToString());
+      });
+      for (var i = 0; i < l && cancel.Length <= 0; i++)
+      {
+        var st = list[i];
+        var ulist = GetPriceUrlsIntern(from, date, st.Datenquelle, st.Kuerzel, st.Type);
+        foreach (var url in ulist)
+        {
+          var su = new StockUrl
+          {
+            Uid = st.Uid,
+            Description = st.Bezeichnung,
+            Date = url.Item1,
+            Url = url.Item2,
+          };
+          if (!dictresponse.TryGetValue(su.Key, out var du))
+          {
+            dictresponse.Add(su.Key, su);
+          }
+        }
+      }
+      Debug.Print($"{DateTime.Now} Start.");
+      var l1 = dictresponse.Count;
+      var i1 = 1;
+      foreach (var su in dictresponse.Values)
+      {
+        if (cancel.Length > 0)
+          break;
+        su.Task = ExecuteHttpsClient(su.Url);
+        status.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
+        Gtk.Application.Invoke(delegate
+        {
+          MainClass.MainWindow.SetError(status.ToString());
+        });
+        if (i1 < l1)
+        {
+          // Verzögerung wegen onvista.de notwendig. 500 OK.
+          Thread.Sleep(HttpDelay);
+        }
+        i1++;
+      }
+      if (cancel.Length <= 0)
+      {
+        var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
+        Task.WaitAll(tasks, HttpTimeout);
+        foreach (var su in dictresponse.Values)
+        {
+          su.Response = su.Task.Result;
+          su.Task.Dispose();
+          su.Task = null;
+        }
+      }
+      Debug.Print($"{DateTime.Now} End.");
+
+      for (var i = 0; i < l && cancel.Length <= 0; i++)
+      {
+        // Kurse berechnen.
+        var st = list[i];
+        status.Clear().Append(WP009(i + 1, l, st.Bezeichnung, date, null));
+        Gtk.Application.Invoke(delegate
+        {
+          MainClass.MainWindow.SetError(status.ToString());
+        });
+        //   var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
+        //   inv.MinDate = blist.FirstOrDefault()?.Datum;
+        //   if (!dictlist.TryGetValue(inv.Wertpapier_Uid, out var klist))
+        //   {
+        //     string response = null;
+        //     if (dictresponse.TryGetValue(StockUrl.GetKey(inv.Wertpapier_Uid, date), out var resp))
+        //       response = resp.Response;
+        //     var pl = GetPriceListIntern(daten, from, date, inv.StockProvider, inv.StockShortcut, inv.StockType,
+        //       inv.StockCurrency, inv.Price, inv.Wertpapier_Uid, dictresponse);
+        //     klist = pl.Skip(Math.Max(0, pl.Count - 2)).ToList(); // Max. die letzten beiden Kurse.
+        //     dictlist.Add(inv.Wertpapier_Uid, klist);
+        //   }
+        //   SoKurse k = null;
+        //   SoKurse k1 = null;
+        //   if (klist != null)
+        //   {
+        //     if (klist.Count >= 2)
+        //     {
+        //       k = klist[klist.Count - 1];
+        //       k1 = klist[klist.Count - 2];
+        //     }
+        //     else if (klist.Count >= 1)
+        //       k = klist[klist.Count - 1];
+        //   }
+        //   if (k == null)
+        //   {
+        //     var s = WpStandRep.GetLatest(daten, daten.MandantNr, inv.Wertpapier_Uid, date);
+        //     if (s != null)
+        //     {
+        //       k = new SoKurse
+        //       {
+        //         Close = s.Stueckpreis,
+        //         Datum = s.Datum,
+        //         Bewertung = "EUR",
+        //         Price = 1
+        //       };
+        //     }
+        //   }
+        //   if (k == null)
+        //   {
+        //     k = new SoKurse
+        //     {
+        //       Close = inv.ShareValue,
+        //       Datum = inv.MinDate ?? daten.Heute,
+        //       Bewertung = "EUR",
+        //       Price = 1
+        //     };
+        //   }
+        //   CalculateInvestment(daten, inv, blist, k);
+        //   if (k1 != null)
+        //   {
+        //     var inv2 = Clone(inv);
+        //     CalculateInvestment(daten, inv2, blist, k1);
+        //     inv.PriceDate2 = inv2.PriceDate;
+        //     inv.Value2 = inv2.Value;
+        //   }
+        //   WpAnlageRep.Update(daten, inv);
+        //   if (inv.PriceDate.HasValue && Functions.compDouble4(inv.Price, 0) > 0)
+        //   {
+        //     // Stand speichern
+        //     WpStandRep.Save(daten, daten.MandantNr, inv.Wertpapier_Uid, inv.PriceDate.Value, inv.Price);
+        //     SaveChanges(daten);
+        //   }
+      }
+      status.Clear();
+      var r = new ServiceErgebnis();
+      return r;
     }
 
     /// <summary>
@@ -536,7 +717,7 @@ namespace CSBP.Services
         if (i1 < l1)
         {
           // Verzögerung wegen onvista.de notwendig. 500 OK.
-          Thread.Sleep(500);
+          Thread.Sleep(HttpDelay);
         }
         i1++;
       }
@@ -551,7 +732,7 @@ namespace CSBP.Services
           su.Task = null;
         }
       }
-      Debug.Print($"{DateTime.Now} Ende.");
+      Debug.Print($"{DateTime.Now} End.");
 
       for (var i = 0; i < l && cancel.Length <= 0; i++)
       {
@@ -1067,16 +1248,6 @@ namespace CSBP.Services
     }
 
     /// <summary>
-    /// Is the shortcut to be ignored for calculation?
-    /// </summary>
-    /// <param name="shortcut">Affected shortcut for source.</param>
-    /// <returns>Is the shortcut to be ignored for calculation?</returns>
-    private bool IgnoreShortcut(string shortcut)
-    {
-      return string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx";
-    }
-
-    /// <summary>
     /// Gets a list of URLs for price request.
     /// </summary>
     /// <param name="from">Beginning of the period.</param>
@@ -1089,7 +1260,7 @@ namespace CSBP.Services
         string source, string shortcut, string type)
     {
       var urls = new List<(DateTime, string)>();
-      if (string.IsNullOrEmpty(source) || IgnoreShortcut(shortcut))
+      if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
         return urls;
       if (source == "yahoo")
       {
@@ -1154,7 +1325,7 @@ namespace CSBP.Services
       string uid = null, Dictionary<string, StockUrl> dictresponse = null)
     {
       var l = new List<SoKurse>();
-      if (string.IsNullOrEmpty(source) || IgnoreShortcut(shortcut))
+      if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
         return l;
       if (source == "yahoo")
       {

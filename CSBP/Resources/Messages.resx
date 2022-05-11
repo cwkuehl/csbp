@@ -702,6 +702,12 @@
     <data name="WP014" xml:space="preserve">
         <value>WP014Type in a shortcut.</value>
     </data>
+    <data name="WP015" xml:space="preserve">
+        <value>WP015The stock is used by relations and cannot be deleted.</value>
+    </data>
+    <data name="WP016" xml:space="preserve">
+        <value>WP016The stock is used by investments and cannot be deleted.</value>
+    </data>
     <data name="WP017" xml:space="preserve">
         <value>WP017Select a stock.</value>
     </data>
@@ -1089,7 +1095,7 @@
         <value>Inactive</value>
     </data>
     <data name="Enum.state.nocalc" xml:space="preserve">
-        <value>No calculation</value>
+        <value>Not calculated</value>
     </data>
 
     <data name="Enum.scale.fix" xml:space="preserve">
@@ -3833,7 +3839,7 @@
         <value>WP200.wertpapiere.tt</value>
     </data>
     <data name="WP200.wertpapiere.columns" xml:space="preserve">
-        <value>No.;Description;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Description;St.;Provider;Shortcut;Relation;Rating;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Date;Signal;200;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="WP200.bis" xml:space="preserve">
         <value>WP200.bis</value>
@@ -3982,7 +3988,7 @@
         <value>Stock investments</value>
     </data>
     <data name="WP250.anlagen.columns" xml:space="preserve">
-        <value>No.;Description;Provider;Shortcut;Payment_r;Shares_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Description;St.;Provider;Shortcut;Payment_r;Shares_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="WP250.anlagenStatus" xml:space="preserve">
         <value>State</value>

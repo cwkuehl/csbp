@@ -1162,6 +1162,16 @@ namespace CSBP.Resources
       get { return rm.GetString("WP014"); }
     }
 
+    public static string WP015
+    {
+      get { return rm.GetString("WP015"); }
+    }
+
+    public static string WP016
+    {
+      get { return rm.GetString("WP016"); }
+    }
+
     public static string WP017
     {
       get { return rm.GetString("WP017"); }

@@ -14,7 +14,7 @@ image:WP210.png[{wp210-title},title={wp210-title}]
 |Nr.          |Eindeutige Nummer des ausgewählten Wertpapier-Datensatzes.
 |Bezeichnung  |Die Bezeichnung des Wertpapiers muss eingegeben werden.
 |Provider     |Der Provider für die Kursabfrage muss ausgewählt werden.
-|Kürzel       |Das Kürzel für Kursabfrage des Wertpapiers bei Yahoo muss eingegeben werden. Bei '0' oder 'xxx' wird kein Kurs abgefragt. Bei Yahoo heißen die Kürzel z.B. ^GDAXI für den DAX oder FRA.DE für Fraport AG. Bei onvista benötigt man die idnotation für die einzelnen Wertpapiere und Handelsplätze.
+|Kürzel       |Das Kürzel für Kursabfrage des Wertpapiers bei Yahoo muss eingegeben werden. Bei '0' oder 'xxx' wird kein Kurs abgefragt bzw. keine Berechnung durchgeführt. Bei Yahoo heißen die Kürzel z.B. ^GDAXI für den DAX oder FRA.DE für Fraport AG. Bei onvista benötigt man die idnotation für die einzelnen Wertpapiere und Handelsplätze.
 |Status       |Ein Status des Wertpapier-Datensatzes muss erfasst werden. Bei inaktiv wird keine Bewertung berechnet.
 |Aktueller Kurs|Anzeige des letzten Kurses.
 |Stop-Kurs    |Anzeige des Stop-Kurses. Der Kurs wird als 5% unter dem letzten Tief berechnet.

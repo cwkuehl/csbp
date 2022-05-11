@@ -32,7 +32,7 @@ namespace CSBP.Services.Repositories
     /// <returns>List of stocks.</returns>
     public List<WpWertpapier> GetList(ServiceDaten daten, int mandantnr, string desc,
       string pattern = null, string uid = null, string neuid = null,
-      bool onlyactive = false, string search = null)
+      bool onlyactive = false, string search = null, string reuid = null)
     {
       var db = GetDb(daten);
       var wl = db.WP_Wertpapier.Where(a => a.Mandant_Nr == mandantnr);
@@ -40,6 +40,10 @@ namespace CSBP.Services.Repositories
         wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));
       if (!string.IsNullOrEmpty(uid))
         wl = wl.Where(a => a.Uid == uid);
+      if (!string.IsNullOrEmpty(neuid))
+        wl = wl.Where(a => a.Uid != neuid);
+      if (!string.IsNullOrEmpty(reuid))
+        wl = wl.Where(a => a.Relation_Uid == reuid);
       var l = wl.GroupJoin(db.WP_Wertpapier.Where(a => a.Mandant_Nr == mandantnr),
         a => a.Relation_Uid, b => b.Uid, (a, b) => new { stock = a, relation = b })
         .SelectMany(ab => ab.relation.DefaultIfEmpty(), (a, b) => new { a.stock, relation = b })

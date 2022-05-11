@@ -62,6 +62,23 @@ namespace CSBP.Apis.Services
     ServiceErgebnis DeleteStock(ServiceDaten daten, WpWertpapier e);
 
     /// <summary>
+    /// Calculates all stocks.
+    /// </summary>
+    /// <returns>Possibly errors.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="desc">Affected description.</param>
+    /// <param name="pattern">Affected pattern.</param>
+    /// <param name="uid">Affected stock ID.</param>
+    /// <param name="date">Affected date.</param>
+    /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="search">Affected text search.</param>
+    /// <param name="kuid">Affected konfiguration ID.</param>
+    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="cancel">Cancel backup if not empty.</param>
+    ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string uid,
+      DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel);
+
+    /// <summary>
     /// Gets a list of states.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>

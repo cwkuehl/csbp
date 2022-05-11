@@ -19,10 +19,10 @@ namespace CSBP.Forms.WP
   /// <summary>Controller für WP200Stocks Dialog.</summary>
   public partial class WP200Stocks : CsbpBin
   {
-    /// <summary>Status für die Berechnung.</summary>
+    /// <summary>State of calculation.</summary>
     StringBuilder Status = new StringBuilder();
 
-    /// <summary>Abbruch der Berechnung.</summary>
+    /// <summary>Cancel of calculation.</summary>
     StringBuilder Cancel = new StringBuilder();
 
 #pragma warning disable 169, 649
@@ -168,12 +168,12 @@ namespace CSBP.Forms.WP
       if (step <= 1)
       {
         var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
-        // Nr.;Sort.;Name;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
+        // Nr.;Sort.;Name;Status;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
         var values = new List<string[]>();
         foreach (var e in l)
         {
-          values.Add(new string[] { e.Uid, e.Sorting, e.Bezeichnung, e.Datenquelle, e.Kuerzel,
-            e.RelationDescription, e.Assessment, e.Trend,
+          values.Add(new string[] { e.Uid, e.Sorting, e.Bezeichnung, UiFunctions.GetStockState(e.Status, e.Kuerzel),
+            e.Datenquelle, e.Kuerzel, e.RelationDescription, e.Assessment, e.Trend,
             e.Assessment1, e.Trend1, e.Assessment2, e.Trend2, e.Assessment3, e.Trend3,
             e.Assessment4, e.Trend4, e.Assessment5, e.Trend5, e.Xo, e.SignalAssessment,
             Functions.ToString(e.SignalDate), e.SignalDescription, e.Average200,
@@ -310,43 +310,7 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnBerechnenClicked(object sender, EventArgs e)
     {
-      try
-      {
-        // TODO Calculate stocks.
-        // var password = "";
-        // var uid = GetValue<string>(verzeichnisse);
-        // if (restore && !ShowYesNoQuestion(M0(AG001)))
-        //   return;
-        // var be = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
-        // if (be != null && be.Encrypted)
-        // {
-        //   password = (string)Start(typeof(AG420Encryption), AG420_title, parameter1: uid, modal: true, csbpparent: this);
-        //   if (string.IsNullOrEmpty(password))
-        //     return;
-        // }
-        ShowStatus(Status, Cancel);
-        // var r = await Task.Run(() =>
-        // {
-        //   var r0 = FactoryService.StockService.CalculateInvestments(ServiceDaten, uid, restore, password, Status, Cancel);
-        //   return r0;
-        // });
-        // r.ThrowAllErrors();
-        Application.Invoke(delegate
-        {
-          refreshAction.Click();
-        });
-      }
-      catch (Exception ex)
-      {
-        Application.Invoke(delegate
-        {
-          ShowError(ex.Message);
-        });
-      }
-      finally
-      {
-        Cancel.Append("End");
-      }
+      CalculateStocks();
     }
 
     /// <summary>Behandlung von Abbrechen.</summary>
@@ -386,6 +350,39 @@ namespace CSBP.Forms.WP
       if (!EventsActive)
         return;
       refreshAction.Click();
+    }
+
+#pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
+    private async void CalculateStocks()
+#pragma warning restore RECS0165
+    {
+      try
+      {
+        Status.Clear();
+        Cancel.Clear();
+        var r = await Task.Run(() =>
+        {
+          var r0 = FactoryService.StockService.CalculateStocks(ServiceDaten, null, muster.Text,
+            null, bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, GetText(konfiguration), Status, Cancel);
+          return r0;
+        });
+        r.ThrowAllErrors();
+        Application.Invoke(delegate
+        {
+          refreshAction.Click();
+        });
+      }
+      catch (Exception ex)
+      {
+        Application.Invoke(delegate
+        {
+          ShowError(ex.Message);
+        });
+      }
+      finally
+      {
+        Cancel.Append("End");
+      }
     }
 
     /// <summary>Starten des Details-Dialogs.</summary>

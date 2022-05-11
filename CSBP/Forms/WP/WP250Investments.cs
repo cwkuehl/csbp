@@ -21,10 +21,10 @@ namespace CSBP.Forms.WP
   /// <summary>Controller für WP250Investments Dialog.</summary>
   public partial class WP250Investments : CsbpBin
   {
-    /// <summary>Status für die Berechnung.</summary>
+    /// <summary>State of calculation.</summary>
     StringBuilder Status = new StringBuilder();
 
-    /// <summary>Abbruch der Berechnung.</summary>
+    /// <summary>Cancel of calculation.</summary>
     StringBuilder Cancel = new StringBuilder();
 
 #pragma warning disable 169, 649
@@ -168,8 +168,9 @@ namespace CSBP.Forms.WP
         var diff = 0m;
         foreach (var e in l)
         {
-          // Nr.;Bezeichnung;Provider;Kürzel;Betrag;Wert;Anteile;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
-          values.Add(new string[] { e.Uid, e.Bezeichnung, e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
+          // Nr.;Bezeichnung;Status;Provider;Kürzel;Betrag;Wert;Anteile;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
+          values.Add(new string[] { e.Uid, e.Bezeichnung, UiFunctions.GetStockState(e.State.ToString(), e.StockShortcut),
+            e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
             Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
             Functions.ToString(e.Value2 == 0 ? 0 : e.Value - e.Value2, 2),
             Functions.ToString(e.PriceDate), e.Currency, Functions.ToString(e.Geaendert_Am, true),
