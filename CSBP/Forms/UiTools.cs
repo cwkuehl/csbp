@@ -11,6 +11,9 @@ namespace CSBP.Forms
   using CSBP.Base;
   using CSBP.Services.Factory;
 
+  /// <summary>
+  /// Static functions for user interface interaction.
+  /// </summary>
   public class UiTools
   {
     /// <summary>
@@ -60,6 +63,12 @@ namespace CSBP.Forms
         StartFile(fn);
     }
 
+    /// <summary>
+    /// Read file into lines of strings.
+    /// </summary>
+    /// <param name="path">Affected path, maybe with file name.</param>
+    /// <param name="file">Affected file name, maybe empty.</param>
+    /// <returns></returns>
     public static List<string> ReadFile(string path, string file = null)
     {
       if (string.IsNullOrEmpty(path) && string.IsNullOrEmpty(file))
