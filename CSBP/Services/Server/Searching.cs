@@ -7,7 +7,7 @@ namespace CSBP.Services.Server
   using System;
   using System.Text;
 
-  /// <summary>Suche im StringBuilder nach dem Knuth–Morris–Pratt-Algorithmus.
+  /// <summary>Suche im StringBuilder nach dem Knuth-Morris-Pratt-Algorithmus.
   /// Siehe https://stackoverflow.com/questions/12261344/fastest-search-method-in-stringbuilder
   /// </summary>
   public static class Searching
@@ -22,8 +22,8 @@ namespace CSBP.Services.Server
       if (haystack == null || needle == null || startIndex < 0)
         throw new ArgumentNullException();
       if (needle.Length == 0)
-        return 0; //empty strings are everywhere!
-      if (needle.Length == 1) //can't beat just spinning through for it
+        return 0; // empty strings are everywhere!
+      if (needle.Length == 1) // can't beat just spinning through for it
       {
         var c = needle[0];
         for (var idx = startIndex; idx != haystack.Length; ++idx)
@@ -73,8 +73,8 @@ namespace CSBP.Services.Server
       if (haystack == null || needle == null)
         throw new ArgumentNullException();
       if (needle.Length == 0)
-        return 0; //empty strings are everywhere!
-      if (needle.Length == 1) //can't beat just spinning through for it
+        return 0; // empty strings are everywhere!
+      if (needle.Length == 1) // can't beat just spinning through for it
       {
         var c = needle[0];
         for (var idx = 0; idx != haystack.Length; ++idx)
@@ -90,7 +90,7 @@ namespace CSBP.Services.Server
         if (needle[i] == haystack[m + i])
         {
           if (i == needle.Length - 1)
-            return m == needle.Length ? -1 : m;//match -1 = failure to find conventional in .NET
+            return m == needle.Length ? -1 : m; // match -1 = failure to find conventional in .NET
           ++i;
         }
         else
