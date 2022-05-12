@@ -792,6 +792,9 @@
     <data name="WP055" xml:space="preserve">
         <value>WP055Es dürfen nur alle 3 Konten oder keines angegeben werden.</value>
     </data>
+    <data name="WP056_" xml:space="preserve">
+        <value>WP029Datensätze: {0:#,##0}</value>
+    </data>
 
     <data name="M0000" xml:space="preserve">
         <value>M0000OK</value>
@@ -3840,6 +3843,9 @@
     </data>
     <data name="WP200.wertpapiere.columns" xml:space="preserve">
         <value>Nr.;Sort.;Name;St.;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="WP200.status" xml:space="preserve">
+        <value>Status</value>
     </data>
     <data name="WP200.bis" xml:space="preserve">
         <value>B_is</value>

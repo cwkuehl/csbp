@@ -23,6 +23,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-edit</property>
   </object>
+  <object class="GtkImage" id="floppyImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-floppy</property>
+  </object>
   <object class="GtkImage" id="newImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -37,11 +42,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
-  </object>
-  <object class="GtkImage" id="floppyImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-floppy</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
@@ -164,7 +164,6 @@
         </child>
         <child>
           <object class="GtkButton" id="floppyAction">
-            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text">Action.floppy</property>
@@ -346,7 +345,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">4</property>
       </packing>
     </child>
     <child>
@@ -480,7 +479,20 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="status">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label" translatable="yes">WP200.status</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
       </packing>
     </child>
   </object>

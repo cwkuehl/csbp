@@ -194,6 +194,8 @@ namespace CSBP.Services
       var dictlist = new Dictionary<string, List<SoKurse>>();
       var dictresponse = new Dictionary<string, StockUrl>();
       var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
+      if (!inactive && list.Count != 1)
+        list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
       list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel)).ToList();
       var l = list.Count;
       status.Clear().Append(M0(WP053));
@@ -674,8 +676,8 @@ namespace CSBP.Services
       var dictlist = new Dictionary<string, List<SoKurse>>();
       var dictresponse = new Dictionary<string, StockUrl>();
       var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
-      if (!inactive)
-        list = list.Where(a => a.State == 1).ToList(); // Nur aktive Anlagen berechnen.
+      if (!inactive && list.Count != 1)
+        list = list.Where(a => a.State == 1).ToList(); // Calculate only active investments.
       var l = list.Count;
       status.Clear().Append(M0(WP053));
       Gtk.Application.Invoke(delegate

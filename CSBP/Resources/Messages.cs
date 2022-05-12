@@ -1312,6 +1312,11 @@ namespace CSBP.Resources
       get { return rm.GetString("WP055"); }
     }
 
+    public static string WP056_
+    {
+      get { return rm.GetString("WP056_"); }
+    }
+
     public static string M0000
     {
       get { return rm.GetString("M0000"); }
@@ -6260,6 +6265,11 @@ namespace CSBP.Resources
     public static string WP200_wertpapiere_columns
     {
       get { return rm.GetString("WP200.wertpapiere.columns"); }
+    }
+
+    public static string WP200_status
+    {
+      get { return rm.GetString("WP200.status"); }
     }
 
     public static string WP200_bis

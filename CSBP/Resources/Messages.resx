@@ -792,6 +792,9 @@
     <data name="WP055" xml:space="preserve">
         <value>WP055There has to be all 3 accounts or none at all.</value>
     </data>
+    <data name="WP056_" xml:space="preserve">
+        <value>WP029Records: {0:#,##0}</value>
+    </data>
 
     <data name="M0000" xml:space="preserve">
         <value>M0000OK</value>
@@ -3840,6 +3843,9 @@
     </data>
     <data name="WP200.wertpapiere.columns" xml:space="preserve">
         <value>No.;Description;St.;Provider;Shortcut;Relation;Rating;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Date;Signal;200;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="WP200.status" xml:space="preserve">
+        <value>State</value>
     </data>
     <data name="WP200.bis" xml:space="preserve">
         <value>WP200.bis</value>

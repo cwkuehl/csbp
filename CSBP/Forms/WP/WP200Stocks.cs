@@ -7,13 +7,13 @@ namespace CSBP.Forms.WP
   using System;
   using System.Collections.Generic;
   using System.Text;
-  using System.Threading;
   using System.Threading.Tasks;
   using CSBP.Apis.Enums;
   using CSBP.Base;
   using CSBP.Forms.Controls;
   using CSBP.Services.Factory;
   using Gtk;
+  using static CSBP.Resources.M;
   using static CSBP.Resources.Messages;
 
   /// <summary>Controller für WP200Stocks Dialog.</summary>
@@ -66,6 +66,10 @@ namespace CSBP.Forms.WP
     /// <summary>TreeView wertpapiere.</summary>
     [Builder.Object]
     private TreeView wertpapiere;
+
+    /// <summary>Label status.</summary>
+    [Builder.Object]
+    private Label status;
 
     /// <summary>Label bis0.</summary>
     [Builder.Object]
@@ -169,6 +173,7 @@ namespace CSBP.Forms.WP
       {
         var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
         // Nr.;Sort.;Name;Status;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
+        var anz = l.Count;
         var values = new List<string[]>();
         foreach (var e in l)
         {
@@ -180,6 +185,7 @@ namespace CSBP.Forms.WP
             Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
             Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
         }
+        status.Text = WP056(anz);
         AddStringColumnsSort(wertpapiere, WP200_wertpapiere_columns, values);
       }
     }
