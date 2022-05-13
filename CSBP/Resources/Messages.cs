@@ -1277,6 +1277,11 @@ namespace CSBP.Resources
       get { return rm.GetString("WP047_"); }
     }
 
+    public static string WP048_
+    {
+      get { return rm.GetString("WP048_"); }
+    }
+
     public static string WP049
     {
       get { return rm.GetString("WP049"); }
@@ -1365,6 +1370,11 @@ namespace CSBP.Resources
     public static string M1032
     {
       get { return rm.GetString("M1032"); }
+    }
+
+    public static string M1033_
+    {
+      get { return rm.GetString("M1033_"); }
     }
 
     public static string M1034_

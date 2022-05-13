@@ -30,9 +30,9 @@ namespace CSBP.Services.Pnf
       this.laenge = 1;
     }
 
-    public int getLaenge()
+    public int Laenge
     {
-      return laenge;
+      get { return laenge; }
     }
 
     public void setLaenge(int laenge)
@@ -40,19 +40,19 @@ namespace CSBP.Services.Pnf
       this.laenge = laenge;
     }
 
-    public int getXpos()
+    public int Xpos
     {
-      return xpos;
+      get { return xpos; }
     }
 
-    public int getYpos()
+    public int Ypos
     {
-      return ypos;
+      get { return ypos; }
     }
 
-    public int getBoxtyp()
+    public int Boxtyp
     {
-      return boxtyp;
+      get { return boxtyp; }
     }
   }
 }

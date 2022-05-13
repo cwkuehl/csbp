@@ -46,51 +46,66 @@ namespace CSBP.Services.Pnf
       datum.setMonatVerwendet();
     }
 
-    public bool isO()
+    public bool IsO
     {
-      if (sb.Length <= 0)
+      get
       {
-        return getBoxtyp() == 2;
+        if (sb.Length <= 0)
+        {
+          return Boxtyp == 2;
+        }
+        char eins = sb[0];
+        // return (getBoxtyp() == 2 && eins == 'O');
+        return eins == 'O';
       }
-      char eins = sb[0];
-      // return (getBoxtyp() == 2 && eins == 'O');
-      return eins == 'O';
     }
 
-    public int getSize()
+    public int Size
     {
-      return sb.Length;
-    }
-
-    public string getString()
-    {
-      return sb.ToString();
-    }
-
-    public char[] getChars()
-    {
-      if (sbm.Length <= 0)
+      get
       {
-        return new char[0];
+        return sb.Length;
       }
-      var array = sbm.ToString().ToCharArray();
-      if (getBoxtyp() == 2)
-      {
-        Array.Reverse(array);
-      }
-      return array;
     }
 
-    public decimal getMin()
+    public string String
     {
-      return min ?? decimal.MinValue;
+      get
+      {
+        return sb.ToString();
+      }
+    }
+
+    public char[] Chars
+    {
+      get
+      {
+        if (sbm.Length <= 0)
+        {
+          return new char[0];
+        }
+        var array = sbm.ToString().ToCharArray();
+        if (Boxtyp == 2)
+        {
+          Array.Reverse(array);
+        }
+        return array;
+      }
+    }
+
+    public decimal Min
+    {
+      get
+      {
+        return min ?? decimal.MinValue;
+      }
     }
 
     /**
      * Setzen eines neuen Maximums. Wenn das Maximum erhöht wird, wird ein X gezeichnet.
      * @param max Neues mögliches Maximum.
      */
-    public void setMin(decimal min, PnfDate datum)
+    public void SetMin(decimal min, PnfDate datum)
     {
       if (Functions.compDouble4(this.min, min) > 0)
       {
@@ -99,16 +114,19 @@ namespace CSBP.Services.Pnf
       }
     }
 
-    public decimal getMax()
+    public decimal Max
     {
-      return max ?? decimal.MaxValue;
+      get
+      {
+        return max ?? decimal.MaxValue;
+      }
     }
 
     /**
      * Setzen eines neuen Maximums. Wenn das Maximum erhöht wird, wird ein X gezeichnet.
      * @param max Neues mögliches Maximum.
      */
-    public void setMax(decimal max, PnfDate datum)
+    public void SetMax(decimal max, PnfDate datum)
     {
       if (Functions.compDouble4(this.max, max) < 0)
       {
@@ -117,34 +135,44 @@ namespace CSBP.Services.Pnf
       }
     }
 
-    public int getBoxtyp()
+    public int Boxtyp
     {
-      return boxtyp;
+      get
+      {
+        return boxtyp;
+      }
+      set
+      {
+        this.boxtyp = value;
+      }
     }
 
-    public void setBoxtyp(int boxtyp)
+    public int Ypos
     {
-      this.boxtyp = boxtyp;
+      get
+      {
+        return ypos;
+      }
+      set
+      {
+        this.ypos = value;
+      }
     }
 
-    public int getYpos()
+    public int Ytop
     {
-      return ypos;
+      get
+      {
+        return ypos + Size;
+      }
     }
 
-    public void setYpos(int pos)
+    public DateTime? Datum
     {
-      this.ypos = pos;
-    }
-
-    public int getYtop()
-    {
-      return ypos + getSize();
-    }
-
-    public DateTime? getDatum()
-    {
-      return datum;
+      get
+      {
+        return datum;
+      }
     }
   }
 }

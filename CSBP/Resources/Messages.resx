@@ -771,6 +771,9 @@
     <data name="WP047_" xml:space="preserve">
         <value>WP047{0:yyyy-MM-dd} - {1:yyyy-MM-dd}</value>
     </data>
+    <data name="WP048_" xml:space="preserve">
+        <value>WP048{0} {1:#,##0.00}</value>
+    </data>
     <data name="WP049" xml:space="preserve">
         <value>WP049Get a free access key from https://fixer.io and type in to option WP_FIXER_IO_ACCESS_KEY.</value>
     </data>
@@ -825,6 +828,9 @@
     </data>
     <data name="M1032" xml:space="preserve">
         <value>M1032Copying ...</value>
+    </data>
+    <data name="M1033_" xml:space="preserve">
+        <value>M1033Error: {0}</value>
     </data>
     <data name="M1034_" xml:space="preserve">
         <value>M1034The file {0} is missing.</value>

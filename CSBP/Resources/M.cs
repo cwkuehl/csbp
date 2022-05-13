@@ -200,6 +200,8 @@ namespace CSBP.Resources
 
     public static string WP047(DateTime d1, DateTime d2, bool cut = false) => string.Format(M0(WP047_, cut), d1, d2);
 
+    public static string WP048(string s, decimal n, bool cut = false) => string.Format(M0(WP048_, cut), s, n);
+
     public static string WP050(string f, string f2, bool cut = false) => string.Format(M0(WP050_, cut), f, f2);
 
     public static string WP051(DateTime d, bool cut = true) => string.Format(M0(WP051_, cut), d);
@@ -215,6 +217,8 @@ namespace CSBP.Resources
     public static string M1019(int ch, string csv, bool cut = false) => string.Format(M0(M1019_, cut), ch, csv);
 
     public static string M1020(string csv, bool cut = false) => string.Format(M0(M1020_, cut), csv);
+
+    public static string M1033(string s, bool cut = false) => string.Format(M0(M1033_, cut), s);
 
     public static string M1034(string file, bool cut = false) => string.Format(M0(M1034_, cut), file);
 

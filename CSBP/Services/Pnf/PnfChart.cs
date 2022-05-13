@@ -106,8 +106,8 @@ namespace CSBP.Services.Pnf
       }
 
       // Werte in Kästchen umrechnen
-      min = saeulen.Any() ? saeulen.Min(a => a.getMin()) : 0;
-      max = saeulen.Any() ? saeulen.Max(a => a.getMax()) : 0;
+      min = saeulen.Any() ? saeulen.Min(a => a.Min) : 0;
+      max = saeulen.Any() ? saeulen.Max(a => a.Max) : 0;
       if (min == 0 || max == 0)
       {
         min = kurse.Any() ? kurse.Min(a => a.Close) : 0;
@@ -117,7 +117,7 @@ namespace CSBP.Services.Pnf
       decimal m = min;
 
       werte.Clear();
-      saeulen.ForEach(a => a.setYpos(0));
+      saeulen.ForEach(a => a.Ypos = 0);
       while (Functions.compDouble4(m, max) <= 0 && saeulen.Count > 0)
       {
         werte.Add(m);
@@ -126,29 +126,29 @@ namespace CSBP.Services.Pnf
         var fanzahl = anzahl;
         saeulen.ForEach(a =>
         {
-          if (a.getYpos() == 0 && Functions.compDouble4(a.getMin(), fm) == 0)
+          if (a.Ypos == 0 && Functions.compDouble4(a.Min, fm) == 0)
           {
-            if (a.isO())
+            if (a.IsO)
             {
-              a.setYpos(fanzahl + 1);
+              a.Ypos = fanzahl + 1;
             }
             else
             {
-              a.setYpos(fanzahl);
+              a.Ypos = fanzahl;
             }
           }
         });
         pattern.ForEach(a =>
         {
-          if (a.getYpos() == 0 && Functions.compDouble4(a.getWert(), fm) == 0)
+          if (a.Ypos == 0 && Functions.compDouble4(a.Wert, fm) == 0)
           {
-            if (a.isO())
+            if (a.IsO)
             {
-              a.setYpos(fanzahl + 1);
+              a.Ypos = fanzahl + 1;
             }
             else
             {
-              a.setYpos(fanzahl - 2);
+              a.Ypos = fanzahl - 2;
             }
           }
         });
@@ -160,12 +160,12 @@ namespace CSBP.Services.Pnf
       stop = 0;
       int xstop = -1;
       PnfColumn tief = null;
-      if (saeulen.Count > 1 && saeulen.Last().isO())
+      if (saeulen.Count > 1 && saeulen.Last().IsO)
       {
         xstop = saeulen.Count - 1;
         tief = saeulen.Last();
       }
-      else if (saeulen.Count > 2 && saeulen[saeulen.Count - 2].isO())
+      else if (saeulen.Count > 2 && saeulen[saeulen.Count - 2].IsO)
       {
         xstop = saeulen.Count - 2;
         tief = saeulen[xstop];
@@ -173,7 +173,7 @@ namespace CSBP.Services.Pnf
       trends.Clear();
       if (tief != null)
       {
-        stop = tief.getMin() * 100m / 105m; // 5% des letzten Tiefs
+        stop = tief.Min * 100m / 105m; // 5% des letzten Tiefs
         int y = 0;
         for (int i = 0; i < posmax; i++)
         {
@@ -203,15 +203,15 @@ namespace CSBP.Services.Pnf
             pattern.Add(p);
             for (int i = 0; i < posmax; i++)
             {
-              if (Functions.compDouble4(p.getWert(), werte[i]) == 0)
+              if (Functions.compDouble4(p.Wert, werte[i]) == 0)
               {
-                if (p.isO())
+                if (p.IsO)
                 {
-                  p.setYpos(i + 1 + 1);
+                  p.Ypos = i + 1 + 1;
                 }
                 else
                 {
-                  p.setYpos(i + 1 - 2);
+                  p.Ypos = i + 1 - 2;
                 }
                 break;
               }
@@ -224,7 +224,7 @@ namespace CSBP.Services.Pnf
           // Trend setzen: letzten Auf- und Abwärts-Trend suchen
           var trend1 = 0m;
           var trend2 = 0m;
-          var akt = GetKurs();
+          var akt = Kurs;
           PnfTrend auf = null;
           PnfTrend ab = null;
           List<PnfTrend> l = trends;
@@ -234,15 +234,15 @@ namespace CSBP.Services.Pnf
           while (j >= 0 && (auf == null || ab == null))
           {
             PnfTrend x = l[j];
-            if (x.getXpos() + x.getLaenge() >= anzahls)
+            if (x.Xpos + x.Laenge >= anzahls)
             {
               // bis zum Ende
-              if (x.getBoxtyp() == 1 && auf == null)
+              if (x.Boxtyp == 1 && auf == null)
               {
                 // aufwärts
                 auf = x;
               }
-              else if (x.getBoxtyp() == 2 && ab == null)
+              else if (x.Boxtyp == 2 && ab == null)
               {
                 // abwärts
                 ab = x;
@@ -252,7 +252,7 @@ namespace CSBP.Services.Pnf
           }
           if (Functions.compDouble4(akt, 0) > 0)
           {
-            var d = GetMax() + 1;
+            var d = Max + 1;
             var yanzahl = Werte.Count;
             for (int i = 0; i < yanzahl; i++)
             {
@@ -266,7 +266,7 @@ namespace CSBP.Services.Pnf
           }
           if (auf != null && yakt >= 0)
           {
-            int e = auf.getYpos() + auf.getLaenge();
+            int e = auf.Ypos + auf.Laenge;
             if (yakt <= e - 1)
             {
               trend1 = -2;
@@ -282,7 +282,7 @@ namespace CSBP.Services.Pnf
           }
           if (ab != null && yakt >= 0)
           {
-            int e = ab.getYpos() - ab.getLaenge();
+            int e = ab.Ypos - ab.Laenge;
             if (yakt >= e + 1)
             {
               trend2 = 2;
@@ -482,7 +482,7 @@ namespace CSBP.Services.Pnf
           {
             bb = bbx;
             bbx = NextBox(bb);
-            saeule.setMax(bbx, datumm);
+            saeule.SetMax(bbx, datumm);
           }
         }
         else
@@ -498,7 +498,7 @@ namespace CSBP.Services.Pnf
             {
               bb = bbo;
               bbo = PrevBox(bb);
-              saeule.setMin(bbo, datumm);
+              saeule.SetMin(bbo, datumm);
             }
           }
         }
@@ -506,33 +506,33 @@ namespace CSBP.Services.Pnf
       else if (boxtyp == 1)
       {
         // Aufwärtstrend
-        var m = saeule.getMax();
+        var m = saeule.Max;
         var bbx = NextBox(bb);
         if (k >= bbx)
         {
           // Fall I: Prüfe, ob Aufwärtstrend verlängert wird.
           while (k > bbx)
           { // Fehler: bbx statt bb!
-            saeule.setMax(NextBox(bbx), datumm); // obere Grenze bei X
+            saeule.SetMax(NextBox(bbx), datumm); // obere Grenze bei X
             bb = bbx;
             bbx = NextBox(bb);
           }
         }
-        neu = Functions.compDouble4(m, saeule.getMax()) != 0 ? 1 : 0;
+        neu = Functions.compDouble4(m, saeule.Max) != 0 ? 1 : 0;
         var bbu = PrevBoxUmkehr(bb, umkehr);
         if (k <= bbu)
         {
           // Fall II: Prüfe, ob Trendumkehr von X zu O erfolgt.
           boxtyp = 2;
-          if (saeule.getSize() > 1)
+          if (saeule.Size > 1)
           {
             AddSaeule(new PnfColumn(PrevBox(bbu), PrevBox(bb), boxtyp, umkehr, datumm));
           }
           else
           {
             // One-Step-Back bei 1-Box Umkehr: keine neue Säule.
-            saeule.setBoxtyp(boxtyp);
-            saeule.setMin(bbu, datumm);
+            saeule.Boxtyp = boxtyp;
+            saeule.SetMin(bbu, datumm);
           }
           bb = bbu;
           bbu = PrevBox(bb);
@@ -541,7 +541,7 @@ namespace CSBP.Services.Pnf
             // Prüfe, ob Abwärtstrend verlängert wird.
             while (k < bbu)
             {
-              saeule.setMin(PrevBox(bbu), datumm);
+              saeule.SetMin(PrevBox(bbu), datumm);
               bb = bbu;
               bbu = PrevBox(bb);
             }
@@ -552,33 +552,33 @@ namespace CSBP.Services.Pnf
       else if (boxtyp == 2)
       {
         // Abwärtstrend
-        var m = saeule.getMin();
+        var m = saeule.Min;
         var bbo = PrevBox(bb);
         if (k <= bbo)
         {
           // Fall I: Prüfe, ob Abwärtstrend verlängert wird.
           while (k < bbo)
           { // Fehler: bbo statt bb!
-            saeule.setMin(PrevBox(bbo), datumm); // untere Grenze bei O
+            saeule.SetMin(PrevBox(bbo), datumm); // untere Grenze bei O
             bb = bbo;
             bbo = PrevBox(bb);
           }
         }
-        neu = Functions.compDouble4(m, saeule.getMin()) != 0 ? 1 : 0;
+        neu = Functions.compDouble4(m, saeule.Min) != 0 ? 1 : 0;
         var bbu = NextBoxUmkehr(bb, umkehr);
         if (k >= bbu)
         {
           // Fall II: Prüfe, ob Trendumkehr von O zu X erfolgt.
           boxtyp = 1;
-          if (saeule.getSize() > 1)
+          if (saeule.Size > 1)
           {
             AddSaeule(new PnfColumn(NextBox(bb), NextBox(bbu), boxtyp, umkehr, datumm));
           }
           else
           {
             // One-Step-Back bei 1-Box Umkehr: keine neue Säule.
-            saeule.setBoxtyp(boxtyp);
-            saeule.setMax(bbu, datumm);
+            saeule.Boxtyp = boxtyp;
+            saeule.SetMax(bbu, datumm);
           }
           bb = bbu;
           bbu = NextBox(bb);
@@ -587,7 +587,7 @@ namespace CSBP.Services.Pnf
             // Prüfe, ob Aufwärtstrend verlängert wird.
             while (k > bbu)
             {
-              saeule.setMax(NextBox(bbu), datumm);
+              saeule.SetMax(NextBox(bbu), datumm);
               bb = bbu;
               bbu = NextBox(bb);
             }
@@ -792,19 +792,19 @@ namespace CSBP.Services.Pnf
       int xminauf = ab;
 
       // 1. Trendlinie
-      aufwaerts = c.isO() && !c2.isO();
+      aufwaerts = c.IsO && !c2.IsO;
       if (aufwaerts)
       {
-        t = new PnfTrend(ab + 1, c.getYpos() - 1, aufwaerts ? 1 : 2);
-        xminauf = t.getXpos() + 1;
+        t = new PnfTrend(ab + 1, c.Ypos - 1, aufwaerts ? 1 : 2);
+        xminauf = t.Xpos + 1;
       }
       else
       {
-        t = new PnfTrend(ab + 1, c.getYtop(), aufwaerts ? 1 : 2);
-        xminab = t.getXpos() + 1;
+        t = new PnfTrend(ab + 1, c.Ytop, aufwaerts ? 1 : 2);
+        xminab = t.Xpos + 1;
       }
       BerechneLaenge(t, anzahl);
-      if (t.getXpos() + t.getLaenge() >= anzahl)
+      if (t.Xpos + t.Laenge >= anzahl)
       {
         if (aufwaerts)
         {
@@ -819,7 +819,7 @@ namespace CSBP.Services.Pnf
 
       while (ende > 0)
       {
-        i = Math.Min(anzahl - 1, t.getXpos() + t.getLaenge());
+        i = Math.Min(anzahl - 1, t.Xpos + t.Laenge);
         if (aufwaerts)
         {
           // Säule mit höchsten X des vorherigen Abwärtstrends finden.
@@ -829,10 +829,10 @@ namespace CSBP.Services.Pnf
           for (int j = i; j >= xminab; j--)
           {
             c = saeulen[j];
-            if (!c.isO() && (c0 < 0 || c.getYtop() > ym))
+            if (!c.IsO && (c0 < 0 || c.Ytop > ym))
             {
               c0 = j;
-              ym = c.getYpos();
+              ym = c.Ypos;
             }
           }
           while (!gefunden && c0 < anzahl)
@@ -840,18 +840,18 @@ namespace CSBP.Services.Pnf
             if (c0 >= 0)
             {
               c = saeulen[c0];
-              PnfTrend t0 = new PnfTrend(c0 + 1, c.getYtop(), aufwaerts ? 2 : 1);
+              PnfTrend t0 = new PnfTrend(c0 + 1, c.Ytop, aufwaerts ? 2 : 1);
               BerechneLaenge(t0, anzahl);
-              if (i <= t0.getXpos() + t0.getLaenge() && t0.getLaenge() > 1)
+              if (i <= t0.Xpos + t0.Laenge && t0.Laenge > 1)
               {
                 gefunden = true;
                 aufwaerts = !aufwaerts;
-                xminab = t0.getXpos() + 1;
-                if (t0.getXpos() + t0.getLaenge() < anzahl || !abende)
+                xminab = t0.Xpos + 1;
+                if (t0.Xpos + t0.Laenge < anzahl || !abende)
                 {
                   t = t0;
                   trends.Add(t);
-                  if (t0.getXpos() + t0.getLaenge() >= anzahl)
+                  if (t0.Xpos + t0.Laenge >= anzahl)
                   {
                     abende = true;
                   }
@@ -864,7 +864,7 @@ namespace CSBP.Services.Pnf
             }
             else
             {
-              if (saeulen[i].isO())
+              if (saeulen[i].IsO)
               {
                 c0 = i;
               }
@@ -898,10 +898,10 @@ namespace CSBP.Services.Pnf
           for (int j = i; j >= xminauf; j--)
           {
             c = saeulen[j];
-            if (c.isO() && (c0 < 0 || c.getYpos() < ym))
+            if (c.IsO && (c0 < 0 || c.Ypos < ym))
             {
               c0 = j;
-              ym = c.getYpos();
+              ym = c.Ypos;
             }
           }
           while (!gefunden && c0 < anzahl)
@@ -909,18 +909,18 @@ namespace CSBP.Services.Pnf
             if (c0 >= 0)
             {
               c = saeulen[c0];
-              PnfTrend t0 = new PnfTrend(c0 + 1, c.getYpos() - 1, aufwaerts ? 2 : 1);
+              PnfTrend t0 = new PnfTrend(c0 + 1, c.Ypos - 1, aufwaerts ? 2 : 1);
               BerechneLaenge(t0, anzahl);
-              if (i <= t0.getXpos() + t0.getLaenge() && t0.getLaenge() > 1)
+              if (i <= t0.Xpos + t0.Laenge && t0.Laenge > 1)
               {
                 gefunden = true;
                 aufwaerts = !aufwaerts;
-                xminauf = t.getXpos() + 1;
-                if (t0.getXpos() + t0.getLaenge() < anzahl || !aufende)
+                xminauf = t.Xpos + 1;
+                if (t0.Xpos + t0.Laenge < anzahl || !aufende)
                 {
                   t = t0;
                   trends.Add(t);
-                  if (t0.getXpos() + t0.getLaenge() >= anzahl)
+                  if (t0.Xpos + t0.Laenge >= anzahl)
                   {
                     aufende = true;
                   }
@@ -933,7 +933,7 @@ namespace CSBP.Services.Pnf
             }
             else
             {
-              if (saeulen[i].isO())
+              if (saeulen[i].IsO)
               {
                 c0 = i;
               }
@@ -967,25 +967,25 @@ namespace CSBP.Services.Pnf
       {
         return;
       }
-      bool aufwaerts = t.getBoxtyp() == 1;
-      int grenze = t.getYpos();
+      bool aufwaerts = t.Boxtyp == 1;
+      int grenze = t.Ypos;
       int d = aufwaerts ? 1 : -1;
       bool bruch = false;
       PnfColumn c = null;
 
-      for (int i = t.getXpos(); i < anzahl; i++)
+      for (int i = t.Xpos; i < anzahl; i++)
       {
         c = saeulen[i];
-        if (aufwaerts && c.isO())
+        if (aufwaerts && c.IsO)
         {
-          if (c.getYpos() <= grenze)
+          if (c.Ypos <= grenze)
           {
             bruch = true;
           }
         }
-        else if (!aufwaerts && !c.isO())
+        else if (!aufwaerts && !c.IsO)
         {
-          if (c.getYtop() > grenze)
+          if (c.Ytop > grenze)
           {
             bruch = true;
           }
@@ -994,7 +994,7 @@ namespace CSBP.Services.Pnf
         {
           break;
         }
-        t.setLaenge(t.getLaenge() + 1);
+        t.setLaenge(t.Laenge + 1);
         grenze += d;
       }
     }
@@ -1068,9 +1068,10 @@ namespace CSBP.Services.Pnf
       return sb.ToString();
     }
 
-    public string GetBezeichnung()
+    public string Bezeichnung
     {
-      return GetBezeichnung(bezeichnung, box, skala, umkehr, methode, relativ, dauer, kurse, min, max);
+      get { return GetBezeichnung(bezeichnung, box, skala, umkehr, methode, relativ, dauer, kurse, min, max); }
+      set { this.bezeichnung = value; }
     }
 
     public string GetBezeichnung2()
@@ -1089,33 +1090,30 @@ namespace CSBP.Services.Pnf
       return sb.ToString();
     }
 
-    public void setBezeichnung(string bezeichnung)
-    {
-      this.bezeichnung = bezeichnung;
-    }
-
     // public int getMethode() {
     // return methode;
     // }
 
-    public void SetMethode(int methode)
+    public int Methode
     {
-      if (1 <= methode && methode <= 5)
+      set
       {
-        this.methode = methode;
+        if (1 <= value && value <= 5)
+        {
+          this.methode = value;
+        }
       }
     }
 
-    public decimal GetBox()
+    public decimal Box
     {
-      return box;
-    }
-
-    public void SetBox(decimal box)
-    {
-      if (Functions.compDouble4(box, 0) > 0)
+      get { return box; }
+      set
       {
-        this.box = box;
+        if (Functions.compDouble4(value, 0) > 0)
+        {
+          this.box = value;
+        }
       }
     }
 
@@ -1123,20 +1121,23 @@ namespace CSBP.Services.Pnf
     // return prozentual;
     // }
 
-    public void SetSkala(int skala)
+    public int Skala
     {
-      this.skala = skala;
+      set { this.skala = value; }
     }
 
     // public int getUmkehr() {
     // return umkehr;
     // }
 
-    public void SetUmkehr(int umkehr)
+    public int Umkehr
     {
-      if (umkehr >= 1)
+      set
       {
-        this.umkehr = umkehr;
+        if (umkehr >= 1)
+        {
+          this.umkehr = value;
+        }
       }
     }
 
@@ -1144,23 +1145,23 @@ namespace CSBP.Services.Pnf
      * Liefert den aktuellen Schlusskurs.
      * @return Aktueller Schlusskurs.
      */
-    public decimal GetKurs()
+    public decimal Kurs
     {
-      return kurs;
+      get { return kurs; }
     }
 
-    public List<PnfColumn> GetSaeulen()
+    public List<PnfColumn> Saeulen
     {
-      return saeulen;
+      get { return saeulen; }
     }
 
     // public double getMin() {
     // return min;
     // }
 
-    public decimal GetMax()
+    public decimal Max
     {
-      return max;
+      get { return max; }
     }
 
     public int Xgroesse
@@ -1187,29 +1188,28 @@ namespace CSBP.Services.Pnf
       // set { werte = value;}
     }
 
-    public List<PnfTrend> GetTrends()
+    public List<PnfTrend> Trends
     {
-      return trends;
+      get { return trends; }
     }
 
-    public List<PnfPattern> GetPattern()
+    public List<PnfPattern> Pattern
     {
-      return pattern;
+      get { return pattern; }
     }
 
-    public bool IsRelativ()
+    public bool Relativ
     {
-      return relativ;
-    }
-
-    public void SetRelativ(bool relativ)
-    {
-      this.relativ = relativ;
-      if (!relativ && !string.IsNullOrEmpty(bezeichnung))
+      get { return relativ; }
+      set
       {
-        // Relation aus Bezeichnung entfernen.
-        var array = bezeichnung.Split(new[] { " \\(" }, StringSplitOptions.None);
-        bezeichnung = array[0];
+        this.relativ = value;
+        if (!value && !string.IsNullOrEmpty(bezeichnung))
+        {
+          // Relation aus Bezeichnung entfernen.
+          var array = bezeichnung.Split(new[] { " \\(" }, StringSplitOptions.None);
+          bezeichnung = array[0];
+        }
       }
     }
 
@@ -1225,9 +1225,9 @@ namespace CSBP.Services.Pnf
       set { stop = value; }
     }
 
-    public decimal GetTrend()
+    public decimal Trend
     {
-      return trend;
+      get { return trend; }
     }
   }
 }

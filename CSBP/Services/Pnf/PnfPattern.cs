@@ -50,7 +50,7 @@ namespace CSBP.Services.Pnf
      * @param muster Musternummer.
      * @return Englische Muster-Bezeichnung.
      */
-    public static string getBezeichnung(int muster)
+    public static string GetBezeichnung(int muster)
     {
       if (muster <= 0)
       {
@@ -232,20 +232,23 @@ namespace CSBP.Services.Pnf
       return sb.ToString();
     }
 
-    public string getBezeichnung()
+    public string Bezeichnung
     {
-      var sb = new StringBuilder();
-      sb.Append(getBezeichnung(muster));
-      if (datum.HasValue)
+      get
       {
-        if (sb.Length > 0)
+        var sb = new StringBuilder();
+        sb.Append(GetBezeichnung(muster));
+        if (datum.HasValue)
         {
-          sb.Append(" ");
+          if (sb.Length > 0)
+          {
+            sb.Append(" ");
+          }
+          sb.Append(Functions.ToString(datum));
         }
-        sb.Append(Functions.ToString(datum));
+        sb.Append(" (").Append(signal).Append(")");
+        return sb.ToString();
       }
-      sb.Append(" (").Append(signal).Append(")");
-      return sb.ToString();
     }
 
     /**
@@ -261,25 +264,25 @@ namespace CSBP.Services.Pnf
     public static PnfPattern getMusterKurse(PnfChart c, DateTime datum, decimal kurs,
         decimal kurs2, decimal ziel, decimal stop)
     {
-      if (c == null || c.GetSaeulen().Count <= 0)
+      if (c == null || c.Saeulen.Count <= 0)
       {
         return null;
       }
-      List<PnfPattern> p0 = c.GetPattern();
+      List<PnfPattern> p0 = c.Pattern;
       PnfPattern p = null;
-      int ce = c.GetSaeulen().Count - 1;
-      PnfColumn c0 = c.GetSaeulen()[ce];
+      int ce = c.Saeulen.Count - 1;
+      PnfColumn c0 = c.Saeulen[ce];
       int anzahl = 1; // Anzahl der Säulen.
       int bs = 5; // Alle Bewertungen für 5er Box.
       if (Functions.compDouble4(ziel, 0) > 0 && Functions.compDouble4(kurs2, ziel) < 0
               && Functions.compDouble4(kurs, ziel) >= 0)
       {
-        p = get(p0, ce, c0.getMax(), c0.isO(), 31, anzahl, 5 + bs, datum); // Zielkurs durchbrochen
+        p = get(p0, ce, c0.Max, c0.IsO, 31, anzahl, 5 + bs, datum); // Zielkurs durchbrochen
       }
       if (Functions.compDouble4(stop, 0) > 0 && Functions.compDouble4(kurs2, stop) > 0
               && Functions.compDouble4(kurs, stop) <= 0)
       {
-        p = get(p0, ce, c0.getMin(), c0.isO(), 32, anzahl, -5 - bs, datum); // Stopkurs durchbrochen
+        p = get(p0, ce, c0.Min, c0.IsO, 32, anzahl, -5 - bs, datum); // Stopkurs durchbrochen
       }
       return p;
     }
@@ -294,40 +297,40 @@ namespace CSBP.Services.Pnf
      */
     public static PnfPattern getMusterTrend(PnfChart c, DateTime datum, decimal kurs, decimal kurs2)
     {
-      if (c == null || c.GetSaeulen().Count <= 0 || c.GetTrends().Count <= 0)
+      if (c == null || c.Saeulen.Count <= 0 || c.Trends.Count <= 0)
       {
         return null;
       }
-      var p0 = c.GetPattern();
+      var p0 = c.Pattern;
       PnfPattern p = null;
-      int ce = c.GetSaeulen().Count - 1;
-      var c0 = c.GetSaeulen()[ce];
+      int ce = c.Saeulen.Count - 1;
+      var c0 = c.Saeulen[ce];
       int anzahl = 1; // Anzahl der Säulen.
       int bs = 5; // Alle Bewertungen für 5er Box.
       PnfTrend t0 = null;
-      for (int i = c.GetTrends().Count - 1; i >= 0; i--)
+      for (int i = c.Trends.Count - 1; i >= 0; i--)
       {
-        t0 = c.GetTrends()[i];
-        if (t0.getXpos() + t0.getLaenge() <= ce)
+        t0 = c.Trends[i];
+        if (t0.Xpos + t0.Laenge <= ce)
         {
           continue;
         }
-        if (t0.getBoxtyp() == 1 && c0.isO())
+        if (t0.Boxtyp == 1 && c0.IsO)
         {
           // Aufwärtstrend und Abwärtssäule
-          var d = c.Werte[t0.getYpos() + ce - t0.getXpos()];
+          var d = c.Werte[t0.Ypos + ce - t0.Xpos];
           if (Functions.compDouble4(kurs, d) < 0 && Functions.compDouble4(kurs2, d) > 0)
           {
-            p = get(p0, ce, d, c0.isO(), 30, anzahl, 1 - bs, datum); // breakthru bottom
+            p = get(p0, ce, d, c0.IsO, 30, anzahl, 1 - bs, datum); // breakthru bottom
           }
         }
-        else if (t0.getBoxtyp() != 1 && !c0.isO())
+        else if (t0.Boxtyp != 1 && !c0.IsO)
         {
           // Abwärtstrend und Aufwärtssäule
-          var d = c.Werte[t0.getYpos() - ce + t0.getXpos() - 1];
+          var d = c.Werte[t0.Ypos - ce + t0.Xpos - 1];
           if (Functions.compDouble4(kurs, d) > 0 && Functions.compDouble4(kurs2, d) < 0)
           {
-            p = get(p0, ce, d, c0.isO(), 29, anzahl, -1 + bs, datum); // breakthru top
+            p = get(p0, ce, d, c0.IsO, 29, anzahl, -1 + bs, datum); // breakthru top
           }
         }
         if (p != null)
@@ -347,7 +350,7 @@ namespace CSBP.Services.Pnf
      */
     public static PnfPattern getMuster(PnfChart c, DateTime datum, int longtail)
     {
-      if (c == null || c.GetSaeulen().Count < 2)
+      if (c == null || c.Saeulen.Count < 2)
       {
         return null;
       }
@@ -355,9 +358,9 @@ namespace CSBP.Services.Pnf
       {
         longtail = PnfPattern.longtail;
       }
-      List<PnfPattern> p0 = c.GetPattern();
+      List<PnfPattern> p0 = c.Pattern;
       PnfPattern p = null;
-      int ce = c.GetSaeulen().Count - 1;
+      int ce = c.Saeulen.Count - 1;
       PnfColumn c0 = null;
       PnfColumn c1 = null;
       PnfColumn c2 = null;
@@ -372,335 +375,335 @@ namespace CSBP.Services.Pnf
 
       if (ce >= 0)
       {
-        c0 = c.GetSaeulen()[ce];
+        c0 = c.Saeulen[ce];
       }
       if (ce >= 1)
       {
-        c1 = c.GetSaeulen()[ce - 1];
+        c1 = c.Saeulen[ce - 1];
       }
       if (ce >= 2)
       {
-        c2 = c.GetSaeulen()[ce - 2];
+        c2 = c.Saeulen[ce - 2];
       }
       if (ce >= 3)
       {
-        c3 = c.GetSaeulen()[ce - 3];
+        c3 = c.Saeulen[ce - 3];
       }
       if (ce >= 4)
       {
-        c4 = c.GetSaeulen()[ce - 4];
+        c4 = c.Saeulen[ce - 4];
       }
       if (ce >= 5)
       {
-        c5 = c.GetSaeulen()[ce - 5];
+        c5 = c.Saeulen[ce - 5];
       }
       if (ce >= 6)
       {
-        c6 = c.GetSaeulen()[ce - 6];
+        c6 = c.Saeulen[ce - 6];
       }
       anzahl = 7;
       if (p == null && ce >= anzahl - 1)
       {
-        if (p == null && !c6.isO() && c5.isO() && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c6.getMax(), c4.getMax()) > 0
-                && Functions.compDouble4(c5.getMin(), c3.getMin()) < 0
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c3.getMin(), c1.getMin()) < 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0)
+        if (p == null && !c6.IsO && c5.IsO && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c6.Max, c4.Max) > 0
+                && Functions.compDouble4(c5.Min, c3.Min) < 0
+                && Functions.compDouble4(c4.Max, c2.Max) > 0
+                && Functions.compDouble4(c3.Min, c1.Min) < 0
+                && Functions.compDouble4(c2.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 15, anzahl, 1 + bs, datum); // triangle bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 15, anzahl, 1 + bs, datum); // triangle bullish
         } // 14.02.16
-        if (p == null && c6.isO() && !c5.isO() && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c6.getMin(), c4.getMin()) < 0
-                && Functions.compDouble4(c5.getMax(), c3.getMax()) > 0
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c3.getMax(), c1.getMax()) > 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0)
+        if (p == null && c6.IsO && !c5.IsO && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c6.Min, c4.Min) < 0
+                && Functions.compDouble4(c5.Max, c3.Max) > 0
+                && Functions.compDouble4(c4.Min, c2.Min) < 0
+                && Functions.compDouble4(c3.Max, c1.Max) > 0
+                && Functions.compDouble4(c2.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 16, anzahl, -1 - bs, datum); // triangle bearish
+          p = get(p0, ce, c0.Max, c0.IsO, 16, anzahl, -1 - bs, datum); // triangle bearish
         } // 14.02.16
-        if (p == null && !c6.isO() && !c4.isO() && !c2.isO() && !c0.isO()
-                && Functions.compDouble4(c6.getMax(), c4.getMax()) == 0
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c4.getMax(), c0.getMax()) < 0)
+        if (p == null && !c6.IsO && !c4.IsO && !c2.IsO && !c0.IsO
+                && Functions.compDouble4(c6.Max, c4.Max) == 0
+                && Functions.compDouble4(c4.Max, c2.Max) > 0
+                && Functions.compDouble4(c4.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 23, anzahl, bs, datum); // spread triple top
+          p = get(p0, ce, c0.Max, c0.IsO, 23, anzahl, bs, datum); // spread triple top
         }
-        if (p == null && c6.isO() && c4.isO() && c2.isO() && c0.isO()
-                && Functions.compDouble4(c6.getMin(), c4.getMin()) == 0
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c4.getMin(), c0.getMin()) > 0)
+        if (p == null && c6.IsO && c4.IsO && c2.IsO && c0.IsO
+                && Functions.compDouble4(c6.Min, c4.Min) == 0
+                && Functions.compDouble4(c4.Min, c2.Min) < 0
+                && Functions.compDouble4(c4.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 24, anzahl, -bs, datum); // spread triple bottom
+          p = get(p0, ce, c0.Min, c0.IsO, 24, anzahl, -bs, datum); // spread triple bottom
         }
-        if (p == null && !c6.isO() && !c4.isO() && !c2.isO() && !c0.isO()
-                && Functions.compDouble4(c6.getMax(), c2.getMax()) == 0
-                && Functions.compDouble4(c4.getMax(), c6.getMax()) < 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0)
+        if (p == null && !c6.IsO && !c4.IsO && !c2.IsO && !c0.IsO
+                && Functions.compDouble4(c6.Max, c2.Max) == 0
+                && Functions.compDouble4(c4.Max, c6.Max) < 0
+                && Functions.compDouble4(c2.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 23, anzahl, bs, datum); // spread triple top
+          p = get(p0, ce, c0.Max, c0.IsO, 23, anzahl, bs, datum); // spread triple top
         }
-        if (p == null && c6.isO() && c4.isO() && c2.isO() && c0.isO()
-                && Functions.compDouble4(c6.getMin(), c2.getMin()) == 0
-                && Functions.compDouble4(c4.getMin(), c6.getMin()) > 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0)
+        if (p == null && c6.IsO && c4.IsO && c2.IsO && c0.IsO
+                && Functions.compDouble4(c6.Min, c2.Min) == 0
+                && Functions.compDouble4(c4.Min, c6.Min) > 0
+                && Functions.compDouble4(c2.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 24, anzahl, -bs, datum); // spread triple bottom
+          p = get(p0, ce, c0.Min, c0.IsO, 24, anzahl, -bs, datum); // spread triple bottom
         }
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c0.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c1.getMin(), c3.getMin()) < 0
-                && Functions.compDouble4(c2.getMax(), c4.getMax()) < 0
-                && Functions.compDouble4(c3.getMin(), c5.getMin()) < 0
-                && Functions.compDouble4(c4.getMax(), c6.getMax()) < 0)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c0.Max, c2.Max) > 0
+                && Functions.compDouble4(c1.Min, c3.Min) < 0
+                && Functions.compDouble4(c2.Max, c4.Max) < 0
+                && Functions.compDouble4(c3.Min, c5.Min) < 0
+                && Functions.compDouble4(c4.Max, c6.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 11, anzahl, bs, datum); // * baisse reversal
+          p = get(p0, ce, c0.Max, c0.IsO, 11, anzahl, bs, datum); // * baisse reversal
         }
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c0.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c1.getMax(), c3.getMax()) > 0
-                && Functions.compDouble4(c2.getMin(), c4.getMin()) > 0
-                && Functions.compDouble4(c3.getMax(), c5.getMax()) > 0
-                && Functions.compDouble4(c4.getMin(), c6.getMin()) > 0)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c0.Min, c2.Min) < 0
+                && Functions.compDouble4(c1.Max, c3.Max) > 0
+                && Functions.compDouble4(c2.Min, c4.Min) > 0
+                && Functions.compDouble4(c3.Max, c5.Max) > 0
+                && Functions.compDouble4(c4.Min, c6.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 12, anzahl, -bs, datum); // * hausse reversal
+          p = get(p0, ce, c0.Min, c0.IsO, 12, anzahl, -bs, datum); // * hausse reversal
         }
-        // if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-        // && Functions.compDouble4(c0.getMax(), c2.getMax()) > 0
-        // && Functions.compDouble4(c1.getMin(), c3.getMin()) > 0
-        // && Functions.compDouble4(c2.getMax(), c4.getMax()) > 0
-        // && Functions.compDouble4(c3.getMin(), c5.getMin()) > 0
-        // && Functions.compDouble4(c4.getMax(), c6.getMax()) > 0) {
-        // p = get(p0, ce, c0.getMax(), c0.isO(), 13, anzahl, 2, datum); // hausse breakout
+        // if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+        // && Functions.compDouble4(c0.Max, c2.Max) > 0
+        // && Functions.compDouble4(c1.Min, c3.Min) > 0
+        // && Functions.compDouble4(c2.Max, c4.Max) > 0
+        // && Functions.compDouble4(c3.Min, c5.Min) > 0
+        // && Functions.compDouble4(c4.Max, c6.Max) > 0) {
+        // p = get(p0, ce, c0.Max, c0.IsO, 13, anzahl, 2, datum); // hausse breakout
         // }
-        // if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-        // && Functions.compDouble4(c0.getMin(), c2.getMin()) < 0
-        // && Functions.compDouble4(c1.getMax(), c3.getMax()) < 0
-        // && Functions.compDouble4(c2.getMin(), c4.getMin()) < 0
-        // && Functions.compDouble4(c3.getMax(), c5.getMax()) < 0
-        // && Functions.compDouble4(c4.getMin(), c6.getMin()) < 0) {
-        // p = get(p0, ce, c0.getMin(), c0.isO(), 14, anzahl, -2, datum); // baisse breakout
+        // if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+        // && Functions.compDouble4(c0.Min, c2.Min) < 0
+        // && Functions.compDouble4(c1.Max, c3.Max) < 0
+        // && Functions.compDouble4(c2.Min, c4.Min) < 0
+        // && Functions.compDouble4(c3.Max, c5.Max) < 0
+        // && Functions.compDouble4(c4.Min, c6.Min) < 0) {
+        // p = get(p0, ce, c0.Min, c0.IsO, 14, anzahl, -2, datum); // baisse breakout
         // }
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c0.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c1.getMin(), c3.getMin()) > 0
-                && Functions.compDouble4(c2.getMax(), c4.getMax()) > 0
-                && Functions.compDouble4(c3.getMin(), c5.getMin()) >= 0
-                && Functions.compDouble4(c4.getMax(), c6.getMax()) == 0)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c0.Max, c2.Max) > 0
+                && Functions.compDouble4(c1.Min, c3.Min) > 0
+                && Functions.compDouble4(c2.Max, c4.Max) > 0
+                && Functions.compDouble4(c3.Min, c5.Min) >= 0
+                && Functions.compDouble4(c4.Max, c6.Max) == 0)
         { // >=
-          p = get(p0, ce, c0.getMax(), c0.isO(), 21, anzahl, 3 + bs, datum); // catapult bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 21, anzahl, 3 + bs, datum); // catapult bullish
         }
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c0.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c1.getMax(), c3.getMax()) < 0
-                && Functions.compDouble4(c2.getMin(), c4.getMin()) < 0
-                && Functions.compDouble4(c3.getMax(), c5.getMax()) <= 0
-                && Functions.compDouble4(c4.getMin(), c6.getMin()) == 0)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c0.Min, c2.Min) < 0
+                && Functions.compDouble4(c1.Max, c3.Max) < 0
+                && Functions.compDouble4(c2.Min, c4.Min) < 0
+                && Functions.compDouble4(c3.Max, c5.Max) <= 0
+                && Functions.compDouble4(c4.Min, c6.Min) == 0)
         { // <=
-          p = get(p0, ce, c0.getMin(), c0.isO(), 22, anzahl, -3 - bs, datum); // catapult bearish
+          p = get(p0, ce, c0.Min, c0.IsO, 22, anzahl, -3 - bs, datum); // catapult bearish
         }
-        if (p == null && !c6.isO() && c5.isO() && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c0.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c2.getMax(), c4.getMax()) == 0
-                && Functions.compDouble4(c4.getMax(), c6.getMax()) == 0)
+        if (p == null && !c6.IsO && c5.IsO && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c0.Max, c2.Max) > 0
+                && Functions.compDouble4(c2.Max, c4.Max) == 0
+                && Functions.compDouble4(c4.Max, c6.Max) == 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 27, anzahl, 4 + bs, datum); // quadruple top
+          p = get(p0, ce, c0.Max, c0.IsO, 27, anzahl, 4 + bs, datum); // quadruple top
         }
-        if (p == null && c6.isO() && !c5.isO() && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c0.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c2.getMin(), c4.getMin()) == 0
-                && Functions.compDouble4(c4.getMin(), c6.getMin()) == 0)
+        if (p == null && c6.IsO && !c5.IsO && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c0.Min, c2.Min) < 0
+                && Functions.compDouble4(c2.Min, c4.Min) == 0
+                && Functions.compDouble4(c4.Min, c6.Min) == 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 28, anzahl, -4 - bs, datum); // quadruple bottom
+          p = get(p0, ce, c0.Min, c0.IsO, 28, anzahl, -4 - bs, datum); // quadruple bottom
         }
       }
       anzahl = 6;
       if (p == null && ce >= anzahl - 1)
       {
-        if (p == null && !c5.isO() && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c5.getMax(), c3.getMax()) == 0
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c3.getMax(), c1.getMax()) < 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) < 0 && c0.getSize() >= 3)
+        if (p == null && !c5.IsO && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c5.Max, c3.Max) == 0
+                && Functions.compDouble4(c4.Min, c2.Min) < 0
+                && Functions.compDouble4(c3.Max, c1.Max) < 0
+                && Functions.compDouble4(c2.Min, c0.Min) < 0 && c0.Size >= 3)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 37, anzahl, 5 + bs, datum); // trading catapult bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 37, anzahl, 5 + bs, datum); // trading catapult bullish
         } // 14.02.16
-        if (p == null && c5.isO() && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c5.getMin(), c3.getMin()) == 0
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c3.getMin(), c1.getMin()) > 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) > 0 && c0.getSize() >= 3)
+        if (p == null && c5.IsO && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c5.Min, c3.Min) == 0
+                && Functions.compDouble4(c4.Max, c2.Max) > 0
+                && Functions.compDouble4(c3.Min, c1.Min) > 0
+                && Functions.compDouble4(c2.Max, c0.Max) > 0 && c0.Size >= 3)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 38, anzahl, -5 - bs, datum); // trading catapult bearish
+          p = get(p0, ce, c0.Min, c0.IsO, 38, anzahl, -5 - bs, datum); // trading catapult bearish
         } // 14.02.16
-        if (p == null && c5.isO() && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c5.getMin(), c3.getMin()) == 0
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) == 0
-                && Functions.compDouble4(c3.getMin(), c1.getMin()) == 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0)
+        if (p == null && c5.IsO && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c5.Min, c3.Min) == 0
+                && Functions.compDouble4(c4.Max, c2.Max) == 0
+                && Functions.compDouble4(c3.Min, c1.Min) == 0
+                && Functions.compDouble4(c2.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 7, anzahl, 2 + bs, datum); // triple bottom bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 7, anzahl, 2 + bs, datum); // triple bottom bullish
         }
-        if (p == null && !c5.isO() && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c5.getMax(), c3.getMax()) == 0
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) == 0
-                && Functions.compDouble4(c3.getMax(), c1.getMax()) == 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0)
+        if (p == null && !c5.IsO && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c5.Max, c3.Max) == 0
+                && Functions.compDouble4(c4.Min, c2.Min) == 0
+                && Functions.compDouble4(c3.Max, c1.Max) == 0
+                && Functions.compDouble4(c2.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 8, anzahl, -2 - bs, datum); // triple top bearish
+          p = get(p0, ce, c0.Min, c0.IsO, 8, anzahl, -2 - bs, datum); // triple top bearish
         }
-        // double boxsize = (c3.getMax() - c3.getMin()) / c3.getSize();
-        // if (p == null && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-        // && Functions.compDouble4(c0.getMax(), c2.getMin()) <= 0
-        // && Functions.compDouble4(c1.getMin(), c3.getMin() - 3 * boxsize) <= 0
-        // && Functions.compDouble4(c3.getMin(), c5.getMin()) < 0
-        // && Functions.compDouble4(c2.getMax(), c4.getMax()) < 0) {
-        // p = get(p0, ce, c0.getMax(), c0.isO(), 17, anzahl, 2, datum); // low pole bullish
+        // double boxsize = (c3.Max - c3.Min) / c3.Size;
+        // if (p == null && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+        // && Functions.compDouble4(c0.Max, c2.Min) <= 0
+        // && Functions.compDouble4(c1.Min, c3.Min - 3 * boxsize) <= 0
+        // && Functions.compDouble4(c3.Min, c5.Min) < 0
+        // && Functions.compDouble4(c2.Max, c4.Max) < 0) {
+        // p = get(p0, ce, c0.Max, c0.IsO, 17, anzahl, 2, datum); // low pole bullish
         // }
-        // if (p == null && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-        // && Functions.compDouble4(c0.getMin(), c2.getMax()) >= 0
-        // && Functions.compDouble4(c1.getMax(), c3.getMax() + 3 * boxsize) >= 0
-        // && Functions.compDouble4(c3.getMax(), c5.getMax()) > 0
-        // && Functions.compDouble4(c2.getMin(), c4.getMin()) > 0) {
-        // p = get(p0, ce, c0.getMin(), c0.isO(), 18, anzahl, -2, datum); // high pole bearish
+        // if (p == null && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+        // && Functions.compDouble4(c0.Min, c2.Max) >= 0
+        // && Functions.compDouble4(c1.Max, c3.Max + 3 * boxsize) >= 0
+        // && Functions.compDouble4(c3.Max, c5.Max) > 0
+        // && Functions.compDouble4(c2.Min, c4.Min) > 0) {
+        // p = get(p0, ce, c0.Min, c0.IsO, 18, anzahl, -2, datum); // high pole bearish
         // }
       }
       anzahl = 5;
       if (p == null && ce >= anzahl - 1)
       {
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) == 0
-                && Functions.compDouble4(c3.getMin(), c1.getMin()) > 0 && c0.getSize() >= 3)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c4.Min, c2.Min) < 0
+                && Functions.compDouble4(c4.Max, c2.Max) == 0
+                && Functions.compDouble4(c3.Min, c1.Min) > 0 && c0.Size >= 3)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 33, anzahl, 1 + bs, datum); // shakeout bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 33, anzahl, 1 + bs, datum); // shakeout bullish
         } // 14.02.16
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) == 0
-                && Functions.compDouble4(c3.getMax(), c1.getMax()) < 0 && c0.getSize() >= 3)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c4.Max, c2.Max) > 0
+                && Functions.compDouble4(c4.Min, c2.Min) == 0
+                && Functions.compDouble4(c3.Max, c1.Max) < 0 && c0.Size >= 3)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 34, anzahl, -1 - bs, datum); // shakeout bearish
+          p = get(p0, ce, c0.Max, c0.IsO, 34, anzahl, -1 - bs, datum); // shakeout bearish
         } // 14.02.16
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) < 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0
-                && Functions.compDouble4(c3.getMin(), c1.getMin()) > 0)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c4.Max, c2.Max) < 0
+                && Functions.compDouble4(c2.Max, c0.Max) < 0
+                && Functions.compDouble4(c3.Min, c1.Min) > 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 35, anzahl, 1 + bs, datum); // broadening top
+          p = get(p0, ce, c0.Max, c0.IsO, 35, anzahl, 1 + bs, datum); // broadening top
         } // 14.02.16
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) > 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0
-                && Functions.compDouble4(c3.getMax(), c1.getMax()) < 0)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c4.Min, c2.Min) > 0
+                && Functions.compDouble4(c2.Min, c0.Min) > 0
+                && Functions.compDouble4(c3.Max, c1.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 36, anzahl, -1 - bs, datum); // broadening bottom
+          p = get(p0, ce, c0.Max, c0.IsO, 36, anzahl, -1 - bs, datum); // broadening bottom
         } // 14.02.16
-        if (p == null && !c2.isO() && c1.isO() && !c0.isO() && Functions.compDouble4(c0.getMax(), c2.getMax()) > 0
-                && Functions.compDouble4(c1.getMin(), c3.getMin()) == 0
-                && Functions.compDouble4(c2.getMax(), c4.getMax()) <= 0)
+        if (p == null && !c2.IsO && c1.IsO && !c0.IsO && Functions.compDouble4(c0.Max, c2.Max) > 0
+                && Functions.compDouble4(c1.Min, c3.Min) == 0
+                && Functions.compDouble4(c2.Max, c4.Max) <= 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 3, anzahl, 1 + bs, datum); // double bottom bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 3, anzahl, 1 + bs, datum); // double bottom bullish
         }
-        if (p == null && c2.isO() && !c1.isO() && c0.isO() && Functions.compDouble4(c0.getMin(), c2.getMin()) < 0
-                && Functions.compDouble4(c1.getMax(), c3.getMax()) == 0
-                && Functions.compDouble4(c2.getMin(), c4.getMin()) >= 0)
+        if (p == null && c2.IsO && !c1.IsO && c0.IsO && Functions.compDouble4(c0.Min, c2.Min) < 0
+                && Functions.compDouble4(c1.Max, c3.Max) == 0
+                && Functions.compDouble4(c2.Min, c4.Min) >= 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 4, anzahl, -1 - bs, datum); // double top bearish
+          p = get(p0, ce, c0.Min, c0.IsO, 4, anzahl, -1 - bs, datum); // double top bearish
         }
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) == 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) == 0)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c4.Max, c2.Max) == 0
+                && Functions.compDouble4(c2.Max, c0.Max) == 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 5, anzahl, 1 + bs, datum); // triple top
+          p = get(p0, ce, c0.Max, c0.IsO, 5, anzahl, 1 + bs, datum); // triple top
         }
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) == 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) == 0)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c4.Min, c2.Min) == 0
+                && Functions.compDouble4(c2.Min, c0.Min) == 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 6, anzahl, -1 - bs, datum); // triple bottom
+          p = get(p0, ce, c0.Min, c0.IsO, 6, anzahl, -1 - bs, datum); // triple bottom
         }
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) == 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c4.Max, c2.Max) == 0
+                && Functions.compDouble4(c2.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 41, anzahl, 2 + bs, datum); // triple top breakout
+          p = get(p0, ce, c0.Max, c0.IsO, 41, anzahl, 2 + bs, datum); // triple top breakout
         } // 06.03.16
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) == 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c4.Min, c2.Min) == 0
+                && Functions.compDouble4(c2.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 42, anzahl, -2 - bs, datum); // triple bottom breakdown
+          p = get(p0, ce, c0.Min, c0.IsO, 42, anzahl, -2 - bs, datum); // triple bottom breakdown
         } // 06.03.16
-        if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-                && Functions.compDouble4(c4.getMax(), c2.getMax()) < 0
-                && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0)
+        if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+                && Functions.compDouble4(c4.Max, c2.Max) < 0
+                && Functions.compDouble4(c2.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 25, anzahl, 3 + bs, datum); // ascending triple top
+          p = get(p0, ce, c0.Max, c0.IsO, 25, anzahl, 3 + bs, datum); // ascending triple top
         }
-        if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-                && Functions.compDouble4(c4.getMin(), c2.getMin()) > 0
-                && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0)
+        if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+                && Functions.compDouble4(c4.Min, c2.Min) > 0
+                && Functions.compDouble4(c2.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 26, anzahl, -3 - bs, datum); // descending triple bottom
+          p = get(p0, ce, c0.Min, c0.IsO, 26, anzahl, -3 - bs, datum); // descending triple bottom
         }
-        if (p == null && !c0.isO() && c1.isO() && !c2.isO() && Functions.compDouble4(c0.getMax(), c2.getMax()) >= 0
-                && Functions.compDouble4(c1.getMin(), c4.getMax()) > 0
-                && Functions.compDouble4(c2.getMax(), c4.getMax()) > 0)
+        if (p == null && !c0.IsO && c1.IsO && !c2.IsO && Functions.compDouble4(c0.Max, c2.Max) >= 0
+                && Functions.compDouble4(c1.Min, c4.Max) > 0
+                && Functions.compDouble4(c2.Max, c4.Max) > 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 9, anzahl, bs, datum); // * pullback bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 9, anzahl, bs, datum); // * pullback bullish
         }
-        if (p == null && c0.isO() && !c1.isO() && c2.isO() && Functions.compDouble4(c0.getMin(), c2.getMin()) <= 0
-                && Functions.compDouble4(c1.getMax(), c4.getMin()) < 0
-                && Functions.compDouble4(c2.getMin(), c4.getMin()) < 0)
+        if (p == null && c0.IsO && !c1.IsO && c2.IsO && Functions.compDouble4(c0.Min, c2.Min) <= 0
+                && Functions.compDouble4(c1.Max, c4.Min) < 0
+                && Functions.compDouble4(c2.Min, c4.Min) < 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 10, anzahl, -bs, datum); // * pullback bearish
+          p = get(p0, ce, c0.Min, c0.IsO, 10, anzahl, -bs, datum); // * pullback bearish
         }
-        // if (p == null && !c4.isO() && c3.isO() && !c2.isO() && c1.isO() && !c0.isO()
-        // && Functions.compDouble4(c0.getMax(), c2.getMax()) > 0
-        // && Functions.compDouble4(c1.getMin(), c3.getMin()) > 0
-        // && Functions.compDouble4(c2.getMax(), c4.getMax()) < 0
-        // && Functions.compDouble4(c3.getMin(), c4.getMin()) > 0) {
-        // p = get(p0, ce, c0.getMax(), c0.isO(), 15, anzahl, 1 + bs, datum); // triangle bullish
+        // if (p == null && !c4.IsO && c3.IsO && !c2.IsO && c1.IsO && !c0.IsO
+        // && Functions.compDouble4(c0.Max, c2.Max) > 0
+        // && Functions.compDouble4(c1.Min, c3.Min) > 0
+        // && Functions.compDouble4(c2.Max, c4.Max) < 0
+        // && Functions.compDouble4(c3.Min, c4.Min) > 0) {
+        // p = get(p0, ce, c0.Max, c0.IsO, 15, anzahl, 1 + bs, datum); // triangle bullish
         // }
-        // if (p == null && c4.isO() && !c3.isO() && c2.isO() && !c1.isO() && c0.isO()
-        // && Functions.compDouble4(c0.getMin(), c2.getMin()) < 0
-        // && Functions.compDouble4(c1.getMax(), c3.getMax()) < 0
-        // && Functions.compDouble4(c2.getMin(), c4.getMin()) > 0
-        // && Functions.compDouble4(c3.getMax(), c4.getMax()) < 0) {
-        // p = get(p0, ce, c0.getMin(), c0.isO(), 16, anzahl, -1 - bs, datum); // triangle bearish
+        // if (p == null && c4.IsO && !c3.IsO && c2.IsO && !c1.IsO && c0.IsO
+        // && Functions.compDouble4(c0.Min, c2.Min) < 0
+        // && Functions.compDouble4(c1.Max, c3.Max) < 0
+        // && Functions.compDouble4(c2.Min, c4.Min) > 0
+        // && Functions.compDouble4(c3.Max, c4.Max) < 0) {
+        // p = get(p0, ce, c0.Min, c0.IsO, 16, anzahl, -1 - bs, datum); // triangle bearish
         // } // siehe anzahl = 7
       }
       anzahl = 3;
       if (p == null && ce >= anzahl - 1)
       {
-        if (p == null && !c2.isO() && c1.isO() && !c0.isO() && Functions.compDouble4(c2.getMax(), c0.getMax()) == 0)
+        if (p == null && !c2.IsO && c1.IsO && !c0.IsO && Functions.compDouble4(c2.Max, c0.Max) == 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 1, anzahl, bs, datum); // double top
+          p = get(p0, ce, c0.Max, c0.IsO, 1, anzahl, bs, datum); // double top
         }
-        if (p == null && c2.isO() && !c1.isO() && c0.isO() && Functions.compDouble4(c2.getMin(), c0.getMin()) == 0)
+        if (p == null && c2.IsO && !c1.IsO && c0.IsO && Functions.compDouble4(c2.Min, c0.Min) == 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 2, anzahl, -bs, datum); // double bottom
+          p = get(p0, ce, c0.Min, c0.IsO, 2, anzahl, -bs, datum); // double bottom
         }
-        if (p == null && !c2.isO() && c1.isO() && !c0.isO() && Functions.compDouble4(c2.getMax(), c0.getMax()) < 0)
+        if (p == null && !c2.IsO && c1.IsO && !c0.IsO && Functions.compDouble4(c2.Max, c0.Max) < 0)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 39, anzahl, 1 + bs, datum); // double top breakout
+          p = get(p0, ce, c0.Max, c0.IsO, 39, anzahl, 1 + bs, datum); // double top breakout
         } // 06.03.16
-        if (p == null && c2.isO() && !c1.isO() && c0.isO() && Functions.compDouble4(c2.getMin(), c0.getMin()) > 0)
+        if (p == null && c2.IsO && !c1.IsO && c0.IsO && Functions.compDouble4(c2.Min, c0.Min) > 0)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 40, anzahl, -1 - bs, datum); // double bottom breakdown
+          p = get(p0, ce, c0.Min, c0.IsO, 40, anzahl, -1 - bs, datum); // double bottom breakdown
         } // 06.03.16
       }
       // anzahl = 2;
       if (p == null && ce >= anzahl - 1)
       {
-        if (p == null && !c0.isO() && c1.getSize() >= longtail)
+        if (p == null && !c0.IsO && c1.Size >= longtail)
         {
-          p = get(p0, ce, c0.getMax(), c0.isO(), 19, anzahl, 3 + bs, datum); // long tail bullish
+          p = get(p0, ce, c0.Max, c0.IsO, 19, anzahl, 3 + bs, datum); // long tail bullish
         }
-        if (p == null && c0.isO() && c1.getSize() >= longtail)
+        if (p == null && c0.IsO && c1.Size >= longtail)
         {
-          p = get(p0, ce, c0.getMin(), c0.isO(), 20, anzahl, -3 - bs, datum); // long tail bearish
+          p = get(p0, ce, c0.Min, c0.IsO, 20, anzahl, -3 - bs, datum); // long tail bearish
         }
       }
       return p;
@@ -747,49 +750,45 @@ namespace CSBP.Services.Pnf
       return null;
     }
 
-    public int getXpos()
+    public int Xpos
     {
-      return xpos;
+      get { return xpos; }
     }
 
-    public int getYpos()
+    public int Ypos
     {
-      return ypos;
+      get { return ypos; }
+      set { this.ypos = value; }
     }
 
-    public void setYpos(int ypos)
+    public decimal Wert
     {
-      this.ypos = ypos;
+      get { return wert; }
     }
 
-    public decimal getWert()
+    public bool IsO
     {
-      return wert;
+      get { return iso; }
     }
 
-    public bool isO()
+    public int Signal
     {
-      return iso;
+      get { return signal; }
     }
 
-    public int getSignal()
+    public int Anzahl
     {
-      return signal;
+      get { return anzahl; }
     }
 
-    public int getAnzahl()
+    public DateTime Datum
     {
-      return anzahl;
+      get { return datum ?? DateTime.MinValue; }
     }
 
-    public DateTime getDatum()
+    public int Muster
     {
-      return datum ?? DateTime.MinValue;
-    }
-
-    public int getMuster()
-    {
-      return muster;
+      get { return muster; }
     }
   }
 }

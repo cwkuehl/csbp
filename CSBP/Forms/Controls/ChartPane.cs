@@ -71,7 +71,7 @@ namespace CSBP.Forms.Controls
       decimal max = c.Posmax;
       var xoffset = xgroesse * 1.5m;
       var yoffset = ygroesse * 3.2m;
-      decimal xanzahl = c.GetSaeulen().Count;
+      decimal xanzahl = c.Saeulen.Count;
       decimal yanzahl = c.Werte.Count;
       var b = 0m;
       var h = 0m;
@@ -103,14 +103,14 @@ namespace CSBP.Forms.Controls
       pc.SetSourceColor(black);
 
       // Säulen
-      DrawString(pc, xoffset, ygroesse * 0.9m, c.GetBezeichnung(), font, color);
+      DrawString(pc, xoffset, ygroesse * 0.9m, c.Bezeichnung, font, color);
       DrawString(pc, xoffset, ygroesse * 1.8m, c.GetBezeichnung2(), font, color);
       b = xoffset + xgroesse;
       h = 0;
-      foreach (var s in c.GetSaeulen())
+      foreach (var s in c.Saeulen)
       {
-        h = s.getYpos();
-        var array = s.getChars();
+        h = s.Ypos;
+        var array = s.Chars;
         foreach (var xo in array)
         {
           x = b;
@@ -140,12 +140,12 @@ namespace CSBP.Forms.Controls
       //gc.SetLineAttributes(1, LineStyle.Solid, CapStyle.Butt, JoinStyle.Bevel);
       x = xoffset + (xanzahl + 2) * xgroesse;
       y = yoffset + yanzahl * ygroesse;
-      var aktkurs = c.GetKurs();
+      var aktkurs = c.Kurs;
       var iakt = -1;
       var yakt = -1m;
       if (Functions.compDouble4(aktkurs, 0) > 0)
       {
-        var d = c.GetMax() + 1;
+        var d = c.Max + 1;
         for (int i = 0; i < yanzahl; i++)
         {
           if (Functions.compDouble4(c.Werte[i], d) < 0
@@ -184,34 +184,34 @@ namespace CSBP.Forms.Controls
       {
         // senkrechte Linien
         DrawLine(pc, x, yoffset, x, y);
-        if (i % 6 == 0 && i < xanzahl && c.GetSaeulen()[i].getDatum() != null)
+        if (i % 6 == 0 && i < xanzahl && c.Saeulen[i].Datum != null)
         {
-          DrawString(pc, x + xgroesse, y + ygroesse * 0.5m, Functions.ToString(c.GetSaeulen()[i].getDatum()), font, color);
+          DrawString(pc, x + xgroesse, y + ygroesse * 0.5m, Functions.ToString(c.Saeulen[i].Datum), font, color);
         }
         x += xgroesse;
       }
 
       // Trendlinien
       //gc.SetLineAttributes(2, LineStyle.Solid, CapStyle.Butt, JoinStyle.Bevel);
-      foreach (var t in c.GetTrends())
+      foreach (var t in c.Trends)
       {
-        x = (t.getXpos() + 1) * xgroesse + xoffset;
-        y = (max - t.getYpos()) * ygroesse + yoffset;
-        b = t.getLaenge() * xgroesse;
-        if (t.getBoxtyp() == 0)
+        x = (t.Xpos + 1) * xgroesse + xoffset;
+        y = (max - t.Ypos) * ygroesse + yoffset;
+        b = t.Laenge * xgroesse;
+        if (t.Boxtyp == 0)
         {
           b += xgroesse;
           h = 0;
           color = red;
         }
-        else if (t.getBoxtyp() == 1)
+        else if (t.Boxtyp == 1)
         {
-          h = -t.getLaenge() * ygroesse;
+          h = -t.Laenge * ygroesse;
           color = blue;
         }
         else
         {
-          h = t.getLaenge() * ygroesse;
+          h = t.Laenge * ygroesse;
           y += ygroesse;
           color = blue;
         }
@@ -220,10 +220,10 @@ namespace CSBP.Forms.Controls
 
       // Muster
       color = darkviolet;
-      foreach (var pa in c.GetPattern())
+      foreach (var pa in c.Pattern)
       {
-        x = (pa.getXpos() + 2) * xgroesse + xoffset;
-        y = (max - pa.getYpos()) * ygroesse + yoffset;
+        x = (pa.Xpos + 2) * xgroesse + xoffset;
+        y = (max - pa.Ypos) * ygroesse + yoffset;
         if (yakt >= 0)
         {
           if (Math.Abs(y - yakt) < ygroesse)
@@ -233,7 +233,7 @@ namespace CSBP.Forms.Controls
               y += ygroesse * 2; // nach unten verschieben
           }
         }
-        DrawString(pc, x, y - ygroesse, pa.getBezeichnung(), font, color);
+        DrawString(pc, x, y - ygroesse, pa.Bezeichnung, font, color);
       }
     }
   }

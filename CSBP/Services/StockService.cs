@@ -190,12 +190,23 @@ namespace CSBP.Services
         if (k != null)
           k.Bezeichnung = PnfChart.GetBezeichnung(k.Bezeichnung, 0, k.Scale, k.Reversal, k.Method, k.Relative, k.Duration, null, 0, 0);
       }
-      var from = date.AddDays(k == null ? -182 : k.Duration);
+      if (k == null)
+        k = new WpKonfiguration
+        {
+          Bezeichnung = "",
+          Duration = 182, // half year
+          Box = 1,
+          Scale = 2, // dynamic
+          Reversal = 3,
+          Method = 4, // Open high low close
+          Relative = false
+        };
+      var from = date.AddDays(-k.Duration);
       var dictlist = new Dictionary<string, List<SoKurse>>();
       var dictresponse = new Dictionary<string, StockUrl>();
       var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
       if (!inactive && list.Count != 1)
-        list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
+        list = list.Where(a => a.Status == "1" && !UiFunctions.IgnoreShortcut(a.Kuerzel)).ToList(); // Calculate only active stock.
       list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel)).ToList();
       var l = list.Count;
       status.Clear().Append(M0(WP053));
@@ -255,83 +266,217 @@ namespace CSBP.Services
       }
       Debug.Print($"{DateTime.Now} End.");
 
-      for (var i = 0; i < l && cancel.Length <= 0; i++)
+      for (var i0 = 0; i0 < l && cancel.Length <= 0; i0++)
       {
-        // Kurse berechnen.
-        var st = list[i];
-        status.Clear().Append(WP009(i + 1, l, st.Bezeichnung, date, null));
+        // Calculate stock.
+        var st = list[i0];
+        status.Clear().Append(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
         Gtk.Application.Invoke(delegate
         {
           MainClass.MainWindow.SetError(status.ToString());
         });
-        //   var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
-        //   inv.MinDate = blist.FirstOrDefault()?.Datum;
-        //   if (!dictlist.TryGetValue(inv.Wertpapier_Uid, out var klist))
-        //   {
-        //     string response = null;
-        //     if (dictresponse.TryGetValue(StockUrl.GetKey(inv.Wertpapier_Uid, date), out var resp))
-        //       response = resp.Response;
-        //     var pl = GetPriceListIntern(daten, from, date, inv.StockProvider, inv.StockShortcut, inv.StockType,
-        //       inv.StockCurrency, inv.Price, inv.Wertpapier_Uid, dictresponse);
-        //     klist = pl.Skip(Math.Max(0, pl.Count - 2)).ToList(); // Max. die letzten beiden Kurse.
-        //     dictlist.Add(inv.Wertpapier_Uid, klist);
-        //   }
-        //   SoKurse k = null;
-        //   SoKurse k1 = null;
-        //   if (klist != null)
-        //   {
-        //     if (klist.Count >= 2)
-        //     {
-        //       k = klist[klist.Count - 1];
-        //       k1 = klist[klist.Count - 2];
-        //     }
-        //     else if (klist.Count >= 1)
-        //       k = klist[klist.Count - 1];
-        //   }
-        //   if (k == null)
-        //   {
-        //     var s = WpStandRep.GetLatest(daten, daten.MandantNr, inv.Wertpapier_Uid, date);
-        //     if (s != null)
-        //     {
-        //       k = new SoKurse
-        //       {
-        //         Close = s.Stueckpreis,
-        //         Datum = s.Datum,
-        //         Bewertung = "EUR",
-        //         Price = 1
-        //       };
-        //     }
-        //   }
-        //   if (k == null)
-        //   {
-        //     k = new SoKurse
-        //     {
-        //       Close = inv.ShareValue,
-        //       Datum = inv.MinDate ?? daten.Heute,
-        //       Bewertung = "EUR",
-        //       Price = 1
-        //     };
-        //   }
-        //   CalculateInvestment(daten, inv, blist, k);
-        //   if (k1 != null)
-        //   {
-        //     var inv2 = Clone(inv);
-        //     CalculateInvestment(daten, inv2, blist, k1);
-        //     inv.PriceDate2 = inv2.PriceDate;
-        //     inv.Value2 = inv2.Value;
-        //   }
-        //   WpAnlageRep.Update(daten, inv);
-        //   if (inv.PriceDate.HasValue && Functions.compDouble4(inv.Price, 0) > 0)
-        //   {
-        //     // Stand speichern
-        //     WpStandRep.Save(daten, daten.MandantNr, inv.Wertpapier_Uid, inv.PriceDate.Value, inv.Price);
-        //     SaveChanges(daten);
-        //   }
+        st.Assessment = $"00 {M0(WP010)}";
+        st.Assessment1 = "";
+        st.Assessment2 = "";
+        st.Assessment3 = "";
+        st.Assessment4 = "";
+        st.Assessment5 = "";
+        st.Pattern = "";
+        st.StopPrice = null;
+        // wp.signalkurs1 Zielkurs (Signalkur1) wird manuell erfasst.
+        st.SignalPrice2 = null;
+        st.Trend1 = "";
+        st.Trend2 = "";
+        st.Trend3 = "";
+        st.Trend4 = "";
+        st.Trend5 = "";
+        st.Trend = "";
+        st.PriceDate = null;
+        st.Xo = "";
+        st.SignalAssessment = "";
+        st.SignalDate = null;
+        st.SignalDescription = "";
+        st.Index1 = "";
+        st.Index2 = "";
+        st.Index3 = "";
+        st.Index4 = "";
+        st.Average200 = "";
+        // st.konfiguration = if (k === null) "ohne" else k.bezeichnung
+        // st.typ
+        // st.waehrung
+
+        try
+        {
+          // var wpr = if(k !== null && k.relativ) getWertpapierLangIntern(daten, wp.relationUid) else null
+          var liste = GetPriceListIntern(daten, from, date, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, st.CurrentPrice ?? 0, st.Uid, dictresponse);
+          // var liste = holeKurseIntern(daten, wp.uid, dvon, dbis, wp.datenquelle, wp.kuerzel, wp.typ, wp.waehrung,
+          // 	if(wpr === null) null else wpr.datenquelle, if(wpr === null) null else wpr.kuerzel,
+          // 	if(wpr === null) null else wpr.typ, if(wpr === null) null else wpr.waehrung)
+          var kursdatum = liste.Count > 0 ? liste.Last().Datum : date;
+          var signalbew = 0;
+          var signaldatum = from;
+          string signalbez = null;
+          var a = new decimal[] { 0.5m, 1, 2, 3, 5 };
+          var t = new string[] { null, null, null, null, null };
+          var bew = new int[] { 0, 0, 0, 0, 0 };
+          for (var i = 0; i < a.Length; i++)
+          {
+            var c = new PnfChart(k.Method, a[i], k.Scale, k.Reversal, st.Bezeichnung);
+            c.Ziel = st.SignalPrice1 ?? 0;
+            c.Stop = st.StopPrice ?? 0;
+            c.Relativ = k.Relative;
+            c.AddKurse(liste);
+            var p = c.Pattern.LastOrDefault();
+            if (p != null)
+            {
+              // letztes Signal nur bei letzter Säule, Signal am gleichen Tag
+              if (p.Xpos >= c.Saeulen.Count - 1 && p.Datum == kursdatum)
+              {
+                bew[i] = p.Signal;
+                if (string.IsNullOrEmpty(st.Pattern))
+                {
+                  st.Pattern = PnfPattern.GetBezeichnung(p.Muster);
+                }
+              }
+              if (p.Datum > signaldatum ||
+                (p.Datum == signaldatum && Math.Abs(p.Signal) > Math.Abs(signalbew)))
+              {
+                signalbew = p.Signal;
+                signaldatum = p.Datum;
+                signalbez = PnfPattern.GetBezeichnung(p.Muster);
+              }
+            }
+            if (c.Saeulen.Count > 0 && c.Saeulen.Last().Datum == kursdatum)
+            {
+              st.Xo = WP048(c.Saeulen.Last().IsO ? "xo" : "ox", c.Box);
+            }
+            if (i == 0)
+            {
+              st.CurrentPrice = c.Kurs;
+              if (Functions.compDouble4(c.Stop, 0) > 0)
+              {
+                st.StopPrice = Functions.Round(c.Stop);
+                st.SignalPrice2 = Functions.Round4(c.Kurs / c.Stop);
+              }
+            }
+            var tr = c.Trend;
+            t[i] = tr == 2 ? "+2" : tr == 1 ? "+1" : tr == 0.5m ? "+0,5" : tr == -2 ? "-2" : tr == -1 ? "-1" :
+              tr == -0.5m ? "-0,5" : tr == 0 ? "0" : Functions.ToString(tr, 1);
+          }
+          st.Assessment1 = Functions.ToString(bew[0]);
+          st.Assessment2 = Functions.ToString(bew[1]);
+          st.Assessment3 = Functions.ToString(bew[2]);
+          st.Assessment4 = Functions.ToString(bew[3]);
+          st.Assessment5 = Functions.ToString(bew[4]);
+          st.Assessment = string.Format("{0:00}", bew[0] + bew[1] + bew[2] + bew[3] + bew[4]);
+          st.Trend1 = t[0];
+          st.Trend2 = t[1];
+          st.Trend3 = t[2];
+          st.Trend4 = t[3];
+          st.Trend5 = t[4];
+          st.Trend = string.Format("{0:0}", Functions.ToInt32(t[0]) + Functions.ToInt32(t[1]) + Functions.ToInt32(t[2])
+            + Functions.ToInt32(t[3]) + Functions.ToInt32(t[4]));
+          st.PriceDate = kursdatum;
+          st.SignalAssessment = Functions.ToString(signalbew);
+          st.SignalDate = signaldatum == from ? null : signaldatum;
+          st.SignalDescription = signalbez;
+          var ia = new int[] { 182, 730, 1460, 3650 };
+          var mina = new decimal[] { 0, 0, 0, 0 };
+          var maxa = new decimal[] { 0, 0, 0, 0 };
+          var difa = new decimal[] { 0, 0, 0, 0 };
+          var bis = liste.Last().Datum;
+          var min0 = liste.Last().Close;
+          for (var i = 0; i < ia.Length; i++)
+          {
+            var datumi = bis.AddDays(-ia[i]);
+            var mini = min0;
+            var maxi = 0m;
+            var diff = 0m;
+            foreach (var ku in liste)
+            {
+              if (datumi < ku.Datum)
+              {
+                // && datumi.hour == 0 && datumi.minute == 0 && datumi.second == 0) {
+                // evtl. aktuellen Kurs ignorieren
+                diff = diff + ku.Open - ku.Close;
+                if (Functions.compDouble(diff, maxi) > 0)
+                  maxi = diff;
+                if (Functions.compDouble(diff, mini) < 0)
+                  mini = diff;
+              }
+            }
+            mina[i] = mini;
+            maxa[i] = maxi;
+            difa[i] = diff;
+          }
+          st.Index1 = Functions.ToString(ClIndex(difa[0], mina[0], maxa[0]));
+          st.Index2 = Functions.ToString(ClIndex(difa[1], mina[1], maxa[1]));
+          st.Index3 = Functions.ToString(ClIndex(difa[2], mina[2], maxa[2]));
+          st.Index4 = Functions.ToString(ClIndex(difa[3], mina[3], maxa[3]));
+          var datum14 = bis.AddDays(-14);
+          var datum200 = bis.AddDays(200);
+          var datum214 = bis.AddDays(214);
+          var summe14 = 0m;
+          var summe200 = 0m;
+          var summe214 = 0m;
+          var anzahl14 = 0;
+          var anzahl200 = 0;
+          var anzahl214 = 0;
+          foreach (var ku in liste)
+          {
+            if (datum14 < ku.Datum)
+            {
+              summe14 += ku.Close;
+              anzahl14++;
+            }
+            if (datum200 < ku.Datum)
+            {
+              summe200 += ku.Close;
+              anzahl200++;
+            }
+            if (datum214 < ku.Datum)
+            {
+              summe214 += ku.Close;
+              anzahl214++;
+            }
+          }
+          summe214 -= summe14;
+          anzahl214 -= anzahl14;
+          if (anzahl200 > 0 && anzahl214 > 0)
+          {
+            var schnitt200 = summe200 / anzahl200;
+            var schnitt214 = summe214 / anzahl214;
+            st.Average200 = Functions.ToString(Functions.compDouble(schnitt200, schnitt214));
+          }
+          WpWertpapierRep.Update(daten, st);
+        }
+        catch (Exception ex)
+        {
+          st.Assessment = $"00 {M1033(ex.Message)}";
+          // // throw new RuntimeException(ex)
+        }
       }
+      SaveChanges(daten);
       status.Clear();
       var r = new ServiceErgebnis();
       return r;
     }
+
+    /// <summary>
+    /// Get cluster index.
+    /// </summary>
+    /// <param name="diff">Affected difference.</param>
+    /// <param name="mini">Affected minimum.</param>
+    /// <param name="maxi">Affected maximum.</param>
+    /// <returns>Calculated index.</returns>
+    private static decimal ClIndex(decimal diff, decimal mini, decimal maxi)
+    {
+      if (Functions.compDouble(mini, maxi) == 0)
+        return 0;
+      else
+        return (diff - mini) / (maxi - mini);
+    }
+
 
     /// <summary>
     /// Gets a list of states.
@@ -677,7 +822,7 @@ namespace CSBP.Services
       var dictresponse = new Dictionary<string, StockUrl>();
       var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
       if (!inactive && list.Count != 1)
-        list = list.Where(a => a.State == 1).ToList(); // Calculate only active investments.
+        list = list.Where(a => a.State == 1 && !UiFunctions.IgnoreShortcut(a.StockShortcut)).ToList(); // Calculate only active investments.
       var l = list.Count;
       status.Clear().Append(M0(WP053));
       Gtk.Application.Invoke(delegate
