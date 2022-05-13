@@ -275,36 +275,6 @@ namespace CSBP.Services
         {
           MainClass.MainWindow.SetError(status.ToString());
         });
-        st.Assessment = $"00 {M0(WP010)}";
-        st.Assessment1 = "";
-        st.Assessment2 = "";
-        st.Assessment3 = "";
-        st.Assessment4 = "";
-        st.Assessment5 = "";
-        st.Pattern = "";
-        st.StopPrice = null;
-        // wp.signalkurs1 Zielkurs (Signalkur1) wird manuell erfasst.
-        st.SignalPrice2 = null;
-        st.Trend1 = "";
-        st.Trend2 = "";
-        st.Trend3 = "";
-        st.Trend4 = "";
-        st.Trend5 = "";
-        st.Trend = "";
-        st.PriceDate = null;
-        st.Xo = "";
-        st.SignalAssessment = "";
-        st.SignalDate = null;
-        st.SignalDescription = "";
-        st.Index1 = "";
-        st.Index2 = "";
-        st.Index3 = "";
-        st.Index4 = "";
-        st.Average200 = "";
-        // st.konfiguration = if (k === null) "ohne" else k.bezeichnung
-        // st.typ
-        // st.waehrung
-
         try
         {
           // var wpr = if(k !== null && k.relativ) getWertpapierLangIntern(daten, wp.relationUid) else null
@@ -312,6 +282,37 @@ namespace CSBP.Services
           // var liste = holeKurseIntern(daten, wp.uid, dvon, dbis, wp.datenquelle, wp.kuerzel, wp.typ, wp.waehrung,
           // 	if(wpr === null) null else wpr.datenquelle, if(wpr === null) null else wpr.kuerzel,
           // 	if(wpr === null) null else wpr.typ, if(wpr === null) null else wpr.waehrung)
+
+          st.Assessment = $"00 {M0(WP010)}";
+          st.Assessment1 = "";
+          st.Assessment2 = "";
+          st.Assessment3 = "";
+          st.Assessment4 = "";
+          st.Assessment5 = "";
+          st.Pattern = "";
+          st.StopPrice = null;
+          // wp.signalkurs1 Zielkurs (Signalkur1) wird manuell erfasst.
+          st.SignalPrice2 = null;
+          st.Trend1 = "";
+          st.Trend2 = "";
+          st.Trend3 = "";
+          st.Trend4 = "";
+          st.Trend5 = "";
+          st.Trend = "";
+          st.PriceDate = null;
+          st.Xo = "";
+          st.SignalAssessment = "";
+          st.SignalDate = null;
+          st.SignalDescription = "";
+          st.Index1 = "";
+          st.Index2 = "";
+          st.Index3 = "";
+          st.Index4 = "";
+          st.Average200 = "";
+          // st.konfiguration = if (k === null) "ohne" else k.bezeichnung
+          // st.typ
+          // st.waehrung
+
           var kursdatum = liste.Count > 0 ? liste.Last().Datum : date;
           var signalbew = 0;
           var signaldatum = from;
@@ -449,6 +450,7 @@ namespace CSBP.Services
             st.Average200 = Functions.ToString(Functions.compDouble(schnitt200, schnitt214));
           }
           WpWertpapierRep.Update(daten, st);
+          // Debug.WriteLine($"6 {st.Parameter}");
         }
         catch (Exception ex)
         {

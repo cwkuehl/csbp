@@ -7,6 +7,7 @@ namespace CSBP.Services.Base
   using System;
   using System.Collections.Generic;
   using System.Data.Common;
+  using System.Diagnostics;
   using System.IO;
   using System.Linq;
   using System.Net;
@@ -318,7 +319,12 @@ namespace CSBP.Services.Base
       cmd.CommandText = sql.ToString();
       var c = cmd.ExecuteNonQuery();
       if (c != 1)
-        throw new Exception("Wrong number of updates."); // Rep.Update vergessen?
+      {
+        Debug.WriteLine(cmd.CommandText);
+        foreach (DbParameter p in cmd.Parameters)
+          Debug.WriteLine($"{p.ParameterName}: {p.Value?.ToString()}");
+        throw new Exception("Wrong number of updates."); // Call of Rep.Update not made?
+      }
     }
 
     private void Delete(DbConnection con, ModelBase m)
