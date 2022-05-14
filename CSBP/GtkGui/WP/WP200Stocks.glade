@@ -164,6 +164,7 @@
         </child>
         <child>
           <object class="GtkButton" id="floppyAction">
+            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text">Action.floppy</property>

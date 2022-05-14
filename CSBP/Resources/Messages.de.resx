@@ -3990,6 +3990,109 @@
         <value>Soll für das Wertpapier auch eine Anlage erstellt werden?</value>
     </data>
 
+    <data name="WP220.title" xml:space="preserve">
+        <value>Wertpapier-Export</value>
+    </data>
+    <data name="WP220.datum" xml:space="preserve">
+        <value>_Datum</value>
+    </data>
+    <data name="WP220.datum.tt" xml:space="preserve">
+        <value>Letztes Datum</value>
+    </data>
+    <data name="WP220.anzahl" xml:space="preserve">
+        <value>_Anzahl Werktage</value>
+    </data>
+    <data name="WP220.anzahl.tt" xml:space="preserve">
+        <value>Anzahl Werktage</value>
+    </data>
+    <data name="WP220.bezeichnung" xml:space="preserve">
+        <value>_Bezeichnung</value>
+    </data>
+    <data name="WP220.bezeichnung.tt" xml:space="preserve">
+        <value>Zu suchende Bezeichnung</value>
+    </data>
+    <data name="WP220.konfiguration" xml:space="preserve">
+        <value>Konfigurationen</value>
+    </data>
+    <data name="WP220.konfiguration.tt" xml:space="preserve">
+        <value>Konfigurationen auswählen</value>
+    </data>
+    <data name="WP220.konfiguration.columns" xml:space="preserve">
+        <value>Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="WP220.datei" xml:space="preserve">
+        <value>_Datei</value>
+    </data>
+    <data name="WP220.datei.tt" xml:space="preserve">
+        <value>Name der csv-Datei</value>
+    </data>
+    <data name="WP220.dateiAuswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="WP220.dateiAuswahl.tt" xml:space="preserve">
+        <value>Vorhandene Datei auswählen</value>
+    </data>
+    <data name="WP220.select.file" xml:space="preserve">
+        <value>wertpapiere.csv</value>
+    </data>
+    <data name="WP220.select.ext" xml:space="preserve">
+        <value>CSV-Dateien (.csv)</value>
+    </data>
+    <data name="WP220.export" xml:space="preserve">
+        <value>Exp_ort</value>
+    </data>
+    <data name="WP220.export.tt" xml:space="preserve">
+        <value>Export in csv-Datei</value>
+    </data>
+    <data name="WP220.datum2" xml:space="preserve">
+        <value>_Zeitpunkte</value>
+    </data>
+    <data name="WP220.datum2.tt" xml:space="preserve">
+        <value>1. Datum für Vergleich</value>
+    </data>
+    <data name="WP220.datum3.tt" xml:space="preserve">
+        <value>2. Datum für Vergleich</value>
+    </data>
+    <data name="WP220.datum4.tt" xml:space="preserve">
+        <value>3. Datum für Vergleich</value>
+    </data>
+    <data name="WP220.wertpapier" xml:space="preserve">
+        <value>_Wertpapiere</value>
+    </data>
+    <data name="WP220.wertpapier.tt" xml:space="preserve">
+        <value>Wertpapiere für Vergleich auswählen</value>
+    </data>
+    <data name="WP220.wertpapier.columns" xml:space="preserve">
+        <value>Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="WP220.datei2" xml:space="preserve">
+        <value>D_atei</value>
+    </data>
+    <data name="WP220.datei2.tt" xml:space="preserve">
+        <value>Name der xls-Datei</value>
+    </data>
+    <data name="WP220.datei2Auswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="WP220.datei2Auswahl.tt" xml:space="preserve">
+        <value>Vorhandene Datei auswählen</value>
+    </data>
+    <data name="WP220.select2.file" xml:space="preserve">
+        <value>wertpapiere.xls</value>
+    </data>
+    <data name="WP220.select2.ext" xml:space="preserve">
+        <value>XLS-Dateien (.xls)</value>
+    </data>
+    <data name="WP220.export2" xml:space="preserve">
+        <value>Export _Vergleich</value>
+    </data>
+    <data name="WP220.export2.tt" xml:space="preserve">
+        <value>Export des Wertpapier-Vergleichs in xls-Datei</value>
+    </data>
+    <data name="WP220.statustext.tt" xml:space="preserve">
+        <value>Status beim Export</value>
+    </data>
+
     <data name="WP250.title" xml:space="preserve">
         <value>Anlagen</value>
     </data>

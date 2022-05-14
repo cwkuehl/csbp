@@ -18,6 +18,7 @@ image:WP200.png[{wp200-title},title={wp200-title}]
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Wertpapier-Datensatzes.
 |image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Wertpapier-Datensatzes.
 |image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Wertpapier-Datensatzes.
+|image:icons/gtk-floppy.png[title="Export",width={icon-width}]        |Diese Schaltfläche öffnet den Dialog <<WP220>>.
 |image:icons/gtk-select-color.png[title="Chart",width={icon-width}]   |Schaltfläche zum Anzeigen des Point and Figure-Charts. <<WP100>>
 |Wertpapiere  |Liste von ausgewählten Wertpapier-Datensätzen inkl. der berechneten Bewertung.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
@@ -29,7 +30,3 @@ image:WP200.png[{wp200-title},title={wp200-title}]
 |Konfiguration|Konfiguration für die Bewertung festlegen.
 |Abbrechen    |Schaltfläche zum Abbrechen der laufenden Bewertungsberechnung.
 |==========================
-////
-TODO Export WP220
-|image:icons/gtk-floppy.png[title="Export",width={icon-width}]        |Diese Schaltfläche öffnet den Dialog <<WP220>>.
-////

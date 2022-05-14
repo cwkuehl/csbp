@@ -275,11 +275,39 @@ namespace CSBP.Base
       set { SetValue("SO100Sudoku", value); }
     }
 
-    /// <summary>Holt oder setzt die Wertpapier-Konfiguration.</summary>
+    /// <summary>Get or set the stock configuration.</summary>
     public static string WP200Configuration
     {
       get { return GetValue("WP200Configuration"); }
       set { SetValue("WP200Configuration", value); }
+    }
+
+    /// <summary>Get or set the stock configuration.</summary>
+    public static string WP220Configuration
+    {
+      get { return GetValue("WP220Configuration"); }
+      set { SetValue("WP220Configuration", value); }
+    }
+
+    /// <summary>Get or set the stock.</summary>
+    public static string WP220Stock
+    {
+      get { return GetValue("WP220Stock"); }
+      set { SetValue("WP220Stock", value); }
+    }
+
+    /// <summary>Get or set the file name.</summary>
+    public static string WP220File
+    {
+      get { return GetValue("WP220File"); }
+      set { SetValue("WP220File", value); }
+    }
+
+    /// <summary>Get or set the file name 2.</summary>
+    public static string WP220File2
+    {
+      get { return GetValue("WP220File2"); }
+      set { SetValue("WP220File2", value); }
     }
 
     /// <summary>Holt oder setzt die Wertpapier-Konfiguration.</summary>

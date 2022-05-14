@@ -6507,6 +6507,176 @@ namespace CSBP.Resources
       get { return rm.GetString("WP210.anlage.tt"); }
     }
 
+    public static string WP220_title
+    {
+      get { return rm.GetString("WP220.title"); }
+    }
+
+    public static string WP220_datum
+    {
+      get { return rm.GetString("WP220.datum"); }
+    }
+
+    public static string WP220_datum_tt
+    {
+      get { return rm.GetString("WP220.datum.tt"); }
+    }
+
+    public static string WP220_anzahl
+    {
+      get { return rm.GetString("WP220.anzahl"); }
+    }
+
+    public static string WP220_anzahl_tt
+    {
+      get { return rm.GetString("WP220.anzahl.tt"); }
+    }
+
+    public static string WP220_bezeichnung
+    {
+      get { return rm.GetString("WP220.bezeichnung"); }
+    }
+
+    public static string WP220_bezeichnung_tt
+    {
+      get { return rm.GetString("WP220.bezeichnung.tt"); }
+    }
+
+    public static string WP220_konfiguration
+    {
+      get { return rm.GetString("WP220.konfiguration"); }
+    }
+
+    public static string WP220_konfiguration_tt
+    {
+      get { return rm.GetString("WP220.konfiguration.tt"); }
+    }
+
+    public static string WP220_konfiguration_columns
+    {
+      get { return rm.GetString("WP220.konfiguration.columns"); }
+    }
+
+    public static string WP220_datei
+    {
+      get { return rm.GetString("WP220.datei"); }
+    }
+
+    public static string WP220_datei_tt
+    {
+      get { return rm.GetString("WP220.datei.tt"); }
+    }
+
+    public static string WP220_dateiAuswahl
+    {
+      get { return rm.GetString("WP220.dateiAuswahl"); }
+    }
+
+    public static string WP220_dateiAuswahl_tt
+    {
+      get { return rm.GetString("WP220.dateiAuswahl.tt"); }
+    }
+
+    public static string WP220_select_file
+    {
+      get { return rm.GetString("WP220.select.file"); }
+    }
+
+    public static string WP220_select_ext
+    {
+      get { return rm.GetString("WP220.select.ext"); }
+    }
+
+    public static string WP220_export
+    {
+      get { return rm.GetString("WP220.export"); }
+    }
+
+    public static string WP220_export_tt
+    {
+      get { return rm.GetString("WP220.export.tt"); }
+    }
+
+    public static string WP220_datum2
+    {
+      get { return rm.GetString("WP220.datum2"); }
+    }
+
+    public static string WP220_datum2_tt
+    {
+      get { return rm.GetString("WP220.datum2.tt"); }
+    }
+
+    public static string WP220_datum3_tt
+    {
+      get { return rm.GetString("WP220.datum3.tt"); }
+    }
+
+    public static string WP220_datum4_tt
+    {
+      get { return rm.GetString("WP220.datum4.tt"); }
+    }
+
+    public static string WP220_wertpapier
+    {
+      get { return rm.GetString("WP220.wertpapier"); }
+    }
+
+    public static string WP220_wertpapier_tt
+    {
+      get { return rm.GetString("WP220.wertpapier.tt"); }
+    }
+
+    public static string WP220_wertpapier_columns
+    {
+      get { return rm.GetString("WP220.wertpapier.columns"); }
+    }
+
+    public static string WP220_datei2
+    {
+      get { return rm.GetString("WP220.datei2"); }
+    }
+
+    public static string WP220_datei2_tt
+    {
+      get { return rm.GetString("WP220.datei2.tt"); }
+    }
+
+    public static string WP220_datei2Auswahl
+    {
+      get { return rm.GetString("WP220.datei2Auswahl"); }
+    }
+
+    public static string WP220_datei2Auswahl_tt
+    {
+      get { return rm.GetString("WP220.datei2Auswahl.tt"); }
+    }
+
+    public static string WP220_select2_file
+    {
+      get { return rm.GetString("WP220.select2.file"); }
+    }
+
+    public static string WP220_select2_ext
+    {
+      get { return rm.GetString("WP220.select2.ext"); }
+    }
+
+    public static string WP220_export2
+    {
+      get { return rm.GetString("WP220.export2"); }
+    }
+
+    public static string WP220_export2_tt
+    {
+      get { return rm.GetString("WP220.export2.tt"); }
+    }
+
+    public static string WP220_statustext_tt
+    {
+      get { return rm.GetString("WP220.statustext.tt"); }
+    }
+
     public static string WP250_title
     {
       get { return rm.GetString("WP250.title"); }

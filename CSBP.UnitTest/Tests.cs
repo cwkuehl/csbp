@@ -451,9 +451,9 @@ namespace CSBP.Services.Repositories
     [Test]
     public void GenerateForm()
     {
-      var unit = "so";
-      var fileold = "SO100Sudoku";
-      var filenew = "SO100Sudoku";
+      var unit = "wp";
+      var fileold = "WP220Schnittstelle";
+      var filenew = "WP220Interface";
       var fileshort = filenew.Substring(0, 5);
       var file = Path.Combine(formpath, unit, fileold + ".fxml");
       var g = XDocument.Load(file);

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with unit test GenerateForm -->
+<interface>
+  <requires lib="gtk+" version="3.20" />
+  <object class="GtkGrid" id="WP220Interface">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_left">5</property>
+    <property name="margin_right">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="row_spacing">5</property>
+    <property name="column_spacing">5</property>
+    <child>
+      <object class="GtkLabel" id="datum0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.datum</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">datum</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="datum">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="anzahl0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.anzahl</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">anzahl</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="anzahl">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">WP220.anzahl.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">WP220.anzahl.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="bezeichnung0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.bezeichnung</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">bezeichnung</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="bezeichnung">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">WP220.bezeichnung.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">WP220.bezeichnung.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="konfiguration0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.konfiguration</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">konfiguration</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="konfigurationsw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="vexpand">True</property>
+        <property name="hexpand">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTreeView" id="konfiguration">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">WP220.konfiguration.tt</property>
+            <signal name="row-activated" handler="OnKonfigurationRowActivated" swapped="no" />
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="datei0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.datei</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">datei</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="datei">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">WP220.datei.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">WP220.datei.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">4</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id8">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="dateiAuswahl">
+            <property name="label">WP220.dateiAuswahl</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">False</property>
+            <property name="tooltip_text">WP220.dateiAuswahl.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnDateiauswahlClicked" swapped="no" />
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="export">
+            <property name="label">WP220.export</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="tooltip_text">WP220.export.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnExportClicked" swapped="no" />
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">4</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="datum20">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.datum2</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">datum2</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="datum2">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="datum3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkGrid" id="datum4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="wertpapier0">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.wertpapier</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">wertpapier</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="wertpapiersw">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="vexpand">True</property>
+        <property name="hexpand">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTreeView" id="wertpapier">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="tooltip_text">WP220.wertpapier.tt</property>
+            <signal name="row-activated" handler="OnWertpapierRowActivated" swapped="no" />
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+        <property name="width">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="datei20">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">WP220.datei2</property>
+        <property name="use_underline">True</property>
+        <property name="mnemonic_widget">datei2</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="datei2">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">WP220.datei2.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">WP220.datei2.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">7</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="id16">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkButton" id="datei2Auswahl">
+            <property name="label">WP220.datei2Auswahl</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">False</property>
+            <property name="tooltip_text">WP220.datei2Auswahl.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnDatei2auswahlClicked" swapped="no" />
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="export2">
+            <property name="label">WP220.export2</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="tooltip_text">WP220.export2.tt</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="OnExport2Clicked" swapped="no" />
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">3</property>
+        <property name="top_attach">7</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="abbrechen">
+        <property name="label">Forms.cancel</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="can_default">False</property>
+        <property name="tooltip_text">Forms.cancel.tt</property>
+        <property name="use_underline">True</property>
+        <signal name="clicked" handler="OnAbbrechenClicked" swapped="no" />
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">8</property>
+        <property name="width">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="statustext">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="tooltip_text">WP220.statustext.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates_default">True</property>
+        <property name="placeholder_text">WP220.statustext.tt</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">9</property>
+        <property name="width">4</property>
+      </packing>
+    </child>
+  </object>
+</interface>

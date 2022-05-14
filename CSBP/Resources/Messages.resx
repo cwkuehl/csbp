@@ -3990,6 +3990,109 @@
         <value>Create investment for stock?</value>
     </data>
 
+    <data name="WP220.title" xml:space="preserve">
+        <value>Stock export</value>
+    </data>
+    <data name="WP220.datum" xml:space="preserve">
+        <value>_Date</value>
+    </data>
+    <data name="WP220.datum.tt" xml:space="preserve">
+        <value>Last date</value>
+    </data>
+    <data name="WP220.anzahl" xml:space="preserve">
+        <value>_Number of business days</value>
+    </data>
+    <data name="WP220.anzahl.tt" xml:space="preserve">
+        <value>Number of business days</value>
+    </data>
+    <data name="WP220.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="WP220.bezeichnung.tt" xml:space="preserve">
+        <value>Search description</value>
+    </data>
+    <data name="WP220.konfiguration" xml:space="preserve">
+        <value>_Configurations</value>
+    </data>
+    <data name="WP220.konfiguration.tt" xml:space="preserve">
+        <value>Select configurations</value>
+    </data>
+    <data name="WP220.konfiguration.columns" xml:space="preserve">
+        <value>TODO WP220.konfiguration.columns;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="WP220.datei" xml:space="preserve">
+        <value>_File</value>
+    </data>
+    <data name="WP220.datei.tt" xml:space="preserve">
+        <value>Name of csv file</value>
+    </data>
+    <data name="WP220.dateiAuswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="WP220.dateiAuswahl.tt" xml:space="preserve">
+        <value>Select file</value>
+    </data>
+    <data name="WP220.select.file" xml:space="preserve">
+        <value>stocks.csv</value>
+    </data>
+    <data name="WP220.select.ext" xml:space="preserve">
+        <value>CSV files (.csv)</value>
+    </data>
+    <data name="WP220.export" xml:space="preserve">
+        <value>Exp_ort</value>
+    </data>
+    <data name="WP220.export.tt" xml:space="preserve">
+        <value>Export in csv file</value>
+    </data>
+    <data name="WP220.datum2" xml:space="preserve">
+        <value>_Dates</value>
+    </data>
+    <data name="WP220.datum2.tt" xml:space="preserve">
+        <value>1st Date for comparison</value>
+    </data>
+    <data name="WP220.datum3.tt" xml:space="preserve">
+        <value>2nd Date for comparison</value>
+    </data>
+    <data name="WP220.datum4.tt" xml:space="preserve">
+        <value>3rd Date for comparison</value>
+    </data>
+    <data name="WP220.wertpapier" xml:space="preserve">
+        <value>_Stocks</value>
+    </data>
+    <data name="WP220.wertpapier.tt" xml:space="preserve">
+        <value>Select stocks for comparison</value>
+    </data>
+    <data name="WP220.wertpapier.columns" xml:space="preserve">
+        <value>TODO WP220.wertpapier.columns;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="WP220.datei2" xml:space="preserve">
+        <value>F_ile</value>
+    </data>
+    <data name="WP220.datei2.tt" xml:space="preserve">
+        <value>Name of xls file</value>
+    </data>
+    <data name="WP220.datei2Auswahl" xml:space="preserve">
+        <value>...</value>
+    </data>
+    <data name="WP220.datei2Auswahl.tt" xml:space="preserve">
+        <value>Select file</value>
+    </data>
+    <data name="WP220.select2.file" xml:space="preserve">
+        <value>stocks.xls</value>
+    </data>
+    <data name="WP220.select2.ext" xml:space="preserve">
+        <value>XLS files (.xls)</value>
+    </data>
+    <data name="WP220.export2" xml:space="preserve">
+        <value>Export _comparison</value>
+    </data>
+    <data name="WP220.export2.tt" xml:space="preserve">
+        <value>Export of stock comparison into xls file</value>
+    </data>
+    <data name="WP220.statustext.tt" xml:space="preserve">
+        <value>State of export</value>
+    </data>
+
     <data name="WP250.title" xml:space="preserve">
         <value>Investments</value>
     </data>
