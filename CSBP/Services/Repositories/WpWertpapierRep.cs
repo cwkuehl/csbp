@@ -24,11 +24,12 @@ namespace CSBP.Services.Repositories
     /// <param name="mandantnr">Affected client.</param>
     /// <param name="desc">Affected Description.</param>
     /// <param name="pattern">Affected Pattern.</param>
-    /// <param name="uid">Affected ID.</param>
+    /// <param name="uid">Affected stock ID.</param>
     /// <param name="neuid">Not affected ID.</param>
     /// <param name="relation">Affected text search.</param>
     /// <param name="onlyactive">Only active investments?</param>
     /// <param name="search">Affected text search.</param>
+    /// <param name="reuid">Affected related stock ID.</param>
     /// <returns>List of stocks.</returns>
     public List<WpWertpapier> GetList(ServiceDaten daten, int mandantnr, string desc,
       string pattern = null, string uid = null, string neuid = null,

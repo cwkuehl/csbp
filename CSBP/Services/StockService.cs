@@ -206,8 +206,8 @@ namespace CSBP.Services
       var dictresponse = new Dictionary<string, StockUrl>();
       var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
       if (!inactive && list.Count != 1)
-        list = list.Where(a => a.Status == "1" && !UiFunctions.IgnoreShortcut(a.Kuerzel)).ToList(); // Calculate only active stock.
-      list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel)).ToList();
+        list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
+      list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
       var l = list.Count;
       status.Clear().Append(M0(WP053));
       Gtk.Application.Invoke(delegate
@@ -277,11 +277,7 @@ namespace CSBP.Services
         });
         try
         {
-          // var wpr = if(k !== null && k.relativ) getWertpapierLangIntern(daten, wp.relationUid) else null
           var liste = GetPriceListIntern(daten, from, date, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, st.CurrentPrice ?? 0, st.Uid, dictresponse);
-          // var liste = holeKurseIntern(daten, wp.uid, dvon, dbis, wp.datenquelle, wp.kuerzel, wp.typ, wp.waehrung,
-          // 	if(wpr === null) null else wpr.datenquelle, if(wpr === null) null else wpr.kuerzel,
-          // 	if(wpr === null) null else wpr.typ, if(wpr === null) null else wpr.waehrung)
 
           st.Assessment = $"00 {M0(WP010)}";
           st.Assessment1 = "";
@@ -1257,6 +1253,61 @@ namespace CSBP.Services
     {
       WpStandRep.Delete(daten, e);
       return new ServiceErgebnis();
+    }
+
+    /// <summary>
+    /// Export stocks in csv file.
+    /// </summary>
+    /// <returns>Csv file as lines array or errors.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="search">Affected text search.</param>
+    /// <param name="desc">Affected description.</param>
+    /// <param name="pattern">Affected pattern.</param>
+    /// <param name="stuid">Affected stock ID.</param>
+    /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="cuid">Affected configuration IDs, separated by semikolon.</param>
+    /// <param name="date">Affected date.</param>
+    /// <param name="days">Affected konfiguration ID.</param>
+    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="cancel">Cancel backup if not empty.</param>
+    public ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
+      string cuid, DateTime date, int days, StringBuilder status, StringBuilder cancel)
+    {
+      var r = new ServiceErgebnis<List<string>>();
+      var clist = (cuid ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries);
+      if (clist.Length <= 0)
+        r.Errors.Add(Message.New(M2095));
+      if (!r.Ok)
+        return r;
+      var l = new List<String>();
+      var columns = new List<string>{"Kursdatum", "Konfiguration", "Uid", "Bezeichnung", "RelationBezeichnung", "Bewertung",
+        "Trend", "Bewertung1", "Trend1", "Bewertung2", "Trend2", "Bewertung3", "Trend3", "Bewertung4", "Trend4",
+        "Bewertung5", "Trend5", "Aktuellerkurs", "Signalkurs1", "Stopkurs", "Signalkurs2", "Muster", //
+        "Sortierung", "Kuerzel", "Xo", "Signalbew", "Signaldatum", "Signalbez", "Index1", "Index2", "Index3",
+        "Index4", "Schnitt200", "Typ", "Waehrung", "GeaendertAm", "GeaendertVon", "AngelegtAm", "AngelegtVon"};
+      l.Add(Functions.EncodeCSV(columns));
+      r.Ergebnis = l;
+      var anzahl = Math.Max(1, days);
+      var d = Functions.Workday(date);
+
+      while (anzahl > 0)
+      {
+        foreach (var c in clist)
+        {
+          var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, stuid, null, !inactive, search, null);
+          // TODO var l = new List<string> { ToStr(b.Soll_Valuta), ToStr(b.BText), ToStr(b.EBetrag),
+          //   ToStr(b.Uid), ToStr(b.Kz), ToStr(b.Soll_Konto_Uid),
+          //   ToStr(b.DebitName), ToStr(b.Haben_Konto_Uid), ToStr(b.CreditName),
+          //   ToStr(b.Beleg_Nr), ToStr(b.Beleg_Datum), ToStr(b.Haben_Valuta),
+          //   ToStr(b.Betrag), ToStr(b.Angelegt_Von), ToStr(b.Angelegt_Am), ToStr(b.Geaendert_Von),
+          //   ToStr(b.Geaendert_Am)};
+          // list.Add(EncodeCSV(l));
+
+        }
+        d = Functions.Workday(d.AddDays(-1));
+        anzahl--;
+      }
+      return r;
     }
 
     private static readonly Dictionary<string, SoKurse> Wkurse = new Dictionary<string, SoKurse>();

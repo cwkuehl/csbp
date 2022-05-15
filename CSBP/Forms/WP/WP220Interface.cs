@@ -6,6 +6,8 @@ namespace CSBP.Forms.WP
 {
   using System;
   using System.Collections.Generic;
+  using System.Text;
+  using System.Threading.Tasks;
   using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
   using CSBP.Base;
@@ -18,8 +20,11 @@ namespace CSBP.Forms.WP
   /// <summary>Controller für WP220Interface Dialog.</summary>
   public partial class WP220Interface : CsbpBin
   {
-    /// <summary>Dialog model.</summary>
-    // private MaMandant Model;
+    /// <summary>State of calculation.</summary>
+    StringBuilder Status = new StringBuilder();
+
+    /// <summary>Cancel of calculation.</summary>
+    StringBuilder Cancel = new StringBuilder();
 
 #pragma warning disable 169, 649
 
@@ -250,6 +255,7 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnExportClicked(object sender, EventArgs e)
     {
+      ExportStocks();
     }
 
     /// <summary>Behandlung von datum2.</summary>
@@ -305,6 +311,44 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnAbbrechenClicked(object sender, EventArgs e)
     {
+      Cancel.Append("Cancel");
+    }
+
+#pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
+    private async void ExportStocks()
+#pragma warning restore RECS0165
+    {
+      if (string.IsNullOrWhiteSpace(datei.Text))
+        throw new MessageException(Message.New(M1012));
+      try
+      {
+        Status.Clear();
+        Cancel.Clear();
+        var r = await Task.Run(() =>
+        {
+          var r0 = FactoryService.StockService.ExportStocks(ServiceDaten, bezeichnung.Text, null,
+            null, null, false, GetText(konfiguration), datum.ValueNn, Functions.ToInt32(anzahl.Text), Status, Cancel);
+          return r0;
+        });
+        r.ThrowAllErrors();
+        if (Cancel.Length <= 0)
+          UiTools.SaveFile(r.Ergebnis, datei.Text);
+        Application.Invoke(delegate
+        {
+          // refreshAction.Click();
+        });
+      }
+      catch (Exception ex)
+      {
+        Application.Invoke(delegate
+        {
+          ShowError(ex.Message);
+        });
+      }
+      finally
+      {
+        Cancel.Append("End");
+      }
     }
   }
 }

@@ -1407,6 +1407,11 @@ namespace CSBP.Resources
       get { return rm.GetString("M2024"); }
     }
 
+    public static string M2095
+    {
+      get { return rm.GetString("M2095"); }
+    }
+
     public static string M2096
     {
       get { return rm.GetString("M2096"); }

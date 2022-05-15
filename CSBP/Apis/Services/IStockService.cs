@@ -327,5 +327,23 @@ namespace CSBP.Apis.Services
     /// <param name="e">Affected entity.</param>
     /// <returns>Possibly errors.</returns>
     ServiceErgebnis DeletePrice(ServiceDaten daten, WpStand e);
+
+    /// <summary>
+    /// Export stocks in csv file.
+    /// </summary>
+    /// <returns>Csv file as lines array or errors.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="search">Affected text search.</param>
+    /// <param name="desc">Affected description.</param>
+    /// <param name="pattern">Affected pattern.</param>
+    /// <param name="stuid">Affected stock ID.</param>
+    /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="cuid">Affected configuration ID.</param>
+    /// <param name="date">Affected date.</param>
+    /// <param name="days">Affected konfiguration ID.</param>
+    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="cancel">Cancel backup if not empty.</param>
+    ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
+      string cuid, DateTime date, int days, StringBuilder status, StringBuilder cancel);
   }
 }
