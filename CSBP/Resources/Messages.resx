@@ -4009,10 +4009,10 @@
         <value>Number of business days</value>
     </data>
     <data name="WP220.bezeichnung" xml:space="preserve">
-        <value>_Description</value>
+        <value>_Search</value>
     </data>
     <data name="WP220.bezeichnung.tt" xml:space="preserve">
-        <value>Search description</value>
+        <value>Search text</value>
     </data>
     <data name="WP220.konfiguration" xml:space="preserve">
         <value>_Configurations</value>
@@ -4021,7 +4021,7 @@
         <value>Select configurations</value>
     </data>
     <data name="WP220.konfiguration.columns" xml:space="preserve">
-        <value>TODO WP220.konfiguration.columns;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>No.;Description;St.;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="WP220.datei" xml:space="preserve">
         <value>_File</value>
@@ -4066,7 +4066,7 @@
         <value>Select stocks for comparison</value>
     </data>
     <data name="WP220.wertpapier.columns" xml:space="preserve">
-        <value>TODO WP220.wertpapier.columns;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>No.;Description;St.;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="WP220.datei2" xml:space="preserve">
         <value>F_ile</value>

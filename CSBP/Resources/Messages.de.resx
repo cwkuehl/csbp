@@ -4009,10 +4009,10 @@
         <value>Anzahl Werktage</value>
     </data>
     <data name="WP220.bezeichnung" xml:space="preserve">
-        <value>_Bezeichnung</value>
+        <value>_Suche</value>
     </data>
     <data name="WP220.bezeichnung.tt" xml:space="preserve">
-        <value>Zu suchende Bezeichnung</value>
+        <value>Zu suchender Text</value>
     </data>
     <data name="WP220.konfiguration" xml:space="preserve">
         <value>Konfigurationen</value>

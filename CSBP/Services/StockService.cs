@@ -171,6 +171,30 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="desc">Affected description.</param>
     /// <param name="pattern">Affected pattern.</param>
+    /// <param name="stuid">Affected stock ID.</param>
+    /// <param name="date">Affected date.</param>
+    /// <param name="inactive">Also inactive investmenst?</param>
+    /// <param name="search">Affected text search.</param>
+    /// <param name="cuid">Affected configuration ID.</param>
+    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="cancel">Cancel backup if not empty.</param>
+    public ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string stuid,
+      DateTime date, bool inactive, string search, string cuid, StringBuilder status, StringBuilder cancel)
+    {
+      if (status == null || cancel == null)
+        throw new ArgumentException();
+      CalculateStocksIntern(daten, desc, pattern, stuid, date, inactive, search, cuid, status, cancel);
+      var r = new ServiceErgebnis();
+      return r;
+    }
+
+    /// <summary>
+    /// Calculates all stocks internally.
+    /// </summary>
+    /// <returns>List of affected stock.</returns>
+    /// <param name="daten">Service data for database access.</param>
+    /// <param name="desc">Affected description.</param>
+    /// <param name="pattern">Affected pattern.</param>
     /// <param name="uid">Affected stock ID.</param>
     /// <param name="date">Affected date.</param>
     /// <param name="inactive">Also inactive investmenst?</param>
@@ -178,7 +202,7 @@ namespace CSBP.Services
     /// <param name="kuid">Affected konfiguration ID.</param>
     /// <param name="status">Status of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
-    public ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string uid,
+    private List<WpWertpapier> CalculateStocksIntern(ServiceDaten daten, string desc, string pattern, string uid,
       DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
@@ -305,7 +329,7 @@ namespace CSBP.Services
           st.Index3 = "";
           st.Index4 = "";
           st.Average200 = "";
-          // st.konfiguration = if (k === null) "ohne" else k.bezeichnung
+          // st.Configuration = (k == null) ? M0(WP010) : k.Bezeichnung
           // st.typ
           // st.waehrung
 
@@ -456,8 +480,7 @@ namespace CSBP.Services
       }
       SaveChanges(daten);
       status.Clear();
-      var r = new ServiceErgebnis();
-      return r;
+      return list;
     }
 
     /// <summary>
@@ -1273,20 +1296,22 @@ namespace CSBP.Services
     public ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
       string cuid, DateTime date, int days, StringBuilder status, StringBuilder cancel)
     {
+      if (status == null || cancel == null)
+        throw new ArgumentException();
       var r = new ServiceErgebnis<List<string>>();
       var clist = (cuid ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries);
       if (clist.Length <= 0)
         r.Errors.Add(Message.New(M2095));
       if (!r.Ok)
         return r;
-      var l = new List<String>();
+      var list = new List<String>();
       var columns = new List<string>{"Kursdatum", "Konfiguration", "Uid", "Bezeichnung", "RelationBezeichnung", "Bewertung",
         "Trend", "Bewertung1", "Trend1", "Bewertung2", "Trend2", "Bewertung3", "Trend3", "Bewertung4", "Trend4",
         "Bewertung5", "Trend5", "Aktuellerkurs", "Signalkurs1", "Stopkurs", "Signalkurs2", "Muster", //
         "Sortierung", "Kuerzel", "Xo", "Signalbew", "Signaldatum", "Signalbez", "Index1", "Index2", "Index3",
         "Index4", "Schnitt200", "Typ", "Waehrung", "GeaendertAm", "GeaendertVon", "AngelegtAm", "AngelegtVon"};
-      l.Add(Functions.EncodeCSV(columns));
-      r.Ergebnis = l;
+      list.Add(Functions.EncodeCSV(columns));
+      r.Ergebnis = list;
       var anzahl = Math.Max(1, days);
       var d = Functions.Workday(date);
 
@@ -1294,18 +1319,24 @@ namespace CSBP.Services
       {
         foreach (var c in clist)
         {
-          var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, stuid, null, !inactive, search, null);
-          // TODO var l = new List<string> { ToStr(b.Soll_Valuta), ToStr(b.BText), ToStr(b.EBetrag),
-          //   ToStr(b.Uid), ToStr(b.Kz), ToStr(b.Soll_Konto_Uid),
-          //   ToStr(b.DebitName), ToStr(b.Haben_Konto_Uid), ToStr(b.CreditName),
-          //   ToStr(b.Beleg_Nr), ToStr(b.Beleg_Datum), ToStr(b.Haben_Valuta),
-          //   ToStr(b.Betrag), ToStr(b.Angelegt_Von), ToStr(b.Angelegt_Am), ToStr(b.Geaendert_Von),
-          //   ToStr(b.Geaendert_Am)};
-          // list.Add(EncodeCSV(l));
-
+          var slist = CalculateStocksIntern(daten, desc, pattern, stuid, d, inactive, search, c, status, cancel);
+          foreach (var s in slist)
+          {
+            var l = new List<string> { ToStr(s.PriceDate), ToStr(s.Configuration), ToStr(s.Uid), ToStr(s.Description),
+              ToStr(s.RelationDescription), ToStr(s.Assessment),
+              ToStr(s.Trend), ToStr(s.Assessment1), ToStr(s.Trend1), ToStr(s.Assessment2), ToStr(s.Trend2), ToStr(s.Assessment3), ToStr(s.Trend3),
+              ToStr(s.Assessment4), ToStr(s.Trend4), ToStr(s.Assessment5), ToStr(s.Trend5),ToStr(s.CurrentPrice), ToStr(s.SignalPrice1),
+              ToStr(s.StopPrice), ToStr(s.SignalPrice2), ToStr(s.Pattern), ToStr(s.Sorting), ToStr(s.Kuerzel), ToStr(s.Xo),
+              ToStr(s.SignalAssessment), ToStr(s.SignalDate), ToStr(s.SignalDescription), ToStr(s.Index1), ToStr(s.Index2),
+              ToStr(s.Index3), ToStr(s.Index4), ToStr(s.Average200), ToStr(s.Type), ToStr(s.Currency),
+              ToStr(s.Geaendert_Am), ToStr(s.Geaendert_Von), ToStr(s.Angelegt_Am), ToStr(s.Angelegt_Von)};
+            list.Add(Functions.EncodeCSV(l));
+          }
         }
         d = Functions.Workday(d.AddDays(-1));
         anzahl--;
+        if (anzahl > 0)
+          Thread.Sleep(HttpDelay);
       }
       return r;
     }
