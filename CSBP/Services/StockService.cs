@@ -986,7 +986,8 @@ namespace CSBP.Services
       inv.Payment = blist.Sum(a => a.Zahlungsbetrag - (a.Zahlungsbetrag == 0 ? 0 : a.Rabattbetrag));
       inv.Shares = blist.Sum(a => a.Anteile);
       inv.ShareValue = inv.Shares == 0 ? 0 : inv.Payment / inv.Shares;
-      inv.Interest = blist.Sum(a => a.Zinsen);
+      // Interests without taxes.
+      inv.Interest = blist.Sum(a => a.Zinsen + (a.Zinsen == 0 ? 0 : a.Rabattbetrag));
       inv.Price = k == null ? 0 : k.Close;
       inv.PriceDate = k?.Datum;
       if (inv.Shares <= 0 && blist.Any())
