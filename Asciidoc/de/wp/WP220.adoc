@@ -19,6 +19,8 @@ image:WP220.png[{wp220-title},title={wp220-title}]
 |Konfigurationen|Auswahl der Konfiguration für die Berechnung der Exporte.
 |Datei        |Textfeld zum Eingeben des Namens der CSV-Export-Datei.
 |...          |Diese Schaltfläche öffnet den Datei-Dialog zum Selektieren der CSV-Export-Datei.
+|Abbrechen    |Diese Schaltfläche bricht den laufenden Export ab oder schließt den Dialog.
+|==========================
 ////
 |Export       |Diese Schaltfläche startet den CSV-Export. Am Ende öffnet sich die erstellte CSV-Datei.
 |Zeitpunkte   |Drei Zeitpunkte für den XLS-Export müssen ausgewählt werden.
@@ -26,9 +28,5 @@ image:WP220.png[{wp220-title},title={wp220-title}]
 |Datei        |Textfeld zum Eingeben des Namens der XLS-Export-Datei.
 |...          |Diese Schaltfläche öffnet den Datei-Dialog zum Selektieren der XLS-Export-Datei.
 |Export Vergleich|Diese Schaltfläche startet den XLS-Export. Am Ende öffnet sich die erstellte XLS-Datei.
-////
-|Abbrechen    |Diese Schaltfläche bricht den laufenden Export ab oder schließt den Dialog.
-////
 |Status       |Der Status beim Erstellen eines Exports wird angezeigt.
 ////
-|==========================
