@@ -3,10 +3,9 @@ anchor:WP220[{wp220-title}]
 
 ==== Dialog {wp220-title}
 
-Dieser Dialog erstellt Exporte für mehrere Wertpapiere über mehrere Konfigurationen hinweg:
+Dieser Dialog erstellt Exporte für mehrere Wertpapiere für eine Konfiguration:
 
 * CSV-Export für den Kursvergleich von Wertpapieren an aufeinander folgenden Werktagen.
-* XLS-Export für den Kursvergleich von Wertpapieren zu drei Zeipunkten. (Nicht implementiert!)
 
 image:WP220.png[{wp220-title},title={wp220-title}]
 
@@ -22,6 +21,7 @@ image:WP220.png[{wp220-title},title={wp220-title}]
 |Abbrechen    |Diese Schaltfläche bricht den laufenden Export ab oder schließt den Dialog.
 |==========================
 ////
+* XLS-Export für den Kursvergleich von Wertpapieren zu drei Zeipunkten. (Nicht implementiert!)
 |Export       |Diese Schaltfläche startet den CSV-Export. Am Ende öffnet sich die erstellte CSV-Datei.
 |Zeitpunkte   |Drei Zeitpunkte für den XLS-Export müssen ausgewählt werden.
 |Wertpapiere  |Auswahl von beliebig vielen Wertpapieren für den XLS-Export.
