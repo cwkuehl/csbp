@@ -94,6 +94,10 @@ namespace CSBP.Forms.WP
 
     /// <summary>Label wertpapier0.</summary>
     [Builder.Object]
+    private ScrolledWindow wertpapiersw;
+
+    /// <summary>Label wertpapier0.</summary>
+    [Builder.Object]
     private Label wertpapier0;
 
     /// <summary>TreeView wertpapier.</summary>
@@ -219,7 +223,31 @@ namespace CSBP.Forms.WP
         }
         AddStringColumnsSort(wertpapier, WP220_wertpapier_columns, svalues);
         SetText(wertpapier, Parameter.WP220Stock);
+        datum20.Visible = false;
+        datum20.NoShowAll = true;
+        datum2.Visible = false;
+        datum2.NoShowAll = true;
+        datum3.Visible = false;
+        datum3.NoShowAll = true;
+        datum4.Visible = false;
+        datum4.NoShowAll = true;
+        wertpapiersw.Visible = false;
+        wertpapiersw.NoShowAll = true;
+        wertpapier0.Visible = false;
+        wertpapier0.NoShowAll = true;
+        wertpapier.Visible = false;
+        wertpapier.NoShowAll = true;
         datei2.Text = Parameter.WP220File2 ?? "";
+        datei20.Visible = false;
+        datei20.NoShowAll = true;
+        datei2.Visible = false;
+        datei2.NoShowAll = true;
+        datei2Auswahl.Visible = false;
+        datei2Auswahl.NoShowAll = true;
+        export2.Visible = false;
+        export2.NoShowAll = true;
+        statustext.Visible = false;
+        statustext.NoShowAll = true;
       }
     }
 
@@ -311,7 +339,10 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnAbbrechenClicked(object sender, EventArgs e)
     {
-      Cancel.Append("Cancel");
+      if (Cancel.Length <= 0)
+        Cancel.Append("Cancel");
+      else
+        dialog.Hide();
     }
 
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
