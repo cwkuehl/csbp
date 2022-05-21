@@ -1391,6 +1391,28 @@ namespace CSBP.Services
         if (!success)
         {
           var error = jr["error"]["info"].ToString();
+          if (error.StartsWith("Your monthly usage limit has been reached."))
+          {
+            // Your monthly usage limit has been reached. Please upgrade your Subscription Plan.
+            var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
+            if (wp != null)
+            {
+              var s = WpStandRep.GetLatest(daten, daten.MandantNr, wp.Uid, date);
+              if (s != null)
+              {
+                var k = new SoKurse
+                {
+                  Datum = s.Datum,
+                  Close = s.Stueckpreis,
+                  Bewertung = shortcut
+                };
+                if (k.Close != 0)
+                  k.Close = Functions.Round4(1 / k.Close) ?? 0;
+                Wkurse.Add(key, k);
+                return k;
+              }
+            }
+          }
           throw new Exception(error);
         }
         var jresult = jr["rates"];
