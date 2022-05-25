@@ -843,7 +843,10 @@ namespace CSBP.Services
       var dictresponse = new Dictionary<string, StockUrl>();
       var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
       if (!inactive && list.Count != 1)
-        list = list.Where(a => a.State == 1 && !UiFunctions.IgnoreShortcut(a.StockShortcut)).ToList(); // Calculate only active investments.
+      {
+        // Calculate only active investments. No filtering with && !UiFunctions.IgnoreShortcut(a.StockShortcut) to use existing prices.
+        list = list.Where(a => a.State == 1).ToList();
+      }
       var l = list.Count;
       status.Clear().Append(M0(WP053));
       Gtk.Application.Invoke(delegate
