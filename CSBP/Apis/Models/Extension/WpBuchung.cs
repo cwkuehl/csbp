@@ -32,7 +32,7 @@ namespace CSBP.Apis.Models
     protected override string GetExtension()
     {
       var sb = new StringBuilder();
-      sb.Append(ToString(BookingUid)).Append(";");
+      sb.Append(ToString(BookingUid)).Append(';');
       return sb.ToString();
     }
 

@@ -356,7 +356,7 @@ namespace CSBP.Forms.HH
     {
       ServiceErgebnis r = null;
       var v = CalculateValue();
-      var vdm = Functions.konvDM(v);
+      var vdm = Functions.KonvDM(v);
       if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
         || DialogType == DialogTypeEnum.Edit)
       {

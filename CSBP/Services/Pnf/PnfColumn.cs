@@ -19,31 +19,31 @@ namespace CSBP.Services.Pnf
     /** Boxtyp: 0 unbestimmt; 1 aufwärts (X); 2 abwärts (O). */
     private int boxtyp = 0;
     /** Anfangsdatum der Säule. */
-    private DateTime? datum = null;
+    private readonly DateTime? datum = null;
     /** Inhalt der Säule, bestehend aus X oder O. */
-    private StringBuilder sb = new StringBuilder();
+    private readonly StringBuilder sb = new();
     /** Inhalt der Säule, bestehend aus X oder O oder Monatszeichen (1-C). */
-    private StringBuilder sbm = new StringBuilder();
+    private readonly StringBuilder sbm = new();
 
     public PnfColumn(decimal min, decimal max, int boxtyp, int anzahl, PnfDate datum)
     {
       this.min = min;
       this.max = max;
       this.boxtyp = boxtyp;
-      this.datum = datum.getDatum();
+      this.datum = datum.GetDatum();
       for (int i = 0; i < anzahl; i++)
       {
-        zeichne(datum);
+        Zeichne(datum);
       }
     }
 
-    public void zeichne(PnfDate datum)
+    public void Zeichne(PnfDate datum)
     {
       char c = boxtyp == 1 ? 'X' : 'O';
-      char cm = datum.getNeuerMonat(c);
+      char cm = datum.GetNeuerMonat(c);
       sb.Append(c);
       sbm.Append(cm);
-      datum.setMonatVerwendet();
+      datum.SetMonatVerwendet();
     }
 
     public bool IsO
@@ -82,7 +82,7 @@ namespace CSBP.Services.Pnf
       {
         if (sbm.Length <= 0)
         {
-          return new char[0];
+          return Array.Empty<char>();
         }
         var array = sbm.ToString().ToCharArray();
         if (Boxtyp == 2)
@@ -107,10 +107,10 @@ namespace CSBP.Services.Pnf
      */
     public void SetMin(decimal min, PnfDate datum)
     {
-      if (Functions.compDouble4(this.min, min) > 0)
+      if (Functions.CompDouble4(this.min, min) > 0)
       {
         this.min = min;
-        zeichne(datum);
+        Zeichne(datum);
       }
     }
 
@@ -128,10 +128,10 @@ namespace CSBP.Services.Pnf
      */
     public void SetMax(decimal max, PnfDate datum)
     {
-      if (Functions.compDouble4(this.max, max) < 0)
+      if (Functions.CompDouble4(this.max, max) < 0)
       {
         this.max = max;
-        zeichne(datum);
+        Zeichne(datum);
       }
     }
 

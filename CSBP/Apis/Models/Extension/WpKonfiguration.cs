@@ -44,13 +44,13 @@ namespace CSBP.Apis.Models
     protected override string GetExtension()
     {
       var sb = new StringBuilder();
-      sb.Append(ToString(Box)).Append(";");
-      sb.Append(ToString(false)).Append(";");
-      sb.Append(ToString(Reversal)).Append(";");
-      sb.Append(ToString(Method)).Append(";");
-      sb.Append(ToString(Duration)).Append(";");
-      sb.Append(ToString(Relative)).Append(";");
-      sb.Append(ToString(Scale)).Append(";");
+      sb.Append(ToString(Box)).Append(';');
+      sb.Append(ToString(false)).Append(';');
+      sb.Append(ToString(Reversal)).Append(';');
+      sb.Append(ToString(Method)).Append(';');
+      sb.Append(ToString(Duration)).Append(';');
+      sb.Append(ToString(Relative)).Append(';');
+      sb.Append(ToString(Scale)).Append(';');
       return sb.ToString();
     }
 

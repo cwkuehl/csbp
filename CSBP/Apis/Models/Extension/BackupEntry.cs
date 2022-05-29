@@ -46,7 +46,7 @@ namespace CSBP.Apis.Models.Extension
     public static string[] SplitSources(string sources)
     {
       if (string.IsNullOrWhiteSpace(sources))
-        return new string[0];
+        return Array.Empty<string>();
       return sources.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
     }
 

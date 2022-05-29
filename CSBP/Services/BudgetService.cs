@@ -4,19 +4,19 @@
 
 namespace CSBP.Services
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Base;
-  using CSBP.Services.Reports;
-  using static CSBP.Resources.Messages;
-  using static CSBP.Resources.M;
-  using static CSBP.Base.Functions;
-  using System;
-  using System.Linq;
   using CSBP.Services.Budget;
-  using System.Text;
+  using CSBP.Services.Reports;
+  using static CSBP.Base.Functions;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   public class BudgetService : ServiceBase, IBudgetService
   {
@@ -68,10 +68,9 @@ namespace CSBP.Services
       var dVon = daten.Heute.AddDays(-daten.Heute.DayOfYear + 1);
       var dBis = dVon.AddDays(-1);
       var lNr = 0;
-      var pdiff = 0;
-
       var min = HhPeriodeRep.GetMaxMin(daten, true);
       var max = HhPeriodeRep.GetMaxMin(daten, false);
+      int pdiff;
       if (end)
       {
         if (max != null)
@@ -114,7 +113,7 @@ namespace CSBP.Services
       }
       HhPeriodeRep.Save(daten, daten.MandantNr, lNr, dVon, dBis, 0);
       // Bilanz aktualisieren
-      InsertBilanz2(daten, lNr, null, 0, 0, pdiff);
+      InsertBilanz2(daten, lNr, pdiff);
       // Neue Periode muss neu berechnet werden.
       if (HhPeriodeRep.Get(daten, daten.MandantNr, lNr + pdiff) == null)
       {
@@ -132,11 +131,11 @@ namespace CSBP.Services
     /// <param name="end">At the end or at the beginning?</param>
     public ServiceErgebnis DeletePeriod(ServiceDaten daten, bool end)
     {
-      var lNr = 0;
       var minNr = GetMaxMinNr(daten, true);
       var maxNr = GetMaxMinNr(daten, false);
       if (minNr >= maxNr)
         throw new MessageException(HH004);
+      int lNr;
       if (end)
         lNr = maxNr;
       else
@@ -197,7 +196,7 @@ namespace CSBP.Services
       var lBis = Constants.MAX_PERIODE;
       var lVonAlt = Constants.MIN_PERIODE;
       var lBisAlt = Constants.MAX_PERIODE;
-      var lBer = Constants.MAX_PERIODE;
+      // var lBer = Constants.MAX_PERIODE;
       var strN = desc;
       var anzahl = 0;
       string sort = null;
@@ -303,7 +302,7 @@ namespace CSBP.Services
         if (anzahl <= 0)
           throw new MessageException(HH018);
         hhKonto = HhKontoRep.Save(daten, daten.MandantNr, knr, sort, type, attr, strN,
-          from, to, lVon, lBis, Functions.konvDM(value), value);
+          from, to, lVon, lBis, Functions.KonvDM(value), value);
       }
       else
       {
@@ -311,34 +310,30 @@ namespace CSBP.Services
         if (lVon > lVonAlt)
         {
           DeleteKontoVonBis(daten, uid, lVon - 1);
-          lBer = Math.Min(lBer, lVonAlt);
+          // lBer = Math.Min(lBer, lVonAlt);
         }
         if (lBis < lBisAlt)
         {
           DeleteKontoVonBis(daten, uid, after: lBis + 1);
-          lBer = Math.Min(lBer, lBis);
+          // lBer = Math.Min(lBer, lBis);
         }
         if (lVon < lVonAlt)
         {
-          var dbB = 0m;
-          var dbEB = 0m;
           var lMin = GetMaxMinNr(daten, true);
           lVon = Math.Max(lVon, lMin);
           for (var pnr = lVonAlt - 1; pnr >= lVon; pnr--)
           {
-            InsertBilanz2(daten, pnr, uid, dbB, dbEB, 1);
+            InsertBilanz2(daten, pnr, 1);
           }
-          lBer = Math.Min(lBer, lVon);
+          // lBer = Math.Min(lBer, lVon);
         }
         if (lBis > lBisAlt)
         {
-          var dbB = 0m;
-          var dbEB = 0m;
           var lMax = GetMaxMinNr(daten, false);
           lBis = Math.Min(lBis, lMax);
           for (var pnr = lBisAlt + 1; pnr <= lBis; pnr++)
           {
-            InsertBilanz2(daten, pnr, uid, dbB, dbEB, -1);
+            InsertBilanz2(daten, pnr, 1);
           }
         }
         hhKonto.Art = type;
@@ -349,7 +344,7 @@ namespace CSBP.Services
         hhKonto.Periode_Von = lVon;
         hhKonto.Periode_Bis = lBis;
         hhKonto.EBetrag = value;
-        hhKonto.Betrag = Functions.konvDM(value);
+        hhKonto.Betrag = Functions.KonvDM(value);
         HhKontoRep.Update(daten, hhKonto);
       }
       if (IstAktivPassivKontoIntern(type))
@@ -366,7 +361,7 @@ namespace CSBP.Services
           foreach (var b in blist)
           {
             b.EBetrag += diff;
-            b.Betrag = Functions.konvDM(b.EBetrag);
+            b.Betrag = Functions.KonvDM(b.EBetrag);
             HhBilanzRep.Update(daten, b);
           }
         }
@@ -491,7 +486,7 @@ namespace CSBP.Services
       if (string.IsNullOrEmpty(text))
         r.Errors.Add(Message.New(HH027));
       if (text.Length > ETEXT_LAENGE)
-        text = text.Substring(0, ETEXT_LAENGE);
+        text = text[..ETEXT_LAENGE];
       if (string.IsNullOrEmpty(duid))
         r.Errors.Add(Message.New(HH028));
       if (string.IsNullOrEmpty(cuid))
@@ -540,8 +535,10 @@ namespace CSBP.Services
         DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
         string value = null)
     {
-      var r = new ServiceErgebnis<List<HhBuchung>>();
-      r.Ergebnis = HhBuchungRep.GetList(daten, auid, null, null, valuta, from, to, text, value, true);
+      var r = new ServiceErgebnis<List<HhBuchung>>
+      {
+        Ergebnis = HhBuchungRep.GetList(daten, auid, null, null, valuta, from, to, text, value, true)
+      };
       return r;
     }
 
@@ -594,7 +591,7 @@ namespace CSBP.Services
         {
           var valuta = Functions.ToDateTime(GetWert(werte, h, "SollValuta")) ?? daten.Heute;
           var ebetrag = Functions.ToDecimal(GetWert(werte, h, "Ebetrag")) ?? 0;
-          var betrag = Functions.konvDM(ebetrag);
+          var betrag = Functions.KonvDM(ebetrag);
           var solluid = GetWert(werte, h, "SollKontoUid");
           var sk = GetKontoIntern(daten, solluid, false);
           if (sk == null)
@@ -650,7 +647,7 @@ namespace CSBP.Services
       return r;
     }
 
-    private string GetWert(List<string> werte, Dictionary<string, int> h, string c)
+    private static string GetWert(List<string> werte, Dictionary<string, int> h, string c)
     {
       if (h != null && c != null && h.ContainsKey(c))
       {
@@ -681,8 +678,8 @@ namespace CSBP.Services
     /// <param name="date">Affected receipt date.</param>
     public ServiceErgebnis<string> GetNewReceipt(ServiceDaten daten, DateTime date)
     {
-      var belegNr = "";
       var bu = HhBuchungRep.GetLastReceipt(daten, date);
+      string belegNr;
       if (bu == null)
         belegNr = $"{date:yyyyMMdd}01";
       else
@@ -852,7 +849,6 @@ namespace CSBP.Services
         var liste = GetBalanceListIntern(daten, Constants.KZBI_SCHLUSS, to, to);
         fblist = GetBalanceRowList(liste, euro);
       }
-      var l = AdSitzRep.GetList(daten, true);
       var rp = new AnnualReport
       {
         Caption = ueberschrift,
@@ -1014,7 +1010,7 @@ namespace CSBP.Services
             hhBilanz.Geaendert_Am = hhPeriode.Datum_Bis;
           v.Add(hhBilanz);
         }
-        pnr = pnr - diff;
+        pnr -= diff;
       }
       return r;
     }
@@ -1059,7 +1055,7 @@ namespace CSBP.Services
     /**
      * Liefert den Stand eines Kontos am Anfang einer Periode.
      */
-    private decimal GetKontoStandIntern(ServiceDaten daten, string uid, DateTime from)
+    private static decimal GetKontoStandIntern(ServiceDaten daten, string uid, DateTime from)
     {
       var euro = true;
       HhPeriode pVon;
@@ -1110,7 +1106,7 @@ namespace CSBP.Services
     }
 
     /// <summary>Liefert die Zeilen eines Bilanz-Kontos. Funktion: getBilanzDruckListe</summary>
-    private List<AccountRow> GetBalanceRowList(List<HhBilanz> liste, bool euro)
+    private static List<AccountRow> GetBalanceRowList(List<HhBilanz> liste, bool euro)
     {
       var list = new List<AccountRow>();
       var listeS = liste.Where(a => a.AccountType > 0).ToList();
@@ -1156,7 +1152,7 @@ namespace CSBP.Services
      * @return 0 alles aktuell; 1 eine Periode aktualisiert; 2 noch eine weitere kann Periode aktualisiert werden.
      * @throws Exception im unerwarteten Fehlerfalle.
      */
-    private int AktualisierenBilanz(ServiceDaten daten, StringBuilder status, StringBuilder cancel, int pber, bool bAlles)
+    private static int AktualisierenBilanz(ServiceDaten daten, StringBuilder status, StringBuilder cancel, int pber, bool bAlles)
     {
       var weiter = 0;
       var pmin = GetMaxMinNr(daten, true); // erste Periode
@@ -1179,10 +1175,10 @@ namespace CSBP.Services
           {
             sbliste0.Add(b.Konto_Uid, b);
           }
-          UebernehmenBilanz(daten, p - 1, Constants.KZBI_SCHLUSS, sbliste0, p, Constants.KZBI_EROEFFNUNG, ebliste, true, ek, gv);
+          UebernehmenBilanz(p - 1, sbliste0, Constants.KZBI_EROEFFNUNG, ebliste, true, ek, gv);
         }
         else
-          AktualisierenEK(daten, p, Constants.KZBI_EROEFFNUNG, ebliste, ek, gv);
+          AktualisierenEK(Constants.KZBI_EROEFFNUNG, ebliste, ek, gv);
         AktualisierenBilanz1(daten, p, ebliste, gvliste, sbliste, ek, gv);
         SaveBanlaceList(daten, ebliste);
         SaveBanlaceList(daten, gvliste);
@@ -1204,7 +1200,7 @@ namespace CSBP.Services
       return weiter;
     }
 
-    private void SaveBanlaceList(ServiceDaten daten, Dictionary<string, HhBilanz> l)
+    private static void SaveBanlaceList(ServiceDaten daten, Dictionary<string, HhBilanz> l)
     {
       foreach (var b in l.Values.ToList())
       {
@@ -1218,7 +1214,7 @@ namespace CSBP.Services
      * @param strKz Bilanz-Kennzeichen.
      * @param pmin erste Perioden-Nummer.
      */
-    private Dictionary<string, HhBilanz> AnlegenKontenBilanz(ServiceDaten daten, int pnr, string strKz, int pmin)
+    private static Dictionary<string, HhBilanz> AnlegenKontenBilanz(ServiceDaten daten, int pnr, string strKz, int pmin)
     {
       var l = new Dictionary<string, HhBilanz>();
       var art1 = Constants.ARTK_AKTIVKONTO;
@@ -1261,15 +1257,13 @@ namespace CSBP.Services
     /**
      * Übertragen der Beträge von einer Bilanz in eine andere mit evtl. anschließendem Neuberechnen des Eigenkapitals.
      * @param pnr1 Quell-Perioden-Nummer.
-     * @param strK1 Quell-Bilanz-Kennzeichen.
-     * @param pnr2 Ziel-Perioden-Nummer.
      * @param strK2 Ziel-Bilanz-Kennzeichen.
      * @param bEKAktuell True, wenn Eigenkapital neu berechnet wird.
      * @param ek Eigenkapital-Kontonummer.
      * @param gv Gewinn+Verlust-Kontonummer.
      */
-    private void UebernehmenBilanz(ServiceDaten daten, int pnr1, string strK1, Dictionary<string, HhBilanz> l1,
-      int pnr2, string strK2, Dictionary<string, HhBilanz> l2, bool bEKAktuell, string ek, string gv)
+    private static void UebernehmenBilanz(int pnr1, Dictionary<string, HhBilanz> l1,
+      string strK2, Dictionary<string, HhBilanz> l2, bool bEKAktuell, string ek, string gv)
     {
       var liste = l2.Values.ToList();
       if (pnr1 <= 0 || l1 == null)
@@ -1294,18 +1288,18 @@ namespace CSBP.Services
       if (bEKAktuell)
       {
         // Konten können hinzugekommen oder weggefallen sein!
-        AktualisierenEK(daten, pnr2, strK2, l2, ek, gv);
+        AktualisierenEK(strK2, l2, ek, gv);
       }
     }
 
     /**
      * Aktualisieren der Eigenkapital- oder G+V-Kontos in einer Bilanz.
-     * @param pnr Perioden-Nummer.
      * @param strK Bilanzkennzeichen (EB, SB, GV oder PL).
+     * @param l Liste von Bilanz-Einträgen.
      * @param ek Eigenkapital-Kontonummer.
      * @param gv Gewinn+Verlust-Kontonummer.
      */
-    private void AktualisierenEK(ServiceDaten daten, int pnr, string strK, Dictionary<string, HhBilanz> l, string ek, string gv)
+    private static void AktualisierenEK(string strK, Dictionary<string, HhBilanz> l, string ek, string gv)
     {
       var knr = strK == Constants.KZBI_GV || strK == Constants.KZBI_PLAN ? gv : ek;
       var liste = l.Values.Where(a => a.Konto_Uid != knr).ToList();
@@ -1327,17 +1321,15 @@ namespace CSBP.Services
      * @param ek Eigenkapital-Kontonummer.
      * @param gv Gewinn+Verlust-Kontonummer.
      */
-    private void AktualisierenBilanz1(ServiceDaten daten, int pnr, Dictionary<string, HhBilanz> ebliste,
+    private static void AktualisierenBilanz1(ServiceDaten daten, int pnr, Dictionary<string, HhBilanz> ebliste,
       Dictionary<string, HhBilanz> gvliste, Dictionary<string, HhBilanz> sbliste,
       string ek, string gv)
     {
       var vo = HhPeriodeRep.Get(daten, daten.MandantNr, pnr);
       if (vo == null)
         throw new MessageException(HH005(pnr));
-      UebernehmenBilanz(daten, pnr, Constants.KZBI_EROEFFNUNG, ebliste, pnr, Constants.KZBI_SCHLUSS, sbliste, false, ek, gv);
-      UebernehmenBilanz(daten, 0, "", null, pnr, Constants.KZBI_GV, gvliste, false, ek, gv);
-
-      string knr = null;
+      UebernehmenBilanz(pnr, ebliste, Constants.KZBI_SCHLUSS, sbliste, false, ek, gv);
+      UebernehmenBilanz(0, null, Constants.KZBI_GV, gvliste, false, ek, gv);
       string knr2 = null;
       var betrag = 0m;
       var ebetrag = 0m;
@@ -1351,6 +1343,8 @@ namespace CSBP.Services
       while (iWeiter)
       {
         i++;
+
+        string knr;
         if (liste != null && i < liste.Count)
         {
           knr = liste[i].Soll_Konto_Uid;
@@ -1367,8 +1361,7 @@ namespace CSBP.Services
         }
         if (knr != knr2)
         {
-          HhBilanz b = null;
-          if ((IstAktivPassivKontoIntern(strA) && sbliste.TryGetValue(knr2, out b)) || gvliste.TryGetValue(knr2, out b))
+          if ((IstAktivPassivKontoIntern(strA) && sbliste.TryGetValue(knr2, out HhBilanz b)) || gvliste.TryGetValue(knr2, out b))
           {
             b.Betrag += betrag;
             b.EBetrag += ebetrag;
@@ -1386,10 +1379,10 @@ namespace CSBP.Services
       }
       // Eigenkapital berechnen
       var strK = Constants.KZBI_SCHLUSS;
-      AktualisierenEK(daten, pnr, strK, sbliste, ek, gv);
+      AktualisierenEK(strK, sbliste, ek, gv);
       // Gewinn/Verlust berechnen
       strK = Constants.KZBI_GV;
-      AktualisierenEK(daten, pnr, strK, gvliste, ek, gv);
+      AktualisierenEK(strK, gvliste, ek, gv);
     }
 
     /// <summary>
@@ -1400,7 +1393,7 @@ namespace CSBP.Services
     /// <param name="from">Affected start date.</param>
     /// <param name="to">Affected end date.</param>
     /// <returns>list of balance rows.</returns>
-    private List<HhBilanz> GetBalanceListIntern(ServiceDaten daten, string type, DateTime from, DateTime to)
+    private static List<HhBilanz> GetBalanceListIntern(ServiceDaten daten, string type, DateTime from, DateTime to)
     {
       var euro = true;
       var dV = from;
@@ -1446,8 +1439,6 @@ namespace CSBP.Services
         }
       }
       var result = HhBilanzRep.GetPeriodSumList(daten, kz, pVon.Nr, pBis.Nr);
-      var betrag = 0m;
-      string sh = null;
       if (berechnen)
       {
         var hash = new Dictionary<string, HhBilanz>();
@@ -1479,6 +1470,8 @@ namespace CSBP.Services
       }
       foreach (var b in result)
       {
+        decimal betrag;
+        string sh;
         if (euro)
         {
           betrag = b.AccountEsum;
@@ -1555,7 +1548,7 @@ namespace CSBP.Services
      * @param daten Service-Daten für Datenbankzugriff.
      * @param buchung HhBuchung-Instanz.
      */
-    private void PruefBuchung(ServiceDaten daten, DateTime? sv, decimal b, decimal eb, string sollUid,
+    private static void PruefBuchung(ServiceDaten daten, DateTime? sv, decimal b, decimal eb, string sollUid,
       string habenUid, string text, string bn, DateTime? bd)
     {
       if (sv == null)
@@ -1574,6 +1567,7 @@ namespace CSBP.Services
         throw new MessageException(HH035);
       if (string.IsNullOrEmpty(text))
         throw new MessageException(HH027);
+      Functions.MachNichts(bn);
       if (bd == null)
         throw new MessageException(HH036);
       var hhKonto = GetKontoIntern(daten, sollUid, false);
@@ -1598,7 +1592,7 @@ namespace CSBP.Services
      * @param exception Soll eine Exception geworfen werden, wenn das Konto fehlt?
      * @return Konto-Nummer des Eigenkapitals.
      */
-    private string HoleEkKonto(ServiceDaten daten, bool exception = true)
+    private static string HoleEkKonto(ServiceDaten daten, bool exception = true)
     {
       var ek = HhKontoRep.GetMin(daten, null, Constants.KZK_EK, null, null);
       if (exception && ek == null)
@@ -1612,7 +1606,7 @@ namespace CSBP.Services
      * @param exception Soll eine Exception geworfen werden, wenn das Konto fehlt?
      * @return Konto-Nummer des G+V-Kontos.
      */
-    private string HoleGvKonto(ServiceDaten daten, bool exception = true)
+    private static string HoleGvKonto(ServiceDaten daten, bool exception = true)
     {
       var gv = HhKontoRep.GetMin(daten, null, Constants.KZK_GV, null, null);
       if (exception && gv == null)
@@ -1620,7 +1614,7 @@ namespace CSBP.Services
       return gv?.Uid;
     }
 
-    private void DeleteBuchungIntern(ServiceDaten daten, string uid, bool pruefen)
+    private static void DeleteBuchungIntern(ServiceDaten daten, string uid, bool pruefen)
     {
       var b = HhBuchungRep.Get(daten, daten.MandantNr, uid);
       if (b == null && pruefen)
@@ -1633,7 +1627,7 @@ namespace CSBP.Services
     /// <summary>Setzen der passenden berechneten Periode.</summary>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="datum">Affected date.</param>
-    private void SetzePassendeBerPeriode(ServiceDaten daten, DateTime datum)
+    private static void SetzePassendeBerPeriode(ServiceDaten daten, DateTime datum)
     {
       var nr = HolePassendePeriodeNr(daten, datum); // Exception in case of error
       SetzeBerPeriode(daten, nr);
@@ -1643,7 +1637,7 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="d">Affected date.</param>
     /// <returns>Passende Perioden-Nummer.</returns>
-    private int HolePassendePeriodeNr(ServiceDaten daten, DateTime d)
+    private static int HolePassendePeriodeNr(ServiceDaten daten, DateTime d)
     {
       var p = HolePassendePeriode(daten, d, true);
       return p.Nr;
@@ -1655,7 +1649,7 @@ namespace CSBP.Services
      * @param d Datum.
      * @return Passende Periode.
      */
-    private HhPeriode HolePassendePeriode(ServiceDaten daten, DateTime d, bool exception = false)
+    private static HhPeriode HolePassendePeriode(ServiceDaten daten, DateTime d, bool exception = false)
     {
       var p = HhPeriodeRep.GetMaxMin(daten, false, d);
       if (p == null && exception)
@@ -1666,7 +1660,7 @@ namespace CSBP.Services
     /// <summary>Setzen der zu berechnenden Periode.</summary>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="nr">Affected period number.</param>
-    private void SetzeBerPeriode(ServiceDaten daten, int nr)
+    private static void SetzeBerPeriode(ServiceDaten daten, int nr)
     {
       if (HhPeriodeRep.Get(daten, daten.MandantNr, nr) == null)
         throw new MessageException(HH005(nr));
@@ -1681,7 +1675,7 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="nr">Affected period number.</param>
     /// <param name="berechnet">Is the period calculated? If yes, then set the next period.</param>
-    private void SetzeBerPeriode2(ServiceDaten daten, int nr, bool berechnet = false)
+    private static void SetzeBerPeriode2(ServiceDaten daten, int nr, bool berechnet = false)
     {
       var minNr = GetMaxMinNr(daten, true);
       if (nr >= minNr)
@@ -1700,7 +1694,7 @@ namespace CSBP.Services
     /// <summary>Liefert die nächste zu berechnende Perioden-Nummer.</summary>
     /// <param name="daten">Service data for database access.</param>
     /// <returns>Nächste zu berechnende Perioden-Nummer.</returns>
-    private int HoleBerPeriodeIntern(ServiceDaten daten)
+    private static int HoleBerPeriodeIntern(ServiceDaten daten)
     {
       var nr = 0;
       var p = HhPeriodeRep.Get(daten, daten.MandantNr, Constants.PN_BERECHNET);
@@ -1714,17 +1708,10 @@ namespace CSBP.Services
     /// <summary>Einfügen von Bilanz-Einträgen aus anderer Periode für ein oder alle Konten.</summary>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="pnr">Quell-Perioden-Nummer.</param>
-    /// <param name="knr">Konto-Nummer. Wenn 0, werden alle Konten kopiert; sonst nur das eine.</param>
-    /// <param name="dbBetrag">DM-Betrag.</param>
-    /// <param name="dbEBetrag">Euro-Betrag.</param>
     /// <param name="pdiff">Differenz zwischen Quell- und Ziel-Perioden-Nummer, üblicherweise 1 oder -1.</param>
-    private void InsertBilanz2(ServiceDaten daten, int pnr, string knr, decimal dbBetrag, decimal dbEBetrag,
-        int pdiff)
+    private static void InsertBilanz2(ServiceDaten daten, int pnr, int pdiff)
     {
       var vListe = new List<string>();
-      HhBilanz hhBilanz = null;
-      var dbB = dbBetrag;
-      var dbEB = dbEBetrag;
 
       // Bilanz-Einträge für eine Periode und ein oder alle Konten erstellen
       var hhKontos = HhKontoRep.GetList(daten, pnr, pnr);
@@ -1741,17 +1728,14 @@ namespace CSBP.Services
 
       foreach (var str in vListe)
       {
-        var pnr3 = ToInt32(str.Substring(0, 10));
+        var pnr3 = ToInt32(str[..10]);
         var strK3 = str.Substring(10, 2);
         var strS3 = str.Substring(12, 1);
-        var knr3 = str.Substring(13);
-        hhBilanz = HhBilanzRep.Get(daten, daten.MandantNr, pnr3 + pdiff, strK3, knr3);
-        if (hhBilanz == null)
-        {
-          dbB = 0;
-          dbEB = 0;
-        }
-        else
+        var knr3 = str[13..];
+        HhBilanz hhBilanz = HhBilanzRep.Get(daten, daten.MandantNr, pnr3 + pdiff, strK3, knr3);
+        decimal dbB;
+        decimal dbEB;
+        if (hhBilanz != null)
         {
           if (Constants.KZBI_GV == strK3)
           {
@@ -1773,7 +1757,7 @@ namespace CSBP.Services
      * @param art Konto-Art.
      * @return True, wenn Aktiv- oder Passiv-Konto.
      */
-    private bool IstAktivPassivKontoIntern(string art)
+    private static bool IstAktivPassivKontoIntern(string art)
     {
       return (Constants.ARTK_AKTIVKONTO == art || Constants.ARTK_PASSIVKONTO == art);
     }
@@ -1783,7 +1767,7 @@ namespace CSBP.Services
      * @param art Konto-Art.
      * @return True, wenn Aktiv- oder Aufwands-Konto.
      */
-    private bool IstAktivAufwandKontoIntern(string art)
+    private static bool IstAktivAufwandKontoIntern(string art)
     {
       return (Constants.ARTK_AKTIVKONTO == art || Constants.ARTK_AUFWANDSKONTO == art);
     }
@@ -1793,7 +1777,7 @@ namespace CSBP.Services
      * @param strArt Konto-Art.
      * @return True, wenn Aufwand- oder Ertrag-Konto.
      */
-    private bool IstAufwandErtragKontoIntern(string art)
+    private static bool IstAufwandErtragKontoIntern(string art)
     {
       return (Constants.ARTK_AUFWANDSKONTO == art || Constants.ARTK_ERTRAGSKONTO == art);
     }
@@ -1803,7 +1787,7 @@ namespace CSBP.Services
      * @param art Konto-Art.
      * @return Soll/Haben-Kennzeichen für Bilanz: A oder P.
      */
-    private string HoleBilanzSH(string art)
+    private static string HoleBilanzSH(string art)
     {
       if (IstAktivAufwandKontoIntern(art))
         return Constants.KZSH_A;
@@ -1818,13 +1802,13 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="min">Minimum or maximum.</param>
     /// <param name="d">Affected minimum or maximum date.</param>
-    private int GetMaxMinNr(ServiceDaten daten, bool min, DateTime? d = null)
+    private static int GetMaxMinNr(ServiceDaten daten, bool min, DateTime? d = null)
     {
       var p = HhPeriodeRep.GetMaxMin(daten, min, d);
       return p == null ? 0 : p.Nr;
     }
 
-    private HhKonto GetKontoIntern(ServiceDaten daten, string uid, bool exception = true)
+    private static HhKonto GetKontoIntern(ServiceDaten daten, string uid, bool exception = true)
     {
       var hhKonto = HhKontoRep.Get(daten, daten.MandantNr, uid);
       if (exception && hhKonto == null)
@@ -1835,12 +1819,12 @@ namespace CSBP.Services
     /// <summary>Liefert true bei Spezial-Kontokennzeichen E und G.</summary>
     /// <returns>true bei Spezial-Kontokennzeichen E und G.</returns>
     /// <param name="kz">Betroffenes Kontokennzeichen.</param>
-    private bool IstSpezialKontokennzeichen(string kz)
+    private static bool IstSpezialKontokennzeichen(string kz)
     {
       return kz == Constants.KZK_EK || kz == Constants.KZK_GV;
     }
 
-    private string FindKontoSortierung(ServiceDaten daten, string uid = null)
+    private static string FindKontoSortierung(ServiceDaten daten, string uid = null)
     {
       string sort = null;
       while (string.IsNullOrEmpty(sort))
@@ -1853,7 +1837,7 @@ namespace CSBP.Services
       return sort;
     }
 
-    private int InsertBilanzPerioden(ServiceDaten daten, HhBilanz hhBilanz, DateTime? from, DateTime? to)
+    private static int InsertBilanzPerioden(ServiceDaten daten, HhBilanz hhBilanz, DateTime? from, DateTime? to)
     {
       var list = HhPeriodeRep.GetList(daten, from, to);
       foreach (var p in list)
@@ -1864,7 +1848,7 @@ namespace CSBP.Services
       return list.Count;
     }
 
-    void DeleteKontoVonBis(ServiceDaten daten, string kontoUid, int before = -1, int after = -1)
+    private static void DeleteKontoVonBis(ServiceDaten daten, string kontoUid, int before = -1, int after = -1)
     {
       var l = HhBilanzRep.GetList(daten, null, after, before, kontoUid);
       foreach (var b in l)
@@ -1873,7 +1857,7 @@ namespace CSBP.Services
       }
     }
 
-    private List<string> GetBookingColumns()
+    private static List<string> GetBookingColumns()
     {
       var columns = new List<string>{ "SollValuta", "Btext", "Ebetrag", "Uid", "Kz", "SollKontoUid",
         "SollKonto", "HabenKontoUid", "HabenKonto", "BelegNr", "BelegDatum", "HabenValuta",

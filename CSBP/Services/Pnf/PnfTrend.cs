@@ -8,11 +8,11 @@ namespace CSBP.Services.Pnf
   public class PnfTrend
   {
     /** Start-Position der Säule. */
-    private int xpos = 0;
+    private readonly int xpos = 0;
     /** Start-Position der Säule. */
-    private int ypos = 0;
+    private readonly int ypos = 0;
     /** Boxtyp: 0 horizontal; 1 aufwärts (X); 2 abwärts (O). */
-    private int boxtyp = 0;
+    private readonly int boxtyp = 0;
     /** Länge der Trendlinie in Anzahl Säulen. */
     private int laenge = 0;
 
@@ -35,7 +35,7 @@ namespace CSBP.Services.Pnf
       get { return laenge; }
     }
 
-    public void setLaenge(int laenge)
+    public void SetLaenge(int laenge)
     {
       this.laenge = laenge;
     }

@@ -10,31 +10,31 @@ namespace CSBP.Apis.Enums
   public sealed class GedcomEventEnum
   {
     /// <summary>Wert des Ereignisses.</summary>
-    private string value;
+    private readonly string value;
 
     /// <summary>Symbol des Ereignisses.</summary>
-    private string symbol;
+    private readonly string symbol;
 
     /// <summary>Alle Werte muss vor den einzelnen Werten initialisiert werden.</summary>
-    private static readonly Dictionary<string, GedcomEventEnum> instance = new Dictionary<string, GedcomEventEnum>();
+    private static readonly Dictionary<string, GedcomEventEnum> instance = new();
 
     /// <summary>Ereignis Unbekannt.</summary>
-    public static readonly GedcomEventEnum UNKNOWN = new GedcomEventEnum("", "");
+    public static readonly GedcomEventEnum UNKNOWN = new("", "");
 
     /// <summary>Ereignis Geburt.</summary>
-    public static readonly GedcomEventEnum BIRTH = new GedcomEventEnum("BIRT", "*");
+    public static readonly GedcomEventEnum BIRTH = new("BIRT", "*");
 
     /// <summary>Ereignis Taufe.</summary>
-    public static readonly GedcomEventEnum CHRIST = new GedcomEventEnum("CHR", "~");
+    public static readonly GedcomEventEnum CHRIST = new("CHR", "~");
 
     /// <summary>Ereignis Tod.</summary>
-    public static readonly GedcomEventEnum DEATH = new GedcomEventEnum("DEAT", "+");
+    public static readonly GedcomEventEnum DEATH = new("DEAT", "+");
 
     /// <summary>Ereignis Begräbnis.</summary>
-    public static readonly GedcomEventEnum BURIAL = new GedcomEventEnum("BURI", "b");
+    public static readonly GedcomEventEnum BURIAL = new("BURI", "b");
 
     /// <summary>Ereignis Heirat.</summary>
-    public static readonly GedcomEventEnum MARRIAGE = new GedcomEventEnum("MARR", "h");
+    public static readonly GedcomEventEnum MARRIAGE = new("MARR", "h");
 
     /// <summary>Kontruktor mit Werten.</summary>
     /// <param name="v">Betroffenes GEDCOM-Kürzel.</param>

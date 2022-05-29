@@ -7,14 +7,14 @@ namespace CSBP.Services
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Text;
+  using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Base;
-  using static CSBP.Resources.Messages;
   using static CSBP.Resources.M;
-  using CSBP.Apis.Enums;
-  using System.Text;
+  using static CSBP.Resources.Messages;
 
   public class PrivateService : ServiceBase, IPrivateService
   {
@@ -111,14 +111,13 @@ namespace CSBP.Services
         von = min.Datum;
       var schnitt = 0m;
       var summe = 0m;
-      var tage = 0;
       var d = von;
       while (d.Year <= date.Year)
       {
         var dbis = d.Year < date.Year ? d.AddYears(1).AddDays(-d.DayOfYear) : date;
         var kmJahr = FzFahrradstandRep.Count(daten, null, d, dbis);
         summe += kmJahr;
-        tage = (dbis.Year - von.Year) * 365 + dbis.DayOfYear - von.DayOfYear;
+        int tage = (dbis.Year - von.Year) * 365 + dbis.DayOfYear - von.DayOfYear;
         if (tage != 0)
           schnitt = summe * 365 / tage;
         var s = new FzFahrradstand
@@ -172,7 +171,7 @@ namespace CSBP.Services
       var insert = nr0 < 0;
       var dAktuell = date;
       var nr = insert ? 0 : nr0;
-      var besch = text;
+      var besch = text.TrimNull();
       FzFahrradstand voVorher = null;
       FzFahrradstand voNachher = null;
       var zaehlerAktuell = odometer;
@@ -180,16 +179,15 @@ namespace CSBP.Services
       var zaehlerNull = false;
       const int protag = 10 + 1;
 
-      text = text.TrimNull();
       if (string.IsNullOrEmpty(buid))
         r.Errors.Add(Message.New(FZ019));
-      if (Functions.compDouble(zaehlerAktuell, 0) < 0)
+      if (Functions.CompDouble(zaehlerAktuell, 0) < 0)
         r.Errors.Add(Message.New(FZ020));
-      if (Functions.compDouble(periodeAktuell, 0) < 0)
+      if (Functions.CompDouble(periodeAktuell, 0) < 0)
         r.Errors.Add(Message.New(FZ021));
-      if (Functions.compDouble(average, 0) < 0)
+      if (Functions.CompDouble(average, 0) < 0)
         r.Errors.Add(Message.New(FZ022));
-      if (Functions.compDouble(zaehlerAktuell, 0) == 0 && Functions.compDouble(periodeAktuell, 0) == 0)
+      if (Functions.CompDouble(zaehlerAktuell, 0) == 0 && Functions.CompDouble(periodeAktuell, 0) == 0)
         zaehlerNull = true;
       //if (date == null) {
       //    r.Errors.Add(Message.New(FZ023));
@@ -255,12 +253,12 @@ namespace CSBP.Services
         if (!zaehlerNull)
         {
           zaehlerVorher = voVorher.Zaehler_km;
-          if (Functions.compDouble(periodeAktuell, 0) > 0)
+          if (Functions.CompDouble(periodeAktuell, 0) > 0)
             zaehlerAktuell = zaehlerVorher + periodeAktuell;
           else
           {
             periodeAktuell = zaehlerAktuell - zaehlerVorher;
-            if (Functions.compDouble(periodeAktuell, 0) < 0)
+            if (Functions.CompDouble(periodeAktuell, 0) < 0)
               throw new MessageException(FZ025(zaehlerVorher));
           }
         }
@@ -288,9 +286,9 @@ namespace CSBP.Services
         throw new MessageException(FZ027);
       if (!zaehlerNull)
       {
-        if (Functions.compDouble(zaehlerAktuell, periodeAktuell) < 0)
+        if (Functions.CompDouble(zaehlerAktuell, periodeAktuell) < 0)
           zaehlerAktuell = periodeAktuell;
-        if (voVorher == null /* vorherNr <= 0 */ && Functions.compDouble(zaehlerAktuell, periodeAktuell) > 0)
+        if (voVorher == null /* vorherNr <= 0 */ && Functions.CompDouble(zaehlerAktuell, periodeAktuell) > 0)
           periodeAktuell = zaehlerAktuell;
       }
       var neueNr = true;
@@ -325,9 +323,9 @@ namespace CSBP.Services
       var e = FzFahrradstandRep.Save(daten, daten.MandantNr, buid, dAktuell, nr, zaehlerAktuell, periodeAktuell,
         average, besch, angelegtVon, angelegtAm, geaendertVon, geaendertAm);
       if (voNachher != null /* nachherNr > 0 */ && !(dAktuell == voNachher.Datum && nr == voNachher.Nr) &&
-              Functions.compDouble(periodeNachher, zaehlerNachher - zaehlerAktuell) != 0)
+              Functions.CompDouble(periodeNachher, zaehlerNachher - zaehlerAktuell) != 0)
       {
-        if (Functions.compDouble(0, zaehlerNachher - zaehlerAktuell) > 0)
+        if (Functions.CompDouble(0, zaehlerNachher - zaehlerAktuell) > 0)
           throw new MessageException(FZ030);
         voNachher.Periode_km = zaehlerNachher - zaehlerAktuell;
         FzFahrradstandRep.Update(daten, voNachher);

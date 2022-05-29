@@ -6,19 +6,19 @@ namespace CSBP.Services
 {
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
   using System.Text;
+  using System.Threading;
+  using System.Threading.Tasks;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Base;
-  using Newtonsoft.Json.Linq;
-  using static CSBP.Resources.Messages;
-  using static CSBP.Resources.M;
-  using System.Threading.Tasks;
-  using System.Diagnostics;
-  using System.Threading;
   using CSBP.Services.Pnf;
+  using Newtonsoft.Json.Linq;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   public class StockService : ServiceBase, IStockService
   {
@@ -206,13 +206,13 @@ namespace CSBP.Services
       DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
-        throw new ArgumentException();
+        throw new ArgumentException("status, cancel");
       WpKonfiguration k = null;
       if (!string.IsNullOrEmpty(kuid))
       {
         k = WpKonfigurationRep.Get(daten, daten.MandantNr, kuid, true);
         if (k != null)
-          k.Bezeichnung = PnfChart.GetBezeichnung(k.Bezeichnung, 0, k.Scale, k.Reversal, k.Method, k.Relative, k.Duration, null, 0, 0);
+          k.Bezeichnung = PnfChart.GetBezeichnung(k.Bezeichnung, 0, k.Scale, k.Reversal, k.Method, k.Relative, k.Duration);
       }
       if (k == null)
         k = new WpKonfiguration
@@ -374,7 +374,7 @@ namespace CSBP.Services
             if (i == 0)
             {
               st.CurrentPrice = c.Kurs;
-              if (Functions.compDouble4(c.Stop, 0) > 0)
+              if (Functions.CompDouble4(c.Stop, 0) > 0)
               {
                 st.StopPrice = Functions.Round(c.Stop);
                 st.SignalPrice2 = Functions.Round4(c.Kurs / c.Stop);
@@ -420,9 +420,9 @@ namespace CSBP.Services
                 // && datumi.hour == 0 && datumi.minute == 0 && datumi.second == 0) {
                 // evtl. aktuellen Kurs ignorieren
                 diff = diff + ku.Open - ku.Close;
-                if (Functions.compDouble(diff, maxi) > 0)
+                if (Functions.CompDouble(diff, maxi) > 0)
                   maxi = diff;
-                if (Functions.compDouble(diff, mini) < 0)
+                if (Functions.CompDouble(diff, mini) < 0)
                   mini = diff;
               }
             }
@@ -467,7 +467,7 @@ namespace CSBP.Services
           {
             var schnitt200 = summe200 / anzahl200;
             var schnitt214 = summe214 / anzahl214;
-            st.Average200 = Functions.ToString(Functions.compDouble(schnitt200, schnitt214));
+            st.Average200 = Functions.ToString(Functions.CompDouble(schnitt200, schnitt214));
           }
           WpWertpapierRep.Update(daten, st);
           // Debug.WriteLine($"6 {st.Parameter}");
@@ -492,7 +492,7 @@ namespace CSBP.Services
     /// <returns>Calculated index.</returns>
     private static decimal ClIndex(decimal diff, decimal mini, decimal maxi)
     {
-      if (Functions.compDouble(mini, maxi) == 0)
+      if (Functions.CompDouble(mini, maxi) == 0)
         return 0;
       else
         return (diff - mini) / (maxi - mini);
@@ -628,7 +628,7 @@ namespace CSBP.Services
         r.Errors.Add(Message.New(WP001));
       if (string.IsNullOrWhiteSpace(state))
         r.Errors.Add(Message.New(WP002));
-      if (Functions.compDouble4(box, 0) <= 0)
+      if (Functions.CompDouble4(box, 0) <= 0)
         r.Errors.Add(Message.New(WP003));
       if (reversal <= 0)
         r.Errors.Add(Message.New(WP004));
@@ -837,7 +837,7 @@ namespace CSBP.Services
         DateTime date, bool inactive, string search, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
-        throw new ArgumentException();
+        throw new ArgumentException("status, cancel");
       var from = date.AddDays(-7);
       var dictlist = new Dictionary<string, List<SoKurse>>();
       var dictresponse = new Dictionary<string, StockUrl>();
@@ -971,7 +971,7 @@ namespace CSBP.Services
           inv.Value2 = inv2.Value;
         }
         WpAnlageRep.Update(daten, inv);
-        if (inv.PriceDate.HasValue && Functions.compDouble4(inv.Price, 0) > 0)
+        if (inv.PriceDate.HasValue && Functions.CompDouble4(inv.Price, 0) > 0)
         {
           // Stand speichern
           WpStandRep.Save(daten, daten.MandantNr, inv.Wertpapier_Uid, inv.PriceDate.Value, inv.Price);
@@ -1154,16 +1154,16 @@ namespace CSBP.Services
       //}
       if (string.IsNullOrWhiteSpace(desc))
         r.Errors.Add(Message.New(WP021));
-      if (Functions.compDouble(payment, 0) == 0 && Functions.compDouble(discount, 0) == 0 &&
-          Functions.compDouble4(shares, 0) == 0 && Functions.compDouble(interest, 0) == 0)
+      if (Functions.CompDouble(payment, 0) == 0 && Functions.CompDouble(discount, 0) == 0 &&
+          Functions.CompDouble4(shares, 0) == 0 && Functions.CompDouble(interest, 0) == 0)
         r.Errors.Add(Message.New(WP022));
       if (!r.Ok)
         return r;
 
-      if (Functions.compDouble(v, 0) != 0 && string.IsNullOrEmpty(buid)
+      if (Functions.CompDouble(v, 0) != 0 && string.IsNullOrEmpty(buid)
           && !string.IsNullOrEmpty(duid) && !string.IsNullOrEmpty(cuid) && !string.IsNullOrEmpty(text))
       {
-        var vdm = Functions.konvDM(v);
+        var vdm = Functions.KonvDM(v);
         var btext = $"{text} {inv?.Bezeichnung}";
         var r1 = BudgetService.SaveBooking(daten, buid, vd, vdm, v, duid, cuid, btext, null, vd);
         r.Get(r1);
@@ -1195,7 +1195,7 @@ namespace CSBP.Services
             WpStandRep.Delete(daten, st);
         }
       }
-      if (Functions.compDouble(stand2, 0) <= 0)
+      if (Functions.CompDouble(stand2, 0) <= 0)
       {
         var st = WpStandRep.Get(daten, daten.MandantNr, inv.Wertpapier_Uid, date);
         if (st != null)
@@ -1752,7 +1752,7 @@ namespace CSBP.Services
                 }
               }
             }
-            if (Functions.compDouble4(k.Open, 0) != 0)
+            if (Functions.CompDouble4(k.Open, 0) != 0)
             {
               k.Datum = date;
               k.Bewertung = string.IsNullOrWhiteSpace(currency) ? "EUR" : currency;

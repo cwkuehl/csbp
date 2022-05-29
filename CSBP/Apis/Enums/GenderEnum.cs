@@ -10,25 +10,25 @@ namespace CSBP.Apis.Enums
   public sealed class GenderEnum
   {
     /// <summary>Wert des Geschlechts.</summary>
-    private string value;
+    private readonly string value;
 
     /// <summary>Alle Geschlechter muss vor den einzelnen Werten initialisiert werden.</summary>
-    private static readonly Dictionary<string, GenderEnum> instance = new Dictionary<string, GenderEnum>();
+    private static readonly Dictionary<string, GenderEnum> instance = new();
 
     /// <summary>Geschlecht Neutrum.</summary>
-    public static readonly GenderEnum NEUTRUM = new GenderEnum("N");
+    public static readonly GenderEnum NEUTRUM = new("N");
 
     /// <summary>Geschlecht Mann.</summary>
-    public static readonly GenderEnum MANN = new GenderEnum("M");
+    public static readonly GenderEnum MANN = new("M");
 
     /// <summary>Geschlecht Frau.</summary>
-    public static readonly GenderEnum FRAU = new GenderEnum("F");
+    public static readonly GenderEnum FRAU = new("F");
 
     /// <summary>Geschlecht männlich.</summary>
-    public static readonly GenderEnum MAENNLICH = new GenderEnum("m");
+    public static readonly GenderEnum MAENNLICH = new("m");
 
     /// <summary>Geschlecht weiblich.</summary>
-    public static readonly GenderEnum WEIBLICH = new GenderEnum("w");
+    public static readonly GenderEnum WEIBLICH = new("w");
 
     /// <summary>Kontruktor mit Kürzel.</summary>
     /// <param name="v">Betroffenes Kürzel.</param>

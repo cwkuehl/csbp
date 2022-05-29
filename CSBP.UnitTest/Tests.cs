@@ -25,7 +25,7 @@ namespace CSBP.UnitTest
     /// <param name="args">Parameters are ignored.</param>
     static void Main(string[] args)
     {
-      Debug.Print("CSBP.UnitTest gestartet.");
+      Debug.Print("CSBP.UnitTest gestartet." + (args?[0] ?? ""));
       var t = new Tests();
       t.MachNichts();
       // t.GenerateForm();
@@ -48,7 +48,7 @@ namespace CSBP.UnitTest
     /// XML-Dateien der Tabellen zusammenkopieren.
     /// </summary>
     ////[Test()]
-    public void MergeXml()
+    public static void MergeXml()
     {
       Assert.IsNull(null);
       var l = Directory.GetFiles(pfadmono, "*.xml");
@@ -63,19 +63,18 @@ namespace CSBP.UnitTest
       g.Save(Path.Combine(pfadmono, "#CSBP.xml.txt"));
     }
 
-    private string GetCsType(string dbtype, bool nullable)
+    private static string GetCsType(string dbtype, bool nullable)
     {
-      switch (dbtype)
-      {
-        case "INTEGER": return "int" + (nullable ? "?" : "");
-        case "VARCHAR": return "string";
-        case "DATE": return "DateTime" + (nullable ? "?" : "");
-        case "TIMESTAMP": return "DateTime" + (nullable ? "?" : "");
-        case "DECIMAL(21,4)": return "decimal" + (nullable ? "?" : "");
-        case "BOOLEAN": return "bool" + (nullable ? "?" : "");
-        case "BLOB": return "byte[]";
-        default: return dbtype;
-      }
+      return dbtype switch {
+        "INTEGER" => "int" + (nullable ? "?" : ""),
+        "VARCHAR" => "string",
+        "DATE" => "DateTime" + (nullable ? "?" : ""),
+        "TIMESTAMP" => "DateTime" + (nullable ? "?" : ""),
+        "DECIMAL(21,4)" => "decimal" + (nullable ? "?" : ""),
+        "BOOLEAN" => "bool" + (nullable ? "?" : ""),
+        "BLOB" => "byte[]",
+        _ => dbtype,
+      };
     }
 
     /// <summary>
@@ -164,7 +163,7 @@ namespace CSBP.Apis.Models
       Functions.MachNichts();
     }}
 
-{props.ToString()}
+{props}
   }}
 }}
 ";
@@ -184,7 +183,7 @@ namespace CSBP.Services.Repositories.Base
   /// </summary>
   public partial class CsbpContext : DbContext
   {{
-{sets.ToString()}
+{sets}
 
     /// <summary>
     /// On the model creating generated.
@@ -192,7 +191,7 @@ namespace CSBP.Services.Repositories.Base
     /// <param name=""modelBuilder"">Model builder.</param>
     void OnModelCreatingGenerated(ModelBuilder modelBuilder)
     {{
-{keys.ToString()}
+{keys}
     }}
   }}
 }}
@@ -279,8 +278,8 @@ namespace CSBP.Services.Repositories.Base
           }
         }
         getvalue.Append(ps.Any(a => a.name == "Uid")
-            ? $@"var a = string.IsNullOrEmpty(uid) ? null : Get(daten{kparam2.ToString()});
-" : $@"var a = Get(daten{kparam2.ToString()});
+            ? $@"var a = string.IsNullOrEmpty(uid) ? null : Get(daten{kparam2});
+" : $@"var a = Get(daten{kparam2});
 ").Append($@"      var e = a ?? new {tab}();
 ");
         foreach (var p in ps)
@@ -323,23 +322,23 @@ namespace CSBP.Services.Repositories
     public {tab} Get(ServiceDaten daten, {tab} e)
     {{
       var db = GetDb(daten);
-      var b = db.{tabelle}.FirstOrDefault(a => {gwhere.ToString()});
+      var b = db.{tabelle}.FirstOrDefault(a => {gwhere});
       return b;
     }}
 
-    public {tab} Get(ServiceDaten daten{kparam.ToString()}, bool detached = false)
+    public {tab} Get(ServiceDaten daten{kparam}, bool detached = false)
     {{
       var db = GetDb(daten);
-      var b = db.{tabelle}.FirstOrDefault(a => {gwhere2.ToString()});
+      var b = db.{tabelle}.FirstOrDefault(a => {gwhere2});
       if (detached && b != null)
         db.Entry(b).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
       return b;
     }}
 
-    public List<{tab}> GetList(ServiceDaten daten{lparam.ToString()})
+    public List<{tab}> GetList(ServiceDaten daten{lparam})
     {{
       var db = GetDb(daten);
-      var l = db.{tabelle}{lwhere.ToString()};
+      var l = db.{tabelle}{lwhere};
       return l.ToList();
     }}
 
@@ -362,7 +361,7 @@ namespace CSBP.Services.Repositories
       }}
     }}
 
-    public {tab} Save(ServiceDaten daten{gparam2.ToString()})
+    public {tab} Save(ServiceDaten daten{gparam2})
     {{
       var db = GetDb(daten);
       {getvalue}      if (a == null)
@@ -416,7 +415,7 @@ namespace CSBP.Services.Repositories
       }
     }
 
-    string GetToolItemName(XAttribute a)
+    static string GetToolItemName(XAttribute a)
     {
       var name = a.Value == "aktuell" || a.Value == "berechnen" ? "refresh" :
         a.Value == "rueckgaengig" ? "undo" :
@@ -436,15 +435,15 @@ namespace CSBP.Services.Repositories
     /// <summary>Kontext zum Generieren eines Formulars.</summary>
     class GeneratorContext
     {
-      public int idcount { get; set; } = 0;
-      public XNamespace ns { get; set; }
-      public XNamespace fxns { get; set; }
-      public string fileshort { get; set; }
-      public string filenew { get; set; }
-      public StringBuilder events { get; set; } = new StringBuilder();
-      public StringBuilder ms { get; set; } = new StringBuilder();
-      public StringBuilder member { get; set; } = new StringBuilder();
-      public StringBuilder init { get; set; } = new StringBuilder();
+      public int Idcount { get; set; } = 0;
+      public XNamespace Ns { get; set; }
+      public XNamespace Fxns { get; set; }
+      public string Fileshort { get; set; }
+      public string Filenew { get; set; }
+      public StringBuilder Events { get; set; } = new StringBuilder();
+      public StringBuilder Ms { get; set; } = new StringBuilder();
+      public StringBuilder Member { get; set; } = new StringBuilder();
+      public StringBuilder Init { get; set; } = new StringBuilder();
     }
 
     /// <summary>Generieren eines Formulars aus einer JavaFX-Datei.</summary>
@@ -454,7 +453,7 @@ namespace CSBP.Services.Repositories
       var unit = "wp";
       var fileold = "WP220Schnittstelle";
       var filenew = "WP220Interface";
-      var fileshort = filenew.Substring(0, 5);
+      var fileshort = filenew[..5];
       var file = Path.Combine(formpath, unit, fileold + ".fxml");
       var g = XDocument.Load(file);
       var root = g.Root; // GridPane
@@ -467,12 +466,11 @@ namespace CSBP.Services.Repositories
       XNamespace ns = xmlns?.Value ?? "http://javafx.com/javafx/8.0.45";
       xmlns = root.Attributes().FirstOrDefault(a => a.Name == ns0 + "fx");
       XNamespace fxns = xmlns?.Value ?? "http://javafx.com/fxml/1";
-      var gc = new GeneratorContext
-      {
-        ns = ns,
-        fxns = fxns,
-        fileshort = fileshort,
-        filenew = filenew,
+      var gc = new GeneratorContext {
+        Ns = ns,
+        Fxns = fxns,
+        Fileshort = fileshort,
+        Filenew = filenew,
       };
 
       // Bilder für Toolbar-Buttons
@@ -492,7 +490,7 @@ namespace CSBP.Services.Repositories
         }
         Console.WriteLine(a.Value);
       }
-      gc.ms.Append($@"
+      gc.Ms.Append($@"
     <data name=""{fileshort}.title"" xml:space=""preserve"">
         <value>{fileshort}.title</value>
     </data>");
@@ -530,7 +528,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
     /// <summary>Dialog Model.</summary>
     private MaMandant Model;
 
-#pragma warning disable 169, 649{gc.member}
+#pragma warning disable 169, 649{gc.Member}
 
 #pragma warning restore 169, 649
 
@@ -553,7 +551,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
     /// <returns>Nicht-modalen Dialogs.</returns>
     public {filenew}(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
         : base(b, h, d, dt, p1, p)
-    {{{gc.init}
+    {{{gc.Init}
       // SetBold(client0);
       Functions.MachNichts(Model);
       InitData(0);
@@ -565,7 +563,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
     {{
       if (step <= 0) {{
       }}
-    }}{gc.events}
+    }}{gc.Events}
   }}
 }}
 ";
@@ -573,7 +571,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
       if (!File.Exists(datei))
       {
         File.WriteAllText(datei, s);
-        File.AppendAllText(datei, Constants.CRLF + gc.ms + Constants.CRLF);
+        File.AppendAllText(datei, Constants.CRLF + gc.Ms + Constants.CRLF);
       }
       // File.AppendAllText(xmlfile, Constants.CRLF);
       // if (Functions.MachNichts() == 0)
@@ -584,7 +582,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
     void AddElement(GeneratorContext gc, XElement source, XElement target, int depth)
     {
       XElement e0 = null; // Element wird zum target hinzugefügt.
-      var id = source.Attributes().FirstOrDefault(a => a.Name == gc.fxns + "id")?.Value ?? $"id{++gc.idcount}";
+      var id = source.Attributes().FirstOrDefault(a => a.Name == gc.Fxns + "id")?.Value ?? $"id{++gc.Idcount}";
       var rowIndex = source.Attributes().FirstOrDefault(a => a.Name == "GridPane.rowIndex")?.Value;
       var rowSpan = source.Attributes().FirstOrDefault(a => a.Name == "GridPane.rowSpan")?.Value;
       var columnIndex = source.Attributes().FirstOrDefault(a => a.Name == "GridPane.columnIndex")?.Value;
@@ -593,21 +591,21 @@ namespace CSBP.Forms.{unit.ToUpper()}
       //var yexpand = false;
       var addchild = true;
       var children = true;
-      if (source.Name == gc.ns + "Label")
+      if (source.Name == gc.Ns + "Label")
       {
         //xexpand = false;
-        var text = source.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.fileshort}.{id}";
+        var text = source.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.Fileshort}.{id}";
         if (text.EndsWith("Creation", StringComparison.CurrentCulture))
           text = "Forms.created0";
         else if (text.EndsWith("Change", StringComparison.CurrentCulture))
           text = "Forms.changed0";
-        text = text.StartsWith("%", StringComparison.CurrentCulture) ? text.Substring(1) : text;
-        var text0 = text.EndsWith("0", StringComparison.CurrentCulture) ? text.Substring(0, text.Length - 1) : text;
-        gc.ms.Append($@"
+        text = text.StartsWith("%", StringComparison.CurrentCulture) ? text[1..] : text;
+        var text0 = text.EndsWith("0", StringComparison.CurrentCulture) ? text[..^1] : text;
+        gc.Ms.Append($@"
     <data name=""{text0}"" xml:space=""preserve"">
         <value>_{text0}</value>
     </data>");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>Label {id}.</summary>
     [Builder.Object]
@@ -621,25 +619,25 @@ namespace CSBP.Forms.{unit.ToUpper()}
           new XElement("property", new XAttribute("name", "use_underline"), new XText("True"))
         );
         var x = source.NextNode as XElement; // Nächstes Element mit Label verknüpfen.
-        var idx = x?.Attributes().FirstOrDefault(a => a.Name == gc.fxns + "id");
+        var idx = x?.Attributes().FirstOrDefault(a => a.Name == gc.Fxns + "id");
         var prop = idx?.Value ?? id;
         if (idx != null)
           e0.Add(new XElement("property", new XAttribute("name", "mnemonic_widget"), new XText(prop)));
       }
-      else if (source.Name == gc.ns + "TextField" || source.Name == gc.ns + "PasswordField")
+      else if (source.Name == gc.Ns + "TextField" || source.Name == gc.Ns + "PasswordField")
       {
-        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.ns + "promptText")?.Value ?? $"{gc.fileshort}.{id}.tt";
-        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext.Substring(1) : prompttext;
+        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.Ns + "promptText")?.Value ?? $"{gc.Fileshort}.{id}.tt";
+        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext[1..] : prompttext;
         if (prompttext.EndsWith("angelegt.tt", StringComparison.CurrentCulture))
           prompttext = "Forms.created.tt";
         else if (prompttext.EndsWith("geaendert.tt", StringComparison.CurrentCulture))
           prompttext = "Forms.changed.tt";
         else
-          gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}.tt"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.tt</value>
+          gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}.tt"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.tt</value>
     </data>");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>Entry {id}.</summary>
     [Builder.Object]
@@ -653,26 +651,26 @@ namespace CSBP.Forms.{unit.ToUpper()}
           new XElement("property", new XAttribute("name", "activates_default"), new XText("True")),
           new XElement("property", new XAttribute("name", "placeholder_text"), new XText(prompttext))
         );
-        if (source.Name == gc.ns + "PasswordField")
+        if (source.Name == gc.Ns + "PasswordField")
         {
           e0.Add(new XElement("property", new XAttribute("name", "visibility"), new XText("False")));
           e0.Add(new XElement("property", new XAttribute("name", "input_purpose"), new XText("password")));
         }
       }
-      else if (source.Name == gc.ns + "TextArea")
+      else if (source.Name == gc.Ns + "TextArea")
       {
-        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.ns + "promptText")?.Value ?? $"{gc.fileshort}.{id}.tt";
-        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext.Substring(1) : prompttext;
+        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.Ns + "promptText")?.Value ?? $"{gc.Fileshort}.{id}.tt";
+        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext[1..] : prompttext;
         if (prompttext.EndsWith("angelegt.tt", StringComparison.CurrentCulture))
           prompttext = "Forms.created.tt";
         else if (prompttext.EndsWith("geaendert.tt", StringComparison.CurrentCulture))
           prompttext = "Forms.changed.tt";
         else
-          gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}.tt"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.tt</value>
+          gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}.tt"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.tt</value>
     </data>");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>TextView {id}.</summary>
     [Builder.Object]
@@ -680,7 +678,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
         e0 = new XElement("object", new XAttribute("class", "GtkScrolledWindow"), new XAttribute("id", $"{id}sw"),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
           new XElement("property", new XAttribute("name", "can_focus"), new XText("True")),
-          new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.fileshort}.{id}.tt")),
+          new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.Fileshort}.{id}.tt")),
           new XElement("property", new XAttribute("name", "shadow_type"), new XText("in")),
           new XElement("child",
             new XElement("object", new XAttribute("class", "GtkTextView"), new XAttribute("id", id),
@@ -693,14 +691,14 @@ namespace CSBP.Forms.{unit.ToUpper()}
           )
         );
       }
-      else if (source.Name == gc.ns + "ComboBox")
+      else if (source.Name == gc.Ns + "ComboBox")
       {
-        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.ns + "accessibleText")?.Value ?? $"{gc.fileshort}.{id}.tt";
-        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext.Substring(1) : prompttext;
+        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.Ns + "accessibleText")?.Value ?? $"{gc.Fileshort}.{id}.tt";
+        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext[1..] : prompttext;
         e0 = new XElement("object", new XAttribute("class", "GtkComboBoxText"), new XAttribute("id", id),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
           new XElement("property", new XAttribute("name", "can_focus"), new XText("False")),
-          new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.fileshort}.{id}.tt")),
+          new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.Fileshort}.{id}.tt")),
           new XElement("property", new XAttribute("name", "has_entry"), new XText("True")),
           // new XElement("property", new XAttribute("name", "Items"), new XAttribute("translatable", "yes")),
           // new XElement("property", new XAttribute("name", "IsTextCombo"), new XText("True")),
@@ -713,16 +711,16 @@ namespace CSBP.Forms.{unit.ToUpper()}
             )
           )
         );
-        gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}.tt"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.tt</value>
+        gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}.tt"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.tt</value>
     </data>");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>ComboBox {id}.</summary>
     [Builder.Object]
     private ComboBox {id};");
-        gc.events.Append($@"
+        gc.Events.Append($@"
 
     /// <summary>Behandlung von {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
@@ -731,52 +729,52 @@ namespace CSBP.Forms.{unit.ToUpper()}
     {{
     }}");
       }
-      else if (source.Name == gc.ns + "CheckBox")
+      else if (source.Name == gc.Ns + "CheckBox")
       {
-        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.ns + "text")?.Value ?? $"{gc.fileshort}.{id}";
-        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext.Substring(1) : prompttext;
+        var prompttext = source.Attributes().FirstOrDefault(a => a.Name == gc.Ns + "text")?.Value ?? $"{gc.Fileshort}.{id}";
+        prompttext = prompttext.StartsWith("%", StringComparison.CurrentCulture) ? prompttext[1..] : prompttext;
         e0 = new XElement("object", new XAttribute("class", "GtkCheckButton"), new XAttribute("id", id),
             new XElement("property", new XAttribute("name", "label"), new XText(prompttext)),
             new XElement("property", new XAttribute("name", "visible"), new XText("True")),
             new XElement("property", new XAttribute("name", "can_focus"), new XText("True")),
-            new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.fileshort}.{id}.tt")),
+            new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.Fileshort}.{id}.tt")),
             new XElement("property", new XAttribute("name", "valign"), new XText("start")),
             new XElement("property", new XAttribute("name", "hexpand"), new XText("True")),
             new XElement("property", new XAttribute("name", "draw_indicator"), new XText("True")),
             new XElement("property", new XAttribute("name", "use_underline"), new XText("True"))
             );
-        gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}"" xml:space=""preserve"">
-        <value>_{gc.fileshort}.{id}</value>
+        gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}"" xml:space=""preserve"">
+        <value>_{gc.Fileshort}.{id}</value>
     </data>");
-        gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}.tt"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.tt</value>
+        gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}.tt"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.tt</value>
     </data>");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>CheckButton {id}.</summary>
     [Builder.Object]
     private CheckButton {id};");
       }
-      else if (source.Name == gc.ns + "Button")
+      else if (source.Name == gc.Ns + "Button")
       {
         var df = source.Attribute("defaultButton")?.Value == "true";
-        var text = source.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.fileshort}.{id}";
-        text = text.StartsWith("%", StringComparison.CurrentCulture) ? text.Substring(1) : text;
+        var text = source.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.Fileshort}.{id}";
+        text = text.StartsWith("%", StringComparison.CurrentCulture) ? text[1..] : text;
         if (text.EndsWith("Ok", StringComparison.CurrentCulture))
           text = "Forms.ok";
         else if (text.EndsWith("Cancel", StringComparison.CurrentCulture))
           text = "Forms.cancel";
         else
-          gc.ms.Append($@"
+          gc.Ms.Append($@"
     <data name=""{text}"" xml:space=""preserve"">
         <value>{text}</value>
     </data>").Append($@"
     <data name=""{text}.tt"" xml:space=""preserve"">
         <value>{text}.tt</value>
     </data>");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>Button {id}.</summary>
     [Builder.Object]
@@ -790,7 +788,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
           new XElement("property", new XAttribute("name", "use_underline"), new XText("True")),
           new XElement("signal", new XAttribute("name", "clicked"), new XAttribute("handler", $"On{id.ToFirstUpper()}Clicked"), new XAttribute("swapped", "no"))
         );
-        gc.events.Append($@"
+        gc.Events.Append($@"
 
     /// <summary>Behandlung von {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
@@ -799,7 +797,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
     {{
     }}");
       }
-      else if (source.Name == gc.ns + "HBox" || source.Name == gc.ns + "VBox")
+      else if (source.Name == gc.Ns + "HBox" || source.Name == gc.Ns + "VBox")
       {
         e0 = new XElement("object", new XAttribute("class", "GtkBox"), new XAttribute("id", id),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
@@ -807,7 +805,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
           new XElement("property", new XAttribute("name", "hexpand"), new XText("False")),
           new XElement("property", new XAttribute("name", "spacing"), new XText("5"))
         );
-        if (source.Name == gc.ns + "VBox")
+        if (source.Name == gc.Ns + "VBox")
           e0.Add(new XElement("property", new XAttribute("name", "orientation"), new XText("vertical")));
         //     children = false;
         var nr = 1;
@@ -860,18 +858,18 @@ namespace CSBP.Forms.{unit.ToUpper()}
         // private Button {idb};");
         //       nr++;
         //     }
-        var togglegroup = source.Descendants(gc.ns + "ToggleGroup")
-                                .FirstOrDefault(a => a.Parent.Name == gc.fxns + "define");
-        var tg = togglegroup == null ? null : (togglegroup.Attributes().FirstOrDefault(a => a.Name == gc.fxns + "id")?.Value ?? $"tg{id}");
+        var togglegroup = source.Descendants(gc.Ns + "ToggleGroup")
+                                .FirstOrDefault(a => a.Parent.Name == gc.Fxns + "define");
+        var tg = togglegroup == null ? null : (togglegroup.Attributes().FirstOrDefault(a => a.Name == gc.Fxns + "id")?.Value ?? $"tg{id}");
         if (tg != null)
         {
           children = false;
-          var rbs = source.Descendants(gc.ns + "RadioButton");
+          var rbs = source.Descendants(gc.Ns + "RadioButton");
           foreach (var rb in rbs)
           {
-            var text = rb.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.fileshort}.{tg}{nr}";
-            text = text.StartsWith("%", StringComparison.CurrentCulture) ? text.Substring(1) : text;
-            gc.ms.Append($@"
+            var text = rb.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.Fileshort}.{tg}{nr}";
+            text = text.StartsWith("%", StringComparison.CurrentCulture) ? text[1..] : text;
+            gc.Ms.Append($@"
     <data name=""{text}"" xml:space=""preserve"">
         <value>{text}</value>
     </data>").Append($@"
@@ -896,7 +894,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
               )
             );
             // if (nr == 0)
-            gc.member.Append($@"
+            gc.Member.Append($@"
 
     /// <summary>RadioButton {tg}{nr}.</summary>
     [Builder.Object]
@@ -906,11 +904,11 @@ namespace CSBP.Forms.{unit.ToUpper()}
           }
         }
       }
-      else if (source.Name == gc.ns + "GridPane")
+      else if (source.Name == gc.Ns + "GridPane")
       {
         if (depth <= 0)
           addchild = false;
-        e0 = new XElement("object", new XAttribute("class", "GtkGrid"), new XAttribute("id", depth <= 0 ? gc.filenew : id),
+        e0 = new XElement("object", new XAttribute("class", "GtkGrid"), new XAttribute("id", depth <= 0 ? gc.Filenew : id),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
           new XElement("property", new XAttribute("name", "can_focus"), new XText("False")),
           new XElement("property", new XAttribute("name", "margin_left"), new XText("5")),
@@ -924,14 +922,14 @@ namespace CSBP.Forms.{unit.ToUpper()}
         );
         //yexpand = true;
       }
-      else if (source.Name == gc.ns + "TableView" || source.Name == gc.ns + "ListView")
+      else if (source.Name == gc.Ns + "TableView" || source.Name == gc.Ns + "ListView")
       {
-        gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}.tt"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.tt</value>
+        gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}.tt"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.tt</value>
     </data>").Append($@"
-    <data name=""{gc.fileshort}.{id}.columns"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.columns;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    <data name=""{gc.Fileshort}.{id}.columns"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.columns;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>");
         e0 = new XElement("object", new XAttribute("class", "GtkScrolledWindow"), new XAttribute("id", $"{id}sw"),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
@@ -943,16 +941,16 @@ namespace CSBP.Forms.{unit.ToUpper()}
             new XElement("object", new XAttribute("class", "GtkTreeView"), new XAttribute("id", id),
             new XElement("property", new XAttribute("name", "visible"), new XText("True")),
             new XElement("property", new XAttribute("name", "can_focus"), new XText("True")),
-            new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.fileshort}.{id}.tt")),
+            new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.Fileshort}.{id}.tt")),
             new XElement("signal", new XAttribute("name", "row-activated"), new XAttribute("handler", $"On{id.ToFirstUpper()}RowActivated"), new XAttribute("swapped", "no"))
           ))
         );
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>TreeView {id}.</summary>
     [Builder.Object]
     private TreeView {id};");
-        gc.events.Append($@"
+        gc.Events.Append($@"
 
     /// <summary>Behandlung von {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
@@ -962,10 +960,10 @@ namespace CSBP.Forms.{unit.ToUpper()}
     }}");
         //yexpand = true;
       }
-      else if (source.Name == gc.ns + "ToolBar")
+      else if (source.Name == gc.Ns + "ToolBar")
       {
-        var tbbuttons = source.Descendants(gc.ns + "Button")
-            .Where(a => a.Parent.Name == gc.ns + "items" && a.Parent.Parent.Name == gc.ns + "ToolBar")
+        var tbbuttons = source.Descendants(gc.Ns + "Button")
+            .Where(a => a.Parent.Name == gc.Ns + "items" && a.Parent.Parent.Name == gc.Ns + "ToolBar")
             .ToList();
         e0 = new XElement("object", new XAttribute("class", "GtkActionBar"), new XAttribute("id", id),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
@@ -975,7 +973,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
         var nr = 0;
         foreach (XElement b in tbbuttons)
         {
-          var a = b.Attribute(gc.fxns + "id");
+          var a = b.Attribute(gc.Fxns + "id");
           var name = GetToolItemName(a);
           if (name != null)
           {
@@ -994,12 +992,12 @@ namespace CSBP.Forms.{unit.ToUpper()}
                 new XElement("property", new XAttribute("name", "position"), new XText(nr.ToString()))
               )
             ));
-            gc.member.Append($@"
+            gc.Member.Append($@"
 
     /// <summary>Button {name.ToFirstUpper()}Action.</summary>
     [Builder.Object]
     private Button {name}Action;");
-            gc.events.Append($@"
+            gc.Events.Append($@"
 
     /// <summary>Behandlung von {name.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
@@ -1011,7 +1009,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
           nr++;
         }
       }
-      else if (source.Name == gc.ns + "SplitPane")
+      else if (source.Name == gc.Ns + "SplitPane")
       {
         source = source.FirstNode as XElement;
         e0 = new XElement("object", new XAttribute("class", "GtkPaned"), new XAttribute("id", id),
@@ -1020,30 +1018,30 @@ namespace CSBP.Forms.{unit.ToUpper()}
           new XElement("property", new XAttribute("name", "orientation"), new XText("vertical")),
           new XElement("property", new XAttribute("name", "position"), new XText("50"))
         );
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>Paned {id}.</summary>
     [Builder.Object]
     private Paned {id};");
       }
-      else if (source.Name == gc.ns + "AnchorPane")
+      else if (source.Name == gc.Ns + "AnchorPane")
       {
         var node = (source.FirstNode as XElement).FirstNode as XElement;
         AddElement(gc, node, target, depth + 1);
       }
-      else if (source.Name == gc.ns + "Datum")
+      else if (source.Name == gc.Ns + "Datum")
       {
-        gc.ms.Append($@"
-    <data name=""{gc.fileshort}.{id}.tt"" xml:space=""preserve"">
-        <value>{gc.fileshort}.{id}.tt</value>
+        gc.Ms.Append($@"
+    <data name=""{gc.Fileshort}.{id}.tt"" xml:space=""preserve"">
+        <value>{gc.Fileshort}.{id}.tt</value>
     </data>");
-        var prompttext = $"{gc.fileshort}.{id}.tt";
+        var prompttext = $"{gc.Fileshort}.{id}.tt";
         e0 = new XElement("object", new XAttribute("class", "GtkGrid"), new XAttribute("id", id),
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
           new XElement("property", new XAttribute("name", "can_focus"), new XText("False")),
           new XElement("property", new XAttribute("name", "visible"), new XText("True"))
         );
-        gc.init.Append($@"
+        gc.Init.Append($@"
       {id} = new Date(Builder.GetObject(""{id}"").Handle)
       {{
         IsNullable = false,
@@ -1052,7 +1050,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
       }};
       {id}.DateChanged += On{id.ToFirstUpper()}DateChanged;
       {id}.Show();");
-        gc.events.Append($@"
+        gc.Events.Append($@"
 
     /// <summary>Behandlung von {id}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
@@ -1060,7 +1058,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
     protected void On{id.ToFirstUpper()}DateChanged(object sender, DateChangedEventArgs e)
     {{
     }}");
-        gc.member.Append($@"
+        gc.Member.Append($@"
 
     /// <summary>Date {id.ToFirstUpper()}.</summary>
     //[Builder.Object]
@@ -1101,7 +1099,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
         }
         if (children)
         {
-          foreach (XElement node in source.Nodes())
+          foreach (var node in source.Nodes().Cast<XElement>())
           {
             AddElement(gc, node, e0, depth + 1);
           }
@@ -1172,7 +1170,7 @@ namespace {ns}
     public void Tls()
     {
       // var cert = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "", X509KeyStorageFlags.MachineKeySet);
-      var cert = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
+      _ = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
       // var date = DateTime.Today;
       // var shortcut = "USD";
       // var accesskey = "4b1846822a23c8e9d4ad08c0e30f28f4";
@@ -1180,8 +1178,9 @@ namespace {ns}
       var url = "http://data.fixer.io/api/2020-10-01?symbols=USD&access_key=4b1846822a23c8e9d4ad08c0e30f28f4";
       // var url = "https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation=295567847&datetimeTzStartRange=24.09.2020&timeSpan=7D&codeResolution=1D";
       System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-      var httpsclient = new System.Net.Http.HttpClient();
-      httpsclient.Timeout = TimeSpan.FromMilliseconds(5000);
+      var httpsclient = new System.Net.Http.HttpClient {
+        Timeout = TimeSpan.FromMilliseconds(5000)
+      };
       // httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
       if (Functions.MachNichts() == 0)
       {
@@ -1191,7 +1190,7 @@ namespace {ns}
         // httpsclient.Timeout = TimeSpan.FromMilliseconds(10000);
         httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
         var wr = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
-        var s = httpsclient.Send(wr);
+        _ = httpsclient.Send(wr);
       }
       else
       {
@@ -1204,12 +1203,13 @@ namespace {ns}
     [Test]
     public void Serialize()
     {
-      var l = new List<BackupEntry>();
-      l.Add(new BackupEntry { Uid = "abc" });
+      var l = new List<BackupEntry> {
+        new BackupEntry { Uid = "abc" }
+      };
       var bytes = Functions.Serialize(l);
       var v = Convert.ToBase64String(bytes);
       var bytes2 = Convert.FromBase64String(v);
-      var l2 = Functions.Deserialize<List<BackupEntry>>(bytes2);
+      _ = Functions.Deserialize<List<BackupEntry>>(bytes2);
     }
   }
 }

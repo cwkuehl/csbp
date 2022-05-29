@@ -16,22 +16,22 @@ namespace CSBP.Base
     public const decimal EUROFAKTOR = 1.95583m;
 
     /// <summary>Einstellung: DB_INIT.</summary>
-    public static string EINST_DB_INIT = "DB_INIT";
+    public const string EINST_DB_INIT = "DB_INIT";
     /// <summary>Einstellung: DB_VERSION.</summary>
-    public static string EINST_DB_VERSION = "DB_VERSION";
+    public const string EINST_DB_VERSION = "DB_VERSION";
     /// <summary>Einstellung: DATENBANK.</summary>
-    public static string EINST_DATENBANK = "DATENBANK";
+    public const string EINST_DATENBANK = "DATENBANK";
     /// <summary>Mandant-Einstellung: REPLIKATION_UID.</summary>
-    public static string EINST_MA_REPLIKATION_UID = "REPLIKATION_UID";
+    public const string EINST_MA_REPLIKATION_UID = "REPLIKATION_UID";
     /// <summary>Mandant-Einstellung: REPLIKATION_BEGINN.</summary>
-    public static string EINST_MA_REPLIKATION_BEGINN = "REPLIKATION_BEGINN";
+    public const string EINST_MA_REPLIKATION_BEGINN = "REPLIKATION_BEGINN";
     /// <summary>Mandant-Einstellung: OHNE_ANMELDUNG.</summary>
-    public static string EINST_MA_OHNE_ANMELDUNG = "OHNE_ANMELDUNG";
+    public const string EINST_MA_OHNE_ANMELDUNG = "OHNE_ANMELDUNG";
     /// <summary>Mandant-Einstellung: EXAMPLES.</summary>
-    public static string EINST_MA_EXAMPLES = "EXAMPLES";
+    public const string EINST_MA_EXAMPLES = "EXAMPLES";
 
     /// <summary>Zeilenumbruch bei Windows.</summary>
-    public static string CRLF = "\r\n";
+    public const string CRLF = "\r\n";
 
     /// <summary>Halbes Jahr in Tagen.</summary>
     public const int STOCK_DAYS = 183;

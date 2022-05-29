@@ -117,24 +117,24 @@ namespace CSBP.Apis.Models
     protected override string GetExtension()
     {
       var sb = new StringBuilder();
-      sb.Append(ToString(Payment, 2)).Append(";");
-      sb.Append(ToString(Shares, 5)).Append(";");
-      sb.Append(ToString(ShareValue, 4)).Append(";");
-      sb.Append(ToString(Interest, 2)).Append(";");
-      sb.Append(ToString(Price, 4)).Append(";");
-      sb.Append(ToString(PriceDate)).Append(";");
-      sb.Append(ToString(Value, 2)).Append(";");
-      sb.Append(ToString(Profit, 2)).Append(";");
-      sb.Append(ToString(ProfitPercent, 2)).Append(";");
-      sb.Append(ToString(Currency)).Append(";");
-      sb.Append(ToString(CurrencyPrice, 4)).Append(";");
-      sb.Append(ToString(MinDate)).Append(";");
-      sb.Append(ToString(State)).Append(";");
-      sb.Append(ToString(PriceDate2)).Append(";");
-      sb.Append(ToString(Value2, 4)).Append(";");
-      sb.Append(ToString(PortfolioAccountUid)).Append(";");
-      sb.Append(ToString(SettlementAccountUid)).Append(";");
-      sb.Append(ToString(IncomeAccountUid)).Append(";");
+      sb.Append(ToString(Payment, 2)).Append(';');
+      sb.Append(ToString(Shares, 5)).Append(';');
+      sb.Append(ToString(ShareValue, 4)).Append(';');
+      sb.Append(ToString(Interest, 2)).Append(';');
+      sb.Append(ToString(Price, 4)).Append(';');
+      sb.Append(ToString(PriceDate)).Append(';');
+      sb.Append(ToString(Value, 2)).Append(';');
+      sb.Append(ToString(Profit, 2)).Append(';');
+      sb.Append(ToString(ProfitPercent, 2)).Append(';');
+      sb.Append(ToString(Currency)).Append(';');
+      sb.Append(ToString(CurrencyPrice, 4)).Append(';');
+      sb.Append(ToString(MinDate)).Append(';');
+      sb.Append(ToString(State)).Append(';');
+      sb.Append(ToString(PriceDate2)).Append(';');
+      sb.Append(ToString(Value2, 4)).Append(';');
+      sb.Append(ToString(PortfolioAccountUid)).Append(';');
+      sb.Append(ToString(SettlementAccountUid)).Append(';');
+      sb.Append(ToString(IncomeAccountUid)).Append(';');
       return sb.ToString();
     }
 

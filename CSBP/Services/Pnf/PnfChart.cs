@@ -24,7 +24,7 @@ namespace CSBP.Services.Pnf
     private string bezeichnung = null;
     private int methode;
     private decimal box;
-    private List<SoKurse> kurse = new List<SoKurse>();
+    private readonly List<SoKurse> kurse = new();
     /// <summary>Box Skalierung. 0: feste Boxgröße; 1: prozentual; 2: dynamisch.</summary>
     private int skala = 1;
     /// <summary>Anzahl der Umkehr-Boxen.</summary>
@@ -32,7 +32,7 @@ namespace CSBP.Services.Pnf
     /// <summary>Handelt es sich um eine Relation?</summary>
     private bool relativ = false;
     /// <summary>Anzahl der Tage.</summary>
-    private int dauer = 0;
+    private readonly int dauer = 0;
     /// <summary>Boxbezeichnung.</summary>
     private decimal bb = 0;
     /// <summary>Aktueller Kurs.</summary>
@@ -46,15 +46,15 @@ namespace CSBP.Services.Pnf
     /// <summary>Boxtyp: 0 unbestimmt; 1 aufwärts (X); 2 abwärts (O).</summary>
     private int boxtyp = 0;
     /// <summary>Liste der Säulen.</summary>
-    private List<PnfColumn> saeulen = new List<PnfColumn>();
+    private readonly List<PnfColumn> saeulen = new();
     /// <summary>Aktuelle Säule.</summary>
     private PnfColumn saeule = null;
     /// <summary>Liste der Werte.</summary>
-    private List<decimal> werte = new List<decimal>();
+    private readonly List<decimal> werte = new();
     /// <summary>Liste der Trendlinien.</summary>
-    private List<PnfTrend> trends = new List<PnfTrend>();
+    private readonly List<PnfTrend> trends = new();
     /// <summary>Liste der Muster.</summary>
-    private List<PnfPattern> pattern = new List<PnfPattern>();
+    private readonly List<PnfPattern> pattern = new();
     /// <summary>Zielkurs.</summary>
     private decimal ziel = 0;
     /// <summary>Stopkurs.</summary>
@@ -62,7 +62,7 @@ namespace CSBP.Services.Pnf
     /// <summary>Trend.</summary>
     private decimal trend = 0;
     /// <summary>Zur Bestimmung des Monatzeichens.</summary>
-    private PnfDate datumm = new PnfDate();
+    private readonly PnfDate datumm = new();
 
     public PnfChart(int method, decimal box, int scale, int reversal, string desc)
     {
@@ -89,8 +89,8 @@ namespace CSBP.Services.Pnf
       {
         kurs = liste.Last().Close; // letzter Kurs
         var datum = liste.Last().Datum;
-        var k1 = liste[liste.Count - 2].Close; // vorletzter Kurs
-        var p = PnfPattern.getMusterKurse(this, datum, kurs, k1, ziel, ziel);
+        var k1 = liste[^2].Close; // vorletzter Kurs
+        var p = PnfPattern.GetMusterKurse(this, datum, kurs, k1, ziel, ziel);
         if (p != null)
         {
           pattern.Add(p);
@@ -118,7 +118,7 @@ namespace CSBP.Services.Pnf
 
       werte.Clear();
       saeulen.ForEach(a => a.Ypos = 0);
-      while (Functions.compDouble4(m, max) <= 0 && saeulen.Count > 0)
+      while (Functions.CompDouble4(m, max) <= 0 && saeulen.Count > 0)
       {
         werte.Add(m);
         anzahl++;
@@ -126,7 +126,7 @@ namespace CSBP.Services.Pnf
         var fanzahl = anzahl;
         saeulen.ForEach(a =>
         {
-          if (a.Ypos == 0 && Functions.compDouble4(a.Min, fm) == 0)
+          if (a.Ypos == 0 && Functions.CompDouble4(a.Min, fm) == 0)
           {
             if (a.IsO)
             {
@@ -140,7 +140,7 @@ namespace CSBP.Services.Pnf
         });
         pattern.ForEach(a =>
         {
-          if (a.Ypos == 0 && Functions.compDouble4(a.Wert, fm) == 0)
+          if (a.Ypos == 0 && Functions.CompDouble4(a.Wert, fm) == 0)
           {
             if (a.IsO)
             {
@@ -165,7 +165,7 @@ namespace CSBP.Services.Pnf
         xstop = saeulen.Count - 1;
         tief = saeulen.Last();
       }
-      else if (saeulen.Count > 2 && saeulen[saeulen.Count - 2].IsO)
+      else if (saeulen.Count > 2 && saeulen[^2].IsO)
       {
         xstop = saeulen.Count - 2;
         tief = saeulen[xstop];
@@ -177,13 +177,13 @@ namespace CSBP.Services.Pnf
         int y = 0;
         for (int i = 0; i < posmax; i++)
         {
-          if (Functions.compDouble4(stop, werte[i]) <= 0)
+          if (Functions.CompDouble4(stop, werte[i]) <= 0)
           {
             y = i;
             break;
           }
         }
-        PnfTrend ts = new PnfTrend(xstop, y, 0);
+        var ts = new PnfTrend(xstop, y, 0);
         trends.Add(ts);
       }
 
@@ -195,15 +195,15 @@ namespace CSBP.Services.Pnf
         {
           // Trendlinien-Durchbrüche bestimmen
           kurs = kurse.Last().Close; // letzter Kurs
-          var k1 = kurse[kurse.Count - 2].Close; // vorletzter Kurs
+          var k1 = kurse[^2].Close; // vorletzter Kurs
           var datum = kurse.Last().Datum;
-          PnfPattern p = PnfPattern.getMusterTrend(this, datum, kurs, k1);
+          PnfPattern p = PnfPattern.GetMusterTrend(this, datum, kurs, k1);
           if (p != null)
           {
             pattern.Add(p);
             for (int i = 0; i < posmax; i++)
             {
-              if (Functions.compDouble4(p.Wert, werte[i]) == 0)
+              if (Functions.CompDouble4(p.Wert, werte[i]) == 0)
               {
                 if (p.IsO)
                 {
@@ -233,7 +233,7 @@ namespace CSBP.Services.Pnf
           int yakt = -1;
           while (j >= 0 && (auf == null || ab == null))
           {
-            PnfTrend x = l[j];
+            var x = l[j];
             if (x.Xpos + x.Laenge >= anzahls)
             {
               // bis zum Ende
@@ -250,13 +250,13 @@ namespace CSBP.Services.Pnf
             }
             j--;
           }
-          if (Functions.compDouble4(akt, 0) > 0)
+          if (Functions.CompDouble4(akt, 0) > 0)
           {
             var d = Max + 1;
             var yanzahl = Werte.Count;
             for (int i = 0; i < yanzahl; i++)
             {
-              if (Functions.compDouble4(Werte[i], d) < 0 && Functions.compDouble4(Werte[i],
+              if (Functions.CompDouble4(Werte[i], d) < 0 && Functions.CompDouble4(Werte[i],
                       akt) > 0)
               {
                 d = Werte[i];
@@ -312,22 +312,22 @@ namespace CSBP.Services.Pnf
       {
         return;
       }
-      if (methode == 1 && Functions.compDouble4(k0.Close, 0) <= 0)
+      if (methode == 1 && Functions.CompDouble4(k0.Close, 0) <= 0)
       {
         throw new MessageException(WP031);
       }
-      else if ((methode == 2 || methode == 3) && (Functions.compDouble4(k0.High, 0) <= 0 || Functions.compDouble4(k0
+      else if ((methode == 2 || methode == 3) && (Functions.CompDouble4(k0.High, 0) <= 0 || Functions.CompDouble4(k0
             .Low, 0) <= 0))
       {
         throw new MessageException(WP032);
       }
-      else if (methode == 4 && (Functions.compDouble4(k0.Open, 0) <= 0 || Functions.compDouble4(k0.High, 0) <= 0
-            || Functions.compDouble4(k0.Low, 0) <= 0 || Functions.compDouble4(k0.Close, 0) <= 0))
+      else if (methode == 4 && (Functions.CompDouble4(k0.Open, 0) <= 0 || Functions.CompDouble4(k0.High, 0) <= 0
+            || Functions.CompDouble4(k0.Low, 0) <= 0 || Functions.CompDouble4(k0.Close, 0) <= 0))
       {
         throw new MessageException(WP033);
       }
-      else if (methode == 5 && (Functions.compDouble4(k0.High, 0) <= 0 || Functions.compDouble4(k0.Low, 0) <= 0
-            || Functions.compDouble4(k0.Close, 0) <= 0))
+      else if (methode == 5 && (Functions.CompDouble4(k0.High, 0) <= 0 || Functions.CompDouble4(k0.Low, 0) <= 0
+            || Functions.CompDouble4(k0.Close, 0) <= 0))
       {
         throw new MessageException(WP034);
       }
@@ -356,33 +356,33 @@ namespace CSBP.Services.Pnf
       else if (methode == 4)
       {
         // OHLC-Methode
-        bool ohlc = false; // ohlc (true) oder olhc (false)
-        if (Functions.compDouble4(k0.Close, k0.Open) > 0)
+        bool ohlc;
+        if (Functions.CompDouble4(k0.Close, k0.Open) > 0)
         {
           ohlc = false;
         }
-        else if (Functions.compDouble4(k0.Close, k0.Open) < 0)
+        else if (Functions.CompDouble4(k0.Close, k0.Open) < 0)
         {
           ohlc = true;
         }
         else
         {
-          if (Functions.compDouble4(k0.Close, k0.Low) == 0)
+          if (Functions.CompDouble4(k0.Close, k0.Low) == 0)
           {
             ohlc = true;
           }
-          else if (Functions.compDouble4(k0.Close, k0.High) == 0)
+          else if (Functions.CompDouble4(k0.Close, k0.High) == 0)
           {
             ohlc = false;
           }
           else
           {
             var m = (k0.High + k0.Low) / 2;
-            if (Functions.compDouble4(k0.Close, m) < 0)
+            if (Functions.CompDouble4(k0.Close, m) < 0)
             {
               ohlc = true;
             }
-            else if (Functions.compDouble4(k0.Close, m) > 0)
+            else if (Functions.CompDouble4(k0.Close, m) > 0)
             {
               ohlc = false;
             }
@@ -396,8 +396,7 @@ namespace CSBP.Services.Pnf
             }
           }
         }
-        int neu2 = 0;
-        neu2 = Basisalgorithmus(k0.Open, k0.Datum);
+        var neu2 = Basisalgorithmus(k0.Open, k0.Datum);
         if (neu2 != 0)
         {
           neu = neu2;
@@ -449,7 +448,7 @@ namespace CSBP.Services.Pnf
       max = Math.Max(max, k);
       if (neu != 0)
       {
-        var p = PnfPattern.getMuster(this, k0.Datum, 20);
+        var p = PnfPattern.GetMuster(this, k0.Datum, 20);
         if (p != null)
         {
           pattern.Add(p);
@@ -464,7 +463,7 @@ namespace CSBP.Services.Pnf
     public int Basisalgorithmus(decimal k, DateTime datum)
     {
       int neu = 0;
-      datumm.setDatum(datum);
+      datumm.SetDatum(datum);
 
       if (boxtyp == 0)
       {
@@ -518,7 +517,7 @@ namespace CSBP.Services.Pnf
             bbx = NextBox(bb);
           }
         }
-        neu = Functions.compDouble4(m, saeule.Max) != 0 ? 1 : 0;
+        neu = Functions.CompDouble4(m, saeule.Max) != 0 ? 1 : 0;
         var bbu = PrevBoxUmkehr(bb, umkehr);
         if (k <= bbu)
         {
@@ -564,7 +563,7 @@ namespace CSBP.Services.Pnf
             bbo = PrevBox(bb);
           }
         }
-        neu = Functions.compDouble4(m, saeule.Min) != 0 ? 1 : 0;
+        neu = Functions.CompDouble4(m, saeule.Min) != 0 ? 1 : 0;
         var bbu = NextBoxUmkehr(bb, umkehr);
         if (k >= bbu)
         {
@@ -781,18 +780,16 @@ namespace CSBP.Services.Pnf
       }
       PnfColumn c = saeulen[ab];
       PnfColumn c2 = saeulen[ab + 1];
-      PnfTrend t = null; // letzter Trend
-      bool aufwaerts = false;
-      int ende = 2;
-      int i = 0;
-      bool aufende = false;
-      bool abende = false;
-      int maxi = 99;
-      int xminab = ab;
-      int xminauf = ab;
+      var ende = 2;
+      var aufende = false;
+      var abende = false;
+      var maxi = 99;
+      var xminab = ab;
+      var xminauf = ab;
 
       // 1. Trendlinie
-      aufwaerts = c.IsO && !c2.IsO;
+      bool aufwaerts = c.IsO && !c2.IsO;
+      PnfTrend t;
       if (aufwaerts)
       {
         t = new PnfTrend(ab + 1, c.Ypos - 1, aufwaerts ? 1 : 2);
@@ -819,7 +816,7 @@ namespace CSBP.Services.Pnf
 
       while (ende > 0)
       {
-        i = Math.Min(anzahl - 1, t.Xpos + t.Laenge);
+        int i = Math.Min(anzahl - 1, t.Xpos + t.Laenge);
         if (aufwaerts)
         {
           // Säule mit höchsten X des vorherigen Abwärtstrends finden.
@@ -840,7 +837,7 @@ namespace CSBP.Services.Pnf
             if (c0 >= 0)
             {
               c = saeulen[c0];
-              PnfTrend t0 = new PnfTrend(c0 + 1, c.Ytop, aufwaerts ? 2 : 1);
+              var t0 = new PnfTrend(c0 + 1, c.Ytop, aufwaerts ? 2 : 1);
               BerechneLaenge(t0, anzahl);
               if (i <= t0.Xpos + t0.Laenge && t0.Laenge > 1)
               {
@@ -909,7 +906,7 @@ namespace CSBP.Services.Pnf
             if (c0 >= 0)
             {
               c = saeulen[c0];
-              PnfTrend t0 = new PnfTrend(c0 + 1, c.Ypos - 1, aufwaerts ? 2 : 1);
+              var t0 = new PnfTrend(c0 + 1, c.Ypos - 1, aufwaerts ? 2 : 1);
               BerechneLaenge(t0, anzahl);
               if (i <= t0.Xpos + t0.Laenge && t0.Laenge > 1)
               {
@@ -971,11 +968,9 @@ namespace CSBP.Services.Pnf
       int grenze = t.Ypos;
       int d = aufwaerts ? 1 : -1;
       bool bruch = false;
-      PnfColumn c = null;
-
       for (int i = t.Xpos; i < anzahl; i++)
       {
-        c = saeulen[i];
+        var c = saeulen[i];
         if (aufwaerts && c.IsO)
         {
           if (c.Ypos <= grenze)
@@ -994,13 +989,13 @@ namespace CSBP.Services.Pnf
         {
           break;
         }
-        t.setLaenge(t.Laenge + 1);
+        t.SetLaenge(t.Laenge + 1);
         grenze += d;
       }
     }
 
     public static string GetBezeichnung(string bezeichnung, decimal box, int skala, int umkehr, int methode,
-            bool relativ, int dauer, List<SoKurse> kurse, decimal min, decimal max)
+      bool relativ, int dauer)
     {
       var sb = new StringBuilder();
       if (!string.IsNullOrEmpty(bezeichnung))
@@ -1009,14 +1004,14 @@ namespace CSBP.Services.Pnf
       }
       if (sb.Length > 0)
       {
-        sb.Append(" ");
+        sb.Append(' ');
       }
-      sb.Append("(").Append(M0(WP035));
-      if (Functions.compDouble(box, 0) > 0)
+      sb.Append('(').Append(M0(WP035));
+      if (Functions.CompDouble(box, 0) > 0)
       {
-        sb.Append(" ").Append(Functions.ToString(box));
+        sb.Append(' ').Append(Functions.ToString(box));
       }
-      sb.Append(" ");
+      sb.Append(' ');
       if (skala == 0)
       {
         sb.Append(Enum_scale_fix);
@@ -1058,19 +1053,19 @@ namespace CSBP.Services.Pnf
       }
       if (relativ)
       {
-        sb.Append(" ").Append(M0(WP045));
+        sb.Append(' ').Append(M0(WP045));
       }
       if (dauer > 0)
       {
         sb.Append(", ").Append(WP046(dauer));
       }
-      sb.Append(")");
+      sb.Append(')');
       return sb.ToString();
     }
 
     public string Bezeichnung
     {
-      get { return GetBezeichnung(bezeichnung, box, skala, umkehr, methode, relativ, dauer, kurse, min, max); }
+      get { return GetBezeichnung(bezeichnung, box, skala, umkehr, methode, relativ, dauer); }
       set { this.bezeichnung = value; }
     }
 
@@ -1080,12 +1075,12 @@ namespace CSBP.Services.Pnf
       if (kurse.Any())
       {
         DateTime von = kurse[0].Datum;
-        DateTime bis = kurse[kurse.Count - 1].Datum;
+        DateTime bis = kurse[^1].Datum;
         sb.Append(WP047(von, bis, true));
         sb.Append(" O:").Append(Functions.ToString(Functions.Round(kurse[0].Close), 2));
         sb.Append(" H:").Append(Functions.ToString(Functions.Round(max), 2));
         sb.Append(" L:").Append(Functions.ToString(Functions.Round(min), 2));
-        sb.Append(" C:").Append(Functions.ToString(Functions.Round(kurse[kurse.Count - 1].Close), 2));
+        sb.Append(" C:").Append(Functions.ToString(Functions.Round(kurse[^1].Close), 2));
       }
       return sb.ToString();
     }
@@ -1110,7 +1105,7 @@ namespace CSBP.Services.Pnf
       get { return box; }
       set
       {
-        if (Functions.compDouble4(value, 0) > 0)
+        if (Functions.CompDouble4(value, 0) > 0)
         {
           this.box = value;
         }

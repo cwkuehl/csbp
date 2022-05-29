@@ -22,12 +22,12 @@ namespace CSBP.Services.Pnf
     /// <summary>Aktuell zu schreibender Monat.</summary>
     private int monat = 0;
 
-    public DateTime? getDatum()
+    public DateTime? GetDatum()
     {
       return datum;
     }
 
-    public void setDatum(DateTime? datum)
+    public void SetDatum(DateTime? datum)
     {
       this.datum = datum;
       monat = 0;
@@ -40,7 +40,7 @@ namespace CSBP.Services.Pnf
       }
     }
 
-    public char getNeuerMonat(char c)
+    public char GetNeuerMonat(char c)
     {
       if (monat > 0)
       {
@@ -53,7 +53,7 @@ namespace CSBP.Services.Pnf
       return c;
     }
 
-    public void setMonatVerwendet()
+    public void SetMonatVerwendet()
     {
       if (datum.HasValue)
       {

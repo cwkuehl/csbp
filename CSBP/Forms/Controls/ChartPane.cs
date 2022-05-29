@@ -3,10 +3,10 @@
 // </copyright>
 
 using System;
-using Gdk;
+using Cairo;
 using CSBP.Base;
 using CSBP.Services.Pnf;
-using Cairo;
+using Gdk;
 // using Pango;
 
 namespace CSBP.Forms.Controls
@@ -143,13 +143,13 @@ namespace CSBP.Forms.Controls
       var aktkurs = c.Kurs;
       var iakt = -1;
       var yakt = -1m;
-      if (Functions.compDouble4(aktkurs, 0) > 0)
+      if (Functions.CompDouble4(aktkurs, 0) > 0)
       {
         var d = c.Max + 1;
         for (int i = 0; i < yanzahl; i++)
         {
-          if (Functions.compDouble4(c.Werte[i], d) < 0
-                  && Functions.compDouble4(c.Werte[i], aktkurs) > 0)
+          if (Functions.CompDouble4(c.Werte[i], d) < 0
+                  && Functions.CompDouble4(c.Werte[i], aktkurs) > 0)
           {
             d = c.Werte[i];
             iakt = i;

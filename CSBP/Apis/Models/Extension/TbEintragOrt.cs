@@ -38,7 +38,7 @@ namespace CSBP.Apis.Models
     /// <returns>Hash-Wert des Datensatzes.</returns>
     public string Hash()
     {
-      return $"{Ort_Uid ?? ""}#{Datum_Von.ToString()}#{Datum_Bis.ToString()}";
+      return $"{Ort_Uid ?? ""}#{Datum_Von}#{Datum_Bis}";
     }
   }
 }

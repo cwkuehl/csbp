@@ -498,8 +498,8 @@ namespace CSBP.Forms.WP
       var p = Functions.ToDecimal(betrag.Text);
       var s = Functions.ToDecimal(anteile.Text);
       var z = Functions.ToDecimal(zinsen.Text) ?? 0;
-      preis2.Text = Functions.ToString(Functions.compDouble4(p, 0) == 0
-        || Functions.compDouble4(s, 0) == 0 ? null : p / s, 6);
+      preis2.Text = Functions.ToString(Functions.CompDouble4(p, 0) == 0
+        || Functions.CompDouble4(s, 0) == 0 ? null : p / s, 6);
       if (string.IsNullOrEmpty(hhbuchung.Text))
       {
         if (z == 0)

@@ -8,21 +8,16 @@ namespace CSBP.Base
 
   public class Message
   {
-    string Number { get; set; }
+    /// <summary>Get the message number.</summary>
+    public string Number { get; private set; }
 
-    /// <summary>
-    /// Holt den Meldungstext.
-    /// </summary>
+    /// <summary>Get the message text.</summary>
     public string Text { get; private set; }
 
-    /// <summary>
-    /// Holt die Meldungsparameter.
-    /// </summary>
+    /// <summary>Get the message parameter.</summary>
     public object[] Parameter { get; private set; }
 
-    /// <summary>
-    /// Holt den zusammengesetzten Meldungstext aus Text und Parametern.
-    /// </summary>
+    /// <summary>Get the message with text and parameters.</summary>
     public string MessageText
     {
       get
@@ -66,8 +61,8 @@ namespace CSBP.Base
       }
       else
       {
-        Number = m.Substring(0, 5).Trim();
-        Text = m.Substring(5);
+        Number = m[..5].Trim();
+        Text = m[5..];
       }
       Parameter = parameter;
     }
@@ -80,7 +75,7 @@ namespace CSBP.Base
     public Message Postfix(string postfix)
     {
       if (!string.IsNullOrEmpty(postfix))
-        Text = Text + postfix;
+        Text += postfix;
       return this;
     }
 

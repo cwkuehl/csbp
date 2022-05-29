@@ -22,10 +22,7 @@ namespace CSBP.Base
 
     public override string Message
     {
-      get
-      {
-        return message.Text;
-      }
+      get { return message.Text; }
     }
 
     public Message GetMessage()

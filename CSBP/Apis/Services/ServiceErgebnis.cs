@@ -80,7 +80,7 @@ namespace CSBP.Apis.Services
     public S Get<S>(ServiceErgebnis<S> ergebnis)
     {
       if (ergebnis == null)
-        return default(S);
+        return default;
       AddMeldungen(ergebnis);
       return ergebnis.Ergebnis;
     }
@@ -183,7 +183,7 @@ namespace CSBP.Apis.Services
     public T Get(ServiceErgebnis<T> ergebnis)
     {
       if (ergebnis == null)
-        return default(T);
+        return default;
       AddMeldungen(ergebnis);
       return ergebnis.Ergebnis;
     }

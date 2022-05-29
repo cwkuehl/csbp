@@ -54,6 +54,8 @@ public static class Functions
   /// <returns>Zahl 0.</returns>
   public static int MachNichts(object obj = null)
   {
+    if (obj == null)
+      return 0;
     return 0;
   }
 
@@ -157,7 +159,7 @@ public static class Functions
     {
       return string.Empty;
     }
-    return char.ToUpper(s[0]) + s.Substring(1).ToLower();
+    return char.ToUpper(s[0]) + s[1..].ToLower();
   }
 
   /// <summary>
@@ -189,7 +191,7 @@ public static class Functions
     {
       return "";
     }
-    return s.Substring(0, Math.Min(l, s.Length));
+    return s[..Math.Min(l, s.Length)];
   }
 
   /// <summary>Zusammenbau eines Strings. Das Objekt wird immer zu dem StringBuffer hinzugefügt. Die Füll-Strings werden vor und
@@ -384,38 +386,6 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Decimal als String für TreeView.
-  /// </summary>
-  /// <param name="d">Betroffener Wert.</param>
-  /// <param name="digits">Number of digits to print.</param>
-  /// <param name="before">Number of figure before the decimal point to print.</param>
-  /// <returns>Decimal als String.</returns>
-  public static string ToStringTv(decimal? d, int digits = -1, int before = 6)
-  {
-    // if (digits < 0)
-    //   return ToString(d, digits);
-    // if (!d.HasValue)
-    //   return string.Empty;
-    // const string leer = "0000000000";
-    // var s = ToString(Math.Abs(d.Value), digits);
-    // s = string.Format("{0}{1}{2}", d.Value < 0 ? "-" : "", leer.Substring(s.Length - 3), s);
-    // return s;
-    if (!d.HasValue)
-      return string.Empty;
-    //var nfi = CultureInfo.NumberFormat; // new NumberFormatInfo();
-    // nfi.CurrencyDecimalDigits = 2;
-    //nfi.CurrencyNegativePattern = 1;
-    //nfi.CurrencySymbol = "";
-    //nfi.CurrencyPositivePattern
-    //nfi.NumberNegativePattern = 1;
-    //nfi.PositiveSign = "+";
-    //nfi.NegativeSign = "-";
-    var format = before < 0 ? "#,##0.00" : "+000,000.00;-000,000.00";
-    return d.Value.ToString(format, CultureInfo);
-    //return d.Value.ToString("C2", nfi);
-  }
-
-  /// <summary>
   /// Liefert Datum im Format yyyy-MM-dd als String.
   /// </summary>
   /// <param name="d">Betroffenes Datum.</param>
@@ -496,7 +466,7 @@ public static class Functions
     if (string.IsNullOrWhiteSpace(s))
       return null;
     if (s.EndsWith(".0"))
-      s = s.Substring(0, s.Length - 2);
+      s = s[..^2];
     if (!DateTime.TryParseExact(s, "yyyy-MM-d HH:mm:ss", null, DateTimeStyles.None, out var d))
       if (!DateTime.TryParseExact(s, "dd.MM.yyyy HH:mm:ss", null, DateTimeStyles.None, out d))
         if (!DateTime.TryParseExact(s, "yyyy-MM-d", null, DateTimeStyles.None, out d))
@@ -505,7 +475,7 @@ public static class Functions
     return d;
   }
 
-  private static readonly DateTime EpochStart = new DateTime(1970, 1, 1);
+  private static readonly DateTime EpochStart = new(1970, 1, 1);
 
   /// <summary>
   /// Liefert Epochen-Sekunden nach dem 1.1.1970 als DateTime.
@@ -645,8 +615,7 @@ public static class Functions
     {
       return 0;
     }
-    var m = 0;
-    m = 12 * von.Value.Year + von.Value.Month;
+    var m = 12 * von.Value.Year + von.Value.Month;
     var b = bis.Value.AddDays(1);
     m -= 12 * b.Year + b.Month;
     if (m < 0)
@@ -687,18 +656,16 @@ public static class Functions
 
   public static byte[] Serialize<T>(T obj)
   {
-    using (var memStream = new MemoryStream())
-    {
-      var binSerializer = new XmlSerializer(typeof(T));
-      binSerializer.Serialize(memStream, obj);
-      return memStream.ToArray();
-    }
+    using var memStream = new MemoryStream();
+    var binSerializer = new XmlSerializer(typeof(T));
+    binSerializer.Serialize(memStream, obj);
+    return memStream.ToArray();
   }
 
   public static T Deserialize<T>(byte[] serializedObj)
   {
-    T obj = default(T);
-    using (MemoryStream memStream = new MemoryStream(serializedObj))
+    T obj = default;
+    using (var memStream = new MemoryStream(serializedObj))
     {
       // var binSerializer = new BinaryFormatter();
       var binSerializer = new XmlSerializer(typeof(T));
@@ -717,7 +684,7 @@ public static class Functions
   {
     if (!string.IsNullOrEmpty(s) && !string.IsNullOrEmpty(begin)
             && s.StartsWith(begin, StringComparison.CurrentCultureIgnoreCase))
-      return s.Substring(begin.Length);
+      return s[begin.Length..];
     return s;
   }
 
@@ -730,7 +697,7 @@ public static class Functions
   public static string Cut(string s, int length)
   {
     if (!string.IsNullOrEmpty(s) && s.Length > length)
-      return s.Substring(0, length);
+      return s[..length];
     return s;
   }
 
@@ -954,7 +921,7 @@ public static class Functions
   /// <param name="d1">Erster Wert.</param>
   /// <param name="d2">Zweiter Wert.</param>
   /// <returns>-1, 0 oder 1.</returns>
-  public static int compDouble(decimal? d1, decimal? d2)
+  public static int CompDouble(decimal? d1, decimal? d2)
   {
     if (!d1.HasValue)
       return d2.HasValue ? -1 : 0;
@@ -974,7 +941,7 @@ public static class Functions
   /// <param name="d1">Erster Wert.</param>
   /// <param name="d2">Zweiter Wert.</param>
   /// <returns>-1, 0 oder 1.</returns>
-  public static int compDouble4(decimal? d1, decimal? d2)
+  public static int CompDouble4(decimal? d1, decimal? d2)
   {
     if (!d1.HasValue)
       return d2.HasValue ? -1 : 0;
@@ -992,7 +959,7 @@ public static class Functions
    * @param euro Betrag in Euro.
    * @return Konvertierter Betrag in DM.
    */
-  public static decimal konvDM(decimal euro)
+  public static decimal KonvDM(decimal euro)
   {
     return Round(euro * Constants.EUROFAKTOR) ?? 0;
   }
@@ -1002,7 +969,7 @@ public static class Functions
    * @param dm Betrag in DM.
    * @return Konvertierter Betrag in Euro.
    */
-  public static decimal konvEURO(decimal dm)
+  public static decimal KonvEURO(decimal dm)
   {
     return Round(dm / Constants.EUROFAKTOR) ?? 0;
   }
@@ -1102,7 +1069,7 @@ public static class Functions
   }
 
   //private static Regex RxCoordinates = new Regex(@"^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)(,\s*(-?\d+(\.\d+)?)z?)?$", RegexOptions.Compiled);
-  private static Regex RxCoordinates = new Regex(@"^(-?\d+(\.\d+)),\s*(-?\d+(\.\d+))(,\s*(-?\d+(\.\d+))z?)?$", RegexOptions.Compiled);
+  private static readonly Regex RxCoordinates = new(@"^(-?\d+(\.\d+)),\s*(-?\d+(\.\d+))(,\s*(-?\d+(\.\d+))z?)?$", RegexOptions.Compiled);
 
   /// <summary>String in Koordinaten in Dezimalform.</summary>
   /// <param name="s">Betroffener String.</param>
@@ -1143,7 +1110,7 @@ public static class Functions
     if (unbold)
     {
       if (IsBold(s))
-        return s.Substring(3, s.Length - 7);
+        return s[3..^4];
       return s;
     }
     if (IsBold(s))
@@ -1164,7 +1131,7 @@ public static class Functions
   /// <summary>
   /// Alle Windows-1252-Zeichen.
   /// </summary>
-  private static readonly Regex RxWindow1252 = new Regex(@"^(
+  private static readonly Regex RxWindow1252 = new(@"^(
 [\u0000-\u007F]|
 \u20AC| # 80 Euro
 \u201A| # 82
@@ -1199,7 +1166,7 @@ public static class Functions
   /// <summary>
   /// Alle erlaubten Windows-1252-Zeichen für IRM@-Strings, ohne Steuerzeichen, mit CR, LF und Tab.
   /// </summary>
-  private static readonly Regex RxWindow1252CrLfTab = new Regex(@"^(
+  private static readonly Regex RxWindow1252CrLfTab = new(@"^(
 \u0009| # Tab
 \u000A| # LF
 \u000D| # CR
@@ -1237,7 +1204,7 @@ public static class Functions
   /// <summary>
   /// Alle erlaubten Windows-1252-Zeichen für IRM@-Strings ohne Steuerzeichen.
   /// </summary>
-  private static readonly Regex RxWindow1252Ohne = new Regex(@"^(
+  private static readonly Regex RxWindow1252Ohne = new(@"^(
 [\u0020-\u007F]|
 \u20AC| # 80 Euro
 \u201A| # 82
@@ -1312,7 +1279,7 @@ public static class Functions
       return "";
     if (IsWindows1252(value, crlftab, alle))
       return value;
-    replace = replace ?? " ";
+    replace ??= " ";
     var sb = new StringBuilder();
     foreach (char c in value)
     {
