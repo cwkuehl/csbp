@@ -57,7 +57,7 @@ namespace CSBP.Forms.AG
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 1)
       {
@@ -75,7 +75,7 @@ namespace CSBP.Forms.AG
     }
 
     /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
-    override protected void UpdateParent()
+    protected override void UpdateParent()
     {
       refreshAction.Click();
     }

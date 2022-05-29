@@ -55,7 +55,7 @@ namespace CSBP.Forms.AD
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 1)
       {
