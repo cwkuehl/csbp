@@ -17,89 +17,29 @@ namespace CSBP.Forms.AD
   /// <summary>Controller für AD100Persons Dialog.</summary>
   public partial class AD100Persons : CsbpBin
   {
-#pragma warning disable 169, 649
-
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Button PrintAction.</summary>
-    [Builder.Object]
-    private Button printAction;
-
-    /// <summary>Button FloppyAction.</summary>
-    [Builder.Object]
-    private Button floppyAction;
-
-    /// <summary>Label personen0.</summary>
-    [Builder.Object]
-    private Label personen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView personen.</summary>
     [Builder.Object]
-    private TreeView personen;
+    private readonly TreeView personen;
 
     /// <summary>Entry suche.</summary>
     [Builder.Object]
-    private Entry suche;
-
-    /// <summary>Label name0.</summary>
-    [Builder.Object]
-    private Label name0;
+    private readonly Entry suche;
 
     /// <summary>Entry name.</summary>
     [Builder.Object]
-    private Entry name;
-
-    /// <summary>Label vorname0.</summary>
-    [Builder.Object]
-    private Label vorname0;
+    private readonly Entry name;
 
     /// <summary>Entry vorname.</summary>
     [Builder.Object]
-    private Entry vorname;
-
-    /// <summary>Button alle.</summary>
-    [Builder.Object]
-    private Button alle;
-
-    /// <summary>Button sitzNeu.</summary>
-    [Builder.Object]
-    private Button sitzNeu;
-
-    /// <summary>Button sitzEins.</summary>
-    [Builder.Object]
-    private Button sitzEins;
-
-    /// <summary>Button gebListe.</summary>
-    [Builder.Object]
-    private Button gebListe;
-
-#pragma warning restore 169, 649
+    private readonly Entry vorname;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -146,7 +86,7 @@ namespace CSBP.Forms.AD
 #pragma warning disable 618
         var store = AddStringColumns(personen, AD100_personen_columns);
 #pragma warning restore 618
-        TreeIter pi = new TreeIter();
+        var pi = new TreeIter();
         string uid = null;
         foreach (var e in l)
         {

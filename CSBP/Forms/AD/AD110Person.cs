@@ -20,257 +20,149 @@ namespace CSBP.Forms.AD
     /// <summary>Dialog Model.</summary>
     private AdSitz Model;
 
-#pragma warning disable 169, 649
-
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Entry sitzNr.</summary>
     [Builder.Object]
-    private Entry sitzNr;
+    private readonly Entry sitzNr;
 
     /// <summary>Entry adressNr.</summary>
     [Builder.Object]
-    private Entry adressNr;
-
-    /// <summary>Label titel0.</summary>
-    [Builder.Object]
-    private Label titel0;
+    private readonly Entry adressNr;
 
     /// <summary>Entry titel.</summary>
     [Builder.Object]
-    private Entry titel;
-
-    /// <summary>Label vorname0.</summary>
-    [Builder.Object]
-    private Label vorname0;
+    private readonly Entry titel;
 
     /// <summary>Entry vorname.</summary>
     [Builder.Object]
-    private Entry vorname;
-
-    /// <summary>Label praedikat0.</summary>
-    [Builder.Object]
-    private Label praedikat0;
+    private readonly Entry vorname;
 
     /// <summary>Entry praedikat.</summary>
     [Builder.Object]
-    private Entry praedikat;
+    private readonly Entry praedikat;
 
     /// <summary>Label name10.</summary>
     [Builder.Object]
-    private Label name10;
+    private readonly Label name10;
 
     /// <summary>Entry name1.</summary>
     [Builder.Object]
-    private Entry name1;
-
-    /// <summary>Label name20.</summary>
-    [Builder.Object]
-    private Label name20;
+    private readonly Entry name1;
 
     /// <summary>Entry name2.</summary>
     [Builder.Object]
-    private Entry name2;
+    private readonly Entry name2;
 
     /// <summary>Label geschlecht0.</summary>
     [Builder.Object]
-    private Label geschlecht0;
+    private readonly Label geschlecht0;
 
     /// <summary>RadioButton geschlecht1.</summary>
     [Builder.Object]
-    private RadioButton geschlecht1;
+    private readonly RadioButton geschlecht1;
 
     /// <summary>RadioButton geschlecht2.</summary>
     [Builder.Object]
-    private RadioButton geschlecht2;
+    private readonly RadioButton geschlecht2;
 
     /// <summary>RadioButton geschlecht3.</summary>
     [Builder.Object]
-    private RadioButton geschlecht3;
-
-    /// <summary>Label geburt0.</summary>
-    [Builder.Object]
-    private Label geburt0;
+    private readonly RadioButton geschlecht3;
 
     /// <summary>Date Geburt.</summary>
     //[Builder.Object]
-    private Date geburt;
+    private readonly Date geburt;
 
     /// <summary>Label personStatus0.</summary>
     [Builder.Object]
-    private Label personStatus0;
+    private readonly Label personStatus0;
 
     /// <summary>RadioButton personStatus1.</summary>
     [Builder.Object]
-    private RadioButton personStatus1;
+    private readonly RadioButton personStatus1;
 
     /// <summary>RadioButton personStatus2.</summary>
     [Builder.Object]
-    private RadioButton personStatus2;
-
-    /// <summary>Label name0.</summary>
-    [Builder.Object]
-    private Label name0;
+    private readonly RadioButton personStatus2;
 
     /// <summary>Entry name.</summary>
     [Builder.Object]
-    private Entry name;
-
-    /// <summary>Label strasse0.</summary>
-    [Builder.Object]
-    private Label strasse0;
+    private readonly Entry name;
 
     /// <summary>Entry strasse.</summary>
     [Builder.Object]
-    private Entry strasse;
-
-    /// <summary>Label hausnr0.</summary>
-    [Builder.Object]
-    private Label hausnr0;
+    private readonly Entry strasse;
 
     /// <summary>Entry hausnr.</summary>
     [Builder.Object]
-    private Entry hausnr;
-
-    /// <summary>Label postfach0.</summary>
-    [Builder.Object]
-    private Label postfach0;
+    private readonly Entry hausnr;
 
     /// <summary>Entry postfach.</summary>
     [Builder.Object]
-    private Entry postfach;
-
-    /// <summary>Label staat0.</summary>
-    [Builder.Object]
-    private Label staat0;
+    private readonly Entry postfach;
 
     /// <summary>Entry staat.</summary>
     [Builder.Object]
-    private Entry staat;
-
-    /// <summary>Label plz0.</summary>
-    [Builder.Object]
-    private Label plz0;
+    private readonly Entry staat;
 
     /// <summary>Entry plz.</summary>
     [Builder.Object]
-    private Entry plz;
-
-    /// <summary>Label ort0.</summary>
-    [Builder.Object]
-    private Label ort0;
+    private readonly Entry plz;
 
     /// <summary>Entry ort.</summary>
     [Builder.Object]
-    private Entry ort;
-
-    /// <summary>Label telefon0.</summary>
-    [Builder.Object]
-    private Label telefon0;
+    private readonly Entry ort;
 
     /// <summary>Entry telefon.</summary>
     [Builder.Object]
-    private Entry telefon;
-
-    /// <summary>Label fax0.</summary>
-    [Builder.Object]
-    private Label fax0;
+    private readonly Entry telefon;
 
     /// <summary>Entry fax.</summary>
     [Builder.Object]
-    private Entry fax;
-
-    /// <summary>Label mobil0.</summary>
-    [Builder.Object]
-    private Label mobil0;
+    private readonly Entry fax;
 
     /// <summary>Entry mobil.</summary>
     [Builder.Object]
-    private Entry mobil;
-
-    /// <summary>Label homepage0.</summary>
-    [Builder.Object]
-    private Label homepage0;
+    private readonly Entry mobil;
 
     /// <summary>Entry homepage.</summary>
     [Builder.Object]
-    private Entry homepage;
-
-    /// <summary>Label email0.</summary>
-    [Builder.Object]
-    private Label email0;
+    private readonly Entry homepage;
 
     /// <summary>Entry email.</summary>
     [Builder.Object]
-    private Entry email;
-
-    /// <summary>Label notiz0.</summary>
-    [Builder.Object]
-    private Label notiz0;
+    private readonly Entry email;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
-
-    /// <summary>Label sitzStatus0.</summary>
-    [Builder.Object]
-    private Label sitzStatus0;
+    private readonly TextView notiz;
 
     /// <summary>RadioButton sitzStatus1.</summary>
     [Builder.Object]
-    private RadioButton sitzStatus1;
+    private readonly RadioButton sitzStatus1;
 
     /// <summary>RadioButton sitzStatus2.</summary>
     [Builder.Object]
-    private RadioButton sitzStatus2;
-
-    /// <summary>Label adresseAnzahl0.</summary>
-    [Builder.Object]
-    private Label adresseAnzahl0;
+    private readonly RadioButton sitzStatus2;
 
     /// <summary>Entry adresseAnzahl.</summary>
     [Builder.Object]
-    private Entry adresseAnzahl;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry adresseAnzahl;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button adresseDupl.</summary>
-    [Builder.Object]
-    private Button adresseDupl;
-
-    /// <summary>Button adresseWechseln.</summary>
-    [Builder.Object]
-    private Button adresseWechseln;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+    private readonly Button ok;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -315,8 +207,7 @@ namespace CSBP.Forms.AD
       {
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.AddressService.GetSite(ServiceDaten, uid));
           if (k == null)
@@ -353,8 +244,8 @@ namespace CSBP.Forms.AD
           sitzStatus1.Active = k.Sitz_Status == 0;
           sitzStatus2.Active = k.Sitz_Status != 0;
           SetAddress(k.Address);
-          angelegt.Text = k.FormatDateOf(k.CreatedAt, k.CreatedBy);
-          geaendert.Text = k.FormatDateOf(k.ChangedAt, k.CreatedBy);
+          angelegt.Text = ModelBase.FormatDateOf(k.CreatedAt, k.CreatedBy);
+          geaendert.Text = ModelBase.FormatDateOf(k.ChangedAt, k.CreatedBy);
         }
         if (DialogType == DialogTypeEnum.Copy2)
         {
@@ -453,8 +344,7 @@ namespace CSBP.Forms.AD
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnAdressewechselnClicked(object sender, EventArgs e)
     {
-      var auid = Start(typeof(AD130Addresses), AD130_title, csbpparent: this, modal: true) as string;
-      if (auid != null)
+      if (Start(typeof(AD130Addresses), AD130_title, csbpparent: this, modal: true) is string auid)
       {
         SetAddress(Get(FactoryService.AddressService.GetAddress(ServiceDaten, auid)));
       }

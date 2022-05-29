@@ -613,8 +613,8 @@ namespace CSBP.Forms.TB
       {
         EntryOld.Eintrag = tb.Eintrag;
         EntryOld.Positions.AddRange(tb.Positions);
-        angelegt.Text = tb.FormatDateOf(tb.Angelegt_Am, tb.Angelegt_Von);
-        geaendert.Text = tb.FormatDateOf(tb.Geaendert_Am, tb.Geaendert_Von);
+        angelegt.Text = ModelBase.FormatDateOf(tb.Angelegt_Am, tb.Angelegt_Von);
+        geaendert.Text = ModelBase.FormatDateOf(tb.Geaendert_Am, tb.Geaendert_Von);
       }
       EntryOld.Datum = d.Value;
       entry.Buffer.Text = EntryOld.Eintrag ?? "";

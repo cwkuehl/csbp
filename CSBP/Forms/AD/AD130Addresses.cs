@@ -16,25 +16,17 @@ namespace CSBP.Forms.AD
   /// <summary>Controller für AD130Addresses Dialog.</summary>
   public partial class AD130Addresses : CsbpBin
   {
-#pragma warning disable 169, 649
-
     /// <summary>Label adressen0.</summary>
     [Builder.Object]
-    private Label adressen0;
+    private readonly Label adressen0;
 
     /// <summary>TreeView adressen.</summary>
     [Builder.Object]
-    private TreeView adressen;
+    private readonly TreeView adressen;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+    private readonly Button ok;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

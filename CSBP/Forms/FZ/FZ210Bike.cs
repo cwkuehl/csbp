@@ -127,8 +127,8 @@ namespace CSBP.Forms.FZ
           nr.Text = k.Uid;
           bezeichnung.Text = k.Bezeichnung ?? "";
           SetText(typ1, k.Typ.ToString());
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;

@@ -188,8 +188,8 @@ namespace CSBP.Forms.WP
           relativ.Active = k.Relative;
           SetText(status, k.Status);
           notiz.Buffer.Text = k.Notiz ?? "";
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;

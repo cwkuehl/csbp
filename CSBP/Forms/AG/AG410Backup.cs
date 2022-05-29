@@ -122,8 +122,8 @@ namespace CSBP.Forms.AG
           encrypted.Active = k.Encrypted;
           zipped.Active = k.Zipped;
           quelle.Text = k.SourcesText;
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = Base.ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = Base.ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         ziel.IsEditable = !loeschen;

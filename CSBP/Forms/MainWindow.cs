@@ -5,187 +5,183 @@
 namespace CSBP.Forms
 {
   using System;
+  using System.Collections.Generic;
+  using System.Drawing;
+  using System.Reactive.Linq;
+  using System.Reflection;
+  using CSBP.Apis.Enums;
   using CSBP.Apis.Services;
   using CSBP.Base;
-  using CSBP.Resources;
-  using CSBP.Services.Factory; // Muss für build bleiben.
-  using static CSBP.Resources.Messages;
-  using static CSBP.Resources.M;
-  using Gtk;
-  using System.Collections.Generic;
-  using CSBP.Forms.AM;
-  using CSBP.Forms.AG;
-  using System.Reactive.Linq;
-  using System.Drawing;
-  using CSBP.Forms.TB;
-  using CSBP.Forms.FZ;
   using CSBP.Forms.AD;
+  using CSBP.Forms.AG;
+  using CSBP.Forms.AM;
+  using CSBP.Forms.FZ;
   using CSBP.Forms.HH;
-  using CSBP.Forms.WP;
   using CSBP.Forms.SB;
-  using System.Reflection;
   using CSBP.Forms.SO;
-  using CSBP.Apis.Enums;
+  using CSBP.Forms.TB;
+  using CSBP.Forms.WP;
+  using CSBP.Resources;
   using CSBP.Services.Base;
+  using CSBP.Services.Factory; // Muss für build bleiben.
+  using Gtk;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   /// <summary>Main Window.</summary>
   public class MainWindow : Window
   {
-#pragma warning disable 649
+    /// <summary>Status-Leiste.</summary>
+    [Builder.Object]
+    private readonly Notebook Notebook;
 
     /// <summary>Status-Leiste.</summary>
     [Builder.Object]
-    private Notebook Notebook;
-
-    /// <summary>Status-Leiste.</summary>
-    [Builder.Object]
-    private Statusbar Statusbar;
+    private readonly Statusbar Statusbar;
 
     /// <summary>Menüpunkt Mandanten.</summary>
     [Builder.Object]
-    private MenuItem MenuClients;
+    private readonly MenuItem MenuClients;
 
     /// <summary>Menüpunkt Benutzer.</summary>
     [Builder.Object]
-    private MenuItem MenuUsers;
+    private readonly MenuItem MenuUsers;
 
     /// <summary>Menüpunkt Sicherungen.</summary>
     [Builder.Object]
-    private MenuItem MenuBackups;
+    private readonly MenuItem MenuBackups;
 
     /// <summary>Menüpunkt Anmelden.</summary>
     [Builder.Object]
-    private MenuItem MenuLogin;
+    private readonly MenuItem MenuLogin;
 
     /// <summary>Menüpunkt Abmelden.</summary>
     [Builder.Object]
-    private MenuItem MenuLogout;
+    private readonly MenuItem MenuLogout;
 
     /// <summary>Menüpunkt Kennwort ändern.</summary>
     [Builder.Object]
-    private MenuItem MenuPwchange;
+    private readonly MenuItem MenuPwchange;
 
     /// <summary>Menüpunkt Einstellungen.</summary>
     [Builder.Object]
-    private MenuItem MenuOptions;
+    private readonly MenuItem MenuOptions;
 
     /// <summary>Menüpunkt Start-Formulare.</summary>
     [Builder.Object]
-    private MenuItem MenuDialogs;
+    private readonly MenuItem MenuDialogs;
 
     /// <summary>Menüpunkt Zurücksetzen.</summary>
     [Builder.Object]
-    private MenuItem MenuReset;
+    private readonly MenuItem MenuReset;
 
     /// <summary>Menüpunkt Tagebuch.</summary>
     [Builder.Object]
-    private MenuItem MenuDiary;
+    private readonly MenuItem MenuDiary;
 
     /// <summary>Menüpunkt Positionen.</summary>
     [Builder.Object]
-    private MenuItem MenuPositions;
+    private readonly MenuItem MenuPositions;
 
     /// <summary>Menüpunkt Notizen.</summary>
     [Builder.Object]
-    private MenuItem MenuNotes;
+    private readonly MenuItem MenuNotes;
 
     /// <summary>Menüpunkt Personen/Adressen.</summary>
     [Builder.Object]
-    private MenuItem MenuPersons;
+    private readonly MenuItem MenuPersons;
 
     /// <summary>Menüpunkt Fahrradstände.</summary>
     [Builder.Object]
-    private MenuItem MenuMileages;
+    private readonly MenuItem MenuMileages;
 
     /// <summary>Menüpunkt Fahrräder.</summary>
     [Builder.Object]
-    private MenuItem MenuBikes;
+    private readonly MenuItem MenuBikes;
 
     /// <summary>Menüpunkt Bücher.</summary>
     [Builder.Object]
-    private MenuItem MenuBooks;
+    private readonly MenuItem MenuBooks;
 
     /// <summary>Menüpunkt Autoren.</summary>
     [Builder.Object]
-    private MenuItem MenuAuthors;
+    private readonly MenuItem MenuAuthors;
 
     /// <summary>Menüpunkt Serien.</summary>
     [Builder.Object]
-    private MenuItem MenuSeries;
+    private readonly MenuItem MenuSeries;
 
     /// <summary>Menüpunkt Statistik.</summary>
     [Builder.Object]
-    private MenuItem MenuStatistics;
+    private readonly MenuItem MenuStatistics;
 
     /// <summary>Menüpunkt Sudoku.</summary>
     [Builder.Object]
-    private MenuItem MenuSudoku;
+    private readonly MenuItem MenuSudoku;
 
     /// <summary>Menüpunkt Buchungen.</summary>
     [Builder.Object]
-    private MenuItem MenuBookings;
+    private readonly MenuItem MenuBookings;
 
     /// <summary>Menüpunkt Ereignisse.</summary>
     [Builder.Object]
-    private MenuItem MenuEvents;
+    private readonly MenuItem MenuEvents;
 
     /// <summary>Menüpunkt Konten.</summary>
     [Builder.Object]
-    private MenuItem MenuAccounts;
+    private readonly MenuItem MenuAccounts;
 
     /// <summary>Menüpunkt Perioden.</summary>
     [Builder.Object]
-    private MenuItem MenuPeriods;
+    private readonly MenuItem MenuPeriods;
 
     /// <summary>Menüpunkt Schlussbilanz.</summary>
     [Builder.Object]
-    private MenuItem MenuFinalbalance;
+    private readonly MenuItem MenuFinalbalance;
 
     /// <summary>Menüpunkt Gewinn+Verlust-Rechnung.</summary>
     [Builder.Object]
-    private MenuItem MenuPlbalance;
+    private readonly MenuItem MenuPlbalance;
 
     /// <summary>Menüpunkt Eröffnungsbilanz.</summary>
     [Builder.Object]
-    private MenuItem MenuOpeningbalance;
+    private readonly MenuItem MenuOpeningbalance;
 
     /// <summary>Menüpunkt Ahnen.</summary>
     [Builder.Object]
-    private MenuItem MenuAncestors;
+    private readonly MenuItem MenuAncestors;
 
     /// <summary>Menüpunkt Familien.</summary>
     [Builder.Object]
-    private MenuItem MenuFamilies;
+    private readonly MenuItem MenuFamilies;
 
     /// <summary>Menüpunkt Quellen.</summary>
     [Builder.Object]
-    private MenuItem MenuSources;
+    private readonly MenuItem MenuSources;
 
     /// <summary>Menüpunkt Wertpapiere.</summary>
     [Builder.Object]
-    private MenuItem MenuStocks;
+    private readonly MenuItem MenuStocks;
 
     /// <summary>Menüpunkt Konfigurationen.</summary>
     [Builder.Object]
-    private MenuItem MenuConfigurations;
+    private readonly MenuItem MenuConfigurations;
 
     /// <summary>Menüpunkt Chart.</summary>
     [Builder.Object]
-    private MenuItem MenuChart;
+    private readonly MenuItem MenuChart;
 
     /// <summary>Menüpunkt Anlagen.</summary>
     [Builder.Object]
-    private MenuItem MenuInvestments;
+    private readonly MenuItem MenuInvestments;
 
     /// <summary>Menüpunkt Buchungen.</summary>
     [Builder.Object]
-    private MenuItem MenuBookings3;
+    private readonly MenuItem MenuBookings3;
 
     /// <summary>Menüpunkt Stände.</summary>
     [Builder.Object]
-    private MenuItem MenuPrices;
-
-#pragma warning restore 649
+    private readonly MenuItem MenuPrices;
 
     /// <summary>Default Shared Constructor.</summary>
     /// <returns>A MainWindow.</returns>
@@ -205,13 +201,11 @@ namespace CSBP.Forms
       var l = GetChildren();
       l.ForEach(c =>
       {
-        var mi = c as MenuItem;
-        if (mi != null && !string.IsNullOrEmpty(mi.Label) && mi.Label.Contains(".", StringComparison.CurrentCulture))
+        if (c is MenuItem mi && !string.IsNullOrEmpty(mi.Label) && mi.Label.Contains('.', StringComparison.CurrentCulture))
         {
           mi.Label = Messages.Get(mi.Label);
         }
-        var imi = c as ImageMenuItem;
-        if (imi != null && !string.IsNullOrEmpty(imi.Label) && imi.Label.StartsWith("gtk-", StringComparison.CurrentCulture))
+        if (c is ImageMenuItem imi && !string.IsNullOrEmpty(imi.Label) && imi.Label.StartsWith("gtk-", StringComparison.CurrentCulture))
         {
           var m = Messages.Get(imi.Label.Replace("gtk-", "Menu."));
           if (!string.IsNullOrEmpty(m))
@@ -256,7 +250,7 @@ namespace CSBP.Forms
       var ob = Observable.FromEvent<SizeAllocatedHandler, SizeAllocatedArgs>(
         h0 =>
         {
-          SizeAllocatedHandler h = (sender, e) => { h0(e); };
+          void h(object sender, SizeAllocatedArgs e) { h0(e); }
           return h;
         },
         h => SizeAllocated += h, h => SizeAllocated -= h
@@ -509,8 +503,10 @@ namespace CSBP.Forms
           UseMarkup = true,
           Markup = $"<span size='small'>{title}</span> <span color='red' size='large'>x</span>"
         };
-        var eb = new EventBox();
-        eb.Add(l);
+        var eb = new EventBox
+        {
+          l
+        };
         eb.Events = Gdk.EventMask.ButtonPressMask;
         eb.ButtonPressEvent += (object sender, ButtonPressEventArgs e) =>
         {
@@ -535,8 +531,7 @@ namespace CSBP.Forms
     {
       while (Notebook.NPages > 0)
       {
-        var p = Notebook.GetNthPage(0) as CsbpBin;
-        if (p == null)
+        if (Notebook.GetNthPage(0) is not CsbpBin p)
           Notebook.RemovePage(0);
         else
         {
@@ -926,7 +921,7 @@ namespace CSBP.Forms
       var daten = MainClass.ServiceDaten;
       var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.1";
       var db = Parameter.Connect;
-      using (var about = new AboutDialog
+      using var about = new AboutDialog
       {
         Title = "", // Titel geht nicht.
         ProgramName = "CSharp Budget Program",
@@ -937,11 +932,9 @@ Database: {db}
 Client: {daten.MandantNr} User: {daten.BenutzerId}",
         Website = "https://cwkuehl.de",
         Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif")
-      })
-      {
-        about.Run();
-        about.Hide();
-      }
+      };
+      about.Run();
+      about.Hide();
     }
 
     /// <summary>Menu Help.</summary>

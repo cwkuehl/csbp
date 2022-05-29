@@ -12,9 +12,9 @@ namespace CSBP.Services
   using CSBP.Base;
   using CSBP.Services.Base;
   using CSBP.Services.Reports;
-  using static CSBP.Resources.Messages;
-  using static CSBP.Resources.M;
   using static CSBP.Base.Functions;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   public class AddressService : ServiceBase, IAddressService
   {

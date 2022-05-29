@@ -144,8 +144,8 @@ namespace CSBP.Forms.SB
           beschreibung.Buffer.Text = k.Beschreibung ?? "";
           zitat.Buffer.Text = k.Zitat ?? "";
           bemerkung.Buffer.Text = k.Bemerkung ?? "";
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         autor.Sensitive = !loeschen;

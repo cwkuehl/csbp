@@ -20,86 +20,30 @@ namespace CSBP.Forms.AG
   public partial class AG400Backups : CsbpBin
   {
     /// <summary>Status für Task.</summary>
-    StringBuilder Status = new StringBuilder();
+    readonly StringBuilder Status = new();
 
     /// <summary>Abbruch für Task.</summary>
-    StringBuilder Cancel = new StringBuilder();
-
-#pragma warning disable 169, 649
+    readonly StringBuilder Cancel = new();
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
+    private readonly Button editAction;
 
     /// <summary>Label verzeichnisse0.</summary>
     [Builder.Object]
-    private Label verzeichnisse0;
+    private readonly Label verzeichnisse0;
 
     /// <summary>TreeView verzeichnisse.</summary>
     [Builder.Object]
-    private TreeView verzeichnisse;
-
-    /// <summary>Button sicherung.</summary>
-    [Builder.Object]
-    private Button sicherung;
-
-    /// <summary>Button diffSicherung.</summary>
-    [Builder.Object]
-    private Button diffSicherung;
-
-    /// <summary>Button rueckSicherung.</summary>
-    [Builder.Object]
-    private Button rueckSicherung;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-    /// <summary>Button sqlSicherung.</summary>
-    [Builder.Object]
-    private Button sqlSicherung;
-
-    /// <summary>Label status0.</summary>
-    [Builder.Object]
-    private Label status0;
-
-    /// <summary>TextView statusText.</summary>
-    [Builder.Object]
-    private TextView statusText;
-
-    /// <summary>Button mandantKopieren.</summary>
-    [Builder.Object]
-    private Button mandantKopieren;
-
-    /// <summary>Button mandantRepKopieren.</summary>
-    [Builder.Object]
-    private Button mandantRepKopieren;
-
-    /// <summary>Label mandant0.</summary>
-    [Builder.Object]
-    private Label mandant0;
+    private readonly TreeView verzeichnisse;
 
     /// <summary>Entry mandant.</summary>
     [Builder.Object]
-    private Entry mandant;
-
-#pragma warning restore 169, 649
+    private readonly Entry mandant;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

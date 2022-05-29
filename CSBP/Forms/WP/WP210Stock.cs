@@ -237,8 +237,8 @@ namespace CSBP.Forms.WP
           sortierung.Text = k.Sorting;
           SetText(relation, k.Relation_Uid);
           notiz.Buffer.Text = k.Notiz ?? "";
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         if (neu || copy)
           anlage.Active = true;

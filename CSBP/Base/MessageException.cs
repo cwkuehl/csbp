@@ -8,26 +8,26 @@ namespace CSBP.Base
 
   public class MessageException : Exception
   {
-    private Message message { get; set; }
+    private Message Mess { get; set; }
 
     public MessageException(string m)
     {
-      message = new Message(m);
+      Mess = new Message(m);
     }
 
     public MessageException(Message m)
     {
-      message = m;
+      Mess = m;
     }
 
     public override string Message
     {
-      get { return message.Text; }
+      get { return Mess.Text; }
     }
 
     public Message GetMessage()
     {
-      return message;
+      return Mess;
     }
   }
 }

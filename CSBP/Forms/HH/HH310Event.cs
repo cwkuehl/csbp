@@ -164,8 +164,8 @@ namespace CSBP.Forms.HH
           eText.Text = k.EText;
           SetText(sollkonto, k.Soll_Konto_Uid);
           SetText(habenkonto, k.Haben_Konto_Uid);
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = Base.ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = Base.ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         bezeichnung.IsEditable = !loeschen;

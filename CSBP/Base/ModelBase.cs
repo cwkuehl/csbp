@@ -62,7 +62,7 @@ namespace CSBP.Base
       }
     }
 
-    public string FormatDateOf(DateTime? date, string of)
+    public static string FormatDateOf(DateTime? date, string of)
     {
       if (!date.HasValue)
         return "";
@@ -94,21 +94,21 @@ namespace CSBP.Base
     private static readonly CultureInfo ConvertCultureInfo = CultureInfo.CreateSpecificCulture("de-DE");
 
     ///<summary>Entfernt evtl. vorhandene Semikola.</summary>
-    protected string ToString(string s)
+    protected static string ToString(string s)
     {
       if (string.IsNullOrEmpty(s))
         return "";
       return s.Replace(";", "");
     }
 
-    protected string ToString(int? d)
+    protected static string ToString(int? d)
     {
       if (d.HasValue)
         return d.Value.ToString(ConvertCultureInfo);
       return "";
     }
 
-    protected string ToString(decimal? d, int digits = -1)
+    protected static string ToString(decimal? d, int digits = -1)
     {
       if (d.HasValue)
       {
@@ -119,21 +119,21 @@ namespace CSBP.Base
       return "";
     }
 
-    protected string ToString(DateTime? d)
+    protected static string ToString(DateTime? d)
     {
       if (d.HasValue)
         return d.Value.ToString(ConvertCultureInfo);
       return "";
     }
 
-    protected string ToString(bool? d)
+    protected static string ToString(bool? d)
     {
       if (d.HasValue)
         return d.Value.ToString(ConvertCultureInfo);
       return "";
     }
 
-    protected int? ToInt(string s)
+    protected static int? ToInt(string s)
     {
       if (!string.IsNullOrWhiteSpace(s) && int.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands,
           ConvertCultureInfo, out var d))
@@ -141,7 +141,7 @@ namespace CSBP.Base
       return null;
     }
 
-    protected decimal? ToDecimal(string s)
+    protected static decimal? ToDecimal(string s)
     {
       if (!string.IsNullOrWhiteSpace(s) && decimal.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands,
           ConvertCultureInfo, out var d))
@@ -149,14 +149,14 @@ namespace CSBP.Base
       return null;
     }
 
-    protected DateTime? ToDateTime(string s)
+    protected static DateTime? ToDateTime(string s)
     {
       if (!string.IsNullOrWhiteSpace(s) && DateTime.TryParse(s, ConvertCultureInfo, DateTimeStyles.AllowWhiteSpaces, out var d))
         return d;
       return null;
     }
 
-    protected bool? ToBool(string s)
+    protected static bool? ToBool(string s)
     {
       if (!string.IsNullOrWhiteSpace(s) && bool.TryParse(s, out var d))
         return d;

@@ -158,9 +158,9 @@ namespace CSBP
           var arr = sd.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
           foreach (var d in arr)
           {
-            if (StartDialog.Dialoge.TryGetValue(d.Substring(1), out var sf))
+            if (StartDialog.Dialoge.TryGetValue(d[1..], out var sf))
             {
-              var parr = d.Substring(1).Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+              var parr = d[1..].Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
               var parm = parr.Length > 1 ? parr[1] : null;
               var create = sf.Type.GetMethod("Create");
               var dlg = create.Invoke(null, new object[] { parm, null }) as CsbpBin;

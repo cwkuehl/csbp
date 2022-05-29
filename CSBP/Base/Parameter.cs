@@ -15,22 +15,22 @@ namespace CSBP.Base
 
   public class Parameter
   {
-    public static string DB_DRIVER_CONNECT = "DB_DRIVER_CONNECT";
-    public static string APP_THEME = "APP_THEME";
-    public static string AG_ANWENDUNGS_TITEL = "AG_ANWENDUNGS_TITEL";
-    // public static string AG_BACKUPS = "AG_BACKUPS";
-    public static string AG_HILFE_DATEI = "AG_HILFE_DATEI";
-    public static string AG_STARTDIALOGE = "AG_STARTDIALOGE";
-    public static string AG_TEMP_PFAD = "AG_TEMP_PFAD";
-    public static string AG_TEST_PRODUKTION = "AG_TEST_PRODUKTION";
+    public const string DB_DRIVER_CONNECT = "DB_DRIVER_CONNECT";
+    public const string APP_THEME = "APP_THEME";
+    public const string AG_ANWENDUNGS_TITEL = "AG_ANWENDUNGS_TITEL";
+    // public const string AG_BACKUPS = "AG_BACKUPS";
+    public const string AG_HILFE_DATEI = "AG_HILFE_DATEI";
+    public const string AG_STARTDIALOGE = "AG_STARTDIALOGE";
+    public const string AG_TEMP_PFAD = "AG_TEMP_PFAD";
+    public const string AG_TEST_PRODUKTION = "AG_TEST_PRODUKTION";
 
-    public static string SB_SUBMITTER = "SB_SUBMITTER";
+    public const string SB_SUBMITTER = "SB_SUBMITTER";
 
     /// <summary>Wertpapier-Parameter: Access Key für Währungskurse von Fixer.io.</summary>
-    public static string WP_FIXER_IO_ACCESS_KEY = "WP_FIXER_IO_ACCESS_KEY";
+    public const string WP_FIXER_IO_ACCESS_KEY = "WP_FIXER_IO_ACCESS_KEY";
 
     /// <summary>Dateiname inkl.false Pfad vor .csbp.json.</summary>
-    private static string AppConfig;
+    private static readonly string AppConfig;
 
     /// <summary>Sammlung von festen Parametern.</summary>
     public static Dictionary<string, Parameter> Params { get; private set; }
@@ -88,15 +88,13 @@ namespace CSBP.Base
       {
         try
         {
-          using (StreamReader file = File.OpenText(AppConfig))
-          using (JsonTextReader reader = new JsonTextReader(file))
+          using var file = File.OpenText(AppConfig);
+          using var reader = new JsonTextReader(file);
+          var jo = (JObject)JToken.ReadFrom(reader);
+          foreach (var jt in jo.Values())
           {
-            var jo = (JObject)JToken.ReadFrom(reader);
-            foreach (var jt in jo.Values())
-            {
-              if (jt.Type == JTokenType.String)
-                Params2[jt.Path] = jt.Value<string>();
-            }
+            if (jt.Type == JTokenType.String)
+              Params2[jt.Path] = jt.Value<string>();
           }
         }
         catch (Exception)
@@ -419,11 +417,9 @@ namespace CSBP.Base
           if (!string.IsNullOrEmpty(p.Value))
             jo[p.Key] = p.Value;
         }
-        using (StreamWriter file = File.CreateText(AppConfig))
-        using (JsonTextWriter writer = new JsonTextWriter(file))
-        {
-          jo.WriteTo(writer);
-        }
+        using var file = File.CreateText(AppConfig);
+        using var writer = new JsonTextWriter(file);
+        jo.WriteTo(writer);
       }
     }
   }

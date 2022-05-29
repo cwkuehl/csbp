@@ -181,8 +181,8 @@ namespace CSBP.Forms.FZ
           km.Text = Functions.ToString(k.Periode_km, 0);
           schnitt.Text = Functions.ToString(k.Periode_Schnitt, 2);
           beschreibung.Text = k.Beschreibung;
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         fahrrad.Sensitive = neu;

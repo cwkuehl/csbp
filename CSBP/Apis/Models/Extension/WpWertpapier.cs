@@ -8,8 +8,8 @@ namespace CSBP.Apis.Models
   using System.ComponentModel.DataAnnotations.Schema;
   using System.Text;
   using CSBP.Base;
-  using static CSBP.Resources.Messages;
   using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   /// <summary>
   /// Entity-Klasse für Tabelle WP_Wertpapier.
@@ -159,37 +159,37 @@ namespace CSBP.Apis.Models
     protected override string GetExtension()
     {
       var sb = new StringBuilder();
-      sb.Append(ToString(CurrentPrice)).Append(";");
-      sb.Append(ToString(SignalPrice1)).Append(";");
-      sb.Append(ToString(SignalPrice2)).Append(";");
-      sb.Append(ToString(StopPrice)).Append(";");
-      sb.Append(ToString(Pattern)).Append(";");
-      sb.Append(ToString(Sorting)).Append(";");
-      sb.Append(ToString(Assessment)).Append(";");
-      sb.Append(ToString(Assessment1)).Append(";");
-      sb.Append(ToString(Assessment2)).Append(";");
-      sb.Append(ToString(Assessment3)).Append(";");
-      sb.Append(ToString(Assessment4)).Append(";");
-      sb.Append(ToString(Assessment5)).Append(";");
-      sb.Append(ToString(Trend1)).Append(";");
-      sb.Append(ToString(Trend2)).Append(";");
-      sb.Append(ToString(Trend3)).Append(";");
-      sb.Append(ToString(Trend4)).Append(";");
-      sb.Append(ToString(Trend5)).Append(";");
-      sb.Append(ToString(Trend)).Append(";");
-      sb.Append(ToString(PriceDate)).Append(";");
-      sb.Append(ToString(Xo)).Append(";");
-      sb.Append(ToString(SignalAssessment)).Append(";");
-      sb.Append(ToString(SignalDate)).Append(";");
-      sb.Append(ToString(SignalDescription)).Append(";");
-      sb.Append(ToString(Index1)).Append(";");
-      sb.Append(ToString(Index2)).Append(";");
-      sb.Append(ToString(Index3)).Append(";");
-      sb.Append(ToString(Index4)).Append(";");
-      sb.Append(ToString(Average200)).Append(";");
-      sb.Append(ToString(Configuration)).Append(";"); //  ?? M0(WP010)
-      sb.Append(ToString(Type)).Append(";");
-      sb.Append(ToString(Currency)).Append(";");
+      sb.Append(ToString(CurrentPrice)).Append(';');
+      sb.Append(ToString(SignalPrice1)).Append(';');
+      sb.Append(ToString(SignalPrice2)).Append(';');
+      sb.Append(ToString(StopPrice)).Append(';');
+      sb.Append(ToString(Pattern)).Append(';');
+      sb.Append(ToString(Sorting)).Append(';');
+      sb.Append(ToString(Assessment)).Append(';');
+      sb.Append(ToString(Assessment1)).Append(';');
+      sb.Append(ToString(Assessment2)).Append(';');
+      sb.Append(ToString(Assessment3)).Append(';');
+      sb.Append(ToString(Assessment4)).Append(';');
+      sb.Append(ToString(Assessment5)).Append(';');
+      sb.Append(ToString(Trend1)).Append(';');
+      sb.Append(ToString(Trend2)).Append(';');
+      sb.Append(ToString(Trend3)).Append(';');
+      sb.Append(ToString(Trend4)).Append(';');
+      sb.Append(ToString(Trend5)).Append(';');
+      sb.Append(ToString(Trend)).Append(';');
+      sb.Append(ToString(PriceDate)).Append(';');
+      sb.Append(ToString(Xo)).Append(';');
+      sb.Append(ToString(SignalAssessment)).Append(';');
+      sb.Append(ToString(SignalDate)).Append(';');
+      sb.Append(ToString(SignalDescription)).Append(';');
+      sb.Append(ToString(Index1)).Append(';');
+      sb.Append(ToString(Index2)).Append(';');
+      sb.Append(ToString(Index3)).Append(';');
+      sb.Append(ToString(Index4)).Append(';');
+      sb.Append(ToString(Average200)).Append(';');
+      sb.Append(ToString(Configuration)).Append(';'); //  ?? M0(WP010)
+      sb.Append(ToString(Type)).Append(';');
+      sb.Append(ToString(Currency)).Append(';');
       return sb.ToString();
     }
 

@@ -20,81 +20,61 @@ namespace CSBP.Forms.AG
     /// <summary>Dialog Model.</summary>
     private Benutzer Model;
 
-#pragma warning disable 169, 649
-
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label benutzerId0.</summary>
     [Builder.Object]
-    private Label benutzerId0;
+    private readonly Label benutzerId0;
 
     /// <summary>Entry benutzerId.</summary>
     [Builder.Object]
-    private Entry benutzerId;
+    private readonly Entry benutzerId;
 
     /// <summary>Label kennwort0.</summary>
     [Builder.Object]
-    private Label kennwort0;
+    private readonly Label kennwort0;
 
     /// <summary>Entry kennwort.</summary>
     [Builder.Object]
-    private Entry kennwort;
+    private readonly Entry kennwort;
 
     /// <summary>Label berechtigung0.</summary>
     [Builder.Object]
-    private Label berechtigung0;
+    private readonly Label berechtigung0;
 
     /// <summary>RadioButton berechtigung1.</summary>
     [Builder.Object]
-    private RadioButton berechtigung1;
+    private readonly RadioButton berechtigung1;
 
     /// <summary>RadioButton berechtigung2.</summary>
     [Builder.Object]
-    private RadioButton berechtigung2;
+    private readonly RadioButton berechtigung2;
 
     /// <summary>RadioButton berechtigung3.</summary>
     [Builder.Object]
-    private RadioButton berechtigung3;
+    private readonly RadioButton berechtigung3;
 
     /// <summary>Label geburt0.</summary>
     [Builder.Object]
-    private Label geburt0;
+    private readonly Label geburt0;
 
     /// <summary>Date Geburt.</summary>
     //[Builder.Object]
-    private Date geburt;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Date geburt;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+    private readonly Button ok;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -143,8 +123,7 @@ namespace CSBP.Forms.AG
         SetUserData(new[] { berechtigung1, berechtigung2, berechtigung3 }, new[] { "0", "1", "2" });
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.ClientService.GetUser(ServiceDaten, Functions.ToInt32(uid)));
           if (k == null)
@@ -161,8 +140,8 @@ namespace CSBP.Forms.AG
           kennwort.Text = k.Passwort ?? "";
           SetText(berechtigung1, k.Berechtigung.ToString());
           geburt.Value = k.Geburt;
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         benutzerId.IsEditable = !loeschen;

@@ -19,39 +19,15 @@ namespace CSBP.Forms.AG
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label mandanten0.</summary>
-    [Builder.Object]
-    private Label mandanten0;
+    private readonly Button editAction;
 
     /// <summary>TreeView mandanten.</summary>
     [Builder.Object]
-    private TreeView mandanten;
+    private readonly TreeView mandanten;
 
 #pragma warning restore 169, 649
 

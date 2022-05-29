@@ -22,7 +22,7 @@ public static class Functions
   static readonly RandomNumberGenerator csp = RandomNumberGenerator.Create();
   private static CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("de-DE");
   private static readonly CultureInfo CultureInfoDe = CultureInfo.CreateSpecificCulture("de-DE");
-  public static CultureInfo CultureInfoEn = CultureInfo.CreateSpecificCulture("en-GB");
+  private static CultureInfo cultureInfoEn = CultureInfo.CreateSpecificCulture("en-GB");
 
   /// <summary>
   /// Setzen der Sprache.
@@ -46,6 +46,8 @@ public static class Functions
   {
     get { return CultureInfo.TwoLetterISOLanguageName == "de"; }
   }
+
+  public static CultureInfo CultureInfoEn { get => cultureInfoEn; set => cultureInfoEn = value; }
 
   /// <summary>
   /// Funktion, die nichts macht.
@@ -326,15 +328,15 @@ public static class Functions
     }
     if (datum)
     {
-      sb.Append("_").Append(DateTime.Today.ToString("yyyyMMdd"));
+      sb.Append('_').Append(DateTime.Today.ToString("yyyyMMdd"));
     }
     if (zufall)
     {
-      sb.Append("_").Append(NextRandom(1000, 10000));
+      sb.Append('_').Append(NextRandom(1000, 10000));
     }
     if (!string.IsNullOrEmpty(endung))
     {
-      sb.Append(".").Append(endung);
+      sb.Append('.').Append(endung);
     }
     return sb.ToString();
   }
@@ -590,8 +592,8 @@ public static class Functions
       if (monate)
       {
         var mon = MonthDifference(von, bis);
-        sb.Append(" (").Append(mon).Append(" ");
-        sb.Append(M0(mon == 1 ? M2096 : M2097)).Append(")");
+        sb.Append(" (").Append(mon).Append(' ');
+        sb.Append(M0(mon == 1 ? M2096 : M2097)).Append(')');
       }
     }
     else if (von.HasValue)
@@ -628,7 +630,7 @@ public static class Functions
   public static int NextRandom(int minValue, int maxExclusiveValue)
   {
     if (minValue >= maxExclusiveValue)
-      throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
+      throw new ArgumentOutOfRangeException(nameof(minValue)); // "minValue must be lower than maxExclusiveValue");
 
     long diff = (long)maxExclusiveValue - minValue;
     long upperBound = uint.MaxValue / diff * diff;
@@ -739,9 +741,9 @@ public static class Functions
       {
         if (csv.Length > 0)
         {
-          csv.Append(";");
+          csv.Append(';');
         }
-        csv.Append("\"");
+        csv.Append('"');
         if (f == null)
         {
           csv.Append("null");
@@ -750,7 +752,7 @@ public static class Functions
         {
           csv.Append(f.Replace("\"", "\"\""));
         }
-        csv.Append("\"");
+        csv.Append('"');
       }
       // csv.Append(Constants.CRLF);
       return csv.ToString();
@@ -1002,7 +1004,7 @@ public static class Functions
       sb.Append(" </b>");
     sb.Append(" (");
     sb.Append(xref ? ToXref(uid) : uid);
-    sb.Append(")");
+    sb.Append(')');
     return sb.ToString();
   }
 
@@ -1257,7 +1259,7 @@ public static class Functions
       var m = RxWindow1252CrLfTab.Match(value);
       return m.Success;
     }
-    if (value.Contains("\n"))
+    if (value.Contains('\n'))
       return false; // \n is problematic in Regex.
     var match = RxWindow1252Ohne.Match(value);
     return match.Success;

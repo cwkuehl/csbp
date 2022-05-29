@@ -241,8 +241,8 @@ namespace CSBP.Forms.HH
           bText.Text = k.BText;
           belegNr.Text = k.Beleg_Nr;
           belegDatum.Value = k.Beleg_Datum;
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         if (!init)
           InitLists();

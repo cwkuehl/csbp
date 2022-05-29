@@ -430,8 +430,8 @@ namespace CSBP.Forms.SB
           status1.Text = Functions.ToString(k.Status1);
           status2.Text = Functions.ToString(k.Status2);
           status3.Text = Functions.ToString(k.Status3);
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         geburtsname.IsEditable = !loeschen;

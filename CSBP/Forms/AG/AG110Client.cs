@@ -19,49 +19,29 @@ namespace CSBP.Forms.AG
     /// <summary>Dialog Model.</summary>
     private MaMandant Model;
 
-#pragma warning disable 169, 649
-
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label beschreibung0.</summary>
     [Builder.Object]
-    private Label beschreibung0;
+    private readonly Label beschreibung0;
 
     /// <summary>Entry beschreibung.</summary>
     [Builder.Object]
-    private Entry beschreibung;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry beschreibung;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+    private readonly Button ok;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -96,15 +76,14 @@ namespace CSBP.Forms.AG
       {
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.ClientService.GetClient(ServiceDaten, Functions.ToInt32(uid)));
           Model = k;
           nr.Text = k.Nr.ToString();
           beschreibung.Text = k.Beschreibung;
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         beschreibung.IsEditable = !loeschen;

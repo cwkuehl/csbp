@@ -264,8 +264,8 @@ namespace CSBP.Forms.WP
           anteile.Text = Functions.ToString(k.Anteile, 5);
           zinsen.Text = Functions.ToString(k.Zinsen, 2);
           bText.Text = k.BText;
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
           // k.BookingUid = "6acdd0a1:16fd83aa41e:-7fed";
           if (kopieren)
             k.BookingUid = null;

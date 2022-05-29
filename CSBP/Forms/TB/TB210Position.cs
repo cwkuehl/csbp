@@ -152,8 +152,8 @@ namespace CSBP.Forms.TB
           laenge.Buffer.Text = Functions.ToString(k.Laenge, 5);
           hoehe.Buffer.Text = Functions.ToString(k.Hoehe, 2);
           notiz.Buffer.Text = k.Notiz ?? "";
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         bezeichnung.Sensitive = !loeschen;

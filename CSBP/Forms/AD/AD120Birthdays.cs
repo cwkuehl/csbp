@@ -15,41 +15,33 @@ namespace CSBP.Forms.AD
   /// <summary>Controller für AD120Birthdays Dialog.</summary>
   public partial class AD120Birthdays : CsbpBin
   {
-#pragma warning disable 169, 649
-
     /// <summary>Label datum0.</summary>
     [Builder.Object]
-    private Label datum0;
+    private readonly Label datum0;
 
     /// <summary>Date Datum.</summary>
     //[Builder.Object]
-    private Date datum;
+    private readonly Date datum;
 
     /// <summary>Label tage0.</summary>
     [Builder.Object]
-    private Label tage0;
+    private readonly Label tage0;
 
     /// <summary>Entry tage.</summary>
     [Builder.Object]
-    private Entry tage;
-
-    /// <summary>Label geburtstage0.</summary>
-    [Builder.Object]
-    private Label geburtstage0;
+    private readonly Entry tage;
 
     /// <summary>TextView geburtstage.</summary>
     [Builder.Object]
-    private TextView geburtstage;
+    private readonly TextView geburtstage;
 
     /// <summary>CheckButton starten.</summary>
     [Builder.Object]
-    private CheckButton starten;
+    private readonly CheckButton starten;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-#pragma warning restore 169, 649
+    private readonly Button ok;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

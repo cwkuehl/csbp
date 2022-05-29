@@ -15,37 +15,17 @@ namespace CSBP.Forms.AD
   /// <summary>Controller für AD200Interface Dialog.</summary>
   public partial class AD200Interface : CsbpBin
   {
-#pragma warning disable 169, 649
-
     /// <summary>Label datei0.</summary>
     [Builder.Object]
-    private Label datei0;
+    private readonly Label datei0;
 
     /// <summary>Entry datei.</summary>
     [Builder.Object]
-    private Entry datei;
-
-    /// <summary>Button dateiAuswahl.</summary>
-    [Builder.Object]
-    private Button dateiAuswahl;
+    private readonly Entry datei;
 
     /// <summary>CheckButton loeschen.</summary>
     [Builder.Object]
-    private CheckButton loeschen;
-
-    /// <summary>Button export.</summary>
-    [Builder.Object]
-    private Button export;
-
-    /// <summary>Button importieren.</summary>
-    [Builder.Object]
-    private Button importieren;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+    private readonly CheckButton loeschen;
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

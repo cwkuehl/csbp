@@ -253,8 +253,8 @@ namespace CSBP.Forms.FZ
           lesedatum.Value = k.StateRead;
           hoerdatum.Value = k.StateHeard;
           notiz.Buffer.Text = k.Notiz ?? "";
-          angelegt.Text = k.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-          geaendert.Text = k.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+          angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
+          geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
         }
         nr.IsEditable = false;
         titel.IsEditable = !loeschen;

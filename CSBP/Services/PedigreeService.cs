@@ -6,19 +6,19 @@ namespace CSBP.Services
 {
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
+  using System.Text;
+  using System.Text.RegularExpressions;
+  using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Base;
-  using static CSBP.Resources.Messages;
-  using static CSBP.Resources.M;
-  using CSBP.Apis.Enums;
   using CSBP.Services.Pedigree;
-  using System.Text;
   using CSBP.Services.Reports;
-  using System.Text.RegularExpressions;
-  using System.Diagnostics;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   public class PedigreeService : ServiceBase, IPedigreeService
   {
