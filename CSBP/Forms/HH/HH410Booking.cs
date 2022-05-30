@@ -26,133 +26,99 @@ namespace CSBP.Forms.HH
     private static DateTime lastreceiptdate = DateTime.Today;
 
     /// <summary>Zuletzt kopierte ID.</summary>
-    public static string lastcopyuid = null;
+    private static string lastcopyuid = null;
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label valuta0.</summary>
     [Builder.Object]
-    private Label valuta0;
+    private readonly Label valuta0;
 
     /// <summary>Date Valuta.</summary>
     //[Builder.Object]
-    private Date valuta;
+    private readonly Date valuta;
 
     /// <summary>Label betrag0.</summary>
     [Builder.Object]
-    private Label betrag0;
+    private readonly Label betrag0;
 
     /// <summary>Entry betrag.</summary>
     [Builder.Object]
-    private Entry betrag;
-
-    /// <summary>Label summe0.</summary>
-    [Builder.Object]
-    private Label summe0;
+    private readonly Entry betrag;
 
     /// <summary>Entry summe.</summary>
     [Builder.Object]
-    private Entry summe;
-
-    /// <summary>Label ereignis0.</summary>
-    [Builder.Object]
-    private Label ereignis0;
+    private readonly Entry summe;
 
     /// <summary>TreeView ereignis.</summary>
     [Builder.Object]
-    private TreeView ereignis;
+    private readonly TreeView ereignis;
 
     /// <summary>Label sollkonto0.</summary>
     [Builder.Object]
-    private Label sollkonto0;
+    private readonly Label sollkonto0;
 
     /// <summary>TreeView sollkonto.</summary>
     [Builder.Object]
-    private TreeView sollkonto;
+    private readonly TreeView sollkonto;
 
     /// <summary>Label habenkonto0.</summary>
     [Builder.Object]
-    private Label habenkonto0;
+    private readonly Label habenkonto0;
 
     /// <summary>TreeView habenkonto.</summary>
     [Builder.Object]
-    private TreeView habenkonto;
+    private readonly TreeView habenkonto;
 
     /// <summary>Label bText0.</summary>
     [Builder.Object]
-    private Label bText0;
+    private readonly Label bText0;
 
     /// <summary>Entry bText.</summary>
     [Builder.Object]
-    private Entry bText;
-
-    /// <summary>Label belegNr0.</summary>
-    [Builder.Object]
-    private Label belegNr0;
+    private readonly Entry bText;
 
     /// <summary>Entry belegNr.</summary>
     [Builder.Object]
-    private Entry belegNr;
+    private readonly Entry belegNr;
 
     /// <summary>Button neueNr.</summary>
     [Builder.Object]
-    private Button neueNr;
-
-    /// <summary>Label belegDatum0.</summary>
-    [Builder.Object]
-    private Label belegDatum0;
+    private readonly Button neueNr;
 
     /// <summary>Date Belegdatum.</summary>
     //[Builder.Object]
-    private Date belegDatum;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Date belegDatum;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
-
-    /// <summary>Label buchung0.</summary>
-    [Builder.Object]
-    private Label buchung0;
+    private readonly Entry geaendert;
 
     /// <summary>Entry buchung.</summary>
     [Builder.Object]
-    private Entry buchung;
+    private readonly Entry buchung;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
+    private readonly Button ok;
 
     /// <summary>Button kontentausch.</summary>
     [Builder.Object]
-    private Button kontentausch;
+    private readonly Button kontentausch;
 
     /// <summary>Button addition.</summary>
     [Builder.Object]
-    private Button addition;
+    private readonly Button addition;
 
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
 
 #pragma warning restore CS0649
 
@@ -365,7 +331,7 @@ namespace CSBP.Forms.HH
           GetText(sollkonto), GetText(habenkonto), bText.Text, belegNr.Text, belegDatum.ValueNn);
         r = rb;
         if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
-          lastcopyuid = rb.Ergebnis.Uid;
+          Lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Reverse)
         r = FactoryService.BudgetService.ReverseBooking(ServiceDaten, Model);

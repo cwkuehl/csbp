@@ -20,43 +20,19 @@ namespace CSBP.Forms.FZ
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label notizen0.</summary>
-    [Builder.Object]
-    private Label notizen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView notizen.</summary>
     [Builder.Object]
-    private TreeView notizen;
+    private readonly TreeView notizen;
 
     /// <summary>Entry text.</summary>
     [Builder.Object]
-    private Entry text;
+    private readonly Entry text;
 
 #pragma warning restore CS0649
 

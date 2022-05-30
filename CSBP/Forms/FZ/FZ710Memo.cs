@@ -26,61 +26,41 @@ namespace CSBP.Forms.FZ
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label thema0.</summary>
     [Builder.Object]
-    private Label thema0;
+    private readonly Label thema0;
 
     /// <summary>Entry thema.</summary>
     [Builder.Object]
-    private Entry thema;
-
-    /// <summary>Label notiz0.</summary>
-    [Builder.Object]
-    private Label notiz0;
+    private readonly Entry thema;
 
     /// <summary>Paned splitpane.</summary>
     [Builder.Object]
-    private Paned splitpane;
+    private readonly Paned splitpane;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
+    private readonly TextView notiz;
 
     /// <summary>TreeView tabelle.</summary>
     [Builder.Object]
-    private TreeView tabelle;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TreeView tabelle;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 
@@ -121,8 +101,7 @@ namespace CSBP.Forms.FZ
       {
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.PrivateService.GetMemo(ServiceDaten, uid));
           if (k == null)
@@ -196,7 +175,11 @@ namespace CSBP.Forms.FZ
       dialog.Hide();
     }
 
-    private string InitMemo()
+    /// <summary>
+    /// Initialize Memo.
+    /// </summary>
+    /// <returns>Memo as XML string.</returns>
+    private static string InitMemo()
     {
       var zeilen = 1;
       var spalten = 2;
@@ -207,13 +190,11 @@ namespace CSBP.Forms.FZ
         , new XAttribute("breite0", "50"), new XAttribute("hoehe0", "30")
         );
       doc.Add(table);
-      using (var sw = new StringWriter())
-      using (var tw = XmlWriter.Create(sw))
-      {
-        doc.WriteTo(tw);
-        tw.Flush();
-        return sw.GetStringBuilder().ToString();
-      }
+      using var sw = new StringWriter();
+      using var tw = XmlWriter.Create(sw);
+      doc.WriteTo(tw);
+      tw.Flush();
+      return sw.GetStringBuilder().ToString();
     }
 
     /// <summary>
@@ -271,7 +252,7 @@ namespace CSBP.Forms.FZ
      <notiz>Turniere</notiz></tabelle>
      */
 
-    private string SetMemo(ITreeModel model, Formulas flist, string memo, int teiler)
+    private static string SetMemo(ITreeModel model, Formulas flist, string memo, int teiler)
     {
       memo = memo.TrimNull();
       var spalten = model.NColumns;
@@ -325,13 +306,11 @@ namespace CSBP.Forms.FZ
         table.Add(new XElement("spalte", new XAttribute("nr", $"{x}"), new XAttribute("breite", "50")));
       }
       table.Add(new XElement("notiz", memo ?? ""));
-      using (var stringWriter = new StringWriter())
-      using (var xmlTextWriter = XmlWriter.Create(stringWriter))
-      {
-        doc.WriteTo(xmlTextWriter);
-        xmlTextWriter.Flush();
-        return stringWriter.GetStringBuilder().ToString();
-      }
+      using var stringWriter = new StringWriter();
+      using var xmlTextWriter = XmlWriter.Create(stringWriter);
+      doc.WriteTo(xmlTextWriter);
+      xmlTextWriter.Flush();
+      return stringWriter.GetStringBuilder().ToString();
     }
   }
 }

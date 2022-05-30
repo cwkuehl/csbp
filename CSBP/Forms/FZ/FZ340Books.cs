@@ -20,67 +20,27 @@ namespace CSBP.Forms.FZ
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label buecher0.</summary>
-    [Builder.Object]
-    private Label buecher0;
+    private readonly Button editAction;
 
     /// <summary>TreeView buecher.</summary>
     [Builder.Object]
-    private TreeView buecher;
-
-    /// <summary>Label titel0.</summary>
-    [Builder.Object]
-    private Label titel0;
+    private readonly TreeView buecher;
 
     /// <summary>Entry titel.</summary>
     [Builder.Object]
-    private Entry titel;
-
-    /// <summary>Label autor0.</summary>
-    [Builder.Object]
-    private Label autor0;
+    private readonly Entry titel;
 
     /// <summary>ComboBox autor.</summary>
     [Builder.Object]
-    private ComboBox autor;
-
-    /// <summary>Label serie0.</summary>
-    [Builder.Object]
-    private Label serie0;
+    private readonly ComboBox autor;
 
     /// <summary>ComboBox serie.</summary>
     [Builder.Object]
-    private ComboBox serie;
-
-    /// <summary>Button alle.</summary>
-    [Builder.Object]
-    private Button alle;
+    private readonly ComboBox serie;
 
 #pragma warning restore CS0649
 

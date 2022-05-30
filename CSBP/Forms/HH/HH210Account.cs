@@ -22,113 +22,81 @@ namespace CSBP.Forms.HH
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label bezeichnung0.</summary>
     [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Label bezeichnung0;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
-
-    /// <summary>Label kennzeichen0.</summary>
-    [Builder.Object]
-    private Label kennzeichen0;
+    private readonly Entry bezeichnung;
 
     /// <summary>RadioButton kennzeichen1.</summary>
     [Builder.Object]
-    private RadioButton kennzeichen1;
+    private readonly RadioButton kennzeichen1;
 
     /// <summary>RadioButton kennzeichen2.</summary>
     [Builder.Object]
-    private RadioButton kennzeichen2;
+    private readonly RadioButton kennzeichen2;
 
     /// <summary>RadioButton kennzeichen3.</summary>
     [Builder.Object]
-    private RadioButton kennzeichen3;
+    private readonly RadioButton kennzeichen3;
 
     /// <summary>RadioButton kennzeichen4.</summary>
     [Builder.Object]
-    private RadioButton kennzeichen4;
+    private readonly RadioButton kennzeichen4;
 
     /// <summary>Label kontoart0.</summary>
     [Builder.Object]
-    private Label kontoart0;
+    private readonly Label kontoart0;
 
     /// <summary>RadioButton kontoart1.</summary>
     [Builder.Object]
-    private RadioButton kontoart1;
+    private readonly RadioButton kontoart1;
 
     /// <summary>RadioButton kontoart2.</summary>
     [Builder.Object]
-    private RadioButton kontoart2;
+    private readonly RadioButton kontoart2;
 
     /// <summary>RadioButton kontoart3.</summary>
     [Builder.Object]
-    private RadioButton kontoart3;
+    private readonly RadioButton kontoart3;
 
     /// <summary>RadioButton kontoart4.</summary>
     [Builder.Object]
-    private RadioButton kontoart4;
-
-    /// <summary>Label von0.</summary>
-    [Builder.Object]
-    private Label von0;
+    private readonly RadioButton kontoart4;
 
     /// <summary>Date Von.</summary>
     //[Builder.Object]
-    private Date von;
-
-    /// <summary>Label bis0.</summary>
-    [Builder.Object]
-    private Label bis0;
+    private readonly Date von;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
-
-    /// <summary>Label betrag0.</summary>
-    [Builder.Object]
-    private Label betrag0;
+    private readonly Date bis;
 
     /// <summary>Entry betrag.</summary>
     [Builder.Object]
-    private Entry betrag;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry betrag;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Label buchung.</summary>
     [Builder.Object]
-    private Label buchung;
+    private readonly Label buchung;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 

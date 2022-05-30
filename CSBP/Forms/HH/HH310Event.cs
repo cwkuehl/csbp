@@ -21,81 +21,57 @@ namespace CSBP.Forms.HH
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label bezeichnung0.</summary>
     [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Label bezeichnung0;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
-
-    /// <summary>Label kennzeichen0.</summary>
-    [Builder.Object]
-    private Label kennzeichen0;
+    private readonly Entry bezeichnung;
 
     /// <summary>Entry kennzeichen.</summary>
     [Builder.Object]
-    private Entry kennzeichen;
+    private readonly Entry kennzeichen;
 
     /// <summary>Label eText0.</summary>
     [Builder.Object]
-    private Label eText0;
+    private readonly Label eText0;
 
     /// <summary>Entry eText.</summary>
     [Builder.Object]
-    private Entry eText;
+    private readonly Entry eText;
 
     /// <summary>Label sollkonto0.</summary>
     [Builder.Object]
-    private Label sollkonto0;
+    private readonly Label sollkonto0;
 
     /// <summary>TreeView sollkonto.</summary>
     [Builder.Object]
-    private TreeView sollkonto;
+    private readonly TreeView sollkonto;
 
     /// <summary>Label habenkonto0.</summary>
     [Builder.Object]
-    private Label habenkonto0;
+    private readonly Label habenkonto0;
 
     /// <summary>TreeView habenkonto.</summary>
     [Builder.Object]
-    private TreeView habenkonto;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TreeView habenkonto;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button kontentausch.</summary>
-    [Builder.Object]
-    private Button kontentausch;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 

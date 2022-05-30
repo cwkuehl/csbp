@@ -23,137 +23,93 @@ namespace CSBP.Forms.FZ
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label titel0.</summary>
     [Builder.Object]
-    private Label titel0;
+    private readonly Label titel0;
 
     /// <summary>Entry titel.</summary>
     [Builder.Object]
-    private Entry titel;
+    private readonly Entry titel;
 
     /// <summary>Entry untertitel.</summary>
     [Builder.Object]
-    private Entry untertitel;
+    private readonly Entry untertitel;
 
     /// <summary>Label autor0.</summary>
     [Builder.Object]
-    private Label autor0;
+    private readonly Label autor0;
 
     /// <summary>ComboBox autor.</summary>
     [Builder.Object]
-    private ComboBox autor;
-
-    /// <summary>Button autorneu.</summary>
-    [Builder.Object]
-    private Button autorneu;
+    private readonly ComboBox autor;
 
     /// <summary>Label serie0.</summary>
     [Builder.Object]
-    private Label serie0;
+    private readonly Label serie0;
 
     /// <summary>ComboBox serie.</summary>
     [Builder.Object]
-    private ComboBox serie;
-
-    /// <summary>Button serieneu.</summary>
-    [Builder.Object]
-    private Button serieneu;
-
-    /// <summary>Label seriennummer0.</summary>
-    [Builder.Object]
-    private Label seriennummer0;
+    private readonly ComboBox serie;
 
     /// <summary>Entry seriennummer.</summary>
     [Builder.Object]
-    private Entry seriennummer;
-
-    /// <summary>Label seiten0.</summary>
-    [Builder.Object]
-    private Label seiten0;
+    private readonly Entry seriennummer;
 
     /// <summary>Entry seiten.</summary>
     [Builder.Object]
-    private Entry seiten;
+    private readonly Entry seiten;
 
     /// <summary>Label sprache0.</summary>
     [Builder.Object]
-    private Label sprache0;
+    private readonly Label sprache0;
 
     /// <summary>RadioButton sprache1.</summary>
     [Builder.Object]
-    private RadioButton sprache1;
+    private readonly RadioButton sprache1;
 
     /// <summary>RadioButton sprache2.</summary>
     [Builder.Object]
-    private RadioButton sprache2;
+    private readonly RadioButton sprache2;
 
     /// <summary>RadioButton sprache3.</summary>
     [Builder.Object]
-    private RadioButton sprache3;
+    private readonly RadioButton sprache3;
 
     /// <summary>RadioButton sprache4.</summary>
     [Builder.Object]
-    private RadioButton sprache4;
-
-    /// <summary>Label besitz0.</summary>
-    [Builder.Object]
-    private Label besitz0;
+    private readonly RadioButton sprache4;
 
     /// <summary>CheckButton besitz.</summary>
     [Builder.Object]
-    private CheckButton besitz;
-
-    /// <summary>Label lesedatum0.</summary>
-    [Builder.Object]
-    private Label lesedatum0;
+    private readonly CheckButton besitz;
 
     /// <summary>Date Lesedatum.</summary>
     //[Builder.Object]
-    private Date lesedatum;
-
-    /// <summary>Label hoerdatum0.</summary>
-    [Builder.Object]
-    private Label hoerdatum0;
+    private readonly Date lesedatum;
 
     /// <summary>Date Hoerdatum.</summary>
     //[Builder.Object]
-    private Date hoerdatum;
+    private readonly Date hoerdatum;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView notiz;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 

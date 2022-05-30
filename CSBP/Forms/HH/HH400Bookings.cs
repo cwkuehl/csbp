@@ -26,103 +26,47 @@ namespace CSBP.Forms.HH
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Button SaveAction.</summary>
-    [Builder.Object]
-    private Button saveAction;
-
-    /// <summary>Label buchungen0.</summary>
-    [Builder.Object]
-    private Label buchungen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView buchungen.</summary>
     [Builder.Object]
-    private TreeView buchungen;
+    private readonly TreeView buchungen;
 
     /// <summary>Label buchungenStatus.</summary>
     [Builder.Object]
-    private Label buchungenStatus;
-
-    /// <summary>Label kennzeichen0.</summary>
-    [Builder.Object]
-    private Label kennzeichen0;
+    private readonly Label buchungenStatus;
 
     /// <summary>RadioButton kennzeichen1.</summary>
     [Builder.Object]
-    private RadioButton kennzeichen1;
+    private readonly RadioButton kennzeichen1;
 
     /// <summary>RadioButton kennzeichen2.</summary>
     [Builder.Object]
-    private RadioButton kennzeichen2;
-
-    /// <summary>Label von0.</summary>
-    [Builder.Object]
-    private Label von0;
+    private readonly RadioButton kennzeichen2;
 
     /// <summary>Date Von.</summary>
     //[Builder.Object]
-    private Date von;
-
-    /// <summary>Label bis0.</summary>
-    [Builder.Object]
-    private Label bis0;
+    private readonly Date von;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
-
-    /// <summary>Label bText0.</summary>
-    [Builder.Object]
-    private Label bText0;
+    private readonly Date bis;
 
     /// <summary>Entry bText.</summary>
     [Builder.Object]
-    private Entry bText;
-
-    /// <summary>Label betrag0.</summary>
-    [Builder.Object]
-    private Label betrag0;
+    private readonly Entry bText;
 
     /// <summary>Entry betrag.</summary>
     [Builder.Object]
-    private Entry betrag;
-
-    /// <summary>Label konto0.</summary>
-    [Builder.Object]
-    private Label konto0;
+    private readonly Entry betrag;
 
     /// <summary>ComboBox konto.</summary>
     [Builder.Object]
-    private ComboBox konto;
-
-    /// <summary>Button alle.</summary>
-    [Builder.Object]
-    private Button alle;
+    private readonly ComboBox konto;
 
 #pragma warning restore CS0649
 
@@ -164,8 +108,8 @@ namespace CSBP.Forms.HH
       bis.Show();
       ObservableEventThrottle(refreshAction, delegate
       {
-        var uid = HH410Booking.lastcopyuid;
-        HH410Booking.lastcopyuid = null;
+        var uid = HH410Booking.Lastcopyuid;
+        HH410Booking.Lastcopyuid = null;
         RefreshTreeView(buchungen, 1, uid);
       });
       // SetBold(client0);

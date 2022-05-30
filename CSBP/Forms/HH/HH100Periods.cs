@@ -21,79 +21,43 @@ namespace CSBP.Forms.HH
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label perioden0.</summary>
-    [Builder.Object]
-    private Label perioden0;
+    private readonly Button refreshAction;
 
     /// <summary>TreeView perioden.</summary>
     [Builder.Object]
-    private TreeView perioden;
-
-    /// <summary>Label anfang0.</summary>
-    [Builder.Object]
-    private Label anfang0;
+    private readonly TreeView perioden;
 
     /// <summary>Entry anfang.</summary>
     [Builder.Object]
-    private Entry anfang;
-
-    /// <summary>Label ende0.</summary>
-    [Builder.Object]
-    private Label ende0;
+    private readonly Entry anfang;
 
     /// <summary>Entry ende.</summary>
     [Builder.Object]
-    private Entry ende;
-
-    /// <summary>Label laenge0.</summary>
-    [Builder.Object]
-    private Label laenge0;
+    private readonly Entry ende;
 
     /// <summary>RadioButton laenge1.</summary>
     [Builder.Object]
-    private RadioButton laenge1;
+    private readonly RadioButton laenge1;
 
     /// <summary>RadioButton laenge2.</summary>
     [Builder.Object]
-    private RadioButton laenge2;
+    private readonly RadioButton laenge2;
 
     /// <summary>RadioButton laenge3.</summary>
     [Builder.Object]
-    private RadioButton laenge3;
+    private readonly RadioButton laenge3;
 
     /// <summary>RadioButton laenge4.</summary>
     [Builder.Object]
-    private RadioButton laenge4;
-
-    /// <summary>Label art0.</summary>
-    [Builder.Object]
-    private Label art0;
+    private readonly RadioButton laenge4;
 
     /// <summary>RadioButton art1.</summary>
     [Builder.Object]
-    private RadioButton art1;
+    private readonly RadioButton art1;
 
     /// <summary>RadioButton art2.</summary>
     [Builder.Object]
-    private RadioButton art2;
+    private readonly RadioButton art2;
 
 #pragma warning restore CS0649
 
