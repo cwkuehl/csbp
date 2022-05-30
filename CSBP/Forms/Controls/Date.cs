@@ -7,46 +7,41 @@ namespace CSBP.Forms.Controls
   using System;
   using CSBP.Base;
   using Gtk;
-  using static CSBP.Resources.M;
   using static CSBP.Resources.Messages;
 
-  public partial class Date : Gtk.Grid
+  public partial class Date : Grid
   {
-#pragma warning disable 169, 649
-
     /// <summary>CheckButton unknown.</summary>
     [Builder.Object]
-    private CheckButton unknown;
+    private readonly CheckButton unknown;
 
     /// <summary>Entry date.</summary>
     [Builder.Object]
-    private Entry date;
+    private readonly Entry date;
 
     /// <summary>Button down.</summary>
     [Builder.Object]
-    private Button down;
+    private readonly Button down;
 
     /// <summary>Label daytext.</summary>
     [Builder.Object]
-    private Label daytext;
+    private readonly Label daytext;
 
     /// <summary>Button yesterday.</summary>
     [Builder.Object]
-    private Button yesterday;
+    private readonly Button yesterday;
 
     /// <summary>Button today.</summary>
     [Builder.Object]
-    private Button today;
+    private readonly Button today;
 
     /// <summary>Button tomorrow.</summary>
     [Builder.Object]
-    private Button tomorrow;
+    private readonly Button tomorrow;
 
     /// <summary>Calendar calendar.</summary>
     [Builder.Object]
-    private Calendar calendar;
-
-#pragma warning restore 169, 649
+    private readonly Calendar calendar;
 
     DateTime? _value;
 

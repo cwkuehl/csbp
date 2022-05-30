@@ -20,7 +20,7 @@ namespace CSBP.Forms.SB
   public partial class SB220Print : CsbpBin
   {
     /// <summary>Dialog Model.</summary>
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Label person0.</summary>
     [Builder.Object]
@@ -58,7 +58,7 @@ namespace CSBP.Forms.SB
     [Builder.Object]
     private Button abbrechen;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -88,7 +88,7 @@ namespace CSBP.Forms.SB
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 0)

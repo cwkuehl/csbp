@@ -28,7 +28,7 @@ namespace CSBP.Forms.HH
     /// <summary>Zuletzt kopierte ID.</summary>
     public static string lastcopyuid = null;
 
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Label nr0.</summary>
     [Builder.Object]
@@ -154,7 +154,7 @@ namespace CSBP.Forms.HH
     [Builder.Object]
     private Button abbrechen;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -206,7 +206,7 @@ namespace CSBP.Forms.HH
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {

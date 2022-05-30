@@ -66,19 +66,19 @@ public class Formula
   }
 
   /// <summary>Regex for formula sum.</summary>
-  private static Regex RxSum = new Regex(@"^=(sum|summe)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static readonly Regex RxSum = new(@"^=(sum|summe)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>Regex for formula count.</summary>
-  private static Regex RxCount = new Regex(@"^=(count|anzahl)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static readonly Regex RxCount = new(@"^=(count|anzahl)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>Regex for formula count.</summary>
-  private static Regex RxDays = new Regex(@"^=(days|tage)\(([a-z]+)(\d+);([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static readonly Regex RxDays = new(@"^=(days|tage)\(([a-z]+)(\d+);([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>Regex for formula today.</summary>
-  private static Regex RxToday = new Regex(@"^=(today|heute)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static readonly Regex RxToday = new(@"^=(today|heute)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>Regex for formula now.</summary>
-  private static Regex RxNow = new Regex(@"^=(now|jetzt)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+  private static readonly Regex RxNow = new(@"^=(now|jetzt)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
   /// <summary>
   /// Private constructor.
@@ -162,7 +162,7 @@ public class Formula
     var f = en ? function
       : function == "sum" ? "summe" : function == "count" ? "anzahl" : function == "days" ? "tage" : function == "now" ? "jetzt" : "heute";
     var sb = new StringBuilder();
-    sb.Append("=").Append(f).Append("(");
+    sb.Append('=').Append(f).Append('(');
     if (column1 >= 0 && row1 >= 0)
       sb.Append($"{GetColumnName(column1)}{row1 + 1}".ToLower());
     if (column2 >= 0 && row2 >= 0)
@@ -170,7 +170,7 @@ public class Formula
       sb.Append(function == "days" ? ";" : ":");
       sb.Append($"{GetColumnName(column2)}{row2 + 1}".ToLower());
     }
-    sb.Append(")");
+    sb.Append(')');
     return sb.ToString();
   }
 

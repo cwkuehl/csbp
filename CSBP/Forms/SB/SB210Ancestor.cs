@@ -24,7 +24,7 @@ namespace CSBP.Forms.SB
     /// <summary>Dialog Model.</summary>
     private SbPerson Model;
 
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Label nr0.</summary>
     [Builder.Object]
@@ -321,7 +321,7 @@ namespace CSBP.Forms.SB
     /// <summary>List of images.</summary>
     private List<ByteDaten> imagelist = new List<ByteDaten>();
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -352,7 +352,7 @@ namespace CSBP.Forms.SB
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 0)

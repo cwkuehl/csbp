@@ -21,25 +21,17 @@ namespace CSBP.Forms.AM
     List<MaParameter> Model;
     TreeStore Store;
 
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Label einstellungen0.</summary>
     [Builder.Object]
-    private Label einstellungen0;
+    private readonly Label einstellungen0;
 
     /// <summary>TreeView einstellungen.</summary>
     [Builder.Object]
-    private TreeView einstellungen;
+    private readonly TreeView einstellungen;
 
-    /// <summary>Button ok.</summary>
-    [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -68,16 +60,16 @@ namespace CSBP.Forms.AM
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 1)
       {
         Model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr,
           Parameter.Params)) ?? new List<MaParameter>();
-#pragma warning disable 618
+#pragma warning disable CS0618
         Store = AddStringColumns(einstellungen, AM500_einstellungen_columns);
-#pragma warning restore 618
+#pragma warning restore CS0618
         foreach (var e in Model)
         {
           // Mandant;Schlüssel;Wert;Kommentar;Standard;Geändert am;Geändert von;Angelegt am;Angelegt von

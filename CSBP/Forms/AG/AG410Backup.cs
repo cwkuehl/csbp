@@ -18,65 +18,49 @@ namespace CSBP.Forms.AG
     /// <summary>Dialog Model.</summary>
     private BackupEntry Model;
 
-#pragma warning disable 169, 649
-
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
+#pragma warning disable CS0649
 
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label ziel0.</summary>
     [Builder.Object]
-    private Label ziel0;
+    private readonly Label ziel0;
 
     /// <summary>Entry ziel.</summary>
     [Builder.Object]
-    private Entry ziel;
+    private readonly Entry ziel;
 
     /// <summary>CheckButton encrypted.</summary>
     [Builder.Object]
-    private CheckButton encrypted;
+    private readonly CheckButton encrypted;
 
     /// <summary>CheckButton zipped.</summary>
     [Builder.Object]
-    private CheckButton zipped;
+    private readonly CheckButton zipped;
 
     /// <summary>Label quelle0.</summary>
     [Builder.Object]
-    private Label quelle0;
+    private readonly Label quelle0;
 
     /// <summary>Entry quelle.</summary>
     [Builder.Object]
-    private Entry quelle;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry quelle;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
+    private readonly Button ok;
 
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -106,14 +90,13 @@ namespace CSBP.Forms.AG
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
           Model = k;

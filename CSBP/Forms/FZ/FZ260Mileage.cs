@@ -21,89 +21,61 @@ namespace CSBP.Forms.FZ
     /// <summary>Dialog Model.</summary>
     private FzFahrradstand Model;
 
-#pragma warning disable 169, 649
-
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
+#pragma warning disable CS0649
 
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label fahrrad0.</summary>
     [Builder.Object]
-    private Label fahrrad0;
+    private readonly Label fahrrad0;
 
     /// <summary>ComboBox fahrrad.</summary>
     [Builder.Object]
-    private ComboBox fahrrad;
+    private readonly ComboBox fahrrad;
 
     /// <summary>Label datum0.</summary>
     [Builder.Object]
-    private Label datum0;
+    private readonly Label datum0;
 
     /// <summary>Date Datum.</summary>
     //[Builder.Object]
-    private Date datum;
-
-    /// <summary>Label zaehler0.</summary>
-    [Builder.Object]
-    private Label zaehler0;
+    private readonly Date datum;
 
     /// <summary>Entry zaehler.</summary>
     [Builder.Object]
-    private Entry zaehler;
+    private readonly Entry zaehler;
 
     /// <summary>Label km0.</summary>
     [Builder.Object]
-    private Label km0;
+    private readonly Label km0;
 
     /// <summary>Entry km.</summary>
     [Builder.Object]
-    private Entry km;
-
-    /// <summary>Label schnitt0.</summary>
-    [Builder.Object]
-    private Label schnitt0;
+    private readonly Entry km;
 
     /// <summary>Entry schnitt.</summary>
     [Builder.Object]
-    private Entry schnitt;
-
-    /// <summary>Label beschreibung0.</summary>
-    [Builder.Object]
-    private Label beschreibung0;
+    private readonly Entry schnitt;
 
     /// <summary>Entry beschreibung.</summary>
     [Builder.Object]
-    private Entry beschreibung;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry beschreibung;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
+    private readonly Button ok;
 
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -144,7 +116,7 @@ namespace CSBP.Forms.FZ
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 0)
@@ -161,8 +133,7 @@ namespace CSBP.Forms.FZ
         var neu = DialogType == DialogTypeEnum.New;
         var copy = DialogType == DialogTypeEnum.Copy;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var key = Parameter1 as Tuple<string, DateTime?, int>;
-        if (!neu && key != null && key.Item2.HasValue)
+        if (!neu && Parameter1 is Tuple<string, DateTime?, int> key && key.Item2.HasValue)
         {
           var k = Get(FactoryService.PrivateService.GetMileage(daten, key.Item1, key.Item2.Value, key.Item3));
           if (k == null)

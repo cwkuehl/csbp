@@ -15,7 +15,7 @@ namespace CSBP.Forms.AG
   /// <summary>Controller für AG100Clients Dialog.</summary>
   public partial class AG100Clients : CsbpBin
   {
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
@@ -29,7 +29,7 @@ namespace CSBP.Forms.AG
     [Builder.Object]
     private readonly TreeView mandanten;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

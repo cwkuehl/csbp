@@ -11,10 +11,10 @@ namespace CSBP.Forms.FZ
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Forms.Controls;
-  using static CSBP.Resources.M;
-  using static CSBP.Resources.Messages;
   using CSBP.Services.Factory;
   using Gtk;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   /// <summary>Controller für FZ100Statistics Dialog.</summary>
   public partial class FZ100Statistics : CsbpBin
@@ -25,45 +25,29 @@ namespace CSBP.Forms.FZ
     /// <summary>Diagram Model Bike mileages.</summary>
     private List<KeyValuePair<string, decimal>> MileageList;
 
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Label datum0.</summary>
-    [Builder.Object]
-    private Label datum0;
+    private readonly Button refreshAction;
 
     /// <summary>Date Datum.</summary>
     //[Builder.Object]
-    private Date datum;
-
-    /// <summary>Label bilanz0.</summary>
-    [Builder.Object]
-    private Label bilanz0;
+    private readonly Date datum;
 
     /// <summary>TextView bilanz.</summary>
     [Builder.Object]
-    private TextView bilanz;
-
-    /// <summary>Label buecher0.</summary>
-    [Builder.Object]
-    private Label buecher0;
+    private readonly TextView bilanz;
 
     /// <summary>TextView buecher.</summary>
     [Builder.Object]
-    private TextView buecher;
-
-    /// <summary>Label fahrrad0.</summary>
-    [Builder.Object]
-    private Label fahrrad0;
+    private readonly TextView buecher;
 
     /// <summary>TextView fahrrad.</summary>
     [Builder.Object]
-    private TextView fahrrad;
+    private readonly TextView fahrrad;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -93,11 +77,11 @@ namespace CSBP.Forms.FZ
       };
       datum.DateChanged += OnDatumDateChanged;
       datum.Show();
-#pragma warning disable 612
+#pragma warning disable CS0612
       bilanz.OverrideFont(Pango.FontDescription.FromString("mono"));
       buecher.OverrideFont(Pango.FontDescription.FromString("mono"));
       fahrrad.OverrideFont(Pango.FontDescription.FromString("mono"));
-#pragma warning restore 612
+#pragma warning restore CS0612
       // SetBold(client0);
       InitData(0);
       bilanz.GrabFocus();
@@ -105,7 +89,7 @@ namespace CSBP.Forms.FZ
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 0)

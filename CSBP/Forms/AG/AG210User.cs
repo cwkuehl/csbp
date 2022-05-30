@@ -17,6 +17,8 @@ namespace CSBP.Forms.AG
   /// <summary>Controller für AG210User Dialog.</summary>
   public partial class AG210User : CsbpBin
   {
+#pragma warning disable CS0649
+
     /// <summary>Dialog Model.</summary>
     private Benutzer Model;
 
@@ -76,6 +78,8 @@ namespace CSBP.Forms.AG
     [Builder.Object]
     private readonly Button ok;
 
+#pragma warning restore CS0649
+
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
     /// <param name="p">Betroffener Eltern-Dialog.</param>
@@ -115,7 +119,7 @@ namespace CSBP.Forms.AG
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 0)

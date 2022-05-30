@@ -14,37 +14,37 @@ namespace CSBP.Forms.AM
   /// <summary>Controller für AM000Login Dialog.</summary>
   public class AM000Login : CsbpBin
   {
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Mandant Label.</summary>
     [Builder.Object]
-    private Label client0;
+    private readonly Label client0;
 
     /// <summary>Benutzer Label.</summary>
     [Builder.Object]
-    private Label user0;
+    private readonly Label user0;
 
     /// <summary>Kennwort Label.</summary>
     [Builder.Object]
-    private Label password0;
+    private readonly Label password0;
 
     /// <summary>Mandant Entry.</summary>
     [Builder.Object]
-    private Entry client;
+    private readonly Entry client;
 
     /// <summary>Benutzer Entry.</summary>
     [Builder.Object]
-    private Entry user;
+    private readonly Entry user;
 
     /// <summary>Kennwort Entry.</summary>
     [Builder.Object]
-    private Entry password;
+    private readonly Entry password;
 
     /// <summary>Speichern CheckButton.</summary>
     [Builder.Object]
-    private CheckButton save;
+    private readonly CheckButton save;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -74,7 +74,7 @@ namespace CSBP.Forms.AM
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step == 0)
       {

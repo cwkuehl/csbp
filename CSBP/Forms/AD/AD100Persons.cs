@@ -17,6 +17,8 @@ namespace CSBP.Forms.AD
   /// <summary>Controller für AD100Persons Dialog.</summary>
   public partial class AD100Persons : CsbpBin
   {
+#pragma warning disable CS0649
+
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
     private readonly Button refreshAction;
@@ -40,6 +42,8 @@ namespace CSBP.Forms.AD
     /// <summary>Entry vorname.</summary>
     [Builder.Object]
     private readonly Entry vorname;
+
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -83,9 +87,9 @@ namespace CSBP.Forms.AD
       {
         var l = Get(FactoryService.AddressService.GetPersonList(ServiceDaten, false, suche.Text, name.Text,
           vorname.Text)) ?? new List<AdSitz>();
-#pragma warning disable 618
+#pragma warning disable CS0618
         var store = AddStringColumns(personen, AD100_personen_columns);
-#pragma warning restore 618
+#pragma warning restore CS0618
         var pi = new TreeIter();
         string uid = null;
         foreach (var e in l)

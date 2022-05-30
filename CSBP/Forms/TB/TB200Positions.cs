@@ -16,7 +16,7 @@ namespace CSBP.Forms.TB
   /// <summary>Controller für TB200Positions Dialog.</summary>
   public partial class TB200Positions : CsbpBin
   {
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
@@ -66,7 +66,7 @@ namespace CSBP.Forms.TB
     [Builder.Object]
     private Button alle;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -96,7 +96,7 @@ namespace CSBP.Forms.TB
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {
@@ -121,7 +121,7 @@ namespace CSBP.Forms.TB
     }
 
     /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
-    override protected void UpdateParent()
+    protected override void UpdateParent()
     {
       refreshAction.Click();
     }

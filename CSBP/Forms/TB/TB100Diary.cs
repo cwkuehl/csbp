@@ -30,7 +30,7 @@ namespace CSBP.Forms.TB
     /// <summary>Holt oder setzt den bisherigen Tagebuch-Eintrag.</summary>
     TbEintrag EntryOld { get; set; } = new TbEintrag { Positions = new List<TbEintragOrt>() };
 
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Button CopyAction.</summary>
     [Builder.Object]
@@ -255,7 +255,7 @@ namespace CSBP.Forms.TB
     /// <summary>Liste der zugeordneten Positionen.</summary>
     private List<TbEintragOrt> PositionList = new List<TbEintragOrt>();
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -314,7 +314,7 @@ namespace CSBP.Forms.TB
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {
@@ -338,7 +338,7 @@ namespace CSBP.Forms.TB
     }
 
     /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
-    override protected void UpdateParent()
+    protected override void UpdateParent()
     {
       InitLists();
     }

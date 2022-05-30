@@ -530,9 +530,9 @@ namespace CSBP.Forms.{unit.ToUpper()}
     /// <summary>Dialog Model.</summary>
     private MaMandant Model;
 
-#pragma warning disable 169, 649{gc.Member}
+#pragma warning disable CS0649{gc.Member}
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name=""p1"">1. Parameter für Dialog.</param>
@@ -561,7 +561,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name=""step"">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {{
       if (step <= 0) {{
       }}

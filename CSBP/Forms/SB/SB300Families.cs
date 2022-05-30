@@ -17,7 +17,7 @@ namespace CSBP.Forms.SB
   /// <summary>Controller für SB300Families Dialog.</summary>
   public partial class SB300Families : CsbpBin
   {
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
@@ -71,7 +71,7 @@ namespace CSBP.Forms.SB
     [Builder.Object]
     private Button spKind;
 
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -136,7 +136,7 @@ namespace CSBP.Forms.SB
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       var daten = ServiceDaten;
       if (step <= 1)
@@ -155,7 +155,7 @@ namespace CSBP.Forms.SB
     }
 
     /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
-    override protected void UpdateParent()
+    protected override void UpdateParent()
     {
       refreshAction.Click();
     }

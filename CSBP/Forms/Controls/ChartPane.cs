@@ -73,10 +73,6 @@ namespace CSBP.Forms.Controls
       var yoffset = ygroesse * 3.2m;
       decimal xanzahl = c.Saeulen.Count;
       decimal yanzahl = c.Werte.Count;
-      var b = 0m;
-      var h = 0m;
-      var x = 0m;
-      var y = 0m;
       var white = new Cairo.Color(1, 1, 1);
       var black = new Cairo.Color(0, 0, 0);
       var red = new Cairo.Color(1, 0, 0);
@@ -105,8 +101,10 @@ namespace CSBP.Forms.Controls
       // Säulen
       DrawString(pc, xoffset, ygroesse * 0.9m, c.Bezeichnung, font, color);
       DrawString(pc, xoffset, ygroesse * 1.8m, c.GetBezeichnung2(), font, color);
-      b = xoffset + xgroesse;
-      h = 0;
+      var b = xoffset + xgroesse;
+      decimal x;
+      decimal y;
+      decimal h;
       foreach (var s in c.Saeulen)
       {
         h = s.Ypos;

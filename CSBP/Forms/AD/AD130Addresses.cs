@@ -16,6 +16,8 @@ namespace CSBP.Forms.AD
   /// <summary>Controller für AD130Addresses Dialog.</summary>
   public partial class AD130Addresses : CsbpBin
   {
+#pragma warning disable CS0649
+
     /// <summary>Label adressen0.</summary>
     [Builder.Object]
     private readonly Label adressen0;
@@ -27,6 +29,8 @@ namespace CSBP.Forms.AD
     /// <summary>Button ok.</summary>
     [Builder.Object]
     private readonly Button ok;
+
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

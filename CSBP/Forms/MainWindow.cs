@@ -31,6 +31,8 @@ namespace CSBP.Forms
   /// <summary>Main Window.</summary>
   public class MainWindow : Window
   {
+#pragma warning disable CS0649
+
     /// <summary>Status-Leiste.</summary>
     [Builder.Object]
     private readonly Notebook Notebook;
@@ -182,6 +184,8 @@ namespace CSBP.Forms
     /// <summary>Menüpunkt Stände.</summary>
     [Builder.Object]
     private readonly MenuItem MenuPrices;
+
+#pragma warning restore CS0649
 
     /// <summary>Default Shared Constructor.</summary>
     /// <returns>A MainWindow.</returns>

@@ -20,6 +20,8 @@ namespace CSBP.Forms.AD
     /// <summary>Dialog Model.</summary>
     private AdSitz Model;
 
+#pragma warning disable CS0649
+
     /// <summary>Entry nr.</summary>
     [Builder.Object]
     private readonly Entry nr;
@@ -163,6 +165,8 @@ namespace CSBP.Forms.AD
     /// <summary>Button ok.</summary>
     [Builder.Object]
     private readonly Button ok;
+
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>

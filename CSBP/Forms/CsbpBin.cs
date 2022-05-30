@@ -6,22 +6,22 @@ namespace CSBP.Forms
 {
   using System;
   using System.Collections.Generic;
-  using Gtk;
-  using static CSBP.Resources.M;
-  using static CSBP.Resources.Messages;
-  using CSBP.Apis.Enums;
-  using CSBP.Apis.Services;
-  using CSBP.Resources;
-  using CSBP.Base;
+  using System.Diagnostics;
   using System.Drawing;
   using System.Reactive.Linq;
-  using CSBP.Apis.Models;
-  using System.Diagnostics;
   using System.Text;
   using System.Threading;
   using System.Threading.Tasks;
+  using CSBP.Apis.Enums;
+  using CSBP.Apis.Models;
+  using CSBP.Apis.Services;
+  using CSBP.Base;
   using CSBP.Forms.Controls;
+  using CSBP.Resources;
   using CSBP.Services.Factory;
+  using Gtk;
+  using static CSBP.Resources.M;
+  using static CSBP.Resources.Messages;
 
   [System.ComponentModel.ToolboxItem(false)]
   public partial class CsbpBin : Bin
@@ -40,19 +40,19 @@ namespace CSBP.Forms
 
     protected object Response { get; set; }
 
-    protected ServiceDaten ServiceDaten => MainClass.ServiceDaten;
+    protected static ServiceDaten ServiceDaten => MainClass.ServiceDaten;
 
     protected bool EventsActive;
 
     protected static Builder GetBuilder(string name, out IntPtr handle)
     {
-      var builder = new Builder($"CSBP.GtkGui.{name.Substring(0, 2)}.{name}.glade");
+      var builder = new Builder($"CSBP.GtkGui.{name[..2]}.{name}.glade");
       handle = builder.GetObject(name).Handle;
       return builder;
     }
 
     /// <summary>Initialisierung der Events.</summary>
-    virtual protected void SetupHandlers()
+    protected virtual void SetupHandlers()
     {
     }
 
@@ -79,22 +79,19 @@ namespace CSBP.Forms
         {
           c.TooltipText = Messages.Get(c.TooltipText);
         }
-        var e = c as Entry;
-        if (e != null && !string.IsNullOrEmpty(e.PlaceholderText) && e.PlaceholderText.EndsWith(".tt", StringComparison.CurrentCulture))
+        if (c is Entry e && !string.IsNullOrEmpty(e.PlaceholderText) && e.PlaceholderText.EndsWith(".tt", StringComparison.CurrentCulture))
         {
           e.PlaceholderText = Messages.Get(e.PlaceholderText);
         }
-        var lbl = c as Label;
-        if (lbl != null && !string.IsNullOrEmpty(lbl.LabelProp) && lbl.LabelProp.Contains(".", StringComparison.CurrentCulture))
+        if (c is Label lbl && !string.IsNullOrEmpty(lbl.LabelProp) && lbl.LabelProp.Contains('.', StringComparison.CurrentCulture))
         {
           lbl.LabelProp = Messages.Get(lbl.LabelProp);
         }
-        var btn = c as Button;
-        if (btn != null)
+        if (c is Button btn)
         {
           if (!string.IsNullOrEmpty(btn.TooltipText) && btn.TooltipText.StartsWith("Action.", StringComparison.CurrentCulture))
             btn.TooltipText = Messages.Get(btn.TooltipText);
-          if (!string.IsNullOrEmpty(btn.Label) && btn.Label.Contains(".", StringComparison.CurrentCulture))
+          if (!string.IsNullOrEmpty(btn.Label) && btn.Label.Contains('.', StringComparison.CurrentCulture))
             btn.Label = Messages.Get(btn.Label);
         }
       });
@@ -114,7 +111,7 @@ namespace CSBP.Forms
       DialogTypeEnum dialogType = DialogTypeEnum.Without, object parameter1 = null,
       bool modal = false, Gtk.Window p = null, CsbpBin csbpparent = null)
     {
-      p = p ?? MainClass.MainWindow;
+      p ??= MainClass.MainWindow;
       var f = DialogFlags.DestroyWithParent;
       if (modal)
         f |= DialogFlags.Modal;
@@ -148,7 +145,7 @@ namespace CSBP.Forms
       var ob = Observable.FromEvent<SizeAllocatedHandler, SizeAllocatedArgs>(
         h0 =>
         {
-          SizeAllocatedHandler h = (sender, e) => { h0(e); };
+          void h(object sender, SizeAllocatedArgs e) { h0(e); }
           return h;
         },
         h => dialog.SizeAllocated += h, h => dialog.SizeAllocated -= h
@@ -198,6 +195,9 @@ namespace CSBP.Forms
       var dlg = MainClass.MainWindow.FocusPage<T>();
       if (dlg == null)
       {
+        Functions.MachNichts(dialogType);
+        Functions.MachNichts(modal);
+        Functions.MachNichts(p);
         var create = typeof(T).GetMethod("Create");
         dlg = create.Invoke(null, new[] { parameter1, csbpparent }) as T;
         MainClass.MainWindow.AppendPage(dlg, title);
@@ -261,7 +261,7 @@ namespace CSBP.Forms
     /// <param name="h">Neuer Eventhandler.</param>
     /// <param name="eventname">Optionaler Event-Name.</param>
     /// <param name="millis">Verzögerung in Millisekunden.</param>
-    protected void ObservableEventThrottle(Widget w, EventHandler h, string eventname = "Clicked", int millis = 500)
+    protected static void ObservableEventThrottle(Widget w, EventHandler h, string eventname = "Clicked", int millis = 500)
     {
       var ob = Observable.FromEventPattern<EventArgs>(w, eventname)
         .Throttle(TimeSpan.FromMilliseconds(millis));
@@ -408,9 +408,9 @@ namespace CSBP.Forms
     /// <param name="tv">Specific TreeView.</param>
     /// <param name="mandatory">Is the value mandatory?</param>
     /// <param name="column">The column number.</param>
-    protected T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0) where T : class
+    protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0) where T : class
     {
-      T value = default(T);
+      T value = default;
       var s = tv.Selection.GetSelectedRows();
       if (s.Length > 0 && tv.Model.GetIter(out var iter, s[0]))
       {
@@ -439,16 +439,15 @@ namespace CSBP.Forms
     /// <param name="tv">Specific TreeView.</param>
     /// <param name="mandatory">Is the value mandatory?</param>
     /// <param name="column">The column number.</param>
-    protected string GetText(TreeView tv, bool mandatory = false, int column = 0)
+    protected static string GetText(TreeView tv, bool mandatory = false, int column = 0)
     {
       return GetValue<string>(tv, mandatory, column);
     }
 
     /// <summary>Label mit fetter Schrift.</summary>
-    protected void SetBold(GLib.Object w)
+    protected static void SetBold(GLib.Object w)
     {
-      var lbl = w as Label;
-      if (lbl != null && !lbl.UseMarkup)
+      if (w is Label lbl && !lbl.UseMarkup)
       {
         lbl.UseMarkup = true;
         lbl.LabelProp = $"<b>{lbl.LabelProp}</b>";
@@ -592,12 +591,12 @@ namespace CSBP.Forms
       var align = 0f; // left
       if (title.EndsWith("_r", StringComparison.InvariantCulture))
       {
-        title = title.Substring(0, title.Length - 2);
+        title = title[..^2];
         align = 1f; // right
       }
       else if (title.EndsWith("_e", StringComparison.InvariantCulture))
       {
-        title = title.Substring(0, title.Length - 2);
+        title = title[..^2];
         editable = true;
       }
       var cell = new CellRendererText
@@ -644,8 +643,7 @@ namespace CSBP.Forms
 
     private void TableCell_Edited(object o, EditedArgs args)
     {
-      var cr = o as Gtk.CellRenderer;
-      if (cr == null)
+      if (o is not Gtk.CellRenderer cr)
         return;
       var cnr = (int)cr.Data["cnr"];
       var store = cr.Data["store"] as TreeStore;
@@ -661,8 +659,7 @@ namespace CSBP.Forms
     /// <param name="args">Affected event args.</param>
     private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
     {
-      var mi = o as MenuItem;
-      if (mi == null)
+      if (o is not MenuItem mi)
         return;
       var tv = mi.Data["tv"] as TreeView;
       var store = mi.Data["store"] as TreeStore;
@@ -725,7 +722,7 @@ namespace CSBP.Forms
         var anz = 1;
         if (l == Menu_table_addcol)
         {
-          tv.GetCursor(out var p, out var c);
+          tv.GetCursor(out _, out var c);
           if (c != null)
             pos = (int)c.Data["cnr"];
         }
@@ -760,7 +757,7 @@ namespace CSBP.Forms
       {
         var pos = spalten;
         var anz = 1;
-        tv.GetCursor(out var p, out var c);
+        tv.GetCursor(out _, out var c);
         if (c != null)
           pos = (int)c.Data["cnr"];
         pos = Math.Max(2, pos);
@@ -856,7 +853,7 @@ namespace CSBP.Forms
             r++;
           } while (store.IterNext(ref i));
         }
-        var csv = string.Join(Constants.CRLF, lines);
+        // var csv = string.Join(Constants.CRLF, lines);
         UiTools.SaveFile(lines, Parameter.TempPath, M0(M1000), true, "csv");
       }
       else if (l == Menu_table_print)
@@ -911,12 +908,9 @@ namespace CSBP.Forms
     /// <param name="args">Affected event args.</param>
     private void OnTableButtonReleaseEvent(object o, ButtonReleaseEventArgs args)
     {
-      var cr = o as Gtk.Widget;
-      if (cr == null)
+      if (o is not Gtk.Widget cr)
         return;
-      var tv = cr.Data["tv"] as TreeView;
-      var store = cr.Data["store"] as TreeStore;
-      if (tv == null || store == null)
+      if (cr.Data["tv"] is not TreeView tv || cr.Data["store"] is not TreeStore store)
         return;
       if (args.Event.Button == 1)
       {
@@ -1004,7 +998,7 @@ namespace CSBP.Forms
       }
     }
 
-    protected TreeStore AddColumns(ComboBox cb, List<MaParameter> list = null, bool emptyentry = false)
+    protected static TreeStore AddColumns(ComboBox cb, List<MaParameter> list = null, bool emptyentry = false)
     {
       var types = new[] { typeof(string), typeof(string) };
       for (var i = 0; i < types.Length; i++)
@@ -1026,17 +1020,18 @@ namespace CSBP.Forms
       {
         cb.Data.Add("KeyReleaseEvent", "");
         var sb = new StringBuilder();
-        var completion = new Gtk.EntryCompletion();
-        completion.Model = cb.Model;
-        completion.TextColumn = cb.EntryTextColumn;
+        var completion = new Gtk.EntryCompletion
+        {
+          Model = cb.Model,
+          TextColumn = cb.EntryTextColumn
+        };
         completion.MatchFunc = (EntryCompletion completion, string key, TreeIter iter) =>
         {
           if (!string.IsNullOrEmpty(key) && matches(key.ToLower(), ((completion.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
             return true;
           return false;
         };
-        var entry = cb.Child as Entry;
-        if (entry != null)
+        if (cb.Child is Entry entry)
           entry.Completion = completion;
         // else
         //   cb.KeyReleaseEvent += (object o, KeyReleaseEventArgs e) =>
@@ -1094,7 +1089,7 @@ namespace CSBP.Forms
     }
 
     /// <summary>Aktualisieren des Status.</summary>
-    protected void ShowStatus(StringBuilder Status, StringBuilder Cancel)
+    protected static void ShowStatus(StringBuilder Status, StringBuilder Cancel)
     {
       ShowError(null);
       Cancel.Clear();
@@ -1123,7 +1118,7 @@ namespace CSBP.Forms
     }
 
     // Erster Buchstabe muss übereinstimmen, die nächsten müssen nur in der Reihenfolge vorkommen.
-    private bool matches(string s, string o)
+    private static bool matches(string s, string o)
     {
       // return o.startsWith(s);
       if (string.IsNullOrEmpty(o))
@@ -1141,7 +1136,7 @@ namespace CSBP.Forms
     }
 
 
-    protected bool SetText(TreeView tv, string v)
+    protected static bool SetText(TreeView tv, string v)
     {
       tv.Selection.UnselectAll();
       var store = tv.Model;
@@ -1149,8 +1144,7 @@ namespace CSBP.Forms
       {
         do
         {
-          var val = store.GetValue(i, 0) as string;
-          if (val != null && v == val)
+          if (store.GetValue(i, 0) is string val && v == val)
           {
             tv.Selection.SelectIter(i);
             var path = store.GetPath(i);
@@ -1163,7 +1157,7 @@ namespace CSBP.Forms
       return false;
     }
 
-    protected bool SetText(ComboBox cb, string v)
+    protected static bool SetText(ComboBox cb, string v)
     {
       cb.Active = -1;
       if (cb.Model.GetIterFirst(out TreeIter iter))
@@ -1182,7 +1176,7 @@ namespace CSBP.Forms
       return false;
     }
 
-    protected string GetText(ComboBox cb, bool id = true)
+    protected static string GetText(ComboBox cb, bool id = true)
     {
       if (cb.GetActiveIter(out var iter))
       {
@@ -1207,7 +1201,7 @@ namespace CSBP.Forms
       return null;
     }
 
-    protected void SetUserData(RadioButton[] rb, string[] v)
+    protected static void SetUserData(RadioButton[] rb, string[] v)
     {
       if (rb == null || v == null || rb.Length != v.Length)
         throw new ArgumentException("SetUserData");
@@ -1218,7 +1212,7 @@ namespace CSBP.Forms
       }
     }
 
-    protected void SetText(RadioButton rb, string v)
+    protected static void SetText(RadioButton rb, string v)
     {
       if (rb == null)
         throw new ArgumentException("SetText");
@@ -1234,7 +1228,7 @@ namespace CSBP.Forms
       rb.Active = true;
     }
 
-    protected string GetText(RadioButton rb)
+    protected static string GetText(RadioButton rb)
     {
       if (rb == null)
         return null;

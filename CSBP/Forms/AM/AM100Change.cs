@@ -13,60 +13,49 @@ namespace CSBP.Forms.AM
   /// <summary>Controller für AM100Change Dialog.</summary>
   public partial class AM100Change : CsbpBin
   {
-#pragma warning disable 169, 649
-    /// <summary>Label mandant0.</summary>
-    [Builder.Object]
-    private Label mandant0;
+#pragma warning disable CS0649
 
     /// <summary>Entry mandant.</summary>
     [Builder.Object]
-    private Entry mandant;
-
-    /// <summary>Label benutzer0.</summary>
-    [Builder.Object]
-    private Label benutzer0;
+    private readonly Entry mandant;
 
     /// <summary>Entry benutzer.</summary>
     [Builder.Object]
-    private Entry benutzer;
+    private readonly Entry benutzer;
 
     /// <summary>Label kennwortAlt0.</summary>
     [Builder.Object]
-    private Label kennwortAlt0;
+    private readonly Label kennwortAlt0;
 
     /// <summary>Entry kennwortAlt.</summary>
     [Builder.Object]
-    private Entry kennwortAlt;
+    private readonly Entry kennwortAlt;
 
     /// <summary>Label kennwortNeu0.</summary>
     [Builder.Object]
-    private Label kennwortNeu0;
+    private readonly Label kennwortNeu0;
 
     /// <summary>Entry kennwortNeu.</summary>
     [Builder.Object]
-    private Entry kennwortNeu;
+    private readonly Entry kennwortNeu;
 
     /// <summary>Label kennwortNeu20.</summary>
     [Builder.Object]
-    private Label kennwortNeu20;
+    private readonly Label kennwortNeu20;
 
     /// <summary>Entry kennwortNeu2.</summary>
     [Builder.Object]
-    private Entry kennwortNeu2;
+    private readonly Entry kennwortNeu2;
 
     /// <summary>CheckButton speichern.</summary>
     [Builder.Object]
-    private CheckButton speichern;
+    private readonly CheckButton speichern;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
+    private readonly Button ok;
 
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -98,7 +87,7 @@ namespace CSBP.Forms.AM
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {

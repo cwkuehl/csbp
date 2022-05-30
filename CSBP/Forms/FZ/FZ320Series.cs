@@ -16,57 +16,21 @@ namespace CSBP.Forms.FZ
   /// <summary>Controller für FZ320Series Dialog.</summary>
   public partial class FZ320Series : CsbpBin
   {
-#pragma warning disable 169, 649
+#pragma warning disable CS0649
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
-
-    /// <summary>Button EditAction.</summary>
-    [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label serien0.</summary>
-    [Builder.Object]
-    private Label serien0;
+    private readonly Button refreshAction;
 
     /// <summary>TreeView serien.</summary>
     [Builder.Object]
-    private TreeView serien;
-
-    /// <summary>Label name0.</summary>
-    [Builder.Object]
-    private Label name0;
+    private readonly TreeView serien;
 
     /// <summary>Entry name.</summary>
     [Builder.Object]
-    private Entry name;
+    private readonly Entry name;
 
-    /// <summary>Button alle.</summary>
-    [Builder.Object]
-    private Button alle;
-
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -96,7 +60,7 @@ namespace CSBP.Forms.FZ
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {
@@ -121,7 +85,7 @@ namespace CSBP.Forms.FZ
     }
 
     /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
-    override protected void UpdateParent()
+    protected override void UpdateParent()
     {
       refreshAction.Click();
     }

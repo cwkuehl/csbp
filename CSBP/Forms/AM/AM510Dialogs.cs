@@ -16,51 +16,27 @@ namespace CSBP.Forms.AM
   public partial class AM510Dialogs : CsbpBin
   {
     /// <summary>Dialog Model.</summary>
-    List<string> Model = new List<string>();
+    private readonly List<string> Model = new();
 
-#pragma warning disable 169, 649
-
-    /// <summary>Label dialoge0.</summary>
-    [Builder.Object]
-    private Label dialoge0;
+#pragma warning disable CS0649
 
     /// <summary>TreeView dialoge.</summary>
     [Builder.Object]
-    private TreeView dialoge;
+    private readonly TreeView dialoge;
 
     /// <summary>Button zuordnen.</summary>
     [Builder.Object]
-    private Button zuordnen;
+    private readonly Button zuordnen;
 
     /// <summary>Button entfernen.</summary>
     [Builder.Object]
-    private Button entfernen;
-
-    /// <summary>Label zudialoge0.</summary>
-    [Builder.Object]
-    private Label zudialoge0;
+    private readonly Button entfernen;
 
     /// <summary>TreeView zudialoge.</summary>
     [Builder.Object]
-    private TreeView zudialoge;
+    private readonly TreeView zudialoge;
 
-    /// <summary>Button oben.</summary>
-    [Builder.Object]
-    private Button oben;
-
-    /// <summary>Button unten.</summary>
-    [Builder.Object]
-    private Button unten;
-
-    /// <summary>Button ok.</summary>
-    [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
-
-#pragma warning restore 169, 649
+#pragma warning restore CS0649
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -89,7 +65,7 @@ namespace CSBP.Forms.AM
 
     /// <summary>Model-Daten initialisieren.</summary>
     /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    override protected void InitData(int step)
+    protected override void InitData(int step)
     {
       if (step <= 0)
       {
@@ -162,8 +138,7 @@ namespace CSBP.Forms.AM
       {
         if (tv.Model.GetIter(out var iter, sel))
         {
-          var value = tv.Model.GetValue(iter, 0) as string;
-          if (value != null)
+          if (tv.Model.GetValue(iter, 0) is string value)
           {
             var i = Model.IndexOf(value);
             if (i > 0)
@@ -190,8 +165,7 @@ namespace CSBP.Forms.AM
       {
         if (tv.Model.GetIter(out var iter, sel))
         {
-          var value = tv.Model.GetValue(iter, 0) as string;
-          if (value != null)
+          if (tv.Model.GetValue(iter, 0) is string value)
           {
             var i = Model.IndexOf(value);
             if (i >= 0 && i < Model.Count - 1)
@@ -233,11 +207,11 @@ namespace CSBP.Forms.AM
       var sel2 = GetSelected(zudialoge);
 
       var list = StartDialog.Dialoge;
-#pragma warning disable 618
+#pragma warning disable CS0618
       // Nr.;Kürzel;Titel
       var store = AddStringColumns(dialoge, AM510_dialoge_columns);
       var store2 = AddStringColumns(zudialoge, AM510_zudialoge_columns);
-#pragma warning restore 618
+#pragma warning restore CS0618
       foreach (var mp in list)
       {
         var key = $"#{mp.Key}";
@@ -246,7 +220,7 @@ namespace CSBP.Forms.AM
       }
       foreach (var key in Model)
       {
-        var schluessel = key.Substring(1);
+        var schluessel = key[1..];
         if (list.TryGetValue(schluessel, out var mp))
           store2.AppendValues(key, schluessel, mp.Title);
       }
@@ -254,8 +228,7 @@ namespace CSBP.Forms.AM
       {
         do
         {
-          var val = store.GetValue(i, 0) as string;
-          if (val != null && sel.Contains(val))
+          if (store.GetValue(i, 0) is string val && sel.Contains(val))
             dialoge.Selection.SelectIter(i);
         } while (store.IterNext(ref i));
       }
@@ -263,14 +236,13 @@ namespace CSBP.Forms.AM
       {
         do
         {
-          var val = store2.GetValue(i2, 0) as string;
-          if (val != null && sel2.Contains(val))
+          if (store2.GetValue(i2, 0) is string val && sel2.Contains(val))
             zudialoge.Selection.SelectIter(i2);
         } while (store2.IterNext(ref i2));
       }
     }
 
-    private List<string> GetSelected(TreeView tv)
+    private static List<string> GetSelected(TreeView tv)
     {
       var list = new List<string>();
       var s = tv.Selection.GetSelectedRows();
@@ -280,8 +252,7 @@ namespace CSBP.Forms.AM
       {
         if (tv.Model.GetIter(out var iter, sel))
         {
-          var value = tv.Model.GetValue(iter, 0) as string;
-          if (value != null)
+          if (tv.Model.GetValue(iter, 0) is string value)
           {
             list.Add(value);
           }
