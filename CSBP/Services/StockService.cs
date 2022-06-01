@@ -182,7 +182,7 @@ namespace CSBP.Services
       DateTime date, bool inactive, string search, string cuid, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
-        throw new ArgumentException();
+        throw new ArgumentException(null, nameof(status));
       CalculateStocksIntern(daten, desc, pattern, stuid, date, inactive, search, cuid, status, cancel);
       var r = new ServiceErgebnis();
       return r;
@@ -206,7 +206,7 @@ namespace CSBP.Services
       DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
-        throw new ArgumentException("status, cancel");
+        throw new ArgumentException(null, nameof(status));
       WpKonfiguration k = null;
       if (!string.IsNullOrEmpty(kuid))
       {
@@ -342,10 +342,12 @@ namespace CSBP.Services
           var bew = new int[] { 0, 0, 0, 0, 0 };
           for (var i = 0; i < a.Length; i++)
           {
-            var c = new PnfChart(k.Method, a[i], k.Scale, k.Reversal, st.Bezeichnung);
-            c.Ziel = st.SignalPrice1 ?? 0;
-            c.Stop = st.StopPrice ?? 0;
-            c.Relativ = k.Relative;
+            var c = new PnfChart(k.Method, a[i], k.Scale, k.Reversal, st.Bezeichnung)
+            {
+              Ziel = st.SignalPrice1 ?? 0,
+              Stop = st.StopPrice ?? 0,
+              Relativ = k.Relative
+            };
             c.AddKurse(liste);
             var p = c.Pattern.LastOrDefault();
             if (p != null)
@@ -685,7 +687,7 @@ namespace CSBP.Services
       if (st == null)
         return r;
       if (relative && !string.IsNullOrEmpty(st.Relation_Uid))
-        str = WpWertpapierRep.Get(daten, daten.MandantNr, str.Relation_Uid);
+        _ = WpWertpapierRep.Get(daten, daten.MandantNr, str.Relation_Uid);
       r.Ergebnis = GetPriceListIntern(daten, from, to, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, 0);
       return r;
     }
@@ -932,11 +934,11 @@ namespace CSBP.Services
         {
           if (klist.Count >= 2)
           {
-            k = klist[klist.Count - 1];
-            k1 = klist[klist.Count - 2];
+            k = klist[^1];
+            k1 = klist[^2];
           }
           else if (klist.Count >= 1)
-            k = klist[klist.Count - 1];
+            k = klist[^1];
         }
         if (k == null)
         {
@@ -983,8 +985,9 @@ namespace CSBP.Services
       return r;
     }
 
-    private void CalculateInvestment(ServiceDaten daten, WpAnlage inv, List<WpBuchung> blist, SoKurse k)
+    private static void CalculateInvestment(ServiceDaten daten, WpAnlage inv, List<WpBuchung> blist, SoKurse k)
     {
+      Functions.MachNichts(daten);
       // No Payment for interests.
       inv.Payment = blist.Sum(a => a.Zahlungsbetrag - (a.Zahlungsbetrag == 0 ? 0 : a.Rabattbetrag));
       inv.Shares = blist.Sum(a => a.Anteile);
@@ -1145,7 +1148,7 @@ namespace CSBP.Services
     {
       var r = new ServiceErgebnis<WpBuchung>();
       desc = desc.TrimNull();
-      memo = memo.TrimNull();
+      // memo = memo.TrimNull();
       var inv = string.IsNullOrWhiteSpace(inuid) ? null : WpAnlageRep.Get(daten, daten.MandantNr, inuid);
       if (inv == null)
         r.Errors.Add(Message.New(WP019));
@@ -1301,7 +1304,7 @@ namespace CSBP.Services
       string cuid, DateTime date, int days, StringBuilder status, StringBuilder cancel)
     {
       if (status == null || cancel == null)
-        throw new ArgumentException();
+        throw new ArgumentException(null, nameof(status));
       var r = new ServiceErgebnis<List<string>>();
       var clist = (cuid ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries);
       if (clist.Length <= 0)
@@ -1345,7 +1348,7 @@ namespace CSBP.Services
       return r;
     }
 
-    private static readonly Dictionary<string, SoKurse> Wkurse = new Dictionary<string, SoKurse>();
+    private static readonly Dictionary<string, SoKurse> Wkurse = new();
 
     /// <summary>
     /// Gets currency price in relation to EUR.
@@ -1370,7 +1373,7 @@ namespace CSBP.Services
       Wkurse.TryGetValue(key, out var wert);
       if (wert != null)
         return wert;
-      List<string> v = null;
+      List<string> v;
       try
       {
         var accesskey = Parameter.GetValue(Parameter.WP_FIXER_IO_ACCESS_KEY);
@@ -1513,7 +1516,7 @@ namespace CSBP.Services
     /// <param name="shortcut">Affected shortcut for source.</param>
     /// <param name="type">Affected type (stock or bond).</param>
     /// <returns>List of URLs for price request.</returns>
-    private List<(DateTime, string)> GetPriceUrlsIntern(DateTime from, DateTime to,
+    private static List<(DateTime, string)> GetPriceUrlsIntern(DateTime from, DateTime to,
         string source, string shortcut, string type)
     {
       var urls = new List<(DateTime, string)>();
@@ -1528,7 +1531,9 @@ namespace CSBP.Services
       }
       else if (source == "ariva")
       {
+#pragma warning disable IDE0071
         var url = $"https://www.ariva.de/quote/historic/historic.csv?secu={shortcut}&boerse_id=6&clean_split=1&clean_payout=0&clean_bezug=1&min_time={from.ToString("dd.MM.yyyy")}&max_time={to.ToString("dd.MM.yyyy")}&trenner=%3B&go=Download";
+#pragma warning restore IDE0071
         urls.Add((to, url));
       }
       else if (source == "onvista")
@@ -1610,7 +1615,7 @@ namespace CSBP.Services
             var jclose = jquote["close"];
             var jlow = jquote["low"];
             var jhigh = jquote["high"];
-            for (var i = 0; jts != null && i < jts.Count(); i++)
+            for (var i = 0; jts != null && i < jts.Length; i++)
             {
               var k = new SoKurse
               {
@@ -1651,7 +1656,9 @@ namespace CSBP.Services
       }
       else if (source == "ariva")
       {
+#pragma warning disable IDE0071
         var url = $"https://www.ariva.de/quote/historic/historic.csv?secu={shortcut}&boerse_id=6&clean_split=1&clean_payout=0&clean_bezug=1&min_time={from.ToString("dd.MM.yyyy")}&max_time={to.ToString("dd.MM.yyyy")}&trenner=%3B&go=Download";
+#pragma warning restore IDE0071
         string response = null;
         if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
           response = resp.Response;
@@ -1805,7 +1812,7 @@ namespace CSBP.Services
     }
 
     /// <summary>HTTPS-Abfrage synchron mit HttpClient ausführen.</summary>
-    private List<string> ExecuteHttps(string url, bool lines)
+    private static List<string> ExecuteHttps(string url, bool lines)
     {
       var task = ExecuteHttpsClient(url);
       task.Wait();
@@ -1845,7 +1852,7 @@ namespace CSBP.Services
     }
 
     /// <summary>HTTPS-Abfrage mit HttpClient ausführen.</summary>
-    private Task<string> ExecuteHttpsClient(string url)
+    private static Task<string> ExecuteHttpsClient(string url)
     {
       return httpsclient.GetStringAsync(url);
     }

@@ -1865,7 +1865,7 @@ namespace CSBP.Services
       return columns;
     }
 
-    private List<string> FillBookingList(List<HhBuchung> bookings)
+    private static List<string> FillBookingList(List<HhBuchung> bookings)
     {
       var list = new List<string>();
       var columns = GetBookingColumns();

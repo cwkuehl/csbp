@@ -39,47 +39,47 @@ namespace CSBP.Services.Base
     /// <summary>
     /// Undo-Stack.
     /// </summary>
-    static Stack<UndoList> UndoStack = new Stack<UndoList>();
+    static readonly Stack<UndoList> UndoStack = new();
 
     /// <summary>
     /// Redo-Stack.
     /// </summary>
-    static Stack<UndoList> RedoStack = new Stack<UndoList>();
+    static readonly Stack<UndoList> RedoStack = new();
 
-    protected static readonly AdAdresseRep AdAdresseRep = new AdAdresseRep();
-    protected static readonly AdPersonRep AdPersonRep = new AdPersonRep();
-    protected static readonly AdSitzRep AdSitzRep = new AdSitzRep();
-    protected static readonly BenutzerRep BenutzerRep = new BenutzerRep();
-    protected static readonly ByteDatenRep ByteDatenRep = new ByteDatenRep();
-    protected static readonly FzBuchRep FzBuchRep = new FzBuchRep();
-    protected static readonly FzBuchautorRep FzBuchautorRep = new FzBuchautorRep();
-    protected static readonly FzBuchserieRep FzBuchserieRep = new FzBuchserieRep();
-    protected static readonly FzBuchstatusRep FzBuchstatusRep = new FzBuchstatusRep();
-    protected static readonly FzFahrradRep FzFahrradRep = new FzFahrradRep();
-    protected static readonly FzFahrradstandRep FzFahrradstandRep = new FzFahrradstandRep();
-    protected static readonly FzNotizRep FzNotizRep = new FzNotizRep();
-    protected static readonly HhBilanzRep HhBilanzRep = new HhBilanzRep();
-    protected static readonly HhBuchungRep HhBuchungRep = new HhBuchungRep();
-    protected static readonly HhEreignisRep HhEreignisRep = new HhEreignisRep();
-    protected static readonly HhKontoRep HhKontoRep = new HhKontoRep();
-    protected static readonly HhPeriodeRep HhPeriodeRep = new HhPeriodeRep();
-    protected static readonly MaMandantRep MaMandantRep = new MaMandantRep();
-    protected static readonly MaParameterRep MaParameterRep = new MaParameterRep();
-    protected static readonly SbEreignisRep SbEreignisRep = new SbEreignisRep();
-    protected static readonly SbFamilieRep SbFamilieRep = new SbFamilieRep();
-    protected static readonly SbKindRep SbKindRep = new SbKindRep();
-    protected static readonly SbPersonRep SbPersonRep = new SbPersonRep();
-    protected static readonly SbQuelleRep SbQuelleRep = new SbQuelleRep();
-    protected static readonly TbEintragRep TbEintragRep = new TbEintragRep();
-    protected static readonly TbEintragOrtRep TbEintragOrtRep = new TbEintragOrtRep();
-    protected static readonly TbOrtRep TbOrtRep = new TbOrtRep();
-    protected static readonly WpAnlageRep WpAnlageRep = new WpAnlageRep();
-    protected static readonly WpBuchungRep WpBuchungRep = new WpBuchungRep();
-    protected static readonly WpKonfigurationRep WpKonfigurationRep = new WpKonfigurationRep();
-    protected static readonly WpStandRep WpStandRep = new WpStandRep();
-    protected static readonly WpWertpapierRep WpWertpapierRep = new WpWertpapierRep();
+    protected static readonly AdAdresseRep AdAdresseRep = new();
+    protected static readonly AdPersonRep AdPersonRep = new();
+    protected static readonly AdSitzRep AdSitzRep = new();
+    protected static readonly BenutzerRep BenutzerRep = new();
+    protected static readonly ByteDatenRep ByteDatenRep = new();
+    protected static readonly FzBuchRep FzBuchRep = new();
+    protected static readonly FzBuchautorRep FzBuchautorRep = new();
+    protected static readonly FzBuchserieRep FzBuchserieRep = new();
+    protected static readonly FzBuchstatusRep FzBuchstatusRep = new();
+    protected static readonly FzFahrradRep FzFahrradRep = new();
+    protected static readonly FzFahrradstandRep FzFahrradstandRep = new();
+    protected static readonly FzNotizRep FzNotizRep = new();
+    protected static readonly HhBilanzRep HhBilanzRep = new();
+    protected static readonly HhBuchungRep HhBuchungRep = new();
+    protected static readonly HhEreignisRep HhEreignisRep = new();
+    protected static readonly HhKontoRep HhKontoRep = new();
+    protected static readonly HhPeriodeRep HhPeriodeRep = new();
+    protected static readonly MaMandantRep MaMandantRep = new();
+    protected static readonly MaParameterRep MaParameterRep = new();
+    protected static readonly SbEreignisRep SbEreignisRep = new();
+    protected static readonly SbFamilieRep SbFamilieRep = new();
+    protected static readonly SbKindRep SbKindRep = new();
+    protected static readonly SbPersonRep SbPersonRep = new();
+    protected static readonly SbQuelleRep SbQuelleRep = new();
+    protected static readonly TbEintragRep TbEintragRep = new();
+    protected static readonly TbEintragOrtRep TbEintragOrtRep = new();
+    protected static readonly TbOrtRep TbOrtRep = new();
+    protected static readonly WpAnlageRep WpAnlageRep = new();
+    protected static readonly WpBuchungRep WpBuchungRep = new();
+    protected static readonly WpKonfigurationRep WpKonfigurationRep = new();
+    protected static readonly WpStandRep WpStandRep = new();
+    protected static readonly WpWertpapierRep WpWertpapierRep = new();
 
-    protected static readonly HttpClient httpsclient = new HttpClient();
+    protected static readonly HttpClient httpsclient = new();
     // protected static readonly HttpClient httpsclient = new HttpClient(new SocketsHttpHandler()
     // {
     //   // Enable multiple HTTP/2 connections.
@@ -165,7 +165,7 @@ namespace CSBP.Services.Base
         return;
       var sb = new StringBuilder();
       if (daten.MandantNr != 0 || !string.IsNullOrEmpty(daten.BenutzerId))
-        sb.Append("(").Append(daten.MandantNr).Append(" ").Append(daten.BenutzerId).Append(") ");
+        sb.Append('(').Append(daten.MandantNr).Append(' ').Append(daten.BenutzerId).Append(") ");
       if (!error)
         sb.Append("INFO: ");
       sb.Append(text);
@@ -179,8 +179,7 @@ namespace CSBP.Services.Base
     /// <param name="transaction">Affected transaction.</param>
     public static void SaveChanges(ServiceDaten daten, IDbContextTransaction transaction = null)
     {
-      var db = daten.Context as CsbpContext;
-      if (db == null)
+      if (daten.Context is not CsbpContext db)
         return;
       var ul = PreCommit(db);
       db.SaveChanges(); // <== Nur hier, sonst kein Undo, Redo möglich.
@@ -234,7 +233,7 @@ namespace CSBP.Services.Base
       }
     }
 
-    private void Insert(DbConnection con, ModelBase m)
+    private static void Insert(DbConnection con, ModelBase m)
     {
       var t = m.TableName;
       var props = m.ColumnProperties;
@@ -258,20 +257,20 @@ namespace CSBP.Services.Base
           sql.Append(", ");
         else
           and = true;
-        sql.Append("@").Append(p.Name);
+        sql.Append('@').Append(p.Name);
         var parm = cmd.CreateParameter();
         parm.ParameterName = $"@{p.Name}";
-        parm.Value = v == null ? DBNull.Value : v;
+        parm.Value = v ?? DBNull.Value;
         cmd.Parameters.Add(parm);
       }
-      sql.Append(")");
+      sql.Append(')');
       cmd.CommandText = sql.ToString();
       var c = cmd.ExecuteNonQuery();
       if (c != 1)
         throw new Exception("Wrong number of inserts.");
     }
 
-    private void Update(DbConnection con, ModelBase m, ModelBase o)
+    private static void Update(DbConnection con, ModelBase m, ModelBase o)
     {
       var t = m.TableName;
       var props = m.ColumnProperties;
@@ -292,7 +291,7 @@ namespace CSBP.Services.Base
           sql.Append(p.Name).Append("=@").Append(p.Name);
           var parm = cmd.CreateParameter();
           parm.ParameterName = $"@{p.Name}";
-          parm.Value = v == null ? DBNull.Value : v;
+          parm.Value = v ?? DBNull.Value;
           cmd.Parameters.Add(parm);
         }
       }
@@ -312,7 +311,7 @@ namespace CSBP.Services.Base
           sql.Append(p.Name).Append("=@").Append(p.Name).Append("_O");
           var parm = cmd.CreateParameter();
           parm.ParameterName = $"@{p.Name}_O";
-          parm.Value = v == null ? DBNull.Value : v;
+          parm.Value = v ?? DBNull.Value;
           cmd.Parameters.Add(parm);
         }
       }
@@ -327,7 +326,7 @@ namespace CSBP.Services.Base
       }
     }
 
-    private void Delete(DbConnection con, ModelBase m)
+    private static void Delete(DbConnection con, ModelBase m)
     {
       var t = m.TableName;
       var props = m.ColumnProperties;
@@ -348,7 +347,7 @@ namespace CSBP.Services.Base
           sql.Append(p.Name).Append("=@").Append(p.Name);
           var parm = cmd.CreateParameter();
           parm.ParameterName = $"@{p.Name}";
-          parm.Value = v == null ? DBNull.Value : v;
+          parm.Value = v ?? DBNull.Value;
           cmd.Parameters.Add(parm);
         }
       }
@@ -358,7 +357,7 @@ namespace CSBP.Services.Base
         throw new Exception("Wrong number of deletes.");
     }
 
-    protected bool Undo0(ServiceDaten daten)
+    protected static bool Undo0(ServiceDaten daten)
     {
       if (UndoStack.Count <= 0)
         return false;
@@ -371,8 +370,7 @@ namespace CSBP.Services.Base
         {
           if (e.IsInsert)
           {
-            var fd = e.Actual as FileData;
-            if (fd != null)
+            if (e.Actual is FileData fd)
               File.Delete(fd.Name);
           }
         }
@@ -405,7 +403,7 @@ namespace CSBP.Services.Base
       return ul.List.Any();
     }
 
-    protected bool Redo0(ServiceDaten daten)
+    protected static bool Redo0(ServiceDaten daten)
     {
       if (RedoStack.Count <= 0)
         return false;
@@ -418,8 +416,7 @@ namespace CSBP.Services.Base
         {
           if (e.IsInsert)
           {
-            var fd = e.Actual as FileData;
-            if (fd != null)
+            if (e.Actual is FileData fd)
               File.WriteAllBytes(fd.Name, fd.Bytes);
           }
         }
@@ -461,7 +458,7 @@ namespace CSBP.Services.Base
       // Don't serialize a null object, simply return the default for that object
       if (Object.ReferenceEquals(source, null))
       {
-        return default(T);
+        return default;
       }
 
       //IFormatter formatter = new BinaryFormatter();
@@ -477,12 +474,12 @@ namespace CSBP.Services.Base
       }
     }
 
-    protected string ToStr(object o)
+    protected static string ToStr(object o)
     {
       if (o == null)
         return "";
-      if (o is int)
-        return Functions.ToString((int)o);
+      if (o is int @int)
+        return Functions.ToString(@int);
       if (o is int?)
         return Functions.ToString((int?)o);
       if (o is string)
@@ -500,7 +497,7 @@ namespace CSBP.Services.Base
       return "";
     }
 
-    protected string FromStr(string s)
+    protected static string FromStr(string s)
     {
       if (string.IsNullOrEmpty(s))
         return "";
@@ -508,7 +505,7 @@ namespace CSBP.Services.Base
       return s;
     }
 
-    protected string N(string s)
+    protected static string N(string s)
     {
       return Functions.TrimNull(s);
     }

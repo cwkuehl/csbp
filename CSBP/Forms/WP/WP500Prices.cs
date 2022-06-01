@@ -21,63 +21,27 @@ namespace CSBP.Forms.WP
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label staende0.</summary>
-    [Builder.Object]
-    private Label staende0;
+    private readonly Button editAction;
 
     /// <summary>TreeView staende.</summary>
     [Builder.Object]
-    private TreeView staende;
-
-    /// <summary>Label wertpapier0.</summary>
-    [Builder.Object]
-    private Label wertpapier0;
+    private readonly TreeView staende;
 
     /// <summary>ComboBox wertpapier.</summary>
     [Builder.Object]
-    private ComboBox wertpapier;
-
-    /// <summary>Label von0.</summary>
-    [Builder.Object]
-    private Label von0;
+    private readonly ComboBox wertpapier;
 
     /// <summary>Date Von.</summary>
     //[Builder.Object]
-    private Date von;
-
-    /// <summary>Label bis0.</summary>
-    [Builder.Object]
-    private Label bis0;
+    private readonly Date von;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
+    private readonly Date bis;
 
 #pragma warning restore CS0649
 

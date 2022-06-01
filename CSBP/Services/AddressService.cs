@@ -32,7 +32,6 @@ namespace CSBP.Services
       var from = date.AddDays(-Math.Abs(days));
       var to = date.AddDays(Math.Abs(days));
       var j = date.Year;
-      var j1 = 0;
       var f = from.Month * 100 + from.Day;
       v.Add(AD001(from, to));
       var i = j != from.Year ? 1 : j != to.Year ? 2 : 0;
@@ -41,6 +40,7 @@ namespace CSBP.Services
       {
         var d = vo.GeburtK;
         var y = vo.Geburt.Value.Year;
+        int j1;
         if (i == 0)
         {
           j1 = j - y;
@@ -179,7 +179,7 @@ namespace CSBP.Services
     /// <param name="achangedby">Affected address change user.</param>
     /// <param name="achangedat">Affected address change time.</param>
     /// <returns>Created or changed site.</returns>
-    private AdSitz SaveSiteIntern(ServiceDaten daten, string uid, string gender,
+    private static AdSitz SaveSiteIntern(ServiceDaten daten, string uid, string gender,
         DateTime? geburt, string name1, string name2, string predicate, string firstname,
         string title, int personstate,
         string pcreatedby, DateTime? pcreatedat, string pchangedby, DateTime? pchangedat,
@@ -252,7 +252,7 @@ namespace CSBP.Services
       return s;
     }
 
-    private bool IsPersonEmpty(string gender, DateTime? birthday, string name1, string name2,
+    private static bool IsPersonEmpty(string gender, DateTime? birthday, string name1, string name2,
         string predicate, string firstname, string title)
     {
       if (string.IsNullOrWhiteSpace(gender) && !birthday.HasValue && string.IsNullOrWhiteSpace(name1)
@@ -264,7 +264,7 @@ namespace CSBP.Services
       return false;
     }
 
-    private bool IsAddressEmpty(string state, string postalcode, string town, string street, string no)
+    private static bool IsAddressEmpty(string state, string postalcode, string town, string street, string no)
     {
       if ((string.IsNullOrWhiteSpace(state) || "D" == state) && string.IsNullOrWhiteSpace(postalcode)
           && string.IsNullOrWhiteSpace(town) && string.IsNullOrWhiteSpace(street)
@@ -395,7 +395,7 @@ namespace CSBP.Services
       return r;
     }
 
-    private List<string> GetAddressColumns()
+    private static List<string> GetAddressColumns()
     {
       var columns = new List<string>{ "Uid", "Typ", "Geschlecht", "Geburt", "Anrede", "Name1",
         "Name2", "Praedikat", "Vorname", "Titel", "PersonStatus", "AngelegtVon", "AngelegtAm",
@@ -407,7 +407,7 @@ namespace CSBP.Services
       return columns;
     }
 
-    private List<string> FillAddressList(List<AdSitz> sites)
+    private static List<string> FillAddressList(List<AdSitz> sites)
     {
       var list = new List<string>();
       var columns = GetAddressColumns();
@@ -458,7 +458,7 @@ namespace CSBP.Services
         return r;
       }
       if (list == null)
-        throw new ArgumentException();
+        throw new ArgumentException(null, nameof(list));
       var pcount = 0;
       var perror = 0;
       var scount = 0;
@@ -466,9 +466,6 @@ namespace CSBP.Services
       var acount = 0;
       var aerror = 0;
       var check = false;
-      var puid = "";
-      var suid = "";
-      var auid = "";
       var row = 0;
       try
       {
@@ -482,9 +479,9 @@ namespace CSBP.Services
             continue;
           if (check)
           {
-            puid = FromStr(f[0]);
-            suid = FromStr(f[16]);
-            auid = FromStr(f[32]);
+            var puid = FromStr(f[0]);
+            var suid = FromStr(f[16]);
+            var auid = FromStr(f[32]);
             var s = new AdSitz
             {
               Person = new AdPerson

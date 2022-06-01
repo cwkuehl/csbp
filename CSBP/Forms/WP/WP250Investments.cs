@@ -22,80 +22,44 @@ namespace CSBP.Forms.WP
   public partial class WP250Investments : CsbpBin
   {
     /// <summary>State of calculation.</summary>
-    StringBuilder Status = new StringBuilder();
+    readonly StringBuilder Status = new();
 
     /// <summary>Cancel of calculation.</summary>
-    StringBuilder Cancel = new StringBuilder();
+    readonly StringBuilder Cancel = new();
 
 #pragma warning disable CS0649
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label anlagen0.</summary>
-    [Builder.Object]
-    private Label anlagen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView anlagen.</summary>
     [Builder.Object]
-    private TreeView anlagen;
+    private readonly TreeView anlagen;
 
     /// <summary>Label anlagenStatus.</summary>
     [Builder.Object]
-    private Label anlagenStatus;
-
-    /// <summary>Label bis0.</summary>
-    [Builder.Object]
-    private Label bis0;
+    private readonly Label anlagenStatus;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
+    private readonly Date bis;
 
     /// <summary>CheckButton auchinaktiv.</summary>
     [Builder.Object]
-    private CheckButton auchinaktiv;
-
-    /// <summary>Label bezeichnung0.</summary>
-    [Builder.Object]
-    private Label bezeichnung0;
+    private readonly CheckButton auchinaktiv;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
-
-    /// <summary>Label wertpapier0.</summary>
-    [Builder.Object]
-    private Label wertpapier0;
+    private readonly Entry bezeichnung;
 
     /// <summary>ComboBox wertpapier.</summary>
     [Builder.Object]
-    private ComboBox wertpapier;
+    private readonly ComboBox wertpapier;
 
 #pragma warning restore CS0649
 
@@ -129,8 +93,8 @@ namespace CSBP.Forms.WP
       bis.Show();
       ObservableEventThrottle(refreshAction, delegate
       {
-        var uid = WP260Investment.lastcopyuid;
-        WP260Investment.lastcopyuid = null;
+        var uid = WP260Investment.Lastcopyuid;
+        WP260Investment.Lastcopyuid = null;
         RefreshTreeView(anlagen, 1, uid);
       });
       // SetBold(client0);

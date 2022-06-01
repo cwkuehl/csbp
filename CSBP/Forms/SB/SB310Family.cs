@@ -22,105 +22,61 @@ namespace CSBP.Forms.SB
     private SbFamilie Model;
 
     /// <summary>Liste der Kinder.</summary>
-    private List<SbPerson> ChildList = new List<SbPerson>();
+    private List<SbPerson> ChildList = new();
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
-
-    /// <summary>Label vater0.</summary>
-    [Builder.Object]
-    private Label vater0;
+    private readonly Entry nr;
 
     /// <summary>ComboBox vater.</summary>
     [Builder.Object]
-    private ComboBox vater;
-
-    /// <summary>Label mutter0.</summary>
-    [Builder.Object]
-    private Label mutter0;
+    private readonly ComboBox vater;
 
     /// <summary>ComboBox mutter.</summary>
     [Builder.Object]
-    private ComboBox mutter;
-
-    /// <summary>Label heiratsdatum0.</summary>
-    [Builder.Object]
-    private Label heiratsdatum0;
+    private readonly ComboBox mutter;
 
     /// <summary>Entry heiratsdatum.</summary>
     [Builder.Object]
-    private Entry heiratsdatum;
-
-    /// <summary>Label heiratsort0.</summary>
-    [Builder.Object]
-    private Label heiratsort0;
+    private readonly Entry heiratsdatum;
 
     /// <summary>Entry heiratsort.</summary>
     [Builder.Object]
-    private Entry heiratsort;
-
-    /// <summary>Label heiratsbem0.</summary>
-    [Builder.Object]
-    private Label heiratsbem0;
+    private readonly Entry heiratsort;
 
     /// <summary>TextView heiratsbem.</summary>
     [Builder.Object]
-    private TextView heiratsbem;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView heiratsbem;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
-
-    /// <summary>Label kinder0.</summary>
-    [Builder.Object]
-    private Label kinder0;
+    private readonly Entry geaendert;
 
     /// <summary>TreeView kinder.</summary>
     [Builder.Object]
-    private TreeView kinder;
-
-    /// <summary>Label kind0.</summary>
-    [Builder.Object]
-    private Label kind0;
+    private readonly TreeView kinder;
 
     /// <summary>ComboBox kind.</summary>
     [Builder.Object]
-    private ComboBox kind;
+    private readonly ComboBox kind;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
+    private readonly Button ok;
 
     /// <summary>Button hinzufuegen.</summary>
     [Builder.Object]
-    private Button hinzufuegen;
+    private readonly Button hinzufuegen;
 
     /// <summary>Button entfernen.</summary>
     [Builder.Object]
-    private Button entfernen;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button entfernen;
 
 #pragma warning restore CS0649
 
@@ -172,8 +128,7 @@ namespace CSBP.Forms.SB
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var aendern = DialogType == DialogTypeEnum.Edit;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.PedigreeService.GetFamily(daten, uid));
           if (k == null)

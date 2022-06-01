@@ -6,10 +6,7 @@ namespace CSBP.Forms.SB
 {
   using System;
   using CSBP.Apis.Enums;
-  using CSBP.Apis.Models;
-  using CSBP.Apis.Services;
   using CSBP.Base;
-  using CSBP.Forms.Controls;
   using CSBP.Services.Factory;
   using Gtk;
   using static CSBP.Resources.M;
@@ -22,43 +19,19 @@ namespace CSBP.Forms.SB
 
     /// <summary>Label name0.</summary>
     [Builder.Object]
-    private Label name0;
+    private readonly Label name0;
 
     /// <summary>Entry name.</summary>
     [Builder.Object]
-    private Entry name;
-
-    /// <summary>Label datei0.</summary>
-    [Builder.Object]
-    private Label datei0;
+    private readonly Entry name;
 
     /// <summary>Entry datei.</summary>
     [Builder.Object]
-    private Entry datei;
-
-    /// <summary>Button dateiAuswahl.</summary>
-    [Builder.Object]
-    private Button dateiAuswahl;
-
-    /// <summary>Label filter0.</summary>
-    [Builder.Object]
-    private Label filter0;
+    private readonly Entry datei;
 
     /// <summary>TextView filter.</summary>
     [Builder.Object]
-    private TextView filter;
-
-    /// <summary>Button export.</summary>
-    [Builder.Object]
-    private Button export;
-
-    /// <summary>Button importieren.</summary>
-    [Builder.Object]
-    private Button importieren;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly TextView filter;
 
 #pragma warning restore CS0649
 

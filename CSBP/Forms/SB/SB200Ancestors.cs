@@ -21,111 +21,31 @@ namespace CSBP.Forms.SB
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Button PrintAction.</summary>
-    [Builder.Object]
-    private Button printAction;
-
-    /// <summary>Button FloppyAction.</summary>
-    [Builder.Object]
-    private Button floppyAction;
-
-    /// <summary>Label ahnen0.</summary>
-    [Builder.Object]
-    private Label ahnen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView ahnen.</summary>
     [Builder.Object]
-    private TreeView ahnen;
+    private readonly TreeView ahnen;
 
     /// <summary>Label ahnenStatus.</summary>
     [Builder.Object]
-    private Label ahnenStatus;
-
-    /// <summary>Label name0.</summary>
-    [Builder.Object]
-    private Label name0;
+    private readonly Label ahnenStatus;
 
     /// <summary>Entry name.</summary>
     [Builder.Object]
-    private Entry name;
-
-    /// <summary>Label vorname0.</summary>
-    [Builder.Object]
-    private Label vorname0;
+    private readonly Entry name;
 
     /// <summary>Entry vorname.</summary>
     [Builder.Object]
-    private Entry vorname;
+    private readonly Entry vorname;
 
     /// <summary>CheckButton filtern.</summary>
     [Builder.Object]
-    private CheckButton filtern;
-
-    /// <summary>Button alle.</summary>
-    [Builder.Object]
-    private Button alle;
-
-    /// <summary>Label springen0.</summary>
-    [Builder.Object]
-    private Label springen0;
-
-    /// <summary>Button spName.</summary>
-    [Builder.Object]
-    private Button spName;
-
-    /// <summary>Button spVater.</summary>
-    [Builder.Object]
-    private Button spVater;
-
-    /// <summary>Button spMutter.</summary>
-    [Builder.Object]
-    private Button spMutter;
-
-    /// <summary>Button spKind.</summary>
-    [Builder.Object]
-    private Button spKind;
-
-    /// <summary>Button spEhegatte.</summary>
-    [Builder.Object]
-    private Button spEhegatte;
-
-    /// <summary>Button spGeschwister.</summary>
-    [Builder.Object]
-    private Button spGeschwister;
-
-    /// <summary>Button spFamilie.</summary>
-    [Builder.Object]
-    private Button spFamilie;
-
-    /// <summary>Button spFamilienKind.</summary>
-    [Builder.Object]
-    private Button spFamilienKind;
+    private readonly CheckButton filtern;
 
 #pragma warning restore CS0649
 

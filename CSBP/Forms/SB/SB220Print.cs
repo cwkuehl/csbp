@@ -24,39 +24,31 @@ namespace CSBP.Forms.SB
 
     /// <summary>Label person0.</summary>
     [Builder.Object]
-    private Label person0;
+    private readonly Label person0;
 
     /// <summary>ComboBox person.</summary>
     [Builder.Object]
-    private ComboBox person;
+    private readonly ComboBox person;
 
     /// <summary>Label generation0.</summary>
     [Builder.Object]
-    private Label generation0;
+    private readonly Label generation0;
 
     /// <summary>Entry generation.</summary>
     [Builder.Object]
-    private Entry generation;
+    private readonly Entry generation;
 
     /// <summary>CheckButton vorfahren.</summary>
     [Builder.Object]
-    private CheckButton vorfahren;
+    private readonly CheckButton vorfahren;
 
     /// <summary>CheckButton geschwister.</summary>
     [Builder.Object]
-    private CheckButton geschwister;
+    private readonly CheckButton geschwister;
 
     /// <summary>CheckButton nachfahren.</summary>
     [Builder.Object]
-    private CheckButton nachfahren;
-
-    /// <summary>Button ok.</summary>
-    [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly CheckButton nachfahren;
 
 #pragma warning restore CS0649
 

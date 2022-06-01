@@ -20,152 +20,103 @@ namespace CSBP.Forms.WP
     /// <summary>Dialog Model.</summary>
     private WpWertpapier Model;
 
-    /// <summary>Zuletzt kopierte ID.</summary>
-    public static string lastcopyuid = null;
+    /// <summary>Last copied ID.</summary>
+    private static string lastcopyuid = null;
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label bezeichnung0.</summary>
     [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Label bezeichnung0;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
+    private readonly Entry bezeichnung;
 
     /// <summary>Label provider0.</summary>
     [Builder.Object]
-    private Label provider0;
+    private readonly Label provider0;
 
     /// <summary>ComboBox provider.</summary>
     [Builder.Object]
-    private ComboBox provider;
+    private readonly ComboBox provider;
 
     /// <summary>Label kuerzel0.</summary>
     [Builder.Object]
-    private Label kuerzel0;
+    private readonly Label kuerzel0;
 
     /// <summary>Entry kuerzel.</summary>
     [Builder.Object]
-    private Entry kuerzel;
+    private readonly Entry kuerzel;
 
     /// <summary>Label status0.</summary>
     [Builder.Object]
-    private Label status0;
+    private readonly Label status0;
 
     /// <summary>ComboBox status.</summary>
     [Builder.Object]
-    private ComboBox status;
-
-    /// <summary>Label aktKurs0.</summary>
-    [Builder.Object]
-    private Label aktKurs0;
+    private readonly ComboBox status;
 
     /// <summary>Entry aktKurs.</summary>
     [Builder.Object]
-    private Entry aktKurs;
-
-    /// <summary>Label stopKurs0.</summary>
-    [Builder.Object]
-    private Label stopKurs0;
+    private readonly Entry aktKurs;
 
     /// <summary>Entry stopKurs.</summary>
     [Builder.Object]
-    private Entry stopKurs;
-
-    /// <summary>Label signalKurs10.</summary>
-    [Builder.Object]
-    private Label signalKurs10;
+    private readonly Entry stopKurs;
 
     /// <summary>Entry signalKurs1.</summary>
     [Builder.Object]
-    private Entry signalKurs1;
-
-    /// <summary>Label muster0.</summary>
-    [Builder.Object]
-    private Label muster0;
+    private readonly Entry signalKurs1;
 
     /// <summary>Entry muster.</summary>
     [Builder.Object]
-    private Entry muster;
-
-    /// <summary>Label typ0.</summary>
-    [Builder.Object]
-    private Label typ0;
+    private readonly Entry muster;
 
     /// <summary>Entry typ.</summary>
     [Builder.Object]
-    private Entry typ;
-
-    /// <summary>Label waehrung0.</summary>
-    [Builder.Object]
-    private Label waehrung0;
+    private readonly Entry typ;
 
     /// <summary>Entry waehrung.</summary>
     [Builder.Object]
-    private Entry waehrung;
-
-    /// <summary>Label sortierung0.</summary>
-    [Builder.Object]
-    private Label sortierung0;
+    private readonly Entry waehrung;
 
     /// <summary>Entry sortierung.</summary>
     [Builder.Object]
-    private Entry sortierung;
-
-    /// <summary>Label relation0.</summary>
-    [Builder.Object]
-    private Label relation0;
+    private readonly Entry sortierung;
 
     /// <summary>ComboBox relation.</summary>
     [Builder.Object]
-    private ComboBox relation;
-
-    /// <summary>Label notiz0.</summary>
-    [Builder.Object]
-    private Label notiz0;
+    private readonly ComboBox relation;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView notiz;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>CheckButton anlage.</summary>
     [Builder.Object]
-    private CheckButton anlage;
+    private readonly CheckButton anlage;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
+
+    /// <summary>Last copied ID.</summary>
+    public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -210,8 +161,7 @@ namespace CSBP.Forms.WP
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var copy = DialogType == DialogTypeEnum.Copy;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.StockService.GetStock(ServiceDaten, uid));
           if (k == null)
@@ -307,7 +257,7 @@ namespace CSBP.Forms.WP
           typ.Text, waehrung.Text, anlage.Active);
         r = rb;
         if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
-          lastcopyuid = rb.Ergebnis.Uid;
+          Lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

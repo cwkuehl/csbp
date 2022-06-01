@@ -22,104 +22,82 @@ namespace CSBP.Forms.WP
     /// <summary>Dialog Model.</summary>
     private WpAnlage Model;
 
-    /// <summary>Zuletzt kopierte ID.</summary>
-    public static string lastcopyuid = null;
+    /// <summary>Last copied ID.</summary>
+    private static string lastcopyuid = null;
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label wertpapier0.</summary>
     [Builder.Object]
-    private Label wertpapier0;
+    private readonly Label wertpapier0;
 
     /// <summary>ComboBox wertpapier.</summary>
     [Builder.Object]
-    private ComboBox wertpapier;
+    private readonly ComboBox wertpapier;
 
     /// <summary>Label bezeichnung0.</summary>
     [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Label bezeichnung0;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
+    private readonly Entry bezeichnung;
 
     /// <summary>Label status0.</summary>
     [Builder.Object]
-    private Label status0;
+    private readonly Label status0;
 
     /// <summary>ComboBox status.</summary>
     [Builder.Object]
-    private ComboBox status;
+    private readonly ComboBox status;
 
     /// <summary>ComboBox depot.</summary>
     [Builder.Object]
-    private ComboBox depot;
+    private readonly ComboBox depot;
 
     /// <summary>ComboBox abrechnung.</summary>
     [Builder.Object]
-    private ComboBox abrechnung;
+    private readonly ComboBox abrechnung;
 
     /// <summary>ComboBox ertrag.</summary>
     [Builder.Object]
-    private ComboBox ertrag;
-
-    /// <summary>Label notiz0.</summary>
-    [Builder.Object]
-    private Label notiz0;
+    private readonly ComboBox ertrag;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
-
-    /// <summary>Label daten0.</summary>
-    [Builder.Object]
-    private Label daten0;
+    private readonly TextView notiz;
 
     /// <summary>TextView daten.</summary>
     [Builder.Object]
-    private TextView data;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView data;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Date Valuta.</summary>
     //[Builder.Object]
-    private Date valuta;
+    private readonly Date valuta;
 
     /// <summary>Entry stand.</summary>
     [Builder.Object]
-    private Entry stand;
+    private readonly Entry stand;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
+
+    public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -189,8 +167,7 @@ namespace CSBP.Forms.WP
         valuta.Value = daten.Heute;
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.StockService.GetInvestment(ServiceDaten, uid));
           if (k == null)
@@ -268,7 +245,7 @@ namespace CSBP.Forms.WP
           valuta.Value, Functions.ToDecimal(stand.Text, 2) ?? 0);
         r = rb;
         if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
-          lastcopyuid = rb.Ergebnis.Uid;
+          Lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {

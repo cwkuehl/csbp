@@ -15,7 +15,7 @@ namespace CSBP.Services.Repositories.Base
     public const string JET_PAUSE = "--pause";
 
     /** Datenbankart für Skripterzeugung. */
-    private DatabaseTypeEnum zieldb = DatabaseTypeEnum.SqLite;
+    private readonly DatabaseTypeEnum zieldb = DatabaseTypeEnum.SqLite;
 
     /** Liste für Spaltendefinition beim CREATE TABLE-Befehl. */
     private List<string> mcFeldC = null;
@@ -32,7 +32,7 @@ namespace CSBP.Services.Repositories.Base
     /** Alle benutzten Spaltentypen werden hier vorgehalten. */
     private Dictionary<string, string> mhtTyp = null;
     /** Benutzer- oder Schema-Name für das Anlegen von Tabellen. */
-    private string mstrConBenutzer = "";
+    private readonly string mstrConBenutzer = "";
 
     /** Besondere Spaltennamen werden am Anfang maskiert. */
     private const string JET_SQL_ANFANG = "[";
@@ -80,15 +80,13 @@ namespace CSBP.Services.Repositories.Base
     public bool createTab2(List<string> mout, string tab, string index)
     {
       var str1 = new StringBuilder();
-      string sql = null;
-      var bTabCreate2 = false;
       var replId = false;
       var mandant = false;
 
       foreach (var strF in mcFeldC)
       {
         if (str1.Length > 0)
-          str1.Append(",");
+          str1.Append(',');
         str1.Append(strF);
         if (strF.StartsWith("Replikation_UID"))
           replId = true;
@@ -98,6 +96,7 @@ namespace CSBP.Services.Repositories.Base
       execute(mout, dropTab(zieldb, tab));
       var praefix = Praefix(zieldb, mstrConBenutzer);
       var ende = Ende(zieldb);
+      string sql;
       if (zieldb == DatabaseTypeEnum.Jet || zieldb == DatabaseTypeEnum.SqlServer)
       {
         sql = string.Format("CREATE TABLE {0} ({1}{2}){3}", tab, str1,
@@ -145,7 +144,7 @@ namespace CSBP.Services.Repositories.Base
         sql = string.Format("CREATE INDEX XRK{0} ON {1}{0} ({2}){3}", tab, praefix, strReplIndex, ende);
         execute(mout, sql);
       }
-      bTabCreate2 = true;
+      var bTabCreate2 = true;
       return bTabCreate2;
     }
 
@@ -159,7 +158,6 @@ namespace CSBP.Services.Repositories.Base
     public bool createTab3(List<string> mout, string tab, string index, bool unique, string spalten)
     {
       string sql = null;
-      var bTabCreate3 = false;
       var ende = Ende(zieldb);
       if (zieldb == DatabaseTypeEnum.Jet)
       {
@@ -202,7 +200,7 @@ namespace CSBP.Services.Repositories.Base
       {
         execute(mout, sql);
       }
-      bTabCreate3 = true;
+      var bTabCreate3 = true;
       return bTabCreate3;
     }
 
@@ -277,13 +275,12 @@ namespace CSBP.Services.Repositories.Base
       string sql;
       var str2 = new StringBuilder(); // alte und neue Spalten
       var str3 = new StringBuilder(); // alte Spalten und neue Werte
-      int i = 0;
-      List<string> cFeldTyp = null;
-      bool bTabAdd2 = false;
-      cFeldTyp = init(cFeldTyp);
+      // List<string> cFeldTyp = null;
+      // cFeldTyp = init(cFeldTyp);
       var praefix = Praefix(zieldb, mstrConBenutzer);
       // Temporäre Tabelle erzeugen
       createTab0();
+      int i;
       for (i = 0; i < mcFeld.Count; i++)
       {
         createTab1(mcFeld[i], mcTyp[i], mcNull[i] != "NOT NULL");
@@ -298,28 +295,28 @@ namespace CSBP.Services.Repositories.Base
         if (Functions.ToInt64(mcNeu[i]) == 0)
         {
           if (str2.Length > 0)
-            str2.Append(",");
+            str2.Append(',');
           str2.Append(mcFeld[i]);
           if (str3.Length > 0)
-            str3.Append(",");
+            str3.Append(',');
           str3.Append(mcFeld[i]);
         }
         else if (Functions.ToInt64(mcNeu[i]) == 1)
         {
           if (str2.Length > 0)
-            str2.Append(",");
+            str2.Append(',');
           str2.Append(mcFeld[i]);
           if (str3.Length > 0)
-            str3.Append(",");
+            str3.Append(',');
           str3.Append(mcDef[i]);
         }
         else
         {
           if (str2.Length > 0)
-            str2.Append(",");
+            str2.Append(',');
           str2.Append(mcFeld[i]);
           if (str3.Length > 0)
-            str3.Append(",");
+            str3.Append(',');
           str3.Append(mcDef[i]);
         }
       }
@@ -347,7 +344,7 @@ namespace CSBP.Services.Repositories.Base
       }
       // Temporäre Tabelle löschen
       execute(mout, dropTab(zieldb, tmp(tab)));
-      bTabAdd2 = true;
+      var bTabAdd2 = true;
       return bTabAdd2;
     }
 
@@ -356,7 +353,7 @@ namespace CSBP.Services.Repositories.Base
      * @param columns Zu leerender Vector.
      * @return Evtl. neu angelegter Vector.
      */
-    private List<string> init(List<string> columns)
+    private static List<string> init(List<string> columns)
     {
       List<string> col = columns;
       if (col == null)
@@ -372,7 +369,7 @@ namespace CSBP.Services.Repositories.Base
      * @param bNull True, wenn Spalte NULL sein darf.
      * @return "" oder "NOT NULL".
      */
-    private string getNull(bool bNull)
+    private static string getNull(bool bNull)
     {
       return bNull ? "" : "NOT NULL";
     }
@@ -384,7 +381,7 @@ namespace CSBP.Services.Repositories.Base
      */
     private string dbTyp(string typ)
     {
-      string dbtyp = null;
+      string dbtyp;
       if (zieldb == DatabaseTypeEnum.SqlServer)
         dbtyp = typ;
       else
@@ -501,7 +498,7 @@ namespace CSBP.Services.Repositories.Base
      * @param tab Tabellenname.
      * @return Tabellenname für temporäre Tabelle.
      */
-    private string tmp(string tab)
+    private static string tmp(string tab)
     {
       return "TMP_" + tab;
     }
@@ -581,7 +578,7 @@ namespace CSBP.Services.Repositories.Base
      */
     private static string holeSqlCInt(string feld, DatabaseTypeEnum dt)
     {
-      string trans = null;
+      string trans;
       if (dt == DatabaseTypeEnum.Jet)
         trans = "CInt(" + feld + ")";
       else if (dt == DatabaseTypeEnum.SqlServer)

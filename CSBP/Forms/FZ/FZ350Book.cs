@@ -184,8 +184,7 @@ namespace CSBP.Forms.FZ
         hoerdatum.Value = null; // daten.Heute;
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.PrivateService.GetBook(ServiceDaten, uid));
           if (k == null)
@@ -244,8 +243,7 @@ namespace CSBP.Forms.FZ
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnAutorneuClicked(object sender, EventArgs e)
     {
-      var a = Start(typeof(FZ310Author), FZ310_title, DialogTypeEnum.New, modal: true, csbpparent: this) as FzBuchautor;
-      if (a != null)
+      if (Start(typeof(FZ310Author), FZ310_title, DialogTypeEnum.New, modal: true, csbpparent: this) is FzBuchautor a)
       {
         var al = Get(FactoryService.PrivateService.GetAuthorList(ServiceDaten));
         var rs = AddColumns(autor, emptyentry: true);
@@ -267,8 +265,7 @@ namespace CSBP.Forms.FZ
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnSerieneuClicked(object sender, EventArgs e)
     {
-      var a = Start(typeof(FZ330Series), FZ330_title, DialogTypeEnum.New, modal: true, csbpparent: this) as FzBuchserie;
-      if (a != null)
+      if (Start(typeof(FZ330Series), FZ330_title, DialogTypeEnum.New, modal: true, csbpparent: this) is FzBuchserie a)
       {
         var al = Get(FactoryService.PrivateService.GetSeriesList(ServiceDaten));
         var rs = AddColumns(serie, emptyentry: true);

@@ -20,59 +20,23 @@ namespace CSBP.Forms.WP
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label buchungen0.</summary>
-    [Builder.Object]
-    private Label buchungen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView buchungen.</summary>
     [Builder.Object]
-    private TreeView buchungen;
-
-    /// <summary>Label bezeichnung0.</summary>
-    [Builder.Object]
-    private Label bezeichnung0;
+    private readonly TreeView buchungen;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
-
-    /// <summary>Label anlage0.</summary>
-    [Builder.Object]
-    private Label anlage0;
+    private readonly Entry bezeichnung;
 
     /// <summary>ComboBox anlage.</summary>
     [Builder.Object]
-    private ComboBox anlage;
-
-    /// <summary>Button alle.</summary>
-    [Builder.Object]
-    private Button alle;
+    private readonly ComboBox anlage;
 
 #pragma warning restore CS0649
 
@@ -148,8 +112,8 @@ namespace CSBP.Forms.WP
     /// <param name="e">Betroffenes Ereignis.</param>
     protected void OnRefreshClicked(object sender, EventArgs e)
     {
-      var uid = WP410Booking.lastcopyuid;
-      WP410Booking.lastcopyuid = null;
+      var uid = WP410Booking.Lastcopyuid;
+      WP410Booking.Lastcopyuid = null;
       RefreshTreeView(buchungen, 1, uid);
     }
 

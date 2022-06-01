@@ -23,69 +23,45 @@ namespace CSBP.Forms.SB
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label autor0.</summary>
     [Builder.Object]
-    private Label autor0;
+    private readonly Label autor0;
 
     /// <summary>Entry autor.</summary>
     [Builder.Object]
-    private Entry autor;
+    private readonly Entry autor;
 
     /// <summary>Label beschreibung0.</summary>
     [Builder.Object]
-    private Label beschreibung0;
+    private readonly Label beschreibung0;
 
     /// <summary>Entry beschreibung.</summary>
     [Builder.Object]
-    private Entry beschreibung;
-
-    /// <summary>Label zitat0.</summary>
-    [Builder.Object]
-    private Label zitat0;
+    private readonly Entry beschreibung;
 
     /// <summary>TextView zitat.</summary>
     [Builder.Object]
-    private TextView zitat;
-
-    /// <summary>Label bemerkung0.</summary>
-    [Builder.Object]
-    private Label bemerkung0;
+    private readonly TextView zitat;
 
     /// <summary>TextView bemerkung.</summary>
     [Builder.Object]
-    private TextView bemerkung;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView bemerkung;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 
@@ -126,8 +102,7 @@ namespace CSBP.Forms.SB
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var aendern = DialogType == DialogTypeEnum.Edit;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.PedigreeService.GetSource(daten, uid));
           if (k == null)

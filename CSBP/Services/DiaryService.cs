@@ -5,17 +5,17 @@
 namespace CSBP.Services
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
+  using System.Text.RegularExpressions;
+  using CSBP.Apis.Enums;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Base;
-  using static CSBP.Resources.Messages;
   using static CSBP.Resources.M;
-  using System.Text.RegularExpressions;
-  using CSBP.Apis.Enums;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
+  using static CSBP.Resources.Messages;
 
   // Bodenheim 49.9353, 8.3184
 
@@ -218,7 +218,7 @@ namespace CSBP.Services
     /// <param name="to">Affected to date.</param>
     /// <param name="angelegtvon">Affected creation user id.</param>
     /// <param name="angelegtam">Affection creation time.</param>
-    private void OptimizePositions(ServiceDaten daten, string puid, DateTime from, DateTime to, string angelegtvon = null, DateTime? angelegtam = null)
+    private static void OptimizePositions(ServiceDaten daten, string puid, DateTime from, DateTime to, string angelegtvon = null, DateTime? angelegtam = null)
     {
       var listeb = TbEintragOrtRep.GetList(daten, from.AddDays(-1), puid);
       var listea = TbEintragOrtRep.GetList(daten, to.AddDays(1), puid);
@@ -309,9 +309,9 @@ namespace CSBP.Services
       {
         muster = Regex.Escape(str).Replace("\\#\\#\\#\\#", "\\D*(\\d+)");
         if (muster.StartsWith("%", StringComparison.Ordinal))
-          muster = muster.Substring(1);
+          muster = muster[1..];
         if (muster.EndsWith("%", StringComparison.Ordinal))
-          muster = muster.Substring(0, muster.Length - 1);
+          muster = muster[..^1];
         str = str.Replace("####", "");
         rf = true;
       }
@@ -366,7 +366,7 @@ namespace CSBP.Services
               );
             }
           }
-          sb.Append("]");
+          sb.Append(']');
         }
         // Without control characters
         v.Add(TB006(e.Datum, sb.ToString(), Functions.FilterWindows1252(e.Eintrag, replace: " /// ")));
@@ -377,13 +377,13 @@ namespace CSBP.Services
         foreach (var p in plist.Values)
         {
           sb.Length = 0;
-          sb.Append("[");
-          sb.Append(p.Bezeichnung).Append(": ").Append(Functions.ToString(p.Breite, 5)).Append(" ").Append(Functions.ToString(p.Laenge, 5));
+          sb.Append('[');
+          _ = sb.Append(p.Bezeichnung).Append(": ").Append(Functions.ToString(p.Breite, 5)).Append(' ').Append(Functions.ToString(p.Laenge, 5));
           if (p.Hoehe != 0)
-            sb.Append(" ").Append(Functions.ToString(p.Hoehe, 2));
+            sb.Append(' ').Append(Functions.ToString(p.Hoehe, 2));
           if (!string.IsNullOrEmpty(p.Notiz))
-            sb.Append(" (").Append(p.Notiz).Append(")");
-          sb.Append("]");
+            sb.Append(" (").Append(p.Notiz).Append(')');
+          sb.Append(']');
           v.Add(sb.ToString());
         }
       }
@@ -397,7 +397,7 @@ namespace CSBP.Services
           if (!string.IsNullOrEmpty(str))
           {
             var mlist = p.Matches(str);
-            foreach (Match m in mlist)
+            foreach (var m in mlist.Cast<Match>())
             {
               var l = long.Parse(m.Groups[1].Value);
               if (z < 0)
@@ -473,7 +473,7 @@ namespace CSBP.Services
       return r;
     }
 
-    void CheckSearch(string[] suche)
+    private static void CheckSearch(string[] suche)
     {
       const int Columns = 3;
       const int Rows = 3;

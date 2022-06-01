@@ -21,55 +21,15 @@ namespace CSBP.Forms.SB
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label familien0.</summary>
-    [Builder.Object]
-    private Label familien0;
+    private readonly Button editAction;
 
     /// <summary>TreeView familien.</summary>
     [Builder.Object]
-    private TreeView familien;
-
-    /// <summary>Label springen0.</summary>
-    [Builder.Object]
-    private Label springen0;
-
-    /// <summary>Button spVater.</summary>
-    [Builder.Object]
-    private Button spVater;
-
-    /// <summary>Button spMutter.</summary>
-    [Builder.Object]
-    private Button spMutter;
-
-    /// <summary>Button spKind.</summary>
-    [Builder.Object]
-    private Button spKind;
+    private readonly TreeView familien;
 
 #pragma warning restore CS0649
 

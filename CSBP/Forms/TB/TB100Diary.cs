@@ -32,228 +32,116 @@ namespace CSBP.Forms.TB
 
 #pragma warning disable CS0649
 
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Label before10.</summary>
-    [Builder.Object]
-    private Label before10;
-
     /// <summary>TextView before1.</summary>
     [Builder.Object]
-    private TextView before1;
-
-    /// <summary>Label before20.</summary>
-    [Builder.Object]
-    private Label before20;
+    private readonly TextView before1;
 
     /// <summary>TextView before2.</summary>
     [Builder.Object]
-    private TextView before2;
-
-    /// <summary>Label before30.</summary>
-    [Builder.Object]
-    private Label before30;
+    private readonly TextView before2;
 
     /// <summary>TextView before3.</summary>
     [Builder.Object]
-    private TextView before3;
+    private readonly TextView before3;
 
     /// <summary>Label date0.</summary>
     [Builder.Object]
-    private Label date0;
+    private readonly Label date0;
 
     /// <summary>Date date.</summary>
     //[Builder.Object]
-    private Date date;
+    private readonly Date date;
 
     /// <summary>Label entry0.</summary>
     [Builder.Object]
-    private Label entry0;
+    private readonly Label entry0;
 
     /// <summary>TextView entry.</summary>
     [Builder.Object]
-    private TextView entry;
+    private readonly TextView entry;
 
     /// <summary>TreeView positions.</summary>
     [Builder.Object]
-    private TreeView positions;
+    private readonly TreeView positions;
 
     /// <summary>ComboBox position.</summary>
     [Builder.Object]
-    private ComboBox position;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly ComboBox position;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
-
-    /// <summary>Label search00.</summary>
-    [Builder.Object]
-    private Label search00;
-
-    /// <summary>Button clear.</summary>
-    [Builder.Object]
-    private Button clear;
-
-    /// <summary>Label search10.</summary>
-    [Builder.Object]
-    private Label search10;
+    private readonly Entry geaendert;
 
     /// <summary>Entry search1.</summary>
     [Builder.Object]
-    private Entry search1;
-
-    /// <summary>Label search20.</summary>
-    [Builder.Object]
-    private Label search20;
+    private readonly Entry search1;
 
     /// <summary>Entry search2.</summary>
     [Builder.Object]
-    private Entry search2;
-
-    /// <summary>Label search30.</summary>
-    [Builder.Object]
-    private Label search30;
+    private readonly Entry search2;
 
     /// <summary>Entry search3.</summary>
     [Builder.Object]
-    private Entry search3;
-
-    /// <summary>Label search40.</summary>
-    [Builder.Object]
-    private Label search40;
-
-    /// <summary>Label search50.</summary>
-    [Builder.Object]
-    private Label search50;
+    private readonly Entry search3;
 
     /// <summary>Entry search4.</summary>
     [Builder.Object]
-    private Entry search4;
-
-    /// <summary>Label search60.</summary>
-    [Builder.Object]
-    private Label search60;
+    private readonly Entry search4;
 
     /// <summary>Entry search5.</summary>
     [Builder.Object]
-    private Entry search5;
-
-    /// <summary>Label search70.</summary>
-    [Builder.Object]
-    private Label search70;
+    private readonly Entry search5;
 
     /// <summary>Entry search6.</summary>
     [Builder.Object]
-    private Entry search6;
-
-    /// <summary>Label search80.</summary>
-    [Builder.Object]
-    private Label search80;
-
-    /// <summary>Label search90.</summary>
-    [Builder.Object]
-    private Label search90;
+    private readonly Entry search6;
 
     /// <summary>Entry search7.</summary>
     [Builder.Object]
-    private Entry search7;
-
-    /// <summary>Label search100.</summary>
-    [Builder.Object]
-    private Label search100;
+    private readonly Entry search7;
 
     /// <summary>Entry search8.</summary>
     [Builder.Object]
-    private Entry search8;
-
-    /// <summary>Label search110.</summary>
-    [Builder.Object]
-    private Label search110;
+    private readonly Entry search8;
 
     /// <summary>Entry search9.</summary>
     [Builder.Object]
-    private Entry search9;
-
-    /// <summary>Label search120.</summary>
-    [Builder.Object]
-    private Label search120;
+    private readonly Entry search9;
 
     /// <summary>ComboBox position2.</summary>
     [Builder.Object]
-    private ComboBox position2;
+    private readonly ComboBox position2;
 
     /// <summary>From date.</summary>
     //[Builder.Object]
-    private Date from;
+    private readonly Date from;
 
     /// <summary>To date.</summary>
     //[Builder.Object]
-    private Date to;
-
-    /// <summary>Button first.</summary>
-    [Builder.Object]
-    private Button first;
-
-    /// <summary>Button back.</summary>
-    [Builder.Object]
-    private Button back;
-
-    /// <summary>Button forward.</summary>
-    [Builder.Object]
-    private Button forward;
+    private readonly Date to;
 
     /// <summary>Button last.</summary>
     [Builder.Object]
-    private Button last;
-
-    /// <summary>Label after10.</summary>
-    [Builder.Object]
-    private Label after10;
+    private readonly Button last;
 
     /// <summary>TextView after1.</summary>
     [Builder.Object]
-    private TextView after1;
-
-    /// <summary>Label after20.</summary>
-    [Builder.Object]
-    private Label after20;
+    private readonly TextView after1;
 
     /// <summary>TextView after2.</summary>
     [Builder.Object]
-    private TextView after2;
-
-    /// <summary>Label after30.</summary>
-    [Builder.Object]
-    private Label after30;
+    private readonly TextView after2;
 
     /// <summary>TextView after3.</summary>
     [Builder.Object]
-    private TextView after3;
+    private readonly TextView after3;
 
     /// <summary>Liste der zugeordneten Positionen.</summary>
-    private List<TbEintragOrt> PositionList = new List<TbEintragOrt>();
+    private List<TbEintragOrt> PositionList = new();
 
 #pragma warning restore CS0649
 
@@ -281,7 +169,7 @@ namespace CSBP.Forms.TB
       {
         IsNullable = false,
         IsWithCalendar = true,
-        IsCalendarOpen = Functions.IsLinux() ? true : false,
+        IsCalendarOpen = Functions.IsLinux(),
         YesterdayAccel = "m",
         TomorrowAccel = "p",
       };

@@ -5,24 +5,24 @@
 namespace CSBP.Services.Server
 {
   using System;
-  using CSBP.Base;
-  using System.Net;
-  using System.Threading;
-  using System.Text;
-  using CSBP.Services.Base;
-  using System.Security.Cryptography.X509Certificates;
-  using System.Net.Sockets;
-  using System.Net.Security;
-  using System.Security.Authentication;
-  using System.Text.RegularExpressions;
-  using System.IO;
-  using CSBP.Apis.Services;
-  using System.Threading.Tasks;
   using System.Collections.Generic;
+  using System.IO;
   using System.Linq;
+  using System.Net;
+  using System.Net.Security;
+  using System.Net.Sockets;
+  using System.Security.Authentication;
+  using System.Security.Cryptography.X509Certificates;
+  using System.Text;
+  using System.Text.RegularExpressions;
+  using System.Threading;
+  using System.Threading.Tasks;
+  using CSBP.Apis.Services;
+  using CSBP.Base;
+  using CSBP.Services.Base;
+  using CSBP.Services.Factory;
   using Newtonsoft.Json;
   using Newtonsoft.Json.Linq;
-  using CSBP.Services.Factory;
 
   public class HttpsServer
   {
@@ -30,13 +30,13 @@ namespace CSBP.Services.Server
 
     private static string token;
 
-    private static object locking = new object();
+    private static readonly object locking = new();
 
     private static X509Certificate serverCertificate = null;
 
-    private static Regex RxContentLength = new Regex(@"\r\nContent-Length: *(\d+)\r\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex RxContentLength = new(@"\r\nContent-Length: *(\d+)\r\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-    private static Regex RxOrigin = new Regex(@"\r\nOrigin: *([^\r]+)\r\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex RxOrigin = new(@"\r\nOrigin: *([^\r]+)\r\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     public static void Start(string token)
     {
@@ -137,7 +137,7 @@ namespace CSBP.Services.Server
       var ms = new MemoryStream();
       var msheaderlength = -1;
       var headerlength = -1;
-      var bytes = -1;
+      int bytes;
       do
       {
         bytes = sslStream.Read(buffer, 0, buffer.Length);
@@ -237,22 +237,20 @@ namespace CSBP.Services.Server
         string data = null;
         try
         {
-          using (var reader = new JsonTextReader(new StringReader(req.Body ?? "")))
+          using var reader = new JsonTextReader(new StringReader(req.Body ?? ""));
+          var jo = (JObject)JToken.ReadFrom(reader);
+          foreach (var jt in jo.Values())
           {
-            var jo = (JObject)JToken.ReadFrom(reader);
-            foreach (var jt in jo.Values())
+            if (jt.Type == JTokenType.String)
             {
-              if (jt.Type == JTokenType.String)
-              {
-                if (jt.Path == "token")
-                  token = jt.Value<string>();
-                else if (jt.Path == "table")
-                  table = jt.Value<string>();
-                else if (jt.Path == "mode")
-                  mode = jt.Value<string>();
-                else if (jt.Path == "data")
-                  data = jt.Value<string>();
-              }
+              if (jt.Path == "token")
+                token = jt.Value<string>();
+              else if (jt.Path == "table")
+                table = jt.Value<string>();
+              else if (jt.Path == "mode")
+                mode = jt.Value<string>();
+              else if (jt.Path == "data")
+                data = jt.Value<string>();
             }
           }
         }
@@ -355,8 +353,8 @@ Cache-control: no-cache
   {
     public int StatusCode { get; set; } = 200;
     public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
-    public byte[] Content { get; set; } = new byte[0];
-    public byte[] HeadersAndContent { get; set; } = new byte[0];
+    public byte[] Content { get; set; } = Array.Empty<byte>();
+    public byte[] HeadersAndContent { get; set; } = Array.Empty<byte>();
     public int ContentLenth { get; set; } = -1;
   }
 }

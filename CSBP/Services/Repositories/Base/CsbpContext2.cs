@@ -112,7 +112,7 @@ namespace CSBP.Services.Repositories.Base
     /// On the model creating generated.
     /// </summary>
     /// <param name="modelBuilder">Model builder.</param>
-    void OnModelCreatingGenerated(ModelBuilder modelBuilder)
+    private static void OnModelCreatingGenerated(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<AdAdresse>().HasKey(a => new { a.Mandant_Nr, a.Uid });
       modelBuilder.Entity<AdPerson>().HasKey(a => new { a.Mandant_Nr, a.Uid });

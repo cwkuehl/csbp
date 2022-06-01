@@ -137,8 +137,7 @@ namespace CSBP.Forms.HH
         betrag.Text = "";
         SetText(konto, "");
         // Parameter
-        var p1 = Parameter1 as Tuple<HhKonto, DateTime, DateTime>;
-        if (p1 != null)
+        if (Parameter1 is Tuple<HhKonto, DateTime, DateTime> p1)
         {
           SetText(konto, p1.Item1.Uid);
           von.Value = p1.Item2;

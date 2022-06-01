@@ -28,51 +28,39 @@ namespace CSBP.Forms.WP
 
     /// <summary>Label wertpapier0.</summary>
     [Builder.Object]
-    private Label wertpapier0;
+    private readonly Label wertpapier0;
 
     /// <summary>ComboBox wertpapier.</summary>
     [Builder.Object]
-    private ComboBox wertpapier;
+    private readonly ComboBox wertpapier;
 
     /// <summary>Label valuta0.</summary>
     [Builder.Object]
-    private Label valuta0;
+    private readonly Label valuta0;
 
     /// <summary>Date Valuta.</summary>
     //[Builder.Object]
-    private Date valuta;
+    private readonly Date valuta;
 
     /// <summary>Label betrag0.</summary>
     [Builder.Object]
-    private Label betrag0;
+    private readonly Label betrag0;
 
     /// <summary>Entry betrag.</summary>
     [Builder.Object]
-    private Entry betrag;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry betrag;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 
@@ -126,8 +114,7 @@ namespace CSBP.Forms.WP
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var copy = DialogType == DialogTypeEnum.Copy;
-        var key = Parameter1 as Tuple<string, DateTime?>;
-        if (!neu && key != null && key.Item2.HasValue)
+        if (!neu && Parameter1 is Tuple<string, DateTime?> key && key.Item2.HasValue)
         {
           var k = Get(FactoryService.StockService.GetPrice(ServiceDaten, key.Item1, key.Item2.Value));
           if (k == null)
@@ -192,7 +179,7 @@ namespace CSBP.Forms.WP
         if (r.Ok)
         {
           // letztes Datum merken
-          LastValuta = valuta.Value.HasValue ? valuta.Value.Value : LastValuta;
+          LastValuta = valuta.Value ?? LastValuta;
           UpdateParent();
           dialog.Hide();
         }

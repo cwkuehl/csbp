@@ -354,8 +354,10 @@ namespace CSBP.Services
     /// <returns>List of sources.</returns>
     public ServiceErgebnis<List<SbQuelle>> GetSourceList(ServiceDaten daten)
     {
-      var r = new ServiceErgebnis<List<SbQuelle>>();
-      r.Ergebnis = SbQuelleRep.GetList(daten, daten.MandantNr);
+      var r = new ServiceErgebnis<List<SbQuelle>>
+      {
+        Ergebnis = SbQuelleRep.GetList(daten, daten.MandantNr)
+      };
       return r;
     }
 
@@ -367,8 +369,10 @@ namespace CSBP.Services
     /// <returns>Source or null.</returns>
     public ServiceErgebnis<SbQuelle> GetSource(ServiceDaten daten, string uid)
     {
-      var r = new ServiceErgebnis<SbQuelle>();
-      r.Ergebnis = SbQuelleRep.Get(daten, daten.MandantNr, uid);
+      var r = new ServiceErgebnis<SbQuelle>
+      {
+        Ergebnis = SbQuelleRep.Get(daten, daten.MandantNr, uid)
+      };
       return r;
     }
 
@@ -645,9 +649,9 @@ namespace CSBP.Services
         //  SbPersonRep.Update(daten, p);
       }
       SaveChanges(daten);
-      var anzahl2 = 0;
       var anzahl3 = SbPersonRep.CountStatus1(daten, 0);
       Debug.WriteLine($"{anzahl3} ancestors without deatch date.");
+      int anzahl2;
       do
       {
         anzahl2 = anzahl3;
@@ -734,11 +738,11 @@ namespace CSBP.Services
     /// <returns>Possibly errors.</returns>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="anc">Affected number of root ancestor.</param>
-    public ServiceErgebnis CalculateAncestor(ServiceDaten daten, string anc)
+    public static ServiceErgebnis CalculateAncestor(ServiceDaten daten, string anc)
     {
       var r = new ServiceErgebnis();
       var plist = SbPersonRep.GetList(daten, daten.MandantNr);
-      anc = anc ?? "";
+      anc ??= "";
       Debug.WriteLine($"CalculateAncestor for {plist.Count} ancestors.");
       foreach (var p in plist)
         p.Status2 = (p.Uid == anc) ? 1 : 0;
@@ -747,11 +751,10 @@ namespace CSBP.Services
         f.Status2 = 0;
       SaveChanges(daten);
       var c0 = 0;
-      var c1 = c0;
       do
       {
         plist = SbPersonRep.GetList(daten, status2: 1);
-        c1 = plist.Count;
+        var c1 = plist.Count;
         if (c0 == c1)
           break;
         Debug.WriteLine($"{c1} selected ancestors.");
@@ -796,11 +799,11 @@ namespace CSBP.Services
     /// <returns>Possibly errors.</returns>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="desc">Affected number of root descendant.</param>
-    public ServiceErgebnis CalculateDescendant(ServiceDaten daten, string desc)
+    public static ServiceErgebnis CalculateDescendant(ServiceDaten daten, string desc)
     {
       var r = new ServiceErgebnis();
       var plist = SbPersonRep.GetList(daten, daten.MandantNr);
-      desc = desc ?? "";
+      desc ??= "";
       Debug.WriteLine($"CalculateDescendant for {plist.Count} descendants.");
       foreach (var p in plist)
         p.Status3 = (p.Uid == desc) ? 1 : 0;
@@ -809,11 +812,10 @@ namespace CSBP.Services
         f.Status3 = 0;
       SaveChanges(daten);
       var c0 = 0;
-      var c1 = c0;
       do
       {
         plist = SbPersonRep.GetList(daten, status3: 1);
-        c1 = plist.Count;
+        var c1 = plist.Count;
         if (c0 == c1)
           break;
         Debug.WriteLine($"{c1} selected descendants.");
@@ -852,39 +854,38 @@ namespace CSBP.Services
     }
 
     /// <summary>Regex for level.</summary>
-    private static Regex level = new Regex("^([\\d]+) (.*)$", RegexOptions.Compiled);
+    private static readonly Regex level = new("^([\\d]+) (.*)$", RegexOptions.Compiled);
     /// <summary>Regex for individual.</summary>
-    private static Regex indi0 = new Regex("^0 @I([\\da-fA-F;\\-]+)@ INDI$", RegexOptions.Compiled); // 297f9764:141887cfc37:-8000-
-    private static Regex name1 = new Regex("^1 NAME [^/]*/([^/]+)/$", RegexOptions.Compiled);
-    private static Regex givn2 = new Regex("^2 GIVN (.*)$", RegexOptions.Compiled);
-    private static Regex surn2 = new Regex("^2 SURN (.*)$", RegexOptions.Compiled);
-    private static Regex sex1 = new Regex("^1 SEX ([M|F])$", RegexOptions.Compiled);
-    private static Regex birt1 = new Regex("^1 BIRT$", RegexOptions.Compiled);
-    private static Regex buri1 = new Regex("^1 BURI$", RegexOptions.Compiled);
-    private static Regex chr1 = new Regex("^1 CHR$", RegexOptions.Compiled);
-    private static Regex deat1 = new Regex("^1 DEAT$", RegexOptions.Compiled);
-    private static Regex date2 = new Regex("^2 DATE (.*)$", RegexOptions.Compiled);
-    private static Regex plac2 = new Regex("^2 PLAC (.*)$", RegexOptions.Compiled);
-    private static Regex note2 = new Regex("^2 NOTE (.*)$", RegexOptions.Compiled);
-    private static Regex cont3 = new Regex("^3 CONT (.*)$", RegexOptions.Compiled);
-    private static Regex reli1 = new Regex("^1 RELI (.*)$", RegexOptions.Compiled);
-    private static Regex note1 = new Regex("^1 NOTE (.*)$", RegexOptions.Compiled);
-    private static Regex cont2 = new Regex("^2 CONT (.*)$", RegexOptions.Compiled);
-    private static Regex sour1 = new Regex("^1 SOUR @Q([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-    private static Regex fam0 = new Regex("^0 @F([\\da-fA-F;\\-]+)@ FAM$", RegexOptions.Compiled);
-    private static Regex husb1 = new Regex("^1 HUSB @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-    private static Regex wife1 = new Regex("^1 WIFE @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-    private static Regex marr1 = new Regex("^1 MARR$", RegexOptions.Compiled);
-    private static Regex chil1 = new Regex("^1 CHIL @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-    private static Regex sour0 = new Regex("^0 @Q([\\da-fA-F;\\-]+)@ SOUR$", RegexOptions.Compiled);
-    private static Regex auth1 = new Regex("^1 AUTH (.*)$", RegexOptions.Compiled);
-    private static Regex titl1 = new Regex("^1 TITL (.*)$", RegexOptions.Compiled);
-    private static Regex text1 = new Regex("^1 TEXT (.*)$", RegexOptions.Compiled);
+    private static readonly Regex indi0 = new("^0 @I([\\da-fA-F;\\-]+)@ INDI$", RegexOptions.Compiled); // 297f9764:141887cfc37:-8000-
+    private static readonly Regex name1 = new("^1 NAME [^/]*/([^/]+)/$", RegexOptions.Compiled);
+    private static readonly Regex givn2 = new("^2 GIVN (.*)$", RegexOptions.Compiled);
+    private static readonly Regex surn2 = new("^2 SURN (.*)$", RegexOptions.Compiled);
+    private static readonly Regex sex1 = new("^1 SEX ([M|F])$", RegexOptions.Compiled);
+    private static readonly Regex birt1 = new("^1 BIRT$", RegexOptions.Compiled);
+    private static readonly Regex buri1 = new("^1 BURI$", RegexOptions.Compiled);
+    private static readonly Regex chr1 = new("^1 CHR$", RegexOptions.Compiled);
+    private static readonly Regex deat1 = new("^1 DEAT$", RegexOptions.Compiled);
+    private static readonly Regex date2 = new("^2 DATE (.*)$", RegexOptions.Compiled);
+    private static readonly Regex plac2 = new("^2 PLAC (.*)$", RegexOptions.Compiled);
+    private static readonly Regex note2 = new("^2 NOTE (.*)$", RegexOptions.Compiled);
+    private static readonly Regex cont3 = new("^3 CONT (.*)$", RegexOptions.Compiled);
+    private static readonly Regex reli1 = new("^1 RELI (.*)$", RegexOptions.Compiled);
+    private static readonly Regex note1 = new("^1 NOTE (.*)$", RegexOptions.Compiled);
+    private static readonly Regex cont2 = new("^2 CONT (.*)$", RegexOptions.Compiled);
+    private static readonly Regex sour1 = new("^1 SOUR @Q([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+    private static readonly Regex fam0 = new("^0 @F([\\da-fA-F;\\-]+)@ FAM$", RegexOptions.Compiled);
+    private static readonly Regex husb1 = new("^1 HUSB @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+    private static readonly Regex wife1 = new("^1 WIFE @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+    private static readonly Regex marr1 = new("^1 MARR$", RegexOptions.Compiled);
+    private static readonly Regex chil1 = new("^1 CHIL @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+    private static readonly Regex sour0 = new("^0 @Q([\\da-fA-F;\\-]+)@ SOUR$", RegexOptions.Compiled);
+    private static readonly Regex auth1 = new("^1 AUTH (.*)$", RegexOptions.Compiled);
+    private static readonly Regex titl1 = new("^1 TITL (.*)$", RegexOptions.Compiled);
+    private static readonly Regex text1 = new("^1 TEXT (.*)$", RegexOptions.Compiled);
 
-    private int ImportiereAhnen(ServiceDaten daten, List<string> datei, Dictionary<string, string> map)
+    private static int ImportiereAhnen(ServiceDaten daten, List<string> datei, Dictionary<string, string> map)
     {
       Match m;
-      string uid = null;
       var v = new List<string>();
       var anzahl = 0;
 
@@ -901,6 +902,7 @@ namespace CSBP.Services
               var g = false;
               v.RemoveAt(0);
               m = indi0.Match(str0);
+              string uid;
               if (m.Success)
               {
                 uid = GetUid(map, m.Groups[1].Value);
@@ -942,7 +944,7 @@ namespace CSBP.Services
       return anzahl;
     }
 
-    private void ImportIndividual(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
+    private static void ImportIndividual(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
     {
       var ve = new List<string>();
       var p = new SbPerson
@@ -1083,14 +1085,13 @@ namespace CSBP.Services
           if (m.Success)
           {
             p.Quelle_Uid = GetUid(map, m.Groups[1].Value);
-            g = true;
           }
         }
       }
       SbPersonRep.Insert(daten, p);
     }
 
-    private void ImportFamily(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
+    private static void ImportFamily(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
     {
       var ve = new List<string>();
       var f = new SbFamilie
@@ -1145,14 +1146,14 @@ namespace CSBP.Services
               Kind_Uid = GetUid(map, m.Groups[1].Value),
             };
             SbKindRep.Insert(daten, k);
-            g = true;
           }
         }
       }
       SbFamilieRep.Insert(daten, f);
     }
 
-    private void ImportSource(ServiceDaten daten, List<string> v, string uid)
+#pragma warning disable IDE0051
+    private static void ImportSource(ServiceDaten daten, List<string> v, string uid)
     {
       var zuletzt = 0;
       var q = new SbQuelle
@@ -1215,14 +1216,14 @@ namespace CSBP.Services
               q.Zitat = Functions.Append(q.Zitat, null, N(m.Groups[1].Value));
             else if (zuletzt == 4)
               q.Bemerkung = Functions.Append(q.Bemerkung, null, N(m.Groups[1].Value));
-            g = true;
           }
         }
       }
       SbQuelleRep.Insert(daten, q);
     }
+#pragma warning restore IDE0051
 
-    private void ImportEvent(ServiceDaten daten, List<string> v, string uid, string nrTyp, GedcomEventEnum typ)
+    private static void ImportEvent(ServiceDaten daten, List<string> v, string uid, string nrTyp, GedcomEventEnum typ)
     {
       var datum = new PedigreeTimeData();
       var e = new SbEreignis
@@ -1274,7 +1275,6 @@ namespace CSBP.Services
           if (m.Success)
           {
             e.Bemerkung = Functions.Append(e.Bemerkung, null, N(m.Groups[1].Value));
-            g = true;
           }
         }
       }
@@ -1282,7 +1282,7 @@ namespace CSBP.Services
       SbEreignisRep.Insert(daten, e);
     }
 
-    private int GetLevel(string str)
+    private static int GetLevel(string str)
     {
       var l = -1;
       if (!string.IsNullOrEmpty(str))
@@ -1300,7 +1300,7 @@ namespace CSBP.Services
      * @param xref Objekt-Referenz als Zeichenkette.
      * @return Uid als Zeichenkette.
      */
-    private String GetUid(Dictionary<string, string> map, string xref)
+    private static String GetUid(Dictionary<string, string> map, string xref)
     {
       if (xref == null)
         return null;
@@ -1322,7 +1322,7 @@ namespace CSBP.Services
     /// <param name="map">Mapping for xref.</param>
     /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
     /// <param name="filename">Affected file name.</param>
-    private void WriteHead(ServiceDaten daten, List<string> l, string version, string filename)
+    private static void WriteHead(ServiceDaten daten, List<string> l, string version, string filename)
     {
       l.Add("0 HEAD");
       l.Add("1 SOUR WKUEHL");
@@ -1356,7 +1356,7 @@ namespace CSBP.Services
     /// <param name="tot">Affected comparison value for Status1.</param>
     /// <param name="anc">Affected ancestor uid.</param>
     /// <param name="desc">Affected descendant uid.</param>
-    private void WriteIndividual(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string version,
+    private static void WriteIndividual(ServiceDaten daten, List<string> l, Dictionary<string, int> map, string version,
       string op, int tot, string anc = null, string desc = null)
     {
       var liste = SbPersonRep.GetList(daten); // , status2: status2);
@@ -1435,7 +1435,7 @@ namespace CSBP.Services
     /// <param name="tot">Affected comparison value for Status1.</param>
     /// <param name="anc">Affected ancestor uid.</param>
     /// <param name="desc">Affected descendant uid.</param>
-    private void WriteFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map,
+    private static void WriteFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map,
       string op, int tot, string anc = null, string desc = null)
     {
       var familien = SbFamilieRep.GetList(daten); //, status2: status2);
@@ -1491,7 +1491,7 @@ namespace CSBP.Services
     /// <param name="daten">Service data for database access.</param>
     /// <param name="l">List of lines for GEDCOM file.</param>
     /// <param name="map">Mapping for xref.</param>
-    private void WriteSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map)
+    private static void WriteSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map)
     {
       var quellen = SbQuelleRep.GetList(daten, null); // , status2);
       foreach (var q in quellen)
@@ -1520,8 +1520,9 @@ namespace CSBP.Services
     /// <param name="l">List of lines for GEDCOM file.</param>
     /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
     /// <param name="name">Affected pedigree name.</param>
-    private void WriteFoot(ServiceDaten daten, List<String> l, String version, String name)
+    private static void WriteFoot(ServiceDaten daten, List<String> l, String version, String name)
     {
+      Functions.MachNichts(daten);
       if (version.CompareTo("5.5") >= 0)
       {
         var p = Parameter.GetValue(Parameter.SB_SUBMITTER);
@@ -1559,7 +1560,7 @@ namespace CSBP.Services
      * @param uid Nummer des Objekts.
      * @return Objekt-Referenz als Zeichenkette.
      */
-    private string GetXref(Dictionary<string, int> map, string typ, string uid)
+    private static string GetXref(Dictionary<string, int> map, string typ, string uid)
     {
       string s;
       if (map == null)
@@ -1592,21 +1593,21 @@ namespace CSBP.Services
      * @param type Typ des Eintrags, z.B. TITL, TEXT, AUTH.
      * @param text Auszugebender Inhalt.
      */
-    private void SchreibeFortsetzung(List<string> l, int level, string type, string text)
+    private static void SchreibeFortsetzung(List<string> l, int level, string type, string text)
     {
       // Maximal Länge einer GEDCOM-Zeile.
       const int MAX_GEDCOM_ZEILE = 248;
-      string str = null;
       var iLen = text == null ? 0 : text.Length;
       if (iLen > 0)
       {
         var iMax = (iLen - 1) / MAX_GEDCOM_ZEILE + 1;
         for (var i = 1; i <= iMax; i++)
         {
+          string str;
           if (i < iMax)
             str = text.Substring((i - 1) * MAX_GEDCOM_ZEILE, i * MAX_GEDCOM_ZEILE);
           else
-            str = text.Substring((i - 1) * MAX_GEDCOM_ZEILE); // i == iMax
+            str = text[((i - 1) * MAX_GEDCOM_ZEILE)..]; // i == iMax
           if (i == 1)
             l.Add(level + " " + type + " " + str);
           else
@@ -1631,21 +1632,19 @@ namespace CSBP.Services
       var mitEreignis = (stufe & 1) == 0;
       var mitPartner = (stufe & 2) == 0;
       var zeile = new StringBuilder();
-      var auchKinder = false;
-
       var sbPerson = SbPersonRep.Get(daten, daten.MandantNr, uid);
       if (sbPerson == null)
         throw new MessageException(SB017(uid));
       var strGen = mitPartner ? "" + generation : "+";
       var strPraefix = new string(' ', (Math.Abs(generation) - 1) * 1);
-      zeile.Append(strPraefix).Append(strGen).Append(" ").Append(
+      zeile.Append(strPraefix).Append(strGen).Append(' ').Append(
         Functions.AhnString(sbPerson.Uid, sbPerson.Geburtsname, sbPerson.Vorname, true));
       if (mitEreignis)
       {
         var ereignisse = SbEreignisRep.GetList(daten, uid);
         foreach (var e in ereignisse)
         {
-          zeile.Append(" ").Append(((GedcomEventEnum)e.Typ).ToSymbol());
+          zeile.Append(' ').Append(((GedcomEventEnum)e.Typ).ToSymbol());
           var zeitangabe = new PedigreeTimeData(e);
           zeile.Append(zeitangabe.Deparse());
           Functions.Append(zeile, " in ", e.Ort);
@@ -1675,7 +1674,7 @@ namespace CSBP.Services
               // auchKinder = true;
             }
           }
-          auchKinder = true;
+          var auchKinder = true;
           if (auchKinder && generation <= max)
           {
             var kinder = SbKindRep.GetList(daten, f.Uid);
@@ -1709,14 +1708,14 @@ namespace CSBP.Services
         throw new MessageException(SB017(uid));
       var strGen = mitEltern ? "" + generation : "+";
       var strPraefix = new string(' ', (Math.Abs(generation) - 1) * 1);
-      zeile.Append(strPraefix).Append(strGen).Append(" ").Append(
+      zeile.Append(strPraefix).Append(strGen).Append(' ').Append(
         Functions.AhnString(sbPerson.Uid, sbPerson.Geburtsname, sbPerson.Vorname, true));
       if (mitEreignis)
       {
         var ereignisse = SbEreignisRep.GetList(daten, uid);
         foreach (var e in ereignisse)
         {
-          zeile.Append(" ").Append(((GedcomEventEnum)e.Typ).ToSymbol());
+          zeile.Append(' ').Append(((GedcomEventEnum)e.Typ).ToSymbol());
           var zeitangabe = new PedigreeTimeData(e);
           zeile.Append(zeitangabe.Deparse());
           Functions.Append(zeile, " in ", e.Ort);
@@ -1747,7 +1746,7 @@ namespace CSBP.Services
       }
     }
 
-    private void DeleteQuelleIntern(ServiceDaten daten, SbQuelle q)
+    private static void DeleteQuelleIntern(ServiceDaten daten, SbQuelle q)
     {
       var pliste = SbPersonRep.GetList(daten, suid: q.Uid);
       if (pliste.Any())
@@ -1768,7 +1767,7 @@ namespace CSBP.Services
      * @param bemerkung Ereignis-Bemerkung.
      * @param quid Quellen-Nummer zum Ereignis.
      */
-    private void SpeichereEreignis(ServiceDaten daten, string puid, string fuid, string typ, string datum,
+    private static void SpeichereEreignis(ServiceDaten daten, string puid, string fuid, string typ, string datum,
       string ort, string bemerkung, string quid)
     {
       var zeitangabe = new PedigreeTimeData();
@@ -1806,7 +1805,7 @@ namespace CSBP.Services
      * @throws Exception falls die neue Familien-Nummer nicht bestimmt werden konnte oder Ahn schon Kind in anderer
      *         Familie ist.
      */
-    private SbFamilie NeueFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid, string kindUid,
+    private static SbFamilie NeueFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid, string kindUid,
       bool doppelt)
     {
       var fuid = uid;
@@ -1849,7 +1848,7 @@ namespace CSBP.Services
       return f;
     }
 
-    private SbFamilie IuFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid)
+    private static SbFamilie IuFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid)
     {
       if (string.IsNullOrEmpty(mannUid) && string.IsNullOrEmpty(frauUid))
         throw new MessageException(SB007);
@@ -1863,7 +1862,7 @@ namespace CSBP.Services
      * @param fuid Familien-Nummer.
      * @param kindUid Ahnen-Nummer des Kindes.
      */
-    private SbKind IuKind(ServiceDaten daten, string fuid, string kindUid)
+    private static SbKind IuKind(ServiceDaten daten, string fuid, string kindUid)
     {
       if (string.IsNullOrEmpty(fuid) || string.IsNullOrEmpty(kindUid))
         throw new MessageException(SB011);
@@ -1875,7 +1874,7 @@ namespace CSBP.Services
       return k;
     }
 
-    private void DeletePersonIntern(ServiceDaten daten, SbPerson p)
+    private static void DeletePersonIntern(ServiceDaten daten, SbPerson p)
     {
       // Person aus Familie löschen
       var liste = SbFamilieRep.GetList(daten, null, null, null, p.Uid);
@@ -1919,7 +1918,7 @@ namespace CSBP.Services
      * @param daten Service-Daten mit Mandantennummer.
      * @param uid Familie-Nummer.
      */
-    private void DeleteFamilieIntern(ServiceDaten daten, SbFamilie f)
+    private static void DeleteFamilieIntern(ServiceDaten daten, SbFamilie f)
     {
       // Kinder löschen
       var liste = SbKindRep.GetList(daten, f.Uid);
@@ -1941,7 +1940,7 @@ namespace CSBP.Services
         SbFamilieRep.Delete(daten, f);
     }
 
-    private List<string> GetAlleEhegatten(ServiceDaten daten, string puid)
+    private static List<string> GetAlleEhegatten(ServiceDaten daten, string puid)
     {
       var liste = new List<string>();
       if (puid == null)
@@ -1973,7 +1972,7 @@ namespace CSBP.Services
       return liste;
     }
 
-    private List<string> GetEhegatten0(ServiceDaten daten, string puid)
+    private static List<string> GetEhegatten0(ServiceDaten daten, string puid)
     {
       var liste = new List<String>();
       if (!string.IsNullOrEmpty(puid))
@@ -1996,7 +1995,7 @@ namespace CSBP.Services
      * @param uid Ahnen-Nummer.
      * @return Familie des Ahnen.
      */
-    private SbFamilie GetElternFamilieIntern(ServiceDaten daten, String uid)
+    private static SbFamilie GetElternFamilieIntern(ServiceDaten daten, String uid)
     {
       var fliste = SbFamilieRep.GetList(daten, personuid: uid);
       return fliste.FirstOrDefault();
@@ -2008,7 +2007,7 @@ namespace CSBP.Services
      * @param uid Ahnen-Nummer.
      * @return Kind-Datensatz des Ahnen.
      */
-    private SbKind GetKindFamilieIntern(ServiceDaten daten, string uid)
+    private static SbKind GetKindFamilieIntern(ServiceDaten daten, string uid)
     {
       var k = SbKindRep.GetList(daten, null, uid).FirstOrDefault();
       return k;

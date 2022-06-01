@@ -5,19 +5,20 @@
 namespace CSBP.Services.Server
 {
   using System;
-  using CSBP.Base;
   using System.Net;
   using System.Threading;
+  using CSBP.Base;
   using CSBP.Services.Base;
 
   public class HttpServer
   {
     private static HttpListener listener;
 
-    private static object locking = new object();
+    private static readonly object locking = new();
 
     public static void Start(string token)
     {
+      Functions.MachNichts(token);
       if (listener != null)
         return;
 
@@ -40,7 +41,7 @@ namespace CSBP.Services.Server
         }
         catch (Exception ex)
         {
-          if (!(ex is HttpListenerException))
+          if (ex is not HttpListenerException)
             ServiceBase.Log.Error(ex, "HttpListener");
           break;
         }

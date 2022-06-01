@@ -183,8 +183,7 @@ namespace CSBP.Forms.HH
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete || DialogType == DialogTypeEnum.Reverse;
         var aendern = DialogType == DialogTypeEnum.Edit;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.BudgetService.GetBooking(ServiceDaten, uid));
           if (k == null)
@@ -403,8 +402,10 @@ namespace CSBP.Forms.HH
       var s = GetText(sollkonto);
       var h = GetText(habenkonto);
       var el = Get(FactoryService.BudgetService.GetEventList(ServiceDaten, null, valuta.Value, valuta.Value));
-      var evalues = new List<string[]>();
-      evalues.Add(new string[] { "", "" }); // Leerer Eintrag, damit zunächst kein Ereignis ausgewählt ist.
+      var evalues = new List<string[]>
+      {
+        new string[] { "", "" } // Leerer Eintrag, damit zunächst kein Ereignis ausgewählt ist.
+      };
       foreach (var e in el)
       {
         evalues.Add(new string[] { e.Uid, e.Bezeichnung });
@@ -449,17 +450,17 @@ namespace CSBP.Forms.HH
       var strBetrag = Functions.ToString(betrag.Text).Trim();
       if (strBetrag.StartsWith("+", StringComparison.InvariantCulture))
       {
-        strBetrag = strBetrag.Substring(1);
+        strBetrag = strBetrag[1..];
       }
       else if (strBetrag.StartsWith("*", StringComparison.InvariantCulture))
       {
         op = "*";
-        strBetrag = strBetrag.Substring(1);
+        strBetrag = strBetrag[1..];
       }
       else if (strBetrag.StartsWith("/", StringComparison.InvariantCulture))
       {
         op = "/";
-        strBetrag = strBetrag.Substring(1);
+        strBetrag = strBetrag[1..];
       }
       betrag.Text = strBetrag;
       return op;

@@ -21,101 +21,81 @@ namespace CSBP.Forms.WP
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label bezeichnung0.</summary>
     [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Label bezeichnung0;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
+    private readonly Entry bezeichnung;
 
     /// <summary>Label box0.</summary>
     [Builder.Object]
-    private Label box0;
+    private readonly Label box0;
 
     /// <summary>Entry box.</summary>
     [Builder.Object]
-    private Entry box;
+    private readonly Entry box;
 
     /// <summary>ComboBox skala.</summary>
     [Builder.Object]
-    private ComboBox skala;
+    private readonly ComboBox skala;
 
     /// <summary>Label umkehr0.</summary>
     [Builder.Object]
-    private Label umkehr0;
+    private readonly Label umkehr0;
 
     /// <summary>Entry umkehr.</summary>
     [Builder.Object]
-    private Entry umkehr;
+    private readonly Entry umkehr;
 
     /// <summary>Label methode0.</summary>
     [Builder.Object]
-    private Label methode0;
+    private readonly Label methode0;
 
     /// <summary>ComboBox methode.</summary>
     [Builder.Object]
-    private ComboBox methode;
+    private readonly ComboBox methode;
 
     /// <summary>Label dauer0.</summary>
     [Builder.Object]
-    private Label dauer0;
+    private readonly Label dauer0;
 
     /// <summary>Entry dauer.</summary>
     [Builder.Object]
-    private Entry dauer;
+    private readonly Entry dauer;
 
     /// <summary>CheckButton relativ.</summary>
     [Builder.Object]
-    private CheckButton relativ;
+    private readonly CheckButton relativ;
 
     /// <summary>Label status0.</summary>
     [Builder.Object]
-    private Label status0;
+    private readonly Label status0;
 
     /// <summary>ComboBox status.</summary>
     [Builder.Object]
-    private ComboBox status;
-
-    /// <summary>Label notiz0.</summary>
-    [Builder.Object]
-    private Label notiz0;
+    private readonly ComboBox status;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView notiz;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 
@@ -165,8 +145,7 @@ namespace CSBP.Forms.WP
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var copy = DialogType == DialogTypeEnum.Copy;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.StockService.GetConfiguration(ServiceDaten, uid));
           if (k == null)

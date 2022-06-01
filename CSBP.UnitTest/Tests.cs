@@ -21,6 +21,9 @@ public class Tests
 
   /// <summary>
   /// Starting tests manually.
+  /// Manually building:
+  /// cd ../CSBP.UnitTest/
+  /// dotnet build
   /// </summary>
   /// <param name="args">Parameters are ignored.</param>
   static void Main(string[] args)
@@ -30,6 +33,7 @@ public class Tests
     t.MachNichts();
     // t.GenerateForm();
     t.GenerateResxDesigner();
+    // t.GenerierenReps();
     // t.Tls();
   }
 
@@ -190,7 +194,7 @@ namespace CSBP.Services.Repositories.Base
     /// On the model creating generated.
     /// </summary>
     /// <param name=""modelBuilder"">Model builder.</param>
-    void OnModelCreatingGenerated(ModelBuilder modelBuilder)
+    private static void OnModelCreatingGenerated(ModelBuilder modelBuilder)
     {{
 {keys}
     }}
@@ -281,21 +285,25 @@ namespace CSBP.Services.Repositories.Base
       getvalue.Append(ps.Any(a => a.name == "Uid")
           ? $@"var a = string.IsNullOrEmpty(uid) ? null : Get(daten{kparam2});
 " : $@"var a = Get(daten{kparam2});
-").Append($@"      var e = a ?? new {tab}();
+").Append($@"    var e = a ?? new {tab}();
 ");
       foreach (var p in ps)
       {
         var vname = p.name.Replace("_", string.Empty).ToLower();
         if (p.name == "Uid")
         {
-          getvalue.Append($@"      e.{p.name} = string.IsNullOrEmpty({vname}) ? Functions.GetUid() : {vname};
+          getvalue.Append($@"    e.{p.name} = string.IsNullOrEmpty({vname}) ? Functions.GetUid() : {vname};
+");
+        }
+        else if (p.name.StartsWith("Replikation_Uid", StringComparison.Ordinal))
+        {
+          getvalue.Append($@"    Functions.MachNichts({vname});
 ");
         }
         else if (!(p.name.StartsWith("Angelegt_", StringComparison.Ordinal)
-          || p.name.StartsWith("Geaendert_", StringComparison.Ordinal)
-          || p.name.StartsWith("Replikation_Uid", StringComparison.Ordinal)))
+          || p.name.StartsWith("Geaendert_", StringComparison.Ordinal)))
         {
-          getvalue.Append($@"      e.{p.name} = {vname};
+          getvalue.Append($@"    e.{p.name} = {vname};
 ");
         }
       }
@@ -305,91 +313,94 @@ namespace CSBP.Services.Repositories.Base
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Services.Repositories
+namespace CSBP.Services.Repositories;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CSBP.Apis.Models;
+using CSBP.Apis.Services;
+using CSBP.Base;
+using CSBP.Services.Repositories.Base;
+
+/// <summary>
+/// Generierte Basis-Klasse für {tabelle}-Repository.
+/// </summary>
+public partial class {rep} : RepositoryBase
 {{
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using CSBP.Apis.Models;
-  using CSBP.Apis.Services;
-  using CSBP.Base;
-  using CSBP.Services.Repositories.Base;
+#pragma warning disable CA1822
 
-  /// <summary>
-  /// Generierte Basis-Klasse für {tabelle}-Repository.
-  /// </summary>
-  public partial class {rep} : RepositoryBase
+  public {tab} Get(ServiceDaten daten, {tab} e)
   {{
-    public {tab} Get(ServiceDaten daten, {tab} e)
-    {{
-      var db = GetDb(daten);
-      var b = db.{tabelle}.FirstOrDefault(a => {gwhere});
-      return b;
-    }}
+    var db = GetDb(daten);
+    var b = db.{tabelle}.FirstOrDefault(a => {gwhere});
+    return b;
+  }}
 
-    public {tab} Get(ServiceDaten daten{kparam}, bool detached = false)
-    {{
-      var db = GetDb(daten);
-      var b = db.{tabelle}.FirstOrDefault(a => {gwhere2});
-      if (detached && b != null)
-        db.Entry(b).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      return b;
-    }}
+  public {tab} Get(ServiceDaten daten{kparam}, bool detached = false)
+  {{
+    var db = GetDb(daten);
+    var b = db.{tabelle}.FirstOrDefault(a => {gwhere2});
+    if (detached && b != null)
+      db.Entry(b).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+    return b;
+  }}
 
-    public List<{tab}> GetList(ServiceDaten daten{lparam})
-    {{
-      var db = GetDb(daten);
-      var l = db.{tabelle}{lwhere};
-      return l.ToList();
-    }}
+  public List<{tab}> GetList(ServiceDaten daten{lparam})
+  {{
+    var db = GetDb(daten);
+    var l = db.{tabelle}{lwhere};
+    return l.ToList();
+  }}
 
-    public void Insert(ServiceDaten daten, {tab} e)
-    {{
-      var db = GetDb(daten);{autouid}
-      MachAngelegt(e, daten);
-      db.{tabelle}.Add(e);
-    }}
+  public void Insert(ServiceDaten daten, {tab} e)
+  {{
+    var db = GetDb(daten);{autouid}
+    MachAngelegt(e, daten);
+    db.{tabelle}.Add(e);
+  }}
 
-    public void Update(ServiceDaten daten, {tab} e)
+  public void Update(ServiceDaten daten, {tab} e)
+  {{
+    var db = GetDb(daten);
+    var a = Get(daten, e);
+    db.Entry(a).CurrentValues.SetValues(e);
+    if (db.Entry(a).State == Microsoft.EntityFrameworkCore.EntityState.Modified)
     {{
-      var db = GetDb(daten);
-      var a = Get(daten, e);
-      db.Entry(a).CurrentValues.SetValues(e);
-      if (db.Entry(a).State == Microsoft.EntityFrameworkCore.EntityState.Modified)
-      {{
-        MachGeaendert(a, daten);
-        db.{tabelle}.Update(a);
-      }}
-    }}
-
-    public {tab} Save(ServiceDaten daten{gparam2})
-    {{
-      var db = GetDb(daten);
-      {getvalue}      if (a == null)
-      {{
-        MachAngelegt(e, daten, angelegtam, angelegtvon);
-        if (!string.IsNullOrEmpty(geaendertvon))
-          MachGeaendert(e, daten, geaendertam, geaendertvon);
-        db.{tabelle}.Add(e);
-      }}
-      else if (db.Entry(e).State == Microsoft.EntityFrameworkCore.EntityState.Modified)
-      {{
-        if (!string.IsNullOrEmpty(angelegtvon))
-          MachAngelegt(e, daten, angelegtam, angelegtvon);
-        MachGeaendert(e, daten, geaendertam, geaendertvon);
-        db.{tabelle}.Update(e);
-      }}
-      return e;
-    }}
-
-    public void Delete(ServiceDaten daten, {tab} e)
-    {{
-      var db = GetDb(daten);
-      var a = Get(daten, e);
-      if (a != null)
-        db.{tabelle}.Remove(a);
+      MachGeaendert(a, daten);
+      db.{tabelle}.Update(a);
     }}
   }}
+
+  public {tab} Save(ServiceDaten daten{gparam2})
+  {{
+    var db = GetDb(daten);
+    {getvalue}      if (a == null)
+    {{
+      MachAngelegt(e, daten, angelegtam, angelegtvon);
+      if (!string.IsNullOrEmpty(geaendertvon))
+        MachGeaendert(e, daten, geaendertam, geaendertvon);
+      db.{tabelle}.Add(e);
+    }}
+    else if (db.Entry(e).State == Microsoft.EntityFrameworkCore.EntityState.Modified)
+    {{
+      if (!string.IsNullOrEmpty(angelegtvon))
+        MachAngelegt(e, daten, angelegtam, angelegtvon);
+      MachGeaendert(e, daten, geaendertam, geaendertvon);
+      db.{tabelle}.Update(e);
+    }}
+    return e;
+  }}
+
+  public void Delete(ServiceDaten daten, {tab} e)
+  {{
+    var db = GetDb(daten);
+    var a = Get(daten, e);
+    if (a != null)
+      db.{tabelle}.Remove(a);
+  }}
+
+#pragma warning restore CA1822
 }}
 ";
       File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP/Services/Repositories/Gen", $"{rep}.cs"), s);
@@ -398,16 +409,18 @@ namespace CSBP.Services.Repositories
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Services.Repositories
-{{
-  using System;
+namespace CSBP.Services.Repositories;
 
-  /// <summary>
-  /// Klasse für {tabelle}-Repository.
-  /// </summary>
-  public partial class {rep}
-  {{
-  }}
+using System;
+
+/// <summary>
+/// Klasse für {tabelle}-Repository.
+/// </summary>
+public partial class {rep}
+{{
+#pragma warning disable CA1822
+
+#pragma warning restore CA1822
 }}
 ";
       var datei = Path.Combine(Pfad, "csbp/CSBP/Services/Repositories", $"{rep}.cs");
@@ -1120,18 +1133,18 @@ namespace CSBP.Forms.{unit.ToUpper()}
     var values = new StringBuilder();
     values.Append($@"
 
-    // private static System.Globalization.CultureInfo rc;
+  // private static System.Globalization.CultureInfo rc;
 
-    // internal static System.Globalization.CultureInfo Culture
-    // {{
-    //   get {{ return rc; }}
-    //   set {{ rc = value; }}
-    // }}
+  // internal static System.Globalization.CultureInfo Culture
+  // {{
+  //   get {{ return rc; }}
+  //   set {{ rc = value; }}
+  // }}
 
-    public static string Get(string key)
-    {{
-      return rm.GetString(key);
-    }}");
+  public static string Get(string key)
+  {{
+    return rm.GetString(key);
+  }}");
     var g = XDocument.Load(Path.Combine(slnpfad, fn));
     var datas = g.Descendants("data");
     foreach (var d in datas)
@@ -1140,27 +1153,25 @@ namespace CSBP.Forms.{unit.ToUpper()}
       var namecs = name.Replace('.', '_');
       //var value = (d.Descendants("value").FirstOrDefault()?.FirstNode as XText)?.Value;
       values.Append(Constants.CRLF).Append(Constants.CRLF);
-      values.Append($@"    public static string {namecs}
-    {{
-      get {{ return rm.GetString(""{name}""); }}
-    }}");
+      values.Append($@"  public static string {namecs}
+  {{
+    get {{ return rm.GetString(""{name}""); }}
+  }}");
     }
     var s = $@"// <copyright file=""{filename}.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace {ns}
-{{
-  using System;
+namespace {ns};
 
-  /// <summary>
-  /// Resource class for {filename}.
-  /// </summary>
-  public partial class {filename}
-  {{
-    private static System.Resources.ResourceManager rm =
-      new System.Resources.ResourceManager(""{ns}.{filename}"", typeof({filename}).Assembly);{values}
-  }}
+using System;
+
+/// <summary>
+/// Resource class for {filename}.
+/// </summary>
+public partial class {filename}
+{{
+  private static readonly System.Resources.ResourceManager rm = new(""{ns}.{filename}"", typeof({filename}).Assembly);{values}
 }}
 ";
     var datei = Path.Combine(slnpfad, $"CSBP/Resources", $"{filename}.cs");

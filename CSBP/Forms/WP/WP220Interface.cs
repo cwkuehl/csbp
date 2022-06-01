@@ -21,112 +21,80 @@ namespace CSBP.Forms.WP
   public partial class WP220Interface : CsbpBin
   {
     /// <summary>State of calculation.</summary>
-    StringBuilder Status = new StringBuilder();
+    readonly StringBuilder Status = new();
 
     /// <summary>Cancel of calculation.</summary>
-    StringBuilder Cancel = new StringBuilder();
+    readonly StringBuilder Cancel = new();
 
 #pragma warning disable CS0649
 
-    /// <summary>Label datum0.</summary>
-    [Builder.Object]
-    private Label datum0;
-
     /// <summary>Date Datum.</summary>
     //[Builder.Object]
-    private Date datum;
-
-    /// <summary>Label anzahl0.</summary>
-    [Builder.Object]
-    private Label anzahl0;
+    private readonly Date datum;
 
     /// <summary>Entry anzahl.</summary>
     [Builder.Object]
-    private Entry anzahl;
-
-    /// <summary>Label bezeichnung0.</summary>
-    [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Entry anzahl;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
-
-    /// <summary>Label konfiguration0.</summary>
-    [Builder.Object]
-    private Label konfiguration0;
+    private readonly Entry bezeichnung;
 
     /// <summary>TreeView konfiguration.</summary>
     [Builder.Object]
-    private TreeView konfiguration;
-
-    /// <summary>Label datei0.</summary>
-    [Builder.Object]
-    private Label datei0;
+    private readonly TreeView konfiguration;
 
     /// <summary>Entry datei.</summary>
     [Builder.Object]
-    private Entry datei;
-
-    /// <summary>Button dateiAuswahl.</summary>
-    [Builder.Object]
-    private Button dateiAuswahl;
-
-    /// <summary>Button export.</summary>
-    [Builder.Object]
-    private Button export;
+    private readonly Entry datei;
 
     /// <summary>Label datum20.</summary>
     [Builder.Object]
-    private Label datum20;
+    private readonly Label datum20;
 
     /// <summary>Date Datum2.</summary>
     //[Builder.Object]
-    private Date datum2;
+    private readonly Date datum2;
 
     /// <summary>Date Datum3.</summary>
     //[Builder.Object]
-    private Date datum3;
+    private readonly Date datum3;
 
     /// <summary>Date Datum4.</summary>
     //[Builder.Object]
-    private Date datum4;
+    private readonly Date datum4;
 
     /// <summary>Label wertpapier0.</summary>
     [Builder.Object]
-    private ScrolledWindow wertpapiersw;
+    private readonly ScrolledWindow wertpapiersw;
 
     /// <summary>Label wertpapier0.</summary>
     [Builder.Object]
-    private Label wertpapier0;
+    private readonly Label wertpapier0;
 
     /// <summary>TreeView wertpapier.</summary>
     [Builder.Object]
-    private TreeView wertpapier;
+    private readonly TreeView wertpapier;
 
     /// <summary>Label datei20.</summary>
     [Builder.Object]
-    private Label datei20;
+    private readonly Label datei20;
 
     /// <summary>Entry datei2.</summary>
     [Builder.Object]
-    private Entry datei2;
+    private readonly Entry datei2;
 
     /// <summary>Button datei2Auswahl.</summary>
     [Builder.Object]
-    private Button datei2Auswahl;
+    private readonly Button datei2Auswahl;
 
     /// <summary>Button export2.</summary>
     [Builder.Object]
-    private Button export2;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button export2;
 
     /// <summary>Entry statustext.</summary>
     [Builder.Object]
-    private Entry statustext;
+    private readonly Entry statustext;
 
 #pragma warning restore CS0649
 
@@ -201,9 +169,11 @@ namespace CSBP.Forms.WP
         datum3.Value = Functions.Workday(new DateTime(today.Year, 1, 1));
         datum4.Value = Functions.Workday(today);
         var clist = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, true, "1"));
-        var cvalues = new List<string[]>();
-        // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
-        cvalues.Add(new string[] { "", "", "", "", "" }); // Empty entry.
+        var cvalues = new List<string[]>
+        {
+          // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
+          new string[] { "", "", "", "", "" } // Empty entry.
+        };
         foreach (var c in clist)
         {
           cvalues.Add(new string[] { c.Uid, c.Bezeichnung, Functions.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
@@ -213,9 +183,11 @@ namespace CSBP.Forms.WP
         SetText(konfiguration, Parameter.WP220Configuration);
         datei.Text = Parameter.WP220File ?? "";
         var slist = Get(FactoryService.StockService.GetStockList(ServiceDaten, true));
-        var svalues = new List<string[]>();
-        // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
-        svalues.Add(new string[] { "", "", "", "", "" }); // Empty entry.
+        var svalues = new List<string[]>
+        {
+          // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
+          new string[] { "", "", "", "", "" } // Empty entry.
+        };
         foreach (var s in slist)
         {
           svalues.Add(new string[] { s.Uid, s.Bezeichnung, Functions.ToString(s.Geaendert_Am, true), s.Geaendert_Von,

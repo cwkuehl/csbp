@@ -17,7 +17,8 @@ namespace CSBP.Services.Reports
     public List<AdSitz> Sites { get; set; }
 
     /// <summary>Konstruktor legt den Style fest.</summary>
-    public AddressReport() {
+    public AddressReport()
+    {
       Style = @"
 * {
  font-family: Arial;
@@ -111,7 +112,7 @@ namespace CSBP.Services.Reports
       xml.WriteEndElement(); // table
     }
 
-    private string GetPersonName(AdPerson a)
+    private static string GetPersonName(AdPerson a)
     {
       if (a == null)
         return "";
@@ -121,10 +122,10 @@ namespace CSBP.Services.Reports
       return sb.ToString();
     }
 
-    private string GetSitzName(AdSitz s)
+    private static string GetSitzName(AdSitz s)
     {
       var sb = new StringBuilder();
-      sb.Append(null, s.Name).Append(":");
+      sb.Append(null, s.Name).Append(':');
       if (s.Address != null)
       {
         var a = s.Address;

@@ -11,20 +11,20 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using CSBP.Apis.Models.Extension;
+using System.Text.RegularExpressions;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
+using CSBP.Apis.Models.Extension;
 using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Resources;
 using CSBP.Services.Base;
-using static CSBP.Resources.Messages;
-using static CSBP.Resources.M;
-using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
-using CSBP.Services.Repositories.Base;
 using CSBP.Services.Reports;
+using CSBP.Services.Repositories.Base;
 using CSBP.Services.Undo;
+using Newtonsoft.Json.Linq;
+using static CSBP.Resources.M;
+using static CSBP.Resources.Messages;
 
 public class ClientService : ServiceBase, IClientService
 {
@@ -83,8 +83,10 @@ public class ClientService : ServiceBase, IClientService
       }
       else if (version <= 54)
       {
-        var mout = new List<string>();
-        mout.Add("update sb_person set quelle_uid=null where quelle_uid='0'");
+        var mout = new List<string>
+        {
+          "update sb_person set quelle_uid=null where quelle_uid='0'"
+        };
         MaMandantRep.Execute(daten, mout);
         version = 55;
       }
@@ -334,7 +336,7 @@ public class ClientService : ServiceBase, IClientService
   }
 
   /** Berechtigung eines Benutzers lesen */
-  private int GetBerechtigung(ServiceDaten daten, int mandantNr, string benutzerId)
+  private static int GetBerechtigung(ServiceDaten daten, int mandantNr, string benutzerId)
   {
     var b = BenutzerRep.Get(daten, mandantNr, benutzerId);
     return b == null ? -1 : b.Berechtigung;
@@ -474,7 +476,7 @@ public class ClientService : ServiceBase, IClientService
     var r = new ServiceErgebnis();
     if (client <= 0 || p == null)
     {
-      throw new ArgumentException();
+      throw new ArgumentException(null, nameof(client));
     }
     p.SetValue(value);
     if (p.Database)
@@ -634,7 +636,7 @@ public class ClientService : ServiceBase, IClientService
       string password, StringBuilder status, StringBuilder cancel)
   {
     if (status == null || cancel == null)
-      throw new ArgumentException();
+      throw new ArgumentException(null, nameof(status));
     var e = GetBackupEntryIntern(daten, uid);
     if (e == null)
       throw new MessageException(M1013);
@@ -733,7 +735,7 @@ public class ClientService : ServiceBase, IClientService
     return new ServiceErgebnis();
   }
 
-  private static Regex pread = new Regex("^([a-z]+)(_([0-9]+)d?)?$", RegexOptions.Compiled);
+  private static readonly Regex pread = new("^([a-z]+)(_([0-9]+)d?)?$", RegexOptions.Compiled);
 
   /// <summary>
   /// Replicates a table.
@@ -982,7 +984,7 @@ Lokal: {e.Eintrag}";
     {
       var jo = (JObject)JToken.Parse(json ?? "");
       var jarr = (JArray)jo[table];
-      var today = DateTime.Today;
+      // var today = DateTime.Today;
       foreach (var a in jarr)
       {
         var e = new FzFahrradstand
@@ -1067,6 +1069,9 @@ Lokal: {e.Eintrag}";
       bool restore, bool encrypted, bool zipped, List<BackupFile> blist,
       StringBuilder status, StringBuilder cancel)
   {
+    Functions.MachNichts(daten);
+    Functions.MachNichts(status);
+    Functions.MachNichts(cancel);
     var tname = Path.GetFileName(Path.GetDirectoryName(source));
     var p = zipped ? Path.Combine(target, tname + ".zip")
         : Path.GetFullPath(Path.Combine(target, tname) + Path.DirectorySeparatorChar);
@@ -1277,8 +1282,9 @@ Lokal: {e.Eintrag}";
   /// <returns>Backup entry or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="uid">Affected ID.</param>
-  private BackupEntry GetBackupEntryIntern(ServiceDaten daten, string uid)
+  private static BackupEntry GetBackupEntryIntern(ServiceDaten daten, string uid)
   {
+    Functions.MachNichts(daten);
     BackupEntry e = null;
     var l = BackupEntry.GetBackupEntryList();
     if (!string.IsNullOrEmpty(uid) && l != null)
@@ -1421,7 +1427,7 @@ Lokal: {e.Eintrag}";
     }
   }
 
-  List<ReplicationTable> GetAllTables()
+  static List<ReplicationTable> GetAllTables()
   {
     var l = new List<ReplicationTable> {
       new ReplicationTable("AD_Adresse", "Mandant_Nr", "Mandant_Nr, Uid", true, true),

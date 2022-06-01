@@ -28,91 +28,51 @@ namespace CSBP.Forms.WP
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Label daten0.</summary>
-    [Builder.Object]
-    private Label daten0;
-
-    /// <summary>Label chart0.</summary>
-    [Builder.Object]
-    private Label chart0;
-
-    /// <summary>Paned split.</summary>
-    [Builder.Object]
-    private Paned split;
+    private readonly Button refreshAction;
 
     /// <summary>TreeView data.</summary>
     [Builder.Object]
-    private TreeView data;
-
-    /// <summary>Label von0.</summary>
-    [Builder.Object]
-    private Label von0;
+    private readonly TreeView data;
 
     /// <summary>Date Von.</summary>
     //[Builder.Object]
-    private Date von;
-
-    /// <summary>Label bis0.</summary>
-    [Builder.Object]
-    private Label bis0;
+    private readonly Date von;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
+    private readonly Date bis;
 
     /// <summary>Label wertpapier0.</summary>
     [Builder.Object]
-    private Label wertpapier0;
+    private readonly Label wertpapier0;
 
     /// <summary>ComboBox wertpapier.</summary>
     [Builder.Object]
-    private ComboBox wertpapier;
-
-    /// <summary>Label box0.</summary>
-    [Builder.Object]
-    private Label box0;
+    private readonly ComboBox wertpapier;
 
     /// <summary>Entry box.</summary>
     [Builder.Object]
-    private Entry box;
+    private readonly Entry box;
 
     /// <summary>ComboBox skala.</summary>
     [Builder.Object]
-    private ComboBox skala;
-
-    /// <summary>Label umkehr0.</summary>
-    [Builder.Object]
-    private Label umkehr0;
+    private readonly ComboBox skala;
 
     /// <summary>Entry umkehr.</summary>
     [Builder.Object]
-    private Entry umkehr;
+    private readonly Entry umkehr;
 
     /// <summary>Label methode0.</summary>
     [Builder.Object]
-    private Label methode0;
+    private readonly Label methode0;
 
     /// <summary>ComboBox methode.</summary>
     [Builder.Object]
-    private ComboBox methode;
+    private readonly ComboBox methode;
 
     /// <summary>CheckButton relativ.</summary>
     [Builder.Object]
-    private CheckButton relativ;
-
-    /// <summary>DrawingArea chartpane.</summary>
-    [Builder.Object]
-    private DrawingArea chartpane;
+    private readonly CheckButton relativ;
 
 #pragma warning restore CS0649
 
@@ -319,7 +279,7 @@ namespace CSBP.Forms.WP
       // c.LineTo(w, 0);
       // c.LineTo(0, 0);
       // c.Stroke();
-      var d = Chart.ComputeDimension(w, h);
+      // var d = Chart.ComputeDimension(w, h);
       ChartPane.DrawChart(Chart, c, w, h);
     }
   }

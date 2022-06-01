@@ -54,7 +54,7 @@ public class SudokuContext
     Maxy = y;
     Maxyb = yb;
     Max = x * y;
-    Diagonal = x == y ? diagonal : false;
+    Diagonal = x == y && diagonal;
     Numbers = new int[Max];
     Copy(arr, Numbers);
   }
@@ -266,7 +266,9 @@ public class SudokuContext
     {
       if (feld == -1 && SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
       {
+#pragma warning disable IDE0059
         feld = -2; // vollständig gelöst
+#pragma warning restore IDE0059
       }
     }
     return feld;
@@ -514,7 +516,9 @@ public class SudokuContext
     {
       if (feld == -1 && SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
       {
+#pragma warning disable IDE0059
         feld = -2; // vollständig gelöst
+#pragma warning restore IDE0059
       }
     }
     return feld;
@@ -525,10 +529,7 @@ public class SudokuContext
   /// <param name="move1">Find only one number?</param>
   public static void Solve(SudokuContext c, bool move1)
   {
-    var anzahl = 1;
-    var ergebnis = 0;
     var ende = false;
-    int[] clone = null;
     int[] clone1 = null;
     int[] loesung = null;
     var list = new Stack<int[]>();
@@ -544,9 +545,10 @@ public class SudokuContext
     {
       clone1 = SudokuContext.Clone(c.Numbers);
     }
+    int ergebnis;
     do
     {
-      anzahl = 0;
+      var anzahl = 0;
       do
       {
         anzahl++;
@@ -559,7 +561,7 @@ public class SudokuContext
           // Andere Varianten merken.
           for (var i = 1; i < anzahl; i++)
           {
-            clone = SudokuContext.Clone(c.Numbers);
+            var clone = SudokuContext.Clone(c.Numbers);
             clone[feld[0]] = varianten[i];
             list.Push(clone);
           }

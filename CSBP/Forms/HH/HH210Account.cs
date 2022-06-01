@@ -156,8 +156,7 @@ namespace CSBP.Forms.HH
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var aendern = DialogType == DialogTypeEnum.Edit;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var daten = ServiceDaten;
           var k = Get(FactoryService.BudgetService.GetAccount(daten, uid));

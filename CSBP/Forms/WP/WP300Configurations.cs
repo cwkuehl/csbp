@@ -23,39 +23,15 @@ namespace CSBP.Forms.WP
 
     /// <summary>Button RefreshAction.</summary>
     [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button NewAction.</summary>
-    [Builder.Object]
-    private Button newAction;
-
-    /// <summary>Button CopyAction.</summary>
-    [Builder.Object]
-    private Button copyAction;
+    private readonly Button refreshAction;
 
     /// <summary>Button EditAction.</summary>
     [Builder.Object]
-    private Button editAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label konfigurationen0.</summary>
-    [Builder.Object]
-    private Label konfigurationen0;
+    private readonly Button editAction;
 
     /// <summary>TreeView konfigurationen.</summary>
     [Builder.Object]
-    private TreeView konfigurationen;
+    private readonly TreeView konfigurationen;
 
 #pragma warning restore CS0649
 

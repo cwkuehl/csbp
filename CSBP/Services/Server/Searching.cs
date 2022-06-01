@@ -20,7 +20,7 @@ namespace CSBP.Services.Server
     public static int IndexOf(this StringBuilder haystack, string needle, int startIndex = 0)
     {
       if (haystack == null || needle == null || startIndex < 0)
-        throw new ArgumentNullException();
+        throw new ArgumentNullException(nameof(haystack));
       if (needle.Length == 0)
         return 0; // empty strings are everywhere!
       if (needle.Length == 1) // can't beat just spinning through for it
@@ -71,7 +71,7 @@ namespace CSBP.Services.Server
     public static int IndexOf(this byte[] haystack, byte[] needle)
     {
       if (haystack == null || needle == null)
-        throw new ArgumentNullException();
+        throw new ArgumentNullException(nameof(haystack));
       if (needle.Length == 0)
         return 0; // empty strings are everywhere!
       if (needle.Length == 1) // can't beat just spinning through for it

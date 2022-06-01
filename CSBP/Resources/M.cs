@@ -232,7 +232,7 @@ namespace CSBP.Resources
         return m;
       if (string.IsNullOrEmpty(m) || m.Length < 5)
         return null;
-      return m.Substring(5); // .Trim();
+      return m[5..]; // .Trim();
     }
   }
 }

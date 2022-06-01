@@ -28,88 +28,52 @@ namespace CSBP.Forms.HH
     private List<HhBilanz> habenListe;
 
     /// <summary>Status für Task.</summary>
-    StringBuilder Status = new StringBuilder();
+    readonly StringBuilder Status = new();
 
     /// <summary>Abbruch für Task.</summary>
-    StringBuilder Cancel = new StringBuilder();
+    readonly StringBuilder Cancel = new();
 
 #pragma warning disable CS0649
 
-    /// <summary>Button RefreshAction.</summary>
-    [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button RedoAction.</summary>
-    [Builder.Object]
-    private Button redoAction;
-
-    /// <summary>Button PrintAction.</summary>
-    [Builder.Object]
-    private Button printAction;
-
     /// <summary>Label soll0.</summary>
     [Builder.Object]
-    private Label soll0;
+    private readonly Label soll0;
 
     /// <summary>TreeView soll.</summary>
     [Builder.Object]
-    private TreeView soll;
+    private readonly TreeView soll;
 
     /// <summary>Label haben0.</summary>
     [Builder.Object]
-    private Label haben0;
+    private readonly Label haben0;
 
     /// <summary>TreeView haben.</summary>
     [Builder.Object]
-    private TreeView haben;
-
-    /// <summary>Label sollSumme0.</summary>
-    [Builder.Object]
-    private Label sollSumme0;
+    private readonly TreeView haben;
 
     /// <summary>Label sollBetrag0.</summary>
     [Builder.Object]
-    private Label sollBetrag0;
-
-    /// <summary>Label habenSumme0.</summary>
-    [Builder.Object]
-    private Label habenSumme0;
+    private readonly Label sollBetrag0;
 
     /// <summary>Label habenBetrag0.</summary>
     [Builder.Object]
-    private Label habenBetrag0;
+    private readonly Label habenBetrag0;
 
     /// <summary>Label von0.</summary>
     [Builder.Object]
-    private Label von0;
+    private readonly Label von0;
 
     /// <summary>Date Von.</summary>
     //[Builder.Object]
-    private Date von;
+    private readonly Date von;
 
     /// <summary>Label bis0.</summary>
     [Builder.Object]
-    private Label bis0;
+    private readonly Label bis0;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
-
-    /// <summary>Label konto0.</summary>
-    [Builder.Object]
-    private Label konto0;
-
-    /// <summary>Button oben.</summary>
-    [Builder.Object]
-    private Button oben;
-
-    /// <summary>Button unten.</summary>
-    [Builder.Object]
-    private Button unten;
+    private readonly Date bis;
 
 #pragma warning restore CS0649
 

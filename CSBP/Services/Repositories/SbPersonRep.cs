@@ -19,6 +19,8 @@ using Microsoft.EntityFrameworkCore;
 /// </summary>
 public partial class SbPersonRep
 {
+#pragma warning disable CA1822
+
   /// <summary>
   /// Gets a list of ancestors.
   /// </summary>
@@ -242,4 +244,6 @@ public partial class SbPersonRep
     }
     return anzahl;
   }
+
+#pragma warning disable CA1822
 }

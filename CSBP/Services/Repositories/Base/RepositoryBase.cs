@@ -28,7 +28,7 @@ namespace CSBP.Services.Repositories.Base
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
     /// <returns>Datenbank-Context aus Service-Daten.</returns>
-    protected CsbpContext GetDb(ServiceDaten daten)
+    protected static CsbpContext GetDb(ServiceDaten daten)
     {
       var db = daten.Context as CsbpContext;
       return db;
@@ -39,7 +39,7 @@ namespace CSBP.Services.Repositories.Base
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
     /// <returns>Datenbank-Connection aus Service-Daten.</returns>
-    protected DbConnection GetCon(ServiceDaten daten)
+    protected static DbConnection GetCon(ServiceDaten daten)
     {
       var db = daten.Context as DbContext;
       var con = db.Database.GetDbConnection();
@@ -52,7 +52,7 @@ namespace CSBP.Services.Repositories.Base
     /// <param name="cmd">Betroffenes Command.</param>
     /// <param name="name">Betroffener Parameter-Name.</param>
     /// <param name="value">Betroffener Parameter-Wert.</param>
-    protected void AddParam(DbCommand cmd, string name, object value)
+    protected static void AddParam(DbCommand cmd, string name, object value)
     {
       var p = cmd.CreateParameter();
       p.ParameterName = name;
@@ -66,7 +66,7 @@ namespace CSBP.Services.Repositories.Base
     /// <param name="s">Zu prüfender String.</param>
     /// <param name="exp">Betroffene Like-Expression.</param>
     /// <returns></returns>
-    protected bool Like(string s, string exp)
+    protected static bool Like(string s, string exp)
     {
       // The 'Like' method is not supported because the query has switched to client-evaluation.
       // This usually happens when the arguments to the method cannot be translated to server.
@@ -79,8 +79,8 @@ namespace CSBP.Services.Repositories.Base
       if (!string.IsNullOrEmpty(arr[0]))
         if (!s.StartsWith(arr[0], StringComparison.CurrentCultureIgnoreCase))
           return false;
-      if (arr.Length > 1 && !string.IsNullOrEmpty(arr[arr.Length - 1]))
-        if (!s.EndsWith(arr[arr.Length - 1], StringComparison.CurrentCultureIgnoreCase))
+      if (arr.Length > 1 && !string.IsNullOrEmpty(arr[^1]))
+        if (!s.EndsWith(arr[^1], StringComparison.CurrentCultureIgnoreCase))
           return false;
       for (var i = 1; i < arr.Length - 1; i++)
       {
@@ -98,7 +98,7 @@ namespace CSBP.Services.Repositories.Base
     /// <param name="daten">Service-Daten mit Zeit und Benutzer-ID.</param>
     /// <param name="now">Betroffener Zeitpunkt.</param>
     /// <param name="from">Betroffene Benutzer-ID.</param>
-    public void MachAngelegt(ModelBase b, ServiceDaten daten, DateTime? now = null, string from = null)
+    public static void MachAngelegt(ModelBase b, ServiceDaten daten, DateTime? now = null, string from = null)
     {
       if (b == null || daten == null)
         return;
@@ -116,7 +116,7 @@ namespace CSBP.Services.Repositories.Base
     /// <param name="daten">Service-Daten mit Zeit und Benutzer-ID.</param>
     /// <param name="now">Betroffener Zeitpunkt.</param>
     /// <param name="from">Betroffene Benutzer-ID.</param>
-    public void MachGeaendert(ModelBase b, ServiceDaten daten, DateTime? now = null, string from = null)
+    public static void MachGeaendert(ModelBase b, ServiceDaten daten, DateTime? now = null, string from = null)
     {
       if (b == null || daten == null)
         return;

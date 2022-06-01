@@ -14,6 +14,7 @@ namespace CSBP.Services.Repositories.Base
   {
     /// <summary>Vorläufige Undo-Liste für vorzeitige SaveChanges.</summary>
     public UndoList PreUndoList { get; } = new UndoList();
+    public static string DbDriverConnect { get => dbDriverConnect; set => dbDriverConnect = value; }
 
     /// <summary>Logger-Instanz von NLog.</summary>
     static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
@@ -22,7 +23,7 @@ namespace CSBP.Services.Repositories.Base
     public static readonly ILoggerFactory loggerFactory = new LoggerFactory(new[] { new DebugLoggerProvider() });
 
     /// <summary>Einstellung für DB_DRIVER_CONNECT aus der Commando-Zeile.</summary>
-    public static string DbDriverConnect;
+    private static string dbDriverConnect;
 
     /// <summary>Verbindungszeichenfolge zur Datenbank.</summary>
     static string ConString;

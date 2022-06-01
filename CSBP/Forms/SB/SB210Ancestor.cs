@@ -26,300 +26,164 @@ namespace CSBP.Forms.SB
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
-
-    /// <summary>Label geburtsname0.</summary>
-    [Builder.Object]
-    private Label geburtsname0;
+    private readonly Entry nr;
 
     /// <summary>Entry geburtsname.</summary>
     [Builder.Object]
-    private Entry geburtsname;
-
-    /// <summary>Label vorname0.</summary>
-    [Builder.Object]
-    private Label vorname0;
+    private readonly Entry geburtsname;
 
     /// <summary>Entry vorname.</summary>
     [Builder.Object]
-    private Entry vorname;
-
-    /// <summary>Label name0.</summary>
-    [Builder.Object]
-    private Label name0;
+    private readonly Entry vorname;
 
     /// <summary>Entry name.</summary>
     [Builder.Object]
-    private Entry name;
-
-    /// <summary>Label bildersw.</summary>
-    [Builder.Object]
-    private ScrolledWindow bildersw;
+    private readonly Entry name;
 
     /// <summary>Box Biler.</summary>
     [Builder.Object]
-    private Box bilder;
+    private readonly Box bilder;
 
     /// <summary>Label geschlecht0.</summary>
     [Builder.Object]
-    private Label geschlecht0;
+    private readonly Label geschlecht0;
 
     /// <summary>RadioButton geschlecht1.</summary>
     [Builder.Object]
-    private RadioButton geschlecht1;
+    private readonly RadioButton geschlecht1;
 
     /// <summary>RadioButton geschlecht2.</summary>
     [Builder.Object]
-    private RadioButton geschlecht2;
+    private readonly RadioButton geschlecht2;
 
     /// <summary>RadioButton geschlecht3.</summary>
     [Builder.Object]
-    private RadioButton geschlecht3;
-
-    /// <summary>Label bilddaten0.</summary>
-    [Builder.Object]
-    private Label bilddaten0;
+    private readonly RadioButton geschlecht3;
 
     /// <summary>TextView bilddaten.</summary>
     [Builder.Object]
-    private TextView bilddaten;
-
-    /// <summary>Label geburtsdatum0.</summary>
-    [Builder.Object]
-    private Label geburtsdatum0;
+    private readonly TextView bilddaten;
 
     /// <summary>Entry geburtsdatum.</summary>
     [Builder.Object]
-    private Entry geburtsdatum;
-
-    /// <summary>Label geburtsort0.</summary>
-    [Builder.Object]
-    private Label geburtsort0;
+    private readonly Entry geburtsdatum;
 
     /// <summary>Entry geburtsort.</summary>
     [Builder.Object]
-    private Entry geburtsort;
-
-    /// <summary>Label geburtsbem0.</summary>
-    [Builder.Object]
-    private Label geburtsbem0;
+    private readonly Entry geburtsort;
 
     /// <summary>TextView geburtsbem.</summary>
     [Builder.Object]
-    private TextView geburtsbem;
-
-    /// <summary>Label taufdatum0.</summary>
-    [Builder.Object]
-    private Label taufdatum0;
+    private readonly TextView geburtsbem;
 
     /// <summary>Entry taufdatum.</summary>
     [Builder.Object]
-    private Entry taufdatum;
-
-    /// <summary>Label taufort0.</summary>
-    [Builder.Object]
-    private Label taufort0;
+    private readonly Entry taufdatum;
 
     /// <summary>Entry taufort.</summary>
     [Builder.Object]
-    private Entry taufort;
-
-    /// <summary>Label taufbem0.</summary>
-    [Builder.Object]
-    private Label taufbem0;
+    private readonly Entry taufort;
 
     /// <summary>TextView taufbem.</summary>
     [Builder.Object]
-    private TextView taufbem;
-
-    /// <summary>Label todesdatum0.</summary>
-    [Builder.Object]
-    private Label todesdatum0;
+    private readonly TextView taufbem;
 
     /// <summary>Entry todesdatum.</summary>
     [Builder.Object]
-    private Entry todesdatum;
-
-    /// <summary>Label todesort0.</summary>
-    [Builder.Object]
-    private Label todesort0;
+    private readonly Entry todesdatum;
 
     /// <summary>Entry todesort.</summary>
     [Builder.Object]
-    private Entry todesort;
-
-    /// <summary>Label todesbem0.</summary>
-    [Builder.Object]
-    private Label todesbem0;
+    private readonly Entry todesort;
 
     /// <summary>TextView todesbem.</summary>
     [Builder.Object]
-    private TextView todesbem;
-
-    /// <summary>Label begraebnisdatum0.</summary>
-    [Builder.Object]
-    private Label begraebnisdatum0;
+    private readonly TextView todesbem;
 
     /// <summary>Entry begraebnisdatum.</summary>
     [Builder.Object]
-    private Entry begraebnisdatum;
-
-    /// <summary>Label begraebnisort0.</summary>
-    [Builder.Object]
-    private Label begraebnisort0;
+    private readonly Entry begraebnisdatum;
 
     /// <summary>Entry begraebnisort.</summary>
     [Builder.Object]
-    private Entry begraebnisort;
-
-    /// <summary>Label begraebnisbem0.</summary>
-    [Builder.Object]
-    private Label begraebnisbem0;
+    private readonly Entry begraebnisort;
 
     /// <summary>TextView begraebnisbem.</summary>
     [Builder.Object]
-    private TextView begraebnisbem;
-
-    /// <summary>Label konfession0.</summary>
-    [Builder.Object]
-    private Label konfession0;
+    private readonly TextView begraebnisbem;
 
     /// <summary>Entry konfession.</summary>
     [Builder.Object]
-    private Entry konfession;
-
-    /// <summary>Label titel0.</summary>
-    [Builder.Object]
-    private Label titel0;
+    private readonly Entry konfession;
 
     /// <summary>Entry titel.</summary>
     [Builder.Object]
-    private Entry titel;
-
-    /// <summary>Label bemerkung0.</summary>
-    [Builder.Object]
-    private Label bemerkung0;
+    private readonly Entry titel;
 
     /// <summary>TextView bemerkung.</summary>
     [Builder.Object]
-    private TextView bemerkung;
-
-    /// <summary>Label gatte0.</summary>
-    [Builder.Object]
-    private Label gatte0;
+    private readonly TextView bemerkung;
 
     /// <summary>Entry gatte.</summary>
     [Builder.Object]
-    private Entry gatte;
-
-    /// <summary>Label gatteNr0.</summary>
-    [Builder.Object]
-    private Label gatteNr0;
+    private readonly Entry gatte;
 
     /// <summary>Entry gatteNr.</summary>
     [Builder.Object]
-    private Entry gatteNr;
-
-    /// <summary>Label vater0.</summary>
-    [Builder.Object]
-    private Label vater0;
+    private readonly Entry gatteNr;
 
     /// <summary>Entry vater.</summary>
     [Builder.Object]
-    private Entry vater;
-
-    /// <summary>Label vaterNr0.</summary>
-    [Builder.Object]
-    private Label vaterNr0;
+    private readonly Entry vater;
 
     /// <summary>Entry vaterNr.</summary>
     [Builder.Object]
-    private Entry vaterNr;
-
-    /// <summary>Label mutter0.</summary>
-    [Builder.Object]
-    private Label mutter0;
+    private readonly Entry vaterNr;
 
     /// <summary>Entry mutter.</summary>
     [Builder.Object]
-    private Entry mutter;
-
-    /// <summary>Label mutterNr0.</summary>
-    [Builder.Object]
-    private Label mutterNr0;
+    private readonly Entry mutter;
 
     /// <summary>Entry mutterNr.</summary>
     [Builder.Object]
-    private Entry mutterNr;
-
-    /// <summary>Label quelle0.</summary>
-    [Builder.Object]
-    private Label quelle0;
+    private readonly Entry mutterNr;
 
     /// <summary>ComboBox quelle.</summary>
     [Builder.Object]
-    private ComboBox quelle;
-
-    /// <summary>Label status10.</summary>
-    [Builder.Object]
-    private Label status10;
+    private readonly ComboBox quelle;
 
     /// <summary>Entry status1.</summary>
     [Builder.Object]
-    private Entry status1;
-
-    /// <summary>Label status20.</summary>
-    [Builder.Object]
-    private Label status20;
+    private readonly Entry status1;
 
     /// <summary>Entry status2.</summary>
     [Builder.Object]
-    private Entry status2;
-
-    /// <summary>Label status30.</summary>
-    [Builder.Object]
-    private Label status30;
+    private readonly Entry status2;
 
     /// <summary>Entry status3.</summary>
     [Builder.Object]
-    private Entry status3;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry status3;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
+    private readonly Button ok;
 
     /// <summary>Button hinzufuegen.</summary>
     [Builder.Object]
-    private Button hinzufuegen;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button hinzufuegen;
 
     /// <summary>List of images.</summary>
-    private List<ByteDaten> imagelist = new List<ByteDaten>();
+    private List<ByteDaten> imagelist = new();
 
 #pragma warning restore CS0649
 
@@ -367,8 +231,7 @@ namespace CSBP.Forms.SB
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var aendern = DialogType == DialogTypeEnum.Edit;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.PedigreeService.GetAncestor(daten, uid));
           if (k == null)
@@ -607,7 +470,7 @@ namespace CSBP.Forms.SB
     /// </summary>
     /// <param name="list">Affected image list.</param>
     /// <param name="metadata">Affected meta data for all images.</param>
-    private List<ByteDaten> ParseMetadata(List<ByteDaten> list, string metadata)
+    private static List<ByteDaten> ParseMetadata(List<ByteDaten> list, string metadata)
     {
       if (list == null || list.Count <= 0)
         return list;

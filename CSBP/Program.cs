@@ -23,7 +23,7 @@ namespace CSBP
   class MainClass
   {
     public static MainWindow MainWindow { get; private set; }
-    public static ServiceDaten ServiceDaten0 = new ServiceDaten(0, Constants.USER_ID);
+    public static ServiceDaten ServiceDaten0 = new(0, Constants.USER_ID);
     public static ServiceDaten ServiceDaten
     {
       get { return new ServiceDaten(serviceDaten.MandantNr, serviceDaten.BenutzerId); }
@@ -104,7 +104,7 @@ namespace CSBP
         if (f != null && fn.EndsWith(".html", StringComparison.CurrentCultureIgnoreCase))
         {
           // Start help for a dialog.
-          var fn0 = fn.Substring(0, fn.Length - 5) + "0.html";
+          var fn0 = fn[..^5] + "0.html";
           var link = $"file://{fn}?#{f}";
           var html = $@"<!DOCTYPE html>
 <html>
@@ -186,7 +186,7 @@ namespace CSBP
     public static T Get<T>(ServiceErgebnis<T> r, bool dialog = true)
     {
       if (r == null)
-        return default(T);
+        return default;
       var s = r.GetErrors();
       ShowError(s, dialog);
       return r.Ergebnis;
@@ -287,7 +287,7 @@ namespace CSBP
         // }
       }
       var rm = new System.Resources.ResourceManager("CSBP.Resources.Messages", assembly);
-      var title = rm.GetString("Main.title");
+      _ = rm.GetString("Main.title");
       // Task.Run(() =>
       // {
       //   Thread.Sleep(200);

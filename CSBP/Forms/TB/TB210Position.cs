@@ -21,77 +21,53 @@ namespace CSBP.Forms.TB
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label bezeichnung0.</summary>
     [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Label bezeichnung0;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
+    private readonly Entry bezeichnung;
 
     /// <summary>Label breite0.</summary>
     [Builder.Object]
-    private Label breite0;
+    private readonly Label breite0;
 
     /// <summary>Entry breite.</summary>
     [Builder.Object]
-    private Entry breite;
+    private readonly Entry breite;
 
     /// <summary>Label laenge0.</summary>
     [Builder.Object]
-    private Label laenge0;
+    private readonly Label laenge0;
 
     /// <summary>Entry laenge.</summary>
     [Builder.Object]
-    private Entry laenge;
-
-    /// <summary>Label hoehe0.</summary>
-    [Builder.Object]
-    private Label hoehe0;
+    private readonly Entry laenge;
 
     /// <summary>Entry hoehe.</summary>
     [Builder.Object]
-    private Entry hoehe;
-
-    /// <summary>Label notiz0.</summary>
-    [Builder.Object]
-    private Label notiz0;
+    private readonly Entry hoehe;
 
     /// <summary>TextView notiz.</summary>
     [Builder.Object]
-    private TextView notiz;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly TextView notiz;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
+    private readonly Entry geaendert;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 
@@ -133,8 +109,7 @@ namespace CSBP.Forms.TB
         var neu = DialogType == DialogTypeEnum.New;
         var loeschen = DialogType == DialogTypeEnum.Delete;
         var aendern = DialogType == DialogTypeEnum.Edit;
-        var uid = Parameter1 as string;
-        if (!neu && uid != null)
+        if (!neu && Parameter1 is string uid)
         {
           var k = Get(FactoryService.DiaryService.GetPosition(daten, uid));
           if (k == null)

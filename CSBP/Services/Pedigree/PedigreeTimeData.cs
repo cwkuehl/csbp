@@ -56,9 +56,9 @@ namespace CSBP.Services.Pedigree
      */
     public string Deparse(bool gedcom = false)
     {
-      var datum = "";
       var dat1 = Date1.Deparse(gedcom);
       var dat2 = Date2.Deparse(gedcom);
+      string datum;
       if (gedcom)
       {
         if (DateType == "EXAC")
@@ -90,9 +90,9 @@ namespace CSBP.Services.Pedigree
       return datum;
     }
 
-    private static Regex monat1 = new Regex("((\\d) +)(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
-    private static Regex monat2 = new Regex("(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
-    private static string[] monate = new[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+    private static readonly Regex monat1 = new("((\\d) +)(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
+    private static readonly Regex monat2 = new("(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
+    private static readonly string[] monate = new[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
 
     private static int GetMonat(string monat)
     {
@@ -112,7 +112,7 @@ namespace CSBP.Services.Pedigree
       var mitText = false;
       var hinten = "";
       var mitte = "";
-      var vorn = "";
+      // var vorn = "";
       var datum = datumString;
       if (gedcom)
       {
@@ -141,13 +141,13 @@ namespace CSBP.Services.Pedigree
         datum = Date2.Parse(datum);
         DateType = "EXAC";
         m = Regex.Match(datum, "^(.*?)([^\\d\\.]*)$");
-        datum = m.Groups[1].Value;
+        // datum = m.Groups[1].Value;
         mitte = m.Groups[2].Value;
-        vorn = Date1.Parse(datum);
+        // vorn = Date1.Parse(datum);
       }
       var b1 = !Date1.Empty;
       var b2 = !Date2.Empty;
-      vorn = vorn.Replace(" ", ""); // Leerzeichen entfernen
+      // vorn = vorn.Replace(" ", ""); // Leerzeichen entfernen
       mitte = mitte.Replace(" ", "").ToLower(); // Leerzeichen entfernen
       hinten = hinten.Replace(" ", ""); // Leerzeichen entfernen
       if (b1 == b2)

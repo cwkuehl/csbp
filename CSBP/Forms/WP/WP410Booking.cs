@@ -30,152 +30,111 @@ namespace CSBP.Forms.WP
 
 #pragma warning disable CS0649
 
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
-
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
+    private readonly Entry nr;
 
     /// <summary>Label anlage0.</summary>
     [Builder.Object]
-    private Label anlage0;
+    private readonly Label anlage0;
 
     /// <summary>ComboBox anlage.</summary>
     [Builder.Object]
-    private ComboBox anlage;
+    private readonly ComboBox anlage;
 
     /// <summary>Label valuta0.</summary>
     [Builder.Object]
-    private Label valuta0;
+    private readonly Label valuta0;
 
     /// <summary>Date Valuta.</summary>
     //[Builder.Object]
-    private Date valuta;
-
-    /// <summary>Label preis0.</summary>
-    [Builder.Object]
-    private Label preis0;
+    private readonly Date valuta;
 
     /// <summary>Entry preis.</summary>
     [Builder.Object]
-    private Entry preis;
-
-    /// <summary>Label betrag0.</summary>
-    [Builder.Object]
-    private Label betrag0;
+    private readonly Entry preis;
 
     /// <summary>Entry betrag.</summary>
     [Builder.Object]
-    private Entry betrag;
-
-    /// <summary>Label rabatt0.</summary>
-    [Builder.Object]
-    private Label rabatt0;
+    private readonly Entry betrag;
 
     /// <summary>Entry rabatt.</summary>
     [Builder.Object]
-    private Entry rabatt;
-
-    /// <summary>Label anteile0.</summary>
-    [Builder.Object]
-    private Label anteile0;
+    private readonly Entry rabatt;
 
     /// <summary>Entry anteile.</summary>
     [Builder.Object]
-    private Entry anteile;
-
-    /// <summary>Label preis20.</summary>
-    [Builder.Object]
-    private Label preis20;
+    private readonly Entry anteile;
 
     /// <summary>Entry preis2.</summary>
     [Builder.Object]
-    private Entry preis2;
-
-    /// <summary>Label zinsen0.</summary>
-    [Builder.Object]
-    private Label zinsen0;
+    private readonly Entry preis2;
 
     /// <summary>Entry zinsen.</summary>
     [Builder.Object]
-    private Entry zinsen;
+    private readonly Entry zinsen;
 
     /// <summary>Label bText0.</summary>
     [Builder.Object]
-    private Label bText0;
+    private readonly Label bText0;
 
     /// <summary>Entry bText.</summary>
     [Builder.Object]
-    private Entry bText;
-
-    /// <summary>Label angelegt0.</summary>
-    [Builder.Object]
-    private Label angelegt0;
+    private readonly Entry bText;
 
     /// <summary>Entry angelegt.</summary>
     [Builder.Object]
-    private Entry angelegt;
-
-    /// <summary>Label geaendert0.</summary>
-    [Builder.Object]
-    private Label geaendert0;
+    private readonly Entry angelegt;
 
     /// <summary>Entry geaendert.</summary>
     [Builder.Object]
-    private Entry geaendert;
-
-    /// <summary>Label buchung0.</summary>
-    [Builder.Object]
-    private Label buchung0;
+    private readonly Entry geaendert;
 
     /// <summary>Entry buchung.</summary>
     [Builder.Object]
-    private Entry buchung;
+    private readonly Entry buchung;
 
     /// <summary>Entry hhbuchung.</summary>
     [Builder.Object]
-    private Entry hhbuchung;
+    private readonly Entry hhbuchung;
 
     /// <summary>Button hhaendern.</summary>
     [Builder.Object]
-    private Button hhaendern;
+    private readonly Button hhaendern;
 
     /// <summary>Button hhstorno.</summary>
     [Builder.Object]
-    private Button hhstorno;
+    private readonly Button hhstorno;
 
     /// <summary>Date hhvaluta.</summary>
     //[Builder.Object]
-    private Date hhvaluta;
+    private readonly Date hhvaluta;
 
     /// <summary>Entry hhbetrag.</summary>
     [Builder.Object]
-    private Entry hhbetrag;
+    private readonly Entry hhbetrag;
 
     /// <summary>TreeView hhereignis.</summary>
     [Builder.Object]
-    private TreeView hhereignis;
+    private readonly TreeView hhereignis;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
     /// <summary>Letzte Anlagen-ID.</summary>
     private string invuid;
 
+#pragma warning restore CS0649
+
     /// <summary>Aktuelle Ereignisse zur Anlage.</summary>
     private List<HhEreignis> events;
 
-    /// <summary>Zuletzt kopiert ID.</summary>
-    public static string lastcopyuid = null;
+    /// <summary>Last copied ID.</summary>
+    private static string lastcopyuid = null;
 
-#pragma warning restore CS0649
+    /// <summary>Last copied ID.</summary>
+    public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
 
     /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
     /// <param name="p1">1. Parameter für Dialog.</param>
@@ -439,7 +398,7 @@ namespace CSBP.Forms.WP
           Functions.ToDecimal(hhbetrag.Text, 2) ?? 0, ev?.Soll_Konto_Uid, ev?.Haben_Konto_Uid, booktext);
         r = rb;
         if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
-          lastcopyuid = rb.Ergebnis.Uid;
+          Lastcopyuid = rb.Ergebnis.Uid;
       }
       else if (DialogType == DialogTypeEnum.Delete)
       {
@@ -523,8 +482,10 @@ namespace CSBP.Forms.WP
       if (invuid != inuid)
       {
         events = Get(FactoryService.StockService.GetEventList(ServiceDaten, inuid)) ?? new List<HhEreignis>();
-        var values = new List<string[]>();
-        values.Add(new string[] { "", "" }); // Leerer Eintrag, damit zunächst kein Ereignis ausgewählt ist.
+        var values = new List<string[]>
+        {
+          new string[] { "", "" } // Leerer Eintrag, damit zunächst kein Ereignis ausgewählt ist.
+        };
         foreach (var e in events)
         {
           // Nr.;Bezeichnung

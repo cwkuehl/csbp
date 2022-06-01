@@ -10,9 +10,9 @@ namespace CSBP.Services.Base
 
   public class Injector
   {
-    private AbstractModule module;
+    private readonly AbstractModule module;
 
-    private IDictionary<Type, Tuple<Type, object, object>> instances = new Dictionary<Type, Tuple<Type, object, object>>();
+    private readonly IDictionary<Type, Tuple<Type, object, object>> instances = new Dictionary<Type, Tuple<Type, object, object>>();
 
     private Injector(AbstractModule module)
     {
@@ -45,7 +45,7 @@ namespace CSBP.Services.Base
         {
           if (injector.instances.ContainsKey(p.PropertyType))
           {
-            var x = injector.instances[p.PropertyType].Item2;
+            _ = injector.instances[p.PropertyType].Item2;
             var setter = p.GetSetMethod();
             setter.Invoke(i.Value.Item2, new[] { injector.instances[p.PropertyType].Item3 });
           }
@@ -60,8 +60,7 @@ namespace CSBP.Services.Base
       var value = default(T);
       if (type != null)
       {
-        Tuple<Type, object, object> obj;
-        instances.TryGetValue(type, out obj);
+        instances.TryGetValue(type, out var obj);
         value = obj.Item3 as T;
       }
       if (value == null)

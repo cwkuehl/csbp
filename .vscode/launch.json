@@ -57,7 +57,8 @@
       ],
       "cwd": "${workspaceFolder}/CSBP.UnitTest",
       "console": "internalConsole",
-      "stopAtEntry": false
+      "stopAtEntry": false,
+      "requireExactSource": true
     },
     {
       "name": ".NET 5 Launch Windows",

@@ -34,7 +34,7 @@ namespace CSBP.Services.Base
     protected override object Invoke(MethodInfo method, object[] args)
     {
       if (method == null)
-        throw new ArgumentException(nameof(method));
+        throw new ArgumentException(null, nameof(method));
 
       //var methodCall = msg as IMethodCallMessage;
       object returnValue = null;
@@ -90,76 +90,74 @@ namespace CSBP.Services.Base
 
         if (tx)
         {
-          using (var transaction = db.Database.BeginTransaction())
+          using var transaction = db.Database.BeginTransaction();
+          try
           {
-            try
+            daten.Tx = transaction;
+            returnValue = method.Invoke(_instance, args);
+            // UndoList füllen und Commit
+            ServiceBase.SaveChanges(daten, transaction);
+            //var ul = ServiceBase.PreCommit(db);
+            //db.SaveChanges(); // <== Nur hier, sonst kein Undo, Redo möglich.
+            //transaction.Commit();
+            //ServiceBase.Commit(db, ul);
+          }
+          catch (Exception e)
+          {
+            StringBuilder sb = null;
+            var ex = e.InnerException ?? e;
+
+            if (daten != null && daten.Tiefe == 1)
             {
-              daten.Tx = transaction;
-              returnValue = method.Invoke(_instance, args);
-              // UndoList füllen und Commit
-              ServiceBase.SaveChanges(daten, transaction);
-              //var ul = ServiceBase.PreCommit(db);
-              //db.SaveChanges(); // <== Nur hier, sonst kein Undo, Redo möglich.
-              //transaction.Commit();
-              //ServiceBase.Commit(db, ul);
+              // nur auf Einstiegsebene
+              if (ServiceBase.Log.IsErrorEnabled && ex is not MessageException)
+              {
+                // 26.05.15 WK: Keine MeldungException protokollieren, da sie gewollt ist.
+                //    if (ex is DbEntityValidationException) {
+                //        sb = new StringBuilder();
+                //        foreach (var v in (ex as DbEntityValidationException).EntityValidationErrors) {
+                //            if (v.Entry != null && v.Entry.Entity != null)
+                //                sb.Append("Entity ").Append(v.Entry.Entity.GetType().Name).Append(" ");
+                //            foreach (var e in v.ValidationErrors) {
+                //                sb.Append(e.ErrorMessage).Append(" ").Append(e.PropertyName);
+                //                sb.Append("\r\n");
+                //            }
+                //        }
+                //        ServiceBase.Log.Error(
+                //            string.Format("{0} mit Validierungsfehlern: {1}",
+                //                MethodenFehler(invocation.Method.Name, daten), sb), ex);
+                //    } else if (ex.InnerException is OptimisticConcurrencyException) {
+                //        sb = new StringBuilder();
+                //        foreach (
+                //            var v in (ex.InnerException as OptimisticConcurrencyException).StateEntries) {
+                //            if (v.Entity != null)
+                //                sb.Append("Entity ").Append(v.Entity.GetType().Name).Append("\r\n");
+                //        }
+                //        ServiceBase.Log.Error(
+                //            string.Format("{0} mit Aktualisierungsfehlern: {1}",
+                //                MethodenFehler(invocation.Method.Name, daten), sb), ex);
+                //    } else
+                ServiceBase.Log.Error(ex, MethodenFehler(ex, method.Name, daten));
+              }
             }
-            catch (Exception e)
+
+            transaction.Rollback();
+
+            if (daten != null && daten.Tiefe == 1)
             {
-              StringBuilder sb = null;
-              var ex = e.InnerException == null ? e : e.InnerException;
-
-              if (daten != null && daten.Tiefe == 1)
-              {
-                // nur auf Einstiegsebene
-                if (ServiceBase.Log.IsErrorEnabled && !(ex is MessageException))
-                {
-                  // 26.05.15 WK: Keine MeldungException protokollieren, da sie gewollt ist.
-                  //    if (ex is DbEntityValidationException) {
-                  //        sb = new StringBuilder();
-                  //        foreach (var v in (ex as DbEntityValidationException).EntityValidationErrors) {
-                  //            if (v.Entry != null && v.Entry.Entity != null)
-                  //                sb.Append("Entity ").Append(v.Entry.Entity.GetType().Name).Append(" ");
-                  //            foreach (var e in v.ValidationErrors) {
-                  //                sb.Append(e.ErrorMessage).Append(" ").Append(e.PropertyName);
-                  //                sb.Append("\r\n");
-                  //            }
-                  //        }
-                  //        ServiceBase.Log.Error(
-                  //            string.Format("{0} mit Validierungsfehlern: {1}",
-                  //                MethodenFehler(invocation.Method.Name, daten), sb), ex);
-                  //    } else if (ex.InnerException is OptimisticConcurrencyException) {
-                  //        sb = new StringBuilder();
-                  //        foreach (
-                  //            var v in (ex.InnerException as OptimisticConcurrencyException).StateEntries) {
-                  //            if (v.Entity != null)
-                  //                sb.Append("Entity ").Append(v.Entity.GetType().Name).Append("\r\n");
-                  //        }
-                  //        ServiceBase.Log.Error(
-                  //            string.Format("{0} mit Aktualisierungsfehlern: {1}",
-                  //                MethodenFehler(invocation.Method.Name, daten), sb), ex);
-                  //    } else
-                  ServiceBase.Log.Error(ex, MethodenFehler(ex, method.Name, daten));
-                }
-              }
-
-              transaction.Rollback();
-
-              if (daten != null && daten.Tiefe == 1)
-              {
-                // nur auf Einstiegsebene
-                if (ex is MessageException)
-                  fehlermeldung = (ex as MessageException).GetMessage();
-                else
-                  fehlermeldung = new Message(ex.Message + ((sb == null) ? "" : " Validierungsfehler: " + sb), true);
-              }
+              // nur auf Einstiegsebene
+              if (ex is MessageException)
+                fehlermeldung = (ex as MessageException).GetMessage();
               else
-                throw;
+                fehlermeldung = new Message(ex.Message + ((sb == null) ? "" : " Validierungsfehler: " + sb), true);
             }
-            finally
-            {
-              daten.Context = null;
-              daten.Tx = null;
-            }
+            else
+              throw;
+          }
+          finally
+          {
+            daten.Context = null;
+            daten.Tx = null;
           }
         }
         else
@@ -172,7 +170,7 @@ namespace CSBP.Services.Base
         if (daten != null && daten.Tiefe == 1)
         {
           // nur auf Einstiegsebene
-          if (ServiceBase.Log.IsErrorEnabled && !(ex is MessageException))
+          if (ServiceBase.Log.IsErrorEnabled && ex is not MessageException)
             ServiceBase.Log.Error(ex, MethodenFehler(ex, method.Name, daten));
           if (ex is MessageException)
             fehlermeldung = (ex as MessageException).GetMessage();
@@ -205,8 +203,7 @@ namespace CSBP.Services.Base
       {
         // Fehlermeldung in den Rückgabewert einfügen
         var mi = returnValue.GetType().GetProperty("Errors");
-        var errors = mi.GetGetMethod().Invoke(returnValue, null) as ICollection<Message>;
-        if (errors != null)
+        if (mi.GetGetMethod().Invoke(returnValue, null) is ICollection<Message> errors)
           errors.Add(fehlermeldung);
       }
       return returnValue;
@@ -222,7 +219,7 @@ namespace CSBP.Services.Base
     private static string MethodenFehler(Exception ex, string methode, ServiceDaten daten)
     {
       var sb = new StringBuilder("Fehler in Methode '");
-      sb.Append(methode).Append("'");
+      sb.Append(methode).Append('\'');
       if (daten != null)
       {
         sb.Append(" Mandant ").Append(daten.MandantNr);

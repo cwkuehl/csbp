@@ -9,7 +9,7 @@ namespace CSBP.Services.Factory
 
   public class FactoryService
   {
-    private static Injector injector = Injector.Create(new CsbpInjector());
+    private static readonly Injector injector = Injector.Create(new CsbpInjector());
 
     public static IAddressService AddressService => injector.GetInstance<IAddressService>();
     public static IBudgetService BudgetService => injector.GetInstance<IBudgetService>();

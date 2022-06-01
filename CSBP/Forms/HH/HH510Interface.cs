@@ -22,75 +22,67 @@ namespace CSBP.Forms.HH
 
     /// <summary>Label titel0.</summary>
     [Builder.Object]
-    private Label titel0;
+    private readonly Label titel0;
 
     /// <summary>Entry titel.</summary>
     [Builder.Object]
-    private Entry titel;
+    private readonly Entry titel;
 
     /// <summary>Label von0.</summary>
     [Builder.Object]
-    private Label von0;
+    private readonly Label von0;
 
     /// <summary>Date Von.</summary>
     //[Builder.Object]
-    private Date von;
+    private readonly Date von;
 
     /// <summary>Label bis0.</summary>
     [Builder.Object]
-    private Label bis0;
+    private readonly Label bis0;
 
     /// <summary>Date Bis.</summary>
     //[Builder.Object]
-    private Date bis;
+    private readonly Date bis;
 
     /// <summary>Label berichte0.</summary>
     [Builder.Object]
-    private Label berichte0;
+    private readonly Label berichte0;
 
     /// <summary>CheckButton eb.</summary>
     [Builder.Object]
-    private CheckButton eb;
+    private readonly CheckButton eb;
 
     /// <summary>CheckButton gv.</summary>
     [Builder.Object]
-    private CheckButton gv;
+    private readonly CheckButton gv;
 
     /// <summary>CheckButton sb.</summary>
     [Builder.Object]
-    private CheckButton sb;
+    private readonly CheckButton sb;
 
     /// <summary>CheckButton kassenbericht.</summary>
     [Builder.Object]
-    private CheckButton kassenbericht;
-
-    /// <summary>Button ok.</summary>
-    [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly CheckButton kassenbericht;
 
     /// <summary>Label datei0.</summary>
     [Builder.Object]
-    private Label datei0;
+    private readonly Label datei0;
 
     /// <summary>Entry datei.</summary>
     [Builder.Object]
-    private Entry datei;
+    private readonly Entry datei;
 
     /// <summary>Button dateiAuswahl.</summary>
     [Builder.Object]
-    private Button dateiAuswahl;
+    private readonly Button dateiAuswahl;
 
     /// <summary>CheckButton loeschen.</summary>
     [Builder.Object]
-    private CheckButton loeschen;
+    private readonly CheckButton loeschen;
 
     /// <summary>Button import1.</summary>
     [Builder.Object]
-    private Button import1;
+    private readonly Button import1;
 
 #pragma warning restore CS0649
 
@@ -147,8 +139,7 @@ namespace CSBP.Forms.HH
         titel.Text = Parameter.HH510Title;
         kassenbericht.Active = Parameter.HH510Cashreport;
         datei.Text = Parameter.HH510File;
-        var p = Parameter1 as Tuple<string, DateTime, DateTime>;
-        if (p != null)
+        if (Parameter1 is Tuple<string, DateTime, DateTime> p)
         {
           var kz = p.Item1;
           var v = p.Item2;

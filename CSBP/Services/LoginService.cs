@@ -5,13 +5,13 @@
 namespace CSBP.Services
 {
   using System;
+  using System.Linq;
   using CSBP.Apis.Models;
   using CSBP.Apis.Services;
   using CSBP.Base;
   using CSBP.Services.Base;
-  using static CSBP.Resources.Messages;
   using static CSBP.Resources.M;
-  using System.Linq;
+  using static CSBP.Resources.Messages;
 
   public class LoginService : ServiceBase, ILoginService
   {
@@ -148,12 +148,12 @@ namespace CSBP.Services
       return new ServiceErgebnis();
     }
 
-    string getOhneAnmelden(ServiceDaten daten)
+    private static string getOhneAnmelden(ServiceDaten daten)
     {
       return MaParameterRep.Get(daten, daten.MandantNr, Constants.EINST_MA_OHNE_ANMELDUNG)?.Wert;
     }
 
-    void Speichern(ServiceDaten daten, int mandantNr, string benutzerId, bool speichern)
+    private static void Speichern(ServiceDaten daten, int mandantNr, string benutzerId, bool speichern)
     {
       var maEinstellung = MaParameterRep.Get(daten, mandantNr, Constants.EINST_MA_OHNE_ANMELDUNG);
       if (maEinstellung == null)
@@ -181,7 +181,7 @@ namespace CSBP.Services
       InitMandant(daten);
     }
 
-    void InitMandant(ServiceDaten daten)
+    private static void InitMandant(ServiceDaten daten)
     {
       var e = MaParameterRep.Get(daten, daten.MandantNr, Constants.EINST_MA_REPLIKATION_UID);
       if (e == null || string.IsNullOrEmpty(e.Wert))

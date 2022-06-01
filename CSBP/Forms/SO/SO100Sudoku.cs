@@ -28,53 +28,17 @@ namespace CSBP.Forms.SO
 
 #pragma warning disable CS0649
 
-    /// <summary>Button RefreshAction.</summary>
-    [Builder.Object]
-    private Button refreshAction;
-
-    /// <summary>Button UndoAction.</summary>
-    [Builder.Object]
-    private Button undoAction;
-
-    /// <summary>Button SaveAction.</summary>
-    [Builder.Object]
-    private Button saveAction;
-
-    /// <summary>Button DeleteAction.</summary>
-    [Builder.Object]
-    private Button deleteAction;
-
-    /// <summary>Label sudoku0.</summary>
-    [Builder.Object]
-    private Label sudoku0;
-
     /// <summary>Grid field.</summary>
     [Builder.Object]
-    private Grid field;
+    private readonly Grid field;
 
     /// <summary>Label anzahl.</summary>
     [Builder.Object]
-    private Label anzahl;
-
-    /// <summary>Button zug.</summary>
-    [Builder.Object]
-    private Button zug;
-
-    /// <summary>Button loesen.</summary>
-    [Builder.Object]
-    private Button loesen;
-
-    /// <summary>Button test.</summary>
-    [Builder.Object]
-    private Button test;
+    private readonly Label anzahl;
 
     /// <summary>CheckButton diagonal.</summary>
     [Builder.Object]
-    private CheckButton diagonal;
-
-    /// <summary>Label leery.</summary>
-    [Builder.Object]
-    private Label leery;
+    private readonly CheckButton diagonal;
 
 #pragma warning restore CS0649
 

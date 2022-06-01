@@ -16,42 +16,27 @@ namespace CSBP.Forms.TB
   /// <summary>Controller für TB110Date Dialog.</summary>
   public partial class TB110Date : CsbpBin
   {
-    /// <summary>Dialog Model.</summary>
-    private TbOrt Model;
-
 #pragma warning disable CS0649
-
-    /// <summary>Label nr0.</summary>
-    [Builder.Object]
-    private Label nr0;
 
     /// <summary>Entry nr.</summary>
     [Builder.Object]
-    private Entry nr;
-
-    /// <summary>Label bezeichnung0.</summary>
-    [Builder.Object]
-    private Label bezeichnung0;
+    private readonly Entry nr;
 
     /// <summary>Entry bezeichnung.</summary>
     [Builder.Object]
-    private Entry bezeichnung;
+    private readonly Entry bezeichnung;
 
     /// <summary>Label date0.</summary>
     [Builder.Object]
-    private Label date0;
+    private readonly Label date0;
 
     /// <summary>Date date.</summary>
     //[Builder.Object]
-    private Date date;
+    private readonly Date date;
 
     /// <summary>Button ok.</summary>
     [Builder.Object]
-    private Button ok;
-
-    /// <summary>Button abbrechen.</summary>
-    [Builder.Object]
-    private Button abbrechen;
+    private readonly Button ok;
 
 #pragma warning restore CS0649
 
@@ -113,7 +98,6 @@ namespace CSBP.Forms.TB
             });
             return;
           }
-          Model = k;
           nr.Text = k.Uid ?? "";
           bezeichnung.Buffer.Text = k.Bezeichnung ?? "";
           date.Value = p.Item2;

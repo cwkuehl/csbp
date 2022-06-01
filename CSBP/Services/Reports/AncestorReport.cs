@@ -37,7 +37,7 @@ namespace CSBP.Services.Reports
     }
 
     /// <summary>Parser für Ahnen-Formatierung.</summary>
-    private static Regex Parser = new Regex("^( *)([0-9\\+]+ )<b>(.*)</b> (.*)$", RegexOptions.Compiled);
+    private static readonly Regex Parser = new("^( *)([0-9\\+]+ )<b>(.*)</b> (.*)$", RegexOptions.Compiled);
 
     /// <summary>Konstruktor legt den Style fest.</summary>
     public AncestorReport()
