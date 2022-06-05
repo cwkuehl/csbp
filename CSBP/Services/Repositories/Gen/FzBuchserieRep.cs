@@ -45,7 +45,7 @@ public partial class FzBuchserieRep : RepositoryBase
   public void Insert(ServiceDaten daten, FzBuchserie e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.FZ_Buchserie.Add(e);
   }

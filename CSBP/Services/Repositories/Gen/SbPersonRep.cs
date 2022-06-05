@@ -45,7 +45,7 @@ public partial class SbPersonRep : RepositoryBase
   public void Insert(ServiceDaten daten, SbPerson e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.SB_Person.Add(e);
   }

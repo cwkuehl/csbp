@@ -45,7 +45,7 @@ public partial class HhBuchungRep : RepositoryBase
   public void Insert(ServiceDaten daten, HhBuchung e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.HH_Buchung.Add(e);
   }

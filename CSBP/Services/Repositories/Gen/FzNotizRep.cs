@@ -45,7 +45,7 @@ public partial class FzNotizRep : RepositoryBase
   public void Insert(ServiceDaten daten, FzNotiz e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.FZ_Notiz.Add(e);
   }

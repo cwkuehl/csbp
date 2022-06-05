@@ -45,7 +45,7 @@ public partial class AdPersonRep : RepositoryBase
   public void Insert(ServiceDaten daten, AdPerson e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.AD_Person.Add(e);
   }

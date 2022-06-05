@@ -45,7 +45,7 @@ public partial class WpKonfigurationRep : RepositoryBase
   public void Insert(ServiceDaten daten, WpKonfiguration e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.WP_Konfiguration.Add(e);
   }

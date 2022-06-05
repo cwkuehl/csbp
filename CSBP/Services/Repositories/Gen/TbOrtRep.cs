@@ -45,7 +45,7 @@ public partial class TbOrtRep : RepositoryBase
   public void Insert(ServiceDaten daten, TbOrt e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.TB_Ort.Add(e);
   }

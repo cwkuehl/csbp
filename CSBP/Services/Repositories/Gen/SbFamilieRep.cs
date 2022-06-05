@@ -45,7 +45,7 @@ public partial class SbFamilieRep : RepositoryBase
   public void Insert(ServiceDaten daten, SbFamilie e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.SB_Familie.Add(e);
   }

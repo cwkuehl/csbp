@@ -45,7 +45,7 @@ public partial class WpWertpapierRep : RepositoryBase
   public void Insert(ServiceDaten daten, WpWertpapier e)
   {
     var db = GetDb(daten);
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.WP_Wertpapier.Add(e);
   }

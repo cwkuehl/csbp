@@ -248,7 +248,7 @@ namespace CSBP.Services.Repositories.Base
       });
       var autouid = ps.Any(a => a.name == "Uid")
           ? @"
-      e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;" : string.Empty;
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;" : string.Empty;
       foreach (var p in ps)
       {
         var vname = p.name.Replace("_", string.Empty).ToLower();
