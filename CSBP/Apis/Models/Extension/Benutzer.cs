@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Resources;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle Benutzer.
+  /// Entity class for table Benutzer.
   /// </summary>
   public partial class Benutzer : ModelBase
   {

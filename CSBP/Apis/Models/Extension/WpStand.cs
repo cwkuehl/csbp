@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle WP_Stand.
+  /// Entity class for table WP_Stand.
   /// </summary>
   public partial class WpStand : ModelBase
   {

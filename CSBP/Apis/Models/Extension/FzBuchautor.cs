@@ -7,7 +7,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle FZ_Buchautor.
+  /// Entity class for table FZ_Buchautor.
   /// </summary>
   public partial class FzBuchautor : ModelBase
   {

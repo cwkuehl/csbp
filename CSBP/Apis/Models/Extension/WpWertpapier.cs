@@ -12,7 +12,7 @@ namespace CSBP.Apis.Models
   using static CSBP.Resources.Messages;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle WP_Wertpapier.
+  /// Entity class for table WP_Wertpapier.
   /// </summary>
   public partial class WpWertpapier : ModelBase
   {
@@ -227,7 +227,7 @@ namespace CSBP.Apis.Models
       Configuration = arr.Length > 28 ? arr[28] ?? "" : null;
       Type = arr.Length > 29 ? arr[29] ?? "" : null;
       Currency = arr.Length > 30 ? arr[30] ?? "" : null;
-      //base.SetExtension(v);
+      ////base.SetExtension(v);
     }
   }
 }

@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle FZ_Fahrradstand.
+  /// Entity class for table FZ_Fahrradstand.
   /// </summary>
   public partial class FzFahrradstand : ModelBase
   {

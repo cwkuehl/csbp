@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle SB_Familie.
+  /// Entity class for table SB_Familie.
   /// </summary>
   public partial class SbFamilie : ModelBase
   {

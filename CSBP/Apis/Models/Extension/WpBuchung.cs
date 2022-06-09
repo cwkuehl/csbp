@@ -9,7 +9,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle WP_Buchung.
+  /// Entity class for table WP_Buchung.
   /// </summary>
   public partial class WpBuchung : ModelBase
   {

@@ -10,7 +10,7 @@ namespace CSBP.Apis.Models
   using CSBP.Resources;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle FZ_Buch.
+  /// Entity class for table FZ_Buch.
   /// </summary>
   public partial class FzBuch : ModelBase
   {

@@ -137,7 +137,7 @@ dotnet_diagnostic.SA1513.severity = None # Closing brace should be followed by b
 dotnet_diagnostic.SA1519.severity = None # Braces should not be omitted from multi-line child statement [CSBP.UnitTest]
 dotnet_diagnostic.SA1520.severity = None # Use braces consistently
 dotnet_diagnostic.SA1600.severity = Warning # Elements should be documented
-dotnet_diagnostic.SA1609.severity = Warning # Property documentation should have value
+dotnet_diagnostic.SA1609.severity = None # Property documentation should have value
 dotnet_diagnostic.SA1610.severity = Warning #
 dotnet_diagnostic.SA1636.severity = None # TODO The file header copyright text should match the copyright text from the settings.
 ###############################

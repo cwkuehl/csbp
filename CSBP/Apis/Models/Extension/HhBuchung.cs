@@ -9,7 +9,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle HH_Buchung.
+  /// Entity class for table HH_Buchung.
   /// </summary>
   public partial class HhBuchung : ModelBase
   {

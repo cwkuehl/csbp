@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle TB_Eintrag_Ort.
+  /// Entity class for table TB_Eintrag_Ort.
   /// </summary>
   public partial class TbEintragOrt : ModelBase
   {

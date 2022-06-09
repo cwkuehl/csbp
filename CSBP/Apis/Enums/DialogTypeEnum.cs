@@ -2,17 +2,29 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Enums
+namespace CSBP.Apis.Enums;
+
+/// <summary>Calling mode of dialog.</summary>
+public enum DialogTypeEnum
 {
-  /// <summary>Aufrufarten für einen Dialog.</summary>
-  public enum DialogTypeEnum
-  {
-    Without,
-    New,
-    Copy,
-    Copy2,
-    Edit,
-    Delete,
-    Reverse
-  }
+  /// <summary>Without mode.<summary>
+  Without,
+
+  /// <summary>New mode.<summary>
+  New,
+
+  /// <summary>Copy mode.<summary>
+  Copy,
+
+  /// <summary>Copy2 mode.<summary>
+  Copy2,
+
+  /// <summary>Edit mode.<summary>
+  Edit,
+
+  /// <summary>Delete mode.<summary>
+  Delete,
+
+  /// <summary>Reverse mode.<summary>
+  Reverse,
 }

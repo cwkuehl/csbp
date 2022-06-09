@@ -2,71 +2,70 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
+namespace CSBP.Apis.Models;
+
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table HH_Buchung.
+/// </summary>
+[Serializable]
+[Table("HH_Buchung")]
+public partial class HhBuchung : ModelBase
 {
-  using System;
-  using System.ComponentModel.DataAnnotations.Schema;
-  using CSBP.Base;
-
-  /// <summary>
-  /// Entity-Klasse für Tabelle HH_Buchung.
-  /// </summary>
-  [Serializable]
-  [Table("HH_Buchung")]
-  public partial class HhBuchung : ModelBase
+  /// <summary>Initializes a new instance of the <see cref="HhBuchung"/> class.</summary>
+  public HhBuchung()
   {
-    /// <summary>Initialisiert eine neue Instanz der <see cref="HhBuchung"/> Klasse.</summary>
-    public HhBuchung()
-    {
-      Functions.MachNichts();
-    }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Mandant_Nr.</summary>
-    public int Mandant_Nr { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Uid.</summary>
-    public string Uid { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Soll_Valuta.</summary>
-    public DateTime Soll_Valuta { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Haben_Valuta.</summary>
-    public DateTime Haben_Valuta { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Kz.</summary>
-    public string Kz { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Betrag.</summary>
-    public decimal Betrag { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte EBetrag.</summary>
-    public decimal EBetrag { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Soll_Konto_Uid.</summary>
-    public string Soll_Konto_Uid { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Haben_Konto_Uid.</summary>
-    public string Haben_Konto_Uid { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte BText.</summary>
-    public string BText { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Beleg_Nr.</summary>
-    public string Beleg_Nr { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Beleg_Datum.</summary>
-    public DateTime Beleg_Datum { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Von.</summary>
-    public string Angelegt_Von { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Am.</summary>
-    public DateTime? Angelegt_Am { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Geaendert_Von.</summary>
-    public string Geaendert_Von { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Geaendert_Am.</summary>
-    public DateTime? Geaendert_Am { get; set; }
+    Functions.MachNichts();
   }
+
+  /// <summary>Gets or sets the value of column Mandant_Nr.</summary>
+  public int Mandant_Nr { get; set; }
+
+  /// <summary>Gets or sets the value of column Uid.</summary>
+  public string Uid { get; set; }
+
+  /// <summary>Gets or sets the value of column Soll_Valuta.</summary>
+  public DateTime Soll_Valuta { get; set; }
+
+  /// <summary>Gets or sets the value of column Haben_Valuta.</summary>
+  public DateTime Haben_Valuta { get; set; }
+
+  /// <summary>Gets or sets the value of column Kz.</summary>
+  public string Kz { get; set; }
+
+  /// <summary>Gets or sets the value of column Betrag.</summary>
+  public decimal Betrag { get; set; }
+
+  /// <summary>Gets or sets the value of column EBetrag.</summary>
+  public decimal EBetrag { get; set; }
+
+  /// <summary>Gets or sets the value of column Soll_Konto_Uid.</summary>
+  public string Soll_Konto_Uid { get; set; }
+
+  /// <summary>Gets or sets the value of column Haben_Konto_Uid.</summary>
+  public string Haben_Konto_Uid { get; set; }
+
+  /// <summary>Gets or sets the value of column BText.</summary>
+  public string BText { get; set; }
+
+  /// <summary>Gets or sets the value of column Beleg_Nr.</summary>
+  public string Beleg_Nr { get; set; }
+
+  /// <summary>Gets or sets the value of column Beleg_Datum.</summary>
+  public DateTime Beleg_Datum { get; set; }
+
+  /// <summary>Gets or sets the value of column Angelegt_Von.</summary>
+  public string Angelegt_Von { get; set; }
+
+  /// <summary>Gets or sets the value of column Angelegt_Am.</summary>
+  public DateTime? Angelegt_Am { get; set; }
+
+  /// <summary>Gets or sets the value of column Geaendert_Von.</summary>
+  public string Geaendert_Von { get; set; }
+
+  /// <summary>Gets or sets the value of column Geaendert_Am.</summary>
+  public DateTime? Geaendert_Am { get; set; }
 }

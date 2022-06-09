@@ -11,7 +11,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle AD_Sitz.
+  /// Entity class for table AD_Sitz.
   /// </summary>
   public partial class AdSitz : ModelBase
   {

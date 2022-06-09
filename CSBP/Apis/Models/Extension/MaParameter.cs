@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle MA_Parameter.
+  /// Entity class for table MA_Parameter.
   /// </summary>
   public partial class MaParameter : ModelBase
   {

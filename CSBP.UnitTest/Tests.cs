@@ -39,10 +39,16 @@ public class Tests
     var t = new Tests();
     if (Functions.MachNichts() == 0)
       t.MachNichts();
-    //// t.GenerateForm();
-    t.GenerateResxDesigner();
-    //// t.GenerierenReps();
-    //// t.Tls();
+    if (Functions.MachNichts() != 0)
+      t.GenerateForm();
+    if (Functions.MachNichts() == 0)
+      t.GenerateResxDesigner();
+    if (Functions.MachNichts() != 0)
+      t.GenerierenReps();
+    if (Functions.MachNichts() == 0)
+      t.GenerierenModelCs();
+    if (Functions.MachNichts() != 0)
+      t.Tls();
   }
 
   /// <summary>
@@ -105,8 +111,8 @@ public class Tests
       {
         if (sets.Length > 0)
           sets.Append(Environment.NewLine).Append(Environment.NewLine);
-        sets.Append($@"    /// <summary>Holt oder setzt die Menge von Sätzen der Tabelle {tabelle}.</summary>
-    public DbSet<{tab}> {tabelle} {{ get; set; }}");
+        sets.Append($@"  /// <summary>Gets or sets the set of rows of table {tabelle}.</summary>
+  public DbSet<{tab}> {tabelle} {{ get; set; }}");
       }
 
       var props = new StringBuilder();
@@ -121,18 +127,18 @@ public class Tests
         if (props.Length > 0)
           props.Append(Environment.NewLine).Append(Environment.NewLine);
         if (extension)
-          props.Append($@"    /// <summary>Holt oder setzt den Wert der Spalte {name}.</summary>
-    public {GetCsType(type, nullable)} {name} {{
-      get {{
-        return GetExtension();
-      }}
-      set {{
-        SetExtension(value);
-      }}
-    }}");
+          props.Append($@"  /// <summary>Gets or sets the value of column {name}.</summary>
+  public {GetCsType(type, nullable)} {name}
+  {{
+    get {{ return GetExtension(); }}
+    set {{ SetExtension(value); }}
+  }}");
         else
-          props.Append($@"    /// <summary>Holt oder setzt den Wert der Spalte {name}.</summary>
-    public {GetCsType(type, nullable)} {name} {{ get; set; }}");
+        {
+          var comm = GetCsType(type, nullable).StartsWith("bool") ? $@"Gets or sets a value indicating whether column {name} is true." : $@"Gets or sets the value of column {name}.";
+          props.Append($@"  /// <summary>{comm}</summary>
+  public {GetCsType(type, nullable)} {name} {{ get; set; }}");
+        }
       }
       var keycolumns = t.Descendants("keycolumn");
       var pks = string.Join(", ", keycolumns.Select(a => "a." + a.Attribute("name").Value));
@@ -142,33 +148,32 @@ public class Tests
       {
         if (keys.Length > 0)
           keys.Append(Environment.NewLine);
-        keys.Append($@"      modelBuilder.Entity<{tab}>().HasKey(a => {pks});");
+        keys.Append($@"    modelBuilder.Entity<{tab}>().HasKey(a => {pks});");
       }
       var model = $@"// <copyright file=""{tab}.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
-{{
-  using System;
-  using System.ComponentModel.DataAnnotations.Schema;
-  using CSBP.Base;
+namespace CSBP.Apis.Models;
 
-  /// <summary>
-  /// Entity-Klasse für Tabelle {tabelle}.
-  /// </summary>
-  [Serializable]
-  [Table(""{tabelle}"")]
-  public partial class {tab} : ModelBase
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table {tabelle}.
+/// </summary>
+[Serializable]
+[Table(""{tabelle}"")]
+public partial class {tab} : ModelBase
+{{
+  /// <summary>Initializes a new instance of the <see cref=""{tab}""/> class.</summary>
+  public {tab}()
   {{
-    /// <summary>Initialisiert eine neue Instanz der <see cref=""{tab}""/> Klasse.</summary>
-    public {tab}()
-    {{
-      Functions.MachNichts();
-    }}
+    Functions.MachNichts();
+  }}
 
 {props}
-  }}
 }}
 ";
       File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP/Apis/Models", tab + ".cs"), model);
@@ -177,26 +182,25 @@ namespace CSBP.Apis.Models
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Services.Repositories.Base
-{{
-  using CSBP.Apis.Models;
-  using Microsoft.EntityFrameworkCore;
+namespace CSBP.Services.Repositories.Base;
 
-  /// <summary>
-  /// Generierter Teil des Datenbank-Context.
-  /// </summary>
-  public partial class CsbpContext : DbContext
-  {{
+using CSBP.Apis.Models;
+using Microsoft.EntityFrameworkCore;
+
+/// <summary>
+/// Generated part of database context.
+/// </summary>
+public partial class CsbpContext : DbContext
+{{
 {sets}
 
-    /// <summary>
-    /// On the model creating generated.
-    /// </summary>
-    /// <param name=""modelBuilder"">Model builder.</param>
-    private static void OnModelCreatingGenerated(ModelBuilder modelBuilder)
-    {{
+  /// <summary>
+  /// On the model creating generated.
+  /// </summary>
+  /// <param name=""modelBuilder"">Model builder.</param>
+  private static void OnModelCreatingGenerated(ModelBuilder modelBuilder)
+  {{
 {keys}
-    }}
   }}
 }}
 ";

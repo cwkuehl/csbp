@@ -8,7 +8,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle HH_Periode.
+  /// Entity class for table HH_Periode.
   /// </summary>
   public partial class HhPeriode : ModelBase
   {

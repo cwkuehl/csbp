@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using CSBP.Base;
 
 /// <summary>
-/// Entity-Klasse für Tabelle SB_Kind.
+/// Entity class for table SB_Kind.
 /// </summary>
 public partial class SbKind : ModelBase
 {

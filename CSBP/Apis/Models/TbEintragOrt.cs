@@ -2,47 +2,46 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
+namespace CSBP.Apis.Models;
+
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table TB_Eintrag_Ort.
+/// </summary>
+[Serializable]
+[Table("TB_Eintrag_Ort")]
+public partial class TbEintragOrt : ModelBase
 {
-  using System;
-  using System.ComponentModel.DataAnnotations.Schema;
-  using CSBP.Base;
-
-  /// <summary>
-  /// Entity-Klasse für Tabelle TB_Eintrag_Ort.
-  /// </summary>
-  [Serializable]
-  [Table("TB_Eintrag_Ort")]
-  public partial class TbEintragOrt : ModelBase
+  /// <summary>Initializes a new instance of the <see cref="TbEintragOrt"/> class.</summary>
+  public TbEintragOrt()
   {
-    /// <summary>Initialisiert eine neue Instanz der <see cref="TbEintragOrt"/> Klasse.</summary>
-    public TbEintragOrt()
-    {
-      Functions.MachNichts();
-    }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Mandant_Nr.</summary>
-    public int Mandant_Nr { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Ort_Uid.</summary>
-    public string Ort_Uid { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Datum_Von.</summary>
-    public DateTime Datum_Von { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Datum_Bis.</summary>
-    public DateTime Datum_Bis { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Von.</summary>
-    public string Angelegt_Von { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Am.</summary>
-    public DateTime? Angelegt_Am { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Geaendert_Von.</summary>
-    public string Geaendert_Von { get; set; }
-
-    /// <summary>Holt oder setzt den Wert der Spalte Geaendert_Am.</summary>
-    public DateTime? Geaendert_Am { get; set; }
+    Functions.MachNichts();
   }
+
+  /// <summary>Gets or sets the value of column Mandant_Nr.</summary>
+  public int Mandant_Nr { get; set; }
+
+  /// <summary>Gets or sets the value of column Ort_Uid.</summary>
+  public string Ort_Uid { get; set; }
+
+  /// <summary>Gets or sets the value of column Datum_Von.</summary>
+  public DateTime Datum_Von { get; set; }
+
+  /// <summary>Gets or sets the value of column Datum_Bis.</summary>
+  public DateTime Datum_Bis { get; set; }
+
+  /// <summary>Gets or sets the value of column Angelegt_Von.</summary>
+  public string Angelegt_Von { get; set; }
+
+  /// <summary>Gets or sets the value of column Angelegt_Am.</summary>
+  public DateTime? Angelegt_Am { get; set; }
+
+  /// <summary>Gets or sets the value of column Geaendert_Von.</summary>
+  public string Geaendert_Von { get; set; }
+
+  /// <summary>Gets or sets the value of column Geaendert_Am.</summary>
+  public DateTime? Geaendert_Am { get; set; }
 }

@@ -9,7 +9,7 @@ namespace CSBP.Apis.Models
   using CSBP.Base;
 
   /// <summary>
-  /// Entity-Klasse für Tabelle WP_Konfiguration.
+  /// Entity class for table WP_Konfiguration.
   /// </summary>
   public partial class WpKonfiguration : ModelBase
   {
