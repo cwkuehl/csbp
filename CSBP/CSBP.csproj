@@ -32,6 +32,9 @@
     <PackageReference Include="System.Reactive" Version="5.*" />
     <PackageReference Include="System.Reflection.DispatchProxy" Version="4.*" />
   </ItemGroup>
+  <!--ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj'"/>
+  </ItemGroup-->
   <ItemGroup>
     <Content Remove="GtkGui/**/*.glade" />
     <Content Remove="Resources/Messages.*" />

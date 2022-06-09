@@ -124,6 +124,22 @@ csharp_space_between_method_call_empty_parameter_list_parentheses = false
 # Wrapping preferences
 csharp_preserve_single_line_statements = true
 csharp_preserve_single_line_blocks = true
+# StyleCop (stylecop.json does not work e.g. for rule SA1636)
+dotnet_diagnostic.SA1009.severity = None # Closing parenthesis should not be preceded by a space
+dotnet_diagnostic.SA1101.severity = None # Prefix local calls with this [CSBP.UnitTest]
+dotnet_diagnostic.SA1111.severity = None # Closing parenthesis should be on line of last parameter
+dotnet_diagnostic.SA1116.severity = None # The parameters should begin on the line after the declaration, whenever the parameter span across multiple lines
+dotnet_diagnostic.SA1117.severity = None # The parameters should all be placed on the same line or each parameter should be placed on its own line
+dotnet_diagnostic.SA1122.severity = None # Use string.Empty for empty strings
+dotnet_diagnostic.SA1200.severity = Warning # TODO Using directive should appear within a namespace declaration
+dotnet_diagnostic.SA1503.severity = None # Braces should not be omitted
+dotnet_diagnostic.SA1513.severity = None # Closing brace should be followed by blank line
+dotnet_diagnostic.SA1519.severity = None # Braces should not be omitted from multi-line child statement [CSBP.UnitTest]
+dotnet_diagnostic.SA1520.severity = None # Use braces consistently
+dotnet_diagnostic.SA1600.severity = Warning # Elements should be documented
+dotnet_diagnostic.SA1609.severity = Warning # Property documentation should have value
+dotnet_diagnostic.SA1610.severity = Warning #
+dotnet_diagnostic.SA1636.severity = None # TODO The file header copyright text should match the copyright text from the settings.
 ###############################
 # VB Coding Conventions       #
 ###############################

@@ -9,14 +9,19 @@ namespace CSBP.Apis.Enums
   {
     /// <summary>Keine Art.<summary>
     None = 0,
+
     /// <summary>Jet-Engine.<summary>
     Jet = 1,
+
     /// <summary>SQL Server ab 7.0.<summary>
     SqlServer = 2,
+
     /// <summary>MySql.<summary>
     MySql = 3,
+
     /// <summary>HSQLDB.<summary>
     HsqlDb = 4,
+
     /// <summary>SQLite.<summary>
     SqLite = 5,
   }

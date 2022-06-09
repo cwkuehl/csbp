@@ -1,3 +1,9 @@
+// <copyright file="Tests.cs" company="cwkuehl.de">
+// Copyright (c) cwkuehl.de. All rights reserved.
+// </copyright>
+
+namespace CSBP.UnitTest;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,8 +17,9 @@ using CSBP.Apis.Models.Extension;
 using CSBP.Base;
 using NUnit.Framework;
 
-namespace CSBP.UnitTest;
-
+/// <summary>
+/// Class for testing and generating files.
+/// </summary>
 public class Tests
 {
   private const string Pfadmono = "/home/wolfgang/mono";
@@ -23,25 +30,32 @@ public class Tests
   /// Starting tests manually.
   /// Manually building:
   /// cd ../CSBP.UnitTest/
-  /// dotnet build
+  /// dotnet build -c Debug.
   /// </summary>
   /// <param name="args">Parameters are ignored.</param>
-  static void Main(string[] args)
+  public static void Main(string[] args)
   {
     Debug.Print("CSBP.UnitTest gestartet." + (args?[0] ?? ""));
     var t = new Tests();
-    t.MachNichts();
-    // t.GenerateForm();
+    if (Functions.MachNichts() == 0)
+      t.MachNichts();
+    //// t.GenerateForm();
     t.GenerateResxDesigner();
-    // t.GenerierenReps();
-    // t.Tls();
+    //// t.GenerierenReps();
+    //// t.Tls();
   }
 
+  /// <summary>
+  /// Test setup.
+  /// </summary>
   [SetUp]
   public void Setup()
   {
   }
 
+  /// <summary>
+  /// Test of function MachNichts.
+  /// </summary>
   [Test]
   public void MachNichts()
   {
@@ -51,8 +65,8 @@ public class Tests
   /// <summary>
   /// XML-Dateien der Tabellen zusammenkopieren.
   /// </summary>
-  ////[Test()]
-  public static void MergeXml()
+  [Test]
+  public void MergeXml()
   {
     Assert.IsNull(null);
     var l = Directory.GetFiles(Pfadmono, "*.xml");
@@ -65,21 +79,6 @@ public class Tests
       node.Add(xml.Descendants("table").First());
     }
     g.Save(Path.Combine(Pfadmono, "#CSBP.xml.txt"));
-  }
-
-  private static string GetCsType(string dbtype, bool nullable)
-  {
-    return dbtype switch
-    {
-      "INTEGER" => "int" + (nullable ? "?" : ""),
-      "VARCHAR" => "string",
-      "DATE" => "DateTime" + (nullable ? "?" : ""),
-      "TIMESTAMP" => "DateTime" + (nullable ? "?" : ""),
-      "DECIMAL(21,4)" => "decimal" + (nullable ? "?" : ""),
-      "BOOLEAN" => "bool" + (nullable ? "?" : ""),
-      "BLOB" => "byte[]",
-      _ => dbtype,
-    };
   }
 
   /// <summary>
@@ -97,7 +96,7 @@ public class Tests
       var tabelle = t.Attribute("name").Value;
       if (tabelle.StartsWith("HP_", StringComparison.CurrentCulture)
           || tabelle.StartsWith("MO_", StringComparison.CurrentCulture)
-          //|| tabelle.StartsWith("SO_", StringComparison.CurrentCulture)
+          ////|| tabelle.StartsWith("SO_", StringComparison.CurrentCulture)
           || tabelle.StartsWith("VM_", StringComparison.CurrentCulture))
         continue;
       var tab = Functions.TabName(tabelle);
@@ -223,8 +222,8 @@ namespace CSBP.Services.Repositories.Base
           || tabelle.StartsWith("SO_", StringComparison.CurrentCulture)
           || tabelle.StartsWith("VM_", StringComparison.CurrentCulture))
         continue;
-      //if (!tabelle.StartsWith("FZ_Fahrrads", StringComparison.CurrentCulture))
-      //  continue;
+      ////if (!tabelle.StartsWith("FZ_Fahrrads", StringComparison.CurrentCulture))
+      ////  continue;
       var tab = Functions.TabName(tabelle);
 
       var kparam = new StringBuilder(); // Key parameters
@@ -244,7 +243,7 @@ namespace CSBP.Services.Repositories.Base
         length = a.Attribute("length")?.Value,
         nullable = bool.Parse(a.Attribute("nullable").Value),
         key = keycolumns.Any(b => b.Attribute("name").Value == a.Attribute("name").Value),
-        cstype = GetCsType(a.Attribute("type").Value, bool.Parse(a.Attribute("nullable").Value))
+        cstype = GetCsType(a.Attribute("type").Value, bool.Parse(a.Attribute("nullable").Value)),
       });
       var autouid = ps.Any(a => a.name == "Uid")
           ? @"
@@ -270,15 +269,15 @@ namespace CSBP.Services.Repositories.Base
           kparam2.Append($", {vname}");
           if (gwhere.Length > 0)
             gwhere.Append(" && ");
-          //if (p.cstype == "DateTime")
-          //  gwhere.Append($"a.{p.name} >= e.{p.name} && a.{p.name} < e.{p.name}.AddSeconds(1)");
-          //else
+          ////if (p.cstype == "DateTime")
+          ////  gwhere.Append($"a.{p.name} >= e.{p.name} && a.{p.name} < e.{p.name}.AddSeconds(1)");
+          ////else
           gwhere.Append($"a.{p.name} == e.{p.name}");
           if (gwhere2.Length > 0)
             gwhere2.Append(" && ");
-          //if (p.cstype == "DateTime")
-          //  gwhere2.Append($"a.{p.name} >= {vname} && a.{p.name} < {vname}.AddSeconds(1)");
-          //else
+          ////if (p.cstype == "DateTime")
+          ////  gwhere2.Append($"a.{p.name} >= {vname} && a.{p.name} < {vname}.AddSeconds(1)");
+          ////else
           gwhere2.Append($"a.{p.name} == {vname}");
         }
       }
@@ -429,37 +428,6 @@ public partial class {rep}
     }
   }
 
-  static string GetToolItemName(XAttribute a)
-  {
-    var name = a.Value == "aktuell" || a.Value == "berechnen" ? "refresh" :
-      a.Value == "rueckgaengig" ? "undo" :
-      a.Value == "wiederherstellen" ? "redo" :
-      a.Value == "neu" ? "new" :
-      a.Value == "kopieren" ? "copy" :
-      a.Value == "einfuegen" ? "paste" :
-      a.Value == "aendern" ? "edit" :
-      a.Value == "loeschen" ? "delete" :
-      a.Value == "export" ? "save" :
-      a.Value == "drucken" ? "print" :
-      a.Value == "imExport" ? "floppy" :
-      null;
-    return name;
-  }
-
-  /// <summary>Kontext zum Generieren eines Formulars.</summary>
-  class GeneratorContext
-  {
-    public int Idcount { get; set; } = 0;
-    public XNamespace Ns { get; set; }
-    public XNamespace Fxns { get; set; }
-    public string Fileshort { get; set; }
-    public string Filenew { get; set; }
-    public StringBuilder Events { get; set; } = new StringBuilder();
-    public StringBuilder Ms { get; set; } = new StringBuilder();
-    public StringBuilder Member { get; set; } = new StringBuilder();
-    public StringBuilder Init { get; set; } = new StringBuilder();
-  }
-
   /// <summary>Generieren eines Formulars aus einer JavaFX-Datei.</summary>
   [Test]
   public void GenerateForm()
@@ -511,13 +479,10 @@ public partial class {rep}
     </data>");
     AddElement(gc, root, w, 0);
     var xmlfile = Path.Combine(Pfad, $"csbp/CSBP/GtkGui/{unit.ToUpper()}", filenew + ".glade");
-    //var settings = new XmlWriterSettings { OmitXmlDeclaration = false, Indent = true, Encoding = Encoding.UTF8 };
-    //using (var xw = XmlWriter.Create(xmlfile, settings))
-    //  doc.Save(xw); // UTF-8 mit BOM
     using (var writer = new XmlTextWriter(xmlfile, new UTF8Encoding(false)))
     {
       writer.Formatting = Formatting.Indented;
-      //writer.Indentation = 2;
+      ////writer.Indentation = 2;
       doc.Save(writer);
     }
     var s = $@"// <copyright file=""{filenew}.cs"" company=""cwkuehl.de"">
@@ -588,13 +553,123 @@ namespace CSBP.Forms.{unit.ToUpper()}
       File.WriteAllText(datei, s);
       File.AppendAllText(datei, Constants.CRLF + gc.Ms + Constants.CRLF);
     }
-    // File.AppendAllText(xmlfile, Constants.CRLF);
-    // if (Functions.MachNichts() == 0)
-    //   File.AppendAllText(xmlfile, Constants.CRLF + ms + Constants.CRLF);
-    // Process.Start(xmlfile);
+    //// File.AppendAllText(xmlfile, Constants.CRLF);
+    //// if (Functions.MachNichts() == 0)
+    ////   File.AppendAllText(xmlfile, Constants.CRLF + ms + Constants.CRLF);
+    //// Process.Start(xmlfile);
   }
 
-  void AddElement(GeneratorContext gc, XElement source, XElement target, int depth)
+  /// <summary>Generieren der .Designer.cs-Datei aus .resx-Datei.</summary>
+  [Test]
+  public void GenerateResxDesigner()
+  {
+    var fn = "CSBP/Resources/Messages.resx";
+    var slnpfad = "/home/wolfgang/cs/csbp";
+    var ns = Path.GetDirectoryName(fn).Replace('/', '.');
+    var filename = Path.GetFileNameWithoutExtension(fn);
+    var values = new StringBuilder();
+    values.Append($@"
+
+  // private static System.Globalization.CultureInfo rc;
+
+  // internal static System.Globalization.CultureInfo Culture
+  // {{
+  //   get {{ return rc; }}
+  //   set {{ rc = value; }}
+  // }}
+
+  public static string Get(string key)
+  {{
+    return rm.GetString(key);
+  }}");
+    var g = XDocument.Load(Path.Combine(slnpfad, fn));
+    var datas = g.Descendants("data");
+    foreach (var d in datas)
+    {
+      var name = d.Attribute("name").Value;
+      var namecs = name.Replace('.', '_');
+      ////var value = (d.Descendants("value").FirstOrDefault()?.FirstNode as XText)?.Value;
+      values.Append(Constants.CRLF).Append(Constants.CRLF);
+      values.Append($@"  public static string {namecs}
+  {{
+    get {{ return rm.GetString(""{name}""); }}
+  }}");
+    }
+    var s = $@"// <copyright file=""{filename}.cs"" company=""cwkuehl.de"">
+// Copyright (c) cwkuehl.de. All rights reserved.
+// </copyright>
+
+namespace {ns};
+
+using System;
+
+/// <summary>
+/// Resource class for {filename}.
+/// </summary>
+public partial class {filename}
+{{
+  private static readonly System.Resources.ResourceManager rm = new(""{ns}.{filename}"", typeof({filename}).Assembly);{values}
+}}
+";
+    var datei = Path.Combine(slnpfad, $"CSBP/Resources", $"{filename}.cs");
+    File.WriteAllText(datei, s);
+  }
+
+  /// <summary>Tests für TLS, HTTPS-Server.</summary>
+  [Test]
+  public void Tls()
+  {
+    // var cert = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "", X509KeyStorageFlags.MachineKeySet);
+    _ = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
+    //// var date = DateTime.Today;
+    //// var shortcut = "USD";
+    //// var accesskey = "4b1846822a23c8e9d4ad08c0e30f28f4";
+    //// var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
+    var url = "http://data.fixer.io/api/2020-10-01?symbols=USD&access_key=4b1846822a23c8e9d4ad08c0e30f28f4";
+    //// var url = "https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation=295567847&datetimeTzStartRange=24.09.2020&timeSpan=7D&codeResolution=1D";
+    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
+    var httpsclient = new System.Net.Http.HttpClient
+    {
+      Timeout = TimeSpan.FromMilliseconds(5000),
+    };
+    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
+    if (Functions.MachNichts() == 0)
+    {
+      // The request was canceled due to the configured HttpClient.Timeout of 5 seconds elapsing.
+      url = "https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId=9385716&dateStart=20.08.2021&interval=Y1";
+      //// url = "https://query1.finance.yahoo.com/v7/finance/chart/GC=F?period1=1628294400&period2=1628899200&interval=1d&indicators=quote&includeTimestamps=true";
+      // httpsclient.Timeout = TimeSpan.FromMilliseconds(10000);
+      httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
+      var wr = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
+      _ = httpsclient.Send(wr);
+    }
+    else
+    {
+      var task = httpsclient.GetStringAsync(url);
+      task.Wait();
+    }
+  }
+
+  /// <summary>Tests für Serialisierung.</summary>
+  [Test]
+  public void Serialize()
+  {
+    var l = new List<BackupEntry>
+    {
+      new BackupEntry { Uid = "abc" },
+    };
+    var bytes = Functions.Serialize(l);
+    var v = Convert.ToBase64String(bytes);
+    var bytes2 = Convert.FromBase64String(v);
+    _ = Functions.Deserialize<List<BackupEntry>>(bytes2);
+  }
+
+  /// <summary>Recursive Function for generating form code fron glade files.</summary>
+  /// <param name="gc">Generator context.</param>
+  /// <param name="source">Affected source element in glade file.</param>
+  /// <param name="target">Affected target element in glade file.</param>
+  /// <param name="depth">Counter for recoursion depth.</param>
+  private static void AddElement(GeneratorContext gc, XElement source, XElement target, int depth)
   {
     XElement e0 = null; // Element wird zum target hinzugefügt.
     var id = source.Attributes().FirstOrDefault(a => a.Name == gc.Fxns + "id")?.Value ?? $"id{++gc.Idcount}";
@@ -602,13 +677,10 @@ namespace CSBP.Forms.{unit.ToUpper()}
     var rowSpan = source.Attributes().FirstOrDefault(a => a.Name == "GridPane.rowSpan")?.Value;
     var columnIndex = source.Attributes().FirstOrDefault(a => a.Name == "GridPane.columnIndex")?.Value;
     var columnSpan = source.Attributes().FirstOrDefault(a => a.Name == "GridPane.columnSpan")?.Value;
-    //var xexpand = true;
-    //var yexpand = false;
     var addchild = true;
     var children = true;
     if (source.Name == gc.Ns + "Label")
     {
-      //xexpand = false;
       var text = source.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.Fileshort}.{id}";
       if (text.EndsWith("Creation", StringComparison.CurrentCulture))
         text = "Forms.created0";
@@ -715,8 +787,8 @@ namespace CSBP.Forms.{unit.ToUpper()}
         new XElement("property", new XAttribute("name", "can_focus"), new XText("False")),
         new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.Fileshort}.{id}.tt")),
         new XElement("property", new XAttribute("name", "has_entry"), new XText("True")),
-        // new XElement("property", new XAttribute("name", "Items"), new XAttribute("translatable", "yes")),
-        // new XElement("property", new XAttribute("name", "IsTextCombo"), new XText("True")),
+        //// new XElement("property", new XAttribute("name", "Items"), new XAttribute("translatable", "yes")),
+        //// new XElement("property", new XAttribute("name", "IsTextCombo"), new XText("True")),
         new XElement("signal", new XAttribute("name", "changed"), new XAttribute("handler", $"On{id.ToFirstUpper()}Changed")),
         new XElement("child", new XAttribute("internal-child", "entry"),
           new XElement("object", new XAttribute("class", "GtkEntry"),
@@ -822,57 +894,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
       );
       if (source.Name == gc.Ns + "VBox")
         e0.Add(new XElement("property", new XAttribute("name", "orientation"), new XText("vertical")));
-      //     children = false;
       var nr = 1;
-      //     var buttons = source.Descendants(gc.ns + "Button");
-      //     foreach (var b in buttons)
-      //     {
-      //       var idb = b.Attribute(gc.fxns + "id")?.Value;
-      //       var df = b.Attribute("defaultButton")?.Value == "true";
-      //       var text = b.Attributes().FirstOrDefault(a => a.Name == "text")?.Value ?? $"{gc.fileshort}.button{nr}";
-      //       text = text.StartsWith("%", StringComparison.CurrentCulture) ? text.Substring(1) : text;
-      //       if (text.EndsWith("Ok", StringComparison.CurrentCulture))
-      //         text = "Forms.ok";
-      //       else if (text.EndsWith("Cancel", StringComparison.CurrentCulture))
-      //         text = "Forms.cancel";
-      //       else
-      //         gc.ms.Append($@"
-      // <data name=""{text}"" xml:space=""preserve"">
-      //     <value>{text}</value>
-      // </data>").Append($@"
-      // <data name=""{text}.tt"" xml:space=""preserve"">
-      //     <value>{text}.tt</value>
-      // </data>");
-      //       var eb = new XElement("child",
-      //         new XElement("object", new XAttribute("class", "GtkButton"), new XAttribute("id", idb),
-      //           new XElement("property", new XAttribute("name", "label"), new XText(text)),
-      //           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
-      //           new XElement("property", new XAttribute("name", "can_focus"), new XText("True")),
-      //           new XElement("property", new XAttribute("name", "can_default"), new XText(df ? "True" : "False")),
-      //           new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{text}.tt")),
-      //           new XElement("property", new XAttribute("name", "use_underline"), new XText("True")),
-      //           new XElement("signal", new XAttribute("name", "clicked"), new XAttribute("handler", $"On{idb.ToFirstUpper()}Clicked"), new XAttribute("swapped", "no"))),
-      //         new XElement("packing",
-      //           new XElement("property", new XAttribute("name", "expand"), new XText("False")),
-      //           new XElement("property", new XAttribute("name", "fill"), new XText("True")),
-      //           new XElement("property", new XAttribute("name", "position"), new XText((nr - 1).ToString())))
-      //       );
-      //       e0.Add(eb);
-      //       gc.events.Append($@"
-
-      // /// <summary>Behandlung von {idb.ToFirstUpper()}.</summary>
-      // /// <param name=""sender"">Betroffener Sender.</param>
-      // /// <param name=""e"">Betroffenes Ereignis.</param>
-      // protected void On{idb.ToFirstUpper()}Clicked(object sender, EventArgs e)
-      // {{
-      // }}");
-      //       gc.member.Append($@"
-
-      // /// <summary>Button {idb}.</summary>
-      // [Builder.Object]
-      // private Button {idb};");
-      //       nr++;
-      //     }
       var togglegroup = source.Descendants(gc.Ns + "ToggleGroup")
                               .FirstOrDefault(a => a.Parent.Name == gc.Fxns + "define");
       var tg = togglegroup == null ? null : (togglegroup.Attributes().FirstOrDefault(a => a.Name == gc.Fxns + "id")?.Value ?? $"tg{id}");
@@ -908,7 +930,6 @@ namespace CSBP.Forms.{unit.ToUpper()}
               new XElement("property", new XAttribute("name", "position"), new XText((nr - 1).ToString()))
             )
           );
-          // if (nr == 0)
           gc.Member.Append($@"
 
     /// <summary>RadioButton {tg}{nr}.</summary>
@@ -935,7 +956,6 @@ namespace CSBP.Forms.{unit.ToUpper()}
         new XElement("property", new XAttribute("name", "row_spacing"), new XText("5")),
         new XElement("property", new XAttribute("name", "column_spacing"), new XText("5"))
       );
-      //yexpand = true;
     }
     else if (source.Name == gc.Ns + "TableView" || source.Name == gc.Ns + "ListView")
     {
@@ -973,7 +993,6 @@ namespace CSBP.Forms.{unit.ToUpper()}
     protected void On{id.ToFirstUpper()}RowActivated(object sender, RowActivatedArgs e)
     {{
     }}");
-      //yexpand = true;
     }
     else if (source.Name == gc.Ns + "ToolBar")
     {
@@ -994,7 +1013,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
         {
           e0.Add(new XElement("child",
             new XElement("object", new XAttribute("class", "GtkButton"), new XAttribute("id", $"{name}Action"),
-              // new XElement("property", new XAttribute("name", "label"), new XText($"")),
+              //// new XElement("property", new XAttribute("name", "label"), new XText($"")),
               new XElement("property", new XAttribute("name", "visible"), new XText("True")),
               new XElement("property", new XAttribute("name", "can_focus"), new XText("False")),
               new XElement("property", new XAttribute("name", "receives_default"), new XText("True")),
@@ -1098,13 +1117,13 @@ namespace CSBP.Forms.{unit.ToUpper()}
         var p = new XElement("packing",
           new XElement("property", new XAttribute("name", "left_attach"), new XText(c.ToString())),
           new XElement("property", new XAttribute("name", "top_attach"), new XText(r.ToString()))
-        //new XElement("property", new XAttribute("name", "BottomAttach"), new XText((r + rs).ToString())),
-        //new XElement("property", new XAttribute("name", "RightAttach"), new XText((c + cs).ToString())),
-        //new XElement("property", new XAttribute("name", "AutoSize"), new XText("False")),
-        //new XElement("property", new XAttribute("name", "XExpand"), new XText(xexpand.ToString().ToFirstUpper())),
-        //new XElement("property", new XAttribute("name", "XFill"), new XText(true.ToString().ToFirstUpper())),
-        //new XElement("property", new XAttribute("name", "YExpand"), new XText(yexpand.ToString().ToFirstUpper())),
-        //new XElement("property", new XAttribute("name", "YFill"), new XText(true.ToString().ToFirstUpper()))
+        ////new XElement("property", new XAttribute("name", "BottomAttach"), new XText((r + rs).ToString())),
+        ////new XElement("property", new XAttribute("name", "RightAttach"), new XText((c + cs).ToString())),
+        ////new XElement("property", new XAttribute("name", "AutoSize"), new XText("False")),
+        ////new XElement("property", new XAttribute("name", "XExpand"), new XText(xexpand.ToString().ToFirstUpper())),
+        ////new XElement("property", new XAttribute("name", "XFill"), new XText(true.ToString().ToFirstUpper())),
+        ////new XElement("property", new XAttribute("name", "YExpand"), new XText(yexpand.ToString().ToFirstUpper())),
+        ////new XElement("property", new XAttribute("name", "YFill"), new XText(true.ToString().ToFirstUpper()))
         );
         if (!string.IsNullOrEmpty(columnSpan))
           p.Add(new XElement("property", new XAttribute("name", "width"), new XText(columnSpan)));
@@ -1122,107 +1141,64 @@ namespace CSBP.Forms.{unit.ToUpper()}
     }
   }
 
-  /// <summary>Generieren der .Designer.cs-Datei aus .resx-Datei.</summary>
-  [Test]
-  public void GenerateResxDesigner()
+  /// <summary>Determine C# type from database type.</summary>
+  /// <param name="dbtype">Affected database type.</param>
+  /// <param name="nullable">Is type nullable.</param>
+  /// <returns>C# type.</returns>
+  private static string GetCsType(string dbtype, bool nullable)
   {
-    var fn = "CSBP/Resources/Messages.resx";
-    var slnpfad = "/home/wolfgang/cs/csbp";
-    var ns = Path.GetDirectoryName(fn).Replace('/', '.');
-    var filename = Path.GetFileNameWithoutExtension(fn);
-    var values = new StringBuilder();
-    values.Append($@"
-
-  // private static System.Globalization.CultureInfo rc;
-
-  // internal static System.Globalization.CultureInfo Culture
-  // {{
-  //   get {{ return rc; }}
-  //   set {{ rc = value; }}
-  // }}
-
-  public static string Get(string key)
-  {{
-    return rm.GetString(key);
-  }}");
-    var g = XDocument.Load(Path.Combine(slnpfad, fn));
-    var datas = g.Descendants("data");
-    foreach (var d in datas)
+    return dbtype switch
     {
-      var name = d.Attribute("name").Value;
-      var namecs = name.Replace('.', '_');
-      //var value = (d.Descendants("value").FirstOrDefault()?.FirstNode as XText)?.Value;
-      values.Append(Constants.CRLF).Append(Constants.CRLF);
-      values.Append($@"  public static string {namecs}
-  {{
-    get {{ return rm.GetString(""{name}""); }}
-  }}");
-    }
-    var s = $@"// <copyright file=""{filename}.cs"" company=""cwkuehl.de"">
-// Copyright (c) cwkuehl.de. All rights reserved.
-// </copyright>
-
-namespace {ns};
-
-using System;
-
-/// <summary>
-/// Resource class for {filename}.
-/// </summary>
-public partial class {filename}
-{{
-  private static readonly System.Resources.ResourceManager rm = new(""{ns}.{filename}"", typeof({filename}).Assembly);{values}
-}}
-";
-    var datei = Path.Combine(slnpfad, $"CSBP/Resources", $"{filename}.cs");
-    File.WriteAllText(datei, s);
-  }
-
-  /// <summary>Tests für TLS, HTTPS-Server.</summary>
-  [Test]
-  public void Tls()
-  {
-    // var cert = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "", X509KeyStorageFlags.MachineKeySet);
-    _ = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
-    // var date = DateTime.Today;
-    // var shortcut = "USD";
-    // var accesskey = "4b1846822a23c8e9d4ad08c0e30f28f4";
-    // var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
-    var url = "http://data.fixer.io/api/2020-10-01?symbols=USD&access_key=4b1846822a23c8e9d4ad08c0e30f28f4";
-    // var url = "https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation=295567847&datetimeTzStartRange=24.09.2020&timeSpan=7D&codeResolution=1D";
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
-    {
-      Timeout = TimeSpan.FromMilliseconds(5000)
+      "INTEGER" => "int" + (nullable ? "?" : ""),
+      "VARCHAR" => "string",
+      "DATE" => "DateTime" + (nullable ? "?" : ""),
+      "TIMESTAMP" => "DateTime" + (nullable ? "?" : ""),
+      "DECIMAL(21,4)" => "decimal" + (nullable ? "?" : ""),
+      "BOOLEAN" => "bool" + (nullable ? "?" : ""),
+      "BLOB" => "byte[]",
+      _ => dbtype,
     };
-    // httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
-    if (Functions.MachNichts() == 0)
-    {
-      // The request was canceled due to the configured HttpClient.Timeout of 5 seconds elapsing.
-      url = "https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId=9385716&dateStart=20.08.2021&interval=Y1";
-      // url = "https://query1.finance.yahoo.com/v7/finance/chart/GC=F?period1=1628294400&period2=1628899200&interval=1d&indicators=quote&includeTimestamps=true";
-      // httpsclient.Timeout = TimeSpan.FromMilliseconds(10000);
-      httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
-      var wr = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
-      _ = httpsclient.Send(wr);
-    }
-    else
-    {
-      var task = httpsclient.GetStringAsync(url);
-      task.Wait();
-    }
   }
 
-  /// <summary>Tests für Serialisierung.</summary>
-  [Test]
-  public void Serialize()
+  /// <summary>Determine the icon name.</summary>
+  /// <param name="a">Affected attribute.</param>
+  /// <returns>Icon name.</returns>
+  private static string GetToolItemName(XAttribute a)
   {
-    var l = new List<BackupEntry> {
-        new BackupEntry { Uid = "abc" }
-      };
-    var bytes = Functions.Serialize(l);
-    var v = Convert.ToBase64String(bytes);
-    var bytes2 = Convert.FromBase64String(v);
-    _ = Functions.Deserialize<List<BackupEntry>>(bytes2);
+    var name = a.Value == "aktuell" || a.Value == "berechnen" ? "refresh" :
+      a.Value == "rueckgaengig" ? "undo" :
+      a.Value == "wiederherstellen" ? "redo" :
+      a.Value == "neu" ? "new" :
+      a.Value == "kopieren" ? "copy" :
+      a.Value == "einfuegen" ? "paste" :
+      a.Value == "aendern" ? "edit" :
+      a.Value == "loeschen" ? "delete" :
+      a.Value == "export" ? "save" :
+      a.Value == "drucken" ? "print" :
+      a.Value == "imExport" ? "floppy" :
+      null;
+    return name;
+  }
+
+  /// <summary>Kontext zum Generieren eines Formulars.</summary>
+  private class GeneratorContext
+  {
+    public int Idcount { get; set; } = 0;
+
+    public XNamespace Ns { get; set; }
+
+    public XNamespace Fxns { get; set; }
+
+    public string Fileshort { get; set; }
+
+    public string Filenew { get; set; }
+
+    public StringBuilder Events { get; set; } = new StringBuilder();
+
+    public StringBuilder Ms { get; set; } = new StringBuilder();
+
+    public StringBuilder Member { get; set; } = new StringBuilder();
+
+    public StringBuilder Init { get; set; } = new StringBuilder();
   }
 }
