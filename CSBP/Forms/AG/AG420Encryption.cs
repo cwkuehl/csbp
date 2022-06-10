@@ -2,97 +2,90 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Forms.AG
+namespace CSBP.Forms.AG;
+
+using System;
+using CSBP.Apis.Enums;
+using CSBP.Services.Factory;
+using Gtk;
+using static CSBP.Resources.M;
+using static CSBP.Resources.Messages;
+
+/// <summary>Controller for AG420Encryption dialog.</summary>
+public partial class AG420Encryption : CsbpBin
 {
-  using System;
-  using CSBP.Apis.Enums;
-  using CSBP.Apis.Models.Extension;
-  using CSBP.Services.Factory;
-  using Gtk;
-  using static CSBP.Resources.M;
-  using static CSBP.Resources.Messages;
+  /// <summary>Entry target.</summary>
+  [Builder.Object]
+  private readonly Entry target;
 
-  /// <summary>Controller für AG420Encryption Dialog.</summary>
-  public partial class AG420Encryption : CsbpBin
+  /// <summary>Label password0.</summary>
+  [Builder.Object]
+  private readonly Label password0;
+
+  /// <summary>Entry password.</summary>
+  [Builder.Object]
+  private readonly Entry password;
+
+  /// <summary>Initializes a new instance of the <see cref="AG420Encryption"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  public AG420Encryption(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, dt, p1, p)
   {
-#pragma warning disable CS0649
+    SetBold(password0);
+    InitData(0);
+    password.GrabFocus();
+  }
 
-    /// <summary>Entry target.</summary>
-    [Builder.Object]
-    private readonly Entry target;
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AG410Backup Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AG410Backup(GetBuilder("AG420Encryption", out var handle), handle, p1: p1, p: p);
+  }
 
-    /// <summary>Label password0.</summary>
-    [Builder.Object]
-    private readonly Label password0;
-
-    /// <summary>Entry password.</summary>
-    [Builder.Object]
-    private readonly Entry password;
-
-#pragma warning restore CS0649
-
-    /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-    /// <param name="p1">1. Parameter für Dialog.</param>
-    /// <param name="p">Betroffener Eltern-Dialog.</param>
-    /// <returns>Nicht-modalen Dialogs.</returns>
-    public static AG410Backup Create(object p1 = null, CsbpBin p = null)
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
+  protected override void InitData(int step)
+  {
+    if (step <= 0)
     {
-      return new AG410Backup(GetBuilder("AG420Encryption", out var handle), handle, p1: p1, p: p);
-    }
-
-    /// <summary>Konstruktor für modalen Dialog.</summary>
-    /// <param name="builder">Betroffener Builder.</param>
-    /// <param name="h">Betroffenes Handle vom Builder.</param>
-    /// <param name="d">Betroffener einbettender Dialog.</param>
-    /// <param name="dt">Betroffener Dialogtyp.</param>
-    /// <param name="p1">1. Parameter für Dialog.</param>
-    /// <param name="p">Betroffener Eltern-Dialog.</param>
-    /// <returns>Nicht-modalen Dialogs.</returns>
-    public AG420Encryption(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-        : base(b, h, d, dt, p1, p)
-    {
-      SetBold(password0);
-      InitData(0);
-      password.GrabFocus();
-    }
-
-    /// <summary>Model-Daten initialisieren.</summary>
-    /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
-    protected override void InitData(int step)
-    {
-      if (step <= 0)
+      if (Parameter1 is string uid)
       {
-        if (Parameter1 is string uid)
-        {
-          var k = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
-          target.Text = k?.Target ?? "";
-        }
-        target.IsEditable = false;
-        password.IsEditable = true;
+        var k = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
+        target.Text = k?.Target ?? "";
       }
+      target.IsEditable = false;
+      password.IsEditable = true;
     }
+  }
 
-    /// <summary>Behandlung von Ok.</summary>
-    /// <param name="sender">Betroffener Sender.</param>
-    /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnOkClicked(object sender, EventArgs e)
+  /// <summary>Handle Ok.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnOkClicked(object sender, EventArgs e)
+  {
+    if (string.IsNullOrEmpty(password.Text))
     {
-      if (string.IsNullOrEmpty(password.Text))
-      {
-        ShowError(M0(AG002));
-        return;
-      }
-      Response = password.Text;
-      dialog.Hide();
+      ShowError(M0(AG002));
+      return;
     }
+    Response = password.Text;
+    dialog.Hide();
+  }
 
-    /// <summary>Behandlung von Abbrechen.</summary>
-    /// <param name="sender">Betroffener Sender.</param>
-    /// <param name="e">Betroffenes Ereignis.</param>
-    protected void OnAbbrechenClicked(object sender, EventArgs e)
-    {
-      Response = null;
-      dialog.Hide();
-    }
+  /// <summary>Handle Abbrechen.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnAbbrechenClicked(object sender, EventArgs e)
+  {
+    Response = null;
+    dialog.Hide();
   }
 }

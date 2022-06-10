@@ -506,7 +506,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
   using static CSBP.Resources.M;
   using static CSBP.Resources.Messages;
 
-  /// <summary>Controller für {filenew} Dialog.</summary>
+  /// <summary>Controller for {filenew} dialog.</summary>
   public partial class {filenew} : CsbpBin
   {{
     /// <summary>Dialog Model.</summary>
@@ -516,29 +516,28 @@ namespace CSBP.Forms.{unit.ToUpper()}
 
 #pragma warning restore CS0649
 
-    /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-    /// <param name=""p1"">1. Parameter für Dialog.</param>
-    /// <param name=""p"">Betroffener Eltern-Dialog.</param>
-    /// <returns>Nicht-modalen Dialogs.</returns>
-    public static {filenew} Create(object p1 = null, CsbpBin p = null)
-    {{
-      return new {filenew}(GetBuilder(""{filenew}"", out var handle), handle, p1: p1, p: p);
-    }}
-
-    /// <summary>Konstruktor für modalen Dialog.</summary>
-    /// <param name=""builder"">Betroffener Builder.</param>
-    /// <param name=""h"">Betroffenes Handle vom Builder.</param>
-    /// <param name=""d"">Betroffener einbettender Dialog.</param>
-    /// <param name=""dt"">Betroffener Dialogtyp.</param>
-    /// <param name=""p1"">1. Parameter für Dialog.</param>
-    /// <param name=""p"">Betroffener Eltern-Dialog.</param>
-    /// <returns>Nicht-modalen Dialogs.</returns>
+    /// <summary>Initializes a new instance of the <see cref=""{filenew}""/> class.</summary>
+    /// <param name=""b"">Affected Builder.</param>
+    /// <param name=""h"">Affected handle from Builder.</param>
+    /// <param name=""d"">Affected embedded dialog.</param>
+    /// <param name=""dt"">Affected dialog type.</param>
+    /// <param name=""p1"">1. parameter for dialog.</param>
+    /// <param name=""p"">Affected parent dialog.</param>
     public {filenew}(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
         : base(b, h, d, dt, p1, p)
     {{{gc.Init}
-      // SetBold(client0);
+      //// SetBold(client0);
       Functions.MachNichts(Model);
       InitData(0);
+    }}
+
+    /// <summary>Creates non modal dialog.</summary>
+    /// <param name=""p1"">1. parameter for dialog.</param>
+    /// <param name=""p"">Affected parent dialog.</param>
+    /// <returns>Created dialog.</returns>
+    public static {filenew} Create(object p1 = null, CsbpBin p = null)
+    {{
+      return new {filenew}(GetBuilder(""{filenew}"", out var handle), handle, p1: p1, p: p);
     }}
 
     /// <summary>Model-Daten initialisieren.</summary>
@@ -574,18 +573,13 @@ namespace CSBP.Forms.{unit.ToUpper()}
     var values = new StringBuilder();
     values.Append($@"
 
-  // private static System.Globalization.CultureInfo rc;
+  //// private static System.Globalization.CultureInfo rc;
 
-  // internal static System.Globalization.CultureInfo Culture
-  // {{
-  //   get {{ return rc; }}
-  //   set {{ rc = value; }}
-  // }}
-
-  public static string Get(string key)
-  {{
-    return rm.GetString(key);
-  }}");
+  //// internal static System.Globalization.CultureInfo Culture
+  //// {{
+  ////   get {{ return rc; }}
+  ////   set {{ rc = value; }}
+  //// }}");
     var g = XDocument.Load(Path.Combine(slnpfad, fn));
     var datas = g.Descendants("data");
     foreach (var d in datas)
@@ -612,7 +606,17 @@ using System;
 /// </summary>
 public partial class {filename}
 {{
+#pragma warning disable SA1600, SA1300, SA1311
   private static readonly System.Resources.ResourceManager rm = new(""{ns}.{filename}"", typeof({filename}).Assembly);{values}
+#pragma warning restore SA1600, SA1300, SA1311
+
+  /// <summary>Gets message from key string.</summary>
+  /// <param name=""key"">Affected key string.</param>
+  /// <returns>Message from key.</returns>
+  public static string Get(string key)
+  {{
+    return rm.GetString(key);
+  }}
 }}
 ";
     var datei = Path.Combine(slnpfad, $"CSBP/Resources", $"{filename}.cs");
@@ -813,7 +817,7 @@ public partial class {filename}
     private ComboBox {id};");
       gc.Events.Append($@"
 
-    /// <summary>Behandlung von {id.ToFirstUpper()}.</summary>
+    /// <summary>Handle {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}Changed(object sender, EventArgs e)
@@ -881,7 +885,7 @@ public partial class {filename}
       );
       gc.Events.Append($@"
 
-    /// <summary>Behandlung von {id.ToFirstUpper()}.</summary>
+    /// <summary>Handle {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}Clicked(object sender, EventArgs e)
@@ -991,7 +995,7 @@ public partial class {filename}
     private TreeView {id};");
       gc.Events.Append($@"
 
-    /// <summary>Behandlung von {id.ToFirstUpper()}.</summary>
+    /// <summary>Handle {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}RowActivated(object sender, RowActivatedArgs e)
@@ -1037,7 +1041,7 @@ public partial class {filename}
     private Button {name}Action;");
           gc.Events.Append($@"
 
-    /// <summary>Behandlung von {name.ToFirstUpper()}.</summary>
+    /// <summary>Handle {name.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{name.ToFirstUpper()}Clicked(object sender, EventArgs e)
@@ -1090,7 +1094,7 @@ public partial class {filename}
       {id}.Show();");
       gc.Events.Append($@"
 
-    /// <summary>Behandlung von {id}.</summary>
+    /// <summary>Handle {id}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}DateChanged(object sender, DateChangedEventArgs e)

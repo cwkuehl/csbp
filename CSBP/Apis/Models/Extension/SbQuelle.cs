@@ -2,23 +2,22 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
-{
-  using CSBP.Base;
+namespace CSBP.Apis.Models;
 
-  /// <summary>
-  /// Entity class for table SB_Quelle.
-  /// </summary>
-  public partial class SbQuelle : ModelBase
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table SB_Quelle.
+/// </summary>
+public partial class SbQuelle : ModelBase
+{
+  /// <summary>Gets the source description.</summary>
+  ////[NotMapped]
+  public string SourceName
   {
-    /// <summary>Holt die Quellenbeschreibung.</summary>
-    ////[NotMapped]
-    public string SourceName
+    get
     {
-      get
-      {
-        return Functions.Append(Beschreibung, ", ", Autor);
-      }
+      return Functions.Append(Beschreibung, ", ", Autor);
     }
   }
 }

@@ -2,118 +2,124 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
+namespace CSBP.Apis.Models;
+
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table AD_Sitz.
+/// </summary>
+public partial class AdSitz : ModelBase
 {
-  using System;
-  using System.ComponentModel.DataAnnotations.Schema;
-  using System.Linq;
-  using System.Text;
-  using CSBP.Base;
-
-  /// <summary>
-  /// Entity class for table AD_Sitz.
-  /// </summary>
-  public partial class AdSitz : ModelBase
+  /// <summary>Gets last name and first name.</summary>
+  ////[NotMapped]
+  public string PersonName
   {
-    /// <summary>Holt den Namen inkl. Vornamen.</summary>
-    ////[NotMapped]
-    public string PersonName
+    get
     {
-      get
-      {
-        var sb = new StringBuilder();
-        sb.Append(Person?.Person_Status == 0 ? "" : "(");
-        sb.Append(Person?.Name1);
-        if (!string.IsNullOrEmpty(Person?.Vorname))
-          sb.Append(", ").Append(Person?.Vorname);
-        sb.Append(Person?.Person_Status == 0 ? "" : ")");
-        return sb.ToString();
-      }
+      var sb = new StringBuilder();
+      sb.Append(Person?.Person_Status == 0 ? "" : "(");
+      sb.Append(Person?.Name1);
+      if (!string.IsNullOrEmpty(Person?.Vorname))
+        sb.Append(", ").Append(Person?.Vorname);
+      sb.Append(Person?.Person_Status == 0 ? "" : ")");
+      return sb.ToString();
     }
+  }
 
-    /// <summary>Holt den Sitz-Namen inkl. Ort.</summary>
-    ////[NotMapped]
-    public string SiteName
+  /// <summary>Gets site name.</summary>
+  ////[NotMapped]
+  public string SiteName
+  {
+    get
     {
-      get
-      {
-        var sb = new StringBuilder();
-        sb.Append(Sitz_Status == 0 ? "" : "(");
-        sb.Append(Name);
-        if (!string.IsNullOrEmpty(Address?.Ort))
-          sb.Append(", ").Append(Address?.Ort);
-        sb.Append(Sitz_Status == 0 ? "" : ")");
-        return sb.ToString();
-      }
+      var sb = new StringBuilder();
+      sb.Append(Sitz_Status == 0 ? "" : "(");
+      sb.Append(Name);
+      if (!string.IsNullOrEmpty(Address?.Ort))
+        sb.Append(", ").Append(Address?.Ort);
+      sb.Append(Sitz_Status == 0 ? "" : ")");
+      return sb.ToString();
     }
+  }
 
-    /// <summary>Holt oder setzt die Person.</summary>
-    [NotMapped]
-    public AdPerson Person { get; set; }
+  /// <summary>Gets or sets the person.</summary>
+  [NotMapped]
+  public AdPerson Person { get; set; }
 
-    /// <summary>Holt oder setzt die Adresse.</summary>
-    [NotMapped]
-    public AdAdresse Address { get; set; }
+  /// <summary>Gets or sets the address.</summary>
+  [NotMapped]
+  public AdAdresse Address { get; set; }
 
-    /// <summary>Holt die Benutzer-ID der ersten Erfassung.</summary>
-    [NotMapped]
-    public string CreatedBy
+  /// <summary>Gets the user who created.</summary>
+  [NotMapped]
+  public string CreatedBy
+  {
+    get
     {
-      get
+      return new[]
       {
-        return new[] {
-          new { by = Angelegt_Von, at = Angelegt_Am },
-          new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
-          new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am }
-        }.Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
-        .OrderBy(a => a.at).FirstOrDefault()?.by;
+        new { by = Angelegt_Von, at = Angelegt_Am },
+        new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
+        new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am },
       }
+      .Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
+      .OrderBy(a => a.at).FirstOrDefault()?.by;
     }
+  }
 
-    /// <summary>Holt den Zeitpunkt der ersten Erfassung.</summary>
-    [NotMapped]
-    public DateTime? CreatedAt
+  /// <summary>Gets the creation time.</summary>
+  [NotMapped]
+  public DateTime? CreatedAt
+  {
+    get
     {
-      get
+      return new[]
       {
-        return new[] {
-          new { by = Angelegt_Von, at = Angelegt_Am },
-          new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
-          new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am }
-        }.Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
-        .OrderBy(a => a.at).FirstOrDefault()?.at;
+        new { by = Angelegt_Von, at = Angelegt_Am },
+        new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
+        new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am },
       }
+      .Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
+      .OrderBy(a => a.at).FirstOrDefault()?.at;
     }
+  }
 
-    /// <summary>Holt die Benutzer-ID der letzten Änderung.</summary>
-    [NotMapped]
-    public string ChangedBy
+  /// <summary>Gets the user who changed the last time.</summary>
+  [NotMapped]
+  public string ChangedBy
+  {
+    get
     {
-      get
+      return new[]
       {
-        return new[] {
-          new { by = Angelegt_Von, at = Angelegt_Am },
-          new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
-          new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am }
-        }.Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
-        .OrderByDescending(a => a.at).FirstOrDefault()?.by;
+        new { by = Angelegt_Von, at = Angelegt_Am },
+        new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
+        new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am },
       }
+      .Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
+      .OrderByDescending(a => a.at).FirstOrDefault()?.by;
     }
+  }
 
-    /// <summary>Holt den Zeitpunkt der letzten Änderung.</summary>
-    [NotMapped]
-    public DateTime? ChangedAt
+  /// <summary>Gets the time of last change.</summary>
+  [NotMapped]
+  public DateTime? ChangedAt
+  {
+    get
     {
-      get
+      return new[]
       {
-        return new[] {
-          new { by = Angelegt_Von, at = Angelegt_Am },
-          new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
-          new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am }
-        }.Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
-        .OrderByDescending(a => a.at).FirstOrDefault()?.at;
+        new { by = Angelegt_Von, at = Angelegt_Am },
+        new { by = Person?.Angelegt_Von, at = Person?.Angelegt_Am },
+        new { by = Address?.Angelegt_Von, at = Address?.Angelegt_Am },
       }
+      .Where(a => !string.IsNullOrEmpty(a.by) && a.at.HasValue)
+      .OrderByDescending(a => a.at).FirstOrDefault()?.at;
     }
-
   }
 }

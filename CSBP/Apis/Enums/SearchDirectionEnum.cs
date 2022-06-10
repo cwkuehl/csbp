@@ -2,15 +2,23 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Enums
+namespace CSBP.Apis.Enums;
+
+/// <summary>Enum for search directions.</summary>
+public enum SearchDirectionEnum
 {
-  /// <summary>Such-Richtungen für das Tagebuch.</summary>
-  public enum SearchDirectionEnum
-  {
-    None,
-    First,
-    Back,
-    Forward,
-    Last
-  }
+  /// <summary>No search.</summary>
+  None,
+
+  /// <summary>Search for first entry.</summary>
+  First,
+
+  /// <summary>Search for previous entry.</summary>
+  Back,
+
+  /// <summary>Search for next entry.</summary>
+  Forward,
+
+  /// <summary>Search for first entry.</summary>
+  Last,
 }

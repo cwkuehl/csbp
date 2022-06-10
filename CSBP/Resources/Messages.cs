@@ -11,20 +11,16 @@ using System;
 /// </summary>
 public partial class Messages
 {
+#pragma warning disable SA1600, SA1300, SA1311
   private static readonly System.Resources.ResourceManager rm = new("CSBP.Resources.Messages", typeof(Messages).Assembly);
 
-  // private static System.Globalization.CultureInfo rc;
+  //// private static System.Globalization.CultureInfo rc;
 
-  // internal static System.Globalization.CultureInfo Culture
-  // {
-  //   get { return rc; }
-  //   set { rc = value; }
-  // }
-
-  public static string Get(string key)
-  {
-    return rm.GetString(key);
-  }
+  //// internal static System.Globalization.CultureInfo Culture
+  //// {
+  ////   get { return rc; }
+  ////   set { rc = value; }
+  //// }
 
   public static string parm_AG_ANWENDUNGS_TITEL_value
   {
@@ -7324,5 +7320,14 @@ public partial class Messages
   public static string WP510_betrag_tt
   {
     get { return rm.GetString("WP510.betrag.tt"); }
+  }
+#pragma warning restore SA1600, SA1300, SA1311
+
+  /// <summary>Gets message from key string.</summary>
+  /// <param name="key">Affected key string.</param>
+  /// <returns>Message from key.</returns>
+  public static string Get(string key)
+  {
+    return rm.GetString(key);
   }
 }

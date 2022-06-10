@@ -1319,7 +1319,6 @@ namespace CSBP.Services
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
     /// <param name="l">List of lines for GEDCOM file.</param>
-    /// <param name="map">Mapping for xref.</param>
     /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
     /// <param name="filename">Affected file name.</param>
     private static void WriteHead(ServiceDaten daten, List<string> l, string version, string filename)

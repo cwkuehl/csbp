@@ -2,14 +2,20 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Enums
+namespace CSBP.Apis.Enums;
+
+/// <summary>Enum for user permissions.</summary>
+public enum PermissionEnum
 {
-  /// <summary>Berechtigungen für Benutzer.</summary>
-  public enum PermissionEnum
-  {
-    Without = -1,
-    User = 0,
-    Admin = 1,
-    All = 2
-  }
+  /// <summary>No permission.</summary>
+  Without = -1,
+
+  /// <summary>Normal user permission.</summary>
+  User = 0,
+
+  /// <summary>Admin permission for client.</summary>
+  Admin = 1,
+
+  /// <summary>Admin permission for all clients.</summary>
+  All = 2,
 }
