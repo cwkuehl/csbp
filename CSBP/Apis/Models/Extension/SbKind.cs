@@ -12,7 +12,7 @@ using CSBP.Base;
 /// </summary>
 public partial class SbKind : ModelBase
 {
-  /// <summary>Get or set the child.</summary>
+  /// <summary>Gets or sets the child.</summary>
   [NotMapped]
   public SbPerson Child { get; set; }
 }

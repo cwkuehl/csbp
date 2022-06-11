@@ -2,47 +2,65 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Services
+namespace CSBP.Apis.Services;
+
+/// <summary>
+/// Interface for login service.
+/// </summary>
+public interface ILoginService
 {
-  public interface ILoginService
-  {
-    /// <summary>
-    /// Is login wihtout password?
-    /// </summary>
-    /// <param name="daten">Service data for database access.</param>
-    /// <returns>Is login wihtout password?</returns>
-    ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten);
+  /// <summary>
+  /// Checks if the login without password.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Is login without password or not.</returns>
+  ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten);
 
-    /// <summary>
-    /// Do login with all checks.
-    /// </summary>
-    /// <param name="daten">Affected client number and user id.</param>
-    /// <param name="kennwort">Affected password.</param>
-    /// <param name="speichern">Save password?</param>
-    /// <returns>Possibly errors.</returns>
-    ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern);
+  /// <summary>
+  /// Do login with all checks.
+  /// </summary>
+  /// <param name="daten">Affected client number and user id.</param>
+  /// <param name="kennwort">Affected password.</param>
+  /// <param name="save">Save password or not.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool save);
 
-    ServiceErgebnis ChangePassword(ServiceDaten daten, int client, string id, string passwordold,
-        string passwordnew, bool speichern);
-    ServiceErgebnis Logout(ServiceDaten daten);
+  /// <summary>
+  /// Changes the password of an user.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="client">Affected client id.</param>
+  /// <param name="id">Affected user id.</param>
+  /// <param name="passwordold">Old password.</param>
+  /// <param name="passwordnew">New password.</param>
+  /// <param name="save">Save password or not.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis ChangePassword(ServiceDaten daten, int client, string id, string passwordold,
+      string passwordnew, bool save);
 
-    /// <summary>
-    /// Undo last transaction.
-    /// </summary>
-    /// <param name="daten">Service data for database access.</param>
-    /// <returns>Is anything changed?</returns>
-    ServiceErgebnis<bool> Undo(ServiceDaten daten);
+  /// <summary>
+  /// Does the logout.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis Logout(ServiceDaten daten);
 
-    /// <summary>
-    /// Redo last transaction.
-    /// </summary>
-    /// <param name="daten">Service data for database access.</param>
-    /// <returns>Is anything changed?</returns>
-    ServiceErgebnis<bool> Redo(ServiceDaten daten);
+  /// <summary>
+  /// Undo last transaction.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Is anything changed or not.</returns>
+  ServiceErgebnis<bool> Undo(ServiceDaten daten);
 
-    /// <summary>Test function.</summary>
-    /// <param name="daten">Service data for database access.</param>
-    /// <returns>Possibly errors.</returns>
-    ServiceErgebnis Test(ServiceDaten daten);
-  }
+  /// <summary>
+  /// Redo last transaction.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Is anything changed or not.</returns>
+  ServiceErgebnis<bool> Redo(ServiceDaten daten);
+
+  /// <summary>Test function.</summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis Test(ServiceDaten daten);
 }

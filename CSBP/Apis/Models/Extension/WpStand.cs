@@ -2,18 +2,17 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
-{
-  using System.ComponentModel.DataAnnotations.Schema;
-  using CSBP.Base;
+namespace CSBP.Apis.Models;
 
-  /// <summary>
-  /// Entity class for table WP_Stand.
-  /// </summary>
-  public partial class WpStand : ModelBase
-  {
-    /// <summary>Holt oder setzt die Wertpapier-Bezeichnung.</summary>
-    [NotMapped]
-    public string StockDescription { get; set; }
-  }
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table WP_Stand.
+/// </summary>
+public partial class WpStand : ModelBase
+{
+  /// <summary>Gets or sets holt the stock description.</summary>
+  [NotMapped]
+  public string StockDescription { get; set; }
 }

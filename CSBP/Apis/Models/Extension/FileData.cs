@@ -7,19 +7,19 @@ namespace CSBP.Apis.Models;
 using CSBP.Base;
 
 /// <summary>
-/// Entity class for a file with name and contest.
+/// Entity class for a file with name and content.
 /// </summary>
 public partial class FileData : ModelBase
 {
-  /// <summary>Default constructor.</summary>
+  /// <summary>Initializes a new instance of the <see cref="FileData"/> class.</summary>
   public FileData()
   {
     Functions.MachNichts();
   }
 
-  /// <summary>Get or set the file name.</summary>
+  /// <summary>Gets or sets the file name.</summary>
   public string Name { get; set; }
 
-  /// <summary>Get or set the file content.</summary>
+  /// <summary>Gets or sets the file content.</summary>
   public byte[] Bytes { get; set; }
 }

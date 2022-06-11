@@ -2,26 +2,25 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
+namespace CSBP.Apis.Models;
+
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table MA_Parameter.
+/// </summary>
+public partial class MaParameter : ModelBase
 {
-  using System.ComponentModel.DataAnnotations.Schema;
-  using CSBP.Base;
+  /// <summary>Gets or sets the comment.</summary>
+  [NotMapped]
+  public string Comment { get; set; }
 
-  /// <summary>
-  /// Entity class for table MA_Parameter.
-  /// </summary>
-  public partial class MaParameter : ModelBase
-  {
-    /// <summary>Holt oder setzt den Kommentar.</summary>
-    [NotMapped]
-    public string Comment { get; set; }
+  /// <summary>Gets or sets holt the default value.</summary>
+  [NotMapped]
+  public string Default { get; set; }
 
-    /// <summary>Holt oder setzt den Standardwert.</summary>
-    [NotMapped]
-    public string Default { get; set; }
-
-    /// <summary>Holt oder setzt einen Wert, der angibt, ob der Parameter nicht in der Datenbank gespeichert wird.</summary>
-    [NotMapped]
-    public bool NotDatabase { get; set; }
-  }
+  /// <summary>Gets or sets a value indicating whether the parameter is stored in the database.</summary>
+  [NotMapped]
+  public bool NotDatabase { get; set; }
 }
