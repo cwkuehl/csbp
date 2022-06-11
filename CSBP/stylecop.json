@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "cwkuehl.de",
+      "copyrightText": "Copyright (c) {companyName}. All rights reserved.",
+      "xmlHeader": true
+    }
+  },
+  "layoutRules": {
+    "newlineAtEndOfFile": "require"
+  },
+  "indentation": {
+    "indentationSize": 2,
+    "useTabs": false
+  },
+  "namingRules": {},
+  "orderingRules": {
+    "systemUsingDirectivesFirst": false,
+    "usingDirectivesPlacement": "outsideNamespace",
+    "elementOrder": [
+      "kind",
+      "constant",
+      "accessibility",
+      "static",
+      "readonly"
+    ]
+  }
+}

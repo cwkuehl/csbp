@@ -15,6 +15,8 @@ using Gtk;
 /// <summary>Controller for AD120Birthdays dialog.</summary>
 public partial class AD120Birthdays : CsbpBin
 {
+#pragma warning disable CS0649
+
   /// <summary>Label datum0.</summary>
   [Builder.Object]
   private readonly Label datum0;
@@ -42,6 +44,8 @@ public partial class AD120Birthdays : CsbpBin
   [Builder.Object]
   private readonly Button ok;
 
+#pragma warning restore CS0649
+
   /// <summary>Initializes a new instance of the <see cref="AD120Birthdays"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
@@ -66,10 +70,10 @@ public partial class AD120Birthdays : CsbpBin
     ok.GrabFocus();
   }
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
   public static AD120Birthdays Create(object p1 = null, CsbpBin p = null)
   {
     return new AD120Birthdays(GetBuilder("AD120Birthdays", out var handle), handle, p1: p1, p: p);

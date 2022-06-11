@@ -17,27 +17,31 @@ public class BackupEntry : ModelBase
   /// <summary>Gets or sets the uid.</summary>
   public string Uid { get; set; }
 
+  /// <summary>Gets or sets the source directories.</summary>
   public string[] Sources { get; set; }
 
+  /// <summary>Gets or sets the target directory.</summary>
   public string Target { get; set; }
 
+  /// <summary>Gets or sets a value indicating whether to encrypt or not.</summary>
   public bool Encrypted { get; set; }
 
+  /// <summary>Gets or sets a value indicating whether to zip or not.</summary>
   public bool Zipped { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Von.</summary>
+  /// <summary>Gets or sets the value of column Angelegt_Von.</summary>
   public string Angelegt_Von { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Angelegt_Am.</summary>
+  /// <summary>Gets or sets the value of column Angelegt_Am.</summary>
   public DateTime? Angelegt_Am { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Geaendert_Von.</summary>
+  /// <summary>Gets or sets the value of column Geaendert_Von.</summary>
   public string Geaendert_Von { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Geaendert_Am.</summary>
+  /// <summary>Gets or sets the value of column Geaendert_Am.</summary>
   public DateTime? Geaendert_Am { get; set; }
 
-  /// <summary>Holt die Quellen als String.</summary>
+  /// <summary>Gets the source as a string.</summary>
   public string SourcesText
   {
     get
@@ -50,7 +54,7 @@ public class BackupEntry : ModelBase
   /// Splits the sources.
   /// </summary>
   /// <returns>The sources.</returns>
-  /// <param name="sources">Splitted Sources.</param>
+  /// <param name="sources">Splitted sources.</param>
   public static string[] SplitSources(string sources)
   {
     if (string.IsNullOrWhiteSpace(sources))

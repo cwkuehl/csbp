@@ -2,35 +2,33 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models
+namespace CSBP.Apis.Models;
+
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Base;
+
+/// <summary>
+/// Entity class for table HH_Bilanz.
+/// </summary>
+public partial class HhBilanz : ModelBase
 {
-  using System;
-  using System.ComponentModel.DataAnnotations.Schema;
-  using CSBP.Base;
+  /// <summary>Gets or sets the account name.</summary>
+  [NotMapped]
+  public string AccountName { get; set; }
 
-  /// <summary>
-  /// Entity class for table HH_Bilanz.
-  /// </summary>
-  public partial class HhBilanz : ModelBase
-  {
-    /// <summary>Holt oder setzt den Kontonamen.</summary>
-    [NotMapped]
-    public string AccountName { get; set; }
+  /// <summary>Gets or sets the sorting id.</summary>
+  [NotMapped]
+  public string AccountSort { get; set; }
 
-    /// <summary>Holt oder setzt die Sortierung des Kontos.</summary>
-    [NotMapped]
-    public string AccountSort { get; set; }
+  /// <summary>Gets or sets the account type.</summary>
+  [NotMapped]
+  public int AccountType { get; set; }
 
-    /// <summary>Holt oder setzt die Art des Kontos.</summary>
-    [NotMapped]
-    public int AccountType { get; set; }
+  /// <summary>Gets or sets the initial account sum.</summary>
+  [NotMapped]
+  public decimal AccountSum { get; set; }
 
-    /// <summary>Holt oder setzt die Summe des Kontos.</summary>
-    [NotMapped]
-    public decimal AccountSum { get; set; }
-
-    /// <summary>Holt oder setzt die EUR-Summe des Kontos.</summary>
-    [NotMapped]
-    public decimal AccountEsum { get; set; }
-  }
+  /// <summary>Gets or sets the initial account euro sum.</summary>
+  [NotMapped]
+  public decimal AccountEsum { get; set; }
 }

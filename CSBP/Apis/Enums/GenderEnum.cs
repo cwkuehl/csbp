@@ -13,6 +13,7 @@ public sealed class GenderEnum
   private readonly string value;
 
 #pragma warning disable SA1204, SA1202
+
   /// <summary>All values must be initialized before the single values.</summary>
   private static readonly Dictionary<string, GenderEnum> Instance = new();
 
@@ -30,6 +31,7 @@ public sealed class GenderEnum
 
   /// <summary>Gender female 2.</summary>
   public static readonly GenderEnum WEIBLICH = new("w");
+
 #pragma warning restore SA1204, SA1202
 
   /// <summary>Initializes a new instance of the <see cref="GenderEnum"/> class.</summary>

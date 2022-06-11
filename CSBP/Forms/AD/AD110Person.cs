@@ -17,6 +17,8 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AD110Person dialog.</summary>
 public partial class AD110Person : CsbpBin
 {
+#pragma warning disable CS0649
+
   /// <summary>Entry nr.</summary>
   [Builder.Object]
   private readonly Entry nr;
@@ -160,6 +162,8 @@ public partial class AD110Person : CsbpBin
   [Builder.Object]
   private readonly Button ok;
 
+#pragma warning restore CS0649
+
   /// <summary>Dialog model.</summary>
   private AdSitz model;
 
@@ -188,10 +192,10 @@ public partial class AD110Person : CsbpBin
     titel.GrabFocus();
   }
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
   public static AD110Person Create(object p1 = null, CsbpBin p = null)
   {
     return new AD110Person(GetBuilder("AD110Person", out var handle), handle, p1: p1, p: p);

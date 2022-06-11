@@ -17,6 +17,14 @@ public partial class WpStandRep
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets latest price of a stock.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Affected client number.</param>
+  /// <param name="wpuid">Affected stock id.</param>
+  /// <param name="to">Affected to date.</param>
+  /// <returns>Latest price or null.</returns>
   public WpStand GetLatest(ServiceDaten daten, int mandantnr, string wpuid, DateTime? to = null)
   {
     var db = GetDb(daten);
@@ -26,6 +34,16 @@ public partial class WpStandRep
     return wl.OrderByDescending(a => a.Datum).FirstOrDefault();
   }
 
+  /// <summary>
+  /// Gets list of prices.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Affected client number.</param>
+  /// <param name="from">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
+  /// <param name="uid">Affected stock id.</param>
+  /// <param name="max">Maximum of count of entry, 0 means all.</param>
+  /// <returns>List of prices.</returns>
   public List<WpStand> GetList(ServiceDaten daten, int mandantnr, DateTime? from, DateTime? to = null,
     string uid = null, int max = 0)
   {

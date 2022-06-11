@@ -17,6 +17,9 @@ using System.Xml.Serialization;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
+/// <summary>
+/// General useful functions.
+/// </summary>
 public static class Functions
 {
   static readonly RandomNumberGenerator csp = RandomNumberGenerator.Create();

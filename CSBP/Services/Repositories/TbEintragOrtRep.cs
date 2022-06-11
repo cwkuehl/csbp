@@ -41,7 +41,7 @@ public partial class TbEintragOrtRep
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="from">Affected from date.</param>
-  /// <param name="to">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <returns>List of positions.</returns>
   public List<TbEintragOrt> GetList(ServiceDaten daten, DateTime from, DateTime to, string puid = null)
@@ -49,7 +49,6 @@ public partial class TbEintragOrtRep
     var db = GetDb(daten);
     var l = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr
       && a.Datum_Von <= to && a.Datum_Bis >= from);
-    // && !(a.Datum_Bis < from || a.Datum_Von > to));
     if (!string.IsNullOrEmpty(puid))
       l = l.Where(a => a.Ort_Uid == puid);
     return l.OrderBy(a => a.Ort_Uid).ThenBy(a => a.Datum_Von).ToList();

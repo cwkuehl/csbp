@@ -16,6 +16,7 @@ public sealed class GedcomEventEnum
   private readonly string symbol;
 
 #pragma warning disable SA1204, SA1202
+
   /// <summary>All values must be initialized before the single values.</summary>
   private static readonly Dictionary<string, GedcomEventEnum> Instance = new();
 
@@ -36,6 +37,7 @@ public sealed class GedcomEventEnum
 
   /// <summary>Ereignis Heirat.</summary>
   public static readonly GedcomEventEnum MARRIAGE = new("MARR", "h");
+
 #pragma warning restore SA1204, SA1202
 
   /// <summary>Initializes a new instance of the <see cref="GedcomEventEnum"/> class.</summary>
