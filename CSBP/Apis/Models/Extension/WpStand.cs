@@ -12,7 +12,7 @@ using CSBP.Base;
 /// </summary>
 public partial class WpStand : ModelBase
 {
-  /// <summary>Gets or sets holt the stock description.</summary>
+  /// <summary>Gets or sets the stock description.</summary>
   [NotMapped]
   public string StockDescription { get; set; }
 }

@@ -12,30 +12,30 @@ using CSBP.Base;
 /// </summary>
 public partial class TbEintragOrt : ModelBase
 {
-  /// <summary>Holt oder setzt den Wert der Spalte Bezeichnung.</summary>
+  /// <summary>Gets or sets the Description.</summary>
   [NotMapped]
-  public string Bezeichnung { get; set; }
+  public string Description { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Breite.</summary>
+  /// <summary>Gets or sets the Latitude.</summary>
   [NotMapped]
-  public decimal Breite { get; set; }
+  public decimal Latitude { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Laenge.</summary>
+  /// <summary>Gets or sets the Longitude.</summary>
   [NotMapped]
-  public decimal Laenge { get; set; }
+  public decimal Longitude { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Hoehe.</summary>
+  /// <summary>Gets or sets the Height.</summary>
   [NotMapped]
-  public decimal Hoehe { get; set; }
+  public decimal Height { get; set; }
 
-  /// <summary>Holt oder setzt den Wert der Spalte Notiz.</summary>
+  /// <summary>Gets or sets the memo.</summary>
   [NotMapped]
-  public string Notiz { get; set; }
+  public string Memo { get; set; }
 
   /// <summary>
-  /// Liefert Hash-Wert des Datensatzes.
+  /// Gets hash of values.
   /// </summary>
-  /// <returns>Hash-Wert des Datensatzes.</returns>
+  /// <returns>Hash of values.</returns>
   public string Hash()
   {
     return $"{Ort_Uid ?? ""}#{Datum_Von}#{Datum_Bis}";

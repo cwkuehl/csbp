@@ -13,35 +13,35 @@ using CSBP.Base;
 /// </summary>
 public partial class HhBuchung : ModelBase
 {
-  /// <summary>Holt oder setzt den Sollkontonamen.</summary>
+  /// <summary>Gets or sets the debit account name.</summary>
   [NotMapped]
   public string DebitName { get; set; }
 
-  /// <summary>Holt oder setzt das Ab-Datum des Sollkontos.</summary>
+  /// <summary>Gets or sets the debit account from date.</summary>
   [NotMapped]
   public DateTime? DebitFrom { get; set; }
 
-  /// <summary>Holt oder setzt das Bis-Datum des Sollkontos.</summary>
+  /// <summary>Gets or sets the debit account to date.</summary>
   [NotMapped]
   public DateTime? DebitTo { get; set; }
 
-  /// <summary>Holt oder setzt die Art des Sollkontos.</summary>
+  /// <summary>Gets or sets the debit account type.</summary>
   [NotMapped]
   public string DebitType { get; set; }
 
-  /// <summary>Holt oder setzt den Habenkontonamen.</summary>
+  /// <summary>Gets or sets the credit account name.</summary>
   [NotMapped]
   public string CreditName { get; set; }
 
-  /// <summary>Holt oder setzt das Ab-Datum des Habenkontos.</summary>
+  /// <summary>Gets or sets the credit account from date.</summary>
   [NotMapped]
   public DateTime? CreditFrom { get; set; }
 
-  /// <summary>Holt oder setzt das Bis-Datum des Habenkontos.</summary>
+  /// <summary>Gets or sets the credit account to date.</summary>
   [NotMapped]
   public DateTime? CreditTo { get; set; }
 
-  /// <summary>Holt oder setzt die Art des Habenkontos.</summary>
+  /// <summary>Gets or sets the credit account type.</summary>
   [NotMapped]
   public string CreditType { get; set; }
 }

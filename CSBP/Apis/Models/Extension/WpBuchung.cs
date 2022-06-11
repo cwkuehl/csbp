@@ -13,22 +13,26 @@ using CSBP.Base;
 /// </summary>
 public partial class WpBuchung : ModelBase
 {
-  /// <summary>Holt oder setzt die Wertpapier-Bezeichnung.</summary>
+  /// <summary>Gets or sets the stock description.</summary>
   [NotMapped]
   public string StockDescription { get; set; }
 
-  /// <summary>Holt oder setzt die Anlage-Bezeichnung.</summary>
+  /// <summary>Gets or sets the investment description.</summary>
   [NotMapped]
   public string InvestmentDescription { get; set; }
 
-  /// <summary>Holt oder setzt den aktuellen Preis.</summary>
+  /// <summary>Gets or sets the actuel price.</summary>
   [NotMapped]
   public decimal? Price { get; set; }
 
-  /// <summary>Holt oder setzt die zugehörige Buchung.</summary>
+  /// <summary>Gets or sets the affected booking id.</summary>
   [NotMapped]
   public string BookingUid { get; set; }
 
+  /// <summary>
+  /// Gets all extended values as string.
+  /// </summary>
+  /// <returns>Extended values as string.</returns>
   protected override string GetExtension()
   {
     var sb = new StringBuilder();
@@ -36,6 +40,10 @@ public partial class WpBuchung : ModelBase
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Sets all extended values from string.
+  /// </summary>
+  /// <param name="value">Extended values as string.</param>
   protected override void SetExtension(string value)
   {
     var arr = (value ?? "").Split(';');

@@ -17,7 +17,7 @@ namespace CSBP.Services
   using static CSBP.Resources.M;
   using static CSBP.Resources.Messages;
 
-  // Bodenheim 49.9353, 8.3184
+  //// Bodenheim 49.9353, 8.3184
 
   public class DiaryService : ServiceBase, IDiaryService
   {
@@ -350,18 +350,18 @@ namespace CSBP.Services
           {
             if (sb.Length > 2)
               sb.Append("; ");
-            sb.Append(p.Bezeichnung);
+            sb.Append(p.Description);
             if (!plist.ContainsKey(p.Ort_Uid))
             {
               plist.Add(p.Ort_Uid, new TbOrt
               {
                 Mandant_Nr = p.Mandant_Nr,
                 Uid = p.Ort_Uid,
-                Bezeichnung = p.Bezeichnung,
-                Breite = p.Breite,
-                Laenge = p.Laenge,
-                Hoehe = p.Hoehe,
-                Notiz = p.Notiz
+                Bezeichnung = p.Description,
+                Breite = p.Latitude,
+                Laenge = p.Longitude,
+                Hoehe = p.Height,
+                Notiz = p.Memo
               }
               );
             }

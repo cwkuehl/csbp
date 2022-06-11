@@ -12,7 +12,7 @@ using CSBP.Base;
 /// </summary>
 public partial class SbPerson : ModelBase
 {
-  /// <summary>Holt den komplette Ahnennamen.</summary>
+  /// <summary>Gets the complete ancestor name.</summary>
   ////[NotMapped]
   public string AncestorName
   {
@@ -22,87 +22,59 @@ public partial class SbPerson : ModelBase
     }
   }
 
-  /// <summary>Holt oder setzt das Geburtsdatum.</summary>
+  /// <summary>Gets or sets the birth date.</summary>
   [NotMapped]
   public string Birthdate { get; set; }
 
-  /// <summary>Holt oder setzt den Geburtsort.</summary>
+  /// <summary>Gets or sets the birth place.</summary>
   [NotMapped]
   public string Birthplace { get; set; }
 
-  /// <summary>Holt oder setzt die Geburtsbemerkung.</summary>
+  /// <summary>Gets or sets the birth memo.</summary>
   [NotMapped]
   public string Birthmemo { get; set; }
 
-  /// <summary>Holt oder setzt das Taufdatum.</summary>
+  /// <summary>Gets or sets the baptist date.</summary>
   [NotMapped]
   public string Christdate { get; set; }
 
-  /// <summary>Holt oder setzt den Taufort.</summary>
+  /// <summary>Gets or sets the baptist place.</summary>
   [NotMapped]
   public string Christplace { get; set; }
 
-  /// <summary>Holt oder setzt die Taufbemerkung.</summary>
+  /// <summary>Gets or sets the baptist memo.</summary>
   [NotMapped]
   public string Christmemo { get; set; }
 
-  /// <summary>Holt oder setzt das Todesdatum.</summary>
+  /// <summary>Gets or sets the death date.</summary>
   [NotMapped]
   public string Deathdate { get; set; }
 
-  /// <summary>Holt oder setzt den Todesort.</summary>
+  /// <summary>Gets or sets the death place.</summary>
   [NotMapped]
   public string Deathplace { get; set; }
 
-  /// <summary>Holt oder setzt die Todesbemerkung.</summary>
+  /// <summary>Gets or sets the death memo.</summary>
   [NotMapped]
   public string Deathmemo { get; set; }
 
-  /// <summary>Holt oder setzt das Begräbnisdatum.</summary>
+  /// <summary>Gets or sets the funeral date.</summary>
   [NotMapped]
   public string Burialdate { get; set; }
 
-  /// <summary>Holt oder setzt den Begräbnisort.</summary>
+  /// <summary>Gets or sets the funeral place.</summary>
   [NotMapped]
   public string Burialplace { get; set; }
 
-  /// <summary>Holt oder setzt die Begräbnisbemerkung.</summary>
+  /// <summary>Gets or sets the funeral memo.</summary>
   [NotMapped]
   public string Burialmemo { get; set; }
 
-  /// <summary>Holt oder setzt den Vater.</summary>
+  /// <summary>Gets or sets the father.</summary>
   [NotMapped]
   public SbPerson Father { get; set; }
 
-  // /// <summary>Holt oder setzt die Uid des Vaters.</summary>
-  // [NotMapped]
-  // public string Father_Uid { get; set; }
-
-  // /// <summary>Holt oder setzt den Geburtsnamen des Vaters.</summary>
-  // [NotMapped]
-  // public string Father_Birthname { get; set; }
-
-  // /// <summary>Holt oder setzt die Vornamen des Vaters.</summary>
-  // [NotMapped]
-  // public string Father_Firstname { get; set; }
-
-  /// <summary>Holt oder setzt den Mutter.</summary>
+  /// <summary>Gets or sets the mother.</summary>
   [NotMapped]
   public SbPerson Mother { get; set; }
-
-  // /// <summary>Holt oder setzt die Uid der Mutter.</summary>
-  // [NotMapped]
-  // public string Mother_Uid { get; set; }
-
-  // /// <summary>Holt oder setzt den Geburtsnamen der Mutter.</summary>
-  // [NotMapped]
-  // public string Mother_Birthname { get; set; }
-
-  // /// <summary>Holt oder setzt die Vornamen der Mutter.</summary>
-  // [NotMapped]
-  // public string Mother_Firstname { get; set; }
-
-  // /// <summary>Holt oder setzt einen Wert, der angibt, ob das Buch im eigenem Besitz ist.</summary>
-  // [NotMapped]
-  // public bool StatePossession { get; set; }
 }

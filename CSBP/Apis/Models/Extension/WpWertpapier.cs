@@ -14,146 +14,150 @@ using CSBP.Base;
 /// </summary>
 public partial class WpWertpapier : ModelBase
 {
-  /// <summary>Holt oder setzt die erweiterte Bezeichnung.</summary>
+  /// <summary>Gets or sets the extended description.</summary>
   [NotMapped]
   public string Description { get; set; }
 
-  /// <summary>Holt oder setzt die Relations-Bezeichnung.</summary>
+  /// <summary>Gets or sets the relation description.</summary>
   [NotMapped]
   public string RelationDescription { get; set; }
 
-  /// <summary>Holt oder setzt die Relations-Quelle.</summary>
+  /// <summary>Gets or sets the relation source.</summary>
   [NotMapped]
   public string RelationSource { get; set; }
 
-  /// <summary>Holt oder setzt das Relations-Kürzel.</summary>
+  /// <summary>Gets or sets the relation shortcut.</summary>
   [NotMapped]
-  public string RelationAbbreviation { get; set; }
+  public string RelationShortcut { get; set; }
 
-  /// <summary>Holt oder setzt den aktuellen Kurs.</summary>
+  /// <summary>Gets or sets the current price.</summary>
   [NotMapped]
   public decimal? CurrentPrice { get; set; }
 
-  /// <summary>Holt oder setzt den Signal-Kurs 1.</summary>
+  /// <summary>Gets or sets the signal price 1.</summary>
   [NotMapped]
   public decimal? SignalPrice1 { get; set; }
 
-  /// <summary>Holt oder setzt den Signal-Kurs 2.</summary>
+  /// <summary>Gets or sets the signal price 2.</summary>
   [NotMapped]
   public decimal? SignalPrice2 { get; set; }
 
-  /// <summary>Holt oder setzt den Stopp-Kurs.</summary>
+  /// <summary>Gets or sets the stop price.</summary>
   [NotMapped]
   public decimal? StopPrice { get; set; }
 
-  /// <summary>Holt oder setzt das Muster.</summary>
+  /// <summary>Gets or sets the pattern.</summary>
   [NotMapped]
   public string Pattern { get; set; }
 
-  /// <summary>Holt oder setzt die Sortierung.</summary>
+  /// <summary>Gets or sets the sorting.</summary>
   [NotMapped]
   public string Sorting { get; set; }
 
-  /// <summary>Holt oder setzt die Bewertung.</summary>
+  /// <summary>Gets or sets the assessment.</summary>
   [NotMapped]
   public string Assessment { get; set; }
 
-  /// <summary>Holt oder setzt die Bewertung 1.</summary>
+  /// <summary>Gets or sets the assessment 1.</summary>
   [NotMapped]
   public string Assessment1 { get; set; }
 
-  /// <summary>Holt oder setzt die Bewertung 2.</summary>
+  /// <summary>Gets or sets the assessment 2.</summary>
   [NotMapped]
   public string Assessment2 { get; set; }
 
-  /// <summary>Holt oder setzt die Bewertung 3.</summary>
+  /// <summary>Gets or sets the assessment 3.</summary>
   [NotMapped]
   public string Assessment3 { get; set; }
 
-  /// <summary>Holt oder setzt die Bewertung 4.</summary>
+  /// <summary>Gets or sets the assessment 4.</summary>
   [NotMapped]
   public string Assessment4 { get; set; }
 
-  /// <summary>Holt oder setzt die Bewertung 5.</summary>
+  /// <summary>Gets or sets the assessment 5.</summary>
   [NotMapped]
   public string Assessment5 { get; set; }
 
-  /// <summary>Holt oder setzt den Trend 1.</summary>
+  /// <summary>Gets or sets the trend 1.</summary>
   [NotMapped]
   public string Trend1 { get; set; }
 
-  /// <summary>Holt oder setzt den Trend 2.</summary>
+  /// <summary>Gets or sets the trend 2.</summary>
   [NotMapped]
   public string Trend2 { get; set; }
 
-  /// <summary>Holt oder setzt den Trend 3.</summary>
+  /// <summary>Gets or sets the trend 3.</summary>
   [NotMapped]
   public string Trend3 { get; set; }
 
-  /// <summary>Holt oder setzt den Trend 4.</summary>
+  /// <summary>Gets or sets the trend 4.</summary>
   [NotMapped]
   public string Trend4 { get; set; }
 
-  /// <summary>Holt oder setzt den Trend 5.</summary>
+  /// <summary>Gets or sets the trend 5.</summary>
   [NotMapped]
   public string Trend5 { get; set; }
 
-  /// <summary>Holt oder setzt den Trend.</summary>
+  /// <summary>Gets or sets the trend.</summary>
   [NotMapped]
   public string Trend { get; set; }
 
-  /// <summary>Holt oder setzt das X oder O.</summary>
+  /// <summary>Gets or sets the price date.</summary>
   [NotMapped]
   public DateTime? PriceDate { get; set; }
 
-  /// <summary>Holt oder setzt den Wechsel.</summary>
+  /// <summary>Gets or sets the X or O.</summary>
   [NotMapped]
   public string Xo { get; set; }
 
-  /// <summary>Holt oder setzt den Signal-Bewertung.</summary>
+  /// <summary>Gets or sets the signal assessment.</summary>
   [NotMapped]
   public string SignalAssessment { get; set; }
 
-  /// <summary>Holt oder setzt das X oder O.</summary>
+  /// <summary>Gets or sets the signal date.</summary>
   [NotMapped]
   public DateTime? SignalDate { get; set; }
 
-  /// <summary>Holt oder setzt den Signal-Beschreibung.</summary>
+  /// <summary>Gets or sets the signal description.</summary>
   [NotMapped]
   public string SignalDescription { get; set; }
 
-  /// <summary>Holt oder setzt den Index 1.</summary>
+  /// <summary>Gets or sets the index 1.</summary>
   [NotMapped]
   public string Index1 { get; set; }
 
-  /// <summary>Holt oder setzt den Index 2.</summary>
+  /// <summary>Gets or sets the index 2.</summary>
   [NotMapped]
   public string Index2 { get; set; }
 
-  /// <summary>Holt oder setzt den Index 3.</summary>
+  /// <summary>Gets or sets the index 3.</summary>
   [NotMapped]
   public string Index3 { get; set; }
 
-  /// <summary>Holt oder setzt den Index 4.</summary>
+  /// <summary>Gets or sets the index 4.</summary>
   [NotMapped]
   public string Index4 { get; set; }
 
-  /// <summary>Holt oder setzt den Durchschnitt 200 Tage.</summary>
+  /// <summary>Gets or sets the 200 day average.</summary>
   [NotMapped]
   public string Average200 { get; set; }
 
-  /// <summary>Holt oder setzt den Typ (Aktie oder Anleihe).</summary>
+  /// <summary>Gets or sets the stock type (stock or bond).</summary>
   [NotMapped]
   public string Type { get; set; }
 
-  /// <summary>Holt oder setzt die Währung.</summary>
+  /// <summary>Gets or sets the currency.</summary>
   [NotMapped]
   public string Currency { get; set; }
 
-  /// <summary>Holt oder setzt die Konfiguration.</summary>
+  /// <summary>Gets or sets the configuration.</summary>
   [NotMapped]
   public string Configuration { get; set; }
 
+  /// <summary>
+  /// Gets all extended values as string.
+  /// </summary>
+  /// <returns>Extended values as string.</returns>
   protected override string GetExtension()
   {
     var sb = new StringBuilder();
@@ -185,12 +189,16 @@ public partial class WpWertpapier : ModelBase
     sb.Append(ToString(Index3)).Append(';');
     sb.Append(ToString(Index4)).Append(';');
     sb.Append(ToString(Average200)).Append(';');
-    sb.Append(ToString(Configuration)).Append(';'); //  ?? M0(WP010)
+    sb.Append(ToString(Configuration)).Append(';'); // ?? M0(WP010)
     sb.Append(ToString(Type)).Append(';');
     sb.Append(ToString(Currency)).Append(';');
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Sets all extended values from string.
+  /// </summary>
+  /// <param name="v">Extended values as string.</param>
   protected override void SetExtension(string v)
   {
     var arr = (v ?? "").Split(';');

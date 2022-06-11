@@ -55,7 +55,7 @@ public partial class WpWertpapierRep
         {
           a.stock.RelationDescription = a.relation.Bezeichnung;
           a.stock.RelationSource = a.relation.Datenquelle;
-          a.stock.RelationAbbreviation = a.relation.Kuerzel;
+          a.stock.RelationShortcut = a.relation.Kuerzel;
         }
         return a.stock;
       });

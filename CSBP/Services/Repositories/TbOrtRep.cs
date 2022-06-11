@@ -38,10 +38,6 @@ public partial class TbOrtRep
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text));
     if (!string.IsNullOrEmpty(puid))
       wl = wl.Where(a => a.Uid == puid);
-    // var l2 = desc ? wl.OrderByDescending(a => a.Bezeichnung).ThenByDescending(a => a.Uid)
-    //     : wl.OrderBy(a => a.Bezeichnung).ThenBy(a => a.Uid);
-    // var l3 = l2.Take(max <= 0 ? int.MaxValue : max);
-    // return l3.ToList();
     var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     var gj = wl.ToList().GroupJoin(eo, a => new { a.Mandant_Nr, a.Uid }, b => new { b.Mandant_Nr, Uid = b.Ort_Uid }, (a, b) => new { ort = a, anzahl = b.Sum(a => (a.Datum_Bis - a.Datum_Von).TotalDays + 1) });
     var l2 = desc ? gj.OrderByDescending(a => a.anzahl).ThenByDescending(a => a.ort.Bezeichnung)
@@ -66,11 +62,11 @@ public partial class TbOrtRep
       .OrderBy(a => a.ort.Bezeichnung).ToList()
       .Select(a =>
       {
-        a.b.Bezeichnung = a.ort.Bezeichnung;
-        a.b.Breite = a.ort.Breite;
-        a.b.Laenge = a.ort.Laenge;
-        a.b.Hoehe = a.ort.Hoehe;
-        a.b.Notiz = a.ort.Notiz;
+        a.b.Description = a.ort.Bezeichnung;
+        a.b.Latitude = a.ort.Breite;
+        a.b.Longitude = a.ort.Laenge;
+        a.b.Height = a.ort.Hoehe;
+        a.b.Memo = a.ort.Notiz;
         return a.b;
       });
     return l1.ToList();

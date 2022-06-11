@@ -4,22 +4,16 @@
 
 namespace CSBP.Base;
 
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using CSBP.Services.Factory;
-
 /// <summary>
 /// Static functions for user interface.
 /// </summary>
 public class UiFunctions
 {
   /// <summary>
-  /// Is the shortcut to be ignored for stock calculation?
+  /// Is the shortcut to be ignored for stock calculation or not.
   /// </summary>
   /// <param name="shortcut">Affected shortcut for provider.</param>
-  /// <returns>Is the shortcut to be ignored for calculation?</returns>
+  /// <returns>Is the shortcut to be ignored for calculation or not.</returns>
   public static bool IgnoreShortcut(string shortcut)
   {
     return string.IsNullOrEmpty(shortcut) || shortcut == "0" || shortcut == "xxx";

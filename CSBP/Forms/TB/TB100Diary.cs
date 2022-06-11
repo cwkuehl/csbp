@@ -333,8 +333,7 @@ public partial class TB100Diary : CsbpBin
     var p = PositionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (p != null)
     {
-      // UiTools.StartFile($"https://www.google.com/maps/@{Functions.ToString(p.Breite, 5, Functions.CultureInfoEn)},{Functions.ToString(p.Laenge, 5, Functions.CultureInfoEn)}"); // ,15z
-      UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Functions.ToString(p.Breite, 5, Functions.CultureInfoEn)}/{Functions.ToString(p.Laenge, 5, Functions.CultureInfoEn)}");
+      UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Functions.ToString(p.Latitude, 5, Functions.CultureInfoEn)}/{Functions.ToString(p.Longitude, 5, Functions.CultureInfoEn)}");
     }
   }
 
@@ -386,11 +385,11 @@ public partial class TB100Diary : CsbpBin
         Ort_Uid = k.Uid,
         Datum_Von = date.ValueNn,
         Datum_Bis = date.ValueNn,
-        Bezeichnung = k.Bezeichnung,
-        Breite = k.Breite,
-        Laenge = k.Laenge,
-        Hoehe = k.Hoehe,
-        Notiz = k.Notiz
+        Description = k.Bezeichnung,
+        Latitude = k.Breite,
+        Longitude = k.Laenge,
+        Height = k.Hoehe,
+        Memo = k.Notiz,
       };
       PositionList.Add(p);
       InitPositions();
@@ -477,7 +476,7 @@ public partial class TB100Diary : CsbpBin
   /// </summary>
   /// <param name="d">Betroffenes Datum.</param>
   /// <returns>Service-Ergebnis mit evtl. Fehlermeldungen.</returns>
-  ServiceErgebnis LadeEintraege(DateTime? d)
+  private ServiceErgebnis LadeEintraege(DateTime? d)
   {
     var daten = ServiceDaten;
     var r = new ServiceErgebnis();
@@ -532,10 +531,10 @@ public partial class TB100Diary : CsbpBin
     foreach (var e in PositionList)
     {
       // Nr.;Bezeichnung;Breite;Länge;Von;Bis;Geändert am;Geändert von;Angelegt am;Angelegt von
-      values.Add(new string[] { e.Ort_Uid, e.Bezeichnung, Functions.ToString(e.Breite, 5), Functions.ToString(e.Laenge, 5),
+      values.Add(new string[] { e.Ort_Uid, e.Description, Functions.ToString(e.Latitude, 5), Functions.ToString(e.Longitude, 5),
           Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von, });
     }
     AddStringColumnsSort(positions, TB100_positions_columns, values);
   }
@@ -546,7 +545,7 @@ public partial class TB100Diary : CsbpBin
   /// </summary>
   /// <param name="speichern">Soll vorher gespeichert werden soll?</param>
   /// <param name="laden">Sollen Einträge geladen werden?</param>
-  void BearbeiteEintraege(bool speichern = true, bool laden = true)
+  private void BearbeiteEintraege(bool speichern = true, bool laden = true)
   {
     var daten = ServiceDaten;
     var r = new ServiceErgebnis();
@@ -557,7 +556,7 @@ public partial class TB100Diary : CsbpBin
       var str = EntryOld.Eintrag;
       var p0 = EntryOld.Positions.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
       var p = PositionList.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
-      // Nur speichern, wenn etwas geändert ist.
+      //// Nur speichern, wenn etwas geändert ist.
       if (str == null || Functions.CompString(str, entry.Buffer.Text) != 0 || Functions.CompString(p0, p) != 0)
       {
         var pos = PositionList.Select(a => new Tuple<string, DateTime, DateTime>(a.Ort_Uid, a.Datum_Von, a.Datum_Bis)).ToList();
@@ -574,7 +573,7 @@ public partial class TB100Diary : CsbpBin
     Get(r);
   }
 
-  void LoadMonth(DateTime? d)
+  private void LoadMonth(DateTime? d)
   {
     bool[] m = null;
     if (d.HasValue)
@@ -582,7 +581,7 @@ public partial class TB100Diary : CsbpBin
     date.MarkMonth(m);
   }
 
-  void ClearSearch()
+  private void ClearSearch()
   {
     search1.Text = "%%";
     search2.Text = "%%";
@@ -599,7 +598,7 @@ public partial class TB100Diary : CsbpBin
     // to.Value = null;
   }
 
-  string[] GetSearchArray()
+  private string[] GetSearchArray()
   {
     var search = new[] { search1.Text, search2.Text, search3.Text, search4.Text, search5.Text, search6.Text, search7.Text, search8.Text, search9.Text };
     return search;
@@ -609,7 +608,7 @@ public partial class TB100Diary : CsbpBin
   /// Suche des nächsten passenden Eintrags in der Suchrichtung.
   /// </summary>
   /// <param name="stelle">Gewünschte Such-Richtung.</param>
-  void SearchEntry(SearchDirectionEnum stelle)
+  private void SearchEntry(SearchDirectionEnum stelle)
   {
     BearbeiteEintraege(true, false);
     var puid = GetText(position2);

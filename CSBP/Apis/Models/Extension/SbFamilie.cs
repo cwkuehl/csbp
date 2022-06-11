@@ -12,23 +12,23 @@ using CSBP.Base;
 /// </summary>
 public partial class SbFamilie : ModelBase
 {
-  /// <summary>Holt oder setzt das Hochzeitsdatum.</summary>
+  /// <summary>Gets or sets the marriage date.</summary>
   [NotMapped]
   public string Marriagedate { get; set; }
 
-  /// <summary>Holt oder setzt den Hochzeitsort.</summary>
+  /// <summary>Gets or sets the marriage place.</summary>
   [NotMapped]
   public string Marriageplace { get; set; }
 
-  /// <summary>Holt oder setzt die Hochzeitsbemerkung.</summary>
+  /// <summary>Gets or sets the marriage memo.</summary>
   [NotMapped]
   public string Marriagememo { get; set; }
 
-  /// <summary>Holt oder setzt den Vater.</summary>
+  /// <summary>Gets or sets the father.</summary>
   [NotMapped]
   public SbPerson Father { get; set; }
 
-  /// <summary>Holt oder setzt den Mutter.</summary>
+  /// <summary>Gets or sets the mother.</summary>
   [NotMapped]
   public SbPerson Mother { get; set; }
 }

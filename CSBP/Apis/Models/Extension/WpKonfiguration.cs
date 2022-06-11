@@ -13,34 +13,38 @@ using CSBP.Base;
 /// </summary>
 public partial class WpKonfiguration : ModelBase
 {
-  /// <summary>Holt oder setzt die erweiterte Bezeichnung.</summary>
+  /// <summary>Gets or sets the extended Description.</summary>
   [NotMapped]
   public string Description { get; set; }
 
-  /// <summary>Holt oder setzt die Boxgröße.</summary>
+  /// <summary>Gets or sets the box size.</summary>
   [NotMapped]
   public decimal? Box { get; set; }
 
-  /// <summary>Holt oder setzt die Skala.</summary>
+  /// <summary>Gets or sets the scale.</summary>
   [NotMapped]
   public int Scale { get; set; }
 
-  /// <summary>Holt oder setzt die Umkehr.</summary>
+  /// <summary>Gets or sets the reversal.</summary>
   [NotMapped]
   public int Reversal { get; set; }
 
-  /// <summary>Holt oder setzt die Methode.</summary>
+  /// <summary>Gets or sets the method.</summary>
   [NotMapped]
   public int Method { get; set; }
 
-  /// <summary>Holt oder setzt die Dauer in Tagen.</summary>
+  /// <summary>Gets or sets the duration in days.</summary>
   [NotMapped]
   public int Duration { get; set; }
 
-  /// <summary>Holt oder setzt einen Wert, der angibt, ob es relativ ist.</summary>
+  /// <summary>Gets or sets a value indicating whether the chart can be relativ.</summary>
   [NotMapped]
   public bool Relative { get; set; }
 
+  /// <summary>
+  /// Gets all extended values as string.
+  /// </summary>
+  /// <returns>Extended values as string.</returns>
   protected override string GetExtension()
   {
     var sb = new StringBuilder();
@@ -54,6 +58,10 @@ public partial class WpKonfiguration : ModelBase
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Sets all extended values from string.
+  /// </summary>
+  /// <param name="value">Extended values as string.</param>
   protected override void SetExtension(string value)
   {
     var arr = (value ?? "").Split(';');
