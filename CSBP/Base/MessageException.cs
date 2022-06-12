@@ -2,32 +2,52 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Base
+namespace CSBP.Base;
+
+using System;
+
+/// <summary>
+/// Exception with Message.
+/// </summary>
+public class MessageException : Exception
 {
-  using System;
-
-  public class MessageException : Exception
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MessageException"/> class.
+  /// </summary>
+  /// <param name="m">Text for message.</param>
+  public MessageException(string m)
   {
-    private Message Mess { get; set; }
+    Mess = new Message(m);
+  }
 
-    public MessageException(string m)
-    {
-      Mess = new Message(m);
-    }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MessageException"/> class.
+  /// </summary>
+  /// <param name="m">Affected message.</param>
+  public MessageException(Message m)
+  {
+    Mess = m;
+  }
 
-    public MessageException(Message m)
-    {
-      Mess = m;
-    }
+  /// <summary>
+  /// Gets message text.
+  /// </summary>
+  public override string Message
+  {
+    get { return Mess.Text; }
+  }
 
-    public override string Message
-    {
-      get { return Mess.Text; }
-    }
+  /// <summary>
+  /// Gets or sets containing message.
+  /// </summary>
+  private Message Mess { get; set; }
 
-    public Message GetMessage()
-    {
-      return Mess;
-    }
+  /// <summary>
+  /// Gets the containing message.
+  /// </summary>
+  /// <returns>Containing message.</returns>
+  public Message GetMessage()
+  {
+    return Mess;
   }
 }

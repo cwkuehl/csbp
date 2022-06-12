@@ -22,41 +22,185 @@ using static CSBP.Resources.Messages;
 /// </summary>
 public static class Functions
 {
-  static readonly RandomNumberGenerator csp = RandomNumberGenerator.Create();
-  private static CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("de-DE");
-  private static readonly CultureInfo CultureInfoDe = CultureInfo.CreateSpecificCulture("de-DE");
-  private static CultureInfo cultureInfoEn = CultureInfo.CreateSpecificCulture("en-GB");
+#pragma warning disable SA1310
+
+  /// <summary>Initial parser state.</summary>
+  private const int Z_ANFANG = 0;
+
+  /// <summary>String with ".</summary>
+  private const int Z_ZK_ANFANG = 10;
+
+  /// <summary>End of string or first of a double ".</summary>
+  private const int Z_ZK_ENDE = 20;
+
+  /// <summary>String without ".</summary>
+  private const int Z_ZEICHENKETTE = 50;
+
+  /// <summary>Beginning of end of line.</summary>
+  private const int Z_ENDE_ANFANG = 90;
+
+  /// <summary>End of end of line.</summary>
+  private const int Z_ENDE_ENDE = 95;
+
+#pragma warning restore SA1310
 
   /// <summary>
-  /// Setzen der Sprache.
+  /// All Windows-1252 characters.
   /// </summary>
-  /// <param name="ci">Betroffenes CultureInfo.</param>
-  public static void SetCultureInfo(CultureInfo ci)
-  {
-    if (ci == null)
-      return;
-    CultureInfo = ci;
-    Thread.CurrentThread.CurrentCulture = ci;
-    Thread.CurrentThread.CurrentUICulture = ci;
-    // Messages.Culture = ci;
-  }
+  private static readonly Regex RxWindow1252 = new(@"^(
+[\u0000-\u007F]|
+\u20AC| # 80 Euro
+\u201A| # 82
+\u0192| # 83
+\u201E| # 84
+\u2026| # 85
+\u2020| # 86
+\u2021| # 87
+\u02C6| # 88
+\u2030| # 89
+\u0160| # 8A
+\u2039| # 8B
+\u0152| # 8C
+\u017D| # 8E
+\u2018| # 91
+\u2019| # 92
+\u201C| # 93
+\u201D| # 94
+\u2022| # 95
+\u2013| # 96
+\u2014| # 97
+\u02DC| # 98
+\u2122| # 99
+\u0161| # 9A
+\u203A| # 9B
+\u0153| # 9C
+\u017E| # 9E
+\u0178| # 9F
+[\u00A0-\u00FF]|
+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
   /// <summary>
-  /// Is the actual language German?
+  /// All allowed Windows-1252 characters without control characters but with CR, LF and Tab.
+  /// </summary>
+  private static readonly Regex RxWindow1252CrLfTab = new(@"^(
+\u0009| # Tab
+\u000A| # LF
+\u000D| # CR
+[\u0020-\u007F]|
+\u20AC| # 80 Euro
+\u201A| # 82
+\u0192| # 83
+\u201E| # 84
+\u2026| # 85
+\u2020| # 86
+\u2021| # 87
+\u02C6| # 88
+\u2030| # 89
+\u0160| # 8A
+\u2039| # 8B
+\u0152| # 8C
+\u017D| # 8E
+\u2018| # 91
+\u2019| # 92
+\u201C| # 93
+\u201D| # 94
+\u2022| # 95
+\u2013| # 96
+\u2014| # 97
+\u02DC| # 98
+\u2122| # 99
+\u0161| # 9A
+\u203A| # 9B
+\u0153| # 9C
+\u017E| # 9E
+\u0178| # 9F
+[\u00A0-\u00FF]|
+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+
+  /// <summary>
+  /// All allowed Windows-1252 characters without control characters.
+  /// </summary>
+  private static readonly Regex RxWindow1252Ohne = new(@"^(
+[\u0020-\u007F]|
+\u20AC| # 80 Euro
+\u201A| # 82
+\u0192| # 83
+\u201E| # 84
+\u2026| # 85
+\u2020| # 86
+\u2021| # 87
+\u02C6| # 88
+\u2030| # 89
+\u0160| # 8A
+\u2039| # 8B
+\u0152| # 8C
+\u017D| # 8E
+\u2018| # 91
+\u2019| # 92
+\u201C| # 93
+\u201D| # 94
+\u2022| # 95
+\u2013| # 96
+\u2014| # 97
+\u02DC| # 98
+\u2122| # 99
+\u0161| # 9A
+\u203A| # 9B
+\u0153| # 9C
+\u017E| # 9E
+\u0178| # 9F
+[\u00A0-\u00FF]|
+)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
+
+  /// <summary>Instance of random number generator.</summary>
+  private static readonly RandomNumberGenerator Csp = RandomNumberGenerator.Create();
+
+  /// <summary>German culture info.</summary>
+  private static readonly CultureInfo CultureInfoDeRo = CultureInfo.CreateSpecificCulture("de-DE");
+
+  /// <summary>English culture info.</summary>
+  private static readonly CultureInfo CultureInfoEnRo = CultureInfo.CreateSpecificCulture("en-GB");
+
+  /// <summary>Current culture info.</summary>
+  private static CultureInfo cultureInfoCuSt = CultureInfo.CreateSpecificCulture("de-DE");
+
+  /// <summary>Gets the current culture info.</summary>
+  public static CultureInfo CultureInfoCu => cultureInfoCuSt;
+
+  /// <summary>Gets the German culture info.</summary>
+  public static CultureInfo CultureInfoDe => CultureInfoDeRo;
+
+  /// <summary>Gets the English culture info.</summary>
+  public static CultureInfo CultureInfoEn => CultureInfoEnRo;
+
+  /// <summary>
+  /// Gets a value indicating whether the actual language is German.
   /// </summary>
   /// <value>True if actual language German.</value>
   public static bool IsDe
   {
-    get { return CultureInfo.TwoLetterISOLanguageName == "de"; }
+    get { return CultureInfoCu.TwoLetterISOLanguageName == "de"; }
   }
 
-  public static CultureInfo CultureInfoEn { get => cultureInfoEn; set => cultureInfoEn = value; }
+  /// <summary>
+  /// Sets the current culture info.
+  /// </summary>
+  /// <param name="ci">Affected culture info.</param>
+  public static void SetCultureInfo(CultureInfo ci)
+  {
+    if (ci == null)
+      return;
+    cultureInfoCuSt = ci;
+    Thread.CurrentThread.CurrentCulture = ci;
+    Thread.CurrentThread.CurrentUICulture = ci;
+    //// Messages.Culture = ci;
+  }
 
   /// <summary>
-  /// Funktion, die nichts macht.
+  /// Function does nothing.
   /// </summary>
-  /// <param name="obj">Optionaler Parameter wird nicht verwendet.</param>
-  /// <returns>Zahl 0.</returns>
+  /// <param name="obj">Optional parameter is not used.</param>
+  /// <returns>Number 0.</returns>
   public static int MachNichts(object obj = null)
   {
     if (obj == null)
@@ -65,23 +209,23 @@ public static class Functions
   }
 
   /// <summary>
-  /// Wandelt einen String in einen Integer um.
+  /// Converts string to integer.
   /// </summary>
-  /// <returns>String als Integer.</returns>
-  /// <param name="s">Zu konvertierender String.</param>
+  /// <returns>Converted value.</returns>
+  /// <param name="s">Affected string.</param>
   public static int ToInt32(string s)
   {
     var d = ToDecimal(s, 0);
-    if (d.HasValue && int.MinValue <= d.Value && d.Value <= int.MaxValue)
+    if (d.HasValue && d.Value >= int.MinValue && d.Value <= int.MaxValue)
       return (int)d.Value;
     return 0;
   }
 
   /// <summary>
-  /// Wandelt einen String in einen Long um.
+  /// Converts string to long.
   /// </summary>
-  /// <returns>String als Integer.</returns>
-  /// <param name="s">Zu konvertierender String.</param>
+  /// <returns>Converted value.</returns>
+  /// <param name="s">Affected string.</param>
   public static long ToInt64(string s)
   {
     if (string.IsNullOrWhiteSpace(s) || !long.TryParse(s, out long l))
@@ -92,16 +236,16 @@ public static class Functions
   }
 
   /// <summary>
-  /// Wandelt einen String in einen Decimal um.
+  /// Converts string to decimal.
   /// </summary>
-  /// <returns>String als Decimal.</returns>
-  /// <param name="s">Zu konvertierender String.</param>
+  /// <returns>Converted value.</returns>
+  /// <param name="s">Affected string.</param>
   /// <param name="digits">Number of digits to round.</param>
-  /// <param name="english">Parse with English culture.</param>
+  /// <param name="english">Parse with English culture or not.</param>
   public static decimal? ToDecimal(string s, int digits = -1, bool english = false)
   {
     if (!string.IsNullOrWhiteSpace(s) && decimal.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands,
-        english ? CultureInfoEn : CultureInfo, out var d))
+        english ? CultureInfoEn : CultureInfoCu, out var d))
     {
       if (digits >= 0)
         d = Math.Round(d, digits, MidpointRounding.AwayFromZero);
@@ -111,10 +255,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Wandelt einen deutschen String in einen Decimal um.
+  /// Converts German string to decimal.
   /// </summary>
-  /// <returns>String als Decimal.</returns>
-  /// <param name="s">Zu konvertierender String.</param>
+  /// <returns>Converted value.</returns>
+  /// <param name="s">Affected string.</param>
   public static decimal? ToDecimalDe(string s)
   {
     if (!string.IsNullOrWhiteSpace(s) && decimal.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands,
@@ -124,15 +268,14 @@ public static class Functions
   }
 
   /// <summary>
-  /// Wandelt einen String in einen Decimal um, je nach CultureInfo.
+  /// Converts current culture string to decimal.
   /// </summary>
-  /// <returns>String als Decimal.</returns>
-  /// <param name="s">Zu konvertierender String.</param>
+  /// <param name="s">Affected string.</param>
   /// <param name="digits">Number of digits to round.</param>
-  /// <param name="english">Parse with English culture.</param>
+  /// <returns>Converted value.</returns>
   public static decimal? ToDecimalCi(string s, int digits = -1)
   {
-    if (!string.IsNullOrWhiteSpace(s) && decimal.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, CultureInfo, out var d))
+    if (!string.IsNullOrWhiteSpace(s) && decimal.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands, CultureInfoCu, out var d))
     {
       if (digits >= 0)
         d = Math.Round(d, digits, MidpointRounding.AwayFromZero);
@@ -142,10 +285,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Wandelt String in nullable bool um.
+  /// Converts string to nullable bool.
   /// </summary>
-  /// <param name="s">Betroffener String</param>
-  /// <returns>String als nullabel bool.</returns>
+  /// <param name="s">Affected string.</param>
+  /// <returns>Converted value.</returns>
   public static bool? ToBool(string s)
   {
     if (!string.IsNullOrWhiteSpace(s) && bool.TryParse(s, out var d))
@@ -154,25 +297,23 @@ public static class Functions
   }
 
   /// <summary>
-  /// Wandelt den ersten Buchenstaben in Großbuchstaben um, der Rest wird klein.
+  /// Converts first character to upper, the to lower case.
   /// </summary>
-  /// <returns>Umgewandelter String.</returns>
-  /// <param name="s">Betroffer String.</param>
+  /// <param name="s">Affected string.</param>
+  /// <returns>Converted string.</returns>
   public static string ToFirstUpper(this string s)
   {
     if (string.IsNullOrEmpty(s))
-    {
       return string.Empty;
-    }
     return char.ToUpper(s[0]) + s[1..].ToLower();
   }
 
   /// <summary>
-  /// Trimmt einen String und gibt null zurück, falls er leer ist.
+  /// Optionally trims a string and returns null if it is emptly.
   /// </summary>
-  /// <returns>Getrimmter String oder null.</returns>
-  /// <param name="s">Betroffer String.</param>
-  /// <param name="trim">Soll getrimmt werden?</param>
+  /// <param name="s">Affected string.</param>
+  /// <param name="trim">Trim value or not.</param>
+  /// <returns>Converted string.</returns>
   public static string TrimNull(this string s, bool trim = true)
   {
     if (trim)
@@ -207,7 +348,8 @@ public static class Functions
   /// strB = "Name"; anhaengen(strB, ", ", "", "");
   /// liefert: strB = "Name";
   /// strB = "Name"; anhaengen(strB, " (", "Titel", ")");
-  /// liefert: strB = "Name (Vorname)";</summary>
+  /// liefert: strB = "Name (Vorname)";
+  /// </summary>
   /// <param name="sb">Betroffener StringBuilder.</param>
   /// <param name="filler1">Erster Füll-String.</param>
   /// <param name="obj">String, der immer angehängt.</param>
@@ -322,7 +464,7 @@ public static class Functions
   /// <param name="datum">Soll das aktuelle Datum eingefügt werden?</param>
   /// <param name="zufall">Soll eine Zufallszahl eingefügt werden?</param>
   /// <param name="endung">Dateiendung ohne Punkt.</param>
-  public static String GetDateiname(string name, bool datum, bool zufall, string endung)
+  public static string GetDateiname(string name, bool datum, bool zufall, string endung)
   {
     var sb = new StringBuilder();
     if (!string.IsNullOrEmpty(name))
@@ -361,7 +503,7 @@ public static class Functions
   {
     if (!i.HasValue)
       return string.Empty;
-    return i.Value.ToString(CultureInfo);
+    return i.Value.ToString(CultureInfoCu);
   }
 
   /// <summary>
@@ -387,7 +529,7 @@ public static class Functions
   {
     if (!d.HasValue)
       return string.Empty;
-    return d.Value.ToString(digits < 0 ? "N" : $"N{digits}", ci ?? CultureInfo);
+    return d.Value.ToString(digits < 0 ? "N" : $"N{digits}", ci ?? CultureInfoCu);
   }
 
   /// <summary>
@@ -655,7 +797,7 @@ public static class Functions
   static byte[] GenerateRandomBytes(int bytesNumber)
   {
     byte[] buffer = new byte[bytesNumber];
-    csp.GetBytes(buffer);
+    Csp.GetBytes(buffer);
     return buffer;
   }
 
@@ -705,19 +847,6 @@ public static class Functions
       return s[..length];
     return s;
   }
-
-  /** Anfangszustand. */
-  const int Z_ANFANG = 0;
-  /** Zeichenkette mit ". */
-  const int Z_ZK_ANFANG = 10;
-  /** Zeichenketten-Ende oder erstes doppeltes ". */
-  const int Z_ZK_ENDE = 20;
-  /** Zeichenketten ohne ". */
-  const int Z_ZEICHENKETTE = 50;
-  /** Zeilenende-Anfang. */
-  const int Z_ENDE_ANFANG = 90;
-  /** Zeilenende-Ende. */
-  const int Z_ENDE_ENDE = 95;
 
   /// <summary>Liefert das i-te Zeichen eines Strings oder 0, wenn String keine i Zeichen hat.</summary>
   /// <param name="str">String darf nicht null sein.</param>
@@ -897,7 +1026,8 @@ public static class Functions
           throw new MessageException(M1020(csv));
         }
       }
-    } while (!ende);
+    }
+    while (!ende);
     return felder;
   }
 
@@ -1106,7 +1236,7 @@ public static class Functions
   /// Put <b> tag around the string, if there is none. Or remove the <b> tag.
   /// </summary>
   /// <param name="s">Affected string.</param>
-  /// <param name="unbold">Remove the <b> tag?</param>
+  /// <param name="unbold">Remove the <b> tag or not.</param>
   /// <returns>String with or  <b> around.</returns>
   public static string MakeBold(string s, bool unbold = false)
   {
@@ -1124,9 +1254,9 @@ public static class Functions
   }
 
   /// <summary>
-  /// Läuft das Programm unter Linux?
+  /// Checks if it runs with Linux or not.
   /// </summary>
-  /// <returns>Läuft das Programm unter Linux?</returns>
+  /// <returns>Does is run with Linux or not.</returns>
   public static bool IsLinux()
   {
     var linux = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux);
@@ -1134,120 +1264,12 @@ public static class Functions
   }
 
   /// <summary>
-  /// Alle Windows-1252-Zeichen.
-  /// </summary>
-  private static readonly Regex RxWindow1252 = new(@"^(
-[\u0000-\u007F]|
-\u20AC| # 80 Euro
-\u201A| # 82
-\u0192| # 83
-\u201E| # 84
-\u2026| # 85
-\u2020| # 86
-\u2021| # 87
-\u02C6| # 88
-\u2030| # 89
-\u0160| # 8A
-\u2039| # 8B
-\u0152| # 8C
-\u017D| # 8E
-\u2018| # 91
-\u2019| # 92
-\u201C| # 93
-\u201D| # 94
-\u2022| # 95
-\u2013| # 96
-\u2014| # 97
-\u02DC| # 98
-\u2122| # 99
-\u0161| # 9A
-\u203A| # 9B
-\u0153| # 9C
-\u017E| # 9E
-\u0178| # 9F
-[\u00A0-\u00FF]|
-)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
-
-  /// <summary>
-  /// Alle erlaubten Windows-1252-Zeichen für IRM@-Strings, ohne Steuerzeichen, mit CR, LF und Tab.
-  /// </summary>
-  private static readonly Regex RxWindow1252CrLfTab = new(@"^(
-\u0009| # Tab
-\u000A| # LF
-\u000D| # CR
-[\u0020-\u007F]|
-\u20AC| # 80 Euro
-\u201A| # 82
-\u0192| # 83
-\u201E| # 84
-\u2026| # 85
-\u2020| # 86
-\u2021| # 87
-\u02C6| # 88
-\u2030| # 89
-\u0160| # 8A
-\u2039| # 8B
-\u0152| # 8C
-\u017D| # 8E
-\u2018| # 91
-\u2019| # 92
-\u201C| # 93
-\u201D| # 94
-\u2022| # 95
-\u2013| # 96
-\u2014| # 97
-\u02DC| # 98
-\u2122| # 99
-\u0161| # 9A
-\u203A| # 9B
-\u0153| # 9C
-\u017E| # 9E
-\u0178| # 9F
-[\u00A0-\u00FF]|
-)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
-
-  /// <summary>
-  /// Alle erlaubten Windows-1252-Zeichen für IRM@-Strings ohne Steuerzeichen.
-  /// </summary>
-  private static readonly Regex RxWindow1252Ohne = new(@"^(
-[\u0020-\u007F]|
-\u20AC| # 80 Euro
-\u201A| # 82
-\u0192| # 83
-\u201E| # 84
-\u2026| # 85
-\u2020| # 86
-\u2021| # 87
-\u02C6| # 88
-\u2030| # 89
-\u0160| # 8A
-\u2039| # 8B
-\u0152| # 8C
-\u017D| # 8E
-\u2018| # 91
-\u2019| # 92
-\u201C| # 93
-\u201D| # 94
-\u2022| # 95
-\u2013| # 96
-\u2014| # 97
-\u02DC| # 98
-\u2122| # 99
-\u0161| # 9A
-\u203A| # 9B
-\u0153| # 9C
-\u017E| # 9E
-\u0178| # 9F
-[\u00A0-\u00FF]|
-)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
-
-  /// <summary>
-  /// Does the string only contain characters of codepage Windows-1252?
+  /// Does the string only contain characters of codepage Windows-1252 or not.
   /// </summary>
   /// <param name="value">Affected string.</param>
-  /// <param name="crlftab">Is carriage return, line feed or tab allowed?</param>
-  /// <param name="all">Are all characters incl. control characters (0-31) allowed?</param>
-  /// <returns>Only characters of codepage Windows-1252?</returns>
+  /// <param name="crlftab">Is carriage return, line feed or tab allowed or not.</param>
+  /// <param name="all">Are all characters incl. control characters (0-31) allowed or not.</param>
+  /// <returns>Only characters of codepage Windows-1252 or not.</returns>
   public static bool IsWindows1252(string value, bool crlftab = false, bool all = false)
   {
     if (string.IsNullOrEmpty(value))
@@ -1272,17 +1294,17 @@ public static class Functions
   /// Filter all allowed characters of codepage Windows-1252, other characters are replaced.
   /// </summary>
   /// <param name="value">Affected string.</param>
-  /// <param name="crlftab">Is carriage return, line feed or tab allowed?</param>
-  /// <param name="all">Are all characters incl. control characters (0-31) allowed?</param>
+  /// <param name="crlftab">Is carriage return, line feed or tab allowed or not.</param>
+  /// <param name="all">Are all characters incl. control characters (0-31) allowed or not.</param>
   /// <param name="replace">Replacement string for not allowed characters.</param>
-  /// <returns>String containing only allowed characters of codepage Windows-1252?</returns>
-  public static string FilterWindows1252(string value, bool crlftab = false, bool alle = false, string replace = " ")
+  /// <returns>String containing only allowed characters of codepage Windows-1252 or not.</returns>
+  public static string FilterWindows1252(string value, bool crlftab = false, bool all = false, string replace = " ")
   {
     if (value == null)
       return null;
     if (string.IsNullOrEmpty(value))
       return "";
-    if (IsWindows1252(value, crlftab, alle))
+    if (IsWindows1252(value, crlftab, all))
       return value;
     replace ??= " ";
     var sb = new StringBuilder();
@@ -1290,7 +1312,7 @@ public static class Functions
     {
       var s = char.ToString(c);
       //// ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-      if (IsWindows1252(s, crlftab, alle))
+      if (IsWindows1252(s, crlftab, all))
         sb.Append(s);
       else
         sb.Append(replace);

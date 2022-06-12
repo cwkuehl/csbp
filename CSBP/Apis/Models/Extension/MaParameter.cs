@@ -16,7 +16,7 @@ public partial class MaParameter : ModelBase
   [NotMapped]
   public string Comment { get; set; }
 
-  /// <summary>Gets or sets holt the default value.</summary>
+  /// <summary>Gets or sets the default value.</summary>
   [NotMapped]
   public string Default { get; set; }
 

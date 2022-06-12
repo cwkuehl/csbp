@@ -2,93 +2,100 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Base
+namespace CSBP.Base;
+
+/// <summary>
+/// Message with message number, text and optionally parameters.
+/// </summary>
+public class Message
 {
-  using System;
-
-  public class Message
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Message"/> class.
+  /// </summary>
+  /// <param name="m">Affected message text.</param>
+  /// <param name="nurtext">Only text or text with leading number.</param>
+  public Message(string m, bool nurtext = false)
+    : this(m, nurtext, null)
   {
-    /// <summary>Get the message number.</summary>
-    public string Number { get; private set; }
+    Functions.MachNichts();
+  }
 
-    /// <summary>Get the message text.</summary>
-    public string Text { get; private set; }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Message"/> class.
+  /// </summary>
+  /// <param name="nrtext">Message text with 5 leading characters as number.</param>
+  /// <param name="parameter">Affected parameters for filling into message text.</param>
+  public Message(string nrtext, params object[] parameter)
+    : this(nrtext, false, parameter)
+  {
+    Functions.MachNichts();
+  }
 
-    /// <summary>Get the message parameter.</summary>
-    public object[] Parameter { get; private set; }
-
-    /// <summary>Get the message with text and parameters.</summary>
-    public string MessageText
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Message"/> class.
+  /// </summary>
+  /// <param name="m">Message text with or without 5 leading characters as number.</param>
+  /// <param name="nurtext">Only text or text with leading number.</param>
+  /// <param name="parameter">Affected parameters for filling into message text.</param>
+  public Message(string m, bool nurtext, params object[] parameter)
+  {
+    if (nurtext)
     {
-      get
-      {
-        if (Parameter == null)
-          return Text; // reiner Text
-        return string.Format(Text, Parameter);
-      }
+      Text = m;
     }
-
-    public Message(string m, bool nurtext = false) : this(m, nurtext, null)
+    else if (string.IsNullOrEmpty(m) || m.Length < 5)
     {
-      Functions.MachNichts();
+      Text = $"Unbekannter Text mit Nr.: {m}";
     }
-
-    /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="Message" /> Klasse.
-    /// </summary>
-    /// <param name="nrtext">String mit 5-stelliger Nummer und Text kommt aus Resourcen-Datei.</param>
-    /// <param name="parameter">Parameter, die in die Meldung eingefügt werden müssen.</param>
-    public Message(string nrtext, params object[] parameter) : this(nrtext, false, parameter)
+    else
     {
-      Functions.MachNichts();
+      Number = m[..5].Trim();
+      Text = m[5..];
     }
+    Parameter = parameter;
+  }
 
-    /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="Message" /> Klasse.
-    /// </summary>
-    /// <param name="m">String mit 5-stelliger Nummer und Text kommt aus Resourcen-Datei.</param>
-    /// <param name="nurtext">Ist es nur Text und keine Nummer?</param>
-    /// <param name="parameter">Parameter, die in die Meldung eingefügt werden müssen.</param>
-    public Message(string m, bool nurtext, params object[] parameter)
-    {
-      if (nurtext)
-      {
-        Text = m;
-      }
-      else if (string.IsNullOrEmpty(m) || m.Length < 5)
-      {
-        Text = $"Unbekannter Text mit Nr.: {m}";
-      }
-      else
-      {
-        Number = m[..5].Trim();
-        Text = m[5..];
-      }
-      Parameter = parameter;
-    }
+  /// <summary>Gets the message number.</summary>
+  public string Number { get; private set; }
 
-    /// <summary>
-    /// Erweitert den Text um ein Postfix.
-    /// </summary>
-    /// <param name="postfix">Postfix einer erweiterten Meldung.</param>
-    /// <returns>Eigene Instanz.</returns>
-    public Message Postfix(string postfix)
-    {
-      if (!string.IsNullOrEmpty(postfix))
-        Text += postfix;
-      return this;
-    }
+  /// <summary>Gets the message text.</summary>
+  public string Text { get; private set; }
 
-    /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="Message" /> Klasse.
-    /// </summary>
-    /// <param name="nrtext">String mit 5-stelliger Nummer und Text kommt aus Resourcen-Datei.</param>
-    /// <param name="parameter">Parameter, die in die Meldung eingefügt werden müssen.</param>
-    /// <returns>Neue Instanz von <see cref="Message"/>.</returns>
-    public static Message New(string nrtext, params object[] parameter)
+  /// <summary>Gets the message parameter.</summary>
+  public object[] Parameter { get; private set; }
+
+  /// <summary>Gets the message with text and parameters.</summary>
+  public string MessageText
+  {
+    get
     {
-      var m = new Message(nrtext, parameter);
-      return m;
+      if (Parameter == null)
+        return Text; // reiner Text
+      return string.Format(Text, Parameter);
     }
+  }
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Message"/> class.
+  /// </summary>
+  /// <param name="nrtext">Message text with 5 leading characters as number.</param>
+  /// <param name="parameter">Affected parameters for filling into message text.</param>
+  /// <returns>New instance of the <see cref="Message"/> class.</returns>
+  public static Message New(string nrtext, params object[] parameter)
+  {
+    var m = new Message(nrtext, parameter);
+    return m;
+  }
+
+  /// <summary>
+  /// Extends the message text with a postfix.
+  /// </summary>
+  /// <param name="postfix">Affected extension.</param>
+  /// <returns>Own instance.</returns>
+  public Message Postfix(string postfix)
+  {
+    if (!string.IsNullOrEmpty(postfix))
+      Text += postfix;
+    return this;
   }
 }
