@@ -44,6 +44,12 @@ public static class Functions
 
 #pragma warning restore SA1310
 
+  /// <summary>Epoch start at 1970-01-01.</summary>
+  private static readonly DateTime EpochStart = new(1970, 1, 1);
+
+  /// <summary>Regular expression for coordinates.</summary>
+  private static readonly Regex RxCoordinates = new(@"^(-?\d+(\.\d+)),\s*(-?\d+(\.\d+))(,\s*(-?\d+(\.\d+))z?)?$", RegexOptions.Compiled);
+
   /// <summary>
   /// All Windows-1252 characters.
   /// </summary>
@@ -326,11 +332,11 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert den linken Teil eines String, maximal der Länge l, niemals null.
+  /// Returns a left substring of a string with max. l characters and never null.
   /// </summary>
-  /// <returns>Getrimmter String oder null.</returns>
-  /// <param name="s">Betroffer String.</param>
-  /// <param name="l">Maximale Stringlänge.</param>
+  /// <param name="s">Affected string.</param>
+  /// <param name="l">Max. string length.</param>
+  /// <returns>Left substring.</returns>
   public static string Left(this string s, int l = 1)
   {
     if (string.IsNullOrEmpty(s) || l <= 0)
@@ -340,21 +346,19 @@ public static class Functions
     return s[..Math.Min(l, s.Length)];
   }
 
-  /// <summary>Zusammenbau eines Strings. Das Objekt wird immer zu dem StringBuffer hinzugefügt. Die Füll-Strings werden vor und
-  ///  hinter dem Objekt eingefügt, wenn StringBuffer und Objekt nicht leere Strings darstellen.
-  /// <b>Beispiele</b>:
-  /// strB = "Name"; anhaengen(strB, ", ", "Vorname", "");
-  /// liefert: strB = "Name, Vorname";
-  /// strB = "Name"; anhaengen(strB, ", ", "", "");
-  /// liefert: strB = "Name";
-  /// strB = "Name"; anhaengen(strB, " (", "Titel", ")");
-  /// liefert: strB = "Name (Vorname)";
+  /// <summary>Appends conditionally to a StringBuilder. The string obj2 is always appended.
+  /// The filler strings are append before and after the obj2, if both StringBuilder and obj2 are not empty.
+  /// <b>Examples</b>:
+  /// sb = "Name"; Append(sb, ", ", "Vorname", ""); => sb = "Name, Vorname";
+  /// sb = "Name"; Append(sb, ", ", "", ""); => sb = "Name";
+  /// sb = "Name"; Append(sb, " (", "Titel", ")"); => sb = "Name (Vorname)";
+  /// ...
   /// </summary>
-  /// <param name="sb">Betroffener StringBuilder.</param>
-  /// <param name="filler1">Erster Füll-String.</param>
-  /// <param name="obj">String, der immer angehängt.</param>
-  /// <param name="filler2">Zweiter Füll-String.</param>
-  /// <returns>Gleichen StringBuilder für Fluent API.</returns>
+  /// <param name="sb">Affected StringBuilder.</param>
+  /// <param name="filler1">First filler.</param>
+  /// <param name="obj">String which is always appended.</param>
+  /// <param name="filler2">Second filler.</param>
+  /// <returns>Same StringBuilder for fluent API.</returns>
   public static StringBuilder Append(this StringBuilder sb, string filler1, string obj, string filler2 = null)
   {
     if (sb != null)
@@ -380,34 +384,32 @@ public static class Functions
     return sb;
   }
 
-  /**
-   * Zusammenbau eines String aus zwei Objekten. Nur wenn beide Objekte nicht leere Strings darstellen, wird der
-   * Füll-String dazwischen eingefügt.
-   * <p>
-   * @param objB Erstes Objekt.
-   * @param filler Erster Füll-String.
-   * @param obj Zweites Objekt.
-   * @return Zusammengesetzter String.
-   */
-  public static string Append(string objB, string filler, string obj)
+  /// <summary>
+  /// Builds a string from two string objects and a filler. The filler is inserted between only if both string objects are not empty.
+  /// </summary>
+  /// <param name="obj1">First string object.</param>
+  /// <param name="filler">Filler string.</param>
+  /// <param name="obj2">Second string object.</param>
+  /// <returns>Concatenated string.</returns>
+  public static string Append(string obj1, string filler, string obj2)
   {
-    var strObjB = (objB ?? "").TrimEnd();
-    var strObj = (obj ?? "").TrimEnd();
-    if (strObjB.Length > 0 && strObj.Length > 0)
+    var s1 = (obj1 ?? "").TrimEnd();
+    var s2 = (obj2 ?? "").TrimEnd();
+    if (s1.Length > 0 && s2.Length > 0)
     {
       if (!string.IsNullOrEmpty(filler))
-        strObjB += filler;
+        s1 += filler;
     }
-    strObjB += strObj;
-    return strObjB;
+    s1 += s2;
+    return s1;
   }
 
   /// <summary>
-  /// Wandelt einen Tabellenname in Camelcase mit erstem Großbuchstaben.
-  /// Unterstriche werden entfernt, diese Teile beginnen wieder groß.
+  /// Converts a table name into camel case with first letter in upper case.
+  /// Underscores are removed, and this pieces also start with a upper case letter.
   /// </summary>
-  /// <param name="t">Betroffener Tabellenname.</param>
-  /// <returns>Berechneter Tabellenname.</returns>
+  /// <param name="t">Affected table name.</param>
+  /// <returns>Converted table name.</returns>
   public static string TabName(string t)
   {
     var arr = t.Split('_');
@@ -415,23 +417,23 @@ public static class Functions
   }
 
   /// <summary>
-  /// Muss eine like-Operation gemacht werden: Nicht leer und nicht % oder %%.
+  /// Checks if it is a filtering like expression. Empty, % and %% are not.
   /// </summary>
-  /// <param name="t">Betroffener Suchstring.</param>
-  /// <returns>Muss eine like-Operation gemacht werden?</returns>
+  /// <param name="t">Affected like expression.</param>
+  /// <returns>It is a filtering like expression or not.</returns>
   public static bool IsLike(string t)
   {
     return !(string.IsNullOrEmpty(t) || t == "%" || t == "%%");
   }
 
   /// <summary>
-  /// Vergleich zweier Strings liefert:
-  /// 0, falls s1 = s2 und
-  /// 1, falls s1 != s2.
-  /// Dabei wird nicht zwischen leerem String und null unterschieden.
+  /// Compares two strings:
+  /// 0, if s1 = s2 and
+  /// 1, if s1 != s2.
+  /// There is not difference between null and empty.
   /// </summary>
-  /// <param name="s1">Erster String-Wert.</param>
-  /// <param name="s2">Zweiter String-Wert.</param>
+  /// <param name="s1">First string.</param>
+  /// <param name="s2">Second string.</param>
   /// <returns>0 oder +1.</returns>
   public static int CompString(string s1, string s2)
   {
@@ -447,9 +449,9 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert neue Guid als String.
+  /// Returns a new guid as string.
   /// </summary>
-  /// <returns>Guid als String.</returns>
+  /// <returns>New guid as string.</returns>
   public static string GetUid()
   {
     var uid = Guid.NewGuid().ToString();
@@ -457,13 +459,13 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert einen Dateinamen mit aktuellem Datum und Zufallszahl.
+  /// Returns file name optionally with date and random number.
   /// </summary>
-  /// <returns>Zusammengesetzter Dateiname.</returns>
   /// <param name="name">Name am Anfang.</param>
-  /// <param name="datum">Soll das aktuelle Datum eingefügt werden?</param>
-  /// <param name="zufall">Soll eine Zufallszahl eingefügt werden?</param>
+  /// <param name="datum">With current date or not.</param>
+  /// <param name="zufall">With rondom number or not.</param>
   /// <param name="endung">Dateiendung ohne Punkt.</param>
+  /// <returns>File name.</returns>
   public static string GetDateiname(string name, bool datum, bool zufall, string endung)
   {
     var sb = new StringBuilder();
@@ -486,7 +488,9 @@ public static class Functions
     return sb.ToString();
   }
 
-  ///<summary>Entfernt evtl. vorhandene Semikola.</summary>
+  /// <summary>Returns a never null string.</summary>
+  /// <param name="s">Affected string.</param>
+  /// <returns>Not null string.</returns>
   public static string ToString(string s)
   {
     if (string.IsNullOrEmpty(s))
@@ -495,10 +499,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Integer als String.
+  /// Converts integer to string in current culture.
   /// </summary>
-  /// <param name="i">Betroffener Wert.</param>
-  /// <returns>Integer als String.</returns>
+  /// <param name="i">Affected value.</param>
+  /// <returns>Converted value.</returns>
   public static string ToString(int? i)
   {
     if (!i.HasValue)
@@ -507,10 +511,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Bool als String.
+  /// Converts nullable bool to string.
   /// </summary>
-  /// <param name="i">Betroffener Wert.</param>
-  /// <returns>Bool als String.</returns>
+  /// <param name="i">Affected value.</param>
+  /// <returns>Converted value.</returns>
   public static string ToString(bool? i)
   {
     if (!i.HasValue)
@@ -519,12 +523,12 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Decimal als String.
+  /// Converts nullable decimal to string.
   /// </summary>
-  /// <param name="d">Betroffener Wert.</param>
+  /// <param name="d">Affected value.</param>
   /// <param name="digits">Number of digits to print.</param>
   /// <param name="ci">Affected culture info.</param>
-  /// <returns>Decimal als String.</returns>
+  /// <returns>Converted value.</returns>
   public static string ToString(decimal? d, int digits = -1, CultureInfo ci = null)
   {
     if (!d.HasValue)
@@ -533,12 +537,12 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Datum im Format yyyy-MM-dd als String.
+  /// Converts nullable DateTime to string in format yyyy-MM-dd, yyyy-MM-dd HH:mm:ss or yyyy-MM-dd HH:mm:ss.fffffff.
   /// </summary>
-  /// <param name="d">Betroffenes Datum.</param>
-  /// <param name="time">Soll die Uhrzeit angehängt werden.</param>
-  /// <param name="milli">Sollen die Millisekunden auch angehängt werden.</param>
-  /// <returns>Datum im Format yyyy-MM-dd als String.</returns>
+  /// <param name="d">Affected value.</param>
+  /// <param name="time">Formats with time or not.</param>
+  /// <param name="milli">Formats with milliseconds or not.</param>
+  /// <returns>Converted value.</returns>
   public static string ToString(DateTime? d, bool time = false, bool milli = false)
   {
     if (!d.HasValue)
@@ -553,11 +557,11 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Datum im Format dd.MM.yyyy als String.
+  /// Converts nullable DateTime to string in format dd.MM.yyyy or dd.MM.yyyy HH:mm:ss.
   /// </summary>
-  /// <param name="d">Betroffenes Datum.</param>
-  /// <param name="time">Soll die Uhrzeit angehängt werden.</param>
-  /// <returns>Datum im Format dd.MM.yyyy als String.</returns>
+  /// <param name="d">Affected value.</param>
+  /// <param name="time">Formats with time or not.</param>
+  /// <returns>Converted value.</returns>
   public static string ToStringDe(DateTime? d, bool time = false)
   {
     if (!d.HasValue)
@@ -568,10 +572,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert Wochentag als String.
+  /// Returns weekday as string.
   /// </summary>
-  /// <param name="d">Betroffenes Datum</param>
-  /// <returns>Wochentag als String.</returns>
+  /// <param name="d">Affected date.</param>
+  /// <returns>Weekday as string.</returns>
   public static string ToStringWd(DateTime? d)
   {
     if (!d.HasValue)
@@ -580,10 +584,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Korrigiert Datum in die locale Zeitzone.
+  /// Corrects UTC time to local.
   /// </summary>
-  /// <param name="d">Betroffenes Datum.</param>
-  /// <returns>Datum in der locale Zeitzone.</returns>
+  /// <param name="d">Affected DateTime.</param>
+  /// <returns>DateTime in local time zone.</returns>
   public static DateTime? ToDateTimeLocal(DateTime? d)
   {
     if (!d.HasValue)
@@ -592,10 +596,10 @@ public static class Functions
   }
 
   /// <summary>
-  /// Korrigiert locales Datum in UTC.
+  /// Corrects locale time to UTC.
   /// </summary>
-  /// <param name="d">Betroffenes Datum.</param>
-  /// <returns>Datum in UTC.</returns>
+  /// <param name="d">Affected DateTime.</param>
+  /// <returns>DateTime in UTC.</returns>
   public static DateTime? ToDateTimeUtc(DateTime? d)
   {
     if (!d.HasValue)
@@ -604,10 +608,11 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert String im Format yyyy-MM-dd HH:mm:ss als DateTime.
+  /// Parses string to nullable DateTime, with following formats:
+  /// yyyy-MM-dd HH:mm:ss, dd.MM.yyyy HH:mm:ss, yyyy-MM-d and d.M.yyyy.
   /// </summary>
-  /// <param name="s">Betroffener String</param>
-  /// <returns>String im Format yyyy-MM-dd als DateTime.</returns>
+  /// <param name="s">Affrected string.</param>
+  /// <returns>Converted value.</returns>
   public static DateTime? ToDateTime(string s)
   {
     if (string.IsNullOrWhiteSpace(s))
@@ -622,35 +627,11 @@ public static class Functions
     return d;
   }
 
-  private static readonly DateTime EpochStart = new(1970, 1, 1);
-
   /// <summary>
-  /// Liefert Epochen-Sekunden nach dem 1.1.1970 als DateTime.
+  /// Parses string to nullable DateTime with format d.MM.yyyy.
   /// </summary>
-  /// <param name="s">Betroffene Anzahl Sekunden.</param>
-  /// <returns>Epochen-Sekunden nach dem 1.1.1970 als DateTime.</returns>
-  public static DateTime ToDateTime(long s)
-  {
-    var d = EpochStart.AddSeconds(s);
-    return d;
-  }
-
-  /// <summary>
-  /// Liefert die Epochen-Sekunden nach dem 1.1.1970 als long.
-  /// </summary>
-  /// <param name="d">Betroffenes Datum.</param>
-  /// <returns>Epochen-Sekunden nach dem 1.1.1970 als DateTime.</returns>
-  public static long ToEpochSecond(DateTime d)
-  {
-    var diff = d - EpochStart;
-    return (long)diff.TotalSeconds;
-  }
-
-  /// <summary>
-  /// Liefert String im Format d.M.yyyy als DateTime.
-  /// </summary>
-  /// <param name="s">Betroffener String</param>
-  /// <returns>String im Format d.M.yyyy als DateTime.</returns>
+  /// <param name="s">Affrected string.</param>
+  /// <returns>Converted value.</returns>
   public static DateTime? ToDateTimeDe(string s)
   {
     if (string.IsNullOrWhiteSpace(s)
@@ -660,24 +641,46 @@ public static class Functions
   }
 
   /// <summary>
-  /// Liefert letzten Werktag (nicht Samstag und Sonntag), der am Datum oder davor oder danach liegt.
+  /// Calculates DateTime as seconds after 1970-01-01.
+  /// </summary>
+  /// <param name="s">Betroffene Anzahl Sekunden.</param>
+  /// <returns>Calculated DateTime.</returns>
+  public static DateTime ToDateTime(long s)
+  {
+    var d = EpochStart.AddSeconds(s);
+    return d;
+  }
+
+  /// <summary>
+  /// Calculates seconds after 1970-01-01.
   /// </summary>
   /// <param name="d">Betroffenes Datum.</param>
-  /// <param name="danach">Soll der nächste Werktag danach oder davor gesucht werden.</param>
-  /// <returns>Werktag als Datum.</returns>
-  public static DateTime Workday(DateTime d, bool danach = false)
+  /// <returns>Seconds after 1970-01-01.</returns>
+  public static long ToEpochSecond(DateTime d)
+  {
+    var diff = d - EpochStart;
+    return (long)diff.TotalSeconds;
+  }
+
+  /// <summary>
+  /// Calculares next or previous date while it is not a workday i.e. Monday through Friday.
+  /// </summary>
+  /// <param name="d">Affected date.</param>
+  /// <param name="after">The next or previous day.</param>
+  /// <returns>Workday as DateTime.</returns>
+  public static DateTime Workday(DateTime d, bool after = false)
   {
     var d0 = d;
     while (d0.DayOfWeek == DayOfWeek.Saturday || d0.DayOfWeek == DayOfWeek.Sunday)
-      d0 = d0.AddDays(danach ? 1 : -1);
+      d0 = d0.AddDays(after ? 1 : -1);
     return d0;
   }
 
-  /**
-   * Liefert nächsten Sonntag, der am Datum oder danach liegt.
-   * @param d Betroffenes Datum.
-   * @return Datums-String.
-   */
+  /// <summary>
+  /// Calculates the next Sunday.
+  /// </summary>
+  /// <param name="d">Affected date.</param>
+  /// <returns>Next Sunday.</returns>
   public static DateTime Sunday(DateTime? d = null)
   {
     var d0 = d;
@@ -690,12 +693,12 @@ public static class Functions
     return d0.Value;
   }
 
-  /// <summary>Liefert einen möglichst kurzen String mit Zeitraum.</summary>
-  /// <returns>Zeitraum als String.</returns>
-  /// <param name="von">Betroffenes Anfangsdatum</param>
-  /// <param name="bis">Betroffenes Enddatum.</param>
-  /// <param name="monate">Soll die Anzahl der Monate in Klammern angefügt werden?</param>
-  public static string GetPeriod(DateTime? von, DateTime? bis, bool monate = false)
+  /// <summary>Calculate the shortest possible period string between two dates.</summary>
+  /// <param name="von">First date.</param>
+  /// <param name="bis">Second date.</param>
+  /// <param name="months">Should the number of months be added or not.</param>
+  /// <returns>Period as string.</returns>
+  public static string GetPeriod(DateTime? von, DateTime? bis, bool months = false)
   {
     var sb = new StringBuilder();
     if (von.HasValue && bis.HasValue)
@@ -734,7 +737,7 @@ public static class Functions
         sb.Append(von.Value.ToString("MMMM yyyy-"));
         sb.Append(bis.Value.ToString("MMMM yyyy"));
       }
-      if (monate)
+      if (months)
       {
         var mon = MonthDifference(von, bis);
         sb.Append(" (").Append(mon).Append(' ');
@@ -748,10 +751,10 @@ public static class Functions
     return sb.ToString();
   }
 
-  /// <summary>Liefert die Anzahl der Monate zwischen zwei Datumswerten.</summary>
-  /// <returns>Anzahl der Monate zwischen zwei Datumswerten.</returns>
-  /// <param name="von">1. Datum.</param>
-  /// <param name="bis">2. Datum.</param>
+  /// <summary>Calculates the number of months between two dates.</summary>
+  /// <param name="von">First date.</param>
+  /// <param name="bis">Second date.</param>
+  /// <returns>Number of months between two dates.</returns>
   public static int MonthDifference(DateTime? von, DateTime? bis)
   {
     if (von.HasValue != bis.HasValue)
@@ -762,9 +765,9 @@ public static class Functions
     {
       return 0;
     }
-    var m = 12 * von.Value.Year + von.Value.Month;
+    var m = (12 * von.Value.Year) + von.Value.Month;
     var b = bis.Value.AddDays(1);
-    m -= 12 * b.Year + b.Month;
+    m -= (12 * b.Year) + b.Month;
     if (m < 0)
     {
       m = -m;
@@ -772,6 +775,12 @@ public static class Functions
     return m;
   }
 
+  /// <summary>
+  /// Gets the next random number between two values.
+  /// </summary>
+  /// <param name="minValue">Minimal value.</param>
+  /// <param name="maxExclusiveValue">Exclusive maximal value.</param>
+  /// <returns>Random number between two values.</returns>
   public static int NextRandom(int minValue, int maxExclusiveValue)
   {
     if (minValue >= maxExclusiveValue)
@@ -784,23 +793,17 @@ public static class Functions
     do
     {
       ui = GetRandomUInt();
-    } while (ui >= upperBound);
+    }
+    while (ui >= upperBound);
     return (int)(minValue + (ui % diff));
   }
 
-  static uint GetRandomUInt()
-  {
-    var randomBytes = GenerateRandomBytes(sizeof(uint));
-    return BitConverter.ToUInt32(randomBytes, 0);
-  }
-
-  static byte[] GenerateRandomBytes(int bytesNumber)
-  {
-    byte[] buffer = new byte[bytesNumber];
-    Csp.GetBytes(buffer);
-    return buffer;
-  }
-
+  /// <summary>
+  /// Serializes an object to bytes.
+  /// </summary>
+  /// <param name="obj">Affected object.</param>
+  /// <typeparam name="T">Affected object type.</typeparam>
+  /// <returns>Serialized bytes.</returns>
   public static byte[] Serialize<T>(T obj)
   {
     using var memStream = new MemoryStream();
@@ -809,10 +812,16 @@ public static class Functions
     return memStream.ToArray();
   }
 
-  public static T Deserialize<T>(byte[] serializedObj)
+  /// <summary>
+  /// Deserializes bytes to an object.
+  /// </summary>
+  /// <param name="serialized">Serialized bytes.</param>
+  /// <typeparam name="T">Affected type.</typeparam>
+  /// <returns>Deserialized object.</returns>
+  public static T Deserialize<T>(byte[] serialized)
   {
     T obj = default;
-    using (var memStream = new MemoryStream(serializedObj))
+    using (var memStream = new MemoryStream(serialized))
     {
       // var binSerializer = new BinaryFormatter();
       var binSerializer = new XmlSerializer(typeof(T));
@@ -824,9 +833,9 @@ public static class Functions
   /// <summary>
   /// Cuts a string if it starts with an other string.
   /// </summary>
-  /// <returns>The string.</returns>
   /// <param name="s">String to cut.</param>
   /// <param name="begin">String to compare at the beginning.</param>
+  /// <returns>Possibly cut string.</returns>
   public static string CutStart(string s, string begin)
   {
     if (!string.IsNullOrEmpty(s) && !string.IsNullOrEmpty(begin)
@@ -836,11 +845,11 @@ public static class Functions
   }
 
   /// <summary>
-  /// Cuts a string if it is to long.
+  /// Cuts a string if it is too long.
   /// </summary>
-  /// <returns>The possibly cut string.</returns>
   /// <param name="s">String to cut.</param>
   /// <param name="length">Maximum length.</param>
+  /// <returns>possibly cut string.</returns>
   public static string Cut(string s, int length)
   {
     if (!string.IsNullOrEmpty(s) && s.Length > length)
@@ -848,22 +857,9 @@ public static class Functions
     return s;
   }
 
-  /// <summary>Liefert das i-te Zeichen eines Strings oder 0, wenn String keine i Zeichen hat.</summary>
-  /// <param name="str">String darf nicht null sein.</param>
-  /// <param name="i">Nummer des Zeichens beginnend mit 0.</param>
-  /// <returns>Liefert das i-te Zeichen eines Strings oder 0, wenn String keine i Zeichen hat.</returns>
-  private static char GetChar(string str, int i)
-  {
-    if (str != null && i < str.Length)
-    {
-      return str[i];
-    }
-    return (char)0;
-  }
-
-  /// <summary>Kodierung eines Vektor von Strings in einen String, die eine Zeile von komma-separierten Feldern mit Zeilenende.</summary>
-  /// <param name="felder">Liste von Strings.</param>
-  /// <returns>Zeile von komma-separierten Feldern mit Zeilenende.</returns>
+  /// <summary>Encodes a list of string to an csv string.</summary>
+  /// <param name="felder">List of strings.</param>
+  /// <returns>Encodes csv string.</returns>
   public static string EncodeCSV(List<string> felder)
   {
     if (felder != null && felder.Count > 0)
@@ -886,17 +882,16 @@ public static class Functions
         }
         csv.Append('"');
       }
-      // csv.Append(Constants.CRLF);
       return csv.ToString();
     }
     return null;
   }
 
-  /// <summary>Dekodierung einer CSV-Datei-Zeile als String in einen Vektor von Strings.</summary>
-  /// <param name="csv">CSV-Datei-Zeile als String.</param>
-  /// <param name="trenner1">1. Feldtrenner, z.B. ;.</param>
-  /// <param name="trenner2">2. Feldtrenner, z.B. ,.</param>
-  /// <returns>Vektor von Strings.</returns>
+  /// <summary>Decodes a csv string to a list of strings.</summary>
+  /// <param name="csv">Affected csv string.</param>
+  /// <param name="trenner1">First field delimiter e.g. ;.</param>
+  /// <param name="trenner2">Second field delimiter e.g. ,.</param>
+  /// <returns>List of strings.</returns>
   public static List<string> DecodeCSV(string csv, char trenner1 = ';', char trenner2 = ',')
   {
     if (string.IsNullOrEmpty(csv))
@@ -918,11 +913,12 @@ public static class Functions
       zeichen = GetChar(csv, i);
       switch (zustand)
       {
-        case Z_ANFANG: // Anfangszustand
+        case Z_ANFANG:
+          //// Initial state
           if (zeichen == 0)
           {
             i--;
-            zustand = Z_ENDE_ENDE; // Zeilenende-Ende
+            zustand = Z_ENDE_ENDE; // End of end of line
           }
           else if (zeichen == anf)
           {
@@ -935,20 +931,21 @@ public static class Functions
           }
           else if (zeichen == cr || zeichen == lf)
           {
-            zustand = Z_ENDE_ANFANG; // Zeilenende-Anfang
+            zustand = Z_ENDE_ANFANG; // Beginning of end of line
           }
           else
           {
-            zustand = Z_ZEICHENKETTE; // normale Zeichenkette ohne "
+            zustand = Z_ZEICHENKETTE; // normal string without "
             i--;
           }
           break;
-        case Z_ZK_ANFANG: // Zeichenkette mit "
+        case Z_ZK_ANFANG:
+          // String with "
           if (zeichen == 0)
           {
             // Zeichenkette nicht zu Ende: Parse-Error
             // i--
-            zustand = Z_ENDE_ENDE; // Zeilenende-Ende
+            zustand = Z_ENDE_ENDE; // End of end of line
           }
           else if (zeichen == anf)
           {
@@ -1015,8 +1012,7 @@ public static class Functions
           felder.Add(feld.ToString());
           feld.Clear();
           break;
-          // default:
-          // machNichts
+          //// default:
       }
       if (!ende)
       {
@@ -1031,6 +1027,11 @@ public static class Functions
     return felder;
   }
 
+  /// <summary>
+  /// Rounds a decimal number by 2 digits.
+  /// </summary>
+  /// <param name="d">Affected decimal.</param>
+  /// <returns>Rounded decimal.</returns>
   public static decimal? Round(decimal? d)
   {
     if (d.HasValue)
@@ -1040,6 +1041,11 @@ public static class Functions
     return null;
   }
 
+  /// <summary>
+  /// Rounds a decimal number by 4 digits.
+  /// </summary>
+  /// <param name="d">Affected decimal.</param>
+  /// <returns>Rounded decimal.</returns>
   public static decimal? Round4(decimal? d)
   {
     if (d.HasValue)
@@ -1049,12 +1055,9 @@ public static class Functions
     return null;
   }
 
-  /// <summary>Vergleich zweier Werte auf 2 Nachkommastellen liefert
-  /// -1, falls d1 &lt; d2
-  /// 0, falls d1 = d2 und
-  /// 1, falls d1 &gt; d2.</summary>
-  /// <param name="d1">Erster Wert.</param>
-  /// <param name="d2">Zweiter Wert.</param>
+  /// <summary>Compares two decimals by 2 digits: -1 if d1 &lt; d2; 0 if d1 = d2 and 1 if d1 &gt; d2.</summary>
+  /// <param name="d1">First decimal.</param>
+  /// <param name="d2">Second decimal.</param>
   /// <returns>-1, 0 oder 1.</returns>
   public static int CompDouble(decimal? d1, decimal? d2)
   {
@@ -1069,12 +1072,9 @@ public static class Functions
     return 0;
   }
 
-  /// <summary>Vergleich zweier Werte auf 4 Nachkommastellen liefert
-  /// -1, falls d1 &lt; d2
-  /// 0, falls d1 = d2 und
-  /// 1, falls d1 &gt; d2.</summary>
-  /// <param name="d1">Erster Wert.</param>
-  /// <param name="d2">Zweiter Wert.</param>
+  /// <summary>Compares two decimals by 4 digits: -1 if d1 &lt; d2; 0 if d1 = d2 and 1 if d1 &gt; d2.</summary>
+  /// <param name="d1">First decimal.</param>
+  /// <param name="d2">Second decimal.</param>
   /// <returns>-1, 0 oder 1.</returns>
   public static int CompDouble4(decimal? d1, decimal? d2)
   {
@@ -1089,51 +1089,51 @@ public static class Functions
     return 0;
   }
 
-  /**
-   * Umrechnung eines Euro-Betrages in DM.
-   * @param euro Betrag in Euro.
-   * @return Konvertierter Betrag in DM.
-   */
+  /// <summary>
+  /// Calculates Euro price to DM.
+  /// </summary>
+  /// <param name="euro">Euro price.</param>
+  /// <returns>DM price.</returns>
   public static decimal KonvDM(decimal euro)
   {
     return Round(euro * Constants.EUROFAKTOR) ?? 0;
   }
 
-  /**
-   * Umrechnung eines DM-Betrages in Euro.
-   * @param dm Betrag in DM.
-   * @return Konvertierter Betrag in Euro.
-   */
+  /// <summary>
+  /// Calculates DM price to Euro.
+  /// </summary>
+  /// <param name="dm">DM price.</param>
+  /// <returns>Euro price.</returns>
   public static decimal KonvEURO(decimal dm)
   {
     return Round(dm / Constants.EUROFAKTOR) ?? 0;
   }
 
-  /**
-   * Zusammensetzen eines Ahnennamens aus Ahnen-Nummer, Geburtsnamen und Vornamen.
-   * @param uid Ahnen-Nummer.
-   * @param strG Geburtsname.
-   * @param strV Vorname.
-   * @param nameFett Soll der Name fett geschrieben werden?
-   * @param xref Soll der Name fett geschrieben werden?
-   * @return Zusammengesetzter Ahnenname.
-   */
-  public static string AhnString(string uid, string strG, string strV, bool nameFett = false, bool xref = false)
+  /// <summary>
+  /// Concatenates an ancestor string.
+  /// </summary>
+  /// <param name="uid">Affected ancestor id.</param>
+  /// <param name="bn">Affected birth name.</param>
+  /// <param name="fn">Affected first name.</param>
+  /// <param name="boldname">Should the name be bold or not.</param>
+  /// <param name="xref">Affected cross reference.</param>
+  /// <returns>Ancestor string.</returns>
+  public static string AhnString(string uid, string bn, string fn, bool boldname = false, bool xref = false)
   {
     if (string.IsNullOrEmpty(uid))
       return "";
     var sb = new StringBuilder();
-    if (nameFett)
+    if (boldname)
       sb.Append("<b>");
-    if (!string.IsNullOrEmpty(strG))
+    if (!string.IsNullOrEmpty(bn))
     {
-      sb.Append(strG);
-      if (!string.IsNullOrEmpty(strV))
+      sb.Append(bn);
+      if (!string.IsNullOrEmpty(fn))
         sb.Append(", ");
     }
-    if (!string.IsNullOrEmpty(strV))
-      sb.Append(strV);
-    if (nameFett)
+    if (!string.IsNullOrEmpty(fn))
+      sb.Append(fn);
+    if (boldname)
       sb.Append(" </b>");
     sb.Append(" (");
     sb.Append(xref ? ToXref(uid) : uid);
@@ -1141,11 +1141,11 @@ public static class Functions
     return sb.ToString();
   }
 
-  /**
-   * Liefert XREF aus Uid. Dabei wird Doppelpunkt durch Semikolon ersetzt.
-   * @param uid Uid aus Programm.
-   * @return xref.
-   */
+  /// <summary>
+  /// Converts uid to cross reference.
+  /// </summary>
+  /// <param name="uid">Affected uid.</param>
+  /// <returns>GEDCOM cross reference.</returns>
   public static string ToXref(string uid)
   {
     if (string.IsNullOrEmpty(uid))
@@ -1153,11 +1153,11 @@ public static class Functions
     return uid.Replace(':', ';');
   }
 
-  /**
-   * Liefert Uid aus XREF. Dabei wird Semikolon durch Doppelpunkt ersetzt.
-   * @param xref XREF aus Gedcom-Schnittstelle.
-   * @return Uid.
-   */
+  /// <summary>
+  /// Converts cross reference to uid.
+  /// </summary>
+  /// <param name="xref">Affected cross reference.</param>
+  /// <returns>Affected uid.</returns>
   public static string ToUid(string xref)
   {
     if (string.IsNullOrEmpty(xref))
@@ -1165,10 +1165,10 @@ public static class Functions
     return xref.Replace(';', ':');
   }
 
-  /// <summary>String in Zeilen spalten.</summary>
-  /// <param name="s">Betroffener String.</param>
-  /// <param name="split">Soll gespalten werden.</param>
-  /// <returns>Liste von Zeilen.</returns>
+  /// <summary>Splits string into lines.</summary>
+  /// <param name="s">Affected String.</param>
+  /// <param name="split">Should be splitted or not.</param>
+  /// <returns>List of lines.</returns>
   public static List<string> SplitLines(string s, bool split = true)
   {
     if (string.IsNullOrEmpty(s))
@@ -1178,37 +1178,34 @@ public static class Functions
     return new List<string> { s };
   }
 
-  /**
-   * Vergleicht zwei int-Werte mit Hilfe eines Operators.
-   * @param variable Linker int-Wert bei Vergleich.
-   * @param op String mit <, <=, =, > oder >=; null entspricht =.
-   * @param wert Rechter int-Wert bei Vergleich.
-   * @return True, wenn Vergleich stimmt; sonst false.
-   */
-  public static bool VergleicheInt(int variable, string op, int wert)
+  /// <summary>
+  /// Compares two integers by operator &lt; &lt;= = &gt;= or &gt;.
+  /// </summary>
+  /// <param name="i1">First integer.</param>
+  /// <param name="op">Compare operator &lt; &lt;= = &gt;= or &gt;.</param>
+  /// <param name="i2">Second inteter.</param>
+  /// <returns>Comparison is true or not.</returns>
+  public static bool VergleicheInt(int i1, string op, int i2)
   {
     var rc = false;
     if (op == null || op == "")
       rc = true;
     else if (op == "=")
-      rc = variable == wert;
+      rc = i1 == i2;
     else if (op == "<=")
-      rc = variable <= wert;
+      rc = i1 <= i2;
     else if (op == "<")
-      rc = variable < wert;
+      rc = i1 < i2;
     else if (op == ">=")
-      rc = variable >= wert;
+      rc = i1 >= i2;
     else if (op == ">")
-      rc = variable > wert;
+      rc = i1 > i2;
     return rc;
   }
 
-  //private static Regex RxCoordinates = new Regex(@"^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)(,\s*(-?\d+(\.\d+)?)z?)?$", RegexOptions.Compiled);
-  private static readonly Regex RxCoordinates = new(@"^(-?\d+(\.\d+)),\s*(-?\d+(\.\d+))(,\s*(-?\d+(\.\d+))z?)?$", RegexOptions.Compiled);
-
-  /// <summary>String in Koordinaten in Dezimalform.</summary>
-  /// <param name="s">Betroffener String.</param>
-  /// <returns>Koordinaten in Dezimalform.</returns>
+  /// <summary>Converts coordinate string to decimal tuple.</summary>
+  /// <param name="s">Affected string.</param>
+  /// <returns>Coordinates in decimal tuple.</returns>
   public static Tuple<decimal, decimal, decimal> ToCoordinates(string s)
   {
     if (string.IsNullOrEmpty(s))
@@ -1223,21 +1220,21 @@ public static class Functions
   }
 
   /// <summary>
-  /// Is there a <b> tag around the string?
+  /// Checks if there is a &lt; b &gt; tag around the string or not.
   /// </summary>
-  /// <param name="s">Affected string</param>
-  /// <returns>Is there a <b> tag around the string?</returns>
+  /// <param name="s">Affected string.</param>
+  /// <returns>Is there a &lt; b &gt; tag around the string or not.</returns>
   public static bool IsBold(string s)
   {
     return s != null && s.StartsWith("<b>") && s.EndsWith("</b>");
   }
 
   /// <summary>
-  /// Put <b> tag around the string, if there is none. Or remove the <b> tag.
+  /// Puts  &lt; b &gt; tag around the string, if there is none. Or remove the &lt; b &gt; tag.
   /// </summary>
   /// <param name="s">Affected string.</param>
-  /// <param name="unbold">Remove the <b> tag or not.</param>
-  /// <returns>String with or  <b> around.</returns>
+  /// <param name="unbold">Remove the  &lt; b &gt; tag or not.</param>
+  /// <returns>String with or &lt; b &gt; tag around.</returns>
   public static string MakeBold(string s, bool unbold = false)
   {
     if (s == null)
@@ -1254,9 +1251,9 @@ public static class Functions
   }
 
   /// <summary>
-  /// Checks if it runs with Linux or not.
+  /// Checks if the program runs with Linux or not.
   /// </summary>
-  /// <returns>Does is run with Linux or not.</returns>
+  /// <returns>Does the program run with Linux or not.</returns>
   public static bool IsLinux()
   {
     var linux = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux);
@@ -1318,5 +1315,40 @@ public static class Functions
         sb.Append(replace);
     }
     return sb.ToString();
+  }
+
+  /// <summary>
+  /// Gets a random integer.
+  /// </summary>
+  /// <returns>Random integer.</returns>
+  private static uint GetRandomUInt()
+  {
+    var randomBytes = GenerateRandomBytes(sizeof(uint));
+    return BitConverter.ToUInt32(randomBytes, 0);
+  }
+
+  /// <summary>
+  /// Gets random bytes.
+  /// </summary>
+  /// <param name="bytesNumber">Number of bytes.</param>
+  /// <returns>Random bytes.</returns>
+  private static byte[] GenerateRandomBytes(int bytesNumber)
+  {
+    byte[] buffer = new byte[bytesNumber];
+    Csp.GetBytes(buffer);
+    return buffer;
+  }
+
+  /// <summary>Gets the ith character of a string or 0 if the string is shorter than i characters.</summary>
+  /// <param name="str">Affected string.</param>
+  /// <param name="i">Zero based index.</param>
+  /// <returns>The ith character or 0.</returns>
+  private static char GetChar(string str, int i)
+  {
+    if (str != null && i < str.Length)
+    {
+      return str[i];
+    }
+    return (char)0;
   }
 }
