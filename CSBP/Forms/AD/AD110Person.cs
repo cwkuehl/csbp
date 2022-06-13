@@ -201,8 +201,8 @@ public partial class AD110Person : CsbpBin
     return new AD110Person(GetBuilder("AD110Person", out var handle), handle, p1: p1, p: p);
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     if (step <= 0)
@@ -360,12 +360,16 @@ public partial class AD110Person : CsbpBin
     dialog.Hide();
   }
 
+  /// <summary>
+  /// Sets a new address.
+  /// </summary>
+  /// <param name="ad">New address.</param>
   private void SetAddress(AdAdresse ad)
   {
     var diff = 0;
     if (Functions.CompString(ad?.Uid, adressNr.Text) != 0)
     {
-      // Falls sich Nummer ändert, wird neue Nummer einmal mehr benutzt.
+      // If the number is changing, the new number will be used once more.
       diff = 1;
     }
     strasse.Text = ad?.Strasse ?? "";
@@ -374,6 +378,6 @@ public partial class AD110Person : CsbpBin
     plz.Text = ad?.Plz ?? "";
     ort.Text = ad?.Ort ?? "";
     adresseAnzahl.Text = Functions.ToString(diff
-        + Get(FactoryService.AddressService.GetAddressCount(ServiceDaten, ad?.Uid)));
+      + Get(FactoryService.AddressService.GetAddressCount(ServiceDaten, ad?.Uid)));
   }
 }

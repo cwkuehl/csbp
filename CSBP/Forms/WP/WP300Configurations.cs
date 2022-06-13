@@ -56,8 +56,8 @@ public partial class WP300Configurations : CsbpBin
     konfigurationen.GrabFocus();
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     if (step <= 1)
@@ -74,7 +74,7 @@ public partial class WP300Configurations : CsbpBin
     }
   }
 
-  /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
+  /// <summary>Updates parent dialog.</summary>
   protected override void UpdateParent()
   {
     refreshAction.Click();
@@ -146,9 +146,9 @@ public partial class WP300Configurations : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Starten des Details-Dialogs.</summary>
-  /// <param name="dt">Betroffener Dialog-Typ.</param>
-  void StartDialog(DialogTypeEnum dt)
+  /// <summary>Starts the details dialog.</summary>
+  /// <param name="dt">Affected dialog type.</param>
+  private void StartDialog(DialogTypeEnum dt)
   {
     var uid = GetValue<string>(konfigurationen, dt != DialogTypeEnum.New);
     Start(typeof(WP310Configuration), WP310_title, dt, uid, csbpparent: this);

@@ -58,8 +58,8 @@ public partial class FZ320Series : CsbpBin
     serien.GrabFocus();
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     if (step <= 0)
@@ -84,7 +84,7 @@ public partial class FZ320Series : CsbpBin
     }
   }
 
-  /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
+  /// <summary>Updates parent dialog.</summary>
   protected override void UpdateParent()
   {
     refreshAction.Click();
@@ -172,9 +172,9 @@ public partial class FZ320Series : CsbpBin
     RefreshTreeView(serien, 0);
   }
 
-  /// <summary>Starten des Details-Dialogs.</summary>
-  /// <param name="dt">Betroffener Dialog-Typ.</param>
-  void StartDialog(DialogTypeEnum dt)
+  /// <summary>Starts the details dialog.</summary>
+  /// <param name="dt">Affected dialog type.</param>
+  private void StartDialog(DialogTypeEnum dt)
   {
     var uid = GetValue<string>(serien, dt != DialogTypeEnum.New);
     Start(typeof(FZ330Series), FZ330_title, dt, uid, csbpparent: this);

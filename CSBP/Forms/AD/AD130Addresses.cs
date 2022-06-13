@@ -56,8 +56,8 @@ public partial class AD130Addresses : CsbpBin
     return new AD130Addresses(GetBuilder("AD130Addresses", out var handle), handle, p1: p1, p: p);
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     if (step <= 1)
@@ -66,10 +66,13 @@ public partial class AD130Addresses : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;St.;PLZ;Ort;Straße;Haus-Nr.;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Uid, e.Staat, e.Plz, e.Ort, e.Strasse, e.HausNr,
+        // No.;St.;Postal code;Town;Street;No.;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+          {
+            e.Uid, e.Staat, e.Plz, e.Ort, e.Strasse, e.HausNr,
             Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          });
       }
       AddStringColumnsSort(adressen, AD130_adressen_columns, values);
     }

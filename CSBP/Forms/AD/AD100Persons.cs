@@ -70,8 +70,8 @@ public partial class AD100Persons : CsbpBin
     return new AD100Persons(GetBuilder("AD100Persons", out var handle), handle, p1: p1, p: p);
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     if (step <= 0)
@@ -93,7 +93,7 @@ public partial class AD100Persons : CsbpBin
       string uid = null;
       foreach (var e in l)
       {
-        // Nr.;Bezeichnung;Sitz;Geändert am;Geändert von;Angelegt am;Angelegt von
+        // No.;Description;Site;Changed at;Changed by;Created at;Created by
         if (uid == e.Person?.Uid)
         {
           store.AppendValues(pi, e.Uid, "", e.SiteName,
@@ -111,7 +111,7 @@ public partial class AD100Persons : CsbpBin
     }
   }
 
-  /// <summary>Aktualisierung des Eltern-Dialogs.</summary>
+  /// <summary>Updates parent dialog.</summary>
   protected override void UpdateParent()
   {
     refreshAction.Click();
@@ -258,8 +258,8 @@ public partial class AD100Persons : CsbpBin
     Start(typeof(AD120Birthdays), AD120_title, csbpparent: this);
   }
 
-  /// <summary>Starten des Details-Dialogs.</summary>
-  /// <param name="dt">Betroffener Dialog-Typ.</param>
+  /// <summary>Starts the details dialog.</summary>
+  /// <param name="dt">Affected dialog type.</param>
   private void StartDialog(DialogTypeEnum dt)
   {
     var uid = GetValue<string>(personen, dt != DialogTypeEnum.New);

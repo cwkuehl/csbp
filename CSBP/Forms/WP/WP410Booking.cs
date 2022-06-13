@@ -178,8 +178,8 @@ public partial class WP410Booking : CsbpBin
     betrag.GrabFocus();
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     var daten = ServiceDaten;
@@ -467,9 +467,9 @@ public partial class WP410Booking : CsbpBin
     }
   }
 
-  /// <summary>Starten des Details-Dialogs.</summary>
-  /// <param name="dt">Betroffener Dialog-Typ.</param>
-  void StartDialog(DialogTypeEnum dt)
+  /// <summary>Starts the details dialog.</summary>
+  /// <param name="dt">Affected dialog type.</param>
+  private void StartDialog(DialogTypeEnum dt)
   {
     var uid = hhbuchung.Text;
     if (!string.IsNullOrEmpty(uid))

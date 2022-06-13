@@ -55,8 +55,8 @@ public partial class AD200Interface : CsbpBin
     return new AD200Interface(GetBuilder("AD200Interface", out var handle), handle, p1: p1, p: p);
   }
 
-  /// <summary>Model-Daten initialisieren.</summary>
-  /// <param name="step">Betroffener Schritt: 0 erstmalig, 1 aktualisieren.</param>
+  /// <summary>Initialises model data.</summary>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
   {
     if (step <= 0)
