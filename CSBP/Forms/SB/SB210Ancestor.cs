@@ -21,7 +21,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for SB210Ancestor dialog.</summary>
 public partial class SB210Ancestor : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private SbPerson Model;
 
 #pragma warning disable CS0649
@@ -337,10 +337,10 @@ public partial class SB210Ancestor : CsbpBin
     }
   }
 
-  /// <summary>Handle Bilder.</summary>
+  /// <summary>Handles Bilder.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBilderDragDataReceived(object o, DragDataReceivedArgs e)
+  protected void OnBilderDragDataReceived(object sender, DragDataReceivedArgs e)
   {
     if (e.SelectionData.Text != null)
     {
@@ -359,14 +359,14 @@ public partial class SB210Ancestor : CsbpBin
     }
   }
 
-  /// <summary>Handle Quelle.</summary>
+  /// <summary>Handles Quelle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnQuelleChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -401,7 +401,7 @@ public partial class SB210Ancestor : CsbpBin
     }
   }
 
-  /// <summary>Handle Hinzufuegen.</summary>
+  /// <summary>Handles Hinzufuegen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHinzufuegenClicked(object sender, EventArgs e)
@@ -413,7 +413,7 @@ public partial class SB210Ancestor : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

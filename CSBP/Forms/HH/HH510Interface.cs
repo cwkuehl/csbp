@@ -174,21 +174,21 @@ public partial class HH510Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle von.</summary>
+  /// <summary>Handles von.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVonDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle bis.</summary>
+  /// <summary>Handles bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -209,7 +209,7 @@ public partial class HH510Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
@@ -217,7 +217,7 @@ public partial class HH510Interface : CsbpBin
     dialog.Hide();
   }
 
-  /// <summary>Handle Dateiauswahl.</summary>
+  /// <summary>Handles Dateiauswahl.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDateiauswahlClicked(object sender, EventArgs e)
@@ -230,7 +230,7 @@ public partial class HH510Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle Import1.</summary>
+  /// <summary>Handles Import1.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnImport1Clicked(object sender, EventArgs e)

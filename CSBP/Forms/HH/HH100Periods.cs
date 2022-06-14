@@ -127,7 +127,7 @@ public partial class HH100Periods : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -135,7 +135,7 @@ public partial class HH100Periods : CsbpBin
     RefreshTreeView(perioden, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -144,7 +144,7 @@ public partial class HH100Periods : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -153,7 +153,7 @@ public partial class HH100Periods : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -163,7 +163,7 @@ public partial class HH100Periods : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -172,14 +172,14 @@ public partial class HH100Periods : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Perioden.</summary>
+  /// <summary>Handles Perioden.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPeriodenRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Länge.</summary>
+  /// <summary>Handles Länge.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnLengthChanged(object sender, EventArgs e)
@@ -188,7 +188,7 @@ public partial class HH100Periods : CsbpBin
       Parameter.HH100Length = GetText(laenge1);
   }
 
-  /// <summary>Handle Art.</summary>
+  /// <summary>Handles Art.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWhenChanged(object sender, EventArgs e)

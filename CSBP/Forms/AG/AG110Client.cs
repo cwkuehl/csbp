@@ -16,9 +16,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AG110Client dialog.</summary>
 public partial class AG110Client : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
-  private MaMandant Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -47,29 +44,31 @@ public partial class AG110Client : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static AG110Client Create(object p1 = null, CsbpBin p = null)
-  {
-    return new AG110Client(GetBuilder("AG110Client", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private MaMandant model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="AG110Client"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public AG110Client(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     SetBold(beschreibung0);
     InitData(0);
     beschreibung.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AG110Client Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AG110Client(GetBuilder("AG110Client", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -83,7 +82,7 @@ public partial class AG110Client : CsbpBin
       if (!neu && Parameter1 is string uid)
       {
         var k = Get(FactoryService.ClientService.GetClient(ServiceDaten, Functions.ToInt32(uid)));
-        Model = k;
+        model = k;
         nr.Text = k.Nr.ToString();
         beschreibung.Text = k.Beschreibung;
         angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
@@ -98,7 +97,7 @@ public partial class AG110Client : CsbpBin
     }
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -112,7 +111,7 @@ public partial class AG110Client : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.ClientService.DeleteClient(ServiceDaten, Model);
+      r = FactoryService.ClientService.DeleteClient(ServiceDaten, model);
     }
     if (r != null)
     {
@@ -125,7 +124,7 @@ public partial class AG110Client : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

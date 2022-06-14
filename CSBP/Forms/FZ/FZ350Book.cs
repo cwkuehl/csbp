@@ -18,7 +18,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ350Book dialog.</summary>
 public partial class FZ350Book : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private FzBuch Model;
 
 #pragma warning disable CS0649
@@ -231,14 +231,14 @@ public partial class FZ350Book : CsbpBin
     }
   }
 
-  /// <summary>Handle Autor.</summary>
+  /// <summary>Handles Autor.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAutorChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Autorneu.</summary>
+  /// <summary>Handles Autorneu.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAutorneuClicked(object sender, EventArgs e)
@@ -253,14 +253,14 @@ public partial class FZ350Book : CsbpBin
     }
   }
 
-  /// <summary>Handle Serie.</summary>
+  /// <summary>Handles Serie.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSerieChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Serieneu.</summary>
+  /// <summary>Handles Serieneu.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSerieneuClicked(object sender, EventArgs e)
@@ -275,21 +275,21 @@ public partial class FZ350Book : CsbpBin
     }
   }
 
-  /// <summary>Handle lesedatum.</summary>
+  /// <summary>Handles lesedatum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnLesedatumDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle hoerdatum.</summary>
+  /// <summary>Handles hoerdatum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHoerdatumDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -319,7 +319,7 @@ public partial class FZ350Book : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

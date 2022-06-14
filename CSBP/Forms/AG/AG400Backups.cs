@@ -19,12 +19,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AG400Backups dialog.</summary>
 public partial class AG400Backups : CsbpBin
 {
-  /// <summary>Status für Task.</summary>
-  readonly StringBuilder Status = new();
-
-  /// <summary>Abbruch für Task.</summary>
-  readonly StringBuilder Cancel = new();
-
 #pragma warning disable CS0649
 
   /// <summary>Button RefreshAction.</summary>
@@ -49,28 +43,42 @@ public partial class AG400Backups : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static AG400Backups Create(object p1 = null, CsbpBin p = null)
-  {
-    return new AG400Backups(GetBuilder("AG400Backups", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>State for task.</summary>
+  private readonly StringBuilder state = new();
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Cancel for task.</summary>
+  private readonly StringBuilder cancel = new();
+
+  /// <summary>Initializes a new instance of the <see cref="AG400Backups"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public AG400Backups(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     SetBold(verzeichnisse0);
     InitData(0);
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AG400Backups Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AG400Backups(GetBuilder("AG400Backups", out var handle), handle, p1: p1, p: p);
+  }
+
+  /// <summary>Schließen des Dialogs.</summary>
+  /// <returns>Affected value.</returns>
+  public override object Close()
+  {
+    HttpServer.Stop();
+    HttpsServer.Stop();
+    return null;
   }
 
   /// <summary>Initialises model data.</summary>
@@ -103,10 +111,13 @@ public partial class AG400Backups : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;Ziel;V.;P.;Quellen;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Uid, e.Target, e.Encrypted ? "X" : "", e.Zipped ? "X" : "", e.SourcesText,
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;Target;E.;P.;Sources;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Uid, e.Target, e.Encrypted ? "X" : "", e.Zipped ? "X" : "", e.SourcesText,
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(verzeichnisse, AG400_verzeichnisse_columns, values);
     }
@@ -118,15 +129,7 @@ public partial class AG400Backups : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Schließen des Dialogs.</summary>
-  public override object Close()
-  {
-    HttpServer.Stop();
-    HttpsServer.Stop();
-    return null;
-  }
-
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -134,7 +137,7 @@ public partial class AG400Backups : CsbpBin
     RefreshTreeView(verzeichnisse, 1);
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -142,7 +145,7 @@ public partial class AG400Backups : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -150,7 +153,7 @@ public partial class AG400Backups : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -158,7 +161,7 @@ public partial class AG400Backups : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -166,7 +169,7 @@ public partial class AG400Backups : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Verzeichnisse.</summary>
+  /// <summary>Handles Verzeichnisse.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVerzeichnisseRowActivated(object sender, RowActivatedArgs e)
@@ -174,7 +177,7 @@ public partial class AG400Backups : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle Sicherung.</summary>
+  /// <summary>Handles Sicherung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSicherungClicked(object sender, EventArgs e)
@@ -182,14 +185,14 @@ public partial class AG400Backups : CsbpBin
     MakeBackup();
   }
 
-  /// <summary>Handle Diffsicherung.</summary>
+  /// <summary>Handles Diffsicherung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDiffsicherungClicked(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Ruecksicherung.</summary>
+  /// <summary>Handles Ruecksicherung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRuecksicherungClicked(object sender, EventArgs e)
@@ -197,29 +200,29 @@ public partial class AG400Backups : CsbpBin
     MakeBackup(true);
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    Cancel.Append("Cancel");
+    cancel.Append("cancel");
   }
 
-  /// <summary>Handle Sqlsicherung.</summary>
+  /// <summary>Handles Sqlsicherung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSqlsicherungClicked(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Mandantkopieren.</summary>
+  /// <summary>Handles Mandantkopieren.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMandantkopierenClicked(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Mandantrepkopieren.</summary>
+  /// <summary>Handles Mandantrepkopieren.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMandantrepkopierenClicked(object sender, EventArgs e)
@@ -235,6 +238,11 @@ public partial class AG400Backups : CsbpBin
   }
 
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
+
+  /// <summary>
+  /// Does Backup.
+  /// </summary>
+  /// <param name="restore">Restore or not.</param>
   private async void MakeBackup(bool restore = false)
 #pragma warning restore RECS0165
   {
@@ -251,24 +259,24 @@ public partial class AG400Backups : CsbpBin
         if (string.IsNullOrEmpty(password))
           return;
       }
-      ShowStatus(Status, Cancel);
+      ShowStatus(state, cancel);
       var r = await Task.Run(() =>
       {
-        var r0 = FactoryService.ClientService.MakeBackup(ServiceDaten, uid, restore, password, Status, Cancel);
+        var r0 = FactoryService.ClientService.MakeBackup(ServiceDaten, uid, restore, password, state, cancel);
         return r0;
       });
       r.ThrowAllErrors();
     }
     catch (Exception ex)
     {
-      Application.Invoke(delegate
+      Application.Invoke((sender, e) =>
       {
         ShowError(ex.Message);
       });
     }
     finally
     {
-      Cancel.Append("End");
+      cancel.Append("End");
     }
   }
 }

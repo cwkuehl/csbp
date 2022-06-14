@@ -21,12 +21,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP250Investments dialog.</summary>
 public partial class WP250Investments : CsbpBin
 {
-  /// <summary>State of calculation.</summary>
-  readonly StringBuilder Status = new();
-
-  /// <summary>Cancel of calculation.</summary>
-  readonly StringBuilder Cancel = new();
-
 #pragma warning disable CS0649
 
   /// <summary>Button RefreshAction.</summary>
@@ -46,7 +40,7 @@ public partial class WP250Investments : CsbpBin
   private readonly Label anlagenStatus;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
   /// <summary>CheckButton auchinaktiv.</summary>
@@ -63,14 +57,11 @@ public partial class WP250Investments : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP250Investments Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP250Investments(GetBuilder("WP250Investments", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>State of calculation.</summary>
+  readonly StringBuilder state = new();
+
+  /// <summary>Cancel of calculation.</summary>
+  readonly StringBuilder cancel = new();
 
   /// <summary>Konstruktor für modalen Dialog.</summary>
   /// <param name="b">Betroffener Builder.</param>
@@ -87,20 +78,29 @@ public partial class WP250Investments : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
-    ObservableEventThrottle(refreshAction, delegate
+    ObservableEventThrottle(refreshAction, (sender, e) =>
     {
       var uid = WP260Investment.Lastcopyuid;
       WP260Investment.Lastcopyuid = null;
       RefreshTreeView(anlagen, 1, uid);
     });
-    // SetBold(client0);
+    //// SetBold(client0);
     InitData(0);
-    // anlagen.GrabFocus();
+    //// anlagen.GrabFocus();
     bezeichnung.GrabFocus();
+  }
+
+  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
+  /// <param name="p1">1. Parameter für Dialog.</param>
+  /// <param name="p">Betroffener Eltern-Dialog.</param>
+  /// <returns>Nicht-modalen Dialogs.</returns>
+  public static WP250Investments Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP250Investments(GetBuilder("WP250Investments", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -132,7 +132,7 @@ public partial class WP250Investments : CsbpBin
       var diff = 0m;
       foreach (var e in l)
       {
-        // Nr.;Bezeichnung;Status;Provider;Kürzel;Betrag;Wert;Anteile;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
+        // Nr.;Bezeichnung;state;Provider;Kürzel;Betrag;Wert;Anteile;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
         values.Add(new string[] { e.Uid, e.Bezeichnung, UiFunctions.GetStockState(e.State.ToString(), e.StockShortcut),
             e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
             Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
@@ -156,7 +156,7 @@ public partial class WP250Investments : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -164,7 +164,7 @@ public partial class WP250Investments : CsbpBin
     // RefreshTreeView(anlagen, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -173,7 +173,7 @@ public partial class WP250Investments : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -182,7 +182,7 @@ public partial class WP250Investments : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -190,7 +190,7 @@ public partial class WP250Investments : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -198,7 +198,7 @@ public partial class WP250Investments : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -206,7 +206,7 @@ public partial class WP250Investments : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -214,7 +214,7 @@ public partial class WP250Investments : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Chart.</summary>
+  /// <summary>Handles Chart.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnChartClicked(object sender, EventArgs e)
@@ -229,7 +229,7 @@ public partial class WP250Investments : CsbpBin
     MainClass.MainWindow.AppendPage(WP100Chart.Create(t), desc);
   }
 
-  /// <summary>Handle Details.</summary>
+  /// <summary>Handles Details.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDetailsClicked(object sender, EventArgs e)
@@ -239,7 +239,7 @@ public partial class WP250Investments : CsbpBin
     MainClass.MainWindow.AppendPage(WP400Bookings.Create(uid), desc);
   }
 
-  /// <summary>Handle Anlagen.</summary>
+  /// <summary>Handles Anlagen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAnlagenRowActivated(object sender, RowActivatedArgs e)
@@ -247,14 +247,14 @@ public partial class WP250Investments : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle Bis.</summary>
+  /// <summary>Handles Bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Auchinaktiv.</summary>
+  /// <summary>Handles Auchinaktiv.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAuchinaktivChanged(object sender, EventArgs e)
@@ -264,17 +264,17 @@ public partial class WP250Investments : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Bezeichnung.</summary>
+  /// <summary>Handles Bezeichnung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBezeichnungKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnBezeichnungKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Wertpapier.</summary>
+  /// <summary>Handles Wertpapier.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWertpapierChanged(object sender, EventArgs e)
@@ -285,7 +285,7 @@ public partial class WP250Investments : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Alle.</summary>
+  /// <summary>Handles Alle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)
@@ -294,7 +294,7 @@ public partial class WP250Investments : CsbpBin
     RefreshTreeView(anlagen, 0);
   }
 
-  /// <summary>Handle Berechnen.</summary>
+  /// <summary>Handles Berechnen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBerechnenClicked(object sender, EventArgs e)
@@ -302,12 +302,12 @@ public partial class WP250Investments : CsbpBin
     CalculateInvestments();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    Cancel.Append("Cancel");
+    cancel.Append("cancel");
   }
 
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
@@ -316,31 +316,31 @@ public partial class WP250Investments : CsbpBin
   {
     try
     {
-      // ShowStatus(Status, Cancel);
-      Status.Clear();
-      Cancel.Clear();
+      // ShowStatus(state, cancel);
+      state.Clear();
+      cancel.Clear();
       var r = await Task.Run(() =>
       {
         var r0 = FactoryService.StockService.CalculateInvestments(ServiceDaten, null,
-          null, GetText(wertpapier), bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, Status, Cancel);
+          null, GetText(wertpapier), bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, state, cancel);
         return r0;
       });
       r.ThrowAllErrors();
-      Application.Invoke(delegate
+      Application.Invoke((sender, e) =>
       {
         refreshAction.Click();
       });
     }
     catch (Exception ex)
     {
-      Application.Invoke(delegate
+      Application.Invoke((sender, e) =>
       {
         ShowError(ex.Message);
       });
     }
     finally
     {
-      Cancel.Append("End");
+      cancel.Append("End");
     }
   }
 

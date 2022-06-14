@@ -82,7 +82,7 @@ public partial class FZ200Bikes : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -90,7 +90,7 @@ public partial class FZ200Bikes : CsbpBin
     RefreshTreeView(fahrraeder, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -99,7 +99,7 @@ public partial class FZ200Bikes : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -108,7 +108,7 @@ public partial class FZ200Bikes : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -116,7 +116,7 @@ public partial class FZ200Bikes : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -124,7 +124,7 @@ public partial class FZ200Bikes : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -132,7 +132,7 @@ public partial class FZ200Bikes : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -140,7 +140,7 @@ public partial class FZ200Bikes : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Fahrraeder.</summary>
+  /// <summary>Handles Fahrraeder.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFahrraederRowActivated(object sender, RowActivatedArgs e)

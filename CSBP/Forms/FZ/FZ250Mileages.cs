@@ -106,7 +106,7 @@ public partial class FZ250Mileages : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -114,7 +114,7 @@ public partial class FZ250Mileages : CsbpBin
     // RefreshTreeView(fahrradstaende, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -123,7 +123,7 @@ public partial class FZ250Mileages : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -132,7 +132,7 @@ public partial class FZ250Mileages : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -140,7 +140,7 @@ public partial class FZ250Mileages : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -148,7 +148,7 @@ public partial class FZ250Mileages : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -156,7 +156,7 @@ public partial class FZ250Mileages : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -164,7 +164,7 @@ public partial class FZ250Mileages : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Fahrradstaende.</summary>
+  /// <summary>Handles Fahrradstaende.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFahrradstaendeRowActivated(object sender, RowActivatedArgs e)
@@ -172,7 +172,7 @@ public partial class FZ250Mileages : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle Alle.</summary>
+  /// <summary>Handles Alle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)
@@ -180,7 +180,7 @@ public partial class FZ250Mileages : CsbpBin
     RefreshTreeView(fahrradstaende, 0);
   }
 
-  /// <summary>Handle Fahrrad.</summary>
+  /// <summary>Handles Fahrrad.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFahrradChanged(object sender, EventArgs e)
@@ -190,7 +190,7 @@ public partial class FZ250Mileages : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Text.</summary>
+  /// <summary>Handles Text.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnTextKeyReleaseEvent(object sender, KeyReleaseEventArgs e)

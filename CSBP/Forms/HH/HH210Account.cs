@@ -17,7 +17,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH210Account dialog.</summary>
 public partial class HH210Account : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private HhKonto Model;
 
 #pragma warning disable CS0649
@@ -196,21 +196,21 @@ public partial class HH210Account : CsbpBin
     }
   }
 
-  /// <summary>Handle von.</summary>
+  /// <summary>Handles von.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVonDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle bis.</summary>
+  /// <summary>Handles bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -238,7 +238,7 @@ public partial class HH210Account : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

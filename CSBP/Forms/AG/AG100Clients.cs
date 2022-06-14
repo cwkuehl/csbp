@@ -31,28 +31,27 @@ public partial class AG100Clients : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static AG100Clients Create(object p1 = null, CsbpBin p = null)
-  {
-    return new AG100Clients(GetBuilder("AG100Clients", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="AG100Clients"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public AG100Clients(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     // SetBold(client0);
     InitData(0);
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AG100Clients Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AG100Clients(GetBuilder("AG100Clients", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -65,10 +64,13 @@ public partial class AG100Clients : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Nr.ToString(), e.Nr.ToString(), e.Beschreibung,
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;No.;Description;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Nr.ToString(), e.Nr.ToString(), e.Beschreibung,
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(mandanten, AG100_mandanten_columns, values);
     }
@@ -80,7 +82,7 @@ public partial class AG100Clients : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -88,7 +90,7 @@ public partial class AG100Clients : CsbpBin
     RefreshTreeView(mandanten, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -97,7 +99,7 @@ public partial class AG100Clients : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -106,7 +108,7 @@ public partial class AG100Clients : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -114,7 +116,7 @@ public partial class AG100Clients : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -122,7 +124,7 @@ public partial class AG100Clients : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -130,7 +132,7 @@ public partial class AG100Clients : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -138,7 +140,7 @@ public partial class AG100Clients : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Mandanten.</summary>
+  /// <summary>Handles Mandanten.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMandantenRowActivated(object sender, RowActivatedArgs e)

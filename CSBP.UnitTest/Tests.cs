@@ -817,7 +817,7 @@ public partial class {filename}
     private ComboBox {id};");
       gc.Events.Append($@"
 
-    /// <summary>Handle {id.ToFirstUpper()}.</summary>
+    /// <summary>Handles {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}Changed(object sender, EventArgs e)
@@ -885,7 +885,7 @@ public partial class {filename}
       );
       gc.Events.Append($@"
 
-    /// <summary>Handle {id.ToFirstUpper()}.</summary>
+    /// <summary>Handles {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}Clicked(object sender, EventArgs e)
@@ -995,7 +995,7 @@ public partial class {filename}
     private TreeView {id};");
       gc.Events.Append($@"
 
-    /// <summary>Handle {id.ToFirstUpper()}.</summary>
+    /// <summary>Handles {id.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}RowActivated(object sender, RowActivatedArgs e)
@@ -1041,7 +1041,7 @@ public partial class {filename}
     private Button {name}Action;");
           gc.Events.Append($@"
 
-    /// <summary>Handle {name.ToFirstUpper()}.</summary>
+    /// <summary>Handles {name.ToFirstUpper()}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{name.ToFirstUpper()}Clicked(object sender, EventArgs e)
@@ -1094,7 +1094,7 @@ public partial class {filename}
       {id}.Show();");
       gc.Events.Append($@"
 
-    /// <summary>Handle {id}.</summary>
+    /// <summary>Handles {id}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
     protected void On{id.ToFirstUpper()}DateChanged(object sender, DateChangedEventArgs e)

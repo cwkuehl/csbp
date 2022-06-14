@@ -19,12 +19,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP200Stocks dialog.</summary>
 public partial class WP200Stocks : CsbpBin
 {
-  /// <summary>State of calculation.</summary>
-  readonly StringBuilder Status = new();
-
-  /// <summary>Cancel of calculation.</summary>
-  readonly StringBuilder Cancel = new();
-
 #pragma warning disable CS0649
 
   /// <summary>Button RefreshAction.</summary>
@@ -44,7 +38,7 @@ public partial class WP200Stocks : CsbpBin
   private readonly Label status;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
   /// <summary>Entry bezeichnung.</summary>
@@ -65,14 +59,11 @@ public partial class WP200Stocks : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP200Stocks Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP200Stocks(GetBuilder("WP200Stocks", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>State of calculation.</summary>
+  readonly StringBuilder state = new();
+
+  /// <summary>Cancel of calculation.</summary>
+  readonly StringBuilder cancel = new();
 
   /// <summary>Konstruktor für modalen Dialog.</summary>
   /// <param name="b">Betroffener Builder.</param>
@@ -89,19 +80,28 @@ public partial class WP200Stocks : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
-    ObservableEventThrottle(refreshAction, delegate
+    ObservableEventThrottle(refreshAction, (sender, e) =>
     {
       var uid = WP210Stock.Lastcopyuid;
       WP210Stock.Lastcopyuid = null;
       RefreshTreeView(wertpapiere, 1, uid);
     });
-    // SetBold(client0);
+    //// SetBold(client0);
     InitData(0);
     wertpapiere.GrabFocus();
+  }
+
+  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
+  /// <param name="p1">1. Parameter für Dialog.</param>
+  /// <param name="p">Betroffener Eltern-Dialog.</param>
+  /// <returns>Nicht-modalen Dialogs.</returns>
+  public static WP200Stocks Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP200Stocks(GetBuilder("WP200Stocks", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -124,7 +124,7 @@ public partial class WP200Stocks : CsbpBin
     if (step <= 1)
     {
       var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
-      // Nr.;Sort.;Name;Status;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
+      // Nr.;Sort.;Name;state;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
       var anz = l.Count;
       var values = new List<string[]>();
       foreach (var e in l)
@@ -148,7 +148,7 @@ public partial class WP200Stocks : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -156,7 +156,7 @@ public partial class WP200Stocks : CsbpBin
     // RefreshTreeView(wertpapiere, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -165,7 +165,7 @@ public partial class WP200Stocks : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -174,7 +174,7 @@ public partial class WP200Stocks : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -182,7 +182,7 @@ public partial class WP200Stocks : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -190,7 +190,7 @@ public partial class WP200Stocks : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -198,7 +198,7 @@ public partial class WP200Stocks : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -206,7 +206,7 @@ public partial class WP200Stocks : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Floppy.</summary>
+  /// <summary>Handles Floppy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFloppyClicked(object sender, EventArgs e)
@@ -214,7 +214,7 @@ public partial class WP200Stocks : CsbpBin
     Start(typeof(WP220Interface), WP220_title, csbpparent: this);
   }
 
-  /// <summary>Handle Chart.</summary>
+  /// <summary>Handles Chart.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnChartClicked(object sender, EventArgs e)
@@ -227,7 +227,7 @@ public partial class WP200Stocks : CsbpBin
     MainClass.MainWindow.AppendPage(WP100Chart.Create(t), desc);
   }
 
-  /// <summary>Handle Wertpapiere.</summary>
+  /// <summary>Handles Wertpapiere.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWertpapiereRowActivated(object sender, RowActivatedArgs e)
@@ -235,7 +235,7 @@ public partial class WP200Stocks : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle bis.</summary>
+  /// <summary>Handles bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
@@ -245,7 +245,7 @@ public partial class WP200Stocks : CsbpBin
     // refreshAction.Click();
   }
 
-  /// <summary>Handle Alle.</summary>
+  /// <summary>Handles Alle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)
@@ -253,7 +253,7 @@ public partial class WP200Stocks : CsbpBin
     RefreshTreeView(wertpapiere, 0);
   }
 
-  /// <summary>Handle Auchinaktiv.</summary>
+  /// <summary>Handles Auchinaktiv.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAuchinaktivChanged(object sender, EventArgs e)
@@ -263,7 +263,7 @@ public partial class WP200Stocks : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Berechnen.</summary>
+  /// <summary>Handles Berechnen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBerechnenClicked(object sender, EventArgs e)
@@ -271,35 +271,35 @@ public partial class WP200Stocks : CsbpBin
     CalculateStocks();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    Cancel.Append("Cancel");
+    cancel.Append("cancel");
   }
 
-  /// <summary>Handle Bezeichnung.</summary>
+  /// <summary>Handles Bezeichnung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBezeichnungKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnBezeichnungKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Muster.</summary>
+  /// <summary>Handles Muster.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnMusterKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnMusterKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Konfiguration.</summary>
+  /// <summary>Handles Konfiguration.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKonfigurationChanged(object sender, EventArgs e)
@@ -316,12 +316,12 @@ public partial class WP200Stocks : CsbpBin
   {
     try
     {
-      Status.Clear();
-      Cancel.Clear();
+      state.Clear();
+      cancel.Clear();
       var r = await Task.Run(() =>
       {
         var r0 = FactoryService.StockService.CalculateStocks(ServiceDaten, null, muster.Text,
-          null, bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, GetText(konfiguration), Status, Cancel);
+          null, bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, GetText(konfiguration), state, cancel);
         return r0;
       });
       r.ThrowAllErrors();
@@ -339,7 +339,7 @@ public partial class WP200Stocks : CsbpBin
     }
     finally
     {
-      Cancel.Append("End");
+      cancel.Append("End");
     }
   }
 

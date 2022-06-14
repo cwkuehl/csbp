@@ -17,7 +17,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP210Stock dialog.</summary>
 public partial class WP210Stock : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private WpWertpapier Model;
 
   /// <summary>Last copied ID.</summary>
@@ -220,28 +220,28 @@ public partial class WP210Stock : CsbpBin
     }
   }
 
-  /// <summary>Handle Provider.</summary>
+  /// <summary>Handles Provider.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnProviderChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Status.</summary>
+  /// <summary>Handles state.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnStatusChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Relation.</summary>
+  /// <summary>Handles Relation.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRelationChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -274,7 +274,7 @@ public partial class WP210Stock : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

@@ -757,12 +757,12 @@ namespace CSBP.Services
     /// Neuberechnung der Bilanzen in einer oder mehreren Perioden. Funktion: aktualisiereBilanz.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <param name="status">Status of calculation is always updated.</param>
+    /// <param name="state">State of calculation is always updated.</param>
     /// <param name="cancel">Cancel calculation if not empty.</param>
     /// <param name="alles">All periods or only one.</param>
     /// <param name="von">Affected date in period.</param>
     /// <returns>0 alles aktuell; 1 eine Periode aktualisiert; 2 noch eine weitere kann Periode aktualisiert werden.</returns>
-    public ServiceErgebnis<string[]> CalculateBalances(ServiceDaten daten, StringBuilder status, StringBuilder cancel,
+    public ServiceErgebnis<string[]> CalculateBalances(ServiceDaten daten, StringBuilder state, StringBuilder cancel,
       bool alles = false, DateTime? von = null)
     {
       var pber = HoleBerPeriodeIntern(daten); // erste zu berechnende Periode
@@ -771,9 +771,9 @@ namespace CSBP.Services
         var pnr = HolePassendePeriodeNr(daten, von.Value);
         pber = pnr;
       }
-      status.Clear().Append(M0(HH060));
-      var rc = AktualisierenBilanz(daten, status, cancel, pber, alles);
-      status.Clear();
+      state.Clear().Append(M0(HH060));
+      var rc = AktualisierenBilanz(daten, state, cancel, pber, alles);
+      state.Clear();
       cancel.Append("End");
       var r = new ServiceErgebnis<string[]>(new[] { "", "" });
       r.Ergebnis[0] = Functions.ToString(rc);
@@ -1152,7 +1152,7 @@ namespace CSBP.Services
      * @return 0 alles aktuell; 1 eine Periode aktualisiert; 2 noch eine weitere kann Periode aktualisiert werden.
      * @throws Exception im unerwarteten Fehlerfalle.
      */
-    private static int AktualisierenBilanz(ServiceDaten daten, StringBuilder status, StringBuilder cancel, int pber, bool bAlles)
+    private static int AktualisierenBilanz(ServiceDaten daten, StringBuilder state, StringBuilder cancel, int pber, bool bAlles)
     {
       var weiter = 0;
       var pmin = GetMaxMinNr(daten, true); // erste Periode
@@ -1187,7 +1187,7 @@ namespace CSBP.Services
         SaveChanges(daten);
         var per = HhPeriodeRep.Get(daten, daten.MandantNr, p);
         if (per != null)
-          status.Clear().Append(Functions.GetPeriod(per.Datum_Von, per.Datum_Bis, false));
+          state.Clear().Append(Functions.GetPeriod(per.Datum_Von, per.Datum_Bis, false));
         if (!bAlles || cancel.Length > 0)
           ende = true; // nur einen Durchgang
       }

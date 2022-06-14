@@ -21,18 +21,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH500Balance dialog.</summary>
 public partial class HH500Balance : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
-  private int mlBerechnen = 0;
-  private bool sollTabelle;
-  private List<HhBilanz> sollListe;
-  private List<HhBilanz> habenListe;
-
-  /// <summary>Status für Task.</summary>
-  readonly StringBuilder Status = new();
-
-  /// <summary>Abbruch für Task.</summary>
-  readonly StringBuilder Cancel = new();
-
 #pragma warning disable CS0649
 
   /// <summary>Label soll0.</summary>
@@ -64,7 +52,7 @@ public partial class HH500Balance : CsbpBin
   private readonly Label von0;
 
   /// <summary>Date Von.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date von;
 
   /// <summary>Label bis0.</summary>
@@ -72,19 +60,22 @@ public partial class HH500Balance : CsbpBin
   private readonly Label bis0;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static HH500Balance Create(object p1 = null, CsbpBin p = null)
-  {
-    return new HH500Balance(GetBuilder("HH500Balance", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private int mlBerechnen = 0;
+  private bool sollTabelle;
+  private List<HhBilanz> sollListe;
+  private List<HhBilanz> habenListe;
+
+  /// <summary>State for task.</summary>
+  private readonly StringBuilder state = new();
+
+  /// <summary>Cancel for task.</summary>
+  private readonly StringBuilder cancel = new();
 
   /// <summary>Konstruktor für modalen Dialog.</summary>
   /// <param name="b">Betroffener Builder.</param>
@@ -116,6 +107,15 @@ public partial class HH500Balance : CsbpBin
     // SetBold(client0);
     InitData(0);
     soll.GrabFocus();
+  }
+
+  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
+  /// <param name="p1">1. Parameter für Dialog.</param>
+  /// <param name="p">Betroffener Eltern-Dialog.</param>
+  /// <returns>Nicht-modalen Dialogs.</returns>
+  public static HH500Balance Create(object p1 = null, CsbpBin p = null)
+  {
+    return new HH500Balance(GetBuilder("HH500Balance", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -199,7 +199,7 @@ public partial class HH500Balance : CsbpBin
     }
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   private void OnRefresh()
   {
     if (!EventsActive)
@@ -219,13 +219,13 @@ public partial class HH500Balance : CsbpBin
     }
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
   {
     // Berechnen der Bilanz.
-    ShowStatus(Status, Cancel);
+    ShowStatus(state, cancel);
     Task.Run(() =>
     {
       var keine = true;
@@ -241,7 +241,7 @@ public partial class HH500Balance : CsbpBin
         }
         while (weiter >= 2 && (r == null || r.Ok))
         {
-          r = FactoryService.BudgetService.CalculateBalances(ServiceDaten, Status, Cancel, true, v);
+          r = FactoryService.BudgetService.CalculateBalances(ServiceDaten, state, cancel, true, v);
           v = null;
           if (r.Ok)
           {
@@ -278,7 +278,7 @@ public partial class HH500Balance : CsbpBin
     });
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -287,7 +287,7 @@ public partial class HH500Balance : CsbpBin
       OnRefresh();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -296,7 +296,7 @@ public partial class HH500Balance : CsbpBin
       OnRefresh();
   }
 
-  /// <summary>Handle Print.</summary>
+  /// <summary>Handles Print.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPrintClicked(object sender, EventArgs e)
@@ -305,7 +305,7 @@ public partial class HH500Balance : CsbpBin
     Start(typeof(HH510Interface), HH510_title, DialogTypeEnum.Without, d, csbpparent: this);
   }
 
-  /// <summary>Handle Soll.</summary>
+  /// <summary>Handles Soll.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSollCursorChanged(object sender, EventArgs e)
@@ -314,7 +314,7 @@ public partial class HH500Balance : CsbpBin
       sollTabelle = true;
   }
 
-  /// <summary>Handle Soll.</summary>
+  /// <summary>Handles Soll.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSollRowActivated(object sender, RowActivatedArgs e)
@@ -323,7 +323,7 @@ public partial class HH500Balance : CsbpBin
     StartBookings(uid);
   }
 
-  /// <summary>Handle Haben.</summary>
+  /// <summary>Handles Haben.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHabenCursorChanged(object sender, EventArgs e)
@@ -332,7 +332,7 @@ public partial class HH500Balance : CsbpBin
       sollTabelle = false;
   }
 
-  /// <summary>Handle Haben.</summary>
+  /// <summary>Handles Haben.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHabenRowActivated(object sender, RowActivatedArgs e)
@@ -341,7 +341,7 @@ public partial class HH500Balance : CsbpBin
     StartBookings(uid);
   }
 
-  /// <summary>Handle von.</summary>
+  /// <summary>Handles von.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVonDateChanged(object sender, DateChangedEventArgs e)
@@ -349,7 +349,7 @@ public partial class HH500Balance : CsbpBin
     OnRefresh();
   }
 
-  /// <summary>Handle bis.</summary>
+  /// <summary>Handles bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
@@ -359,7 +359,7 @@ public partial class HH500Balance : CsbpBin
     OnRefresh();
   }
 
-  /// <summary>Handle Oben.</summary>
+  /// <summary>Handles Oben.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnObenClicked(object sender, EventArgs e)
@@ -367,7 +367,7 @@ public partial class HH500Balance : CsbpBin
     SwapSortings(true);
   }
 
-  /// <summary>Handle Unten.</summary>
+  /// <summary>Handles Unten.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUntenClicked(object sender, EventArgs e)

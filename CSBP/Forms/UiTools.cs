@@ -21,9 +21,9 @@ public class UiTools
   /// </summary>
   /// <param name="bytes">Content as bytes.</param>
   /// <param name="name">Main part of the file name.</param>
-  /// <param name="daterandom">Add date and random number to file name?</param>
+  /// <param name="daterandom">Add date and random number to file name or not.</param>
   /// <param name="ext">Affected file extension.</param>
-  /// <param name="open">Open saved file?</param>
+  /// <param name="open">Open saved file or not.</param>
   public static void SaveFile(byte[] bytes, string name, bool daterandom = true,
       string ext = "html", bool open = true)
   {
@@ -43,9 +43,9 @@ public class UiTools
   /// <param name="lines">Content as lines.</param>
   /// <param name="path">Path to file can be empty or a full path with file name.</param>
   /// <param name="file">Main part of the file name.</param>
-  /// <param name="daterandom">Add date and random number to file name?</param>
+  /// <param name="daterandom">Add date and random number to file name or not.</param>
   /// <param name="ext">Affected file extension.</param>
-  /// <param name="open">Open saved file?</param>
+  /// <param name="open">Open saved file or not.</param>
   public static void SaveFile(List<string> lines, string path, string file = null, bool daterandom = false,
       string ext = null, bool open = true)
   {
@@ -64,11 +64,11 @@ public class UiTools
   }
 
   /// <summary>
-  /// Read file into lines of strings.
+  /// Read file into list of strings.
   /// </summary>
   /// <param name="path">Affected path, maybe with file name.</param>
   /// <param name="file">Affected file name, maybe empty.</param>
-  /// <returns></returns>
+  /// <returns>List of strings.</returns>
   public static List<string> ReadFile(string path, string file = null)
   {
     if (string.IsNullOrEmpty(path) && string.IsNullOrEmpty(file))

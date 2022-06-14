@@ -76,10 +76,10 @@ public interface IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="kuid">Affected konfiguration ID.</param>
-  /// <param name="status">Status of backup is always updated.</param>
+  /// <param name="state">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
   ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string uid,
-    DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel);
+    DateTime date, bool inactive, string search, string kuid, StringBuilder state, StringBuilder cancel);
 
   /// <summary>
   /// Gets a list of states.
@@ -225,10 +225,10 @@ public interface IStockService
   /// <param name="date">Affected date.</param>
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
-  /// <param name="status">Status of backup is always updated.</param>
+  /// <param name="state">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
   ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
-    DateTime date, bool inactive, string search, StringBuilder status, StringBuilder cancel);
+    DateTime date, bool inactive, string search, StringBuilder state, StringBuilder cancel);
 
   /// <summary>
   /// Gets a list of bookings.
@@ -344,8 +344,8 @@ public interface IStockService
   /// <param name="cuid">Affected configuration ID.</param>
   /// <param name="date">Affected date.</param>
   /// <param name="days">Affected konfiguration ID.</param>
-  /// <param name="status">Status of backup is always updated.</param>
+  /// <param name="state">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
   ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
-    string cuid, DateTime date, int days, StringBuilder status, StringBuilder cancel);
+    string cuid, DateTime date, int days, StringBuilder state, StringBuilder cancel);
 }

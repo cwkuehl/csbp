@@ -107,7 +107,7 @@ public partial class AD120Birthdays : CsbpBin
     }
   }
 
-  /// <summary>Handle Datum.</summary>
+  /// <summary>Handles Datum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatumDateChanged(object sender, DateChangedEventArgs e)
@@ -116,7 +116,7 @@ public partial class AD120Birthdays : CsbpBin
       InitData(1);
   }
 
-  /// <summary>Handle Tage.</summary>
+  /// <summary>Handles Tage.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnTageKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
@@ -125,7 +125,7 @@ public partial class AD120Birthdays : CsbpBin
       InitData(1);
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)

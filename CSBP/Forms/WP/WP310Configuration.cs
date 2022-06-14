@@ -16,7 +16,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP310Configuration dialog.</summary>
 public partial class WP310Configuration : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private WpKonfiguration Model;
 
 #pragma warning disable CS0649
@@ -187,28 +187,28 @@ public partial class WP310Configuration : CsbpBin
     }
   }
 
-  /// <summary>Handle Skala.</summary>
+  /// <summary>Handles Skala.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSkalaChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Methode.</summary>
+  /// <summary>Handles Methode.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMethodeChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Status.</summary>
+  /// <summary>Handles state.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnStatusChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -237,7 +237,7 @@ public partial class WP310Configuration : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

@@ -290,14 +290,14 @@ public partial class AD110Person : CsbpBin
     }
   }
 
-  /// <summary>Handle geburt.</summary>
+  /// <summary>Handles geburt.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnGeburtDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -332,7 +332,7 @@ public partial class AD110Person : CsbpBin
     }
   }
 
-  /// <summary>Handle Adressedupl.</summary>
+  /// <summary>Handles Adressedupl.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAdresseduplClicked(object sender, EventArgs e)
@@ -341,7 +341,7 @@ public partial class AD110Person : CsbpBin
     adresseAnzahl.Text = "0";
   }
 
-  /// <summary>Handle Adressewechseln.</summary>
+  /// <summary>Handles Adressewechseln.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAdressewechselnClicked(object sender, EventArgs e)
@@ -352,7 +352,7 @@ public partial class AD110Person : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

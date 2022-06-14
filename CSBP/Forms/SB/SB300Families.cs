@@ -120,7 +120,7 @@ public partial class SB300Families : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -128,7 +128,7 @@ public partial class SB300Families : CsbpBin
     RefreshTreeView(familien, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -137,7 +137,7 @@ public partial class SB300Families : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -146,7 +146,7 @@ public partial class SB300Families : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -154,7 +154,7 @@ public partial class SB300Families : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -162,7 +162,7 @@ public partial class SB300Families : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -170,7 +170,7 @@ public partial class SB300Families : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -178,7 +178,7 @@ public partial class SB300Families : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Familien.</summary>
+  /// <summary>Handles Familien.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFamilienRowActivated(object sender, RowActivatedArgs e)
@@ -186,7 +186,7 @@ public partial class SB300Families : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle Spvater.</summary>
+  /// <summary>Handles Spvater.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpvaterClicked(object sender, EventArgs e)
@@ -204,7 +204,7 @@ public partial class SB300Families : CsbpBin
     }
   }
 
-  /// <summary>Handle Spmutter.</summary>
+  /// <summary>Handles Spmutter.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpmutterClicked(object sender, EventArgs e)
@@ -222,7 +222,7 @@ public partial class SB300Families : CsbpBin
     }
   }
 
-  /// <summary>Handle Spkind.</summary>
+  /// <summary>Handles Spkind.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpkindClicked(object sender, EventArgs e)

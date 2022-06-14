@@ -18,10 +18,10 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP100Chart dialog.</summary>
 public partial class WP100Chart : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private Tuple<DateTime?, string, string> Model;
 
-  /// <summary>Chart Model.</summary>
+  /// <summary>Chart model.</summary>
   private PnfChart Chart;
 
 #pragma warning disable CS0649
@@ -175,7 +175,7 @@ public partial class WP100Chart : CsbpBin
     }
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -183,7 +183,7 @@ public partial class WP100Chart : CsbpBin
     RefreshTreeView(data, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -192,7 +192,7 @@ public partial class WP100Chart : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -201,49 +201,49 @@ public partial class WP100Chart : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Daten.</summary>
+  /// <summary>Handles Daten.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatenRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle von.</summary>
+  /// <summary>Handles von.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVonDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle bis.</summary>
+  /// <summary>Handles bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Wertpapier.</summary>
+  /// <summary>Handles Wertpapier.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWertpapierChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Skala.</summary>
+  /// <summary>Handles Skala.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSkalaChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Methode.</summary>
+  /// <summary>Handles Methode.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMethodeChanged(object sender, EventArgs e)
   {
   }
 
-  // protected void OnChartpaneExposeEvent(object o, ExposeEventArgs args)
+  // protected void OnChartpaneExposeEvent(object sender, ExposeEventArgs args)
   // {
   //   var win = args.Event.Window; // chartpane.GdkWindow;
   //   var area = args.Event.Area; // new Rectangle(0, 0, 100, 200);
@@ -261,7 +261,7 @@ public partial class WP100Chart : CsbpBin
   //   return layout;
   // }
 
-  /// <summary>Handle Methode.</summary>
+  /// <summary>Handles Methode.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnChartpaneDraw(object sender, DrawnArgs e)

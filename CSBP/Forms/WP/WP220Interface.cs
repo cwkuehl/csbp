@@ -18,16 +18,10 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP220Interface dialog.</summary>
 public partial class WP220Interface : CsbpBin
 {
-  /// <summary>State of calculation.</summary>
-  readonly StringBuilder Status = new();
-
-  /// <summary>Cancel of calculation.</summary>
-  readonly StringBuilder Cancel = new();
-
 #pragma warning disable CS0649
 
   /// <summary>Date Datum.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date datum;
 
   /// <summary>Entry anzahl.</summary>
@@ -51,15 +45,15 @@ public partial class WP220Interface : CsbpBin
   private readonly Label datum20;
 
   /// <summary>Date Datum2.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date datum2;
 
   /// <summary>Date Datum3.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date datum3;
 
   /// <summary>Date Datum4.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date datum4;
 
   /// <summary>Label wertpapier0.</summary>
@@ -96,14 +90,11 @@ public partial class WP220Interface : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP220Interface Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP220Interface(GetBuilder("WP220Interface", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>State of calculation.</summary>
+  readonly StringBuilder state = new();
+
+  /// <summary>Cancel of calculation.</summary>
+  readonly StringBuilder cancel = new();
 
   /// <summary>Konstruktor für modalen Dialog.</summary>
   /// <param name="b">Betroffener Builder.</param>
@@ -120,7 +111,7 @@ public partial class WP220Interface : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     datum.DateChanged += OnDatumDateChanged;
     datum.Show();
@@ -128,7 +119,7 @@ public partial class WP220Interface : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     datum2.DateChanged += OnDatum2DateChanged;
     datum2.Show();
@@ -136,7 +127,7 @@ public partial class WP220Interface : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     datum3.DateChanged += OnDatum3DateChanged;
     datum3.Show();
@@ -144,12 +135,21 @@ public partial class WP220Interface : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     datum4.DateChanged += OnDatum4DateChanged;
     datum4.Show();
-    // SetBold(client0);
+    //// SetBold(client0);
     InitData(0);
+  }
+
+  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
+  /// <param name="p1">1. Parameter für Dialog.</param>
+  /// <param name="p">Betroffener Eltern-Dialog.</param>
+  /// <returns>Nicht-modalen Dialogs.</returns>
+  public static WP220Interface Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP220Interface(GetBuilder("WP220Interface", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -221,21 +221,21 @@ public partial class WP220Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle datum.</summary>
+  /// <summary>Handles datum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatumDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Konfiguration.</summary>
+  /// <summary>Handles Konfiguration.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKonfigurationRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Dateiauswahl.</summary>
+  /// <summary>Handles Dateiauswahl.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDateiauswahlClicked(object sender, EventArgs e)
@@ -248,7 +248,7 @@ public partial class WP220Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle Export.</summary>
+  /// <summary>Handles Export.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnExportClicked(object sender, EventArgs e)
@@ -256,35 +256,35 @@ public partial class WP220Interface : CsbpBin
     ExportStocks();
   }
 
-  /// <summary>Handle datum2.</summary>
+  /// <summary>Handles datum2.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatum2DateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle datum3.</summary>
+  /// <summary>Handles datum3.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatum3DateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle datum4.</summary>
+  /// <summary>Handles datum4.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatum4DateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Wertpapier.</summary>
+  /// <summary>Handles Wertpapier.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWertpapierRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Datei2auswahl.</summary>
+  /// <summary>Handles Datei2auswahl.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatei2auswahlClicked(object sender, EventArgs e)
@@ -297,20 +297,20 @@ public partial class WP220Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle Export2.</summary>
+  /// <summary>Handles Export2.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnExport2Clicked(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    if (Cancel.Length <= 0)
-      Cancel.Append("Cancel");
+    if (cancel.Length <= 0)
+      cancel.Append("cancel");
     else
       dialog.Hide();
   }
@@ -323,32 +323,32 @@ public partial class WP220Interface : CsbpBin
       throw new MessageException(Message.New(M1012));
     try
     {
-      Status.Clear();
-      Cancel.Clear();
+      state.Clear();
+      cancel.Clear();
       var r = await Task.Run(() =>
       {
         var r0 = FactoryService.StockService.ExportStocks(ServiceDaten, bezeichnung.Text, null,
-          null, null, false, GetText(konfiguration), datum.ValueNn, Functions.ToInt32(anzahl.Text), Status, Cancel);
+          null, null, false, GetText(konfiguration), datum.ValueNn, Functions.ToInt32(anzahl.Text), state, cancel);
         return r0;
       });
       r.ThrowAllErrors();
-      if (Cancel.Length <= 0)
+      if (cancel.Length <= 0)
         UiTools.SaveFile(r.Ergebnis, datei.Text);
-      Application.Invoke(delegate
+      Application.Invoke((sender, e) =>
       {
         // refreshAction.Click();
       });
     }
     catch (Exception ex)
     {
-      Application.Invoke(delegate
+      Application.Invoke((sender, e) =>
       {
         ShowError(ex.Message);
       });
     }
     finally
     {
-      Cancel.Append("End");
+      cancel.Append("End");
     }
   }
 }

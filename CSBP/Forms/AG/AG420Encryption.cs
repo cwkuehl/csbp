@@ -14,6 +14,8 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AG420Encryption dialog.</summary>
 public partial class AG420Encryption : CsbpBin
 {
+#pragma warning disable CS0649
+
   /// <summary>Entry target.</summary>
   [Builder.Object]
   private readonly Entry target;
@@ -25,6 +27,8 @@ public partial class AG420Encryption : CsbpBin
   /// <summary>Entry password.</summary>
   [Builder.Object]
   private readonly Entry password;
+
+#pragma warning restore CS0649
 
   /// <summary>Initializes a new instance of the <see cref="AG420Encryption"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -66,7 +70,7 @@ public partial class AG420Encryption : CsbpBin
     }
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -80,7 +84,7 @@ public partial class AG420Encryption : CsbpBin
     dialog.Hide();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

@@ -638,25 +638,25 @@ public partial class CsbpBin : Bin
     return col;
   }
 
-  private void TableCell_Edited(object o, EditedArgs args)
+  private void TableCell_Edited(object sender, EditedArgs args)
   {
-    if (o is not Gtk.CellRenderer cr)
+    if (sender is not Gtk.CellRenderer cr)
       return;
     var cnr = (int)cr.Data["cnr"];
     var store = cr.Data["store"] as TreeStore;
     var flist = cr.Data["flist"] as Formulas;
-    // Debug.Print($"TableCell_Edited cnr {cnr}");
+    //// Debug.Print($"TableCell_Edited cnr {cnr}");
     flist?.EndEdit(store, cnr, args);
   }
 
   /// <summary>
   /// Perform context menu commands.
   /// </summary>
-  /// <param name="o">Affected object.</param>
+  /// <param name="sender">Affected sender.</param>
   /// <param name="args">Affected event args.</param>
-  private void OnTableMenuItemClick(object o, ButtonPressEventArgs args)
+  private void OnTableMenuItemClick(object sender, ButtonPressEventArgs args)
   {
-    if (o is not MenuItem mi)
+    if (sender is not MenuItem mi)
       return;
     var tv = mi.Data["tv"] as TreeView;
     var store = mi.Data["store"] as TreeStore;
@@ -901,11 +901,11 @@ public partial class CsbpBin : Bin
   /// <summary>
   /// ButtonReleaseEvent for TreeView.
   /// </summary>
-  /// <param name="o">Affected object.</param>
+  /// <param name="sender">Affected sender.</param>
   /// <param name="args">Affected event args.</param>
-  private void OnTableButtonReleaseEvent(object o, ButtonReleaseEventArgs args)
+  private void OnTableButtonReleaseEvent(object sender, ButtonReleaseEventArgs args)
   {
-    if (o is not Gtk.Widget cr)
+    if (sender is not Gtk.Widget cr)
       return;
     if (cr.Data["tv"] is not TreeView tv || cr.Data["store"] is not TreeStore store)
       return;
@@ -1031,7 +1031,7 @@ public partial class CsbpBin : Bin
       if (cb.Child is Entry entry)
         entry.Completion = completion;
       // else
-      //   cb.KeyReleaseEvent += (object o, KeyReleaseEventArgs e) =>
+      //   cb.KeyReleaseEvent += (object sender, KeyReleaseEventArgs e) =>
       //   {
       //     var k = e.Event.Key;
       //     try
@@ -1086,22 +1086,24 @@ public partial class CsbpBin : Bin
   }
 
   /// <summary>Aktualisieren des Status.</summary>
-  protected static void ShowStatus(StringBuilder Status, StringBuilder Cancel)
+  /// <param name="state">Affected state.</param>
+  /// <param name="cancel">Affected cancel.</param>
+  protected static void ShowStatus(StringBuilder state, StringBuilder cancel)
   {
     ShowError(null);
-    Cancel.Clear();
-    Status.Clear();
+    cancel.Clear();
+    state.Clear();
     Task.Run(() =>
     {
       try
       {
         while (true)
         {
-          Application.Invoke(delegate
+          Application.Invoke((sender, e) =>
           {
-            MainClass.MainWindow.SetError(Status.ToString());
+            MainClass.MainWindow.SetError(state.ToString());
           });
-          if (Cancel.Length > 0)
+          if (cancel.Length > 0)
             break;
           Thread.Sleep(200);
         }

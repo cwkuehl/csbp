@@ -176,14 +176,14 @@ namespace CSBP.Services
     /// <param name="inactive">Also inactive investmenst?</param>
     /// <param name="search">Affected text search.</param>
     /// <param name="cuid">Affected configuration ID.</param>
-    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="state">State of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
     public ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string stuid,
-      DateTime date, bool inactive, string search, string cuid, StringBuilder status, StringBuilder cancel)
+      DateTime date, bool inactive, string search, string cuid, StringBuilder state, StringBuilder cancel)
     {
-      if (status == null || cancel == null)
-        throw new ArgumentException(null, nameof(status));
-      CalculateStocksIntern(daten, desc, pattern, stuid, date, inactive, search, cuid, status, cancel);
+      if (state == null || cancel == null)
+        throw new ArgumentException(null, nameof(state));
+      CalculateStocksIntern(daten, desc, pattern, stuid, date, inactive, search, cuid, state, cancel);
       var r = new ServiceErgebnis();
       return r;
     }
@@ -200,13 +200,13 @@ namespace CSBP.Services
     /// <param name="inactive">Also inactive investmenst?</param>
     /// <param name="search">Affected text search.</param>
     /// <param name="kuid">Affected konfiguration ID.</param>
-    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="state">State of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
     private List<WpWertpapier> CalculateStocksIntern(ServiceDaten daten, string desc, string pattern, string uid,
-      DateTime date, bool inactive, string search, string kuid, StringBuilder status, StringBuilder cancel)
+      DateTime date, bool inactive, string search, string kuid, StringBuilder state, StringBuilder cancel)
     {
-      if (status == null || cancel == null)
-        throw new ArgumentException(null, nameof(status));
+      if (state == null || cancel == null)
+        throw new ArgumentException(null, nameof(state));
       WpKonfiguration k = null;
       if (!string.IsNullOrEmpty(kuid))
       {
@@ -233,10 +233,10 @@ namespace CSBP.Services
         list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
       list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
       var l = list.Count;
-      status.Clear().Append(M0(WP053));
+      state.Clear().Append(M0(WP053));
       Gtk.Application.Invoke(delegate
       {
-        MainClass.MainWindow.SetError(status.ToString());
+        MainClass.MainWindow.SetError(state.ToString());
       });
       for (var i = 0; i < l && cancel.Length <= 0; i++)
       {
@@ -265,10 +265,10 @@ namespace CSBP.Services
         if (cancel.Length > 0)
           break;
         su.Task = ExecuteHttpsClient(su.Url);
-        status.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-        Gtk.Application.Invoke(delegate
+        state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
+        Gtk.Application.Invoke((sender, e) =>
         {
-          MainClass.MainWindow.SetError(status.ToString());
+          MainClass.MainWindow.SetError(state.ToString());
         });
         if (i1 < l1)
         {
@@ -294,10 +294,10 @@ namespace CSBP.Services
       {
         // Calculate stock.
         var st = list[i0];
-        status.Clear().Append(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
-        Gtk.Application.Invoke(delegate
+        state.Clear().Append(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
+        Gtk.Application.Invoke((sender, e) =>
         {
-          MainClass.MainWindow.SetError(status.ToString());
+          MainClass.MainWindow.SetError(state.ToString());
         });
         try
         {
@@ -311,7 +311,7 @@ namespace CSBP.Services
           st.Assessment5 = "";
           st.Pattern = "";
           st.StopPrice = null;
-          // wp.signalkurs1 Zielkurs (Signalkur1) wird manuell erfasst.
+          //// wp.signalkurs1 Zielkurs (Signalkur1) wird manuell erfasst.
           st.SignalPrice2 = null;
           st.Trend1 = "";
           st.Trend2 = "";
@@ -329,9 +329,9 @@ namespace CSBP.Services
           st.Index3 = "";
           st.Index4 = "";
           st.Average200 = "";
-          // st.Configuration = (k == null) ? M0(WP010) : k.Bezeichnung
-          // st.typ
-          // st.waehrung
+          //// st.Configuration = (k == null) ? M0(WP010) : k.Bezeichnung
+          //// st.typ
+          //// st.waehrung
 
           var kursdatum = liste.Count > 0 ? liste.Last().Datum : date;
           var signalbew = 0;
@@ -346,7 +346,7 @@ namespace CSBP.Services
             {
               Ziel = st.SignalPrice1 ?? 0,
               Stop = st.StopPrice ?? 0,
-              Relativ = k.Relative
+              Relativ = k.Relative,
             };
             c.AddKurse(liste);
             var p = c.Pattern.LastOrDefault();
@@ -481,7 +481,7 @@ namespace CSBP.Services
         }
       }
       SaveChanges(daten);
-      status.Clear();
+      state.Clear();
       return list;
     }
 
@@ -833,12 +833,12 @@ namespace CSBP.Services
     /// <param name="date">Affected date.</param>
     /// <param name="inactive">Also inactive investmenst?</param>
     /// <param name="search">Affected text search.</param>
-    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="state">State of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
     public ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
-        DateTime date, bool inactive, string search, StringBuilder status, StringBuilder cancel)
+        DateTime date, bool inactive, string search, StringBuilder state, StringBuilder cancel)
     {
-      if (status == null || cancel == null)
+      if (state == null || cancel == null)
         throw new ArgumentException("status, cancel");
       var from = date.AddDays(-7);
       var dictlist = new Dictionary<string, List<SoKurse>>();
@@ -850,10 +850,10 @@ namespace CSBP.Services
         list = list.Where(a => a.State == 1).ToList();
       }
       var l = list.Count;
-      status.Clear().Append(M0(WP053));
-      Gtk.Application.Invoke(delegate
+      state.Clear().Append(M0(WP053));
+      Gtk.Application.Invoke((sender, e) =>
       {
-        MainClass.MainWindow.SetError(status.ToString());
+        MainClass.MainWindow.SetError(state.ToString());
       });
       for (var i = 0; i < l && cancel.Length <= 0; i++)
       {
@@ -882,10 +882,10 @@ namespace CSBP.Services
         if (cancel.Length > 0)
           break;
         su.Task = ExecuteHttpsClient(su.Url);
-        status.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-        Gtk.Application.Invoke(delegate
+        state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
+        Gtk.Application.Invoke((sender, e) =>
         {
-          MainClass.MainWindow.SetError(status.ToString());
+          MainClass.MainWindow.SetError(state.ToString());
         });
         if (i1 < l1)
         {
@@ -911,10 +911,10 @@ namespace CSBP.Services
       {
         // Kurse berechnen.
         var inv = list[i];
-        status.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
-        Gtk.Application.Invoke(delegate
+        state.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
+        Gtk.Application.Invoke((sender, e) =>
         {
-          MainClass.MainWindow.SetError(status.ToString());
+          MainClass.MainWindow.SetError(state.ToString());
         });
         var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
         inv.MinDate = blist.FirstOrDefault()?.Datum;
@@ -980,7 +980,7 @@ namespace CSBP.Services
           SaveChanges(daten);
         }
       }
-      status.Clear();
+      state.Clear();
       var r = new ServiceErgebnis();
       return r;
     }
@@ -988,11 +988,11 @@ namespace CSBP.Services
     private static void CalculateInvestment(ServiceDaten daten, WpAnlage inv, List<WpBuchung> blist, SoKurse k)
     {
       Functions.MachNichts(daten);
-      // No Payment for interests.
+      //// No Payment for interests.
       inv.Payment = blist.Sum(a => a.Zahlungsbetrag - (a.Zahlungsbetrag == 0 ? 0 : a.Rabattbetrag));
       inv.Shares = blist.Sum(a => a.Anteile);
       inv.ShareValue = inv.Shares == 0 ? 0 : inv.Payment / inv.Shares;
-      // Interests without taxes.
+      //// Interests without taxes.
       inv.Interest = blist.Sum(a => a.Zinsen + (a.Zinsen == 0 ? 0 : a.Rabattbetrag));
       inv.Price = k == null ? 0 : k.Close;
       inv.PriceDate = k?.Datum;
@@ -1298,25 +1298,28 @@ namespace CSBP.Services
     /// <param name="cuid">Affected configuration IDs, separated by semikolon.</param>
     /// <param name="date">Affected date.</param>
     /// <param name="days">Affected konfiguration ID.</param>
-    /// <param name="status">Status of backup is always updated.</param>
+    /// <param name="state">State of backup is always updated.</param>
     /// <param name="cancel">Cancel backup if not empty.</param>
     public ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
-      string cuid, DateTime date, int days, StringBuilder status, StringBuilder cancel)
+      string cuid, DateTime date, int days, StringBuilder state, StringBuilder cancel)
     {
-      if (status == null || cancel == null)
-        throw new ArgumentException(null, nameof(status));
+      if (state == null || cancel == null)
+        throw new ArgumentException(null, nameof(state));
       var r = new ServiceErgebnis<List<string>>();
       var clist = (cuid ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries);
       if (clist.Length <= 0)
         r.Errors.Add(Message.New(M2095));
       if (!r.Ok)
         return r;
-      var list = new List<String>();
-      var columns = new List<string>{"Kursdatum", "Konfiguration", "Uid", "Bezeichnung", "RelationBezeichnung", "Bewertung",
+      var list = new List<string>();
+      var columns = new List<string>
+      {
+        "Kursdatum", "Konfiguration", "Uid", "Bezeichnung", "RelationBezeichnung", "Bewertung",
         "Trend", "Bewertung1", "Trend1", "Bewertung2", "Trend2", "Bewertung3", "Trend3", "Bewertung4", "Trend4",
-        "Bewertung5", "Trend5", "Aktuellerkurs", "Signalkurs1", "Stopkurs", "Signalkurs2", "Muster", //
+        "Bewertung5", "Trend5", "Aktuellerkurs", "Signalkurs1", "Stopkurs", "Signalkurs2", "Muster",
         "Sortierung", "Kuerzel", "Xo", "Signalbew", "Signaldatum", "Signalbez", "Index1", "Index2", "Index3",
-        "Index4", "Schnitt200", "Typ", "Waehrung", "GeaendertAm", "GeaendertVon", "AngelegtAm", "AngelegtVon"};
+        "Index4", "Schnitt200", "Typ", "Waehrung", "GeaendertAm", "GeaendertVon", "AngelegtAm", "AngelegtVon",
+      };
       list.Add(Functions.EncodeCSV(columns));
       r.Ergebnis = list;
       var anzahl = Math.Max(1, days);
@@ -1326,17 +1329,20 @@ namespace CSBP.Services
       {
         foreach (var c in clist)
         {
-          var slist = CalculateStocksIntern(daten, desc, pattern, stuid, d, inactive, search, c, status, cancel);
+          var slist = CalculateStocksIntern(daten, desc, pattern, stuid, d, inactive, search, c, state, cancel);
           foreach (var s in slist)
           {
-            var l = new List<string> { ToStr(s.PriceDate), ToStr(s.Configuration), ToStr(s.Uid), ToStr(s.Description),
+            var l = new List<string>
+            {
+              ToStr(s.PriceDate), ToStr(s.Configuration), ToStr(s.Uid), ToStr(s.Description),
               ToStr(s.RelationDescription), ToStr(s.Assessment),
               ToStr(s.Trend), ToStr(s.Assessment1), ToStr(s.Trend1), ToStr(s.Assessment2), ToStr(s.Trend2), ToStr(s.Assessment3), ToStr(s.Trend3),
               ToStr(s.Assessment4), ToStr(s.Trend4), ToStr(s.Assessment5), ToStr(s.Trend5),ToStr(s.CurrentPrice), ToStr(s.SignalPrice1),
               ToStr(s.StopPrice), ToStr(s.SignalPrice2), ToStr(s.Pattern), ToStr(s.Sorting), ToStr(s.Kuerzel), ToStr(s.Xo),
               ToStr(s.SignalAssessment), ToStr(s.SignalDate), ToStr(s.SignalDescription), ToStr(s.Index1), ToStr(s.Index2),
               ToStr(s.Index3), ToStr(s.Index4), ToStr(s.Average200), ToStr(s.Type), ToStr(s.Currency),
-              ToStr(s.Geaendert_Am), ToStr(s.Geaendert_Von), ToStr(s.Angelegt_Am), ToStr(s.Angelegt_Von)};
+              ToStr(s.Geaendert_Am), ToStr(s.Geaendert_Von), ToStr(s.Angelegt_Am), ToStr(s.Angelegt_Von),
+            };
             list.Add(Functions.EncodeCSV(l));
           }
         }

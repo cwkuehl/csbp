@@ -78,7 +78,7 @@ public partial class AD130Addresses : CsbpBin
     }
   }
 
-  /// <summary>Handle Adressen.</summary>
+  /// <summary>Handles Adressen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAdressenRowActivated(object sender, RowActivatedArgs e)
@@ -86,7 +86,7 @@ public partial class AD130Addresses : CsbpBin
     ok.Activate();
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -96,7 +96,7 @@ public partial class AD130Addresses : CsbpBin
     dialog.Hide();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

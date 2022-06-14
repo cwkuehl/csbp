@@ -93,7 +93,7 @@ public partial class HH300Events : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -101,7 +101,7 @@ public partial class HH300Events : CsbpBin
     // RefreshTreeView(ereignisse, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -110,7 +110,7 @@ public partial class HH300Events : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -119,7 +119,7 @@ public partial class HH300Events : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -127,7 +127,7 @@ public partial class HH300Events : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -135,7 +135,7 @@ public partial class HH300Events : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -143,7 +143,7 @@ public partial class HH300Events : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -151,7 +151,7 @@ public partial class HH300Events : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Ereignisse.</summary>
+  /// <summary>Handles Ereignisse.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEreignisseRowActivated(object sender, RowActivatedArgs e)
@@ -159,7 +159,7 @@ public partial class HH300Events : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle Alle.</summary>
+  /// <summary>Handles Alle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)
@@ -167,10 +167,10 @@ public partial class HH300Events : CsbpBin
     RefreshTreeView(ereignisse, 0);
   }
 
-  /// <summary>Handle Text.</summary>
+  /// <summary>Handles Text.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnTextKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnTextKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;

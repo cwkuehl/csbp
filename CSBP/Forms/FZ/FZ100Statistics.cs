@@ -19,10 +19,10 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ100Statistics dialog.</summary>
 public partial class FZ100Statistics : CsbpBin
 {
-  /// <summary>Diagram Model Proprietary.</summary>
+  /// <summary>Diagram model Proprietary.</summary>
   private List<KeyValuePair<string, decimal>> PplList;
 
-  /// <summary>Diagram Model Bike mileages.</summary>
+  /// <summary>Diagram model Bike mileages.</summary>
   private List<KeyValuePair<string, decimal>> MileageList;
 
 #pragma warning disable CS0649
@@ -115,7 +115,7 @@ public partial class FZ100Statistics : CsbpBin
     }
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -123,7 +123,7 @@ public partial class FZ100Statistics : CsbpBin
     InitData(1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -132,7 +132,7 @@ public partial class FZ100Statistics : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -141,7 +141,7 @@ public partial class FZ100Statistics : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle datum.</summary>
+  /// <summary>Handles datum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatumDateChanged(object sender, DateChangedEventArgs e)
@@ -151,7 +151,7 @@ public partial class FZ100Statistics : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Diagramm.</summary>
+  /// <summary>Handles Diagramm.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDiagramDraw(object sender, DrawnArgs e)

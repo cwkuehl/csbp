@@ -18,7 +18,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for SB310Family dialog.</summary>
 public partial class SB310Family : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private SbFamilie Model;
 
   /// <summary>Liste der Kinder.</summary>
@@ -191,35 +191,35 @@ public partial class SB310Family : CsbpBin
     AddStringColumnsSort(kinder, SB310_kinder_columns, values);
   }
 
-  /// <summary>Handle Vater.</summary>
+  /// <summary>Handles Vater.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVaterChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Mutter.</summary>
+  /// <summary>Handles Mutter.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMutterChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Kinder.</summary>
+  /// <summary>Handles Kinder.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKinderRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Kind.</summary>
+  /// <summary>Handles Kind.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKindChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -247,7 +247,7 @@ public partial class SB310Family : CsbpBin
     }
   }
 
-  /// <summary>Handle Hinzufuegen.</summary>
+  /// <summary>Handles Hinzufuegen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHinzufuegenClicked(object sender, EventArgs e)
@@ -263,7 +263,7 @@ public partial class SB310Family : CsbpBin
     }
   }
 
-  /// <summary>Handle Entfernen.</summary>
+  /// <summary>Handles Entfernen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEntfernenClicked(object sender, EventArgs e)
@@ -275,7 +275,7 @@ public partial class SB310Family : CsbpBin
     InitChildren();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

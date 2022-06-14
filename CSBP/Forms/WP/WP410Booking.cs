@@ -21,7 +21,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP410Booking dialog.</summary>
 public partial class WP410Booking : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private WpBuchung Model;
 
   /// <summary>Letztes Valuta merken.</summary>
@@ -274,7 +274,7 @@ public partial class WP410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle Anlage.</summary>
+  /// <summary>Handles Anlage.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAnlageChanged(object sender, EventArgs e)
@@ -282,7 +282,7 @@ public partial class WP410Booking : CsbpBin
     OnValuta();
   }
 
-  /// <summary>Handle valuta.</summary>
+  /// <summary>Handles valuta.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnValutaDateChanged(object sender, DateChangedEventArgs e)
@@ -290,47 +290,47 @@ public partial class WP410Booking : CsbpBin
     OnValuta();
   }
 
-  /// <summary>Handle Betrag.</summary>
+  /// <summary>Handles Betrag.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBetragKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnBetragKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     OnShares();
   }
 
-  /// <summary>Handle Rabatt.</summary>
+  /// <summary>Handles Rabatt.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnRabattKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnRabattKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     OnShares();
   }
 
-  /// <summary>Handle Anteile.</summary>
+  /// <summary>Handles Anteile.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnAnteileKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnAnteileKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     OnShares();
   }
 
-  /// <summary>Handle Zinsen.</summary>
+  /// <summary>Handles Zinsen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnZinsenKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnZinsenKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     OnShares();
   }
 
-  /// <summary>Handle Buchungstext.</summary>
+  /// <summary>Handles Buchungstext.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBtextFocusInEvent(object o, FocusInEventArgs e)
+  protected void OnBtextFocusInEvent(object sender, FocusInEventArgs e)
   {
     // Debug.WriteLine("OnBtextFocusInEvent");
   }
 
-  /// <summary>Handle Ereignis.</summary>
+  /// <summary>Handles Ereignis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHhEreignisCursorChanged(object sender, EventArgs e)
@@ -361,7 +361,7 @@ public partial class WP410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle HhAendern.</summary>
+  /// <summary>Handles HhAendern.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHhAendernClicked(object sender, EventArgs e)
@@ -369,7 +369,7 @@ public partial class WP410Booking : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle HhStorno.</summary>
+  /// <summary>Handles HhStorno.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHhStornoClicked(object sender, EventArgs e)
@@ -377,7 +377,7 @@ public partial class WP410Booking : CsbpBin
     StartDialog(DialogTypeEnum.Reverse);
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -425,7 +425,7 @@ public partial class WP410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

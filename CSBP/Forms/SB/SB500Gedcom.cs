@@ -76,27 +76,27 @@ public partial class SB500Gedcom : CsbpBin
     }
   }
 
-  /// <summary>Handle Name.</summary>
+  /// <summary>Handles Name.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnNameKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnNameKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     Parameter.SB500Name = name.Text;
   }
 
-  /// <summary>Handle Filter.</summary>
+  /// <summary>Handles Filter.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnFilterKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnFilterKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     Parameter.SB500Filter = filter.Buffer.Text;
   }
 
-  /// <summary>Handle Dateiauswahl.</summary>
+  /// <summary>Handles Dateiauswahl.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDateiauswahlClicked(object sender, EventArgs e)
@@ -109,7 +109,7 @@ public partial class SB500Gedcom : CsbpBin
     }
   }
 
-  /// <summary>Handle Export.</summary>
+  /// <summary>Handles Export.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnExportClicked(object sender, EventArgs e)
@@ -120,7 +120,7 @@ public partial class SB500Gedcom : CsbpBin
     UiTools.SaveFile(lines, datei.Text);
   }
 
-  /// <summary>Handle Importieren.</summary>
+  /// <summary>Handles Importieren.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnImportierenClicked(object sender, EventArgs e)
@@ -139,7 +139,7 @@ public partial class SB500Gedcom : CsbpBin
       ShowInfo(message);
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

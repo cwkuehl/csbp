@@ -17,7 +17,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for SB220Print dialog.</summary>
 public partial class SB220Print : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
 #pragma warning disable CS0649
 
   /// <summary>Label person0.</summary>
@@ -97,7 +97,7 @@ public partial class SB220Print : CsbpBin
     }
   }
 
-  /// <summary>Handle Person.</summary>
+  /// <summary>Handles Person.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPersonChanged(object sender, EventArgs e)
@@ -107,17 +107,17 @@ public partial class SB220Print : CsbpBin
     Parameter.SB220Ancestor = GetText(person);
   }
 
-  /// <summary>Handle Generation.</summary>
+  /// <summary>Handles Generation.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnGenerationKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnGenerationKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive || Functions.ToInt32(generation.Text) <= 0)
       return;
     Parameter.SB220Generation = generation.Text;
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -127,7 +127,7 @@ public partial class SB220Print : CsbpBin
     UiTools.SaveFile(pdf, M0(SB030));
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

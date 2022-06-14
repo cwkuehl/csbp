@@ -91,7 +91,7 @@ public class AM000Login : CsbpBin
     }
   }
 
-  /// <summary>Handle Anmelden.</summary>
+  /// <summary>Handles Anmelden.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnLogin(object sender, EventArgs a)
@@ -113,7 +113,7 @@ public class AM000Login : CsbpBin
     Parameter.Save();
   }
 
-  /// <summary>Handle Zurücksetzen.</summary>
+  /// <summary>Handles Zurücksetzen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnReset(object sender, EventArgs a)
@@ -121,7 +121,7 @@ public class AM000Login : CsbpBin
     MainClass.MainWindow.Reset();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCancel(object sender, EventArgs a)

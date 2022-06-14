@@ -124,7 +124,7 @@ public partial class SB200Ancestors : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -132,7 +132,7 @@ public partial class SB200Ancestors : CsbpBin
     // RefreshTreeView(ahnen, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -141,7 +141,7 @@ public partial class SB200Ancestors : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -150,7 +150,7 @@ public partial class SB200Ancestors : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -158,7 +158,7 @@ public partial class SB200Ancestors : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -166,7 +166,7 @@ public partial class SB200Ancestors : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -174,7 +174,7 @@ public partial class SB200Ancestors : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -182,7 +182,7 @@ public partial class SB200Ancestors : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Print.</summary>
+  /// <summary>Handles Print.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPrintClicked(object sender, EventArgs e)
@@ -190,7 +190,7 @@ public partial class SB200Ancestors : CsbpBin
     Start(typeof(SB220Print), SB220_title, csbpparent: this);
   }
 
-  /// <summary>Handle Floppy.</summary>
+  /// <summary>Handles Floppy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFloppyClicked(object sender, EventArgs e)
@@ -198,7 +198,7 @@ public partial class SB200Ancestors : CsbpBin
     Start(typeof(SB500Gedcom), SB500_title, csbpparent: this);
   }
 
-  /// <summary>Handle Ahnen.</summary>
+  /// <summary>Handles Ahnen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAhnenRowActivated(object sender, RowActivatedArgs e)
@@ -206,37 +206,37 @@ public partial class SB200Ancestors : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle Name.</summary>
+  /// <summary>Handles Name.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnNameKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnNameKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive || !filtern.Active)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Vorname.</summary>
+  /// <summary>Handles Vorname.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnVornameKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnVornameKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive || !filtern.Active)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Filtern.</summary>
+  /// <summary>Handles Filtern.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnFiltern(object o, EventArgs e)
+  protected void OnFiltern(object sender, EventArgs e)
   {
     if (!EventsActive)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Alle.</summary>
+  /// <summary>Handles Alle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)
@@ -244,7 +244,7 @@ public partial class SB200Ancestors : CsbpBin
     RefreshTreeView(ahnen, 0);
   }
 
-  /// <summary>Handle Spname.</summary>
+  /// <summary>Handles Spname.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpnameClicked(object sender, EventArgs e)
@@ -255,7 +255,7 @@ public partial class SB200Ancestors : CsbpBin
       SetText(ahnen, r);
   }
 
-  /// <summary>Handle Spvater.</summary>
+  /// <summary>Handles Spvater.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpvaterClicked(object sender, EventArgs e)
@@ -265,7 +265,7 @@ public partial class SB200Ancestors : CsbpBin
       SetText(ahnen, r.Father.Uid);
   }
 
-  /// <summary>Handle Spmutter.</summary>
+  /// <summary>Handles Spmutter.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpmutterClicked(object sender, EventArgs e)
@@ -275,7 +275,7 @@ public partial class SB200Ancestors : CsbpBin
       SetText(ahnen, r.Mother.Uid);
   }
 
-  /// <summary>Handle Spkind.</summary>
+  /// <summary>Handles Spkind.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpkindClicked(object sender, EventArgs e)
@@ -286,7 +286,7 @@ public partial class SB200Ancestors : CsbpBin
       SetText(ahnen, r);
   }
 
-  /// <summary>Handle Spehegatte.</summary>
+  /// <summary>Handles Spehegatte.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpehegatteClicked(object sender, EventArgs e)
@@ -297,7 +297,7 @@ public partial class SB200Ancestors : CsbpBin
       SetText(ahnen, r.Uid);
   }
 
-  /// <summary>Handle Spgeschwister.</summary>
+  /// <summary>Handles Spgeschwister.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpgeschwisterClicked(object sender, EventArgs e)
@@ -308,7 +308,7 @@ public partial class SB200Ancestors : CsbpBin
       SetText(ahnen, r.Uid);
   }
 
-  /// <summary>Handle Spfamilie.</summary>
+  /// <summary>Handles Spfamilie.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpfamilieClicked(object sender, EventArgs e)
@@ -322,7 +322,7 @@ public partial class SB200Ancestors : CsbpBin
     }
   }
 
-  /// <summary>Handle Spfamilienkind.</summary>
+  /// <summary>Handles Spfamilienkind.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSpfamilienkindClicked(object sender, EventArgs e)

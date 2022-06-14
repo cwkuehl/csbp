@@ -15,7 +15,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AM510Dialogs dialog.</summary>
 public partial class AM510Dialogs : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private readonly List<string> Model = new();
 
 #pragma warning disable CS0649
@@ -79,7 +79,7 @@ public partial class AM510Dialogs : CsbpBin
     }
   }
 
-  /// <summary>Handle Dialoge.</summary>
+  /// <summary>Handles Dialoge.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDialogeRowActivated(object sender, RowActivatedArgs e)
@@ -87,7 +87,7 @@ public partial class AM510Dialogs : CsbpBin
     zuordnen.Click();
   }
 
-  /// <summary>Handle Zuordnen.</summary>
+  /// <summary>Handles Zuordnen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnZuordnenClicked(object sender, EventArgs e)
@@ -102,7 +102,7 @@ public partial class AM510Dialogs : CsbpBin
     FillLists();
   }
 
-  /// <summary>Handle Entfernen.</summary>
+  /// <summary>Handles Entfernen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEntfernenClicked(object sender, EventArgs e)
@@ -117,7 +117,7 @@ public partial class AM510Dialogs : CsbpBin
     FillLists();
   }
 
-  /// <summary>Handle Zudialoge.</summary>
+  /// <summary>Handles Zudialoge.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnZudialogeRowActivated(object sender, RowActivatedArgs e)
@@ -125,7 +125,7 @@ public partial class AM510Dialogs : CsbpBin
     entfernen.Click();
   }
 
-  /// <summary>Handle Oben.</summary>
+  /// <summary>Handles Oben.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnObenClicked(object sender, EventArgs e)
@@ -152,7 +152,7 @@ public partial class AM510Dialogs : CsbpBin
     FillLists();
   }
 
-  /// <summary>Handle Unten.</summary>
+  /// <summary>Handles Unten.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUntenClicked(object sender, EventArgs e)
@@ -179,7 +179,7 @@ public partial class AM510Dialogs : CsbpBin
     FillLists();
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -193,7 +193,7 @@ public partial class AM510Dialogs : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

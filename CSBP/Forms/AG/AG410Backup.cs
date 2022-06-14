@@ -15,9 +15,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AG410Backup dialog.</summary>
 public partial class AG410Backup : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
-  private BackupEntry Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -62,23 +59,16 @@ public partial class AG410Backup : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static AG410Backup Create(object p1 = null, CsbpBin p = null)
-  {
-    return new AG410Backup(GetBuilder("AG410Backup", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private BackupEntry model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="AG410Backup"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public AG410Backup(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -86,6 +76,15 @@ public partial class AG410Backup : CsbpBin
     SetBold(ziel0);
     InitData(0);
     ziel.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AG410Backup Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AG410Backup(GetBuilder("AG410Backup", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -99,7 +98,7 @@ public partial class AG410Backup : CsbpBin
       if (!neu && Parameter1 is string uid)
       {
         var k = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         ziel.Text = k.Target;
         encrypted.Active = k.Encrypted;
@@ -120,7 +119,7 @@ public partial class AG410Backup : CsbpBin
     }
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -135,7 +134,7 @@ public partial class AG410Backup : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.ClientService.DeleteBackupEntry(ServiceDaten, Model);
+      r = FactoryService.ClientService.DeleteBackupEntry(ServiceDaten, model);
     }
     if (r != null)
     {
@@ -148,7 +147,7 @@ public partial class AG410Backup : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

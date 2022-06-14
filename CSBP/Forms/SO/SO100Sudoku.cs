@@ -137,7 +137,7 @@ public partial class SO100Sudoku : CsbpBin
     }
   }
 
-  /// <summary>Handle field.</summary>
+  /// <summary>Handles field.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   private void OnFieldKeyRelease(object sender, KeyReleaseEventArgs e)
@@ -167,7 +167,7 @@ public partial class SO100Sudoku : CsbpBin
     }
   }
 
-  /// <summary>Handle field.</summary>
+  /// <summary>Handles field.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   private void OnFieldKeyPress(object sender, KeyPressEventArgs e)
@@ -179,7 +179,7 @@ public partial class SO100Sudoku : CsbpBin
     // }
   }
 
-  /// <summary>Handle diagonal.</summary>
+  /// <summary>Handles diagonal.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   private void OnDiagonal(object sender, EventArgs e)
@@ -230,7 +230,7 @@ public partial class SO100Sudoku : CsbpBin
     }
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -238,7 +238,7 @@ public partial class SO100Sudoku : CsbpBin
     InitData(1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -254,7 +254,7 @@ public partial class SO100Sudoku : CsbpBin
     }
   }
 
-  /// <summary>Handle Save.</summary>
+  /// <summary>Handles Save.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSaveClicked(object sender, EventArgs e)
@@ -264,7 +264,7 @@ public partial class SO100Sudoku : CsbpBin
     Parameter.SO100Sudoku = json;
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -279,7 +279,7 @@ public partial class SO100Sudoku : CsbpBin
     }
   }
 
-  /// <summary>Handle Zug.</summary>
+  /// <summary>Handles Zug.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnZugClicked(object sender, EventArgs e)
@@ -287,7 +287,7 @@ public partial class SO100Sudoku : CsbpBin
     Solve(true);
   }
 
-  /// <summary>Handle Loesen.</summary>
+  /// <summary>Handles Loesen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnLoesenClicked(object sender, EventArgs e)
@@ -295,7 +295,7 @@ public partial class SO100Sudoku : CsbpBin
     Solve(false);
   }
 
-  /// <summary>Handle Test.</summary>
+  /// <summary>Handles Test.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnTestClicked(object sender, EventArgs e)

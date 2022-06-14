@@ -15,7 +15,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ330Series dialog.</summary>
 public partial class FZ330Series : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private FzBuchserie Model;
 
 #pragma warning disable CS0649
@@ -111,7 +111,7 @@ public partial class FZ330Series : CsbpBin
     }
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -143,7 +143,7 @@ public partial class FZ330Series : CsbpBin
 
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

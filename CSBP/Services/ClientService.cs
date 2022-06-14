@@ -630,21 +630,21 @@ public class ClientService : ServiceBase, IClientService
   /// <param name="uid">Affected ID of backup entry.</param>
   /// <param name="restore">Reverse direction of copying?</param>
   /// <param name="password">Password for encryption.</param>
-  /// <param name="status">Status of backup is always updated.</param>
+  /// <param name="state">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
   public ServiceErgebnis MakeBackup(ServiceDaten daten, string uid, bool restore,
-      string password, StringBuilder status, StringBuilder cancel)
+      string password, StringBuilder state, StringBuilder cancel)
   {
-    if (status == null || cancel == null)
-      throw new ArgumentException(null, nameof(status));
+    if (state == null || cancel == null)
+      throw new ArgumentException(null, nameof(state));
     var e = GetBackupEntryIntern(daten, uid);
     if (e == null)
       throw new MessageException(M1013);
-    status.Clear().Append(M0(M1031));
+    state.Clear().Append(M0(M1031));
     var blist = new List<BackupFile>();
     foreach (var source in e.Sources)
     {
-      PrepareBackup(daten, source, e.Target, restore, e.Encrypted, e.Zipped, blist, status, cancel);
+      PrepareBackup(daten, source, e.Target, restore, e.Encrypted, e.Zipped, blist, state, cancel);
     }
 
     // Sortieren
@@ -658,15 +658,15 @@ public class ClientService : ServiceBase, IClientService
       switch (b.Type)
       {
         case BackupType.CreateFolder:
-          status.Clear().Append($"({i}/{l}) Verzeichnis {b.Path} anlegen.");
+          state.Clear().Append($"({i}/{l}) Verzeichnis {b.Path} anlegen.");
           Directory.CreateDirectory(b.Path);
           break;
         case BackupType.DeleteFolder:
-          status.Clear().Append($"({i}/{l}) Verzeichnis {b.Path} löschen.");
+          state.Clear().Append($"({i}/{l}) Verzeichnis {b.Path} löschen.");
           Directory.Delete(b.Path);
           break;
         case BackupType.CopyFile:
-          status.Clear().Append($"({i}/{l}) Datei {b.Path} kopieren.");
+          state.Clear().Append($"({i}/{l}) Datei {b.Path} kopieren.");
           if (e.Encrypted)
           {
             if (restore)
@@ -679,11 +679,11 @@ public class ClientService : ServiceBase, IClientService
           File.SetLastWriteTimeUtc(b.Path2, b.Modified);
           break;
         case BackupType.DeleteFile:
-          status.Clear().Append($"({i}/{l}) Datei {b.Path} löschen.");
+          state.Clear().Append($"({i}/{l}) Datei {b.Path} löschen.");
           File.Delete(b.Path);
           break;
         case BackupType.ZipFolder:
-          status.Clear().Append($"({i}/{l}) Verzeichnis {b.Path} packen.");
+          state.Clear().Append($"({i}/{l}) Verzeichnis {b.Path} packen.");
           if (restore)
           {
             if (e.Encrypted)
@@ -731,7 +731,7 @@ public class ClientService : ServiceBase, IClientService
       }
       i++;
     }
-    status.Clear().Append($"Ende nach dem Abgleich von {blist.Count} Verzeichnissen/Dateien.");
+    state.Clear().Append($"Ende nach dem Abgleich von {blist.Count} Verzeichnissen/Dateien.");
     return new ServiceErgebnis();
   }
 
@@ -1063,14 +1063,14 @@ Lokal: {e.Eintrag}";
   /// <param name="encrypted">Should the target folder be encrypted?</param>
   /// <param name="zipped">Should the target folder be compressed?</param>
   /// <param name="blist">Backup list to fill.</param>
-  /// <param name="status">Status of backup is always updated.</param>
+  /// <param name="status">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
   void PrepareBackup(ServiceDaten daten, string source, string target,
       bool restore, bool encrypted, bool zipped, List<BackupFile> blist,
-      StringBuilder status, StringBuilder cancel)
+      StringBuilder state, StringBuilder cancel)
   {
     Functions.MachNichts(daten);
-    Functions.MachNichts(status);
+    Functions.MachNichts(state);
     Functions.MachNichts(cancel);
     var tname = Path.GetFileName(Path.GetDirectoryName(source));
     var p = zipped ? Path.Combine(target, tname + ".zip")

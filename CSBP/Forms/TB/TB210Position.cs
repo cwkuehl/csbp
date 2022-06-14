@@ -16,7 +16,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for TB210Position dialog.</summary>
 public partial class TB210Position : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private TbOrt Model;
 
 #pragma warning disable CS0649
@@ -144,7 +144,7 @@ public partial class TB210Position : CsbpBin
     }
   }
 
-  /// <summary>Handle Breite.</summary>
+  /// <summary>Handles Breite.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBreiteFocusOutEvent(object sender, Gtk.FocusOutEventArgs e)
@@ -158,7 +158,7 @@ public partial class TB210Position : CsbpBin
     }
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -186,7 +186,7 @@ public partial class TB210Position : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

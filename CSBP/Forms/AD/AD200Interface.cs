@@ -67,7 +67,7 @@ public partial class AD200Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle Dateiauswahl.</summary>
+  /// <summary>Handles Dateiauswahl.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDateiauswahlClicked(object sender, EventArgs e)
@@ -80,7 +80,7 @@ public partial class AD200Interface : CsbpBin
     }
   }
 
-  /// <summary>Handle Export.</summary>
+  /// <summary>Handles Export.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnExportClicked(object sender, EventArgs e)
@@ -91,7 +91,7 @@ public partial class AD200Interface : CsbpBin
     UiTools.SaveFile(lines, datei.Text, open: true);
   }
 
-  /// <summary>Handle Importieren.</summary>
+  /// <summary>Handles Importieren.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnImportierenClicked(object sender, EventArgs e)
@@ -123,7 +123,7 @@ public partial class AD200Interface : CsbpBin
       ShowInfo(message);
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

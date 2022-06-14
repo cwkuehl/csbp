@@ -16,7 +16,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH310Event dialog.</summary>
 public partial class HH310Event : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private HhEreignis Model;
 
 #pragma warning disable CS0649
@@ -155,21 +155,21 @@ public partial class HH310Event : CsbpBin
     }
   }
 
-  /// <summary>Handle Sollkonto.</summary>
+  /// <summary>Handles Sollkonto.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSollkontoRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Habenkonto.</summary>
+  /// <summary>Handles Habenkonto.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHabenkontoRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -197,7 +197,7 @@ public partial class HH310Event : CsbpBin
     }
   }
 
-  /// <summary>Handle Kontentausch.</summary>
+  /// <summary>Handles Kontentausch.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKontentauschClicked(object sender, EventArgs e)
@@ -208,7 +208,7 @@ public partial class HH310Event : CsbpBin
     SetText(habenkonto, s);
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

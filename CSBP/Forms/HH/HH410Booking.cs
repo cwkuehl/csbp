@@ -20,7 +20,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH410Booking dialog.</summary>
 public partial class HH410Booking : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private HhBuchung Model;
   private static DateTime lastvaluedate = DateTime.Today;
   private static DateTime lastreceiptdate = DateTime.Today;
@@ -244,7 +244,7 @@ public partial class HH410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle valuta.</summary>
+  /// <summary>Handles valuta.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnValutaDateChanged(object sender, DateChangedEventArgs e)
@@ -264,7 +264,7 @@ public partial class HH410Booking : CsbpBin
 
   }
 
-  /// <summary>Handle Ereignis.</summary>
+  /// <summary>Handles Ereignis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEreignisCursorChanged(object sender, EventArgs e)
@@ -281,21 +281,21 @@ public partial class HH410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle Sollkonto.</summary>
+  /// <summary>Handles Sollkonto.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSollkontoRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Habenkonto.</summary>
+  /// <summary>Handles Habenkonto.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnHabenkontoRowActivated(object sender, RowActivatedArgs e)
   {
   }
 
-  /// <summary>Handle Neuenr.</summary>
+  /// <summary>Handles Neuenr.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNeuenrClicked(object sender, EventArgs e)
@@ -307,14 +307,14 @@ public partial class HH410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle belegDatum.</summary>
+  /// <summary>Handles belegDatum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBelegdatumDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -366,7 +366,7 @@ public partial class HH410Booking : CsbpBin
     }
   }
 
-  /// <summary>Handle Kontentausch.</summary>
+  /// <summary>Handles Kontentausch.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKontentauschClicked(object sender, EventArgs e)
@@ -377,7 +377,7 @@ public partial class HH410Booking : CsbpBin
     SetText(habenkonto, s);
   }
 
-  /// <summary>Handle Addition.</summary>
+  /// <summary>Handles Addition.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAdditionClicked(object sender, EventArgs e)
@@ -387,7 +387,7 @@ public partial class HH410Booking : CsbpBin
     betrag.GrabFocus();
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

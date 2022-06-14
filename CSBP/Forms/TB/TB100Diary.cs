@@ -249,7 +249,7 @@ public partial class TB100Diary : CsbpBin
     SetText(position2, uid2);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -257,7 +257,7 @@ public partial class TB100Diary : CsbpBin
     Copy = entry.Buffer.Text;
   }
 
-  /// <summary>Handle Paste.</summary>
+  /// <summary>Handles Paste.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPasteClicked(object sender, EventArgs e)
@@ -266,7 +266,7 @@ public partial class TB100Diary : CsbpBin
     BearbeiteEintraege(true, false);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -278,7 +278,7 @@ public partial class TB100Diary : CsbpBin
     }
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -290,7 +290,7 @@ public partial class TB100Diary : CsbpBin
     }
   }
 
-  /// <summary>Handle Save.</summary>
+  /// <summary>Handles Save.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSaveClicked(object sender, EventArgs e)
@@ -304,7 +304,7 @@ public partial class TB100Diary : CsbpBin
       puid, from.Value, to.Value)), pfad, datei);
   }
 
-  /// <summary>Handle Date.</summary>
+  /// <summary>Handles Date.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDateDateChanged(object sender, DateChangedEventArgs e)
@@ -314,7 +314,7 @@ public partial class TB100Diary : CsbpBin
     BearbeiteEintraege();
   }
 
-  /// <summary>Handle Date.</summary>
+  /// <summary>Handles Date.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDateMonthChanged(object sender, DateChangedEventArgs e)
@@ -324,7 +324,7 @@ public partial class TB100Diary : CsbpBin
     LoadMonth(e.Date);
   }
 
-  /// <summary>Handle Positions.</summary>
+  /// <summary>Handles Positions.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
@@ -337,7 +337,7 @@ public partial class TB100Diary : CsbpBin
     }
   }
 
-  /// <summary>Handle Position.</summary>
+  /// <summary>Handles Position.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPositionChanged(object sender, EventArgs e)
@@ -345,7 +345,7 @@ public partial class TB100Diary : CsbpBin
     // refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -353,7 +353,7 @@ public partial class TB100Diary : CsbpBin
     Start(typeof(TB210Position), TB210_title, DialogTypeEnum.New, null, csbpparent: this);
   }
 
-  /// <summary>Handle Add.</summary>
+  /// <summary>Handles Add.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAddClicked(object sender, EventArgs e)
@@ -396,7 +396,7 @@ public partial class TB100Diary : CsbpBin
     }
   }
 
-  /// <summary>Handle Posbefore.</summary>
+  /// <summary>Handles Posbefore.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnPosbeforeClicked(object sender, EventArgs e)
@@ -418,7 +418,7 @@ public partial class TB100Diary : CsbpBin
     }
   }
 
-  /// <summary>Handle Remove.</summary>
+  /// <summary>Handles Remove.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRemoveClicked(object sender, EventArgs e)
@@ -430,7 +430,7 @@ public partial class TB100Diary : CsbpBin
     InitPositions();
   }
 
-  /// <summary>Handle First.</summary>
+  /// <summary>Handles First.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFirstClicked(object sender, EventArgs e)
@@ -438,7 +438,7 @@ public partial class TB100Diary : CsbpBin
     SearchEntry(SearchDirectionEnum.First);
   }
 
-  /// <summary>Handle Back.</summary>
+  /// <summary>Handles Back.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBackClicked(object sender, EventArgs e)
@@ -446,7 +446,7 @@ public partial class TB100Diary : CsbpBin
     SearchEntry(SearchDirectionEnum.Back);
   }
 
-  /// <summary>Handle Forward.</summary>
+  /// <summary>Handles Forward.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnForwardClicked(object sender, EventArgs e)
@@ -454,7 +454,7 @@ public partial class TB100Diary : CsbpBin
     SearchEntry(SearchDirectionEnum.Forward);
   }
 
-  /// <summary>Handle Ende.</summary>
+  /// <summary>Handles Ende.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnLastClicked(object sender, EventArgs e)
@@ -462,7 +462,7 @@ public partial class TB100Diary : CsbpBin
     SearchEntry(SearchDirectionEnum.Last);
   }
 
-  /// <summary>Handle Clear.</summary>
+  /// <summary>Handles Clear.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnClearClicked(object sender, EventArgs e)

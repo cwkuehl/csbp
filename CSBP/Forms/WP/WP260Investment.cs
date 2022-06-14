@@ -19,7 +19,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP260Investment dialog.</summary>
 public partial class WP260Investment : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private WpAnlage Model;
 
   /// <summary>Last copied ID.</summary>
@@ -207,14 +207,14 @@ public partial class WP260Investment : CsbpBin
     }
   }
 
-  /// <summary>Handle Wertpapier.</summary>
+  /// <summary>Handles Wertpapier.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWertpapierChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Wpdetails.</summary>
+  /// <summary>Handles Wpdetails.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWpdetailsClicked(object sender, EventArgs e)
@@ -223,14 +223,14 @@ public partial class WP260Investment : CsbpBin
     Start(typeof(WP210Stock), WP210_title, DialogTypeEnum.Edit, uid, csbpparent: this);
   }
 
-  /// <summary>Handle Status.</summary>
+  /// <summary>Handles state.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnStatusChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -262,7 +262,7 @@ public partial class WP260Investment : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

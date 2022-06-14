@@ -19,7 +19,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH400Bookings dialog.</summary>
 public partial class HH400Bookings : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   string lastreverse;
 
 #pragma warning disable CS0649
@@ -172,7 +172,7 @@ public partial class HH400Bookings : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Refresh.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
@@ -180,7 +180,7 @@ public partial class HH400Bookings : CsbpBin
     // RefreshTreeView(buchungen, 1);
   }
 
-  /// <summary>Handle Undo.</summary>
+  /// <summary>Handles Undo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnUndoClicked(object sender, EventArgs e)
@@ -189,7 +189,7 @@ public partial class HH400Bookings : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle Redo.</summary>
+  /// <summary>Handles Redo.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRedoClicked(object sender, EventArgs e)
@@ -198,7 +198,7 @@ public partial class HH400Bookings : CsbpBin
       refreshAction.Click();
   }
 
-  /// <summary>Handle New.</summary>
+  /// <summary>Handles New.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnNewClicked(object sender, EventArgs e)
@@ -206,7 +206,7 @@ public partial class HH400Bookings : CsbpBin
     StartDialog(DialogTypeEnum.New);
   }
 
-  /// <summary>Handle Copy.</summary>
+  /// <summary>Handles Copy.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
@@ -214,7 +214,7 @@ public partial class HH400Bookings : CsbpBin
     StartDialog(DialogTypeEnum.Copy);
   }
 
-  /// <summary>Handle Edit.</summary>
+  /// <summary>Handles Edit.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnEditClicked(object sender, EventArgs e)
@@ -222,7 +222,7 @@ public partial class HH400Bookings : CsbpBin
     StartDialog(DialogTypeEnum.Edit);
   }
 
-  /// <summary>Handle Delete.</summary>
+  /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
@@ -230,7 +230,7 @@ public partial class HH400Bookings : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handle Save.</summary>
+  /// <summary>Handles Save.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnSaveClicked(object sender, EventArgs e)
@@ -241,7 +241,7 @@ public partial class HH400Bookings : CsbpBin
     UiTools.SaveFile(lines, file);
   }
 
-  /// <summary>Handle Buchungen.</summary>
+  /// <summary>Handles Buchungen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBuchungenRowActivated(object sender, RowActivatedArgs e)
@@ -249,7 +249,7 @@ public partial class HH400Bookings : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handle von.</summary>
+  /// <summary>Handles von.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnVonDateChanged(object sender, DateChangedEventArgs e)
@@ -259,7 +259,7 @@ public partial class HH400Bookings : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle bis.</summary>
+  /// <summary>Handles bis.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnBisDateChanged(object sender, DateChangedEventArgs e)
@@ -269,7 +269,7 @@ public partial class HH400Bookings : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Konto.</summary>
+  /// <summary>Handles Konto.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKontoChanged(object sender, EventArgs e)
@@ -279,27 +279,27 @@ public partial class HH400Bookings : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handle Buchungstext.</summary>
+  /// <summary>Handles Buchungstext.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBTextKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnBTextKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Betrag.</summary>
+  /// <summary>Handles Betrag.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnBetragKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnBetragKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     if (!EventsActive)
       return;
     refreshAction.Click();
   }
 
-  /// <summary>Handle Alle.</summary>
+  /// <summary>Handles Alle.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)

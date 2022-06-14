@@ -102,7 +102,7 @@ public partial class AM100Change : CsbpBin
     }
   }
 
-  /// <summary>Handle KennwortNeu.</summary>
+  /// <summary>Handles KennwortNeu.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnKennwortNeuKeyRelease(object sender, KeyReleaseEventArgs e)
@@ -110,7 +110,7 @@ public partial class AM100Change : CsbpBin
     ok.Sensitive = kennwortNeu.Text == kennwortNeu2.Text;
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -128,7 +128,7 @@ public partial class AM100Change : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

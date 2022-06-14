@@ -18,7 +18,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ260Mileage dialog.</summary>
 public partial class FZ260Mileage : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private FzFahrradstand Model;
 
 #pragma warning disable CS0649
@@ -138,7 +138,7 @@ public partial class FZ260Mileage : CsbpBin
         var k = Get(FactoryService.PrivateService.GetMileage(daten, key.Item1, key.Item2.Value, key.Item3));
         if (k == null)
         {
-          Application.Invoke(delegate
+          Application.Invoke((sender, e) =>
           {
             dialog.Hide();
           });
@@ -170,37 +170,37 @@ public partial class FZ260Mileage : CsbpBin
     }
   }
 
-  /// <summary>Handle Fahrrad.</summary>
+  /// <summary>Handles Fahrrad.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnFahrradChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle datum.</summary>
+  /// <summary>Handles datum.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDatumDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Zaehler.</summary>
+  /// <summary>Handles Zaehler.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnZaehlerKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnZaehlerKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     km.Text = "";
   }
 
-  /// <summary>Handle Km.</summary>
+  /// <summary>Handles Km.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnKmKeyReleaseEvent(object o, KeyReleaseEventArgs e)
+  protected void OnKmKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
     zaehler.Text = "";
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -229,7 +229,7 @@ public partial class FZ260Mileage : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)

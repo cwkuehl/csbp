@@ -164,10 +164,10 @@ public interface IClientService
   /// <param name="uid">Affected ID of backup entry.</param>
   /// <param name="restore">Reverse direction of copying or not.</param>
   /// <param name="password">Password for encryption.</param>
-  /// <param name="status">Status of backup is always updated.</param>
+  /// <param name="state">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
   ServiceErgebnis MakeBackup(ServiceDaten daten, string uid, bool restore,
-      string password, StringBuilder status, StringBuilder cancel);
+      string password, StringBuilder state, StringBuilder cancel);
 
   /// <summary>
   /// Replicates a table.

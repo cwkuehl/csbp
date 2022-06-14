@@ -18,7 +18,7 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP510Price dialog.</summary>
 public partial class WP510Price : CsbpBin
 {
-  /// <summary>Dialog Model.</summary>
+  /// <summary>Dialog model.</summary>
   private WpStand Model;
 
   /// <summary>Letztes Valuta merken.</summary>
@@ -142,21 +142,21 @@ public partial class WP510Price : CsbpBin
     }
   }
 
-  /// <summary>Handle Wertpapier.</summary>
+  /// <summary>Handles Wertpapier.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWertpapierChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handle valuta.</summary>
+  /// <summary>Handles valuta.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnValutaDateChanged(object sender, DateChangedEventArgs e)
   {
   }
 
-  /// <summary>Handle Ok.</summary>
+  /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
@@ -186,7 +186,7 @@ public partial class WP510Price : CsbpBin
     }
   }
 
-  /// <summary>Handle Abbrechen.</summary>
+  /// <summary>Handles Abbrechen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
