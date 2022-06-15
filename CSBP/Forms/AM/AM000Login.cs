@@ -16,60 +16,59 @@ public class AM000Login : CsbpBin
 {
 #pragma warning disable CS0649
 
-  /// <summary>Mandant Label.</summary>
+  /// <summary>Label client0.</summary>
   [Builder.Object]
   private readonly Label client0;
 
-  /// <summary>Benutzer Label.</summary>
-  [Builder.Object]
-  private readonly Label user0;
-
-  /// <summary>Kennwort Label.</summary>
-  [Builder.Object]
-  private readonly Label password0;
-
-  /// <summary>Mandant Entry.</summary>
+  /// <summary>Entry client.</summary>
   [Builder.Object]
   private readonly Entry client;
 
-  /// <summary>Benutzer Entry.</summary>
+  /// <summary>Label user0.</summary>
+  [Builder.Object]
+  private readonly Label user0;
+
+  /// <summary>Entry user.</summary>
   [Builder.Object]
   private readonly Entry user;
 
-  /// <summary>Kennwort Entry.</summary>
+  /// <summary>Label password0.</summary>
+  [Builder.Object]
+  private readonly Label password0;
+
+  /// <summary>Entry password.</summary>
   [Builder.Object]
   private readonly Entry password;
 
-  /// <summary>Speichern CheckButton.</summary>
+  /// <summary>CheckButton save.</summary>
   [Builder.Object]
   private readonly CheckButton save;
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static AM000Login Create(object p1 = null, CsbpBin p = null)
-  {
-    return new AM000Login(GetBuilder("AM000Login", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="AM000Login"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public AM000Login(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+    : base(b, h, d, dt, p1, p)
   {
     SetBold(client0);
     SetBold(user0);
     SetBold(password0);
     InitData(0);
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AM000Login Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AM000Login(GetBuilder("AM000Login", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -91,10 +90,10 @@ public class AM000Login : CsbpBin
     }
   }
 
-  /// <summary>Handles Anmelden.</summary>
+  /// <summary>Handles login.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnLogin(object sender, EventArgs a)
+  protected void OnLogin(object sender, EventArgs e)
   {
     var id = user.Text;
     var daten = new ServiceDaten(Functions.ToInt32(client.Text), id);
@@ -113,18 +112,18 @@ public class AM000Login : CsbpBin
     Parameter.Save();
   }
 
-  /// <summary>Handles Zurücksetzen.</summary>
+  /// <summary>Handles reset.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnReset(object sender, EventArgs a)
+  protected void OnReset(object sender, EventArgs e)
   {
     MainClass.MainWindow.Reset();
   }
 
-  /// <summary>Handles Abbrechen.</summary>
+  /// <summary>Handles cancel.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnCancel(object sender, EventArgs a)
+  protected void OnCancel(object sender, EventArgs e)
   {
     dialog.Hide();
   }

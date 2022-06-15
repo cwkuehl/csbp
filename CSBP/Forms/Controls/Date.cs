@@ -5,10 +5,14 @@
 namespace CSBP.Forms.Controls;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using CSBP.Base;
 using Gtk;
 using static CSBP.Resources.Messages;
 
+/// <summary>
+/// Date control.
+/// </summary>
 public partial class Date : Grid
 {
   /// <summary>CheckButton unknown.</summary>
@@ -43,121 +47,21 @@ public partial class Date : Grid
   [Builder.Object]
   private readonly Calendar calendar;
 
-  DateTime? _value;
+  /// <summary>Internal value.</summary>
+  private DateTime? intvalue;
 
-  bool entrecursion; // Entry-Rekursion vermeiden.
+  /// <summary>Avoids entry recursion value.</summary>
+  private bool entrecursion;
 
-  bool calrecursion; // Calendar-Rekursion vermeiden.
+  /// <summary>Avoids calendar recursion value.</summary>
+  private bool calrecursion;
 
-  public bool IsNullable { get; set; }
-
-  public bool IsWithCalendar { get; set; }
-
-  public bool IsCalendarOpen { get; set; }
-
-  public bool IsWithoutNullLabel { get; set; }
-
-  public bool IsWithoutDayOfWeek { get; set; }
-
-  public Label Label
-  {
-    private get { return null; }
-    set
-    {
-      if (value != null)
-      {
-        value.MnemonicWidget = calendar;
-      }
-    }
-  }
-
-  public string YesterdayAccel
-  {
-    set
-    {
-      if (string.IsNullOrEmpty(value))
-        return;
-      yesterday.Label = $"-_{value}";
-    }
-  }
-
-  public string TomorrowAccel
-  {
-    set
-    {
-      if (string.IsNullOrEmpty(value))
-        return;
-      tomorrow.Label = $"+_{value}";
-    }
-  }
-
-  public DateTime? Value
-  {
-    get
-    {
-      return unknown.Active ? null : _value;
-    }
-
-    set
-    {
-      if (value.HasValue)
-      {
-        date.IsEditable = true;
-        daytext.Text = Functions.ToStringWd(value.Value);
-      }
-      else
-      {
-        date.IsEditable = false;
-        daytext.Text = string.Empty;
-      }
-      var datechanged = false;
-      var monthchanged = false;
-      if (!entrecursion)
-      {
-        try
-        {
-          entrecursion = true;
-          unknown.Active = !value.HasValue;
-          var d = Functions.ToString(value);
-          date.Text = d;
-        }
-        finally
-        {
-          entrecursion = false;
-        }
-      }
-      if (_value.HasValue != value.HasValue || (value.HasValue && _value.Value != value.Value))
-      {
-        datechanged = true;
-        if (!calrecursion)
-        {
-          try
-          {
-            calrecursion = true;
-            if (value.HasValue)
-              calendar.Date = value.Value;
-          }
-          finally
-          {
-            calrecursion = false;
-          }
-        }
-        monthchanged = _value.HasValue != value.HasValue || !_value.HasValue
-            || _value.Value.Month != value.Value.Month || _value.Value.Year != value.Value.Year;
-        _value = value;
-      }
-      if (datechanged)
-      {
-        DateChanged?.Invoke(this, new DateChangedEventArgs { Date = value });
-        if (monthchanged)
-          MonthChanged?.Invoke(this, new DateChangedEventArgs { Date = value });
-      }
-    }
-  }
-
-  public DateTime ValueNn { get { return Value ?? DateTime.Today; } }
-
-  public Date(IntPtr handle) : base(handle)
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Date"/> class.
+  /// </summary>
+  /// <param name="handle">Handle for control.</param>
+  public Date(IntPtr handle)
+    : base(handle)
   {
     unknown = new CheckButton
     {
@@ -182,11 +86,11 @@ public partial class Date : Grid
       Visible = true,
       CanFocus = true,
       ReceivesDefault = true,
-      // Image = new Image
-      // {
-      //   Pixbuf = Gtk.IconTheme.Default.LoadIcon("gtk-go-down", 8, 0)
-      // },
-      // AlwaysShowImage = true,
+      //// Image = new Image
+      //// {
+      ////   Pixbuf = Gtk.IconTheme.Default.LoadIcon("gtk-go-down", 8, 0)
+      //// },
+      //// AlwaysShowImage = true,
       NoShowAll = true,
     };
     down.Clicked += OnDownClicked;
@@ -243,7 +147,7 @@ public partial class Date : Grid
       CanFocus = true,
       Hexpand = true,
       Vexpand = false,
-      // DetailWidthChars = 3,
+      //// DetailWidthChars = 3,
       NoShowAll = true,
     };
     calendar.DaySelected += OnCalendarDaySelected;
@@ -262,14 +166,140 @@ public partial class Date : Grid
     //   p = p.Parent;
     // if (p != null && p is CsbpBin)
     //   p.InsertActionGroup(Name, g);
-    //ShowAll();
+    // ShowAll();
     Hide();
   }
 
+  /// <summary>Eventhandler for changed date.</summary>
   public event EventHandler<DateChangedEventArgs> DateChanged;
 
+  /// <summary>Eventhandler for changed month.</summary>
   public event EventHandler<DateChangedEventArgs> MonthChanged;
 
+  /// <summary>Gets or sets a value indicating whether the date can be null.</summary>
+  public bool IsNullable { get; set; }
+
+  /// <summary>Gets or sets a value indicating whether the calendar can be shown.</summary>
+  public bool IsWithCalendar { get; set; }
+
+  /// <summary>Gets or sets a value indicating whether the calendar is open.</summary>
+  public bool IsCalendarOpen { get; set; }
+
+  /// <summary>Gets or sets a value indicating whether there is a null label or not.</summary>
+  public bool IsWithoutNullLabel { get; set; }
+
+  /// <summary>Gets or sets a value indicating whether there is a day of week label or not.</summary>
+  public bool IsWithoutDayOfWeek { get; set; }
+
+  /// <summary>Sets the associated label for the calendar.</summary>
+  public Label Label
+  {
+    set
+    {
+      if (value != null)
+      {
+        value.MnemonicWidget = calendar;
+      }
+    }
+  }
+
+  /// <summary>Sets the yesterday accelerator key.</summary>
+  public string YesterdayAccel
+  {
+    set
+    {
+      if (string.IsNullOrEmpty(value))
+        return;
+      yesterday.Label = $"-_{value}";
+    }
+  }
+
+  /// <summary>Sets the tomorrow accelerator key.</summary>
+  public string TomorrowAccel
+  {
+    set
+    {
+      if (string.IsNullOrEmpty(value))
+        return;
+      tomorrow.Label = $"+_{value}";
+    }
+  }
+
+  /// <summary>Gets or sets the DateTime value of the control.</summary>
+  public DateTime? Value
+  {
+    get
+    {
+      return unknown.Active ? null : intvalue;
+    }
+
+    set
+    {
+      if (value.HasValue)
+      {
+        date.IsEditable = true;
+        daytext.Text = Functions.ToStringWd(value.Value);
+      }
+      else
+      {
+        date.IsEditable = false;
+        daytext.Text = string.Empty;
+      }
+      var datechanged = false;
+      var monthchanged = false;
+      if (!entrecursion)
+      {
+        try
+        {
+          entrecursion = true;
+          unknown.Active = !value.HasValue;
+          var d = Functions.ToString(value);
+          date.Text = d;
+        }
+        finally
+        {
+          entrecursion = false;
+        }
+      }
+      if (intvalue.HasValue != value.HasValue || (value.HasValue && intvalue.Value != value.Value))
+      {
+        datechanged = true;
+        if (!calrecursion)
+        {
+          try
+          {
+            calrecursion = true;
+            if (value.HasValue)
+              calendar.Date = value.Value;
+          }
+          finally
+          {
+            calrecursion = false;
+          }
+        }
+        monthchanged = intvalue.HasValue != value.HasValue || !intvalue.HasValue
+            || intvalue.Value.Month != value.Value.Month || intvalue.Value.Year != value.Value.Year;
+        intvalue = value;
+      }
+      if (datechanged)
+      {
+        DateChanged?.Invoke(this, new DateChangedEventArgs { Date = value });
+        if (monthchanged)
+          MonthChanged?.Invoke(this, new DateChangedEventArgs { Date = value });
+      }
+    }
+  }
+
+  /// <summary>Gets not null DateTime value.</summary>
+  public DateTime ValueNn
+  {
+    get { return Value ?? DateTime.Today; }
+  }
+
+  /// <summary>
+  /// Marks the days of the current month as bold.
+  /// </summary>
+  /// <param name="marks">List of bold days.</param>
   public void MarkMonth(bool[] marks)
   {
     for (var i = 0; i < 31; i++)
@@ -281,11 +311,21 @@ public partial class Date : Grid
     }
   }
 
+  /// <summary>Activates an date changed event.</summary>
   public void ActivateDateChanged()
   {
-    DateChanged?.Invoke(this, new DateChangedEventArgs { Date = _value });
+    DateChanged?.Invoke(this, new DateChangedEventArgs { Date = intvalue });
   }
 
+  /// <summary>Grabs the calendar focus.</summary>
+  public new void GrabFocus()
+  {
+    calendar.GrabFocus();
+  }
+
+  /// <summary>Handles yesterday.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
   protected void OnYesterdayClicked(object sender, EventArgs e)
   {
     var d = Functions.ToDateTime(date.Text);
@@ -295,11 +335,17 @@ public partial class Date : Grid
     }
   }
 
+  /// <summary>Handles today.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
   protected void OnTodayClicked(object sender, EventArgs e)
   {
     Value = DateTime.Today;
   }
 
+  /// <summary>Handles tomorrow.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
   protected void OnTomorrowClicked(object sender, EventArgs e)
   {
     var d = Functions.ToDateTime(date.Text);
@@ -309,6 +355,9 @@ public partial class Date : Grid
     }
   }
 
+  /// <summary>Handles changed date.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
   protected void OnDateChanged(object sender, EventArgs e)
   {
     // nicht verwendet: Problem bei einstelligen Tagen und Monaten.
@@ -333,7 +382,7 @@ public partial class Date : Grid
     }
   }
 
-  /// <summary>Anzeigen Event.</summary>
+  /// <summary>Handles shown event.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnShown(object sender, EventArgs e)
@@ -360,6 +409,9 @@ public partial class Date : Grid
       daytext.Hide();
   }
 
+  /// <summary>Handles down.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
   protected void OnDownClicked(object sender, EventArgs e)
   {
     if (IsWithCalendar)
@@ -370,6 +422,9 @@ public partial class Date : Grid
     }
   }
 
+  /// <summary>Handles calendar.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
   protected void OnCalendarDaySelected(object sender, EventArgs e)
   {
     if (calrecursion)
@@ -384,14 +439,12 @@ public partial class Date : Grid
       calrecursion = false;
     }
   }
-
-  public new void GrabFocus()
-  {
-    calendar.GrabFocus();
-  }
 }
 
+/// <summary>Event args for changed date.</summary>
+[SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed.")]
 public class DateChangedEventArgs : EventArgs
 {
+  /// <summary>Gets or sets the affected date.</summary>
   public DateTime? Date { get; set; }
 }

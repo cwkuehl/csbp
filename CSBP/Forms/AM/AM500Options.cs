@@ -17,10 +17,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for AM500Options dialog.</summary>
 public partial class AM500Options : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  List<MaParameter> Model;
-  TreeStore Store;
-
 #pragma warning disable CS0649
 
   /// <summary>Label einstellungen0.</summary>
@@ -33,29 +29,32 @@ public partial class AM500Options : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static AM500Options Create(object p1 = null, CsbpBin p = null)
-  {
-    return new AM500Options(GetBuilder("AM500Options", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private List<MaParameter> model;
+  private TreeStore store;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="AM500Options"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public AM500Options(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     SetBold(einstellungen0);
     InitData(0);
     einstellungen.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static AM500Options Create(object p1 = null, CsbpBin p = null)
+  {
+    return new AM500Options(GetBuilder("AM500Options", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -65,15 +64,15 @@ public partial class AM500Options : CsbpBin
     var daten = ServiceDaten;
     if (step <= 1)
     {
-      Model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr,
+      model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr,
         Parameter.Params)) ?? new List<MaParameter>();
 #pragma warning disable CS0618
-      Store = AddStringColumns(einstellungen, AM500_einstellungen_columns);
+      store = AddStringColumns(einstellungen, AM500_einstellungen_columns);
 #pragma warning restore CS0618
-      foreach (var e in Model)
+      foreach (var e in model)
       {
-        // Mandant;Schlüssel;Wert;Kommentar;Standard;Geändert am;Geändert von;Angelegt am;Angelegt von
-        Store.AppendValues(Functions.ToString(e.Mandant_Nr), e.Schluessel,
+        // Client;Key;Value_e;Comment;Default;Changed at;Changed by;Created at;Created by
+        store.AppendValues(Functions.ToString(e.Mandant_Nr), e.Schluessel,
           e.Wert ?? "", e.Comment ?? "", e.Default ?? "",
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von);
@@ -86,23 +85,24 @@ public partial class AM500Options : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
   {
-    if (Model == null || Store == null)
+    if (model == null || store == null)
       return;
-    if (Store.GetIterFirst(out var i))
+    if (store.GetIterFirst(out var i))
     {
       do
       {
-        var val = Store.GetValue(i, 1) as string;
-        var p = Model.FirstOrDefault(a => a.Schluessel == val);
+        var val = store.GetValue(i, 1) as string;
+        var p = model.FirstOrDefault(a => a.Schluessel == val);
         if (p != null)
         {
-          p.Wert = Store.GetValue(i, 2) as string;
+          p.Wert = store.GetValue(i, 2) as string;
         }
-      } while (Store.IterNext(ref i));
+      }
+      while (store.IterNext(ref i));
     }
     var daten = ServiceDaten;
     if (Get(FactoryService.ClientService.SaveOptionList(daten, daten.MandantNr,
-        Model, Parameter.Params)))
+        model, Parameter.Params)))
     {
       Parameter.Save();
       MainClass.MainWindow.RefreshTitle();
