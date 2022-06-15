@@ -7,6 +7,7 @@ namespace CSBP.Forms.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,53 +19,6 @@ using Gtk;
 /// </summary>
 public class Formula
 {
-  /// <summary>Number of column the formula is in.</summary>
-  public int column { get; set; }
-
-  /// <summary>Number of row the formula is in.</summary>
-  public int row { get; set; }
-
-  /// <summary>Formula as string.</summary>
-  public string formula { get; internal set; }
-
-  /// <summary>Affected function.</summary>
-  public string function { get; private set; }
-
-  /// <summary>Column number 1 of affected area.</summary>
-  public int column1 { get; internal set; } = -1;
-
-  /// <summary>Row number 1 of affected area.</summary>
-  public int row1 { get; internal set; } = -1;
-
-  /// <summary>Column number 2 of affected area.</summary>
-  public int column2 { get; internal set; } = -1;
-
-  /// <summary>Row number 2 of affected area.</summary>
-  public int row2 { get; internal set; } = -1;
-
-  /// <summary>Value as string.</summary>
-  private string _value;
-
-  /// <summary>Value as string.</summary>
-  public string Value { get { return _value; } set { _value = Functions.MakeBold(value, !_bold); } }
-
-  /// <summary>Is formula bold?</summary>
-  private bool _bold;
-
-  /// <summary>Is formula bold?</summary>
-  public bool bold
-  {
-    get
-    {
-      return _bold;
-    }
-    set
-    {
-      Value = Functions.MakeBold(Value, value);
-      _bold = value;
-    }
-  }
-
   /// <summary>Regex for formula sum.</summary>
   private static readonly Regex RxSum = new(@"^=(sum|summe)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
@@ -80,14 +34,20 @@ public class Formula
   /// <summary>Regex for formula now.</summary>
   private static readonly Regex RxNow = new(@"^=(now|jetzt)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+  /// <summary>Internal value as string.</summary>
+  private string intvalue;
+
+  /// <summary>Is formula bold or not.</summary>
+  private bool intbold;
+
   /// <summary>
-  /// Private constructor.
+  /// Initializes a new instance of the <see cref="Formula"/> class.
   /// </summary>
   /// <param name="formula">Affected formula.</param>
   /// <param name="c">Affected column.</param>
   /// <param name="r">Affected row.</param>
   /// <param name="function">Affected function.</param>
-  /// <param name="bold">Is formula bold?</param>
+  /// <param name="bold">Is formula bold or not.</param>
   /// <param name="c1">Affected column number 1.</param>
   /// <param name="r1">Affected row number 1.</param>
   /// <param name="c2">Affected column number 2.</param>
@@ -95,20 +55,66 @@ public class Formula
   private Formula(string formula, int c, int r, string function, bool bold, int c1 = -1, int r1 = -1, int c2 = -1, int r2 = -1)
   {
     // this.formula = formula;
-    this.column = c;
-    this.row = r;
-    this.function = function;
-    this.bold = bold;
-    this.column1 = c1;
-    this.row1 = r1;
-    this.column2 = c2;
-    this.row2 = r2;
-    this.formula = ToString();
+    this.Column = c;
+    this.Row = r;
+    this.Function = function;
+    this.Bold = bold;
+    this.Column1 = c1;
+    this.Row1 = r1;
+    this.Column2 = c2;
+    this.Row2 = r2;
+    this.Formula1 = ToString();
     Debug.Print($"Formula {formula} {c} {r} {function} {bold}");
   }
 
+  /// <summary>Gets or sets the number of column the formula is in.</summary>
+  public int Column { get; set; }
+
+  /// <summary>Gets or sets the number of row the formula is in.</summary>
+  public int Row { get; set; }
+
+  /// <summary>Gets the formula as string.</summary>
+  public string Formula1 { get; internal set; }
+
+  /// <summary>Gets the function.</summary>
+  public string Function { get; private set; }
+
+  /// <summary>Gets column number 1 of affected area.</summary>
+  public int Column1 { get; internal set; } = -1;
+
+  /// <summary>Gets row number 1 of affected area.</summary>
+  public int Row1 { get; internal set; } = -1;
+
+  /// <summary>Gets column number 2 of affected area.</summary>
+  public int Column2 { get; internal set; } = -1;
+
+  /// <summary>Gets row number 2 of affected area.</summary>
+  public int Row2 { get; internal set; } = -1;
+
+  /// <summary>Gets or sets the value as string.</summary>
+  public string Value
+  {
+    get { return intvalue; }
+    set { intvalue = Functions.MakeBold(value, !intbold); }
+  }
+
+  /// <summary>Gets or sets a value indicating whether the formula is bold.</summary>
+  public bool Bold
+  {
+    get
+    {
+      return intbold;
+    }
+
+    set
+    {
+      Value = Functions.MakeBold(Value, value);
+      intbold = value;
+    }
+  }
+
   /// <summary>
-  /// Create a Formula instance, if it is a formula.
+  /// Creates a Formula instance, if it is a formula.
   /// </summary>
   /// <param name="formula">Possible formula.</param>
   /// <param name="c">Affected column number.</param>
@@ -153,39 +159,17 @@ public class Formula
   }
 
   /// <summary>
-  /// Get string with formatted formula.
-  /// </summary>
-  /// <returns>Formatted formula.</returns>
-  public override string ToString()
-  {
-    var en = !Functions.IsDe;
-    var f = en ? function
-      : function == "sum" ? "summe" : function == "count" ? "anzahl" : function == "days" ? "tage" : function == "now" ? "jetzt" : "heute";
-    var sb = new StringBuilder();
-    sb.Append('=').Append(f).Append('(');
-    if (column1 >= 0 && row1 >= 0)
-      sb.Append($"{GetColumnName(column1)}{row1 + 1}".ToLower());
-    if (column2 >= 0 && row2 >= 0)
-    {
-      sb.Append(function == "days" ? ";" : ":");
-      sb.Append($"{GetColumnName(column2)}{row2 + 1}".ToLower());
-    }
-    sb.Append(')');
-    return sb.ToString();
-  }
-
-  /// <summary>
   /// Returns a default name for the column using spreadsheet conventions: A, B, C, ... Z, AA, AB, etc.
   /// If column cannot be found, returns an empty string.
   /// </summary>
   /// <param name="column">Affected column number.</param>
-  /// <returns>Default name of column</returns>
+  /// <returns>Default name of column.</returns>
   public static string GetColumnName(int column)
   {
     if (column < 0)
       return " ";
     var sb = new StringBuilder();
-    for (; column >= 0; column = column / 26 - 1)
+    for (; column >= 0; column = (column / 26) - 1)
     {
       sb.Insert(0, (char)((char)(column % 26) + 'A'));
     }
@@ -193,7 +177,7 @@ public class Formula
   }
 
   /// <summary>
-  /// Calculate the row number for a column name using spreadsheet conventions: A, B, C, ... Z, AA, AB, etc.
+  /// Calculates the row number for a column name using spreadsheet conventions: A, B, C, ... Z, AA, AB, etc.
   /// </summary>
   /// <param name="name">Affected column name.</param>
   /// <returns>Column number.</returns>
@@ -206,26 +190,49 @@ public class Formula
     int p = 1;
     for (int i = str.Length - 1; i >= 0; i--)
     {
-      column += ((str[i] - 'A') % 26 + 1) * p;
+      column += (((str[i] - 'A') % 26) + 1) * p;
       p *= 26;
     }
     return column - 1;
+  }
+
+  /// <summary>
+  /// Gets string with formatted formula.
+  /// </summary>
+  /// <returns>Formatted formula.</returns>
+  public override string ToString()
+  {
+    var en = !Functions.IsDe;
+    var f = en ? Function
+      : Function == "sum" ? "summe" : Function == "count" ? "anzahl" : Function == "days" ? "tage" : Function == "now" ? "jetzt" : "heute";
+    var sb = new StringBuilder();
+    sb.Append('=').Append(f).Append('(');
+    if (Column1 >= 0 && Row1 >= 0)
+      sb.Append($"{GetColumnName(Column1)}{Row1 + 1}".ToLower());
+    if (Column2 >= 0 && Row2 >= 0)
+    {
+      sb.Append(Function == "days" ? ";" : ":");
+      sb.Append($"{GetColumnName(Column2)}{Row2 + 1}".ToLower());
+    }
+    sb.Append(')');
+    return sb.ToString();
   }
 }
 
 /// <summary>
 /// List of formulas and status of editing.
 /// </summary>
+[SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed.")]
 public class Formulas
 {
-  /// <summary>List of formulas.</summary>
+  /// <summary>Gets the list of formulas.</summary>
   public List<Formula> List { get; } = new List<Formula>();
 
-  /// <summary>List of formulas.</summary>
+  /// <summary>Gets the affected cell.</summary>
   public Tuple<int, int> Cell { get; private set; }
 
   /// <summary>
-  /// Get formula of a cell.
+  /// Gets formula of a cell.
   /// </summary>
   /// <param name="c">Affected column number.</param>
   /// <param name="r">Affected row number.</param>
@@ -234,16 +241,16 @@ public class Formulas
   {
     if (c < 2)
       return null;
-    var f = List.FirstOrDefault(a => a.column == c - 2 && a.row == r);
+    var f = List.FirstOrDefault(a => a.Column == c - 2 && a.Row == r);
     return f;
   }
 
   /// <summary>
-  /// Begin the editing of a cell.
+  /// Begins the editing of a cell.
   /// </summary>
   /// <param name="cnr">Affected column number.</param>
   /// <param name="rnr">Affected row number.</param>
-  /// <returns>Is editing OK?</returns>
+  /// <returns>Is editing OK or not.</returns>
   public bool BeginEdit(int cnr, int rnr)
   {
     var b = false;
@@ -256,14 +263,14 @@ public class Formulas
         b = true;
       }
       else
-        b = (cnr == cell.Item1 && rnr == cell.Item2);
+        b = cnr == cell.Item1 && rnr == cell.Item2;
     }
-    // Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
+    //// Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
     return b;
   }
 
   /// <summary>
-  /// Begin the editing of a cell.
+  /// Begins the editing of a cell.
   /// </summary>
   /// <param name="tv">Affected TreeView.</param>
   /// <param name="store">Affected TreeView store.</param>
@@ -277,7 +284,7 @@ public class Formulas
     var cnr = (int)c.Data["cnr"];
     var rnr = path.Indices[0];
     store.GetIter(out var it, path);
-    var v = new GLib.Value();
+    var v = default(GLib.Value);
     store.GetValue(it, cnr, ref v);
     var val = v.Val as string;
     Debug.Print($"BeginEdit cnr {cnr} rnr {rnr}");
@@ -290,7 +297,7 @@ public class Formulas
       {
         var path0 = new TreePath(new[] { cell.Item2 });
         store.GetIter(out var it0, path0);
-        var v0 = new GLib.Value();
+        var v0 = default(GLib.Value);
         store.GetValue(it0, cell.Item1, ref v0);
         var newtext = v0.Val as string;
         EndEdit(store, cell.Item1, cell.Item2, newtext);
@@ -299,14 +306,14 @@ public class Formulas
     }
     BeginEdit(cnr, rnr);
     var f = Get(cnr, rnr);
-    if (f != null && val != f.formula)
+    if (f != null && val != f.Formula1)
     {
-      store.SetValue(it, cnr, f.formula);
+      store.SetValue(it, cnr, f.Formula1);
     }
   }
 
   /// <summary>
-  /// End the editing of a cell.
+  /// Ends the editing of a cell.
   /// </summary>
   /// <param name="store">Affected TreeView store.</param>
   /// <param name="cnr">Affected column number.</param>
@@ -321,7 +328,196 @@ public class Formulas
   }
 
   /// <summary>
-  /// End the editing of a cell.
+  /// Calculates all formulas.
+  /// </summary>
+  /// <param name="store">Affected store.</param>
+  public void CalculateFormulas(TreeStore store)
+  {
+    if (store == null)
+      return;
+    foreach (var f in List)
+    {
+      string val = null;
+      if (f.Function == "sum")
+      {
+        if (f.Column1 >= 0 && f.Row1 >= 0 && f.Column2 >= 0 && f.Row2 >= 0)
+        {
+          var sum = 0m;
+          var v = default(GLib.Value);
+          for (var r = f.Row1; r <= f.Row2; r++)
+          {
+            var path = new TreePath(new[] { r });
+            store.GetIter(out var it, path);
+            for (var c = f.Column1; c <= f.Column2; c++)
+            {
+              store.GetValue(it, c + 2, ref v);
+              sum += Functions.ToDecimalCi(Functions.MakeBold(v.Val as string, true)) ?? 0;
+            }
+          }
+          val = Functions.ToString(sum);
+        }
+      }
+      else if (f.Function == "count")
+      {
+        if (f.Column1 >= 0 && f.Row1 >= 0 && f.Column2 >= 0 && f.Row2 >= 0)
+        {
+          var count = 0;
+          var v = default(GLib.Value);
+          for (var r = f.Row1; r <= f.Row2; r++)
+          {
+            var path = new TreePath(new[] { r });
+            store.GetIter(out var it, path);
+            for (var c = f.Column1; c <= f.Column2; c++)
+            {
+              store.GetValue(it, c + 2, ref v);
+              if (!string.IsNullOrWhiteSpace(Functions.MakeBold(v.Val as string, true)))
+                count++;
+            }
+          }
+          val = Functions.ToString(count);
+        }
+      }
+      else if (f.Function == "days")
+      {
+        val = "";
+        if (f.Column1 >= 0 && f.Row1 >= 0 && f.Column2 >= 0 && f.Row2 >= 0)
+        {
+          var v = default(GLib.Value);
+          var path = new TreePath(new[] { f.Row1 });
+          store.GetIter(out var it, path);
+          store.GetValue(it, f.Column1 + 2, ref v);
+          var val1 = Functions.ToDateTime(Functions.MakeBold(v.Val as string, true));
+          if (val1.HasValue)
+          {
+            if (f.Row1 != f.Row2)
+            {
+              path = new TreePath(new[] { f.Row2 });
+              store.GetIter(out it, path);
+            }
+            store.GetValue(it, f.Column2 + 2, ref v);
+            var val2 = Functions.ToDateTime(Functions.MakeBold(v.Val as string, true));
+            if (val2.HasValue)
+              val = Functions.ToString((long)(val1.Value - val2.Value).TotalDays, 0);
+          }
+        }
+      }
+      else if (f.Function == "now")
+      {
+        val = Functions.ToString(DateTime.Now, true);
+      }
+      else if (f.Function == "today")
+      {
+        val = Functions.ToString(DateTime.Today, false);
+      }
+      if (val != null)
+      {
+        f.Value = Functions.MakeBold(val, !f.Bold);
+        Debug.Print($"Calculate {f.Formula1} {f.Value}");
+        var tp = new TreePath(new[] { f.Row });
+        store.GetIter(out var it, tp);
+        store.SetValue(it, f.Column + 2, f.Value);
+      }
+    }
+  }
+
+  /// <summary>
+  /// Adds a row.
+  /// </summary>
+  /// <param name="rnr">Affected row number.</param>
+  public void AddRow(int rnr)
+  {
+    Debug.Print($"AddRow rnr {rnr}");
+    foreach (var f in List)
+    {
+      if (f.Row >= rnr)
+        f.Row++;
+      if (f.Row1 >= 0 && f.Row1 >= rnr)
+        f.Row1++;
+      if (f.Row2 >= 0 && f.Row2 >= rnr)
+        f.Row2++;
+      f.Formula1 = f.ToString();
+    }
+  }
+
+  /// <summary>
+  /// Deletes a row.
+  /// </summary>
+  /// <param name="rnr">Affected row number.</param>
+  public void DeleteRow(int rnr)
+  {
+    Debug.Print($"DeleteRow rnr {rnr}");
+    var l = new List<Formula>();
+    foreach (var f in List)
+    {
+      if (f.Row == rnr)
+        l.Add(f);
+      else
+      {
+        if (f.Row > rnr)
+          f.Row--;
+        if (f.Row1 >= 0 && f.Row1 > rnr)
+          f.Row1--;
+        if (f.Row2 >= 0 && f.Row2 > rnr)
+          f.Row2--;
+        f.Formula1 = f.ToString();
+      }
+    }
+    foreach (var f in l)
+    {
+      List.Remove(f);
+    }
+  }
+
+  /// <summary>
+  /// Adds a column.
+  /// </summary>
+  /// <param name="cnr">Affected column number.</param>
+  public void AddColumn(int cnr)
+  {
+    Debug.Print($"AddColumn cnr {cnr}");
+    foreach (var f in List)
+    {
+      if (f.Column >= cnr)
+        f.Column++;
+      if (f.Column1 >= 0 && f.Column1 >= cnr)
+        f.Column1++;
+      if (f.Column2 >= 0 && f.Column2 >= cnr)
+        f.Column2++;
+      f.Formula1 = f.ToString();
+    }
+  }
+
+  /// <summary>
+  /// Deletes a column.
+  /// </summary>
+  /// <param name="cnr">Affected column number.</param>
+  public void DeleteColumn(int cnr)
+  {
+    Debug.Print($"DeleteColumn cnr {cnr}");
+    var l = new List<Formula>();
+    foreach (var f in List)
+    {
+      if (f.Column == cnr)
+        l.Add(f);
+      else
+      {
+        if (f.Column > cnr)
+          f.Column--;
+        if (f.Column1 >= 0 && f.Column1 > cnr)
+          f.Column1--;
+        if (f.Column2 >= 0 && f.Column2 > cnr)
+          f.Column2--;
+        f.Formula1 = f.ToString();
+      }
+    }
+    foreach (var f in l)
+    {
+      List.Remove(f);
+    }
+  }
+
+  /// <summary>
+  /// Ends the editing of a cell.
   /// </summary>
   /// <param name="store">Affected TreeView store.</param>
   /// <param name="cnr">Affected column number.</param>
@@ -333,7 +529,7 @@ public class Formulas
       return;
     var path = new TreePath(new[] { rnr });
     store.GetIter(out var it, path);
-    var v = new GLib.Value();
+    var v = default(GLib.Value);
     store.GetValue(it, cnr, ref v);
     var val = v.Val as string;
     if (cnr == 1)
@@ -358,8 +554,9 @@ public class Formulas
         }
       }
     }
-    else // if (val != newtext)
+    else
     {
+      // if (val != newtext)
       Debug.Print($"old {val} new {newtext}");
       if (f != null)
         List.Remove(f);
@@ -377,193 +574,5 @@ public class Formulas
       Cell = null;
     else
       Debug.Print($"No EndEdit cnr {cnr} rnr {rnr}");
-  }
-
-  /// <summary>
-  /// Calculate all formulas.
-  /// </summary>
-  public void CalculateFormulas(TreeStore store)
-  {
-    if (store == null)
-      return;
-    foreach (var f in List)
-    {
-      string val = null;
-      if (f.function == "sum")
-      {
-        if (f.column1 >= 0 && f.row1 >= 0 && f.column2 >= 0 && f.row2 >= 0)
-        {
-          var sum = 0m;
-          var v = new GLib.Value();
-          for (var r = f.row1; r <= f.row2; r++)
-          {
-            var path = new TreePath(new[] { r });
-            store.GetIter(out var it, path);
-            for (var c = f.column1; c <= f.column2; c++)
-            {
-              store.GetValue(it, c + 2, ref v);
-              sum += Functions.ToDecimalCi(Functions.MakeBold(v.Val as string, true)) ?? 0;
-            }
-          }
-          val = Functions.ToString(sum);
-        }
-      }
-      else if (f.function == "count")
-      {
-        if (f.column1 >= 0 && f.row1 >= 0 && f.column2 >= 0 && f.row2 >= 0)
-        {
-          var count = 0;
-          var v = new GLib.Value();
-          for (var r = f.row1; r <= f.row2; r++)
-          {
-            var path = new TreePath(new[] { r });
-            store.GetIter(out var it, path);
-            for (var c = f.column1; c <= f.column2; c++)
-            {
-              store.GetValue(it, c + 2, ref v);
-              if (!string.IsNullOrWhiteSpace(Functions.MakeBold(v.Val as string, true)))
-                count++;
-            }
-          }
-          val = Functions.ToString(count);
-        }
-      }
-      else if (f.function == "days")
-      {
-        val = "";
-        if (f.column1 >= 0 && f.row1 >= 0 && f.column2 >= 0 && f.row2 >= 0)
-        {
-          var v = new GLib.Value();
-          var path = new TreePath(new[] { f.row1 });
-          store.GetIter(out var it, path);
-          store.GetValue(it, f.column1 + 2, ref v);
-          var val1 = Functions.ToDateTime(Functions.MakeBold(v.Val as string, true));
-          if (val1.HasValue)
-          {
-            if (f.row1 != f.row2)
-            {
-              path = new TreePath(new[] { f.row2 });
-              store.GetIter(out it, path);
-            }
-            store.GetValue(it, f.column2 + 2, ref v);
-            var val2 = Functions.ToDateTime(Functions.MakeBold(v.Val as string, true));
-            if (val2.HasValue)
-              val = Functions.ToString((long)(val1.Value - val2.Value).TotalDays, 0);
-          }
-        }
-      }
-      else if (f.function == "now")
-      {
-        val = Functions.ToString(DateTime.Now, true);
-      }
-      else if (f.function == "today")
-      {
-        val = Functions.ToString(DateTime.Today, false);
-      }
-      if (val != null)
-      {
-        f.Value = Functions.MakeBold(val, !f.bold);
-        Debug.Print($"Calculate {f.formula} {f.Value}");
-        var tp = new TreePath(new[] { f.row });
-        store.GetIter(out var it, tp);
-        store.SetValue(it, f.column + 2, f.Value);
-      }
-    }
-  }
-
-  /// <summary>
-  /// Add a row.
-  /// </summary>
-  /// <param name="rnr">Affected row number.</param>
-  public void AddRow(int rnr)
-  {
-    Debug.Print($"AddRow rnr {rnr}");
-    foreach (var f in List)
-    {
-      if (f.row >= rnr)
-        f.row++;
-      if (f.row1 >= 0 && f.row1 >= rnr)
-        f.row1++;
-      if (f.row2 >= 0 && f.row2 >= rnr)
-        f.row2++;
-      f.formula = f.ToString();
-    }
-  }
-
-  /// <summary>
-  /// Delete a row.
-  /// </summary>
-  /// <param name="rnr">Affected row number.</param>
-  public void DeleteRow(int rnr)
-  {
-    Debug.Print($"DeleteRow rnr {rnr}");
-    var l = new List<Formula>();
-    foreach (var f in List)
-    {
-      if (f.row == rnr)
-        l.Add(f);
-      else
-      {
-        if (f.row > rnr)
-          f.row--;
-        if (f.row1 >= 0 && f.row1 > rnr)
-          f.row1--;
-        if (f.row2 >= 0 && f.row2 > rnr)
-          f.row2--;
-        f.formula = f.ToString();
-      }
-    }
-    foreach (var f in l)
-    {
-      List.Remove(f);
-    }
-  }
-
-  /// <summary>
-  /// Add a column.
-  /// </summary>
-  /// <param name="cnr">Affected column number.</param>
-  public void AddColumn(int cnr)
-  {
-    Debug.Print($"AddColumn cnr {cnr}");
-    foreach (var f in List)
-    {
-      if (f.column >= cnr)
-        f.column++;
-      if (f.column1 >= 0 && f.column1 >= cnr)
-        f.column1++;
-      if (f.column2 >= 0 && f.column2 >= cnr)
-        f.column2++;
-      f.formula = f.ToString();
-    }
-  }
-
-  /// <summary>
-  /// Delete a column.
-  /// </summary>
-  /// <param name="cnr">Affected column number.</param>
-  public void DeleteColumn(int cnr)
-  {
-    Debug.Print($"DeleteColumn cnr {cnr}");
-    var l = new List<Formula>();
-    foreach (var f in List)
-    {
-      if (f.column == cnr)
-        l.Add(f);
-      else
-      {
-        if (f.column > cnr)
-          f.column--;
-        if (f.column1 >= 0 && f.column1 > cnr)
-          f.column1--;
-        if (f.column2 >= 0 && f.column2 > cnr)
-          f.column2--;
-        f.formula = f.ToString();
-      }
-    }
-    foreach (var f in l)
-    {
-      List.Remove(f);
-    }
   }
 }

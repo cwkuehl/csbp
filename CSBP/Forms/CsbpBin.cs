@@ -23,6 +23,9 @@ using Gtk;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
+/// <summary>
+/// Base class for dialogs.
+/// </summary>
 [System.ComponentModel.ToolboxItem(false)]
 public partial class CsbpBin : Bin
 {
@@ -346,28 +349,28 @@ public partial class CsbpBin : Bin
           {
             // tv.GetColumn(si).SortOrder = SortType.Ascending;
             Debug.WriteLine($"1 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
-            Application.Invoke(delegate
+            Application.Invoke((sender, e) =>
             {
               tv.GetColumn(si).Button.Activate();
               x = 1;
             });
             while (x < 1)
               Thread.Sleep(100);
-            // Debug.WriteLine($"2 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
+            //// Debug.WriteLine($"2 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
             if (so == SortType.Descending)
             {
               Thread.Sleep(300);
-              Application.Invoke(delegate
+              Application.Invoke((sender, e) =>
               {
                 tv.GetColumn(si).Button.Activate();
                 x = 2;
               });
               while (x < 2)
                 Thread.Sleep(100);
-              // Debug.WriteLine($"3 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
+              //// Debug.WriteLine($"3 Soll {so} Ist {tv.GetColumn(si).SortOrder}");
             }
             Thread.Sleep(200);
-            Application.Invoke(delegate
+            Application.Invoke((sender, e) =>
             {
               if (string.IsNullOrEmpty(v))
               {
@@ -405,13 +408,14 @@ public partial class CsbpBin : Bin
   /// <param name="tv">Specific TreeView.</param>
   /// <param name="mandatory">Is the value mandatory?</param>
   /// <param name="column">The column number.</param>
-  protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0) where T : class
+  protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0)
+    where T : class
   {
     T value = default;
     var s = tv.Selection.GetSelectedRows();
     if (s.Length > 0 && tv.Model.GetIter(out var iter, s[0]))
     {
-      var v = new GLib.Value();
+      var v = default(GLib.Value);
       tv.Model.GetValue(iter, column, ref v);
       value = v.Val as T;
     }
@@ -419,7 +423,7 @@ public partial class CsbpBin : Bin
     {
       if (tv.Model.GetIterFirst(out var iter1))
       {
-        var v = new GLib.Value();
+        var v = default(GLib.Value);
         tv.Model.GetValue(iter1, column, ref v);
         value = v.Val as T;
       };
@@ -567,7 +571,7 @@ public partial class CsbpBin : Bin
         {
           var s1 = Functions.ToDecimal((string)model.GetValue(a, j)) ?? 0;
           var s2 = Functions.ToDecimal((string)model.GetValue(b, j)) ?? 0;
-          return Decimal.Compare(s1, s2);
+          return decimal.Compare(s1, s2);
         });
       }
     }
@@ -597,7 +601,7 @@ public partial class CsbpBin : Bin
       editable = true;
     }
     var cell = new CellRendererText
-    // var cell = new CellRendererSpin
+    //// var cell = new CellRendererSpin
     {
       Xalign = align,
       Editable = editable,
@@ -619,10 +623,10 @@ public partial class CsbpBin : Bin
     if (editable)
     {
       col.Data["cnr"] = i;
-      // col.Clicked += (o, e) =>
-      // {
-      //   Functions.MachNichts();
-      // };
+      //// col.Clicked += (o, e) =>
+      //// {
+      ////   Functions.MachNichts();
+      //// };
     }
     var lbl = new Label
     {
@@ -678,7 +682,7 @@ public partial class CsbpBin : Bin
     {
       if (s.Length > 0 && store.GetIter(out var i, s[0]))
       {
-        var v = new GLib.Value();
+        var v = default(GLib.Value);
         store.GetValue(i, 0, ref v);
         var value = Math.Max(1, Functions.ToInt32(v.Val as string));
         flist?.AddRow(value - 1);
@@ -699,7 +703,7 @@ public partial class CsbpBin : Bin
     {
       if (s.Length > 0 && store.GetIter(out var it0, s[0]))
       {
-        var v = new GLib.Value();
+        var v = default(GLib.Value);
         store.GetValue(it0, 0, ref v);
         var value = Math.Max(1, Functions.ToInt32(v.Val as string));
         flist?.DeleteRow(value - 1);
@@ -734,7 +738,7 @@ public partial class CsbpBin : Bin
             var arr = new string[spalten + anz];
             for (var j = 0; j < spalten; j++)
             {
-              var v = new GLib.Value();
+              var v = default(GLib.Value);
               store.GetValue(i, j, ref v);
               var val = v.Val as string;
               if (j < pos)
@@ -743,7 +747,7 @@ public partial class CsbpBin : Bin
                 arr[j + anz] = val;
             }
             list.Add(arr);
-            // Debug.Print(string.Join(" | ", arr));
+            //// Debug.Print(string.Join(" | ", arr));
           } while (store.IterNext(ref i));
         }
         flist?.AddColumn(pos + anz - 2 - 1);
@@ -761,7 +765,7 @@ public partial class CsbpBin : Bin
       if (pos < spalten && spalten - anz > 2)
       {
         var list = new List<string[]>();
-        // Debug.Print($"{pos} {anz}");
+        //// Debug.Print($"{pos} {anz}");
         if (store.GetIterFirst(out var i))
         {
           do
@@ -769,7 +773,7 @@ public partial class CsbpBin : Bin
             var arr = new string[spalten - anz];
             for (var j = 0; j < spalten; j++)
             {
-              var v = new GLib.Value();
+              var v = default(GLib.Value);
               store.GetValue(i, j, ref v);
               var val = v.Val as string;
               if (j <= pos)
@@ -778,7 +782,7 @@ public partial class CsbpBin : Bin
                 arr[j - anz] = val;
             }
             list.Add(arr);
-            // Debug.Print(string.Join(" | ", arr));
+            //// Debug.Print(string.Join(" | ", arr));
           } while (store.IterNext(ref i));
         }
         flist?.DeleteColumn(pos + anz - 2 - 1);
@@ -801,7 +805,7 @@ public partial class CsbpBin : Bin
         {
           if (rnr < 0 || r == rnr)
           {
-            var v = new GLib.Value();
+            var v = default(GLib.Value);
             for (var c = cmin; c <= cmax; c++)
             {
               store.GetValue(i, c, ref v);
@@ -812,7 +816,7 @@ public partial class CsbpBin : Bin
                 if (f != null)
                 {
                   Debug.Print($"Formula bold cnr {c - 2} rnry {r}");
-                  f.bold = !unbold;
+                  f.Bold = !unbold;
                 }
               }
               store.SetValue(i, c, Functions.MakeBold(val, unbold));
@@ -837,10 +841,10 @@ public partial class CsbpBin : Bin
           for (var c = 2; c < columns; c++)
           {
             var f = flist?.Get(c, r);
-            var val = f?.formula;
+            var val = f?.Formula1;
             if (val == null)
             {
-              var v = new GLib.Value();
+              var v = default(GLib.Value);
               store.GetValue(i, c, ref v);
               val = v.Val as string;
             }
@@ -850,7 +854,7 @@ public partial class CsbpBin : Bin
           r++;
         } while (store.IterNext(ref i));
       }
-      // var csv = string.Join(Constants.CRLF, lines);
+      //// var csv = string.Join(Constants.CRLF, lines);
       UiTools.SaveFile(lines, Parameter.TempPath, M0(M1000), true, "csv");
     }
     else if (l == Menu_table_print)
@@ -865,7 +869,7 @@ public partial class CsbpBin : Bin
           var cells = new List<string>();
           for (var c = 1; c < columns; c++)
           {
-            var v = new GLib.Value();
+            var v = default(GLib.Value);
             store.GetValue(i, c, ref v);
             var val = v.Val as string;
             cells.Add(Functions.MakeBold(val ?? "", true));
@@ -885,7 +889,7 @@ public partial class CsbpBin : Bin
         do
         {
           z++;
-          var v = new GLib.Value();
+          var v = default(GLib.Value);
           store.GetValue(i, 0, ref v);
           var value = Functions.ToInt32(v.Val as string);
           if (z != value)
@@ -893,7 +897,8 @@ public partial class CsbpBin : Bin
             store.SetValue(i, 0, $"{z}");
             store.SetValue(i, 1, $"{z:000}");
           }
-        } while (store.IterNext(ref i));
+        }
+        while (store.IterNext(ref i));
       }
     }
   }
@@ -936,9 +941,9 @@ public partial class CsbpBin : Bin
       }
       tv.Data["menucnr"] = cnr; // Affected column.
       tv.Data["menurnr"] = rnr; // Affected row.
-                                // Debug.Print($"Menu cnr {cnr} rnr {rnr} r {r} xtv {xtv} ytv {ytv} x {args.Event.X} y {args.Event.Y} xr {args.Event.XRoot} yr {args.Event.YRoot}");
-                                // if (Functions.MachNichts() == 0)
-                                //   return;
+      //// Debug.Print($"Menu cnr {cnr} rnr {rnr} r {r} xtv {xtv} ytv {ytv} x {args.Event.X} y {args.Event.Y} xr {args.Event.XRoot} yr {args.Event.YRoot}");
+      //// if (Functions.MachNichts() == 0)
+      ////   return;
       var m = new Menu();
       var mi = new MenuItem(Menu_table_addrow);
       mi.Data["tv"] = tv;
@@ -1020,7 +1025,7 @@ public partial class CsbpBin : Bin
       var completion = new Gtk.EntryCompletion
       {
         Model = cb.Model,
-        TextColumn = cb.EntryTextColumn
+        TextColumn = cb.EntryTextColumn,
       };
       completion.MatchFunc = (EntryCompletion completion, string key, TreeIter iter) =>
       {
@@ -1030,57 +1035,6 @@ public partial class CsbpBin : Bin
       };
       if (cb.Child is Entry entry)
         entry.Completion = completion;
-      // else
-      //   cb.KeyReleaseEvent += (object sender, KeyReleaseEventArgs e) =>
-      //   {
-      //     var k = e.Event.Key;
-      //     try
-      //     {
-      //       if (k == Gdk.Key.Tab || k == Gdk.Key.Escape)
-      //       {
-      //         sb.Length = 0;
-      //         // Debug.WriteLine("Tab");
-      //         return;
-      //       }
-      //       if (k == Gdk.Key.Down || k == Gdk.Key.Up
-      //         || ((int)e.Event.State & ((int)Gdk.ModifierType.ShiftMask | (int)Gdk.ModifierType.ControlMask | (int)Gdk.ModifierType.Mod1Mask)) != 0)
-      //         return;
-      //       if (k == Gdk.Key.BackSpace || k == Gdk.Key.Delete || k == Gdk.Key.KP_Delete)
-      //       {
-      //         if (sb.Length > 0)
-      //           sb.Length--;
-      //         return;
-      //       }
-      //       if (e.Event.KeyValue <= 255)
-      //       {
-      //         sb.Append((char)e.Event.KeyValue);
-      //       }
-      //       if (sb.Length <= 0)
-      //         return;
-      //       var found = false;
-      //       var s = sb.ToString().ToLower();
-      //       if (cb.Model.GetIterFirst(out TreeIter iter))
-      //       {
-      //         var valid = true;
-      //         while (valid)
-      //         {
-      //           if (matches(s, ((cb.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
-      //           {
-      //             cb.SetActiveIter(iter);
-      //             found = true;
-      //             break;
-      //           }
-      //           valid = cb.Model.IterNext(ref iter);
-      //         }
-      //       }
-      //       if (!found && sb.Length > 0)
-      //         sb.Length--;
-      //     }
-      //     finally
-      //     {
-      //       Debug.WriteLine(e.Event.Key + " " + e.Event.State + " " + e.Event.KeyValue + ": " + sb);
-      //     }
-      //   };
     }
     return store;
   }
@@ -1251,7 +1205,7 @@ public partial class CsbpBin : Bin
   {
     string file = filename;
     string path = null;
-    // Pfad bestimmen
+    //// Pfad bestimmen
     if (!string.IsNullOrEmpty(file))
     {
       path = System.IO.Path.GetDirectoryName(file);
@@ -1260,7 +1214,7 @@ public partial class CsbpBin : Bin
     {
       path = Parameter.TempPath;
     }
-    // Datei mit Pfad
+    //// Datei mit Pfad
     if (!string.IsNullOrEmpty(file))
     {
       if (string.IsNullOrEmpty(System.IO.Path.GetDirectoryName(file)))

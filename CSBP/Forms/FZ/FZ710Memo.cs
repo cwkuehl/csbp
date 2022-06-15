@@ -276,14 +276,14 @@ public partial class FZ710Memo : CsbpBin
         for (var x = 0; x < spalten - 2; x++)
         {
           var f = flist?.Get(x + 2, y); // Save formula instead of value.
-          var value = f?.formula;
+          var value = f?.Formula1;
           if (string.IsNullOrEmpty(value))
           {
-            var v = new GLib.Value();
+            var v = default(GLib.Value);
             model.GetValue(it, x + 2, ref v);
             value = v.Val as string;
           }
-          else if (f.bold)
+          else if (f.Bold)
             value = Functions.MakeBold(value);
           if (!string.IsNullOrEmpty(value))
           {
