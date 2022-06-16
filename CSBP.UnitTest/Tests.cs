@@ -378,7 +378,7 @@ public partial class {rep} : RepositoryBase
   public {tab} Save(ServiceDaten daten{gparam2})
   {{
     var db = GetDb(daten);
-    {getvalue}      if (a == null)
+    {getvalue}    if (a == null)
     {{
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))

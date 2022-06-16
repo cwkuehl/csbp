@@ -61,29 +61,28 @@ public partial class HH100Periods : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static HH100Periods Create(object p1 = null, CsbpBin p = null)
-  {
-    return new HH100Periods(GetBuilder("HH100Periods", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="HH100Periods"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public HH100Periods(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     // SetBold(client0);
     InitData(0);
     perioden.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static HH100Periods Create(object p1 = null, CsbpBin p = null)
+  {
+    return new HH100Periods(GetBuilder("HH100Periods", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -106,11 +105,14 @@ public partial class HH100Periods : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;Nr.;Zeitraum;Von;Bis;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { Functions.ToString(e.Nr), Functions.ToString(e.Nr), e.Period,
-            Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;No._r;Time span;From;To;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          Functions.ToString(e.Nr), Functions.ToString(e.Nr), e.Period,
+          Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       if (l.Count > 0)
       {
@@ -179,7 +181,7 @@ public partial class HH100Periods : CsbpBin
   {
   }
 
-  /// <summary>Handles Länge.</summary>
+  /// <summary>Handles length.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnLengthChanged(object sender, EventArgs e)
@@ -188,7 +190,7 @@ public partial class HH100Periods : CsbpBin
       Parameter.HH100Length = GetText(laenge1);
   }
 
-  /// <summary>Handles Art.</summary>
+  /// <summary>Handles when.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnWhenChanged(object sender, EventArgs e)

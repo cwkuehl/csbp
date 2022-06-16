@@ -20,12 +20,13 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH410Booking dialog.</summary>
 public partial class HH410Booking : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private HhBuchung Model;
+  /// <summary>Last value date.</summary>
   private static DateTime lastvaluedate = DateTime.Today;
+
+  /// <summary>Last receipt date.</summary>
   private static DateTime lastreceiptdate = DateTime.Today;
 
-  /// <summary>Zuletzt kopierte ID.</summary>
+  /// <summary>Last copied uid.</summary>
   private static string lastcopyuid = null;
 
 #pragma warning disable CS0649
@@ -39,7 +40,7 @@ public partial class HH410Booking : CsbpBin
   private readonly Label valuta0;
 
   /// <summary>Date Valuta.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date valuta;
 
   /// <summary>Label betrag0.</summary>
@@ -91,7 +92,7 @@ public partial class HH410Booking : CsbpBin
   private readonly Button neueNr;
 
   /// <summary>Date Belegdatum.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date belegDatum;
 
   /// <summary>Entry angelegt.</summary>
@@ -118,27 +119,18 @@ public partial class HH410Booking : CsbpBin
   [Builder.Object]
   private readonly Button addition;
 
-  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
-
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static HH410Booking Create(object p1 = null, CsbpBin p = null)
-  {
-    return new HH410Booking(GetBuilder("HH410Booking", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private HhBuchung model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="HH410Booking"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public HH410Booking(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -156,7 +148,7 @@ public partial class HH410Booking : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     belegDatum.DateChanged += OnBelegdatumDateChanged;
     belegDatum.Show();
@@ -168,6 +160,18 @@ public partial class HH410Booking : CsbpBin
     InitData(0);
     betrag.GrabFocus();
     betrag0.SelectRegion(0, -1);
+  }
+
+  /// <summary>Gets or sets last copied uid.</summary>
+  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static HH410Booking Create(object p1 = null, CsbpBin p = null)
+  {
+    return new HH410Booking(GetBuilder("HH410Booking", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -188,13 +192,13 @@ public partial class HH410Booking : CsbpBin
         var k = Get(FactoryService.BudgetService.GetBooking(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
+          Application.Invoke((sender, e) =>
           {
             dialog.Hide();
           });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         valuta.Value = k.Soll_Valuta;
         InitLists();
@@ -232,7 +236,7 @@ public partial class HH410Booking : CsbpBin
       {
         if (DialogType == DialogTypeEnum.Delete)
           ok.Label = Forms_delete;
-        else if (Model != null && Model.Kz == Constants.KZB_STORNO)
+        else if (model != null && model.Kz == Constants.KZB_STORNO)
           ok.Label = Forms_unreverse;
         else
           ok.Label = Forms_reverse;
@@ -261,7 +265,6 @@ public partial class HH410Booking : CsbpBin
     {
       EventsActive = true;
     }
-
   }
 
   /// <summary>Handles Ereignis.</summary>
@@ -333,9 +336,9 @@ public partial class HH410Booking : CsbpBin
         Lastcopyuid = rb.Ergebnis.Uid;
     }
     else if (DialogType == DialogTypeEnum.Reverse)
-      r = FactoryService.BudgetService.ReverseBooking(ServiceDaten, Model);
+      r = FactoryService.BudgetService.ReverseBooking(ServiceDaten, model);
     else if (DialogType == DialogTypeEnum.Delete)
-      r = FactoryService.BudgetService.DeleteBooking(ServiceDaten, Model);
+      r = FactoryService.BudgetService.DeleteBooking(ServiceDaten, model);
     if (r != null)
     {
       Get(r);
@@ -403,16 +406,16 @@ public partial class HH410Booking : CsbpBin
     var h = GetText(habenkonto);
     var el = Get(FactoryService.BudgetService.GetEventList(ServiceDaten, null, valuta.Value, valuta.Value));
     var evalues = new List<string[]>
-      {
-        new string[] { "", "" } // Leerer Eintrag, damit zunächst kein Ereignis ausgewählt ist.
-      };
+    {
+      new string[] { "", "" }, // Empty entry for initially no event.
+    };
     foreach (var e in el)
     {
       evalues.Add(new string[] { e.Uid, e.Bezeichnung });
     }
     AddStringColumnsSort(ereignis, HH410_ereignis_columns, evalues);
     var kl = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, null, valuta.Value, valuta.Value));
-    // Nr.;Bezeichnung
+    //// No.;Description
     var avalues = new List<string[]>();
     foreach (var e in kl)
     {
@@ -465,5 +468,4 @@ public partial class HH410Booking : CsbpBin
     betrag.Text = strBetrag;
     return op;
   }
-
 }

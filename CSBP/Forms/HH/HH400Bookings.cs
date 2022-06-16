@@ -19,9 +19,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH400Bookings dialog.</summary>
 public partial class HH400Bookings : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  string lastreverse;
-
 #pragma warning disable CS0649
 
   /// <summary>Button RefreshAction.</summary>
@@ -49,11 +46,11 @@ public partial class HH400Bookings : CsbpBin
   private readonly RadioButton kennzeichen2;
 
   /// <summary>Date Von.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date von;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
   /// <summary>Entry bText.</summary>
@@ -70,23 +67,16 @@ public partial class HH400Bookings : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static HH400Bookings Create(object p1 = null, CsbpBin p = null)
-  {
-    return new HH400Bookings(GetBuilder("HH400Bookings", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private string lastreverse;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="HH400Bookings"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public HH400Bookings(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -94,7 +84,7 @@ public partial class HH400Bookings : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     von.DateChanged += OnVonDateChanged;
     von.Show();
@@ -102,19 +92,28 @@ public partial class HH400Bookings : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
-    ObservableEventThrottle(refreshAction, delegate
+    ObservableEventThrottle(refreshAction, (sender, e) =>
     {
       var uid = HH410Booking.Lastcopyuid;
       HH410Booking.Lastcopyuid = null;
       RefreshTreeView(buchungen, 1, uid);
     });
-    // SetBold(client0);
+    //// SetBold(client0);
     InitData(0);
     buchungen.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static HH400Bookings Create(object p1 = null, CsbpBin p = null)
+  {
+    return new HH400Bookings(GetBuilder("HH400Bookings", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -136,7 +135,7 @@ public partial class HH400Bookings : CsbpBin
       bText.Text = "%%";
       betrag.Text = "";
       SetText(konto, "");
-      // Parameter
+      //// Parameter
       if (Parameter1 is Tuple<HhKonto, DateTime, DateTime> p1)
       {
         SetText(konto, p1.Item1.Uid);
@@ -151,15 +150,18 @@ public partial class HH400Bookings : CsbpBin
           von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text)) ?? new List<HhBuchung>();
       var anz = l.Count;
       var summe = 0m;
-      // Nr.;Valuta;K.;Betrag;Buchungstext;Sollkonto;Habenkonto;Beleg;Geändert am;Geändert von;Angelegt am;Angelegt von
+      //// No.;Value date;A.;Value_r;Posting text;Debit account;Credit account;Receipt;Changed at;Changed by;Created at;Created by
       var values = new List<string[]>();
       foreach (var e in l)
       {
         summe += e.EBetrag;
-        values.Add(new string[] { e.Uid, Functions.ToString(e.Soll_Valuta), e.Kz,
-            Functions.ToString(e.EBetrag, 2), e.BText, e.DebitName, e.CreditName, e.Beleg_Nr,
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        values.Add(new string[]
+        {
+          e.Uid, Functions.ToString(e.Soll_Valuta), e.Kz,
+          Functions.ToString(e.EBetrag, 2), e.BText, e.DebitName, e.CreditName, e.Beleg_Nr,
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       buchungenStatus.Text = HH054(anz, summe);
       AddStringColumnsSort(buchungen, HH400_buchungen_columns, values);
@@ -237,7 +239,7 @@ public partial class HH400Bookings : CsbpBin
   {
     var file = SelectFile(HH400_select_file);
     var lines = Get(FactoryService.BudgetService.ExportBookingList(ServiceDaten,
-        GetText(kennzeichen1) == "1", von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text));
+      GetText(kennzeichen1) == "1", von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text));
     UiTools.SaveFile(lines, file);
   }
 
