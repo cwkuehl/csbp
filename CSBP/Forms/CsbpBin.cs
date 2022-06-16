@@ -676,7 +676,7 @@ public partial class CsbpBin : Bin
     }
     var s = tv.Selection.GetSelectedRows();
     var znummern = false;
-    // Handle menu items
+    //// Handles menu items
     var l = (mi.Child as Label)?.Text;
     if (l == Menu_table_addrow)
     {

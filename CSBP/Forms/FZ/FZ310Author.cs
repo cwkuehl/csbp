@@ -15,9 +15,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ310Author dialog.</summary>
 public partial class FZ310Author : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private FzBuchautor Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -54,29 +51,31 @@ public partial class FZ310Author : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static FZ310Author Create(object p1 = null, CsbpBin p = null)
-  {
-    return new FZ310Author(GetBuilder("FZ310Author", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private FzBuchautor model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="FZ310Author"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public FZ310Author(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     SetBold(name0);
     InitData(0);
     name.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static FZ310Author Create(object p1 = null, CsbpBin p = null)
+  {
+    return new FZ310Author(GetBuilder("FZ310Author", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -92,13 +91,13 @@ public partial class FZ310Author : CsbpBin
         var k = Get(FactoryService.PrivateService.GetAuthor(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
+          Application.Invoke((sender, e) =>
           {
             dialog.Hide();
           });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         name.Text = k.Name;
         vorname.Text = k.Vorname;
@@ -134,7 +133,7 @@ public partial class FZ310Author : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.PrivateService.DeleteAuthor(ServiceDaten, Model);
+      r = FactoryService.PrivateService.DeleteAuthor(ServiceDaten, model);
     }
     if (r != null)
     {

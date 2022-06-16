@@ -15,9 +15,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ330Series dialog.</summary>
 public partial class FZ330Series : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private FzBuchserie Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -50,29 +47,31 @@ public partial class FZ330Series : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static FZ330Series Create(object p1 = null, CsbpBin p = null)
-  {
-    return new FZ330Series(GetBuilder("FZ330Series", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private FzBuchserie model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="FZ330Series"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public FZ330Series(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     SetBold(name0);
     InitData(0);
     name.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static FZ330Series Create(object p1 = null, CsbpBin p = null)
+  {
+    return new FZ330Series(GetBuilder("FZ330Series", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -88,13 +87,13 @@ public partial class FZ330Series : CsbpBin
         var k = Get(FactoryService.PrivateService.GetSeries(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
+          Application.Invoke((sender, e) =>
           {
             dialog.Hide();
           });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         name.Text = k.Name;
         notiz.Buffer.Text = k.Notiz ?? "";
@@ -128,7 +127,7 @@ public partial class FZ330Series : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.PrivateService.DeleteSeries(ServiceDaten, Model);
+      r = FactoryService.PrivateService.DeleteSeries(ServiceDaten, model);
     }
     if (r != null)
     {
@@ -140,7 +139,6 @@ public partial class FZ330Series : CsbpBin
         dialog.Hide();
       }
     }
-
   }
 
   /// <summary>Handles Abbrechen.</summary>

@@ -16,9 +16,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for FZ210Bike dialog.</summary>
 public partial class FZ210Bike : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private FzFahrrad Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -59,23 +56,16 @@ public partial class FZ210Bike : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static FZ210Bike Create(object p1 = null, CsbpBin p = null)
-  {
-    return new FZ210Bike(GetBuilder("FZ210Bike", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private FzFahrrad model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="FZ210Bike"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public FZ210Bike(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -83,6 +73,15 @@ public partial class FZ210Bike : CsbpBin
     SetBold(typ0);
     InitData(0);
     bezeichnung.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static FZ210Bike Create(object p1 = null, CsbpBin p = null)
+  {
+    return new FZ210Bike(GetBuilder("FZ210Bike", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -100,13 +99,13 @@ public partial class FZ210Bike : CsbpBin
         var k = Get(FactoryService.PrivateService.GetBike(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
+          Application.Invoke((sender, e) =>
           {
             dialog.Hide();
           });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         bezeichnung.Text = k.Bezeichnung ?? "";
         SetText(typ1, k.Typ.ToString());
@@ -138,7 +137,7 @@ public partial class FZ210Bike : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.PrivateService.DeleteBike(ServiceDaten, Model);
+      r = FactoryService.PrivateService.DeleteBike(ServiceDaten, model);
     }
     if (r != null)
     {

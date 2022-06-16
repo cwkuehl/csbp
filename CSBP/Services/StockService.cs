@@ -29,7 +29,7 @@ namespace CSBP.Services
     /// Gets a list of stocks.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <param name="inactive">Get also inactive investments?</param>
+    /// <param name="inactive">Gets also inactive investments?</param>
     /// <param name="desc">Affected Description.</param>
     /// <param name="pattern">Affected Pattern.</param>
     /// <param name="uid">Affected ID.</param>
@@ -556,10 +556,11 @@ namespace CSBP.Services
     /// <returns>List of providers.</returns>
     public ServiceErgebnis<List<MaParameter>> GetProviderList(ServiceDaten daten)
     {
-      var l = new List<MaParameter> {
+      var l = new List<MaParameter>
+      {
         new MaParameter { Schluessel = "onvista", Wert = "Onvista Fonds, www.onvista.de" },
         new MaParameter { Schluessel = "yahoo", Wert = "Yahoo, finance.yahoo.com" },
-        new MaParameter { Schluessel = "ariva", Wert = "Ariva, www.ariva.de" }
+        new MaParameter { Schluessel = "ariva", Wert = "Ariva, www.ariva.de" },
       };
       var r = new ServiceErgebnis<List<MaParameter>>(l);
       return r;
@@ -569,7 +570,7 @@ namespace CSBP.Services
     /// Gets a list of configurations.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <param name="extended">Get more data?</param>
+    /// <param name="extended">Gets more data or not.</param>
     /// <param name="state">Affected configuration state.</param>
     /// <returns>List of configurations.</returns>
     public ServiceErgebnis<List<WpKonfiguration>> GetConfigurationList(ServiceDaten daten, bool extended, string state)
@@ -599,7 +600,7 @@ namespace CSBP.Services
           Duration = Constants.STOCK_DAYS,
           Relative = false,
           Scale = 2, // dynamisch
-          Status = "1"
+          Status = "1",
         };
       return new ServiceErgebnis<WpKonfiguration>(e);
     }
@@ -696,7 +697,7 @@ namespace CSBP.Services
     /// Gets a list of investments.
     /// </summary>
     /// <param name="daten">Service data for database access.</param>
-    /// <param name="inactive">Get also inactive investments?</param>
+    /// <param name="inactive">Gets also inactive investments or not.</param>
     /// <param name="desc">Affected Description.</param>
     /// <param name="uid">Affected ID.</param>
     /// <param name="stuid">Affected stock ID.</param>

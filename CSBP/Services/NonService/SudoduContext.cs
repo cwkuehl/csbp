@@ -76,25 +76,25 @@ public class SudokuContext
     Numbers = SudokuContext.Clone(arr ?? c.Numbers);
   }
 
-  /// <summary>Get and set number of columns.</summary>
+  /// <summary>Gets number of columns.</summary>
   public int Maxx { get; private set; }
 
-  /// <summary>Get and set number of horizontal boxes.</summary>
+  /// <summary>Getst number of horizontal boxes.</summary>
   public int Maxxb { get; private set; }
 
-  /// <summary>Get and set number of rows.</summary>
+  /// <summary>Gets number of rows.</summary>
   public int Maxy { get; private set; }
 
-  /// <summary>Get and set number of vertikal boxes.</summary>
+  /// <summary>Gets number of vertikal boxes.</summary>
   public int Maxyb { get; private set; }
 
-  /// <summary>Get and set number of fields.</summary>
+  /// <summary>Gets number of fields.</summary>
   public int Max { get; private set; }
 
-  /// <summary>Get and set the field of numbers.</summary>
+  /// <summary>Gets the field of numbers.</summary>
   public int[] Numbers { get; private set; }
 
-  /// <summary>Get and set a value that shows if the diagonal values are all different.</summary>
+  /// <summary>Gets a value indicating whether shows if the diagonal values are all different.</summary>
   public bool Diagonal { get; private set; }
 
   /// <summary>Add sudoku context to undo list if it is different to last one.</summary>
@@ -136,15 +136,15 @@ public class SudokuContext
     }
   }
 
-  /// <summary>Get clone of array.</summary>
+  /// <summary>Gets clone of array.</summary>
   /// <param name="source">Affected array.</param>
   private static int[] Clone(int[] source)
   {
     return (int[])source.Clone();
   }
 
-  /// <summary>create int array.</summary>
-  /// <param name="source">Affected count.</param>
+  /// <summary>Creates int array.</summary>
+  /// <param name="count">Affected count.</param>
   private static int[] NumberArray(int count)
   {
     if (count < 0)
@@ -152,7 +152,7 @@ public class SudokuContext
     return new int[count];
   }
 
-  /// <summary>Get count of filled (>0) fields.</summary>
+  /// <summary>Gets count of filled (>0) fields.</summary>
   /// <param name="source">Affected array.</param>
   private static int Count(int[] source)
   {
@@ -161,7 +161,8 @@ public class SudokuContext
     return source.Count(a => a > 0);
   }
 
-  /// <summary>Get count of filled (>0) fields.</summary>
+  /// <summary>Gets number of filled (>0) fields.</summary>
+  /// <returns>Number of filled (>0) fields.</returns>
   public int Count()
   {
     return Numbers.Count(a => a > 0);

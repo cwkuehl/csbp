@@ -18,7 +18,7 @@ public interface IStockService
   /// Gets a list of stocks.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="inactive">Get also inactive investments or not.</param>
+  /// <param name="inactive">Gets also inactive investments or not.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="pattern">Affected Pattern.</param>
   /// <param name="uid">Affected ID.</param>
@@ -99,7 +99,7 @@ public interface IStockService
   /// Gets a list of configurations.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="extended">Get more data or not.</param>
+  /// <param name="extended">Gets more data or not.</param>
   /// <param name="state">Affected configuration state.</param>
   /// <returns>List of configurations.</returns>
   ServiceErgebnis<List<WpKonfiguration>> GetConfigurationList(ServiceDaten daten, bool extended, string state);
@@ -170,7 +170,7 @@ public interface IStockService
   /// Gets a list of investments.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="inactive">Get also inactive investments or not.</param>
+  /// <param name="inactive">Gets also inactive investments or not.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="stuid">Affected stock ID.</param>

@@ -2,20 +2,18 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
+namespace CSBP.Services.Reports;
+
 using System.Collections.Generic;
 
-namespace CSBP.Services.Reports
+/// <summary>Creation of a table report.</summary>
+public partial class TableReport : ReportBase
 {
-  /// <summary>Creation of a table report.</summary>
-  public partial class TableReport : ReportBase
+  /// <summary>Initializes a new instance of the <see cref="TableReport"/> class.
+  /// Sets styles.</summary>
+  public TableReport()
   {
-    /// <summary>Get or set the value of lines.</summary>
-    public List<List<string>> Lines { get; set; }
-
-    /// <summary>Construktor sets styles.</summary>
-    public TableReport()
-    {
-      Style = @"
+    Style = @"
 * {
  font-family: Arial;
  font-size: 10px;
@@ -27,26 +25,28 @@ table, th, td {
   border-collapse: collapse;
 }
 ";
-    }
+  }
 
-    /// <summary>Internes Erzeugen des Reports.</summary>
-    protected override void DoGenerate()
+  /// <summary>Gets or sets the value of lines.</summary>
+  public List<List<string>> Lines { get; set; }
+
+  /// <summary>Internes Erzeugen des Reports.</summary>
+  protected override void DoGenerate()
+  {
+    if (Lines == null)
+      return;
+    xml.WriteStartElement("table");
+    foreach (var line in Lines)
     {
-      if (Lines == null)
-        return;
-      xml.WriteStartElement("table");
-      foreach (var line in Lines)
+      xml.WriteStartElement("tr");
+      foreach (var c in line)
       {
-        xml.WriteStartElement("tr");
-        foreach (var c in line)
-        {
-          xml.WriteStartElement("td");
-          xml.WriteString(c ?? "");
-          xml.WriteEndElement(); // td
-        }
-        xml.WriteEndElement(); // tr
+        xml.WriteStartElement("td");
+        xml.WriteString(c ?? "");
+        xml.WriteEndElement(); // td
       }
-      xml.WriteEndElement(); // table
+      xml.WriteEndElement(); // tr
     }
+    xml.WriteEndElement(); // table
   }
 }
