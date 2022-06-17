@@ -18,12 +18,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for SB310Family dialog.</summary>
 public partial class SB310Family : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private SbFamilie Model;
-
-  /// <summary>Liste der Kinder.</summary>
-  private List<SbPerson> ChildList = new();
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -80,29 +74,34 @@ public partial class SB310Family : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static SB310Family Create(object p1 = null, CsbpBin p = null)
-  {
-    return new SB310Family(GetBuilder("SB310Family", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private SbFamilie model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>List of children.</summary>
+  private List<SbPerson> childList = new();
+
+  /// <summary>Initializes a new instance of the <see cref="SB310Family"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public SB310Family(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     // SetBold(client0);
     InitData(0);
     vater.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static SB310Family Create(object p1 = null, CsbpBin p = null)
+  {
+    return new SB310Family(GetBuilder("SB310Family", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -133,13 +132,10 @@ public partial class SB310Family : CsbpBin
         var k = Get(FactoryService.PedigreeService.GetFamily(daten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid ?? "";
         SetText(vater, k.Mann_Uid);
         SetText(mutter, k.Frau_Uid);
@@ -147,7 +143,7 @@ public partial class SB310Family : CsbpBin
         heiratsort.Text = k.Marriageplace ?? "";
         heiratsbem.Buffer.Text = k.Marriagememo ?? "";
         var chl = Get(FactoryService.PedigreeService.GetChildList(daten, k.Uid)) ?? new List<SbPerson>();
-        ChildList.AddRange(chl);
+        childList.AddRange(chl);
         InitChildren();
         angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
         geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
@@ -176,19 +172,6 @@ public partial class SB310Family : CsbpBin
       AddColumns(kind, cl, true);
       EventsActive = true;
     }
-  }
-
-  private void InitChildren()
-  {
-    var values = new List<string[]>();
-    foreach (var e in ChildList)
-    {
-      // Nr.;Geburtsname;Vorname;Name;G.;Geändert am;Geändert von;Angelegt am;Angelegt von
-      values.Add(new string[] { e.Uid, e.Geburtsname, e.Vorname, e.Name, e.Geschlecht,
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
-    }
-    AddStringColumnsSort(kinder, SB310_kinder_columns, values);
   }
 
   /// <summary>Handles Vater.</summary>
@@ -230,11 +213,11 @@ public partial class SB310Family : CsbpBin
     {
       r = FactoryService.PedigreeService.SaveFamily(ServiceDaten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(vater), GetText(mutter), heiratsdatum.Text,
-        heiratsort.Text, heiratsbem.Buffer.Text, null, ChildList.Select(a => a.Uid).ToList());
+        heiratsort.Text, heiratsbem.Buffer.Text, null, childList.Select(a => a.Uid).ToList());
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.PedigreeService.DeleteFamily(ServiceDaten, Model);
+      r = FactoryService.PedigreeService.DeleteFamily(ServiceDaten, model);
     }
     if (r != null)
     {
@@ -253,12 +236,12 @@ public partial class SB310Family : CsbpBin
   protected void OnHinzufuegenClicked(object sender, EventArgs e)
   {
     var uid = GetText(kind);
-    if (string.IsNullOrEmpty(uid) || ChildList.Any(a => a.Uid == uid))
+    if (string.IsNullOrEmpty(uid) || childList.Any(a => a.Uid == uid))
       return;
     var k = Get(FactoryService.PedigreeService.GetAncestor(ServiceDaten, uid));
     if (k != null)
     {
-      ChildList.Add(k);
+      childList.Add(k);
       InitChildren();
     }
   }
@@ -271,7 +254,7 @@ public partial class SB310Family : CsbpBin
     var uid = GetText(kinder);
     if (string.IsNullOrEmpty(uid))
       return;
-    ChildList = ChildList.Where(a => a.Uid != uid).ToList();
+    childList = childList.Where(a => a.Uid != uid).ToList();
     InitChildren();
   }
 
@@ -281,5 +264,24 @@ public partial class SB310Family : CsbpBin
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
     dialog.Hide();
+  }
+
+  /// <summary>
+  /// Initialises children.
+  /// </summary>
+  private void InitChildren()
+  {
+    var values = new List<string[]>();
+    foreach (var e in childList)
+    {
+      // No.;Maiden name;First names;Surname;G.;Changed at;Changed by;Created at;Created by
+      values.Add(new string[]
+      {
+        e.Uid, e.Geburtsname, e.Vorname, e.Name, e.Geschlecht,
+        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+      });
+    }
+    AddStringColumnsSort(kinder, SB310_kinder_columns, values);
   }
 }

@@ -21,9 +21,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for SB210Ancestor dialog.</summary>
 public partial class SB210Ancestor : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private SbPerson Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -187,23 +184,16 @@ public partial class SB210Ancestor : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static SB210Ancestor Create(object p1 = null, CsbpBin p = null)
-  {
-    return new SB210Ancestor(GetBuilder("SB210Ancestor", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private SbPerson model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="SB210Ancestor"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public SB210Ancestor(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -212,6 +202,15 @@ public partial class SB210Ancestor : CsbpBin
     bilddaten.DragDataReceived += OnBilderDragDataReceived;
     InitData(0);
     geburtsname.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static SB210Ancestor Create(object p1 = null, CsbpBin p = null)
+  {
+    return new SB210Ancestor(GetBuilder("SB210Ancestor", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -236,13 +235,10 @@ public partial class SB210Ancestor : CsbpBin
         var k = Get(FactoryService.PedigreeService.GetAncestor(daten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid ?? "";
         geburtsname.Text = k.Geburtsname ?? "";
         vorname.Text = k.Vorname ?? "";
@@ -388,7 +384,7 @@ public partial class SB210Ancestor : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.PedigreeService.DeleteAncestor(ServiceDaten, Model);
+      r = FactoryService.PedigreeService.DeleteAncestor(ServiceDaten, model);
     }
     if (r != null)
     {
@@ -422,6 +418,34 @@ public partial class SB210Ancestor : CsbpBin
   }
 
   /// <summary>
+  /// Append image file.
+  /// </summary>
+  /// <param name="list">Affected image list.</param>
+  /// <param name="metadata">Affected meta data for all images.</param>
+  private static List<ByteDaten> ParseMetadata(List<ByteDaten> list, string metadata)
+  {
+    if (list == null || list.Count <= 0)
+      return list;
+    var xml = $"<images>{metadata ?? ""}</images>";
+    var doc = new XmlDocument();
+    doc.Load(new StringReader(xml));
+    var root = doc.DocumentElement;
+    var images = root.SelectNodes("/images/image");
+    if (images.Count != list.Count)
+    {
+      throw new Exception("Parse error of meta data.");
+      //// ShowError("Parse error of meta data.");
+      //// return list;
+    }
+    for (var i = 0; i < list.Count; i++)
+    {
+      var image = images[i];
+      list[i].Metadaten = image.OuterXml;
+    }
+    return list;
+  }
+
+  /// <summary>
   /// Append image and meta data.
   /// </summary>
   /// <param name="bytes">Image as bytes.</param>
@@ -434,7 +458,7 @@ public partial class SB210Ancestor : CsbpBin
       return;
     var p = new Image
     {
-      Pixbuf = new Gdk.Pixbuf(bytes)
+      Pixbuf = new Gdk.Pixbuf(bytes),
     };
     bilder.Add(p);
     if (!string.IsNullOrWhiteSpace(dropname))
@@ -445,7 +469,7 @@ public partial class SB210Ancestor : CsbpBin
       imagelist.Add(new ByteDaten
       {
         Metadaten = metadata,
-        Bytes = bytes
+        Bytes = bytes,
       });
     }
   }
@@ -463,33 +487,5 @@ public partial class SB210Ancestor : CsbpBin
     var metadaten = $"<image><text>Bild</text><file>{file}</file><date>{date:yyyy-MM-dd'T'hh:mm:ss'Z'}</date><size>{length}</size></image>";
     AppendImage(bytes, metadaten, true, dropname);
     bilder.ShowAll();
-  }
-
-  /// <summary>
-  /// Append image file.
-  /// </summary>
-  /// <param name="list">Affected image list.</param>
-  /// <param name="metadata">Affected meta data for all images.</param>
-  private static List<ByteDaten> ParseMetadata(List<ByteDaten> list, string metadata)
-  {
-    if (list == null || list.Count <= 0)
-      return list;
-    var xml = $"<images>{metadata ?? ""}</images>";
-    var doc = new XmlDocument();
-    doc.Load(new StringReader(xml));
-    var root = doc.DocumentElement;
-    var images = root.SelectNodes("/images/image");
-    if (images.Count != list.Count)
-    {
-      throw new Exception("Parse error of meta data.");
-      // ShowError("Parse error of meta data.");
-      // return list;
-    }
-    for (var i = 0; i < list.Count; i++)
-    {
-      var image = images[i];
-      list[i].Metadaten = image.OuterXml;
-    }
-    return list;
   }
 }

@@ -33,23 +33,13 @@ public partial class SB300Families : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static SB300Families Create(object p1 = null, CsbpBin p = null)
-  {
-    return new SB300Families(GetBuilder("SB300Families", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="SB300Families"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public SB300Families(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -58,9 +48,19 @@ public partial class SB300Families : CsbpBin
     familien.GrabFocus();
   }
 
-  /**
-   * Event für SpElternFamilie.
-   */
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static SB300Families Create(object p1 = null, CsbpBin p = null)
+  {
+    return new SB300Families(GetBuilder("SB300Families", out var handle), handle, p1: p1, p: p);
+  }
+
+  /// <summary>
+  /// Sets selected parent family.
+  /// </summary>
+  /// <param name="uid">Affected family uid.</param>
   public void OnSpElternFamilie(string uid)
   {
     if (!string.IsNullOrEmpty(uid))
@@ -76,9 +76,10 @@ public partial class SB300Families : CsbpBin
     }
   }
 
-  /**
-   * Event für SpFamilienKind.
-   */
+  /// <summary>
+  /// Sets selected child family.
+  /// </summary>
+  /// <param name="uid">Affected child uid.</param>
   public void OnSpFamilienKind(string uid)
   {
     if (!string.IsNullOrEmpty(uid))
@@ -105,10 +106,13 @@ public partial class SB300Families : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;Vater;Mutter;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Uid, e.Father?.AncestorName ?? "", e.Mother?.AncestorName ?? "",
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;Father;Mother;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Uid, e.Father?.AncestorName ?? "", e.Mother?.AncestorName ?? "",
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(familien, SB300_familien_columns, values);
     }
@@ -199,7 +203,7 @@ public partial class SB300Families : CsbpBin
       {
         var dlg = Focus<SB200Ancestors>(SB200_title);
         if (dlg != null)
-          dlg.OnSpAhn(f.Mann_Uid);
+          dlg.OnAncestor(f.Mann_Uid);
       }
     }
   }
@@ -217,7 +221,7 @@ public partial class SB300Families : CsbpBin
       {
         var dlg = Focus<SB200Ancestors>(SB200_title);
         if (dlg != null)
-          dlg.OnSpAhn(f.Frau_Uid);
+          dlg.OnAncestor(f.Frau_Uid);
       }
     }
   }
@@ -235,7 +239,7 @@ public partial class SB300Families : CsbpBin
       {
         var dlg = Focus<SB200Ancestors>(SB200_title);
         if (dlg != null)
-          dlg.OnSpAhn(cuid);
+          dlg.OnAncestor(cuid);
       }
     }
   }

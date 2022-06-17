@@ -16,9 +16,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for SB410Source dialog.</summary>
 public partial class SB410Source : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private SbQuelle Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -63,23 +60,16 @@ public partial class SB410Source : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static SB410Source Create(object p1 = null, CsbpBin p = null)
-  {
-    return new SB410Source(GetBuilder("SB410Source", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private SbQuelle model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="SB410Source"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public SB410Source(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -87,6 +77,15 @@ public partial class SB410Source : CsbpBin
     SetBold(beschreibung0);
     InitData(0);
     autor.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static SB410Source Create(object p1 = null, CsbpBin p = null)
+  {
+    return new SB410Source(GetBuilder("SB410Source", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -105,13 +104,10 @@ public partial class SB410Source : CsbpBin
         var k = Get(FactoryService.PedigreeService.GetSource(daten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid ?? "";
         autor.Buffer.Text = k.Autor ?? "";
         beschreibung.Buffer.Text = k.Beschreibung ?? "";
@@ -148,7 +144,7 @@ public partial class SB410Source : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.PedigreeService.DeleteSource(ServiceDaten, Model);
+      r = FactoryService.PedigreeService.DeleteSource(ServiceDaten, model);
     }
     if (r != null)
     {
