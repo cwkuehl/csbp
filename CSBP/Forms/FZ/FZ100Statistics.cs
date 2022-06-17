@@ -25,6 +25,10 @@ public partial class FZ100Statistics : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Paned splitpane.</summary>
+  [Builder.Object]
+  private readonly Paned splitpane;
+
   /// <summary>Date Datum.</summary>
   ////[Builder.Object]
   private readonly Date datum;
@@ -111,6 +115,16 @@ public partial class FZ100Statistics : CsbpBin
       pplList = l.Select(a => new KeyValuePair<string, decimal>(Functions.ToString(a.Geaendert_Am), a.EBetrag)).ToList();
       var l2 = Get(FactoryService.PrivateService.GetMileages(daten, datum.ValueNn));
       mileageList = l2.Select(a => new KeyValuePair<string, decimal>(Functions.ToString(a.Datum), a.Periode_km)).ToList();
+    }
+    if (step <= 0)
+    {
+      Application.Invoke((sender, e) =>
+      {
+        System.Threading.Thread.Sleep(1000);
+        var s = MainClass.MainWindow.Allocation;
+        var p = s.Width * 2 / 5; // 40 %
+        splitpane.Position = Math.Max(p, 600);
+      });
     }
   }
 
