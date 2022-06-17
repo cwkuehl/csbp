@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für SB_Familie-Repository.
+/// Generated repository base class for table SB_Familie.
 /// </summary>
 public partial class SbFamilieRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public SbFamilie Get(ServiceDaten daten, SbFamilie e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,14 @@ public partial class SbFamilieRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public SbFamilie Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +49,12 @@ public partial class SbFamilieRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<SbFamilie> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +62,11 @@ public partial class SbFamilieRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, SbFamilie e)
   {
     var db = GetDb(daten);
@@ -50,6 +75,11 @@ public partial class SbFamilieRep : RepositoryBase
     db.SB_Familie.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, SbFamilie e)
   {
     var db = GetDb(daten);
@@ -62,6 +92,22 @@ public partial class SbFamilieRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="mannuid">Value of column Mann_Uid.</param>
+  /// <param name="frauuid">Value of column Frau_Uid.</param>
+  /// <param name="status1">Value of column Status1.</param>
+  /// <param name="status2">Value of column Status2.</param>
+  /// <param name="status3">Value of column Status3.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public SbFamilie Save(ServiceDaten daten, int mandantnr, string uid, string mannuid, string frauuid, int status1, int status2, int status3, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -74,7 +120,7 @@ public partial class SbFamilieRep : RepositoryBase
     e.Status1 = status1;
     e.Status2 = status2;
     e.Status3 = status3;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -91,6 +137,11 @@ public partial class SbFamilieRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, SbFamilie e)
   {
     var db = GetDb(daten);

@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für TB_Ort-Repository.
+/// Generated repository base class for table TB_Ort.
 /// </summary>
 public partial class TbOrtRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public TbOrt Get(ServiceDaten daten, TbOrt e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,14 @@ public partial class TbOrtRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public TbOrt Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +49,12 @@ public partial class TbOrtRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<TbOrt> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +62,11 @@ public partial class TbOrtRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, TbOrt e)
   {
     var db = GetDb(daten);
@@ -50,6 +75,11 @@ public partial class TbOrtRep : RepositoryBase
     db.TB_Ort.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, TbOrt e)
   {
     var db = GetDb(daten);
@@ -62,6 +92,22 @@ public partial class TbOrtRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="bezeichnung">Value of column Bezeichnung.</param>
+  /// <param name="breite">Value of column Breite.</param>
+  /// <param name="laenge">Value of column Laenge.</param>
+  /// <param name="hoehe">Value of column Hoehe.</param>
+  /// <param name="notiz">Value of column Notiz.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public TbOrt Save(ServiceDaten daten, int mandantnr, string uid, string bezeichnung, decimal breite, decimal laenge, decimal hoehe, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -74,7 +120,7 @@ public partial class TbOrtRep : RepositoryBase
     e.Laenge = laenge;
     e.Hoehe = hoehe;
     e.Notiz = notiz;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -91,6 +137,11 @@ public partial class TbOrtRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, TbOrt e)
   {
     var db = GetDb(daten);

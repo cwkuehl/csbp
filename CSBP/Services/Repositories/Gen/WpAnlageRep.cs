@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für WP_Anlage-Repository.
+/// Generated repository base class for table WP_Anlage.
 /// </summary>
 public partial class WpAnlageRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public WpAnlage Get(ServiceDaten daten, WpAnlage e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,14 @@ public partial class WpAnlageRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public WpAnlage Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +49,12 @@ public partial class WpAnlageRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<WpAnlage> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +62,11 @@ public partial class WpAnlageRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, WpAnlage e)
   {
     var db = GetDb(daten);
@@ -50,6 +75,11 @@ public partial class WpAnlageRep : RepositoryBase
     db.WP_Anlage.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, WpAnlage e)
   {
     var db = GetDb(daten);
@@ -62,6 +92,21 @@ public partial class WpAnlageRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="wertpapieruid">Value of column Wertpapier_Uid.</param>
+  /// <param name="bezeichnung">Value of column Bezeichnung.</param>
+  /// <param name="parameter">Value of column Parameter.</param>
+  /// <param name="notiz">Value of column Notiz.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public WpAnlage Save(ServiceDaten daten, int mandantnr, string uid, string wertpapieruid, string bezeichnung, string parameter, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -73,7 +118,7 @@ public partial class WpAnlageRep : RepositoryBase
     e.Bezeichnung = bezeichnung;
     e.Parameter = parameter;
     e.Notiz = notiz;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -90,6 +135,11 @@ public partial class WpAnlageRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, WpAnlage e)
   {
     var db = GetDb(daten);

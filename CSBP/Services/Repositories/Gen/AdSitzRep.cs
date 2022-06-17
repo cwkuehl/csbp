@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für AD_Sitz-Repository.
+/// Generated repository base class for table AD_Sitz.
 /// </summary>
 public partial class AdSitzRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public AdSitz Get(ServiceDaten daten, AdSitz e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,16 @@ public partial class AdSitzRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="personuid">Value of column Person_Uid.</param>
+  /// <param name="reihenfolge">Value of column Reihenfolge.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public AdSitz Get(ServiceDaten daten, int mandantnr, string personuid, int reihenfolge, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +51,12 @@ public partial class AdSitzRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<AdSitz> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +64,11 @@ public partial class AdSitzRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, AdSitz e)
   {
     var db = GetDb(daten);
@@ -50,6 +77,11 @@ public partial class AdSitzRep : RepositoryBase
     db.AD_Sitz.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, AdSitz e)
   {
     var db = GetDb(daten);
@@ -62,6 +94,30 @@ public partial class AdSitzRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="personuid">Value of column Person_Uid.</param>
+  /// <param name="reihenfolge">Value of column Reihenfolge.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="typ">Value of column Typ.</param>
+  /// <param name="name">Value of column Name.</param>
+  /// <param name="adresseuid">Value of column Adresse_Uid.</param>
+  /// <param name="telefon">Value of column Telefon.</param>
+  /// <param name="fax">Value of column Fax.</param>
+  /// <param name="mobil">Value of column Mobil.</param>
+  /// <param name="email">Value of column Email.</param>
+  /// <param name="homepage">Value of column Homepage.</param>
+  /// <param name="postfach">Value of column Postfach.</param>
+  /// <param name="bemerkung">Value of column Bemerkung.</param>
+  /// <param name="sitzstatus">Value of column Sitz_Status.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public AdSitz Save(ServiceDaten daten, int mandantnr, string personuid, int reihenfolge, string uid, int typ, string name, string adresseuid, string telefon, string fax, string mobil, string email, string homepage, string postfach, string bemerkung, int sitzstatus, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -82,7 +138,7 @@ public partial class AdSitzRep : RepositoryBase
     e.Postfach = postfach;
     e.Bemerkung = bemerkung;
     e.Sitz_Status = sitzstatus;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -99,6 +155,11 @@ public partial class AdSitzRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, AdSitz e)
   {
     var db = GetDb(daten);

@@ -43,7 +43,7 @@ public class Tests
       t.GenerateForm();
     if (Functions.MachNichts() == 0)
       t.GenerateResxDesigner();
-    if (Functions.MachNichts() != 0)
+    if (Functions.MachNichts() == 0)
       t.GenerierenReps();
     if (Functions.MachNichts() == 0)
       t.GenerierenModelCs();
@@ -232,11 +232,14 @@ public partial class CsbpContext : DbContext
 
       var kparam = new StringBuilder(); // Key parameters
       var kparam2 = new StringBuilder(); // Key parameters without types
+      var kdoc = new StringBuilder(); // Key documentation
       var gparam2 = new StringBuilder(); // All parameters
-      var gwhere = new StringBuilder();
-      var gwhere2 = new StringBuilder();
-      var lparam = new StringBuilder();
-      var lwhere = new StringBuilder();
+      var gwhere = new StringBuilder(); // Linq where by entity
+      var gwhere2 = new StringBuilder(); // Linq where by parameter
+      var gdoc = new StringBuilder(); // All parameter documentation
+      var lparam = new StringBuilder(); // Key parameters for list
+      var lwhere = new StringBuilder(); // Linq where for list
+      var ldoc = new StringBuilder(); // Key documentation for list
       var getvalue = new StringBuilder();
       var keycolumns = t.Descendants("keycolumn");
       var columns = t.Descendants("column");
@@ -256,6 +259,8 @@ public partial class CsbpContext : DbContext
       {
         var vname = p.name.Replace("_", string.Empty).ToLower();
         gparam2.Append($", {p.cstype} {vname}");
+        gdoc.Append($@"
+  /// <param name=""{vname}"">Value of column {p.name}.</param>");
         if (p.name.StartsWith("Angelegt_", StringComparison.Ordinal)
             || p.name.StartsWith("Geaendert_", StringComparison.Ordinal)
             || p.name.StartsWith("Replikation_Uid", StringComparison.Ordinal))
@@ -266,6 +271,8 @@ public partial class CsbpContext : DbContext
           if (lwhere.Length <= 0)
             lwhere.Append(".Where(a => ");
           lwhere.Append($"a.{p.name} == {vname})");
+          ldoc.Append($@"
+  /// <param name=""{vname}"">Value of column {p.name}.</param>");
         }
         if (p.key)
         {
@@ -283,6 +290,8 @@ public partial class CsbpContext : DbContext
           ////  gwhere2.Append($"a.{p.name} >= {vname} && a.{p.name} < {vname}.AddSeconds(1)");
           ////else
           gwhere2.Append($"a.{p.name} == {vname}");
+          kdoc.Append($@"
+  /// <param name=""{vname}"">Value of column {p.name}.</param>");
         }
       }
       getvalue.Append(ps.Any(a => a.name == "Uid")
@@ -327,12 +336,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für {tabelle}-Repository.
+/// Generated repository base class for table {tabelle}.
 /// </summary>
 public partial class {rep} : RepositoryBase
 {{
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>
+  /// <param name=""e"">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public {tab} Get(ServiceDaten daten, {tab} e)
   {{
     var db = GetDb(daten);
@@ -340,6 +355,12 @@ public partial class {rep} : RepositoryBase
     return b;
   }}
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>{kdoc}
+  /// <param name=""detached"">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public {tab} Get(ServiceDaten daten{kparam}, bool detached = false)
   {{
     var db = GetDb(daten);
@@ -349,6 +370,11 @@ public partial class {rep} : RepositoryBase
     return b;
   }}
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>{ldoc}
+  /// <returns>List of entities.</returns>
   public List<{tab}> GetList(ServiceDaten daten{lparam})
   {{
     var db = GetDb(daten);
@@ -356,6 +382,11 @@ public partial class {rep} : RepositoryBase
     return l.ToList();
   }}
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>
+  /// <param name=""e"">New entity.</param>
   public void Insert(ServiceDaten daten, {tab} e)
   {{
     var db = GetDb(daten);{autouid}
@@ -363,6 +394,11 @@ public partial class {rep} : RepositoryBase
     db.{tabelle}.Add(e);
   }}
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>
+  /// <param name=""e"">Entity with primary key.</param>
   public void Update(ServiceDaten daten, {tab} e)
   {{
     var db = GetDb(daten);
@@ -375,6 +411,11 @@ public partial class {rep} : RepositoryBase
     }}
   }}
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>{gdoc}
+  /// <returns>Saved entity.</returns>
   public {tab} Save(ServiceDaten daten{gparam2})
   {{
     var db = GetDb(daten);
@@ -395,6 +436,11 @@ public partial class {rep} : RepositoryBase
     return e;
   }}
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>
+  /// <param name=""e"">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, {tab} e)
   {{
     var db = GetDb(daten);

@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für HH_Buchung-Repository.
+/// Generated repository base class for table HH_Buchung.
 /// </summary>
 public partial class HhBuchungRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public HhBuchung Get(ServiceDaten daten, HhBuchung e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,14 @@ public partial class HhBuchungRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public HhBuchung Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +49,12 @@ public partial class HhBuchungRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<HhBuchung> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +62,11 @@ public partial class HhBuchungRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, HhBuchung e)
   {
     var db = GetDb(daten);
@@ -50,6 +75,11 @@ public partial class HhBuchungRep : RepositoryBase
     db.HH_Buchung.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, HhBuchung e)
   {
     var db = GetDb(daten);
@@ -62,6 +92,27 @@ public partial class HhBuchungRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="sollvaluta">Value of column Soll_Valuta.</param>
+  /// <param name="habenvaluta">Value of column Haben_Valuta.</param>
+  /// <param name="kz">Value of column Kz.</param>
+  /// <param name="betrag">Value of column Betrag.</param>
+  /// <param name="ebetrag">Value of column EBetrag.</param>
+  /// <param name="sollkontouid">Value of column Soll_Konto_Uid.</param>
+  /// <param name="habenkontouid">Value of column Haben_Konto_Uid.</param>
+  /// <param name="btext">Value of column BText.</param>
+  /// <param name="belegnr">Value of column Beleg_Nr.</param>
+  /// <param name="belegdatum">Value of column Beleg_Datum.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public HhBuchung Save(ServiceDaten daten, int mandantnr, string uid, DateTime sollvaluta, DateTime habenvaluta, string kz, decimal betrag, decimal ebetrag, string sollkontouid, string habenkontouid, string btext, string belegnr, DateTime belegdatum, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -79,7 +130,7 @@ public partial class HhBuchungRep : RepositoryBase
     e.BText = btext;
     e.Beleg_Nr = belegnr;
     e.Beleg_Datum = belegdatum;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -96,6 +147,11 @@ public partial class HhBuchungRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, HhBuchung e)
   {
     var db = GetDb(daten);

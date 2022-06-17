@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für FZ_Buch-Repository.
+/// Generated repository base class for table FZ_Buch.
 /// </summary>
 public partial class FzBuchRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public FzBuch Get(ServiceDaten daten, FzBuch e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,14 @@ public partial class FzBuchRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public FzBuch Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +49,12 @@ public partial class FzBuchRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<FzBuch> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +62,11 @@ public partial class FzBuchRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, FzBuch e)
   {
     var db = GetDb(daten);
@@ -50,6 +75,11 @@ public partial class FzBuchRep : RepositoryBase
     db.FZ_Buch.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, FzBuch e)
   {
     var db = GetDb(daten);
@@ -62,6 +92,25 @@ public partial class FzBuchRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="autoruid">Value of column Autor_Uid.</param>
+  /// <param name="serieuid">Value of column Serie_Uid.</param>
+  /// <param name="seriennummer">Value of column Seriennummer.</param>
+  /// <param name="titel">Value of column Titel.</param>
+  /// <param name="untertitel">Value of column Untertitel.</param>
+  /// <param name="seiten">Value of column Seiten.</param>
+  /// <param name="sprachenr">Value of column Sprache_Nr.</param>
+  /// <param name="notiz">Value of column Notiz.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public FzBuch Save(ServiceDaten daten, int mandantnr, string uid, string autoruid, string serieuid, int seriennummer, string titel, string untertitel, int seiten, int sprachenr, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -77,7 +126,7 @@ public partial class FzBuchRep : RepositoryBase
     e.Seiten = seiten;
     e.Sprache_Nr = sprachenr;
     e.Notiz = notiz;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -94,6 +143,11 @@ public partial class FzBuchRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, FzBuch e)
   {
     var db = GetDb(daten);

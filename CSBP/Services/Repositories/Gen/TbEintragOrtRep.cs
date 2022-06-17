@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für TB_Eintrag_Ort-Repository.
+/// Generated repository base class for table TB_Eintrag_Ort.
 /// </summary>
 public partial class TbEintragOrtRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public TbEintragOrt Get(ServiceDaten daten, TbEintragOrt e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,16 @@ public partial class TbEintragOrtRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="ortuid">Value of column Ort_Uid.</param>
+  /// <param name="datumvon">Value of column Datum_Von.</param>
+  /// <param name="datumbis">Value of column Datum_Bis.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public TbEintragOrt Get(ServiceDaten daten, int mandantnr, string ortuid, DateTime datumvon, DateTime datumbis, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +51,12 @@ public partial class TbEintragOrtRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<TbEintragOrt> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +64,11 @@ public partial class TbEintragOrtRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, TbEintragOrt e)
   {
     var db = GetDb(daten);
@@ -49,6 +76,11 @@ public partial class TbEintragOrtRep : RepositoryBase
     db.TB_Eintrag_Ort.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, TbEintragOrt e)
   {
     var db = GetDb(daten);
@@ -61,6 +93,19 @@ public partial class TbEintragOrtRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="ortuid">Value of column Ort_Uid.</param>
+  /// <param name="datumvon">Value of column Datum_Von.</param>
+  /// <param name="datumbis">Value of column Datum_Bis.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public TbEintragOrt Save(ServiceDaten daten, int mandantnr, string ortuid, DateTime datumvon, DateTime datumbis, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -70,7 +115,7 @@ public partial class TbEintragOrtRep : RepositoryBase
     e.Ort_Uid = ortuid;
     e.Datum_Von = datumvon;
     e.Datum_Bis = datumbis;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -87,6 +132,11 @@ public partial class TbEintragOrtRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, TbEintragOrt e)
   {
     var db = GetDb(daten);

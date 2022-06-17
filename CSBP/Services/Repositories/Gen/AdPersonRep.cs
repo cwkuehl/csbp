@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für AD_Person-Repository.
+/// Generated repository base class for table AD_Person.
 /// </summary>
 public partial class AdPersonRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public AdPerson Get(ServiceDaten daten, AdPerson e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,14 @@ public partial class AdPersonRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public AdPerson Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +49,12 @@ public partial class AdPersonRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<AdPerson> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +62,11 @@ public partial class AdPersonRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, AdPerson e)
   {
     var db = GetDb(daten);
@@ -50,6 +75,11 @@ public partial class AdPersonRep : RepositoryBase
     db.AD_Person.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, AdPerson e)
   {
     var db = GetDb(daten);
@@ -62,6 +92,29 @@ public partial class AdPersonRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
+  /// <param name="typ">Value of column Typ.</param>
+  /// <param name="geschlecht">Value of column Geschlecht.</param>
+  /// <param name="geburt">Value of column Geburt.</param>
+  /// <param name="geburtk">Value of column GeburtK.</param>
+  /// <param name="anrede">Value of column Anrede.</param>
+  /// <param name="fanrede">Value of column FAnrede.</param>
+  /// <param name="name1">Value of column Name1.</param>
+  /// <param name="name2">Value of column Name2.</param>
+  /// <param name="praedikat">Value of column Praedikat.</param>
+  /// <param name="vorname">Value of column Vorname.</param>
+  /// <param name="titel">Value of column Titel.</param>
+  /// <param name="personstatus">Value of column Person_Status.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public AdPerson Save(ServiceDaten daten, int mandantnr, string uid, int typ, string geschlecht, DateTime? geburt, int geburtk, int anrede, int fanrede, string name1, string name2, string praedikat, string vorname, string titel, int personstatus, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -81,7 +134,7 @@ public partial class AdPersonRep : RepositoryBase
     e.Vorname = vorname;
     e.Titel = titel;
     e.Person_Status = personstatus;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -98,6 +151,11 @@ public partial class AdPersonRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, AdPerson e)
   {
     var db = GetDb(daten);

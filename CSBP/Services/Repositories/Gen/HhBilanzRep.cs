@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für HH_Bilanz-Repository.
+/// Generated repository base class for table HH_Bilanz.
 /// </summary>
 public partial class HhBilanzRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public HhBilanz Get(ServiceDaten daten, HhBilanz e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,16 @@ public partial class HhBilanzRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="periode">Value of column Periode.</param>
+  /// <param name="kz">Value of column Kz.</param>
+  /// <param name="kontouid">Value of column Konto_Uid.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public HhBilanz Get(ServiceDaten daten, int mandantnr, int periode, string kz, string kontouid, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +51,12 @@ public partial class HhBilanzRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <returns>List of entities.</returns>
   public List<HhBilanz> GetList(ServiceDaten daten, int mandantnr)
   {
     var db = GetDb(daten);
@@ -42,6 +64,11 @@ public partial class HhBilanzRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, HhBilanz e)
   {
     var db = GetDb(daten);
@@ -49,6 +76,11 @@ public partial class HhBilanzRep : RepositoryBase
     db.HH_Bilanz.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, HhBilanz e)
   {
     var db = GetDb(daten);
@@ -61,6 +93,23 @@ public partial class HhBilanzRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="periode">Value of column Periode.</param>
+  /// <param name="kz">Value of column Kz.</param>
+  /// <param name="kontouid">Value of column Konto_Uid.</param>
+  /// <param name="sh">Value of column SH.</param>
+  /// <param name="betrag">Value of column Betrag.</param>
+  /// <param name="esh">Value of column ESH.</param>
+  /// <param name="ebetrag">Value of column EBetrag.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public HhBilanz Save(ServiceDaten daten, int mandantnr, int periode, string kz, string kontouid, string sh, decimal betrag, string esh, decimal ebetrag, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -74,7 +123,7 @@ public partial class HhBilanzRep : RepositoryBase
     e.Betrag = betrag;
     e.ESH = esh;
     e.EBetrag = ebetrag;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -91,6 +140,11 @@ public partial class HhBilanzRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, HhBilanz e)
   {
     var db = GetDb(daten);

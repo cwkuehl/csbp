@@ -13,12 +13,18 @@ using CSBP.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
-/// Generierte Basis-Klasse für MA_Mandant-Repository.
+/// Generated repository base class for table MA_Mandant.
 /// </summary>
 public partial class MaMandantRep : RepositoryBase
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
+  /// <returns>Entity of null.</returns>
   public MaMandant Get(ServiceDaten daten, MaMandant e)
   {
     var db = GetDb(daten);
@@ -26,6 +32,13 @@ public partial class MaMandantRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="nr">Value of column Nr.</param>
+  /// <param name="detached">Detaches entity after read or not.</param>
+  /// <returns>Entity of null.</returns>
   public MaMandant Get(ServiceDaten daten, int nr, bool detached = false)
   {
     var db = GetDb(daten);
@@ -35,6 +48,11 @@ public partial class MaMandantRep : RepositoryBase
     return b;
   }
 
+  /// <summary>
+  /// Gets list of entities.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of entities.</returns>
   public List<MaMandant> GetList(ServiceDaten daten)
   {
     var db = GetDb(daten);
@@ -42,6 +60,11 @@ public partial class MaMandantRep : RepositoryBase
     return l.ToList();
   }
 
+  /// <summary>
+  /// Inserts entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">New entity.</param>
   public void Insert(ServiceDaten daten, MaMandant e)
   {
     var db = GetDb(daten);
@@ -49,6 +72,11 @@ public partial class MaMandantRep : RepositoryBase
     db.MA_Mandant.Add(e);
   }
 
+  /// <summary>
+  /// Updates entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Update(ServiceDaten daten, MaMandant e)
   {
     var db = GetDb(daten);
@@ -61,6 +89,17 @@ public partial class MaMandantRep : RepositoryBase
     }
   }
 
+  /// <summary>
+  /// Saves entity by separated parameters.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="nr">Value of column Nr.</param>
+  /// <param name="beschreibung">Value of column Beschreibung.</param>
+  /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
+  /// <param name="angelegtam">Value of column Angelegt_Am.</param>
+  /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
+  /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <returns>Saved entity.</returns>
   public MaMandant Save(ServiceDaten daten, int nr, string beschreibung, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
@@ -68,7 +107,7 @@ public partial class MaMandantRep : RepositoryBase
     var e = a ?? new MaMandant();
     e.Nr = nr;
     e.Beschreibung = beschreibung;
-      if (a == null)
+    if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
@@ -85,6 +124,11 @@ public partial class MaMandantRep : RepositoryBase
     return e;
   }
 
+  /// <summary>
+  /// Deletes entity by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Entity with primary key.</param>
   public void Delete(ServiceDaten daten, MaMandant e)
   {
     var db = GetDb(daten);
