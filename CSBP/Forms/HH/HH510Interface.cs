@@ -6,7 +6,6 @@ namespace CSBP.Forms.HH;
 
 using System;
 using CSBP.Apis.Enums;
-using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Forms.Controls;
@@ -33,7 +32,7 @@ public partial class HH510Interface : CsbpBin
   private readonly Label von0;
 
   /// <summary>Date Von.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date von;
 
   /// <summary>Label bis0.</summary>
@@ -41,7 +40,7 @@ public partial class HH510Interface : CsbpBin
   private readonly Label bis0;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
   /// <summary>Label berichte0.</summary>
@@ -86,23 +85,13 @@ public partial class HH510Interface : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static HH510Interface Create(object p1 = null, CsbpBin p = null)
-  {
-    return new HH510Interface(GetBuilder("HH510Interface", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="HH510Interface"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public HH510Interface(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -110,7 +99,7 @@ public partial class HH510Interface : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     von.DateChanged += OnVonDateChanged;
     von.Show();
@@ -118,7 +107,7 @@ public partial class HH510Interface : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
@@ -128,6 +117,15 @@ public partial class HH510Interface : CsbpBin
     SetBold(berichte0);
     InitData(0);
     titel.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static HH510Interface Create(object p1 = null, CsbpBin p = null)
+  {
+    return new HH510Interface(GetBuilder("HH510Interface", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -243,10 +241,7 @@ public partial class HH510Interface : CsbpBin
     var message = Get(FactoryService.BudgetService.ImportBookingList(ServiceDaten, lines, loeschen.Active));
     if (!string.IsNullOrEmpty(message))
     {
-      Application.Invoke(delegate
-      {
-        UpdateParent();
-      });
+      Application.Invoke((sender1, e1) => { UpdateParent(); });
       ShowInfo(message);
     }
   }

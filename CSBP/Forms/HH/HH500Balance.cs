@@ -65,26 +65,31 @@ public partial class HH500Balance : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Dialog model.</summary>
-  private int mlBerechnen = 0;
-  private bool sollTabelle;
-  private List<HhBilanz> sollListe;
-  private List<HhBilanz> habenListe;
-
   /// <summary>State for task.</summary>
   private readonly StringBuilder state = new();
 
   /// <summary>Cancel for task.</summary>
   private readonly StringBuilder cancel = new();
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Counter for not calculating.</summary>
+  private int calculate = 0;
+
+  /// <summary>Left or right side.</summary>
+  private bool sollTabelle;
+
+  /// <summary>List of left account side.</summary>
+  private List<HhBilanz> sollListe;
+
+  /// <summary>List of right account side.</summary>
+  private List<HhBilanz> habenListe;
+
+  /// <summary>Initializes a new instance of the <see cref="HH500Balance"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public HH500Balance(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -92,7 +97,7 @@ public partial class HH500Balance : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     von.DateChanged += OnVonDateChanged;
     von.Show();
@@ -100,19 +105,19 @@ public partial class HH500Balance : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
-    // SetBold(client0);
+    //// SetBold(client0);
     InitData(0);
     soll.GrabFocus();
   }
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
   public static HH500Balance Create(object p1 = null, CsbpBin p = null)
   {
     return new HH500Balance(GetBuilder("HH500Balance", out var handle), handle, p1: p1, p: p);
@@ -135,12 +140,12 @@ public partial class HH500Balance : CsbpBin
       var dV = new DateTime(dB.Year, 1, 1);
       if (max != null && max.Datum_Von > dV)
         dV = max.Datum_Von;
-      if (Constants.KZBI_GV == parameter)
+      if (parameter == Constants.KZBI_GV)
       {
         von.Value = dV;
         bis.Value = dB;
       }
-      else if (Constants.KZBI_EROEFFNUNG == parameter)
+      else if (parameter == Constants.KZBI_EROEFFNUNG)
       {
         von.Value = dV;
         bis.Value = dV;
@@ -150,7 +155,7 @@ public partial class HH500Balance : CsbpBin
         von.Value = dB;
         bis.Value = dB;
       }
-      if (Constants.KZBI_GV == parameter)
+      if (parameter == Constants.KZBI_GV)
       {
         soll0.Text = HH500_soll_GV;
         haben0.Text = HH500_haben_GV;
@@ -177,20 +182,26 @@ public partial class HH500Balance : CsbpBin
       var l = Get(FactoryService.BudgetService.GetBalanceList(daten, parameter, v, b)) ?? new List<HhBilanz>();
       sollListe = l.Where(a => a.AccountType > 0).ToList();
       habenListe = l.Where(a => a.AccountType <= 0).ToList();
-      // Nr.;Bezeichnung;Betrag;Geändert am;Geändert von;Angelegt am;Angelegt von
+      //// No.;Description;Value_r;Changed at;Changed by;Created at;Created by
       var svalues = new List<string[]>();
       var hvalues = new List<string[]>();
       foreach (var e in sollListe)
       {
-        svalues.Add(new string[] { e.Konto_Uid, e.AccountName, Functions.ToString(e.AccountEsum, 2),
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        svalues.Add(new string[]
+        {
+          e.Konto_Uid, e.AccountName, Functions.ToString(e.AccountEsum, 2),
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       foreach (var e in habenListe)
       {
-        hvalues.Add(new string[] { e.Konto_Uid, e.AccountName, Functions.ToString(e.AccountEsum, 2),
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        hvalues.Add(new string[]
+        {
+          e.Konto_Uid, e.AccountName, Functions.ToString(e.AccountEsum, 2),
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       sollBetrag0.Text = Functions.ToString(sollListe.Sum(a => a.AccountEsum), 2);
       habenBetrag0.Text = Functions.ToString(habenListe.Sum(a => a.AccountEsum), 2);
@@ -200,31 +211,11 @@ public partial class HH500Balance : CsbpBin
   }
 
   /// <summary>Handles Refresh.</summary>
-  private void OnRefresh()
-  {
-    if (!EventsActive)
-      return;
-    try
-    {
-      EventsActive = false;
-      var s = haben.Selection.GetSelectedRows();
-      RefreshTreeView(soll, 1);
-      // RefreshTreeView(haben, 1);
-      foreach (var p in s)
-        haben.Selection.SelectPath(p);
-    }
-    finally
-    {
-      EventsActive = true;
-    }
-  }
-
-  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
   {
-    // Berechnen der Bilanz.
+    // Calculates balances.
     ShowStatus(state, cancel);
     Task.Run(() =>
     {
@@ -234,10 +225,10 @@ public partial class HH500Balance : CsbpBin
       ServiceErgebnis<string[]> r = null;
       try
       {
-        if (mlBerechnen > 0)
+        if (calculate > 0)
         {
           v = von.ValueNn;
-          mlBerechnen = 0;
+          calculate = 0;
         }
         while (weiter >= 2 && (r == null || r.Ok))
         {
@@ -254,10 +245,7 @@ public partial class HH500Balance : CsbpBin
             }
           }
           else
-            Application.Invoke(delegate
-            {
-              Get(r);
-            });
+            Application.Invoke((sender1, e1) => { Get(r); });
         }
       }
       catch (Exception ex)
@@ -267,12 +255,9 @@ public partial class HH500Balance : CsbpBin
       finally
       {
         if (keine)
-          mlBerechnen++;
+          calculate++;
         else
-          Application.Invoke(delegate
-          {
-            OnRefresh();
-          });
+          Application.Invoke((sender1, e1) => { OnRefresh(); });
       }
       return 0;
     });
@@ -375,9 +360,29 @@ public partial class HH500Balance : CsbpBin
     SwapSortings(false);
   }
 
-  /// <summary>Starten des Buchungen-Dialogs.</summary>
-  /// <param name="uid">Betroffenes Konto.</param>
-  void StartBookings(string uid)
+  /// <summary>Handles Refresh.</summary>
+  private void OnRefresh()
+  {
+    if (!EventsActive)
+      return;
+    try
+    {
+      EventsActive = false;
+      var s = haben.Selection.GetSelectedRows();
+      RefreshTreeView(soll, 1);
+      //// RefreshTreeView(haben, 1);
+      foreach (var p in s)
+        haben.Selection.SelectPath(p);
+    }
+    finally
+    {
+      EventsActive = true;
+    }
+  }
+
+  /// <summary>Starts bookings dialog.</summary>
+  /// <param name="uid">Affected account id.</param>
+  private void StartBookings(string uid)
   {
     var a = Get(FactoryService.BudgetService.GetAccount(ServiceDaten, uid));
     if (a != null)
@@ -396,9 +401,9 @@ public partial class HH500Balance : CsbpBin
     }
   }
 
-  /// <summary>Tauschen der Konto-Sortierungen.</summary>
-  /// <param name="up">Nach oben?</param>
-  void SwapSortings(bool up)
+  /// <summary>Swap accouts sorting.</summary>
+  /// <param name="up">Move up or down.</param>
+  private void SwapSortings(bool up)
   {
     var uid = sollTabelle ? GetValue<string>(soll, false) : GetValue<string>(haben, false);
     if (string.IsNullOrEmpty(uid))
@@ -409,7 +414,7 @@ public partial class HH500Balance : CsbpBin
       return;
     var i = l.IndexOf(acc);
     var d = up ? -1 : 1;
-    if (0 <= i && i < l.Count && 0 <= i + d && i + d < l.Count)
+    if (i >= 0 && i < l.Count && i + d >= 0 && i + d < l.Count)
     {
       var uid2 = l[i + d].Konto_Uid;
       var r = FactoryService.BudgetService.SwapAccountSort(ServiceDaten, uid, uid2);
