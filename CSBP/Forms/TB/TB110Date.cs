@@ -30,7 +30,7 @@ public partial class TB110Date : CsbpBin
   private readonly Label date0;
 
   /// <summary>Date date.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date date;
 
   /// <summary>Button ok.</summary>
@@ -39,23 +39,13 @@ public partial class TB110Date : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static TB110Date Create(object p1 = null, CsbpBin p = null)
-  {
-    return new TB110Date(GetBuilder("TB110Date", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="TB110Date"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public TB110Date(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -72,6 +62,15 @@ public partial class TB110Date : CsbpBin
     SetBold(date0);
     InitData(0);
     date.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static TB110Date Create(object p1 = null, CsbpBin p = null)
+  {
+    return new TB110Date(GetBuilder("TB110Date", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -91,10 +90,7 @@ public partial class TB110Date : CsbpBin
         var k = Get(FactoryService.DiaryService.GetPosition(daten, p.Item1));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         nr.Text = k.Uid ?? "";

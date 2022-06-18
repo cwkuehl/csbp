@@ -21,15 +21,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for TB100Diary dialog.</summary>
 public partial class TB100Diary : CsbpBin
 {
-  /// <summary>Holt oder setzt den zu kopierenden Tagebuch-Eintrag.</summary>
-  string Copy { get; set; } = string.Empty;
-
-  /// <summary>Holt oder setzt einen Wert, der angibt, ob der Tagebuch-Eintrag gelesen wurde.</summary>
-  bool Loaded { get; set; }
-
-  /// <summary>Holt oder setzt den bisherigen Tagebuch-Eintrag.</summary>
-  TbEintrag EntryOld { get; set; } = new TbEintrag { Positions = new List<TbEintragOrt>() };
-
 #pragma warning disable CS0649
 
   /// <summary>TextView before1.</summary>
@@ -49,7 +40,7 @@ public partial class TB100Diary : CsbpBin
   private readonly Label date0;
 
   /// <summary>Date date.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date date;
 
   /// <summary>Label entry0.</summary>
@@ -117,11 +108,11 @@ public partial class TB100Diary : CsbpBin
   private readonly ComboBox position2;
 
   /// <summary>From date.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date from;
 
   /// <summary>To date.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date to;
 
   /// <summary>Button last.</summary>
@@ -140,28 +131,18 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly TextView after3;
 
-  /// <summary>Liste der zugeordneten Positionen.</summary>
-  private List<TbEintragOrt> PositionList = new();
-
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static TB100Diary Create(object p1 = null, CsbpBin p = null)
-  {
-    return new TB100Diary(GetBuilder("TB100Diary", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>List of current positions.</summary>
+  private List<TbEintragOrt> positionList = new();
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="TB100Diary"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public TB100Diary(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -200,6 +181,24 @@ public partial class TB100Diary : CsbpBin
     entry.GrabFocus();
   }
 
+  /// <summary>Gets or sets the diary entry for copying.</summary>
+  private string Copy { get; set; } = string.Empty;
+
+  /// <summary>Gets or sets a value indicating whether the diary entry is loaded or not.</summary>
+  private bool Loaded { get; set; }
+
+  /// <summary>Gets or sets the origanal saved diary entry.</summary>
+  private TbEintrag EntryOld { get; set; } = new TbEintrag { Positions = new List<TbEintragOrt>() };
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static TB100Diary Create(object p1 = null, CsbpBin p = null)
+  {
+    return new TB100Diary(GetBuilder("TB100Diary", out var handle), handle, p1: p1, p: p);
+  }
+
   /// <summary>Initialises model data.</summary>
   /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
@@ -229,24 +228,6 @@ public partial class TB100Diary : CsbpBin
   protected override void UpdateParent()
   {
     InitLists();
-  }
-
-  /// <summary>Initialisierung der Listen.</summary>
-  private void InitLists()
-  {
-    var daten = ServiceDaten;
-    var rl = Get(FactoryService.DiaryService.GetPositionList(daten));
-    var uid = GetText(position);
-    var rs = AddColumns(position, emptyentry: true);
-    foreach (var p in rl)
-      rs.AppendValues(p.Bezeichnung, p.Uid);
-    SetText(position, uid);
-    var uid2 = GetText(position2);
-    var rs2 = AddColumns(position2, emptyentry: true);
-    rl.Insert(0, new TbOrt { Uid = "0", Bezeichnung = M0(TB012) });
-    foreach (var p in rl)
-      rs2.AppendValues(p.Bezeichnung, p.Uid);
-    SetText(position2, uid2);
   }
 
   /// <summary>Handles Copy.</summary>
@@ -330,7 +311,7 @@ public partial class TB100Diary : CsbpBin
   protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
   {
     var uid = GetText(positions) ?? "";
-    var p = PositionList.FirstOrDefault(a => a.Ort_Uid == uid);
+    var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (p != null)
     {
       UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Functions.ToString(p.Latitude, 5, Functions.CultureInfoEn)}/{Functions.ToString(p.Longitude, 5, Functions.CultureInfoEn)}");
@@ -361,7 +342,7 @@ public partial class TB100Diary : CsbpBin
     var uid = GetText(position);
     if (string.IsNullOrEmpty(uid))
       return;
-    var o = PositionList.FirstOrDefault(a => a.Ort_Uid == uid);
+    var o = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (o != null)
     {
       var p = new Tuple<string, DateTime>(o.Ort_Uid, o.Datum_Bis);
@@ -391,7 +372,7 @@ public partial class TB100Diary : CsbpBin
         Height = k.Hoehe,
         Memo = k.Notiz,
       };
-      PositionList.Add(p);
+      positionList.Add(p);
       InitPositions();
     }
   }
@@ -407,11 +388,11 @@ public partial class TB100Diary : CsbpBin
     {
       foreach (var p in r.Ergebnis.Positions ?? new List<TbEintragOrt>())
       {
-        if (PositionList.FirstOrDefault(a => a.Ort_Uid == p.Ort_Uid) == null)
+        if (positionList.FirstOrDefault(a => a.Ort_Uid == p.Ort_Uid) == null)
         {
           if (p.Datum_Bis == yd)
             p.Datum_Bis = p.Datum_Bis.AddDays(1);
-          PositionList.Add(p);
+          positionList.Add(p);
         }
       }
       InitPositions();
@@ -424,9 +405,9 @@ public partial class TB100Diary : CsbpBin
   protected void OnRemoveClicked(object sender, EventArgs e)
   {
     var uid = GetText(positions);
-    if (string.IsNullOrEmpty(uid) || !PositionList.Any(a => a.Ort_Uid == uid))
+    if (string.IsNullOrEmpty(uid) || !positionList.Any(a => a.Ort_Uid == uid))
       return;
-    PositionList = PositionList.Where(a => a.Ort_Uid != uid).ToList();
+    positionList = positionList.Where(a => a.Ort_Uid != uid).ToList();
     InitPositions();
   }
 
@@ -471,11 +452,29 @@ public partial class TB100Diary : CsbpBin
     BearbeiteEintraege(true, false);
   }
 
+  /// <summary>Initialises the lists.</summary>
+  private void InitLists()
+  {
+    var daten = ServiceDaten;
+    var rl = Get(FactoryService.DiaryService.GetPositionList(daten));
+    var uid = GetText(position);
+    var rs = AddColumns(position, emptyentry: true);
+    foreach (var p in rl)
+      rs.AppendValues(p.Bezeichnung, p.Uid);
+    SetText(position, uid);
+    var uid2 = GetText(position2);
+    var rs2 = AddColumns(position2, emptyentry: true);
+    rl.Insert(0, new TbOrt { Uid = "0", Bezeichnung = M0(TB012) });
+    foreach (var p in rl)
+      rs2.AppendValues(p.Bezeichnung, p.Uid);
+    SetText(position2, uid2);
+  }
+
   /// <summary>
-  /// Lesen der Einträge ausgehend vom übergebenen Datum.
+  /// Loads the diary entries from date.
   /// </summary>
-  /// <param name="d">Betroffenes Datum.</param>
-  /// <returns>Service-Ergebnis mit evtl. Fehlermeldungen.</returns>
+  /// <param name="d">Affected date.</param>
+  /// <returns>Service result and possibly errors.</returns>
   private ServiceErgebnis LadeEintraege(DateTime? d)
   {
     var daten = ServiceDaten;
@@ -516,50 +515,52 @@ public partial class TB100Diary : CsbpBin
   }
 
   /// <summary>
-  /// Initialisierung der Positionen.
+  /// Initialises the position list.
   /// </summary>
-  /// <param name="list">Neue Liste.</param>
-  void InitPositions(List<TbEintragOrt> list = null)
+  /// <param name="list">New list.</param>
+  private void InitPositions(List<TbEintragOrt> list = null)
   {
     if (list != null)
     {
-      PositionList.Clear();
+      positionList.Clear();
       foreach (var p in list)
-        PositionList.Add(ServiceBase.Clone(p));
+        positionList.Add(ServiceBase.Clone(p));
     }
     var values = new List<string[]>();
-    foreach (var e in PositionList)
+    foreach (var e in positionList)
     {
-      // Nr.;Bezeichnung;Breite;Länge;Von;Bis;Geändert am;Geändert von;Angelegt am;Angelegt von
-      values.Add(new string[] { e.Ort_Uid, e.Description, Functions.ToString(e.Latitude, 5), Functions.ToString(e.Longitude, 5),
-          Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von, });
+      // No.;Description;Latitude_r;Longitude_r;From;To;Changed at;Changed by;Created at;Created by
+      values.Add(new string[]
+      {
+        e.Ort_Uid, e.Description, Functions.ToString(e.Latitude, 5), Functions.ToString(e.Longitude, 5),
+        Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
+        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+      });
     }
     AddStringColumnsSort(positions, TB100_positions_columns, values);
   }
 
   /// <summary>
-  /// Lesen der Einträge ausgehend vom aktuellen Datum.
-  /// Evtl. wird vorher der aktuelle Eintrag gespeichert.
+  /// Loads the diary entry from date. Optionally the current entry is saved before.
   /// </summary>
-  /// <param name="speichern">Soll vorher gespeichert werden soll?</param>
-  /// <param name="laden">Sollen Einträge geladen werden?</param>
+  /// <param name="speichern">Saves before or not.</param>
+  /// <param name="laden">Loads the entry or not.</param>
   private void BearbeiteEintraege(bool speichern = true, bool laden = true)
   {
     var daten = ServiceDaten;
     var r = new ServiceErgebnis();
-    // Rekursion vermeiden
+    //// Prohibits rekursion.
     if (speichern && Loaded)
     {
       // Alten Eintrag von vorher merken.
       var str = EntryOld.Eintrag;
       var p0 = EntryOld.Positions.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
-      var p = PositionList.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
+      var p = positionList.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
       //// Nur speichern, wenn etwas geändert ist.
       if (str == null || Functions.CompString(str, entry.Buffer.Text) != 0 || Functions.CompString(p0, p) != 0)
       {
-        var pos = PositionList.Select(a => new Tuple<string, DateTime, DateTime>(a.Ort_Uid, a.Datum_Von, a.Datum_Bis)).ToList();
+        var pos = positionList.Select(a => new Tuple<string, DateTime, DateTime>(a.Ort_Uid, a.Datum_Von, a.Datum_Bis)).ToList();
         r.Get(FactoryService.DiaryService.SaveEntry(daten, EntryOld.Datum, entry.Buffer.Text, pos));
       }
     }
@@ -573,6 +574,10 @@ public partial class TB100Diary : CsbpBin
     Get(r);
   }
 
+  /// <summary>
+  /// Loads the month data.
+  /// </summary>
+  /// <param name="d">Affected date.</param>
   private void LoadMonth(DateTime? d)
   {
     bool[] m = null;
@@ -581,6 +586,9 @@ public partial class TB100Diary : CsbpBin
     date.MarkMonth(m);
   }
 
+  /// <summary>
+  /// Clears the search data.
+  /// </summary>
   private void ClearSearch()
   {
     search1.Text = "%%";
@@ -595,9 +603,13 @@ public partial class TB100Diary : CsbpBin
     SetText(position2, null);
     from.Value = Functions.IsLinux() ? DateTime.Today.AddYears(-1) : null;
     to.Value = DateTime.Today;
-    // to.Value = null;
+    //// to.Value = null;
   }
 
+  /// <summary>
+  /// Gets the search array.
+  /// </summary>
+  /// <returns>Search array.</returns>
   private string[] GetSearchArray()
   {
     var search = new[] { search1.Text, search2.Text, search3.Text, search4.Text, search5.Text, search6.Text, search7.Text, search8.Text, search9.Text };
@@ -605,9 +617,9 @@ public partial class TB100Diary : CsbpBin
   }
 
   /// <summary>
-  /// Suche des nächsten passenden Eintrags in der Suchrichtung.
+  /// Searches for next fitting entry in search direction.
   /// </summary>
-  /// <param name="stelle">Gewünschte Such-Richtung.</param>
+  /// <param name="stelle">Affected search direction.</param>
   private void SearchEntry(SearchDirectionEnum stelle)
   {
     BearbeiteEintraege(true, false);
