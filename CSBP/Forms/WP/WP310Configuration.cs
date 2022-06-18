@@ -16,9 +16,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP310Configuration dialog.</summary>
 public partial class WP310Configuration : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private WpKonfiguration Model;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -99,23 +96,16 @@ public partial class WP310Configuration : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP310Configuration Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP310Configuration(GetBuilder("WP310Configuration", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private WpKonfiguration model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP310Configuration"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP310Configuration(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -127,6 +117,15 @@ public partial class WP310Configuration : CsbpBin
     SetBold(status0);
     InitData(0);
     bezeichnung.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP310Configuration Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP310Configuration(GetBuilder("WP310Configuration", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -150,13 +149,10 @@ public partial class WP310Configuration : CsbpBin
         var k = Get(FactoryService.StockService.GetConfiguration(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         bezeichnung.Text = k.Bezeichnung;
         box.Text = Functions.ToString(k.Box, 2);
@@ -218,13 +214,13 @@ public partial class WP310Configuration : CsbpBin
         || DialogType == DialogTypeEnum.Edit)
     {
       r = FactoryService.StockService.SaveConfiguration(ServiceDaten,
-          DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, Functions.ToDecimal(box.Text) ?? 0,
-          Functions.ToInt32(umkehr.Text), Functions.ToInt32(GetText(methode)), Functions.ToInt32(dauer.Text),
-          relativ.Active, Functions.ToInt32(GetText(skala)), GetText(status), notiz.Buffer.Text);
+        DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, Functions.ToDecimal(box.Text) ?? 0,
+        Functions.ToInt32(umkehr.Text), Functions.ToInt32(GetText(methode)), Functions.ToInt32(dauer.Text),
+        relativ.Active, Functions.ToInt32(GetText(skala)), GetText(status), notiz.Buffer.Text);
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeleteConfiguration(ServiceDaten, Model);
+      r = FactoryService.StockService.DeleteConfiguration(ServiceDaten, model);
     }
     if (r != null)
     {

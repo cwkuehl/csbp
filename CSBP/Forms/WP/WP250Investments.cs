@@ -58,19 +58,18 @@ public partial class WP250Investments : CsbpBin
 #pragma warning restore CS0649
 
   /// <summary>State of calculation.</summary>
-  readonly StringBuilder state = new();
+  private readonly StringBuilder state = new();
 
   /// <summary>Cancel of calculation.</summary>
-  readonly StringBuilder cancel = new();
+  private readonly StringBuilder cancel = new();
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP250Investments"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP250Investments(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -94,10 +93,10 @@ public partial class WP250Investments : CsbpBin
     bezeichnung.GrabFocus();
   }
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
   public static WP250Investments Create(object p1 = null, CsbpBin p = null)
   {
     return new WP250Investments(GetBuilder("WP250Investments", out var handle), handle, p1: p1, p: p);
@@ -132,13 +131,16 @@ public partial class WP250Investments : CsbpBin
       var diff = 0m;
       foreach (var e in l)
       {
-        // Nr.;Bezeichnung;state;Provider;Kürzel;Betrag;Wert;Anteile;Gewinn;+/-;Valuta;Währung;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Uid, e.Bezeichnung, UiFunctions.GetStockState(e.State.ToString(), e.StockShortcut),
-            e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
-            Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
-            Functions.ToString(e.Value2 == 0 ? 0 : e.Value - e.Value2, 2),
-            Functions.ToString(e.PriceDate), e.Currency, Functions.ToString(e.Geaendert_Am, true),
-            e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;Description;St.;Provider;Shortcut;Payment_r;Shares_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Uid, e.Bezeichnung, UiFunctions.GetStockState(e.State.ToString(), e.StockShortcut),
+          e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
+          Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
+          Functions.ToString(e.Value2 == 0 ? 0 : e.Value - e.Value2, 2),
+          Functions.ToString(e.PriceDate), e.Currency, Functions.ToString(e.Geaendert_Am, true),
+          e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
         summe += e.Payment;
         wert += e.Value;
         gewinn += e.Profit;

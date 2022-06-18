@@ -18,11 +18,8 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP510Price dialog.</summary>
 public partial class WP510Price : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private WpStand Model;
-
-  /// <summary>Letztes Valuta merken.</summary>
-  private static DateTime LastValuta = DateTime.Today;
+  /// <summary>Last valuta.</summary>
+  private static DateTime lastvaluta = DateTime.Today;
 
 #pragma warning disable CS0649
 
@@ -39,7 +36,7 @@ public partial class WP510Price : CsbpBin
   private readonly Label valuta0;
 
   /// <summary>Date Valuta.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date valuta;
 
   /// <summary>Label betrag0.</summary>
@@ -64,23 +61,16 @@ public partial class WP510Price : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP510Price Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP510Price(GetBuilder("WP510Price", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private WpStand model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP510Price"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP510Price(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -88,7 +78,7 @@ public partial class WP510Price : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     valuta.DateChanged += OnValutaDateChanged;
     valuta.Show();
@@ -99,6 +89,15 @@ public partial class WP510Price : CsbpBin
     betrag.GrabFocus();
   }
 
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP510Price Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP510Price(GetBuilder("WP510Price", out var handle), handle, p1: p1, p: p);
+  }
+
   /// <summary>Initialises model data.</summary>
   /// <param name="step">Affected step: 0 initially, 1 update.</param>
   protected override void InitData(int step)
@@ -106,7 +105,7 @@ public partial class WP510Price : CsbpBin
     var daten = ServiceDaten;
     if (step <= 0)
     {
-      valuta.Value = LastValuta;
+      valuta.Value = lastvaluta;
       var rl = Get(FactoryService.StockService.GetStockList(daten, true)) ?? new List<WpWertpapier>();
       var rs = AddColumns(wertpapier);
       foreach (var p in rl)
@@ -119,13 +118,10 @@ public partial class WP510Price : CsbpBin
         var k = Get(FactoryService.StockService.GetPrice(ServiceDaten, key.Item1, key.Item2.Value));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         SetText(wertpapier, k.Wertpapier_Uid);
         valuta.Value = k.Datum;
         betrag.Text = Functions.ToString(k.Stueckpreis, 4);
@@ -166,20 +162,20 @@ public partial class WP510Price : CsbpBin
         || DialogType == DialogTypeEnum.Edit)
     {
       r = FactoryService.StockService.SavePrice(ServiceDaten,
-          GetText(wertpapier), valuta.Value ?? LastValuta,
-          Functions.ToDecimal(betrag.Text, 4) ?? 0);
+        GetText(wertpapier), valuta.Value ?? lastvaluta,
+        Functions.ToDecimal(betrag.Text, 4) ?? 0);
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeletePrice(ServiceDaten, Model);
+      r = FactoryService.StockService.DeletePrice(ServiceDaten, model);
     }
     if (r != null)
     {
       Get(r);
       if (r.Ok)
       {
-        // letztes Datum merken
-        LastValuta = valuta.Value ?? LastValuta;
+        // Saves last valuta.
+        lastvaluta = valuta.Value ?? lastvaluta;
         UpdateParent();
         dialog.Hide();
       }

@@ -40,29 +40,28 @@ public partial class WP400Bookings : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP400Bookings Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP400Bookings(GetBuilder("WP400Bookings", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP400Bookings"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP400Bookings(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
     // SetBold(client0);
     InitData(0);
     buchungen.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP400Bookings Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP400Bookings(GetBuilder("WP400Bookings", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -90,12 +89,15 @@ public partial class WP400Bookings : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;Wertpapier;Bezeichnung;Datum;Buchungstext;Betrag;Rabatt;Anteile;Zinsen;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Uid, e.StockDescription, e.InvestmentDescription, Functions.ToString(e.Datum),
-            e.BText, Functions.ToString(e.Zahlungsbetrag, 2), Functions.ToString(e.Rabattbetrag, 2),
-            Functions.ToString(e.Anteile, 5), Functions.ToString(e.Zinsen, 2),
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;Stock;Description;Date;Posting text;Payment_r;Discount_r;Shares_r;Interest_r;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Uid, e.StockDescription, e.InvestmentDescription, Functions.ToString(e.Datum),
+          e.BText, Functions.ToString(e.Zahlungsbetrag, 2), Functions.ToString(e.Rabattbetrag, 2),
+          Functions.ToString(e.Anteile, 5), Functions.ToString(e.Zinsen, 2),
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(buchungen, WP400_buchungen_columns, values);
     }

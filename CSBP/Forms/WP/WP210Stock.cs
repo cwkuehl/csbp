@@ -17,9 +17,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP210Stock dialog.</summary>
 public partial class WP210Stock : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private WpWertpapier Model;
-
   /// <summary>Last copied ID.</summary>
   private static string lastcopyuid = null;
 
@@ -115,26 +112,16 @@ public partial class WP210Stock : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Last copied ID.</summary>
-  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+  /// <summary>Dialog model.</summary>
+  private WpWertpapier model;
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP210Stock Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP210Stock(GetBuilder("WP210Stock", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP210Stock"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP210Stock(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -144,6 +131,18 @@ public partial class WP210Stock : CsbpBin
     SetBold(status0);
     InitData(0);
     bezeichnung.GrabFocus();
+  }
+
+  /// <summary>Gets or sets last copied ID.</summary>
+  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP210Stock Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP210Stock(GetBuilder("WP210Stock", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -166,13 +165,10 @@ public partial class WP210Stock : CsbpBin
         var k = Get(FactoryService.StockService.GetStock(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         bezeichnung.Text = k.Bezeichnung;
         SetText(provider, k.Datenquelle);
@@ -211,12 +207,12 @@ public partial class WP210Stock : CsbpBin
       anlage.Sensitive = !loeschen;
       if (loeschen)
         ok.Label = Forms_delete;
-      var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, null, null, copy ? null : Model?.Uid));
+      var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, null, null, copy ? null : model?.Uid));
       var rs = AddColumns(relation);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
-      if (!neu && Model != null)
-        SetText(relation, Model.Relation_Uid);
+      if (!neu && model != null)
+        SetText(relation, model.Relation_Uid);
     }
   }
 
@@ -261,7 +257,7 @@ public partial class WP210Stock : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeleteStock(ServiceDaten, Model);
+      r = FactoryService.StockService.DeleteStock(ServiceDaten, model);
     }
     if (r != null)
     {

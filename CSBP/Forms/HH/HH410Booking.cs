@@ -20,8 +20,8 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for HH410Booking dialog.</summary>
 public partial class HH410Booking : CsbpBin
 {
-  /// <summary>Last value date.</summary>
-  private static DateTime lastvaluedate = DateTime.Today;
+  /// <summary>Last valuta.</summary>
+  private static DateTime lastvaluta = DateTime.Today;
 
   /// <summary>Last receipt date.</summary>
   private static DateTime lastreceiptdate = DateTime.Today;
@@ -181,7 +181,7 @@ public partial class HH410Booking : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      valuta.Value = lastvaluedate;
+      valuta.Value = lastvaluta;
       belegDatum.Value = lastreceiptdate;
       var init = false;
       var neu = DialogType == DialogTypeEnum.New;
@@ -344,7 +344,7 @@ public partial class HH410Booking : CsbpBin
       Get(r);
       if (r.Ok)
       {
-        lastvaluedate = valuta.ValueNn;
+        lastvaluta = valuta.ValueNn;
         lastreceiptdate = belegDatum.ValueNn;
         UpdateParent();
         if (DialogType == DialogTypeEnum.New)

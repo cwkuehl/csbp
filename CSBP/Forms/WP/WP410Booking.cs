@@ -21,11 +21,11 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP410Booking dialog.</summary>
 public partial class WP410Booking : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private WpBuchung Model;
+  /// <summary>Last valuta.</summary>
+  private static DateTime lastvaluta = DateTime.Today;
 
-  /// <summary>Letztes Valuta merken.</summary>
-  private static DateTime LastValuta = DateTime.Today;
+  /// <summary>Last copied ID.</summary>
+  private static string lastcopyuid = null;
 
 #pragma warning disable CS0649
 
@@ -46,7 +46,7 @@ public partial class WP410Booking : CsbpBin
   private readonly Label valuta0;
 
   /// <summary>Date Valuta.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date valuta;
 
   /// <summary>Entry preis.</summary>
@@ -106,7 +106,7 @@ public partial class WP410Booking : CsbpBin
   private readonly Button hhstorno;
 
   /// <summary>Date hhvaluta.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date hhvaluta;
 
   /// <summary>Entry hhbetrag.</summary>
@@ -126,40 +126,27 @@ public partial class WP410Booking : CsbpBin
 
 #pragma warning restore CS0649
 
+  /// <summary>Dialog model.</summary>
+  private WpBuchung model;
+
   /// <summary>Aktuelle Ereignisse zur Anlage.</summary>
   private List<HhEreignis> events;
 
-  /// <summary>Last copied ID.</summary>
-  private static string lastcopyuid = null;
-
-  /// <summary>Last copied ID.</summary>
-  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
-
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP410Booking Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP410Booking(GetBuilder("WP410Booking", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP410Booking"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP410Booking(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+    : base(b, h, d, dt, p1, p)
   {
     valuta = new Date(Builder.GetObject("valuta").Handle)
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     valuta.DateChanged += OnValutaDateChanged;
     valuta.Show();
@@ -170,12 +157,24 @@ public partial class WP410Booking : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
-    // hhvaluta.DateChanged += OnValutaDateChanged;
+    //// hhvaluta.DateChanged += OnValutaDateChanged;
     hhvaluta.Show();
     InitData(0);
     betrag.GrabFocus();
+  }
+
+  /// <summary>Gets or sets last copied ID.</summary>
+  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP410Booking Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP410Booking(GetBuilder("WP410Booking", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -186,8 +185,8 @@ public partial class WP410Booking : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      valuta.Value = LastValuta;
-      hhvaluta.Value = LastValuta;
+      valuta.Value = lastvaluta;
+      hhvaluta.Value = lastvaluta;
       var rl = Get(FactoryService.StockService.GetInvestmentList(daten, true)) ?? new List<WpAnlage>();
       var rs = AddColumns(anlage);
       foreach (var p in rl)
@@ -206,13 +205,10 @@ public partial class WP410Booking : CsbpBin
         var k = Get(FactoryService.StockService.GetBooking(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         SetText(anlage, k.Anlage_Uid);
         valuta.Value = k.Datum;
@@ -224,7 +220,7 @@ public partial class WP410Booking : CsbpBin
         bText.Text = k.BText;
         angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
         geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
-        // k.BookingUid = "6acdd0a1:16fd83aa41e:-7fed";
+        //// k.BookingUid = "6acdd0a1:16fd83aa41e:-7fed";
         if (kopieren)
           k.BookingUid = null;
         hhbuchung.Text = k.BookingUid ?? "";
@@ -347,14 +343,14 @@ public partial class WP410Booking : CsbpBin
         bText.Text = text;
         if (ev?.EText == "1")
         {
-          // Bestandsänderungen ohne Zinsen
+          // Shares without interests.
           zinsen.Text = "";
         }
         else if (ev?.EText == "2")
         {
-          // Zinsen ohne Bestandsänderungen
+          // Interests without changes of shares.
           betrag.Text = "";
-          // rabatt.Text = "";
+          //// rabatt.Text = "";
           anteile.Text = "";
         }
       }
@@ -401,14 +397,14 @@ public partial class WP410Booking : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeleteBooking(ServiceDaten, Model);
+      r = FactoryService.StockService.DeleteBooking(ServiceDaten, model);
     }
     if (r != null)
     {
       Get(r);
       if (r.Ok)
       {
-        LastValuta = valuta.ValueNn;
+        lastvaluta = valuta.ValueNn;
         UpdateParent();
         if (DialogType == DialogTypeEnum.New)
         {
@@ -440,9 +436,9 @@ public partial class WP410Booking : CsbpBin
     var daten = ServiceDaten;
     var inuid = GetText(anlage);
     var inv = string.IsNullOrWhiteSpace(inuid) ? null :
-        Get(FactoryService.StockService.GetInvestment(daten, inuid));
+      Get(FactoryService.StockService.GetInvestment(daten, inuid));
     var p = inv == null || !valuta.Value.HasValue ? null :
-        Get(FactoryService.StockService.GetPrice(daten, inv.Wertpapier_Uid, valuta.Value.Value));
+      Get(FactoryService.StockService.GetPrice(daten, inv.Wertpapier_Uid, valuta.Value.Value));
     preis.Text = Functions.ToString(p?.Stueckpreis, 4);
     if (string.IsNullOrEmpty(hhbuchung.Text))
       hhvaluta.Value = valuta.ValueNn;
@@ -483,16 +479,15 @@ public partial class WP410Booking : CsbpBin
       events = Get(FactoryService.StockService.GetEventList(ServiceDaten, inuid)) ?? new List<HhEreignis>();
       var values = new List<string[]>
         {
-          new string[] { "", "" } // Leerer Eintrag, damit zunächst kein Ereignis ausgewählt ist.
+          new string[] { "", "" }, // Empty entry for initially no event.
         };
       foreach (var e in events)
       {
-        // Nr.;Bezeichnung
+        // No.;Description
         values.Add(new string[] { e.Uid, e.Bezeichnung });
       }
       AddStringColumnsSort(hhereignis, WP410_hhereignis_columns, values);
       invuid = inuid;
     }
   }
-
 }

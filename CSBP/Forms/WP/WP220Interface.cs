@@ -91,19 +91,18 @@ public partial class WP220Interface : CsbpBin
 #pragma warning restore CS0649
 
   /// <summary>State of calculation.</summary>
-  readonly StringBuilder state = new();
+  private readonly StringBuilder state = new();
 
   /// <summary>Cancel of calculation.</summary>
-  readonly StringBuilder cancel = new();
+  private readonly StringBuilder cancel = new();
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP220Interface"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP220Interface(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -143,10 +142,10 @@ public partial class WP220Interface : CsbpBin
     InitData(0);
   }
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
   public static WP220Interface Create(object p1 = null, CsbpBin p = null)
   {
     return new WP220Interface(GetBuilder("WP220Interface", out var handle), handle, p1: p1, p: p);
@@ -168,14 +167,17 @@ public partial class WP220Interface : CsbpBin
       datum4.Value = Functions.Workday(today);
       var clist = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, true, "1"));
       var cvalues = new List<string[]>
-        {
-          // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
-          new string[] { "", "", "", "", "" } // Empty entry.
-        };
+      {
+        // No.;Description;St.;Changed at;Changed by;Created at;Created by
+        new string[] { "", "", "", "", "" }, // Empty entry.
+      };
       foreach (var c in clist)
       {
-        cvalues.Add(new string[] { c.Uid, c.Bezeichnung, Functions.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
-            Functions.ToString(c.Angelegt_Am, true), c.Angelegt_Von });
+        cvalues.Add(new string[]
+        {
+          c.Uid, c.Bezeichnung, Functions.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
+          Functions.ToString(c.Angelegt_Am, true), c.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(konfiguration, WP220_konfiguration_columns, cvalues);
       SetText(konfiguration, Parameter.WP220Configuration);
@@ -183,13 +185,16 @@ public partial class WP220Interface : CsbpBin
       var slist = Get(FactoryService.StockService.GetStockList(ServiceDaten, true));
       var svalues = new List<string[]>
         {
-          // Nr.;Bezeichnung;Geändert am;Geändert von;Angelegt am;Angelegt von
-          new string[] { "", "", "", "", "" } // Empty entry.
+          // No.;Description;St.;Changed at;Changed by;Created at;Created by
+          new string[] { "", "", "", "", "" }, // Empty entry.
         };
       foreach (var s in slist)
       {
-        svalues.Add(new string[] { s.Uid, s.Bezeichnung, Functions.ToString(s.Geaendert_Am, true), s.Geaendert_Von,
-            Functions.ToString(s.Angelegt_Am, true), s.Angelegt_Von });
+        svalues.Add(new string[]
+        {
+          s.Uid, s.Bezeichnung, Functions.ToString(s.Geaendert_Am, true), s.Geaendert_Von,
+          Functions.ToString(s.Angelegt_Am, true), s.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(wertpapier, WP220_wertpapier_columns, svalues);
       SetText(wertpapier, Parameter.WP220Stock);
@@ -334,17 +339,11 @@ public partial class WP220Interface : CsbpBin
       r.ThrowAllErrors();
       if (cancel.Length <= 0)
         UiTools.SaveFile(r.Ergebnis, datei.Text);
-      Application.Invoke((sender, e) =>
-      {
-        // refreshAction.Click();
-      });
+      //// Application.Invoke((sender, e) => { refreshAction.Click(); });
     }
     catch (Exception ex)
     {
-      Application.Invoke((sender, e) =>
-      {
-        ShowError(ex.Message);
-      });
+      Application.Invoke((sender, e) => { ShowError(ex.Message); });
     }
     finally
     {

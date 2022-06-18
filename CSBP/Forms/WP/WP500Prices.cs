@@ -36,32 +36,22 @@ public partial class WP500Prices : CsbpBin
   private readonly ComboBox wertpapier;
 
   /// <summary>Date Von.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date von;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP500Prices Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP500Prices(GetBuilder("WP500Prices", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP500Prices"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP500Prices(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -69,7 +59,7 @@ public partial class WP500Prices : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     von.DateChanged += OnVonDateChanged;
     von.Show();
@@ -77,13 +67,22 @@ public partial class WP500Prices : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
-    // SetBold(client0);
+    //// SetBold(client0);
     InitData(0);
     staende.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP500Prices Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP500Prices(GetBuilder("WP500Prices", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -110,10 +109,13 @@ public partial class WP500Prices : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // Nr.;Wertpapier;Datum;Kurs;Geändert am;Geändert von;Angelegt am;Angelegt von
-        values.Add(new string[] { e.Wertpapier_Uid, e.StockDescription, Functions.ToString(e.Datum),
-            Functions.ToString(e.Stueckpreis, 4), Functions.ToString(e.Geaendert_Am, true),
-            e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        // No.;Stock;Date;Price_r;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Wertpapier_Uid, e.StockDescription, Functions.ToString(e.Datum),
+          Functions.ToString(e.Stueckpreis, 4), Functions.ToString(e.Geaendert_Am, true),
+          e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       AddStringColumnsSort(staende, WP500_staende_columns, values);
     }
@@ -240,5 +242,4 @@ public partial class WP500Prices : CsbpBin
     var key = new Tuple<string, DateTime?>(uid, date);
     Start(typeof(WP510Price), WP510_title, dt, key, csbpparent: this);
   }
-
 }

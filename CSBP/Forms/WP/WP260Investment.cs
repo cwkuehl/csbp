@@ -19,9 +19,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP260Investment dialog.</summary>
 public partial class WP260Investment : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private WpAnlage Model;
-
   /// <summary>Last copied ID.</summary>
   private static string lastcopyuid = null;
 
@@ -84,7 +81,7 @@ public partial class WP260Investment : CsbpBin
   private readonly Entry geaendert;
 
   /// <summary>Date Valuta.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date valuta;
 
   /// <summary>Entry stand.</summary>
@@ -97,25 +94,16 @@ public partial class WP260Investment : CsbpBin
 
 #pragma warning restore CS0649
 
-  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+  /// <summary>Dialog model.</summary>
+  private WpAnlage model;
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP260Investment Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP260Investment(GetBuilder("WP260Investment", out var handle), handle, p1: p1, p: p);
-  }
-
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP260Investment"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP260Investment(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -123,18 +111,30 @@ public partial class WP260Investment : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
-    // valuta.DateChanged += OnValutaDateChanged;
+    //// valuta.DateChanged += OnValutaDateChanged;
     valuta.Show();
     SetBold(wertpapier0);
     SetBold(bezeichnung0);
     SetBold(status0);
     InitData(0);
-#pragma warning disable 612
+#pragma warning disable CS0612 // deprecated.
     data.OverrideFont(Pango.FontDescription.FromString("mono"));
-#pragma warning restore 612
+#pragma warning restore CS0612
     bezeichnung.GrabFocus();
+  }
+
+  /// <summary>Gets or sets the last copied ID.</summary>
+  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP260Investment Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP260Investment(GetBuilder("WP260Investment", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -172,13 +172,10 @@ public partial class WP260Investment : CsbpBin
         var k = Get(FactoryService.StockService.GetInvestment(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke(delegate
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        Model = k;
+        model = k;
         nr.Text = k.Uid;
         SetText(wertpapier, k.Wertpapier_Uid);
         bezeichnung.Text = k.Bezeichnung;
@@ -249,7 +246,7 @@ public partial class WP260Investment : CsbpBin
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeleteInvestment(ServiceDaten, Model);
+      r = FactoryService.StockService.DeleteInvestment(ServiceDaten, model);
     }
     if (r != null)
     {
