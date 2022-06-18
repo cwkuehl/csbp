@@ -29,35 +29,13 @@ using static CSBP.Resources.Messages;
 [System.ComponentModel.ToolboxItem(false)]
 public partial class CsbpBin : Bin
 {
-  public static int TitleHeight { get; private set; } = Functions.IsLinux() ? 37 : 10;
-
-  protected Builder Builder { get; private set; }
-
+#pragma warning disable SA1401 // Field should be private
+  /// <summary>Internal GTK dialog.</summary>
   protected Dialog dialog;
+#pragma warning restore SA1401
 
-  protected DialogTypeEnum DialogType { get; private set; }
-
-  protected CsbpBin CsbpParent { get; private set; }
-
-  protected object Parameter1 { get; private set; }
-
-  protected object Response { get; set; }
-
-  protected static ServiceDaten ServiceDaten => MainClass.ServiceDaten;
-
-  protected bool EventsActive;
-
-  protected static Builder GetBuilder(string name, out IntPtr handle)
-  {
-    var builder = new Builder($"CSBP.GtkGui.{name[..2]}.{name}.glade");
-    handle = builder.GetObject(name).Handle;
-    return builder;
-  }
-
-  /// <summary>Initialisierung der Events.</summary>
-  protected virtual void SetupHandlers()
-  {
-  }
+  /// <summary>Value indicating whether events are active or not.</summary>
+  private bool eventsActive;
 
   /// <summary>Initializes a new instance of the <see cref="CsbpBin"/> class.</summary>
   /// <param name="builder">Affected Builder.</param>
@@ -100,15 +78,39 @@ public partial class CsbpBin : Bin
     SetupHandlers();
   }
 
-  /// <summary>Starten eines modalen oder nicht-modalen Dialogs.</summary>
-  /// <param name="type">Betroffener Dialog-Type.</param>
-  /// <param name="title">Betroffener Titel.</param>
-  /// <param name="dialogType">Betroffener Dialogtyp.</param>
-  /// <param name="parameter1">1. Parameter für Dialog.</param>
-  /// <param name="modal">Soll der Dialog modal geöffnet werden?</param>
-  /// <param name="p">Betroffener Haupt-Dialog.</param>
-  /// <param name="csbpparent">Betroffener direkter Eltern-Dialog.</param>
-  /// <returns>Ergebnis ist nur bei modalem Dialog sinnvoll.</returns>
+  /// <summary>Gets height of the title bar.</summary>
+  public static int TitleHeight { get; private set; } = Functions.IsLinux() ? 37 : 10;
+
+  /// <summary>Gets the current service data.</summary>
+  protected static ServiceDaten ServiceDaten => MainClass.ServiceDaten;
+
+  /// <summary>Gets the GTK build.</summary>
+  protected Builder Builder { get; private set; }
+
+  /// <summary>Gets the dialog type.</summary>
+  protected DialogTypeEnum DialogType { get; private set; }
+
+  /// <summary>Gets the parent dialog.</summary>
+  protected CsbpBin CsbpParent { get; private set; }
+
+  /// <summary>Gets the first parameter.</summary>
+  protected object Parameter1 { get; private set; }
+
+  /// <summary>Gets or sets the dialog response for modal dialogs.</summary>
+  protected object Response { get; set; }
+
+  /// <summary>Gets or sets a value indicating whether events are active or not.</summary>
+  protected bool EventsActive { get => eventsActive; set => eventsActive = value; }
+
+  /// <summary>Starts a modal or non modal dialog.</summary>
+  /// <param name="type">Affected dialog class type.</param>
+  /// <param name="title">Affected title.</param>
+  /// <param name="dialogType">Affected dialog type.</param>
+  /// <param name="parameter1">Affected 1. parameter for dialog.</param>
+  /// <param name="modal">Modal dialog or not.</param>
+  /// <param name="p">Affected mail dialog.</param>
+  /// <param name="csbpparent">Affected direct parent dialog.</param>
+  /// <returns>Modal dialog result.</returns>
   public static object Start(Type type, string title = null,
     DialogTypeEnum dialogType = DialogTypeEnum.Without, object parameter1 = null,
     bool modal = false, Gtk.Window p = null, CsbpBin csbpparent = null)
@@ -145,20 +147,23 @@ public partial class CsbpBin : Bin
     var ob = Observable.FromEvent<SizeAllocatedHandler, SizeAllocatedArgs>(
       h0 =>
       {
-        void h(object sender, SizeAllocatedArgs e) { h0(e); }
-        return h;
+        void H(object sender, SizeAllocatedArgs e)
+        {
+          h0(e);
+        }
+        return H;
       },
       h => dialog.SizeAllocated += h, h => dialog.SizeAllocated -= h
     ).Throttle(TimeSpan.FromMilliseconds(1000));
     ob.Subscribe(e =>
     {
-      Application.Invoke(delegate
+      Application.Invoke((sender, e1) =>
       {
         if (dialog.Window != null)
         {
           dialog.Window.GetGeometry(out int x0, out int y0, out int w, out int h);
           dialog.Window.GetOrigin(out int x, out int y);
-          //// Höhe der Titelleiste abziehen
+          //// Subtracts title height.
           Parameter.SetDialogSize(type, new Rectangle(x, y - TitleHeight, w, h));
           //// Console.WriteLine($"{x} {y} {w} {h}");
           //// Console.WriteLine($"{DateTime.Now}");
@@ -179,18 +184,18 @@ public partial class CsbpBin : Bin
     return form.Response;
   }
 
-  /// <summary>Fokussieren oder Starten eines nicht-modalen Dialogs.</summary>
-  /// <param name="title">Betroffener Titel.</param>
-  /// <param name="dialogType">Betroffener Dialogtyp.</param>
-  /// <param name="parameter1">1. Parameter für Dialog.</param>
-  /// <param name="modal">Soll der Dialog modal geöffnet werden?</param>
-  /// <param name="p">Betroffener Haupt-Dialog.</param>
-  /// <param name="csbpparent">Betroffener direkter Eltern-Dialog.</param>
-  /// <returns>Ergebnis ist nur bei modalem Dialog sinnvoll.</returns>
-  public static T Focus<T>(string title = null,
-    DialogTypeEnum dialogType = DialogTypeEnum.Without, object parameter1 = null,
+  /// <summary>Focus or starts a non modal dialog.</summary>
+  /// <param name="title">Affected title.</param>
+  /// <param name="dialogType">Affected dialog type.</param>
+  /// <param name="parameter1">Affected 1. parameter for dialog.</param>
+  /// <param name="modal">Modal dialog or not.</param>
+  /// <param name="p">Affected mail dialog.</param>
+  /// <param name="csbpparent">Affected direct parent dialog.</param>
+  /// <returns>Modal dialog result.</returns>
+  /// <typeparam name="T">Affected dialog class type.</typeparam>
+  public static T Focus<T>(string title = null, DialogTypeEnum dialogType = DialogTypeEnum.Without, object parameter1 = null,
     bool modal = false, Gtk.Window p = null, CsbpBin csbpparent = null)
-      where T : CsbpBin
+    where T : CsbpBin
   {
     var dlg = MainClass.MainWindow.FocusPage<T>();
     if (dlg == null)
@@ -203,6 +208,384 @@ public partial class CsbpBin : Bin
       MainClass.MainWindow.AppendPage(dlg, title);
     }
     return dlg;
+  }
+
+  /// <summary>
+  /// Shows a yes no question.
+  /// </summary>
+  /// <param name="msg">Affected message.</param>
+  /// <returns>True if user chose yes.</returns>
+  public static bool ShowYesNoQuestion(string msg)
+  {
+    int r;
+    using (var md = new MessageDialog(MainClass.MainWindow,
+        DialogFlags.DestroyWithParent, MessageType.Question,
+        ButtonsType.YesNo, msg))
+    {
+      r = md.Run();
+      //// md.Hide();
+      md.Dispose();
+    }
+    return r == (int)ResponseType.Yes;
+  }
+
+  /// <summary>
+  /// Extracts possible errors from service result.
+  /// </summary>
+  /// <param name="r">Affected service result.</param>
+  /// <param name="dialog">Shows as message dialog or not.</param>
+  /// <typeparam name="T">Affected result type.</typeparam>
+  /// <returns>Result of service result.</returns>
+  public static T Get<T>(ServiceErgebnis<T> r, bool dialog = true)
+  {
+    return MainClass.Get(r, dialog);
+  }
+
+  /// <summary>
+  /// Extracts possible errors from service result.
+  /// </summary>
+  /// <param name="r">Affected service result.</param>
+  /// <param name="dialog">Shows as message dialog or not.</param>
+  /// <returns>Are there errors or not.</returns>
+  public static bool Get(ServiceErgebnis r, bool dialog = true)
+  {
+    return MainClass.Get(r, dialog);
+  }
+
+  /// <summary>
+  /// Shows info message.
+  /// </summary>
+  /// <param name="s">Affected info message.</param>
+  /// <param name="dialog">Shows as message dialog or not.</param>
+  public static void ShowInfo(string s, bool dialog = true)
+  {
+    MainClass.ShowInfo(s, dialog);
+  }
+
+  /// <summary>
+  /// Shows error message.
+  /// </summary>
+  /// <param name="s">Affected error message.</param>
+  /// <param name="dialog">Shows as message dialog or not.</param>
+  public static void ShowError(string s, bool dialog = true)
+  {
+    MainClass.ShowError(s, dialog);
+  }
+
+  /// <summary>
+  /// Close event.
+  /// </summary>
+  /// <returns>Result of the dialog.</returns>
+  public virtual object Close()
+  {
+    return null;
+  }
+
+  /// <summary>
+  /// Create a build for as dialog name.
+  /// </summary>
+  /// <param name="name">Affected dialog name.</param>
+  /// <param name="handle">Returns affencted handle.</param>
+  /// <returns>Created builder.</returns>
+  protected static Builder GetBuilder(string name, out IntPtr handle)
+  {
+    var builder = new Builder($"CSBP.GtkGui.{name[..2]}.{name}.glade");
+    handle = builder.GetObject(name).Handle;
+    return builder;
+  }
+
+  /// <summary>
+  /// Throttles events.
+  /// </summary>
+  /// <param name="w">Affected Widget.</param>
+  /// <param name="h">New Eventhandler.</param>
+  /// <param name="eventname">Optional event name.</param>
+  /// <param name="millis">Throttle time span.</param>
+  protected static void ObservableEventThrottle(Widget w, EventHandler h, string eventname = "Clicked", int millis = 500)
+  {
+    var ob = Observable.FromEventPattern<EventArgs>(w, eventname)
+      .Throttle(TimeSpan.FromMilliseconds(millis));
+    ob.Subscribe(e => Application.Invoke(h));
+  }
+
+  /// <summary>
+  /// Gets the selected value of a TreeView.
+  /// </summary>
+  /// <param name="tv">Specific TreeView.</param>
+  /// <param name="mandatory">Is the value mandatory or not.</param>
+  /// <param name="column">Affected column number for value.</param>
+  /// <typeparam name="T">Affected return value type.</typeparam>
+  /// <returns>Selected value.</returns>
+  protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0)
+    where T : class
+  {
+    T value = default;
+    var s = tv.Selection.GetSelectedRows();
+    if (s.Length > 0 && tv.Model.GetIter(out var iter, s[0]))
+    {
+      var v = default(GLib.Value);
+      tv.Model.GetValue(iter, column, ref v);
+      value = v.Val as T;
+    }
+    else if (s.Length <= 0 && tv.Model != null && tv.Model.IterNChildren() == 1)
+    {
+      if (tv.Model.GetIterFirst(out var iter1))
+      {
+        var v = default(GLib.Value);
+        tv.Model.GetValue(iter1, column, ref v);
+        value = v.Val as T;
+      }
+    }
+    if (mandatory && value == null)
+      throw new MessageException(M1013);
+    return value;
+  }
+
+  /// <summary>
+  /// Gets the selected value of a TreeView.
+  /// </summary>
+  /// <param name="tv">Specific TreeView.</param>
+  /// <param name="mandatory">Is the value mandatory or not.</param>
+  /// <param name="column">The column number.</param>
+  /// <returns>Selected value.</returns>
+  protected static string GetText(TreeView tv, bool mandatory = false, int column = 0)
+  {
+    return GetValue<string>(tv, mandatory, column);
+  }
+
+  /// <summary>Sets bold fond in label.</summary>
+  /// <param name="w">Affected Label.</param>
+  protected static void SetBold(GLib.Object w)
+  {
+    if (w is Label lbl && !lbl.UseMarkup)
+    {
+      lbl.UseMarkup = true;
+      lbl.LabelProp = $"<b>{lbl.LabelProp}</b>";
+    }
+  }
+
+  /// <summary>
+  /// Adds two columns (descripton and id) to a ComboBox.
+  /// </summary>
+  /// <param name="cb">Affected ComboBox.</param>
+  /// <param name="list">List of values.</param>
+  /// <param name="emptyentry">Adds an empty entry or not.</param>
+  /// <returns>Tree store.</returns>
+  protected static TreeStore AddColumns(ComboBox cb, List<MaParameter> list = null, bool emptyentry = false)
+  {
+    var types = new[] { typeof(string), typeof(string) };
+    for (var i = 0; i < types.Length; i++)
+    {
+      var cell = new CellRendererText();
+      cb.PackStart(cell, true);
+    }
+    var store = new TreeStore(types);
+    var sortable = new TreeModelSort(store);
+    cb.Model = sortable;
+    if (list != null)
+    {
+      foreach (var p in list)
+        store.AppendValues(p.Wert, p.Schluessel);
+    }
+    if (emptyentry)
+      store.AppendValues("", "");
+    if (!cb.Data.ContainsKey("KeyReleaseEvent"))
+    {
+      cb.Data.Add("KeyReleaseEvent", "");
+      var sb = new StringBuilder();
+      var completion = new Gtk.EntryCompletion
+      {
+        Model = cb.Model,
+        TextColumn = cb.EntryTextColumn,
+      };
+      completion.MatchFunc = (EntryCompletion completion, string key, TreeIter iter) =>
+      {
+        if (!string.IsNullOrEmpty(key) && Matches(key.ToLower(), ((completion.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
+          return true;
+        return false;
+      };
+      if (cb.Child is Entry entry)
+        entry.Completion = completion;
+    }
+    return store;
+  }
+
+  /// <summary>Updates the state.</summary>
+  /// <param name="state">Affected state.</param>
+  /// <param name="cancel">Affected cancel.</param>
+  protected static void ShowStatus(StringBuilder state, StringBuilder cancel)
+  {
+    ShowError(null);
+    cancel.Clear();
+    state.Clear();
+    Task.Run(() =>
+    {
+      try
+      {
+        while (true)
+        {
+          Application.Invoke((sender, e) =>
+          {
+            MainClass.MainWindow.SetError(state.ToString());
+          });
+          if (cancel.Length > 0)
+            break;
+          Thread.Sleep(200);
+        }
+      }
+      catch (Exception ex)
+      {
+        Functions.MachNichts(ex);
+      }
+      return 0;
+    });
+  }
+
+  /// <summary>
+  /// Sets the value of a TreeView.
+  /// </summary>
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="v">Affected value.</param>
+  /// <returns>Is the value set or not.</returns>
+  protected static bool SetText(TreeView tv, string v)
+  {
+    tv.Selection.UnselectAll();
+    var store = tv.Model;
+    if (!string.IsNullOrEmpty(v) && store.GetIterFirst(out var i))
+    {
+      do
+      {
+        if (store.GetValue(i, 0) is string val && v == val)
+        {
+          tv.Selection.SelectIter(i);
+          var path = store.GetPath(i);
+          if (path != null)
+            tv.ScrollToCell(path, null, false, 0, 0);
+          return true;
+        }
+      }
+      while (store.IterNext(ref i));
+    }
+    return false;
+  }
+
+  /// <summary>
+  /// Sets the value of a ComboBox.
+  /// </summary>
+  /// <param name="cb">Affected ComboBox.</param>
+  /// <param name="v">Affected value.</param>
+  /// <returns>Is the value set or not.</returns>
+  protected static bool SetText(ComboBox cb, string v)
+  {
+    cb.Active = -1;
+    if (cb.Model.GetIterFirst(out TreeIter iter))
+    {
+      var valid = true;
+      while (valid)
+      {
+        if (Functions.CompString(cb.Model.GetValue(iter, 1) as string, v) == 0)
+        {
+          cb.SetActiveIter(iter);
+          return true;
+        }
+        valid = cb.Model.IterNext(ref iter);
+      }
+    }
+    return false;
+  }
+
+  /// <summary>
+  /// Gets the selected value of a ComboBox.
+  /// </summary>
+  /// <param name="cb">Affected ComboBox.</param>
+  /// <param name="id">Gets the id or description.</param>
+  /// <returns>Value or null.</returns>
+  protected static string GetText(ComboBox cb, bool id = true)
+  {
+    if (cb.GetActiveIter(out var iter))
+    {
+      return cb.Model.GetValue(iter, id ? 1 : 0) as string;
+    }
+    else
+    {
+      // EntryCompletion does not select active iter.
+      var s = (cb as ComboBoxText)?.ActiveText;
+      if (!string.IsNullOrEmpty(s))
+      {
+        if (cb.Model.GetIterFirst(out var it))
+        {
+          do
+          {
+            if (cb.Model.GetValue(it, 0) as string == s)
+              return cb.Model.GetValue(it, id ? 1 : 0) as string;
+          }
+          while (cb.Model.IterNext(ref it));
+        }
+      }
+    }
+    return null;
+  }
+
+  /// <summary>
+  /// Sets the values of a RadioButton list.
+  /// </summary>
+  /// <param name="rb">Affected list of RadioButtons.</param>
+  /// <param name="v">Affected values.</param>
+  protected static void SetUserData(RadioButton[] rb, string[] v)
+  {
+    if (rb == null || v == null || rb.Length != v.Length)
+      throw new ArgumentException("SetUserData");
+    for (var i = 0; i < rb.Length; i++)
+    {
+      if (!rb[i].Data.ContainsKey("v"))
+        rb[i].Data.Add("v", v[i]);
+    }
+  }
+
+  /// <summary>
+  /// Sets the selected value of a RadioButton list.
+  /// </summary>
+  /// <param name="rb">One of the RadioButton list.</param>
+  /// <param name="v">Affected value.</param>
+  protected static void SetText(RadioButton rb, string v)
+  {
+    if (rb == null)
+      throw new ArgumentException("SetText");
+    foreach (RadioButton r in rb.Group)
+    {
+      var val = r.Data["v"]?.ToString();
+      if (v == val)
+      {
+        r.Active = true;
+        return;
+      }
+    }
+    rb.Active = true;
+  }
+
+  /// <summary>
+  /// Gets the selected value of a RadioButton list.
+  /// </summary>
+  /// <param name="rb">One of the RadioButton list.</param>
+  /// <returns>Selected value.</returns>
+  protected static string GetText(RadioButton rb)
+  {
+    if (rb == null)
+      return null;
+    foreach (RadioButton r in rb.Group)
+    {
+      if (r.Active)
+      {
+        var val = r.Data["v"]?.ToString();
+        return val;
+      }
+    }
+    return null;
+  }
+
+  /// <summary>Initialisierung der Events.</summary>
+  protected virtual void SetupHandlers()
+  {
   }
 
   /// <summary>Initialises model data.</summary>
@@ -219,22 +602,11 @@ public partial class CsbpBin : Bin
       p.UpdateParent();
   }
 
-  private List<Widget> GetChildren(Container con = null, List<Widget> l = null)
-  {
-    if (con == null)
-      con = this;
-    if (l == null)
-      l = new List<Widget>();
-    var array = con.Children;
-    foreach (var c in array)
-    {
-      l.Add(c);
-      if (c is Container)
-        GetChildren(c as Container, l);
-    }
-    return l;
-  }
-
+  /// <summary>
+  /// Gets the default button in the container.
+  /// </summary>
+  /// <param name="con">Affected container.</param>
+  /// <returns>Default button as Widget or null.</returns>
   protected Widget GetDefaultButton(Container con = null)
   {
     if (con == null)
@@ -255,58 +627,11 @@ public partial class CsbpBin : Bin
   }
 
   /// <summary>
-  /// Abfangen und Drosseln eines Events.
+  /// Refreshes a TreeView and sets or maintaines the selection.
   /// </summary>
-  /// <param name="w">Betroffenes Widget.</param>
-  /// <param name="h">Neuer Eventhandler.</param>
-  /// <param name="eventname">Optionaler Event-Name.</param>
-  /// <param name="millis">Verzögerung in Millisekunden.</param>
-  protected static void ObservableEventThrottle(Widget w, EventHandler h, string eventname = "Clicked", int millis = 500)
-  {
-    var ob = Observable.FromEventPattern<EventArgs>(w, eventname)
-      .Throttle(TimeSpan.FromMilliseconds(millis));
-    ob.Subscribe(e => Application.Invoke(h));
-  }
-
-  public static bool ShowYesNoQuestion(string msg)
-  {
-    int r;
-    using (var md = new MessageDialog(MainClass.MainWindow,
-        DialogFlags.DestroyWithParent, MessageType.Question,
-        ButtonsType.YesNo, msg))
-    {
-      r = md.Run();
-      // md.Hide();
-      md.Dispose();
-    }
-    return r == (int)ResponseType.Yes;
-  }
-
-  public virtual object Close()
-  {
-    return null;
-  }
-
-  public static T Get<T>(ServiceErgebnis<T> r, bool dialog = true)
-  {
-    return MainClass.Get(r, dialog);
-  }
-
-  public static bool Get(ServiceErgebnis r, bool dialog = true)
-  {
-    return MainClass.Get(r, dialog);
-  }
-
-  public static void ShowInfo(string s, bool dialog = true)
-  {
-    MainClass.ShowInfo(s, dialog);
-  }
-
-  public static void ShowError(string s, bool dialog = true)
-  {
-    MainClass.ShowError(s, dialog);
-  }
-
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="step">Affected step: 0 initially, 1 update.</param>
+  /// <param name="value">New value for selection.</param>
   protected void RefreshTreeView(TreeView tv, int step, string value = null)
   {
     var v = value ?? GetValue<string>(tv, false);
@@ -402,59 +727,11 @@ public partial class CsbpBin : Bin
   }
 
   /// <summary>
-  /// Gets the value of a TreeView.
+  /// Adds string columns to a TreeView.
   /// </summary>
-  /// <returns>The value.</returns>
-  /// <param name="tv">Specific TreeView.</param>
-  /// <param name="mandatory">Is the value mandatory?</param>
-  /// <param name="column">The column number.</param>
-  protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0)
-    where T : class
-  {
-    T value = default;
-    var s = tv.Selection.GetSelectedRows();
-    if (s.Length > 0 && tv.Model.GetIter(out var iter, s[0]))
-    {
-      var v = default(GLib.Value);
-      tv.Model.GetValue(iter, column, ref v);
-      value = v.Val as T;
-    }
-    else if (s.Length <= 0 && tv.Model != null && tv.Model.IterNChildren() == 1)
-    {
-      if (tv.Model.GetIterFirst(out var iter1))
-      {
-        var v = default(GLib.Value);
-        tv.Model.GetValue(iter1, column, ref v);
-        value = v.Val as T;
-      };
-    }
-    if (mandatory && value == null)
-      throw new MessageException(M1013);
-    return value;
-  }
-
-  /// <summary>
-  /// Gets the value of a TreeView.
-  /// </summary>
-  /// <returns>The value.</returns>
-  /// <param name="tv">Specific TreeView.</param>
-  /// <param name="mandatory">Is the value mandatory?</param>
-  /// <param name="column">The column number.</param>
-  protected static string GetText(TreeView tv, bool mandatory = false, int column = 0)
-  {
-    return GetValue<string>(tv, mandatory, column);
-  }
-
-  /// <summary>Label mit fetter Schrift.</summary>
-  protected static void SetBold(GLib.Object w)
-  {
-    if (w is Label lbl && !lbl.UseMarkup)
-    {
-      lbl.UseMarkup = true;
-      lbl.LabelProp = $"<b>{lbl.LabelProp}</b>";
-    }
-  }
-
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="headers">Column headers separated by semicolon.</param>
+  /// <returns>TreeView store.</returns>
   [Obsolete("Use AddStringColumnsSort instead.")]
   protected TreeStore AddStringColumns(TreeView tv, string headers)
   {
@@ -467,8 +744,14 @@ public partial class CsbpBin : Bin
     return AddColumns(tv, titles, types);
   }
 
-  /// <summary>TreeView mit editierbaren Daten füllen.
-  /// Die Spaltenüberschriften werden wie in Excel gebildet: A, B, C, ... Z.</summary>
+  /// <summary>
+  /// Adds editable string columns to a TreeView. The column headers are built like Excel: A, B, C, ... Z, AA, ....
+  /// Possibly fills up with values.</summary>
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="columns">Number of columns.</param>
+  /// <param name="editable">Are the columns editable or not.</param>
+  /// <param name="values">List of all row values.</param>
+  /// <param name="flist">Affected formulas.</param>
   protected void AddStringColumns(TreeView tv, int columns, bool editable = false, List<string[]> values = null,
     Formulas flist = null)
   {
@@ -497,7 +780,16 @@ public partial class CsbpBin : Bin
     AddColumns(tv, titles, types, editable, values, flist);
   }
 
-  /// <summary>TreeView mit Spalten und evtl. Daten initialisieren.</summary>
+  /// <summary>
+  /// Adds columns and possibly values to a TreeView.
+  /// </summary>
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="titles">Affected column header titles.</param>
+  /// <param name="types">Affected column value types.</param>
+  /// <param name="editable">Are the columns editable or not.</param>
+  /// <param name="values">List of all row values.</param>
+  /// <param name="flist">Affected formulas.</param>
+  /// <returns>TreeView store.</returns>
   protected TreeStore AddColumns(TreeView tv, string[] titles, Type[] types, bool editable = false,
       List<string[]> values = null, Formulas flist = null)
   {
@@ -533,6 +825,12 @@ public partial class CsbpBin : Bin
     return store;
   }
 
+  /// <summary>
+  /// Adds sortable string columns to a TreeView.
+  /// </summary>
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="headers">Affected header titles.</param>
+  /// <param name="values">List of row values.</param>
   protected void AddStringColumnsSort(TreeView tv, string headers, List<string[]> values = null)
   {
     var titles = headers.Split(';');
@@ -541,10 +839,18 @@ public partial class CsbpBin : Bin
     var types = new Type[titles.Length];
     for (var i = 0; i < titles.Length; i++)
       types[i] = typeof(string);
-    //types[i] = titles[i].EndsWith("_r", StringComparison.InvariantCulture) ? typeof(decimal) : typeof(string);
+    //// types[i] = titles[i].EndsWith("_r", StringComparison.InvariantCulture) ? typeof(decimal) : typeof(string);
     AddColumnsSort(tv, titles, types, values: values);
   }
 
+  /// <summary>
+  /// Adds sortable columns to a TreeView.
+  /// </summary>
+  /// <param name="tv">Affected TreeView.</param>
+  /// <param name="titles">Affected column header titles.</param>
+  /// <param name="types">Affected column value types.</param>
+  /// <param name="editable">Are the columns editable or not.</param>
+  /// <param name="values">List of row values.</param>
   protected void AddColumnsSort(TreeView tv, string[] titles, Type[] types, bool editable = false,
       List<string[]> values = null)
   {
@@ -586,7 +892,109 @@ public partial class CsbpBin : Bin
       tv.EnableSearch = false;
   }
 
-  /// <summary>Liefert eine TreeView-Spalte.</summary>
+  /// <summary>Select a file name.</summary>
+  /// <returns>Selected file name or default file name.</returns>
+  /// <param name="filename">Affected default file name.</param>
+  /// <param name="ext">Affected file extension.</param>
+  /// <param name="extension">Affected description of file extension.</param>
+  protected string SelectFile(string filename, string ext = null, string extension = null)
+  {
+    string file = filename;
+    string path = null;
+    //// Pfad bestimmen
+    if (!string.IsNullOrEmpty(file))
+    {
+      path = System.IO.Path.GetDirectoryName(file);
+    }
+    if (string.IsNullOrEmpty(path))
+    {
+      path = Parameter.TempPath;
+    }
+    //// file name incl. path
+    if (!string.IsNullOrEmpty(file))
+    {
+      if (string.IsNullOrEmpty(System.IO.Path.GetDirectoryName(file)))
+      {
+        file = System.IO.Path.Combine(path, file);
+      }
+    }
+    if (string.IsNullOrEmpty(ext) || string.IsNullOrEmpty(extension))
+      return file;
+    using (var dlg = new FileChooserDialog(Forms_selectfile, dialog,
+         FileChooserAction.Open, Forms_select, ResponseType.Accept, Forms_cancel, ResponseType.Cancel))
+    {
+      if (!string.IsNullOrEmpty(ext) || !string.IsNullOrEmpty(extension))
+      {
+        var ff = new FileFilter { Name = extension };
+        ff.AddPattern(ext);
+        dlg.AddFilter(ff);
+      }
+      if (!string.IsNullOrEmpty(file))
+        dlg.SetFilename(file);
+      else if (!string.IsNullOrEmpty(path))
+        dlg.SetCurrentFolder(path);
+      if (dlg.Run() == (int)ResponseType.Accept)
+      {
+        file = dlg.Filename;
+      }
+      dlg.Dispose();
+    }
+    return file;
+  }
+
+  /// <summary>
+  /// Matches two strings: first letter must match, the following must appear in sequence.
+  /// </summary>
+  /// <param name="s">First string.</param>
+  /// <param name="o">Second string.</param>
+  /// <returns>Match or not.</returns>
+  private static bool Matches(string s, string o)
+  {
+    // return o.startsWith(s);
+    if (string.IsNullOrEmpty(o))
+      return string.IsNullOrEmpty(s);
+    int i = 0;
+    foreach (char c in s.ToCharArray())
+    {
+      if (i == 0 && c != o[0])
+        return false;
+      i = o.IndexOf(c, i) + 1;
+      if (i <= 0)
+        return false;
+    }
+    return true;
+  }
+
+  /// <summary>
+  /// Gets children of a container.
+  /// </summary>
+  /// <param name="con">Affected container.</param>
+  /// <param name="l">Affected list to fill up.</param>
+  /// <returns>List of child controls.</returns>
+  private List<Widget> GetChildren(Container con = null, List<Widget> l = null)
+  {
+    if (con == null)
+      con = this;
+    if (l == null)
+      l = new List<Widget>();
+    var array = con.Children;
+    foreach (var c in array)
+    {
+      l.Add(c);
+      if (c is Container)
+        GetChildren(c as Container, l);
+    }
+    return l;
+  }
+
+  /// <summary>Creates and gets a TreeView column.</summary>
+  /// <param name="title">Affected title.</param>
+  /// <param name="i">Affected index.</param>
+  /// <param name="editable">Is the column editable or not.</param>
+  /// <param name="sortable">Is the column sortable or not.</param>
+  /// <param name="store">Affected TreeModel store.</param>
+  /// <param name="flist">Affected formulas.</param>
+  /// <returns>Created column.</returns>
   private TreeViewColumn GetColumn(string title, int i, bool editable, bool sortable, ITreeModel store, Formulas flist)
   {
     var align = 0f; // left
@@ -642,6 +1050,11 @@ public partial class CsbpBin : Bin
     return col;
   }
 
+  /// <summary>
+  /// Event handler for a editable table cell.
+  /// </summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="args">Affected event arguments.</param>
   private void TableCell_Edited(object sender, EditedArgs args)
   {
     if (sender is not Gtk.CellRenderer cr)
@@ -672,7 +1085,8 @@ public partial class CsbpBin : Bin
       do
       {
         zeilen++;
-      } while (store.IterNext(ref it));
+      }
+      while (store.IterNext(ref it));
     }
     var s = tv.Selection.GetSelectedRows();
     var znummern = false;
@@ -748,7 +1162,8 @@ public partial class CsbpBin : Bin
             }
             list.Add(arr);
             //// Debug.Print(string.Join(" | ", arr));
-          } while (store.IterNext(ref i));
+          }
+          while (store.IterNext(ref i));
         }
         flist?.AddColumn(pos + anz - 2 - 1);
         AddStringColumns(tv, spalten + anz - 2, true, list, flist);
@@ -783,7 +1198,8 @@ public partial class CsbpBin : Bin
             }
             list.Add(arr);
             //// Debug.Print(string.Join(" | ", arr));
-          } while (store.IterNext(ref i));
+          }
+          while (store.IterNext(ref i));
         }
         flist?.DeleteColumn(pos + anz - 2 - 1);
         AddStringColumns(tv, spalten - anz - 2, true, list, flist);
@@ -852,7 +1268,8 @@ public partial class CsbpBin : Bin
           }
           lines.Add(Functions.EncodeCSV(cells));
           r++;
-        } while (store.IterNext(ref i));
+        }
+        while (store.IterNext(ref i));
       }
       //// var csv = string.Join(Constants.CRLF, lines);
       UiTools.SaveFile(lines, Parameter.TempPath, M0(M1000), true, "csv");
@@ -875,7 +1292,8 @@ public partial class CsbpBin : Bin
             cells.Add(Functions.MakeBold(val ?? "", true));
           }
           lines.Add(cells);
-        } while (store.IterNext(ref i));
+        }
+        while (store.IterNext(ref i));
         var r = Get(FactoryService.ClientService.GetTableReport(ServiceDaten, "", lines));
         UiTools.SaveFile(r, M0(M1000));
       }
@@ -998,251 +1416,5 @@ public partial class CsbpBin : Bin
       m.ShowAll();
       m.Popup();
     }
-  }
-
-  protected static TreeStore AddColumns(ComboBox cb, List<MaParameter> list = null, bool emptyentry = false)
-  {
-    var types = new[] { typeof(string), typeof(string) };
-    for (var i = 0; i < types.Length; i++)
-    {
-      var cell = new CellRendererText();
-      cb.PackStart(cell, true);
-    }
-    var store = new TreeStore(types);
-    var sortable = new TreeModelSort(store);
-    cb.Model = sortable;
-    if (list != null)
-    {
-      foreach (var p in list)
-        store.AppendValues(p.Wert, p.Schluessel);
-    }
-    if (emptyentry)
-      store.AppendValues("", "");
-    if (!cb.Data.ContainsKey("KeyReleaseEvent"))
-    {
-      cb.Data.Add("KeyReleaseEvent", "");
-      var sb = new StringBuilder();
-      var completion = new Gtk.EntryCompletion
-      {
-        Model = cb.Model,
-        TextColumn = cb.EntryTextColumn,
-      };
-      completion.MatchFunc = (EntryCompletion completion, string key, TreeIter iter) =>
-      {
-        if (!string.IsNullOrEmpty(key) && matches(key.ToLower(), ((completion.Model.GetValue(iter, 0) as string) ?? "").ToLower()))
-          return true;
-        return false;
-      };
-      if (cb.Child is Entry entry)
-        entry.Completion = completion;
-    }
-    return store;
-  }
-
-  /// <summary>Aktualisieren des Status.</summary>
-  /// <param name="state">Affected state.</param>
-  /// <param name="cancel">Affected cancel.</param>
-  protected static void ShowStatus(StringBuilder state, StringBuilder cancel)
-  {
-    ShowError(null);
-    cancel.Clear();
-    state.Clear();
-    Task.Run(() =>
-    {
-      try
-      {
-        while (true)
-        {
-          Application.Invoke((sender, e) =>
-          {
-            MainClass.MainWindow.SetError(state.ToString());
-          });
-          if (cancel.Length > 0)
-            break;
-          Thread.Sleep(200);
-        }
-      }
-      catch (Exception ex)
-      {
-        Functions.MachNichts(ex);
-      }
-      return 0;
-    });
-  }
-
-  // Erster Buchstabe muss übereinstimmen, die nächsten müssen nur in der Reihenfolge vorkommen.
-  private static bool matches(string s, string o)
-  {
-    // return o.startsWith(s);
-    if (string.IsNullOrEmpty(o))
-      return string.IsNullOrEmpty(s);
-    int i = 0;
-    foreach (char c in s.ToCharArray())
-    {
-      if (i == 0 && c != o[0])
-        return false;
-      i = o.IndexOf(c, i) + 1;
-      if (i <= 0)
-        return false;
-    }
-    return true;
-  }
-
-
-  protected static bool SetText(TreeView tv, string v)
-  {
-    tv.Selection.UnselectAll();
-    var store = tv.Model;
-    if (!string.IsNullOrEmpty(v) && store.GetIterFirst(out var i))
-    {
-      do
-      {
-        if (store.GetValue(i, 0) is string val && v == val)
-        {
-          tv.Selection.SelectIter(i);
-          var path = store.GetPath(i);
-          if (path != null)
-            tv.ScrollToCell(path, null, false, 0, 0);
-          return true;
-        }
-      } while (store.IterNext(ref i));
-    }
-    return false;
-  }
-
-  protected static bool SetText(ComboBox cb, string v)
-  {
-    cb.Active = -1;
-    if (cb.Model.GetIterFirst(out TreeIter iter))
-    {
-      var valid = true;
-      while (valid)
-      {
-        if (Functions.CompString(cb.Model.GetValue(iter, 1) as string, v) == 0)
-        {
-          cb.SetActiveIter(iter);
-          return true;
-        }
-        valid = cb.Model.IterNext(ref iter);
-      }
-    }
-    return false;
-  }
-
-  protected static string GetText(ComboBox cb, bool id = true)
-  {
-    if (cb.GetActiveIter(out var iter))
-    {
-      return cb.Model.GetValue(iter, id ? 1 : 0) as string;
-    }
-    else
-    {
-      // EntryCompletion does not select active iter.
-      var s = (cb as ComboBoxText)?.ActiveText;
-      if (!string.IsNullOrEmpty(s))
-      {
-        if (cb.Model.GetIterFirst(out var it))
-        {
-          do
-          {
-            if (cb.Model.GetValue(it, 0) as string == s)
-              return cb.Model.GetValue(it, id ? 1 : 0) as string;
-          } while (cb.Model.IterNext(ref it));
-        }
-      }
-    }
-    return null;
-  }
-
-  protected static void SetUserData(RadioButton[] rb, string[] v)
-  {
-    if (rb == null || v == null || rb.Length != v.Length)
-      throw new ArgumentException("SetUserData");
-    for (var i = 0; i < rb.Length; i++)
-    {
-      if (!rb[i].Data.ContainsKey("v"))
-        rb[i].Data.Add("v", v[i]);
-    }
-  }
-
-  protected static void SetText(RadioButton rb, string v)
-  {
-    if (rb == null)
-      throw new ArgumentException("SetText");
-    foreach (RadioButton r in rb.Group)
-    {
-      var val = r.Data["v"]?.ToString();
-      if (v == val)
-      {
-        r.Active = true;
-        return;
-      }
-    }
-    rb.Active = true;
-  }
-
-  protected static string GetText(RadioButton rb)
-  {
-    if (rb == null)
-      return null;
-    foreach (RadioButton r in rb.Group)
-    {
-      if (r.Active)
-      {
-        var val = r.Data["v"]?.ToString();
-        return val;
-      }
-    }
-    return null;
-  }
-
-  /// <summary>Select a file name.</summary>
-  /// <returns>Selected file name or default file name.</returns>
-  /// <param name="filename">Affected default file name.</param>
-  /// <param name="ext">Affected file extension.</param>
-  /// <param name="extension">Affected description of file extension.</param>
-  protected string SelectFile(string filename, string ext = null, string extension = null)
-  {
-    string file = filename;
-    string path = null;
-    //// Pfad bestimmen
-    if (!string.IsNullOrEmpty(file))
-    {
-      path = System.IO.Path.GetDirectoryName(file);
-    }
-    if (string.IsNullOrEmpty(path))
-    {
-      path = Parameter.TempPath;
-    }
-    //// Datei mit Pfad
-    if (!string.IsNullOrEmpty(file))
-    {
-      if (string.IsNullOrEmpty(System.IO.Path.GetDirectoryName(file)))
-      {
-        file = System.IO.Path.Combine(path, file);
-      }
-    }
-    if (string.IsNullOrEmpty(ext) || string.IsNullOrEmpty(extension))
-      return file;
-    using (var dlg = new FileChooserDialog(Forms_selectfile, dialog,
-         FileChooserAction.Open, Forms_select, ResponseType.Accept, Forms_cancel, ResponseType.Cancel))
-    {
-      if (!string.IsNullOrEmpty(ext) || !string.IsNullOrEmpty(extension))
-      {
-        var ff = new FileFilter { Name = extension };
-        ff.AddPattern(ext);
-        dlg.AddFilter(ff);
-      }
-      if (!string.IsNullOrEmpty(file))
-        dlg.SetFilename(file);
-      else if (!string.IsNullOrEmpty(path))
-        dlg.SetCurrentFolder(path);
-      if (dlg.Run() == (int)ResponseType.Accept)
-      {
-        file = dlg.Filename;
-      }
-      dlg.Dispose();
-    }
-    return file;
   }
 }

@@ -60,19 +60,18 @@ public partial class WP200Stocks : CsbpBin
 #pragma warning restore CS0649
 
   /// <summary>State of calculation.</summary>
-  readonly StringBuilder state = new();
+  private readonly StringBuilder state = new();
 
   /// <summary>Cancel of calculation.</summary>
-  readonly StringBuilder cancel = new();
+  private readonly StringBuilder cancel = new();
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Initializes a new instance of the <see cref="WP200Stocks"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP200Stocks(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -95,10 +94,10 @@ public partial class WP200Stocks : CsbpBin
     wertpapiere.GrabFocus();
   }
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
   public static WP200Stocks Create(object p1 = null, CsbpBin p = null)
   {
     return new WP200Stocks(GetBuilder("WP200Stocks", out var handle), handle, p1: p1, p: p);
@@ -124,18 +123,21 @@ public partial class WP200Stocks : CsbpBin
     if (step <= 1)
     {
       var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
-      // Nr.;Sort.;Name;state;Provider;Kürzel;Relation;Bewertung;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Datum;Signal;200;Geändert am;Geändert von;Angelegt am;Angelegt von
+      //// No.;Description;St.;Provider;Shortcut;Relation;Rating;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Date;Signal;200;Changed at;Changed by;Created at;Created by
       var anz = l.Count;
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        values.Add(new string[] { e.Uid, e.Sorting, e.Bezeichnung, UiFunctions.GetStockState(e.Status, e.Kuerzel),
-            e.Datenquelle, e.Kuerzel, e.RelationDescription, e.Assessment, e.Trend,
-            e.Assessment1, e.Trend1, e.Assessment2, e.Trend2, e.Assessment3, e.Trend3,
-            e.Assessment4, e.Trend4, e.Assessment5, e.Trend5, e.Xo, e.SignalAssessment,
-            Functions.ToString(e.SignalDate), e.SignalDescription, e.Average200,
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von });
+        values.Add(new string[]
+        {
+          e.Uid, e.Sorting, e.Bezeichnung, UiFunctions.GetStockState(e.Status, e.Kuerzel),
+          e.Datenquelle, e.Kuerzel, e.RelationDescription, e.Assessment, e.Trend,
+          e.Assessment1, e.Trend1, e.Assessment2, e.Trend2, e.Assessment3, e.Trend3,
+          e.Assessment4, e.Trend4, e.Assessment5, e.Trend5, e.Xo, e.SignalAssessment,
+          Functions.ToString(e.SignalDate), e.SignalDescription, e.Average200,
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
       status.Text = WP056(anz);
       AddStringColumnsSort(wertpapiere, WP200_wertpapiere_columns, values);
@@ -223,7 +225,7 @@ public partial class WP200Stocks : CsbpBin
     var desc = GetValue<string>(wertpapiere, column: 2);
     var kuid = GetText(konfiguration);
     var t = new Tuple<DateTime?, string, string>(bis.Value, uid, kuid);
-    //Start(typeof(WP100Chart), Messages.WP100_title, DialogTypeEnum.Without, t, mbpparent: this);
+    //// Start(typeof(WP100Chart), Messages.WP100_title, DialogTypeEnum.Without, t, mbpparent: this);
     MainClass.MainWindow.AppendPage(WP100Chart.Create(t), desc);
   }
 
@@ -242,7 +244,7 @@ public partial class WP200Stocks : CsbpBin
   {
     if (!EventsActive)
       return;
-    // refreshAction.Click();
+    //// refreshAction.Click();
   }
 
   /// <summary>Handles Alle.</summary>
@@ -325,17 +327,11 @@ public partial class WP200Stocks : CsbpBin
         return r0;
       });
       r.ThrowAllErrors();
-      Application.Invoke(delegate
-      {
-        refreshAction.Click();
-      });
+      Application.Invoke((sender, e) => { refreshAction.Click(); });
     }
     catch (Exception ex)
     {
-      Application.Invoke(delegate
-      {
-        ShowError(ex.Message);
-      });
+      Application.Invoke((sender, e) => { ShowError(ex.Message); });
     }
     finally
     {

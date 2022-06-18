@@ -31,174 +31,167 @@ using static CSBP.Resources.Messages;
 /// <summary>Main Window.</summary>
 public class MainWindow : Window
 {
-#pragma warning disable CS0649
+#pragma warning disable CS0649, SA1306
 
-  /// <summary>Status-Leiste.</summary>
+  /// <summary>Notebook with all tab dialogs.</summary>
   [Builder.Object]
   private readonly Notebook Notebook;
 
-  /// <summary>Status-Leiste.</summary>
+  /// <summary>Statusbar at the bottom.</summary>
   [Builder.Object]
   private readonly Statusbar Statusbar;
 
-  /// <summary>Menüpunkt Mandanten.</summary>
+  /// <summary>Menu Clients.</summary>
   [Builder.Object]
   private readonly MenuItem MenuClients;
 
-  /// <summary>Menüpunkt Benutzer.</summary>
+  /// <summary>Menu Users.</summary>
   [Builder.Object]
   private readonly MenuItem MenuUsers;
 
-  /// <summary>Menüpunkt Sicherungen.</summary>
+  /// <summary>Menu Backups.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBackups;
 
-  /// <summary>Menüpunkt Anmelden.</summary>
+  /// <summary>Menu Login.</summary>
   [Builder.Object]
   private readonly MenuItem MenuLogin;
 
-  /// <summary>Menüpunkt Abmelden.</summary>
+  /// <summary>Menu Logout.</summary>
   [Builder.Object]
   private readonly MenuItem MenuLogout;
 
-  /// <summary>Menüpunkt Kennwort ändern.</summary>
+  /// <summary>Menu Password change.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPwchange;
 
-  /// <summary>Menüpunkt Einstellungen.</summary>
+  /// <summary>Menu Options.</summary>
   [Builder.Object]
   private readonly MenuItem MenuOptions;
 
-  /// <summary>Menüpunkt Start-Formulare.</summary>
+  /// <summary>Menu Start dialogs.</summary>
   [Builder.Object]
   private readonly MenuItem MenuDialogs;
 
-  /// <summary>Menüpunkt Zurücksetzen.</summary>
+  /// <summary>Menu Reset.</summary>
   [Builder.Object]
   private readonly MenuItem MenuReset;
 
-  /// <summary>Menüpunkt Tagebuch.</summary>
+  /// <summary>Menu Diary.</summary>
   [Builder.Object]
   private readonly MenuItem MenuDiary;
 
-  /// <summary>Menüpunkt Positionen.</summary>
+  /// <summary>Menu Positions.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPositions;
 
-  /// <summary>Menüpunkt Notizen.</summary>
+  /// <summary>Menu Notes.</summary>
   [Builder.Object]
   private readonly MenuItem MenuNotes;
 
-  /// <summary>Menüpunkt Personen/Adressen.</summary>
+  /// <summary>Menu Persons/Addresses.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPersons;
 
-  /// <summary>Menüpunkt Fahrradstände.</summary>
+  /// <summary>Menu Mileages.</summary>
   [Builder.Object]
   private readonly MenuItem MenuMileages;
 
-  /// <summary>Menüpunkt Fahrräder.</summary>
+  /// <summary>Menu Bikes.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBikes;
 
-  /// <summary>Menüpunkt Bücher.</summary>
+  /// <summary>Menu Books.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBooks;
 
-  /// <summary>Menüpunkt Autoren.</summary>
+  /// <summary>Menu Authors.</summary>
   [Builder.Object]
   private readonly MenuItem MenuAuthors;
 
-  /// <summary>Menüpunkt Serien.</summary>
+  /// <summary>Menu Series.</summary>
   [Builder.Object]
   private readonly MenuItem MenuSeries;
 
-  /// <summary>Menüpunkt Statistik.</summary>
+  /// <summary>Menu Statistics.</summary>
   [Builder.Object]
   private readonly MenuItem MenuStatistics;
 
-  /// <summary>Menüpunkt Sudoku.</summary>
+  /// <summary>Menu Sudoku.</summary>
   [Builder.Object]
   private readonly MenuItem MenuSudoku;
 
-  /// <summary>Menüpunkt Buchungen.</summary>
+  /// <summary>Menu Bookings.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBookings;
 
-  /// <summary>Menüpunkt Ereignisse.</summary>
+  /// <summary>Menu Events.</summary>
   [Builder.Object]
   private readonly MenuItem MenuEvents;
 
-  /// <summary>Menüpunkt Konten.</summary>
+  /// <summary>Menu Accounts.</summary>
   [Builder.Object]
   private readonly MenuItem MenuAccounts;
 
-  /// <summary>Menüpunkt Perioden.</summary>
+  /// <summary>Menu Periods.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPeriods;
 
-  /// <summary>Menüpunkt Schlussbilanz.</summary>
+  /// <summary>Menu Final balance.</summary>
   [Builder.Object]
   private readonly MenuItem MenuFinalbalance;
 
-  /// <summary>Menüpunkt Gewinn+Verlust-Rechnung.</summary>
+  /// <summary>Menu Profit loss balance.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPlbalance;
 
-  /// <summary>Menüpunkt Eröffnungsbilanz.</summary>
+  /// <summary>Menu Opening balance.</summary>
   [Builder.Object]
   private readonly MenuItem MenuOpeningbalance;
 
-  /// <summary>Menüpunkt Ahnen.</summary>
+  /// <summary>Menu Ancestors.</summary>
   [Builder.Object]
   private readonly MenuItem MenuAncestors;
 
-  /// <summary>Menüpunkt Familien.</summary>
+  /// <summary>Menu Families.</summary>
   [Builder.Object]
   private readonly MenuItem MenuFamilies;
 
-  /// <summary>Menüpunkt Quellen.</summary>
+  /// <summary>Menu Sources.</summary>
   [Builder.Object]
   private readonly MenuItem MenuSources;
 
-  /// <summary>Menüpunkt Wertpapiere.</summary>
+  /// <summary>Menu Stocks.</summary>
   [Builder.Object]
   private readonly MenuItem MenuStocks;
 
-  /// <summary>Menüpunkt Konfigurationen.</summary>
+  /// <summary>Menu Konfigurations.</summary>
   [Builder.Object]
   private readonly MenuItem MenuConfigurations;
 
-  /// <summary>Menüpunkt Chart.</summary>
+  /// <summary>Menu Chart.</summary>
   [Builder.Object]
   private readonly MenuItem MenuChart;
 
-  /// <summary>Menüpunkt Anlagen.</summary>
+  /// <summary>Menu Investments.</summary>
   [Builder.Object]
   private readonly MenuItem MenuInvestments;
 
-  /// <summary>Menüpunkt Buchungen.</summary>
+  /// <summary>Menu Investments booking.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBookings3;
 
-  /// <summary>Menüpunkt Stände.</summary>
+  /// <summary>Menu Prices.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPrices;
 
-#pragma warning restore CS0649
+#pragma warning restore CS0649, SA1306
 
-  /// <summary>Default Shared Constructor.</summary>
-  /// <returns>A MainWindow.</returns>
-  public static MainWindow Create()
-  {
-    var builder = new Builder("CSBP.GtkGui.MainWindow.glade");
-    return new MainWindow(builder, builder.GetObject("MainWindow").Handle);
-  }
-
-  /// <summary>Konstruktor für Hauptfenster.</summary>
-  /// <param name="builder">Betroffener Builder.</param>
-  /// <param name="handle">Betroffenes Handle.</param>
-  protected MainWindow(Builder builder, IntPtr handle) : base(handle)
+  /// <summary>Initializes a new instance of the <see cref="MainWindow"/> class.</summary>
+  /// <param name="builder">Affected builder.</param>
+  /// <param name="handle">Affected handle.</param>
+  protected MainWindow(Builder builder, IntPtr handle)
+    : base(handle)
   {
     Settings.Default.ApplicationPreferDarkTheme = true;
     builder.Autoconnect(this);
@@ -217,6 +210,7 @@ public class MainWindow : Window
       }
     });
     Icon = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif");
+
     // Icon.Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icon/test.png", "png");
     // this.RenderIconPixbuf("gtk-refresh", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-refresh.png", "png");
     // this.RenderIconPixbuf("gtk-undo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-undo.png", "png");
@@ -238,11 +232,10 @@ public class MainWindow : Window
     // this.RenderIconPixbuf("gtk-goto-last", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-goto-last.png", "png");
     // this.RenderIconPixbuf("gtk-justify-fill", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-justify-fill.png", "png");
     // this.RenderIconPixbuf("gtk-select-color", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-select-color.png", "png");
-
     SetupHandlers();
     var size = Parameter.GetDialogSize(typeof(MainWindow));
-    // WidthRequest = size.Width;
-    // HeightRequest = size.Height;
+    //// WidthRequest = size.Width;
+    //// HeightRequest = size.Height;
     SetSizeRequest(size.Width, size.Height);
     DefaultWidth = size.Width;
     DefaultHeight = size.Height;
@@ -254,24 +247,27 @@ public class MainWindow : Window
     var ob = Observable.FromEvent<SizeAllocatedHandler, SizeAllocatedArgs>(
       h0 =>
       {
-        void h(object sender, SizeAllocatedArgs e) { h0(e); }
-        return h;
+        void H(object sender, SizeAllocatedArgs e)
+        {
+          h0(e);
+        }
+        return H;
       },
       h => SizeAllocated += h, h => SizeAllocated -= h
     ).Throttle(TimeSpan.FromMilliseconds(1000));
     ob.Subscribe(e =>
     {
-      Application.Invoke(delegate
+      Application.Invoke((sender, e1) =>
       {
         if (Window != null && Visible)
         {
           SetSizeRequest(0, 0);
           Window.GetGeometry(out int x0, out int y0, out int w, out int h);
           Window.GetOrigin(out int x, out int y);
-          // Höhe der Titelleiste abziehen
+          //// Höhe der Titelleiste abziehen
           Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y - CsbpBin.TitleHeight, w, h));
-          //Console.WriteLine($"{x} {y} {w} {h}");
-          //Console.WriteLine($"{DateTime.Now}");
+          //// Console.WriteLine($"{x} {y} {w} {h}");
+          //// Console.WriteLine($"{DateTime.Now}");
         }
       });
     });
@@ -289,43 +285,12 @@ public class MainWindow : Window
     };
   }
 
-  /// <summary>Hauptfenster wieder zurücksetzen.</summary>
-  public void Reset()
+  /// <summary>Creates main window.</summary>
+  /// <returns>The MainWindow.</returns>
+  public static MainWindow Create()
   {
-    Application.Invoke(delegate
-    {
-      if (Window != null)
-      {
-        Hide();
-        SetPosition(WindowPosition.Center);
-        SetSizeRequest(400, 300);
-        ShowAll();
-      }
-    });
-  }
-
-  /// <summary>
-  /// Liefert alle Kindelemente eines Containers als Liste.
-  /// </summary>
-  /// <param name="con">Betroffener Container.</param>
-  /// <param name="l">Falls nicht null, wird diese Liste ergänzt.</param>
-  /// <returns>Liste mit Kindelementen.</returns>
-  private List<Widget> GetChildren(Container con = null, List<Widget> l = null)
-  {
-    if (con == null)
-      con = this;
-    if (l == null)
-      l = new List<Widget>();
-    var array = con.Children;
-    foreach (var c in array)
-    {
-      l.Add(c);
-      if (c is Container)
-        GetChildren(c as Container, l);
-      if (c is MenuItem && (c as MenuItem).Submenu is Menu)
-        GetChildren((c as MenuItem).Submenu as Container, l);
-    }
-    return l;
+    var builder = new Builder("CSBP.GtkGui.MainWindow.glade");
+    return new MainWindow(builder, builder.GetObject("MainWindow").Handle);
   }
 
   /// <summary>Starten der Anmeldung und der Tabs.</summary>
@@ -336,8 +301,9 @@ public class MainWindow : Window
     MainClass.InitDb(new ServiceDaten(0, "Admin"));
 #if DEBUG
     var username = Environment.UserName;
-    MainClass.Login(new ServiceDaten(1, username.ToFirstUpper())); // Automatische Anmeldung mit aktuellem Benutzer.
-                                                                   // MainClass.Login(new ServiceDaten(3, "Wolfgang"));
+    //// Automatic login with current user.
+    MainClass.Login(new ServiceDaten(1, username.ToFirstUpper()));
+    //// MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
       var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
       var r = FactoryService.LoginService.IsWithoutPassword(daten);
@@ -346,6 +312,7 @@ public class MainWindow : Window
       else
         CsbpBin.Start(typeof(AM000Login), AM000_title, p: p, modal: true);
 #endif
+
     // MenuClients.Activate();
     // MenuUsers.Activate();
     // MenuBackups.Activate();
@@ -380,6 +347,21 @@ public class MainWindow : Window
     // MenuPrices.Activate();
   }
 
+  /// <summary>Resets the main window position and size.</summary>
+  public void Reset()
+  {
+    Application.Invoke((sender, e) =>
+    {
+      if (Window != null)
+      {
+        Hide();
+        SetPosition(WindowPosition.Center);
+        SetSizeRequest(400, 300);
+        ShowAll();
+      }
+    });
+  }
+
   /// <summary>
   /// Aktualisieren des Anwendungstitels.
   /// </summary>
@@ -398,7 +380,8 @@ public class MainWindow : Window
   /// <summary>
   /// Set permissions for application.
   /// </summary>
-  /// <param name="b">Is user logged in?</param>
+  /// <param name="b">Is user logged in or not.</param>
+  /// <param name="per">Affected optional permission.</param>
   public void SetPermission(bool b = false, int per = (int)PermissionEnum.Without)
   {
     RefreshTitle();
@@ -456,7 +439,7 @@ public class MainWindow : Window
     if (string.IsNullOrWhiteSpace(e))
     {
       Statusbar.Pop(contextid);
-      // Statusbar.Remove(contextid, 2);
+      //// Statusbar.Remove(contextid, 2);
     }
     else
     {
@@ -505,11 +488,11 @@ public class MainWindow : Window
       var l = new Label
       {
         UseMarkup = true,
-        Markup = $"<span size='small'>{title}</span> <span color='red' size='large'>x</span>"
+        Markup = $"<span size='small'>{title}</span> <span color='red' size='large'>x</span>",
       };
       var eb = new EventBox
         {
-          l
+          l,
         };
       eb.Events = Gdk.EventMask.ButtonPressMask;
       eb.ButtonPressEvent += (object sender, ButtonPressEventArgs e) =>
@@ -565,7 +548,8 @@ public class MainWindow : Window
   /// </summary>
   /// <typeparam name="T">Betroffener Dialog-Type.</typeparam>
   /// <returns>Betroffene Dialog-Instanz.</returns>
-  public T FocusPage<T>() where T : Widget
+  public T FocusPage<T>()
+    where T : Widget
   {
     for (var i = 0; i < Notebook.NPages; i++)
     {
@@ -579,7 +563,25 @@ public class MainWindow : Window
     return null;
   }
 
-  #region Handlers
+  /// <summary>
+  /// Get the .NET version.
+  /// </summary>
+  /// <returns>.NET version as string.</returns>
+  protected static string GetNetCoreVersion()
+  {
+    var assembly = typeof(System.Runtime.GCSettings).GetTypeInfo().Assembly;
+    var assemblyPath = assembly.Location.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
+    int netCoreAppIndex = Array.IndexOf(assemblyPath, "Microsoft.NETCore.App");
+    if (netCoreAppIndex > 0 && netCoreAppIndex < assemblyPath.Length - 2)
+    {
+      // e.g. 6.0.5
+      return assemblyPath[netCoreAppIndex + 1];
+      //// return null;
+    }
+    var ver = Assembly.GetEntryAssembly()?.GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?.FrameworkName;
+    //// e.g. .NETCoreApp,Version=v6.0
+    return ver;
+  }
 
   /// <summary>Initialisierung der Events.</summary>
   protected void SetupHandlers()
@@ -587,7 +589,7 @@ public class MainWindow : Window
     DeleteEvent += OnDeleteEvent;
   }
 
-  /// <summary>Menüpunkt Rückgängig.</summary>
+  /// <summary>Menu Rückgängig.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuUndo(object sender, EventArgs e)
@@ -595,7 +597,7 @@ public class MainWindow : Window
     MainClass.Undo();
   }
 
-  /// <summary>Menüpunkt Wiederherstellen.</summary>
+  /// <summary>Menu Wiederherstellen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuRedo(object sender, EventArgs e)
@@ -603,7 +605,7 @@ public class MainWindow : Window
     MainClass.Redo();
   }
 
-  /// <summary>Menüpunkt Mandanten.</summary>
+  /// <summary>Menu Mandanten.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuClients(object sender, EventArgs e)
@@ -611,7 +613,7 @@ public class MainWindow : Window
     AppendPage(AG100Clients.Create(), AG100_title);
   }
 
-  /// <summary>Menüpunkt Benutzer.</summary>
+  /// <summary>Menu Benutzer.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuUsers(object sender, EventArgs e)
@@ -619,7 +621,7 @@ public class MainWindow : Window
     AppendPage(AG200Users.Create(), AG200_title);
   }
 
-  /// <summary>Menüpunkt Sicherungen.</summary>
+  /// <summary>Menu Sicherungen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuBackups(object sender, EventArgs e)
@@ -627,7 +629,7 @@ public class MainWindow : Window
     AppendPage(AG400Backups.Create(), AG400_title);
   }
 
-  /// <summary>Menüpunkt Schließen der Anwendung.</summary>
+  /// <summary>Menu Schließen der Anwendung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuQuit(object sender, EventArgs e)
@@ -635,16 +637,16 @@ public class MainWindow : Window
     MainClass.Quit();
   }
 
-  /// <summary>Menüpunkt Anmeldung.</summary>
+  /// <summary>Menu Anmeldung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuLogin(object sender, EventArgs e)
   {
-    //AppendPage(AM000Login.Create(), AM000_title);
+    //// AppendPage(AM000Login.Create(), AM000_title);
     CsbpBin.Start(typeof(AM000Login), AM000_title, modal: true);
   }
 
-  /// <summary>Menüpunkt Abmeldung.</summary>
+  /// <summary>Menu Abmeldung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuLogout(object sender, EventArgs e)
@@ -653,7 +655,7 @@ public class MainWindow : Window
     MainClass.Logout();
   }
 
-  /// <summary>Menüpunkt Kennwort-Änderung.</summary>
+  /// <summary>Menu Kennwort-Änderung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuPwchange(object sender, EventArgs e)
@@ -661,7 +663,7 @@ public class MainWindow : Window
     CsbpBin.Start(typeof(AM100Change), AM100_title, modal: true);
   }
 
-  /// <summary>Menüpunkt Einstellungen.</summary>
+  /// <summary>Menu Einstellungen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuOptions(object sender, EventArgs e)
@@ -669,7 +671,7 @@ public class MainWindow : Window
     CsbpBin.Start(typeof(AM500Options), AM500_title, modal: true);
   }
 
-  /// <summary>Menüpunkt Start-Formulare.</summary>
+  /// <summary>Menu Start-Formulare.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuDialogs(object sender, EventArgs e)
@@ -677,7 +679,7 @@ public class MainWindow : Window
     CsbpBin.Start(typeof(AM510Dialogs), AM510_title, modal: true);
   }
 
-  /// <summary>Menüpunkt Dialoge zurücksetzen.</summary>
+  /// <summary>Menu Dialoge zurücksetzen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuReset(object sender, EventArgs e)
@@ -685,7 +687,7 @@ public class MainWindow : Window
     Parameter.ResetDialogSizes();
   }
 
-  /// <summary>Menüpunkt Tagebuch.</summary>
+  /// <summary>Menu Tagebuch.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuDiary(object sender, EventArgs e)
@@ -693,7 +695,7 @@ public class MainWindow : Window
     AppendPage(TB100Diary.Create(), TB100_title);
   }
 
-  /// <summary>Menüpunkt Positionen.</summary>
+  /// <summary>Menu Positionen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuPositions(object sender, EventArgs e)
@@ -701,7 +703,7 @@ public class MainWindow : Window
     AppendPage(TB200Positions.Create(), TB200_title);
   }
 
-  /// <summary>Menüpunkt Notizen.</summary>
+  /// <summary>Menu Notizen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuNotes(object sender, EventArgs e)
@@ -709,7 +711,7 @@ public class MainWindow : Window
     AppendPage(FZ700Memos.Create(), FZ700_title);
   }
 
-  /// <summary>Menüpunkt Personen/Adressen.</summary>
+  /// <summary>Menu Personen/Adressen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuPersons(object sender, EventArgs e)
@@ -717,7 +719,7 @@ public class MainWindow : Window
     AppendPage(AD100Persons.Create(), AD100_title);
   }
 
-  /// <summary>Menüpunkt Fahrradstände.</summary>
+  /// <summary>Menu Fahrradstände.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuMileages(object sender, EventArgs e)
@@ -725,7 +727,7 @@ public class MainWindow : Window
     AppendPage(FZ250Mileages.Create(), FZ250_title);
   }
 
-  /// <summary>Menüpunkt Fahrraäder.</summary>
+  /// <summary>Menu Fahrraäder.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuBikes(object sender, EventArgs e)
@@ -733,7 +735,7 @@ public class MainWindow : Window
     AppendPage(FZ200Bikes.Create(), FZ200_title);
   }
 
-  /// <summary>Menüpunkt Bücher.</summary>
+  /// <summary>Menu Bücher.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuBooks(object sender, EventArgs e)
@@ -741,7 +743,7 @@ public class MainWindow : Window
     AppendPage(FZ340Books.Create(), FZ340_title);
   }
 
-  /// <summary>Menüpunkt Autoren.</summary>
+  /// <summary>Menu Autoren.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuAuthors(object sender, EventArgs e)
@@ -749,7 +751,7 @@ public class MainWindow : Window
     AppendPage(FZ300Authors.Create(), FZ300_title);
   }
 
-  /// <summary>Menüpunkt Serien.</summary>
+  /// <summary>Menu Serien.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuSeries(object sender, EventArgs e)
@@ -757,7 +759,7 @@ public class MainWindow : Window
     AppendPage(FZ320Series.Create(), FZ320_title);
   }
 
-  /// <summary>Menüpunkt Statistik.</summary>
+  /// <summary>Menu Statistik.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuStatistics(object sender, EventArgs e)
@@ -765,7 +767,7 @@ public class MainWindow : Window
     AppendPage(FZ100Statistics.Create(), FZ100_title);
   }
 
-  /// <summary>Menüpunkt Sudoku.</summary>
+  /// <summary>Menu Sudoku.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuSudoku(object sender, EventArgs e)
@@ -773,7 +775,7 @@ public class MainWindow : Window
     AppendPage(SO100Sudoku.Create(), SO100_title);
   }
 
-  /// <summary>Menüpunkt Buchungen.</summary>
+  /// <summary>Menu Buchungen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuBookings(object sender, EventArgs e)
@@ -781,7 +783,7 @@ public class MainWindow : Window
     AppendPage(HH400Bookings.Create(), HH400_title);
   }
 
-  /// <summary>Menüpunkt Ereignisse.</summary>
+  /// <summary>Menu Ereignisse.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuEvents(object sender, EventArgs e)
@@ -789,7 +791,7 @@ public class MainWindow : Window
     AppendPage(HH300Events.Create(), HH300_title);
   }
 
-  /// <summary>Menüpunkt Konten.</summary>
+  /// <summary>Menu Konten.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuAccounts(object sender, EventArgs e)
@@ -797,7 +799,7 @@ public class MainWindow : Window
     AppendPage(HH200Accounts.Create(), HH200_title);
   }
 
-  /// <summary>Menüpunkt Perioden.</summary>
+  /// <summary>Menu Perioden.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuPeriods(object sender, EventArgs e)
@@ -805,7 +807,7 @@ public class MainWindow : Window
     AppendPage(HH100Periods.Create(), HH100_title);
   }
 
-  /// <summary>Menüpunkt Schlussbilanz.</summary>
+  /// <summary>Menu Schlussbilanz.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuFinalbalance(object sender, EventArgs e)
@@ -813,7 +815,7 @@ public class MainWindow : Window
     AppendPage(HH500Balance.Create(Constants.KZBI_SCHLUSS), HH500_title_SB);
   }
 
-  /// <summary>Menüpunkt Gewinn+Verlust-Rechnung.</summary>
+  /// <summary>Menu Gewinn+Verlust-Rechnung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuPlbalance(object sender, EventArgs e)
@@ -821,7 +823,7 @@ public class MainWindow : Window
     AppendPage(HH500Balance.Create(Constants.KZBI_GV), HH500_title_GV);
   }
 
-  /// <summary>Menüpunkt Eröffnungsbilanz.</summary>
+  /// <summary>Menu Eröffnungsbilanz.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuOpeningbalance(object sender, EventArgs e)
@@ -829,7 +831,7 @@ public class MainWindow : Window
     AppendPage(HH500Balance.Create(Constants.KZBI_EROEFFNUNG), HH500_title_EB);
   }
 
-  /// <summary>Menüpunkt Ahnen.</summary>
+  /// <summary>Menu Ahnen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuAncestors(object sender, EventArgs e)
@@ -837,7 +839,7 @@ public class MainWindow : Window
     AppendPage(SB200Ancestors.Create(), SB200_title);
   }
 
-  /// <summary>Menüpunkt Familien.</summary>
+  /// <summary>Menu Familien.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuFamilies(object sender, EventArgs e)
@@ -845,7 +847,7 @@ public class MainWindow : Window
     AppendPage(SB300Families.Create(), SB300_title);
   }
 
-  /// <summary>Menüpunkt Quellen.</summary>
+  /// <summary>Menu Quellen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuSources(object sender, EventArgs e)
@@ -853,7 +855,7 @@ public class MainWindow : Window
     AppendPage(SB400Sources.Create(), SB400_title);
   }
 
-  /// <summary>Menüpunkt Wertpapiere.</summary>
+  /// <summary>Menu Wertpapiere.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuStocks(object sender, EventArgs e)
@@ -861,7 +863,7 @@ public class MainWindow : Window
     AppendPage(WP200Stocks.Create(), WP200_title);
   }
 
-  /// <summary>Menüpunkt Konfigurationen.</summary>
+  /// <summary>Menu Konfigurationen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuConfigurations(object sender, EventArgs e)
@@ -869,7 +871,7 @@ public class MainWindow : Window
     AppendPage(WP300Configurations.Create(), WP300_title);
   }
 
-  /// <summary>Menüpunkt Chart.</summary>
+  /// <summary>Menu Chart.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuChart(object sender, EventArgs e)
@@ -877,7 +879,7 @@ public class MainWindow : Window
     AppendPage(WP100Chart.Create(), WP100_title);
   }
 
-  /// <summary>Menüpunkt Anlagen.</summary>
+  /// <summary>Menu Anlagen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuInvestments(object sender, EventArgs e)
@@ -885,7 +887,7 @@ public class MainWindow : Window
     AppendPage(WP250Investments.Create(), WP250_title);
   }
 
-  /// <summary>Menüpunkt Buchungen.</summary>
+  /// <summary>Menu Buchungen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuBookings3(object sender, EventArgs e)
@@ -893,7 +895,7 @@ public class MainWindow : Window
     AppendPage(WP400Bookings.Create(), WP400_title);
   }
 
-  /// <summary>Menüpunkt Stände.</summary>
+  /// <summary>Menu Stände.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuPrices(object sender, EventArgs e)
@@ -901,23 +903,7 @@ public class MainWindow : Window
     AppendPage(WP500Prices.Create(), WP500_title);
   }
 
-  /// <summary>
-  /// Get the .NET version.
-  /// </summary>
-  /// <returns>.NET version as string.</returns>
-  public static string GetNetCoreVersion()
-  {
-    var assembly = typeof(System.Runtime.GCSettings).GetTypeInfo().Assembly;
-    var assemblyPath = assembly.Location.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
-    int netCoreAppIndex = Array.IndexOf(assemblyPath, "Microsoft.NETCore.App");
-    if (netCoreAppIndex > 0 && netCoreAppIndex < assemblyPath.Length - 2)
-      return assemblyPath[netCoreAppIndex + 1]; // e.g. 5.0.13
-                                                // return null;
-    var ver = Assembly.GetEntryAssembly()?.GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?.FrameworkName;
-    return ver; // e.g. .NETCoreApp,Version=v6.0
-  }
-
-  /// <summary>Menüpunkt Über.</summary>
+  /// <summary>Menu Über.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuAbout(object sender, EventArgs e)
@@ -935,7 +921,7 @@ public class MainWindow : Window
 Database: {db}
 Client: {daten.MandantNr} User: {daten.BenutzerId}",
       Website = "https://cwkuehl.de",
-      Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif")
+      Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif"),
     };
     about.Run();
     about.Hide();
@@ -952,11 +938,33 @@ Client: {daten.MandantNr} User: {daten.BenutzerId}",
   /// <summary>Schließen des Fensters und der Anwendung.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+  protected void OnDeleteEvent(object sender, DeleteEventArgs e)
   {
     MainClass.Quit();
-    a.RetVal = true;
+    e.RetVal = true;
   }
 
-  #endregion
+  /// <summary>
+  /// Liefert alle Kindelemente eines Containers als Liste.
+  /// </summary>
+  /// <param name="con">Betroffener Container.</param>
+  /// <param name="l">Falls nicht null, wird diese Liste ergänzt.</param>
+  /// <returns>Liste mit Kindelementen.</returns>
+  private List<Widget> GetChildren(Container con = null, List<Widget> l = null)
+  {
+    if (con == null)
+      con = this;
+    if (l == null)
+      l = new List<Widget>();
+    var array = con.Children;
+    foreach (var c in array)
+    {
+      l.Add(c);
+      if (c is Container)
+        GetChildren(c as Container, l);
+      if (c is MenuItem && (c as MenuItem).Submenu is Menu)
+        GetChildren((c as MenuItem).Submenu as Container, l);
+    }
+    return l;
+  }
 }

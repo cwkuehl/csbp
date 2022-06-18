@@ -18,12 +18,6 @@ using static CSBP.Resources.Messages;
 /// <summary>Controller for WP100Chart dialog.</summary>
 public partial class WP100Chart : CsbpBin
 {
-  /// <summary>Dialog model.</summary>
-  private Tuple<DateTime?, string, string> Model;
-
-  /// <summary>Chart model.</summary>
-  private PnfChart Chart;
-
 #pragma warning disable CS0649
 
   /// <summary>Button RefreshAction.</summary>
@@ -35,11 +29,11 @@ public partial class WP100Chart : CsbpBin
   private readonly TreeView data;
 
   /// <summary>Date Von.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date von;
 
   /// <summary>Date Bis.</summary>
-  //[Builder.Object]
+  //// [Builder.Object]
   private readonly Date bis;
 
   /// <summary>Label wertpapier0.</summary>
@@ -76,23 +70,19 @@ public partial class WP100Chart : CsbpBin
 
 #pragma warning restore CS0649
 
-  /// <summary>Erstellen des nicht-modalen Dialogs.</summary>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
-  public static WP100Chart Create(object p1 = null, CsbpBin p = null)
-  {
-    return new WP100Chart(GetBuilder("WP100Chart", out var handle), handle, p1: p1, p: p);
-  }
+  /// <summary>Dialog model.</summary>
+  private Tuple<DateTime?, string, string> model;
 
-  /// <summary>Konstruktor für modalen Dialog.</summary>
-  /// <param name="b">Betroffener Builder.</param>
-  /// <param name="h">Betroffenes Handle vom Builder.</param>
-  /// <param name="d">Betroffener einbettender Dialog.</param>
-  /// <param name="dt">Betroffener Dialogtyp.</param>
-  /// <param name="p1">1. Parameter für Dialog.</param>
-  /// <param name="p">Betroffener Eltern-Dialog.</param>
-  /// <returns>Nicht-modalen Dialogs.</returns>
+  /// <summary>Chart model.</summary>
+  private PnfChart chart;
+
+  /// <summary>Initializes a new instance of the <see cref="WP100Chart"/> class.</summary>
+  /// <param name="b">Affected Builder.</param>
+  /// <param name="h">Affected handle from Builder.</param>
+  /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="dt">Affected dialog type.</param>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
   public WP100Chart(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, dt, p1, p)
   {
@@ -100,7 +90,7 @@ public partial class WP100Chart : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     von.DateChanged += OnVonDateChanged;
     von.Show();
@@ -108,15 +98,24 @@ public partial class WP100Chart : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = false
+      IsCalendarOpen = false,
     };
     bis.DateChanged += OnBisDateChanged;
     bis.Show();
-    //chartpane.Draw += ChartpaneDraw;
+    //// chartpane.Draw += ChartpaneDraw;
     SetBold(wertpapier0);
     SetBold(methode0);
     InitData(0);
     data.GrabFocus();
+  }
+
+  /// <summary>Creates non modal dialog.</summary>
+  /// <param name="p1">1. parameter for dialog.</param>
+  /// <param name="p">Affected parent dialog.</param>
+  /// <returns>Created dialog.</returns>
+  public static WP100Chart Create(object p1 = null, CsbpBin p = null)
+  {
+    return new WP100Chart(GetBuilder("WP100Chart", out var handle), handle, p1: p1, p: p);
   }
 
   /// <summary>Initialises model data.</summary>
@@ -126,21 +125,21 @@ public partial class WP100Chart : CsbpBin
     var daten = ServiceDaten;
     if (step <= 0)
     {
-      if (Model == null)
-        Model = Parameter1 as Tuple<DateTime?, string, string>;
+      if (model == null)
+        model = Parameter1 as Tuple<DateTime?, string, string>;
       var rl = Get(FactoryService.StockService.GetStockList(daten, true)) ?? new List<WpWertpapier>();
       var rs = AddColumns(wertpapier);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
       AddColumns(skala, Get(FactoryService.StockService.GetScaleList(daten)));
       AddColumns(methode, Get(FactoryService.StockService.GetMethodList(daten)));
-      var d = Model != null && Model.Item1.HasValue ? Model.Item1.Value : daten.Heute;
+      var d = model != null && model.Item1.HasValue ? model.Item1.Value : daten.Heute;
       bis.Value = d;
-      var k = Get(FactoryService.StockService.GetConfiguration(daten, Model?.Item3, true));
+      var k = Get(FactoryService.StockService.GetConfiguration(daten, model?.Item3, true));
       von.Value = d.AddDays(-k.Duration);
-      if (Model != null)
+      if (model != null)
       {
-        SetText(wertpapier, Model.Item2);
+        SetText(wertpapier, model.Item2);
       }
       box.Text = Functions.ToString(k.Box);
       SetText(skala, k.Scale.ToString());
@@ -153,25 +152,28 @@ public partial class WP100Chart : CsbpBin
       var wpuid = GetText(wertpapier);
       var l = Get(FactoryService.StockService.GetPriceList(ServiceDaten, von.Value ?? daten.Heute,
         bis.Value ?? daten.Heute, wpuid, relativ.Active));
-      // Datum;Open;High;Low;Close
+      //// Date;Date;Open_r;High_r;Low_r;Close_r
       var values = new List<string[]>();
       if (l != null)
       {
         foreach (var e in l)
         {
-          values.Add(new string[] { Functions.ToString(e.Datum), Functions.ToString(e.Datum), Functions.ToString(e.Open),
-              Functions.ToString(e.High), Functions.ToString(e.Low), Functions.ToString(e.Close) });
+          values.Add(new string[]
+          {
+            Functions.ToString(e.Datum), Functions.ToString(e.Datum), Functions.ToString(e.Open),
+            Functions.ToString(e.High), Functions.ToString(e.Low), Functions.ToString(e.Close),
+          });
         }
       }
       AddStringColumnsSort(data, WP100_daten_columns, values);
       var wp = Get(FactoryService.StockService.GetStock(ServiceDaten, wpuid));
       if (wp != null)
       {
-        Chart = new PnfChart(Functions.ToInt32(GetText(methode)), Functions.ToDecimal(box.Text) ?? 0,
+        chart = new PnfChart(Functions.ToInt32(GetText(methode)), Functions.ToDecimal(box.Text) ?? 0,
           Functions.ToInt32(GetText(skala)), Functions.ToInt32(umkehr.Text), wp.Bezeichnung);
-        Chart.AddKurse(l);
+        chart.AddKurse(l);
       }
-      // chartpane.QueueDraw();
+      //// chartpane.QueueDraw();
     }
   }
 
@@ -270,6 +272,7 @@ public partial class WP100Chart : CsbpBin
     var c = e.Cr;
     var w = da.Window.Width;
     var h = da.Window.Height;
+
     // System.Diagnostics.Debug.WriteLine($"{w} {h}");
     // c.SetSourceRGBA(1, 0, 0, 1);
     // c.LineWidth = 1;
@@ -280,6 +283,6 @@ public partial class WP100Chart : CsbpBin
     // c.LineTo(0, 0);
     // c.Stroke();
     // var d = Chart.ComputeDimension(w, h);
-    ChartPane.DrawChart(Chart, c, w, h);
+    ChartPane.DrawChart(chart, c, w, h);
   }
 }
