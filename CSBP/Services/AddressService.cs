@@ -424,10 +424,10 @@ public class AddressService : ServiceBase, IAddressService
   }
 
   /// <summary>
-  /// Gets an address report.
+  /// Gets an address report as html document in bytes.
   /// </summary>
-  /// <returns>An address report.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>Address report as html document in bytes.</returns>
   public ServiceErgebnis<byte[]> GetAddressReport(ServiceDaten daten)
   {
     var r = new ServiceErgebnis<byte[]>();

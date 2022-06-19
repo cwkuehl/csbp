@@ -71,39 +71,39 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <param name="name">Affected name.</param>
   /// <param name="vorname">Affected first names.</param>
   /// <param name="gebname">Affected birth name.</param>
-  /// <param name="geschlecht"></param>
-  /// <param name="titel"></param>
-  /// <param name="konfession"></param>
-  /// <param name="bemerkung"></param>
-  /// <param name="quid"></param>
-  /// <param name="status1"></param>
-  /// <param name="status2"></param>
-  /// <param name="status3"></param>
-  /// <param name="geburtsdatum"></param>
-  /// <param name="geburtsort"></param>
-  /// <param name="geburtsbem"></param>
-  /// <param name="geburtsQuelle"></param>
-  /// <param name="taufdatum"></param>
-  /// <param name="taufort"></param>
-  /// <param name="taufbem"></param>
-  /// <param name="taufQuelle"></param>
-  /// <param name="todesdatum"></param>
-  /// <param name="todesort"></param>
-  /// <param name="todesbem"></param>
-  /// <param name="todesQuelle"></param>
-  /// <param name="begraebnisdatum"></param>
-  /// <param name="begraebnisort"></param>
-  /// <param name="begraebnisbem"></param>
-  /// <param name="begraebnisQuelle"></param>
-  /// <param name="gatteNeu"></param>
-  /// <param name="vaterUidNeu"></param>
-  /// <param name="mutterUidNeu"></param>
-  /// <param name="byteliste"></param>
+  /// <param name="geschlecht">Affected gender.</param>
+  /// <param name="titel">Affected title.</param>
+  /// <param name="konfession">Affected confession.</param>
+  /// <param name="bemerkung">Affected memo.</param>
+  /// <param name="quid">Affected source id.</param>
+  /// <param name="status1">Affected state 1.</param>
+  /// <param name="status2">Affected state 2.</param>
+  /// <param name="status3">Affected state 3.</param>
+  /// <param name="geburtsdatum">Affected birth day.</param>
+  /// <param name="geburtsort">Affected birth place.</param>
+  /// <param name="geburtsbem">Affected birth memo.</param>
+  /// <param name="geburtsQuelle">Affected birth source.</param>
+  /// <param name="taufdatum">Affected baptist date.</param>
+  /// <param name="taufort">Affected baptist place.</param>
+  /// <param name="taufbem">Affected baptist memo.</param>
+  /// <param name="taufQuelle">Affected baptist source.</param>
+  /// <param name="todesdatum">Affected death date.</param>
+  /// <param name="todesort">Affected deatch place.</param>
+  /// <param name="todesbem">Affected death memo.</param>
+  /// <param name="todesQuelle">Affected deatch source.</param>
+  /// <param name="begraebnisdatum">Affected funeral date.</param>
+  /// <param name="begraebnisort">Affected funeral place.</param>
+  /// <param name="begraebnisbem">Affected funeral memo.</param>
+  /// <param name="begraebnisQuelle">Affected funeral source.</param>
+  /// <param name="gatteNeu">New spouce uid.</param>
+  /// <param name="vaterUidNeu">New father uid.</param>
+  /// <param name="mutterUidNeu">New mother uid.</param>
+  /// <param name="byteliste">List of pictured and descriptions.</param>
   /// <returns>Created or changed ancestor.</returns>
   public ServiceErgebnis<SbPerson> SaveAncestor(ServiceDaten daten, string uid, string name, string vorname,
     string gebname, string geschlecht, string titel, string konfession, string bemerkung, string quid, int status1,
     int status2, int status3, string geburtsdatum, string geburtsort, string geburtsbem, string geburtsQuelle,
-    string taufdatum, string taufort, string taufbem, String taufQuelle, string todesdatum, string todesort,
+    string taufdatum, string taufort, string taufbem, string taufQuelle, string todesdatum, string todesort,
     string todesbem, string todesQuelle, string begraebnisdatum, string begraebnisort, string begraebnisbem,
     string begraebnisQuelle, string gatteNeu, string vaterUidNeu, string mutterUidNeu, List<ByteDaten> byteliste)
   {
@@ -112,7 +112,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       r.Errors.Add(Message.New(SB001));
     if (!string.IsNullOrEmpty(gatteNeu) && (!string.IsNullOrEmpty(vaterUidNeu) || !string.IsNullOrEmpty(mutterUidNeu)))
       r.Errors.Add(Message.New(SB002));
-    // Typ prüfen
+    //// Typ prüfen
     var gesch = N(geschlecht);
     var g = (GenderEnum)gesch;
     if (g == GenderEnum.MANN)
@@ -226,7 +226,6 @@ public class PedigreeService : ServiceBase, IPedigreeService
     }
     return r;
   }
-
 
   /// <summary>
   /// Gets all spouses of the ancestor.
@@ -387,10 +386,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <returns>List of sources.</returns>
   public ServiceErgebnis<List<SbQuelle>> GetSourceList(ServiceDaten daten)
   {
-    var r = new ServiceErgebnis<List<SbQuelle>>
-    {
-      Ergebnis = SbQuelleRep.GetList(daten, daten.MandantNr)
-    };
+    var r = new ServiceErgebnis<List<SbQuelle>>(SbQuelleRep.GetList(daten, daten.MandantNr));
     return r;
   }
 
@@ -402,10 +398,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <returns>Source or null.</returns>
   public ServiceErgebnis<SbQuelle> GetSource(ServiceDaten daten, string uid)
   {
-    var r = new ServiceErgebnis<SbQuelle>
-    {
-      Ergebnis = SbQuelleRep.Get(daten, daten.MandantNr, uid)
-    };
+    var r = new ServiceErgebnis<SbQuelle>(SbQuelleRep.Get(daten, daten.MandantNr, uid));
     return r;
   }
 
@@ -450,15 +443,15 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 
   /// <summary>
-  /// Liefert den Ahnenbericht als PDF-Dokument in Bytes.
+  /// Gets ancestor report as pdf file in bytes.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="uid">Affected Ahnancestor uid.</param>
   /// <param name="generations">Number of generations.</param>
-  /// <param name="siblings">With siblings?</param>
-  /// <param name="descendants">List of descendants?</param>
-  /// <param name="forbears">List of forbears?</param>
-  /// <returns>Ahnenbericht als PDF-Dokument in Bytes.</returns>
+  /// <param name="siblings">With siblings or not.</param>
+  /// <param name="descendants">List of descendants or not.</param>
+  /// <param name="forbears">List of forbears or not.</param>
+  /// <returns>Ancestor report as pdf file in bytes.</returns>
   public ServiceErgebnis<byte[]> GetAncestorReport(ServiceDaten daten, string uid, int generations, bool siblings, bool descendants, bool forbears)
   {
     // Nachfahren-Liste

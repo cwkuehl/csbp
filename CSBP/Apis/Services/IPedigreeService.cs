@@ -219,7 +219,7 @@ public interface IPedigreeService
   ServiceErgebnis DeleteSource(ServiceDaten daten, SbQuelle e);
 
   /// <summary>
-  /// Gets the ancestor report as pdf document in bytes.
+  /// Gets the ancestor report as html document in bytes.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="uid">Affected Ahnancestor uid.</param>

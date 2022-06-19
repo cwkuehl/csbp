@@ -265,26 +265,26 @@ public interface IBudgetService
   ServiceErgebnis SwapAccountSort(ServiceDaten daten, string auid, string auid2);
 
   /// <summary>
-  /// Gets the annual report as pdf document in bytes.
+  /// Gets the annual report as html document in bytes.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="from">Betroffenes Anfangsdatum.</param>
-  /// <param name="to">Betroffenes Enddatum.</param>
-  /// <param name="title">Betroffener Titel.</param>
-  /// <param name="ob">Betroffene Eröffnungsbilanz einschließen.</param>
-  /// <param name="pl">Betroffene Gewinn+Verlust-Rechnung einschließen.</param>
-  /// <param name="fb">Betroffene Schlussbilanz einschließen.</param>
-  /// <returns>Jahresbericht als PDF-Dokument in Bytes.</returns>
+  /// <param name="from">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
+  /// <param name="title">Affected title.</param>
+  /// <param name="ob">With opening balance of not.</param>
+  /// <param name="pl">With profit loss balance or not.</param>
+  /// <param name="fb">With final balance or not.</param>
+  /// <returns>Annual report as html document in bytes.</returns>
   ServiceErgebnis<byte[]> GetAnnualReport(ServiceDaten daten, DateTime from, DateTime to, string title, bool ob, bool pl, bool fb);
 
   /// <summary>
-  /// Gets the cash report as pdf document in bytes.
+  /// Gets the cash report as html document in bytes.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="from">Betroffenes Anfangsdatum.</param>
-  /// <param name="to">Betroffenes Enddatum.</param>
-  /// <param name="title">Betroffener Titel.</param>
-  /// <returns>Kassenbericht als PDF-Dokument in Bytes.</returns>
+  /// <param name="from">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
+  /// <param name="title">Affected title.</param>
+  /// <returns>Cash report as html document in bytes.</returns>
   ServiceErgebnis<byte[]> GetCashReport(ServiceDaten daten, DateTime from, DateTime to, string title);
 
   /// <summary>

@@ -16,16 +16,15 @@ public interface IAddressService
   /// <summary>
   /// Gets list of birthdays.
   /// </summary>
-  /// <returns>List of birthdays.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="date">Affected date.</param>
   /// <param name="days">Affected number of days.</param>
+  /// <returns>List of birthdays.</returns>
   ServiceErgebnis<List<string>> GetBirthdayList(ServiceDaten daten, DateTime date, int days);
 
   /// <summary>
   /// Gets list of sites with persons and addresses.
   /// </summary>
-  /// <returns>List of sites.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="actual">Only actual persons or not.</param>
   /// <param name="search">Affected search string.</param>
@@ -33,15 +32,16 @@ public interface IAddressService
   /// <param name="firstname">Affected first name.</param>
   /// <param name="puid">Affected person ID.</param>
   /// <param name="suid">Affected site ID.</param>
+  /// <returns>List of sites.</returns>
   ServiceErgebnis<List<AdSitz>> GetPersonList(ServiceDaten daten, bool actual, string search = null,
     string name = null, string firstname = null, string puid = null, string suid = null);
 
   /// <summary>
   /// Gets a site with person and address.
   /// </summary>
-  /// <returns>A site or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="suid">Affected site ID.</param>
+  /// <returns>A site or null.</returns>
   ServiceErgebnis<AdSitz> GetSite(ServiceDaten daten, string suid);
 
   /// <summary>
@@ -92,54 +92,54 @@ public interface IAddressService
   /// <summary>
   /// Gets the number of usages of an address.
   /// </summary>
-  /// <returns>Number of usages of an address.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="auid">Affected address ID.</param>
+  /// <returns>Number of usages of an address.</returns>
   ServiceErgebnis<int> GetAddressCount(ServiceDaten daten, string auid);
 
   /// <summary>
   /// Makes the site first.
   /// </summary>
-  /// <returns>Possible errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="siteuid">Affected site ID.</param>
+  /// <returns>Possible errors.</returns>
   ServiceErgebnis MakeSiteFirst(ServiceDaten daten, string siteuid);
 
   /// <summary>
   /// Gets list of addresses.
   /// </summary>
-  /// <returns>List of addresses.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of addresses.</returns>
   ServiceErgebnis<List<AdAdresse>> GetAddressList(ServiceDaten daten);
 
   /// <summary>
   /// Gets an address.
   /// </summary>
-  /// <returns>An address or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="auid">Affected Address ID.</param>
+  /// <returns>An address or null.</returns>
   ServiceErgebnis<AdAdresse> GetAddress(ServiceDaten daten, string auid);
 
   /// <summary>
   /// Exports list of addresses.
   /// </summary>
-  /// <returns>List of addresses.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of addresses.</returns>
   ServiceErgebnis<List<string>> ExportAddressList(ServiceDaten daten);
 
   /// <summary>
   /// Imports list of addresses.
   /// </summary>
-  /// <returns>Message of import.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="list">List of addresses.</param>
   /// <param name="delete">Delete all persons, sites and addresses or not.</param>
+  /// <returns>Message of import.</returns>
   ServiceErgebnis<string> ImportAddressList(ServiceDaten daten, List<string> list, bool delete);
 
   /// <summary>
-  /// Gets an address report.
+  /// Gets an address report as html document in bytes.
   /// </summary>
-  /// <returns>An address report.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>Address report as html document in bytes.</returns>
   ServiceErgebnis<byte[]> GetAddressReport(ServiceDaten daten);
 }

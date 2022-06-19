@@ -2,6 +2,8 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
+namespace CSBP.Services.NonService;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,6 @@ using CSBP.Base;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
-namespace CSBP.Services.NonService;
-
 /// <summary>
 /// Class for sudoku handling.
 /// </summary>
@@ -19,20 +19,22 @@ namespace CSBP.Services.NonService;
 public class SudokuContext
 {
   /// <summary>
+  /// Initializes a new instance of the <see cref="SudokuContext"/> class.
   /// Json constructor for sudoku context.
   /// </summary>
   /// <param name="numbers">Array of numbers.</param>
   /// <param name="diagonal">Are the diagonal numbers different?.</param>
   /// <param name="maxx">Number of columns.</param>
   /// <param name="maxy">Number of rows.</param>
-  /// <param name="xb">Number of horizontal boxes.</param>
-  /// <param name="yb">Number of vertical boxes.</param>
+  /// <param name="maxxb">Number of horizontal boxes.</param>
+  /// <param name="maxyb">Number of vertical boxes.</param>
+  /// <param name="max">Number of fields.</param>
   [JsonConstructor]
   public SudokuContext(int[] numbers, bool diagonal, int maxx, int maxy, int maxxb, int maxyb, int max) =>
     (Numbers, Diagonal, Maxx, Maxxb, Maxy, Maxyb, Max) = (numbers, diagonal, maxx, maxxb, maxy, maxyb, max);
 
   /// <summary>
-  /// Constructor for sudoku context.
+  /// Initializes a new instance of the <see cref="SudokuContext"/> class.
   /// </summary>
   /// <param name="arr">Array of numbers.</param>
   /// <param name="diagonal">Are the diagonal numbers different?.</param>
@@ -60,7 +62,7 @@ public class SudokuContext
   }
 
   /// <summary>
-  /// Copy constructor for sudoku context.
+  /// Initializes a new instance of the <see cref="SudokuContext"/> class.
   /// </summary>
   /// <param name="c">Affected context to clone.</param>
   /// <param name="arr">Array of numbers.</param>
@@ -79,7 +81,7 @@ public class SudokuContext
   /// <summary>Gets number of columns.</summary>
   public int Maxx { get; private set; }
 
-  /// <summary>Getst number of horizontal boxes.</summary>
+  /// <summary>Gets number of horizontal boxes.</summary>
   public int Maxxb { get; private set; }
 
   /// <summary>Gets number of rows.</summary>
@@ -100,7 +102,7 @@ public class SudokuContext
   /// <summary>Add sudoku context to undo list if it is different to last one.</summary>
   /// <param name="list">Affected undo list.</param>
   /// <param name="c">Sudoku context to add.</param>
-  /// <returns>Was sudoku context added?</returns>
+  /// <returns>Was sudoku context added or not.</returns>
   public static bool Add(Stack<SudokuContext> list, SudokuContext c)
   {
     if (list == null)
@@ -114,6 +116,234 @@ public class SudokuContext
     }
     list.Push(c);
     return true;
+  }
+
+  /// <summary>Test sudoku for discrepancy.</summary>
+  /// <param name="c">Affected sudoku context.</param>
+  /// <param name="exception">Throw exception if error or not.</param>
+  /// <returns>-1 OK, >= 0 field number with error.</returns>
+  public static int Test(SudokuContext c, bool exception)
+  {
+    var feld = -1;
+
+    try
+    {
+      // Zeilen, Spalten und Kästen bestimmen
+      var zeilen = NumberArray(c.Maxx * c.Maxx);
+      var spalten = NumberArray(c.Maxx * c.Maxx);
+      var kaesten = NumberArray(c.Maxx * c.Maxx);
+      var diagonalen = NumberArray(c.Maxx * 2);
+      for (var row = 0; row < c.Maxy; row++)
+      {
+        for (var col = 0; col < c.Maxx; col++)
+        {
+          var wert = c.Numbers[(row * c.Maxx) + col];
+          if (wert > 0)
+          {
+            var knr = ((row / c.Maxyb) * c.Maxyb) + (col / c.Maxxb);
+            if (zeilen[(row * c.Maxx) + wert - 1] == 0)
+            {
+              zeilen[(row * c.Maxx) + wert - 1] = wert;
+            }
+            else
+            {
+              if (exception)
+                throw new MessageException(SO007(row + 1, wert));
+              return (row * c.Maxx) + col;
+            }
+            if (spalten[(col * c.Maxx) + wert - 1] == 0)
+            {
+              spalten[(col * c.Maxx) + wert - 1] = wert;
+            }
+            else
+            {
+              if (exception)
+                throw new MessageException(SO008(col + 1, wert));
+              return (row * c.Maxx) + col;
+            }
+            if (kaesten[(knr * c.Maxx) + wert - 1] == 0)
+            {
+              kaesten[(knr * c.Maxx) + wert - 1] = wert;
+            }
+            else
+            {
+              if (exception)
+                throw new MessageException(SO009(knr + 1, wert));
+              return (row * c.Maxx) + col;
+            }
+            if (c.Diagonal)
+            {
+              if (row == col)
+              {
+                if (diagonalen[wert - 1] == 0)
+                {
+                  diagonalen[wert - 1] = wert;
+                }
+                else
+                {
+                  if (exception)
+                    throw new MessageException(SO010(1, row + 1, wert));
+                  return (row * c.Maxx) + col;
+                }
+              }
+              if (row == c.Maxx - 1 - col)
+              {
+                if (diagonalen[c.Maxx + wert - 1] == 0)
+                {
+                  diagonalen[c.Maxx + wert - 1] = wert;
+                }
+                else
+                {
+                  if (exception)
+                    throw new MessageException(SO010(2, row + 1, wert));
+                  return (row * c.Maxx) + col;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    finally
+    {
+      if (feld == -1 && SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
+      {
+#pragma warning disable IDE0059
+        feld = -2; // vollständig gelöst
+#pragma warning restore IDE0059
+      }
+    }
+    return feld;
+  }
+
+  /// <summary>Try to solve a sudoku.</summary>
+  /// <param name="c">Affected sudoku context.</param>
+  /// <param name="move1">Find only one number or more.</param>
+  public static void Solve(SudokuContext c, bool move1)
+  {
+    var ende = false;
+    int[] clone1 = null;
+    int[] loesung = null;
+    var list = new Stack<int[]>();
+    var feld = NumberArray(1);
+    var varianten = NumberArray(c.Maxx);
+
+    SudokuContext.Test(c, true);
+    if (SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
+    {
+      throw new MessageException(SO011);
+    }
+    if (move1)
+    {
+      clone1 = SudokuContext.Clone(c.Numbers);
+    }
+    int ergebnis;
+    do
+    {
+      var anzahl = 0;
+      do
+      {
+        anzahl++;
+        ergebnis = SudokuContext.SolveSingle(c, anzahl, feld, varianten);
+        //// System.out.println("Anzahl: " + miAnzahl + " Variante: " +
+        //// varianten + " Ergebnis: " + ergebnis);
+        if (ergebnis == -3)
+        {
+          c.Numbers[feld[0]] = varianten[0];
+          //// Andere Varianten merken.
+          for (var i = 1; i < anzahl; i++)
+          {
+            var clone = SudokuContext.Clone(c.Numbers);
+            clone[feld[0]] = varianten[i];
+            list.Push(clone);
+          }
+          ergebnis = 0;
+        }
+        else if (ergebnis >= 0)
+        {
+          if (SudokuContext.Test(c, false) >= 0)
+          {
+            // Andere Variante versuchen wegen Widerspruch.
+            if (list.Count <= 0)
+            {
+              if (loesung == null)
+              {
+                throw new MessageException(SO012);
+              }
+              ende = true;
+            }
+            else
+            {
+              SudokuContext.Copy(list.Pop(), c.Numbers);
+            }
+          }
+          else if (move1 && !list.Any())
+          {
+            ende = true;
+          }
+        }
+      }
+      while (!ende && anzahl < c.Maxx && (ergebnis == -1));
+      if (SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxx)
+      {
+        if (loesung == null)
+        {
+          loesung = SudokuContext.Clone(c.Numbers);
+          //// Andere Variante versuchen.
+          if (list.Any())
+          {
+            SudokuContext.Copy(list.Pop(), c.Numbers);
+          }
+        }
+        else
+        {
+          SudokuContext.Copy(loesung, c.Numbers);
+          if (list.Any())
+          {
+            throw new MessageException(SO013);
+          }
+        }
+      }
+    }
+    while (!ende && ergebnis >= 0);
+    if (loesung != null)
+    {
+      SudokuContext.Copy(loesung, c.Numbers);
+    }
+    if (move1)
+    {
+      var i = 0;
+      var clone2 = SudokuContext.Clone(c.Numbers);
+      for (; i < clone1.Length; i++)
+      {
+        if (clone1[i] != clone2[i])
+        {
+          clone1[i] = clone2[i];
+          break;
+        }
+      }
+      if (i >= clone1.Length)
+        throw new MessageException(SO014);
+      SudokuContext.Copy(clone1, c.Numbers);
+    }
+    else if (SudokuContext.Count(c.Numbers) < c.Maxx * c.Maxx)
+      throw new MessageException(SO015);
+  }
+
+  /// <summary>Gets number of filled (>0) fields.</summary>
+  /// <returns>Number of filled (>0) fields.</returns>
+  public int Count()
+  {
+    return Numbers.Count(a => a > 0);
+  }
+
+  /// <summary>Clear all fields.</summary>
+  public void Clear()
+  {
+    for (var i = 0; i < Numbers.Length; i++)
+    {
+      Numbers[i] = 0;
+    }
   }
 
   /// <summary>Copy Sudoku array to another.</summary>
@@ -161,120 +391,6 @@ public class SudokuContext
     return source.Count(a => a > 0);
   }
 
-  /// <summary>Gets number of filled (>0) fields.</summary>
-  /// <returns>Number of filled (>0) fields.</returns>
-  public int Count()
-  {
-    return Numbers.Count(a => a > 0);
-  }
-
-  /// <summary>Clear all fields.</summary>
-  public void Clear()
-  {
-    for (var i = 0; i < Numbers.Length; i++)
-    {
-      Numbers[i] = 0;
-    }
-  }
-
-  /// <summary>Test sudoku for discrepancy.</summary>
-  /// <param name="c">Affected sudoku context.</param>
-  /// <param name="exception">Throw exception if error?</param>
-  /// <returns>-1 OK, >= 0 field number with error.</returns>
-  public static int Test(SudokuContext c, bool exception)
-  {
-    var feld = -1;
-
-    try
-    {
-      // Zeilen, Spalten und Kästen bestimmen
-      var zeilen = NumberArray(c.Maxx * c.Maxx);
-      var spalten = NumberArray(c.Maxx * c.Maxx);
-      var kaesten = NumberArray(c.Maxx * c.Maxx);
-      var diagonalen = NumberArray(c.Maxx * 2);
-      for (var row = 0; row < c.Maxy; row++)
-      {
-        for (var col = 0; col < c.Maxx; col++)
-        {
-          var wert = c.Numbers[row * c.Maxx + col];
-          if (wert > 0)
-          {
-            var knr = (row / c.Maxyb) * c.Maxyb + (col / c.Maxxb);
-            if (zeilen[row * c.Maxx + wert - 1] == 0)
-            {
-              zeilen[row * c.Maxx + wert - 1] = wert;
-            }
-            else
-            {
-              if (exception)
-                throw new MessageException(SO007(row + 1, wert));
-              return row * c.Maxx + col;
-            }
-            if (spalten[col * c.Maxx + wert - 1] == 0)
-            {
-              spalten[col * c.Maxx + wert - 1] = wert;
-            }
-            else
-            {
-              if (exception)
-                throw new MessageException(SO008(col + 1, wert));
-              return row * c.Maxx + col;
-            }
-            if (kaesten[knr * c.Maxx + wert - 1] == 0)
-            {
-              kaesten[knr * c.Maxx + wert - 1] = wert;
-            }
-            else
-            {
-              if (exception)
-                throw new MessageException(SO009(knr + 1, wert));
-              return row * c.Maxx + col;
-            }
-            if (c.Diagonal)
-            {
-              if (row == col)
-              {
-                if (diagonalen[wert - 1] == 0)
-                {
-                  diagonalen[wert - 1] = wert;
-                }
-                else
-                {
-                  if (exception)
-                    throw new MessageException(SO010(1, row + 1, wert));
-                  return row * c.Maxx + col;
-                }
-              }
-              if (row == c.Maxx - 1 - col)
-              {
-                if (diagonalen[c.Maxx + wert - 1] == 0)
-                {
-                  diagonalen[c.Maxx + wert - 1] = wert;
-                }
-                else
-                {
-                  if (exception)
-                    throw new MessageException(SO010(2, row + 1, wert));
-                  return row * c.Maxx + col;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    finally
-    {
-      if (feld == -1 && SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
-      {
-#pragma warning disable IDE0059
-        feld = -2; // vollständig gelöst
-#pragma warning restore IDE0059
-      }
-    }
-    return feld;
-  }
-
   /// <summary>Find a single solution number for a sudoku.</summary>
   /// <param name="c">Affected sudoku context.</param>
   /// <param name="maxcount">Find field with a maximum number of possibilities.</param>
@@ -294,13 +410,13 @@ public class SudokuContext
       {
         for (var col = 0; col < c.Maxx; col++)
         {
-          var wert = c.Numbers[row * c.Maxx + col];
+          var wert = c.Numbers[(row * c.Maxx) + col];
           if (wert > 0)
           {
-            var knr = (row / c.Maxyb) * c.Maxyb + (col / c.Maxxb);
-            zeilen[row * c.Maxx + wert - 1] = wert;
-            spalten[col * c.Maxx + wert - 1] = wert;
-            kaesten[knr * c.Maxx + wert - 1] = wert;
+            var knr = ((row / c.Maxyb) * c.Maxyb) + (col / c.Maxxb);
+            zeilen[(row * c.Maxx) + wert - 1] = wert;
+            spalten[(col * c.Maxx) + wert - 1] = wert;
+            kaesten[(knr * c.Maxx) + wert - 1] = wert;
             if (row == col)
             {
               // 1. Diagonale
@@ -314,16 +430,16 @@ public class SudokuContext
           }
         }
       }
-      // neue Zahl bestimmen, wenn nur noch eine fehlt
+      //// neue Zahl bestimmen, wenn nur noch eine fehlt
       for (var row = 0; row < c.Maxx; row++)
       {
         for (var col = 0; col < c.Maxx; col++)
         {
-          var wert = c.Numbers[row * c.Maxx + col];
-          // leeres Feld untersuchen
+          var wert = c.Numbers[(row * c.Maxx) + col];
+          //// leeres Feld untersuchen
           if (wert == 0)
           {
-            var knr = (row / c.Maxyb) * c.Maxyb + (col / c.Maxxb);
+            var knr = ((row / c.Maxyb) * c.Maxyb) + (col / c.Maxxb);
             var versuchz = 0;
             var versuchs = 0;
             var versuchk = 0;
@@ -345,19 +461,19 @@ public class SudokuContext
             }
             for (var i = 0; i < c.Maxx; i++)
             {
-              if (zeilen[row * c.Maxx + i] == 0)
+              if (zeilen[(row * c.Maxx) + i] == 0)
               {
                 versuchz = i + 1;
                 anzahlz++;
                 variantenZ[i] = 1;
               }
-              if (spalten[col * c.Maxx + i] == 0)
+              if (spalten[(col * c.Maxx) + i] == 0)
               {
                 versuchs = i + 1;
                 anzahls++;
                 variantenS[i] = 1;
               }
-              if (kaesten[knr * c.Maxx + i] == 0)
+              if (kaesten[(knr * c.Maxx) + i] == 0)
               {
                 versuchk = i + 1;
                 anzahlk++;
@@ -387,51 +503,51 @@ public class SudokuContext
                 }
               }
             }
-            // Genau eine Zahl passt in der Zeile.
+            //// Genau eine Zahl passt in der Zeile.
             if (anzahlz == 1)
             {
               if (anzahls < 1 || anzahlk < 1)
               {
-                throw new Exception($"Widerspruch Zeile in ({(row + 1)},{(col + 1)})");
+                throw new Exception($"Widerspruch Zeile in ({row + 1},{col + 1})");
               }
-              c.Numbers[row * c.Maxx + col] = versuchz;
-              feld = row * c.Maxx + col;
+              c.Numbers[(row * c.Maxx) + col] = versuchz;
+              feld = (row * c.Maxx) + col;
               return feld;
             }
-            // Genau eine Zahl passt in der Spalte.
+            //// Genau eine Zahl passt in der Spalte.
             if (anzahls == 1)
             {
               if (anzahlz < 1 || anzahlk < 1)
               {
-                throw new Exception($"Widerspruch Spalte in ({(row + 1)},{(col + 1)})");
+                throw new Exception($"Widerspruch Spalte in ({row + 1},{col + 1})");
               }
-              c.Numbers[row * c.Maxx + col] = versuchs;
-              feld = row * c.Maxx + col;
+              c.Numbers[(row * c.Maxx) + col] = versuchs;
+              feld = (row * c.Maxx) + col;
               return feld;
             }
-            // Genau eine Zahl passt im Kasten.
+            //// Genau eine Zahl passt im Kasten.
             if (anzahlk == 1)
             {
               if (anzahlz < 1 || anzahls < 1)
               {
-                throw new Exception($"Widerspruch Kasten in ({(row + 1)},{(col + 1)})");
+                throw new Exception($"Widerspruch Kasten in ({row + 1},{col + 1})");
               }
-              c.Numbers[row * c.Maxx + col] = versuchk;
-              feld = row * c.Maxx + col;
+              c.Numbers[(row * c.Maxx) + col] = versuchk;
+              feld = (row * c.Maxx) + col;
               return feld;
             }
-            // Genau eine Zahl passt in Diagonale 1.
+            //// Genau eine Zahl passt in Diagonale 1.
             if (anzahl1 == 1)
             {
-              c.Numbers[row * c.Maxx + col] = versuch1;
-              feld = row * c.Maxx + col;
+              c.Numbers[(row * c.Maxx) + col] = versuch1;
+              feld = (row * c.Maxx) + col;
               return feld;
             }
-            // Genau eine Zahl passt in Diagonale 2.
+            //// Genau eine Zahl passt in Diagonale 2.
             if (anzahl2 == 1)
             {
-              c.Numbers[row * c.Maxx + col] = versuch2;
-              feld = row * c.Maxx + col;
+              c.Numbers[(row * c.Maxx) + col] = versuch2;
+              feld = (row * c.Maxx) + col;
               return feld;
             }
             var anzahlv = 0; // Anzahl Varianten.
@@ -445,13 +561,13 @@ public class SudokuContext
             }
             if (anzahlv == 1)
             {
-              c.Numbers[row * c.Maxx + col] = varianten[0];
-              feld = row * c.Maxx + col;
+              c.Numbers[(row * c.Maxx) + col] = varianten[0];
+              feld = (row * c.Maxx) + col;
               return feld;
             }
             else if (anzahlv <= maxcount)
             {
-              feldv[0] = row * c.Maxx + col;
+              feldv[0] = (row * c.Maxx) + col;
               if (varianten[0] == 0)
               {
                 return -1;
@@ -461,7 +577,7 @@ public class SudokuContext
           }
         }
       }
-      // neue Zahl für einen Kasten bestimmen mit Ausschluss über Zeilen und Spalten
+      //// neue Zahl für einen Kasten bestimmen mit Ausschluss über Zeilen und Spalten
       var anzahl = NumberArray(c.Maxx);
       var pos = NumberArray(c.Maxx);
       for (var krow = 0; krow < c.Maxyb; krow++)
@@ -473,29 +589,29 @@ public class SudokuContext
           {
             anzahl[i] = 0;
             pos[i] = -1;
-            if (kaesten[(krow * c.Maxxb + kcol) * c.Maxx + i] > 0)
+            if (kaesten[(((krow * c.Maxxb) + kcol) * c.Maxx) + i] > 0)
             {
               // Zahl ist erledigt.
               anzahl[i] = -1;
             }
           }
-          var knr = krow * c.Maxxb + kcol;
+          var knr = (krow * c.Maxxb) + kcol;
           for (var irow = 0; irow < c.Maxyb; irow++)
           {
             for (var icol = 0; icol < c.Maxxb; icol++)
             {
-              var row = krow * c.Maxxb + irow;
-              var col = kcol * c.Maxyb + icol;
-              var wert = c.Numbers[row * c.Maxx + col];
+              var row = (krow * c.Maxxb) + irow;
+              var col = (kcol * c.Maxyb) + icol;
+              var wert = c.Numbers[(row * c.Maxx) + col];
               if (wert == 0)
               {
                 for (var i = 0; i < c.Maxx; i++)
                 {
-                  if (anzahl[i] >= 0 && zeilen[row * c.Maxx + i] == 0 && spalten[col * c.Maxx + i] == 0
-                    && kaesten[knr * c.Maxx + i] == 0)
+                  if (anzahl[i] >= 0 && zeilen[(row * c.Maxx) + i] == 0 && spalten[(col * c.Maxx) + i] == 0
+                    && kaesten[(knr * c.Maxx) + i] == 0)
                   {
                     anzahl[i]++;
-                    pos[i] = row * c.Maxx + col;
+                    pos[i] = (row * c.Maxx) + col;
                   }
                 }
               }
@@ -518,122 +634,10 @@ public class SudokuContext
       if (feld == -1 && SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
       {
 #pragma warning disable IDE0059
-        feld = -2; // vollständig gelöst
+        feld = -2; // completely solved
 #pragma warning restore IDE0059
       }
     }
     return feld;
-  }
-
-  /// <summary>Try to solve a sudoku.</summary>
-  /// <param name="c">Affected sudoku context.</param>
-  /// <param name="move1">Find only one number?</param>
-  public static void Solve(SudokuContext c, bool move1)
-  {
-    var ende = false;
-    int[] clone1 = null;
-    int[] loesung = null;
-    var list = new Stack<int[]>();
-    var feld = NumberArray(1);
-    var varianten = NumberArray(c.Maxx);
-
-    SudokuContext.Test(c, true);
-    if (SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxy)
-    {
-      throw new MessageException(SO011);
-    }
-    if (move1)
-    {
-      clone1 = SudokuContext.Clone(c.Numbers);
-    }
-    int ergebnis;
-    do
-    {
-      var anzahl = 0;
-      do
-      {
-        anzahl++;
-        ergebnis = SudokuContext.SolveSingle(c, anzahl, feld, varianten);
-        // System.out.println("Anzahl: " + miAnzahl + " Variante: " +
-        // varianten + " Ergebnis: " + ergebnis);
-        if (ergebnis == -3)
-        {
-          c.Numbers[feld[0]] = varianten[0];
-          // Andere Varianten merken.
-          for (var i = 1; i < anzahl; i++)
-          {
-            var clone = SudokuContext.Clone(c.Numbers);
-            clone[feld[0]] = varianten[i];
-            list.Push(clone);
-          }
-          ergebnis = 0;
-        }
-        else if (ergebnis >= 0)
-        {
-          if (SudokuContext.Test(c, false) >= 0)
-          {
-            // Andere Variante versuchen wegen Widerspruch.
-            if (list.Count <= 0)
-            {
-              if (loesung == null)
-              {
-                throw new MessageException(SO012);
-              }
-              ende = true;
-            }
-            else
-            {
-              SudokuContext.Copy(list.Pop(), c.Numbers);
-            }
-          }
-          else if (move1 && !list.Any())
-          {
-            ende = true;
-          }
-        }
-      } while (!ende && anzahl < c.Maxx && (ergebnis == -1));
-      if (SudokuContext.Count(c.Numbers) >= c.Maxx * c.Maxx)
-      {
-        if (loesung == null)
-        {
-          loesung = SudokuContext.Clone(c.Numbers);
-          // Andere Variante versuchen.
-          if (list.Any())
-          {
-            SudokuContext.Copy(list.Pop(), c.Numbers);
-          }
-        }
-        else
-        {
-          SudokuContext.Copy(loesung, c.Numbers);
-          if (list.Any())
-          {
-            throw new MessageException(SO013);
-          }
-        }
-      }
-    } while (!ende && ergebnis >= 0);
-    if (loesung != null)
-    {
-      SudokuContext.Copy(loesung, c.Numbers);
-    }
-    if (move1)
-    {
-      var i = 0;
-      var clone2 = SudokuContext.Clone(c.Numbers);
-      for (; i < clone1.Length; i++)
-      {
-        if (clone1[i] != clone2[i])
-        {
-          clone1[i] = clone2[i];
-          break;
-        }
-      }
-      if (i >= clone1.Length)
-        throw new MessageException(SO014);
-      SudokuContext.Copy(clone1, c.Numbers);
-    }
-    else if (SudokuContext.Count(c.Numbers) < c.Maxx * c.Maxx)
-      throw new MessageException(SO015);
   }
 }
