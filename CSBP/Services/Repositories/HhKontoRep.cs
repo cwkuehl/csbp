@@ -22,7 +22,6 @@ public partial class HhKontoRep
   /// <summary>
   /// Gets list of accounts.
   /// </summary>
-  /// <returns>List of accounts.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="nrle">Affected minimum period number.</param>
   /// <param name="nrge">Affected maximum period number.</param>
@@ -31,6 +30,7 @@ public partial class HhKontoRep
   /// <param name="dle">Affected minimum period date.</param>
   /// <param name="dge">Affected maximum period date.</param>
   /// <param name="text">Affected text.</param>
+  /// <returns>List of accounts.</returns>
   public List<HhKonto> GetList(ServiceDaten daten, int nrle, int nrge, string art1 = null, string art2 = null,
       DateTime? dle = null, DateTime? dge = null, string text = null)
   {
@@ -57,12 +57,12 @@ public partial class HhKontoRep
   /// <summary>
   /// Gets an account.
   /// </summary>
-  /// <returns>Account or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="auidne">Affected ID which is not equal.</param>
   /// <param name="attr">Affected attribute.</param>
   /// <param name="sort">Affected sotring.</param>
   /// <param name="desc">Affected description.</param>
+  /// <returns>Account or null.</returns>
   public HhKonto GetMin(ServiceDaten daten, string auidne, string attr = null, string sort = null, string desc = null)
   {
     var db = GetDb(daten);

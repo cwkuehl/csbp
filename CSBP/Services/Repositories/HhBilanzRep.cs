@@ -24,12 +24,12 @@ public partial class HhBilanzRep
   /// <summary>
   /// Gets list of balances.
   /// </summary>
-  /// <returns>List of balances.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="type">Affected type.</param>
   /// <param name="nrfrom">Affected minimum period number.</param>
   /// <param name="nrto">Affected maximum period number.</param>
   /// <param name="auid">Affected account ID.</param>
+  /// <returns>List of balances.</returns>
   public List<HhBilanz> GetList(ServiceDaten daten, string type, int nrfrom = Constants.PN_BERECHNET,
      int nrto = Constants.PN_BERECHNET, string auid = null)
   {
@@ -56,12 +56,12 @@ public partial class HhBilanzRep
   /// <summary>
   /// Gets list of balances with account sums over periods.
   /// </summary>
-  /// <returns>List of balances.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="type">Affected type.</param>
   /// <param name="nrfrom">Affected minimum period number.</param>
   /// <param name="nrto">Affected maximum period number.</param>
   /// <param name="auid">Affected account ID.</param>
+  /// <returns>List of balances.</returns>
   public List<HhBilanz> GetPeriodSumList(ServiceDaten daten, string type, int nrfrom = Constants.PN_BERECHNET,
      int nrto = Constants.PN_BERECHNET, string auid = null)
   {
@@ -128,11 +128,11 @@ public partial class HhBilanzRep
   /// <summary>
   /// Gets list of balances with sums over accounts.
   /// </summary>
-  /// <returns>List of balances.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="type">Affected type.</param>
   /// <param name="pnr">Affected period number.</param>
   /// <param name="auid">Affected account ID.</param>
+  /// <returns>List of balances.</returns>
   public List<HhBilanz> GetAccountSum(ServiceDaten daten, string type, int pnr, string auid)
   {
     var liste = new List<HhBilanz>();

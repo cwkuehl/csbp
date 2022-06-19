@@ -17,15 +17,15 @@ public interface IBudgetService
   /// <summary>
   /// Gets list of periods.
   /// </summary>
-  /// <returns>List of periods.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of periods.</returns>
   ServiceErgebnis<List<HhPeriode>> GetPeriodList(ServiceDaten daten);
 
   /// <summary>
   /// Gets a period with first beginning and last end.
   /// </summary>
-  /// <returns>Period with first beginning and last end.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>Period with first beginning and last end.</returns>
   ServiceErgebnis<HhPeriode> GetMinMaxPeriod(ServiceDaten daten);
 
   /// <summary>Saves a new period.</summary>
@@ -44,19 +44,19 @@ public interface IBudgetService
   /// <summary>
   /// Gets list of accounts.
   /// </summary>
-  /// <returns>List of accounts.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
+  /// <returns>List of accounts.</returns>
   ServiceErgebnis<List<HhKonto>> GetAccountList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null);
 
   /// <summary>
   /// Gets an account.
   /// </summary>
-  /// <returns>An account or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="auid">Affected account ID.</param>
+  /// <returns>An account or null.</returns>
   ServiceErgebnis<HhKonto> GetAccount(ServiceDaten daten, string auid);
 
   /// <summary>Saves an account.</summary>
@@ -91,19 +91,19 @@ public interface IBudgetService
   /// <summary>
   /// Gets list of events.
   /// </summary>
-  /// <returns>List of events.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
+  /// <returns>List of events.</returns>
   ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null);
 
   /// <summary>
   /// Gets an event.
   /// </summary>
-  /// <returns>An event or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="euid">Affected event ID.</param>
+  /// <returns>An event or null.</returns>
   ServiceErgebnis<HhEreignis> GetEvent(ServiceDaten daten, string euid);
 
   /// <summary>Saves an event.</summary>
@@ -129,7 +129,6 @@ public interface IBudgetService
   /// <summary>
   /// Gets list of bookings.
   /// </summary>
-  /// <returns>List of bookings.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="valuta">Search for value date.</param>
   /// <param name="from">Affected minimum date.</param>
@@ -137,6 +136,7 @@ public interface IBudgetService
   /// <param name="text">Affected posting text.</param>
   /// <param name="auid">Affected account ID.</param>
   /// <param name="value">Affected value.</param>
+  /// <returns>List of bookings.</returns>
   ServiceErgebnis<List<HhBuchung>> GetBookingList(ServiceDaten daten, bool valuta,
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null);
@@ -144,7 +144,6 @@ public interface IBudgetService
   /// <summary>
   /// Gets list of bookings in csv strings.
   /// </summary>
-  /// <returns>List of bookings in csv strings.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="valuta">Search for value date.</param>
   /// <param name="from">Affected minimum date.</param>
@@ -152,6 +151,7 @@ public interface IBudgetService
   /// <param name="text">Affected posting text.</param>
   /// <param name="auid">Affected account ID.</param>
   /// <param name="value">Affected value.</param>
+  /// <returns>List of bookings in csv strings.</returns>
   ServiceErgebnis<List<string>> ExportBookingList(ServiceDaten daten, bool valuta,
     DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
     string value = null);
@@ -159,26 +159,26 @@ public interface IBudgetService
   /// <summary>
   /// Imports list of bookings.
   /// </summary>
-  /// <returns>Message of import.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="list">List of addresses.</param>
   /// <param name="delete">Delete all bookings or not.</param>
+  /// <returns>Message of import.</returns>
   ServiceErgebnis<string> ImportBookingList(ServiceDaten daten, List<string> list, bool delete);
 
   /// <summary>
   /// Gets a booking.
   /// </summary>
-  /// <returns>A booking or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="buid">Affected booking ID.</param>
+  /// <returns>A booking or null.</returns>
   ServiceErgebnis<HhBuchung> GetBooking(ServiceDaten daten, string buid);
 
   /// <summary>
   /// Gets a new receipt number.
   /// </summary>
-  /// <returns>A new receipt number.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="date">Affected receipt date.</param>
+  /// <returns>A new receipt number.</returns>
   ServiceErgebnis<string> GetNewReceipt(ServiceDaten daten, DateTime date);
 
   /// <summary>Saves a booking.</summary>

@@ -67,7 +67,6 @@ public interface IStockService
   /// <summary>
   /// Calculates all stocks.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="desc">Affected description.</param>
   /// <param name="pattern">Affected pattern.</param>
@@ -76,8 +75,9 @@ public interface IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="kuid">Affected konfiguration ID.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <returns>Possibly errors.</returns>
   ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string uid,
     DateTime date, bool inactive, string search, string kuid, StringBuilder state, StringBuilder cancel);
 
@@ -217,7 +217,6 @@ public interface IStockService
   /// <summary>
   /// Calculates all investments.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
@@ -225,8 +224,9 @@ public interface IStockService
   /// <param name="date">Affected date.</param>
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <returns>Possibly errors.</returns>
   ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
     DateTime date, bool inactive, string search, StringBuilder state, StringBuilder cancel);
 
@@ -253,9 +253,9 @@ public interface IStockService
   /// <summary>
   /// Gets list of events for an investment.
   /// </summary>
-  /// <returns>List of events.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="iuid">Affected investment ID.</param>
+  /// <returns>List of events.</returns>
   ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, string iuid);
 
   /// <summary>
@@ -334,7 +334,6 @@ public interface IStockService
   /// <summary>
   /// Export stocks in csv file.
   /// </summary>
-  /// <returns>Csv file as lines array or errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="desc">Affected description.</param>
@@ -344,8 +343,9 @@ public interface IStockService
   /// <param name="cuid">Affected configuration ID.</param>
   /// <param name="date">Affected date.</param>
   /// <param name="days">Affected konfiguration ID.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <returns>Csv file as lines array or errors.</returns>
   ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
     string cuid, DateTime date, int days, StringBuilder state, StringBuilder cancel);
 }

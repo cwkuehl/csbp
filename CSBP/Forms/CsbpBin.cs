@@ -411,8 +411,8 @@ public partial class CsbpBin : Bin
   }
 
   /// <summary>Updates the state.</summary>
-  /// <param name="state">Affected state.</param>
-  /// <param name="cancel">Affected cancel.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
   protected static void ShowStatus(StringBuilder state, StringBuilder cancel)
   {
     ShowError(null);

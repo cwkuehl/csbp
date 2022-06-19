@@ -982,7 +982,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="v"></param>
   /// <param name="uid"></param>
   /// <param name="map"></param>
@@ -1136,7 +1136,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="v"></param>
   /// <param name="uid"></param>
   /// <param name="map"></param>
@@ -1205,7 +1205,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="v"></param>
   /// <param name="uid"></param>
   private static void ImportSource(ServiceDaten daten, List<string> v, string uid)
@@ -1281,7 +1281,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="v"></param>
   /// <param name="uid"></param>
   /// <param name="nrTyp"></param>
@@ -1711,7 +1711,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid"></param>
   /// <param name="stufe"></param>
   /// <param name="generation"></param>
@@ -1792,7 +1792,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid"></param>
   /// <param name="mitEreignis"></param>
   /// <param name="mitGeschwistern"></param>
@@ -1850,7 +1850,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="q"></param>
   private static void DeleteQuelleIntern(ServiceDaten daten, SbQuelle q)
   {
@@ -1876,7 +1876,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="puid"></param>
   /// <param name="fuid"></param>
   /// <param name="typ"></param>
@@ -1925,7 +1925,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid"></param>
   /// <param name="mannUid"></param>
   /// <param name="frauUid"></param>
@@ -1978,7 +1978,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid"></param>
   /// <param name="mannUid"></param>
   /// <param name="frauUid"></param>
@@ -2000,7 +2000,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="fuid"></param>
   /// <param name="kindUid"></param>
   /// <returns></returns>
@@ -2019,7 +2019,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="p"></param>
   private static void DeletePersonIntern(ServiceDaten daten, SbPerson p)
   {
@@ -2068,7 +2068,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="f"></param>
   private static void DeleteFamilieIntern(ServiceDaten daten, SbFamilie f)
   {
@@ -2095,7 +2095,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="puid"></param>
   /// <returns></returns>
   private static List<string> GetAlleEhegatten(ServiceDaten daten, string puid)
@@ -2133,7 +2133,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="puid"></param>
   /// <returns></returns>
   private static List<string> GetEhegatten0(ServiceDaten daten, string puid)
@@ -2162,7 +2162,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid"></param>
   /// <returns></returns>
   private static SbFamilie GetElternFamilieIntern(ServiceDaten daten, String uid)
@@ -2180,7 +2180,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid"></param>
   /// <returns></returns>
   private static SbKind GetKindFamilieIntern(ServiceDaten daten, string uid)

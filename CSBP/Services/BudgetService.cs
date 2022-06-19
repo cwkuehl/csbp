@@ -26,8 +26,8 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets list of periods.
   /// </summary>
-  /// <returns>List of periods.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of periods.</returns>
   public ServiceErgebnis<List<HhPeriode>> GetPeriodList(ServiceDaten daten)
   {
     var v = HhPeriodeRep.GetList(daten);
@@ -38,8 +38,8 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets a period with first beginning and last end.
   /// </summary>
-  /// <returns>Period with first beginning and last end.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>Period with first beginning and last end.</returns>
   public ServiceErgebnis<HhPeriode> GetMinMaxPeriod(ServiceDaten daten)
   {
     var max = HhPeriodeRep.GetMaxMin(daten);
@@ -160,11 +160,11 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets list of accounts.
   /// </summary>
-  /// <returns>List of accounts.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
+  /// <returns>List of accounts.</returns>
   public ServiceErgebnis<List<HhKonto>> GetAccountList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null)
   {
     var l = HhKontoRep.GetList(daten, -1, -1, null, null, from, to, text);
@@ -174,9 +174,9 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets an account.
   /// </summary>
-  /// <returns>An account or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="auid">Affected account ID.</param>
+  /// <returns>An account or null.</returns>
   public ServiceErgebnis<HhKonto> GetAccount(ServiceDaten daten, string auid)
   {
     var r = new ServiceErgebnis<HhKonto>(HhKontoRep.Get(daten, daten.MandantNr, auid));
@@ -439,11 +439,11 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets list of events.
   /// </summary>
-  /// <returns>List of events.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
+  /// <returns>List of events.</returns>
   public ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null)
   {
     var l = HhEreignisRep.GetList(daten, null, from, to, text);
@@ -453,9 +453,9 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets an event.
   /// </summary>
-  /// <returns>An event or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="euid">Affected event ID.</param>
+  /// <returns>An event or null.</returns>
   public ServiceErgebnis<HhEreignis> GetEvent(ServiceDaten daten, string euid)
   {
     var r = new ServiceErgebnis<HhEreignis>(HhEreignisRep.Get(daten, daten.MandantNr, euid));
@@ -548,7 +548,6 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets list of bookings in csv strings.
   /// </summary>
-  /// <returns>List of bookings in csv strings.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="valuta">Search for value date.</param>
   /// <param name="from">Affected minimum date.</param>
@@ -556,6 +555,7 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <param name="text">Affected posting text.</param>
   /// <param name="auid">Affected account ID.</param>
   /// <param name="value">Affected value.</param>
+  /// <returns>List of bookings in csv strings.</returns>
   public ServiceErgebnis<List<string>> ExportBookingList(ServiceDaten daten, bool valuta,
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null)
@@ -569,10 +569,10 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Imports list of bookings.
   /// </summary>
-  /// <returns>Message of import.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="list">List of addresses.</param>
   /// <param name="delete">Delete all bookings or not.</param>
+  /// <returns>Message of import.</returns>
   public ServiceErgebnis<string> ImportBookingList(ServiceDaten daten, List<string> list, bool delete)
   {
     if (delete)
@@ -653,9 +653,9 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets a booking.
   /// </summary>
-  /// <returns>A booking or null.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="buid">Affected booking ID.</param>
+  /// <returns>A booking or null.</returns>
   public ServiceErgebnis<HhBuchung> GetBooking(ServiceDaten daten, string buid)
   {
     var r = new ServiceErgebnis<HhBuchung>(HhBuchungRep.Get(daten, daten.MandantNr, buid));
@@ -665,9 +665,9 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <summary>
   /// Gets a new receipt number.
   /// </summary>
-  /// <returns>A new receipt number.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="date">Affected receipt date.</param>
+  /// <returns>A new receipt number.</returns>
   public ServiceErgebnis<string> GetNewReceipt(ServiceDaten daten, DateTime date)
   {
     var bu = HhBuchungRep.GetLastReceipt(daten, date);
@@ -681,7 +681,7 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>Saves a booking.</summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="vd">Affected value date.</param>
   /// <param name="vdm">Affected value in DM.</param>
@@ -1043,9 +1043,55 @@ public class BudgetService : ServiceBase, IBudgetService
     return r;
   }
 
-  /**
-   * Liefert den Stand eines Kontos am Anfang einer Periode.
-   */
+  /// <summary>Saves a booking with revision.</summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected ID.</param>
+  /// <param name="vd">Affected value date.</param>
+  /// <param name="kz">Affected attribute.</param>
+  /// <param name="vdm">Affected value in DM.</param>
+  /// <param name="v">Affected value in EUR.</param>
+  /// <param name="duid">Affected debit account ID.</param>
+  /// <param name="cuid">Affected credit account ID.</param>
+  /// <param name="text">Affected posting text.</param>
+  /// <param name="rn">Affected receipt number.</param>
+  /// <param name="rd">Affected receipt date.</param>
+  /// <param name="angelegtVon">Affected creator.</param>
+  /// <param name="angelegtAm">Affected creation date.</param>
+  /// <param name="geaendertVon">Affected changer.</param>
+  /// <param name="geaendertAm">Affected change date.</param>
+  /// <returns>Saved entity.</returns>
+  public HhBuchung SaveBookingIntern(ServiceDaten daten, string uid, DateTime vd, string kz, decimal vdm, decimal v,
+    string duid, string cuid, string text, string rn, DateTime rd, string angelegtVon, DateTime? angelegtAm,
+    string geaendertVon, DateTime? geaendertAm)
+  {
+    kz = kz == Constants.KZB_STORNO ? Constants.KZB_STORNO : Constants.KZB_AKTIV;
+    var strT = text;
+    DateTime dValt;
+
+    var balt = HhBuchungRep.Get(daten, daten.MandantNr, uid);
+    var insert = balt == null;
+    PruefBuchung(daten, vd, vdm, v, duid, cuid, strT, rn, rd);
+    var buchung = HhBuchungRep.Save(daten, daten.MandantNr, uid, vd, vd, kz, vdm, v, duid, cuid, strT, rn, rd,
+      angelegtVon, angelegtAm, geaendertVon, geaendertAm);
+    if (insert)
+      SetzePassendeBerPeriode(daten, vd);
+    else
+    {
+      dValt = balt.Soll_Valuta;
+      if (dValt > vd)
+        dValt = vd;
+      SetzePassendeBerPeriode(daten, dValt);
+    }
+    return buchung;
+  }
+
+  /// <summary>
+  /// Gets account balance at the beginning of the period.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected account uid.</param>
+  /// <param name="from">Affected date.</param>
+  /// <returns>Account balance.</returns>
   private static decimal GetKontoStandIntern(ServiceDaten daten, string uid, DateTime from)
   {
     var euro = true;
@@ -1140,26 +1186,20 @@ public class BudgetService : ServiceBase, IBudgetService
     return list;
   }
 
-  /**
-   * Neuberechnung der Bilanzen in einer oder mehreren Perioden.
-   * @param bAlles True, wenn alle neu zu berechnenden Perioden in einer Schleife berechnet werden; sonst nur eine.
-   * @return 0 alles aktuell; 1 eine Periode aktualisiert; 2 noch eine weitere kann Periode aktualisiert werden.
-   * @throws Exception im unerwarteten Fehlerfalle.
-   */
   /// <summary>
-  /// x
+  /// Calculates the balances for one or more periods.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="state"></param>
-  /// <param name="cancel"></param>
-  /// <param name="pber"></param>
-  /// <param name="bAlles"></param>
-  /// <returns></returns>
-  private static int AktualisierenBilanz(ServiceDaten daten, StringBuilder state, StringBuilder cancel, int pber, bool bAlles)
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="pber">Affected period number.</param>
+  /// <param name="all">Calculates all periiods or only one period.</param>
+  /// <returns>0 for all current; 1 one period calculated; 2 one more period can be calculated.</returns>
+  private static int AktualisierenBilanz(ServiceDaten daten, StringBuilder state, StringBuilder cancel, int pber, bool all)
   {
     var weiter = 0;
-    var pmin = GetMaxMinNr(daten, true); // erste Periode
-    var pmax = GetMaxMinNr(daten, false); // letzte Periode
+    var pmin = GetMaxMinNr(daten, true); // First Period.
+    var pmax = GetMaxMinNr(daten, false); // Last Period.
     pber = Math.Max(pber, pmin);
     var berechnet = -1;
     var ek = HoleEkKonto(daten, true);
@@ -1191,8 +1231,8 @@ public class BudgetService : ServiceBase, IBudgetService
       var per = HhPeriodeRep.Get(daten, daten.MandantNr, p);
       if (per != null)
         state.Clear().Append(Functions.GetPeriod(per.Datum_Von, per.Datum_Bis, false));
-      if (!bAlles || cancel.Length > 0)
-        ende = true; // nur einen Durchgang
+      if (!all || cancel.Length > 0)
+        ende = true; // Only one period.
     }
     if (berechnet > -1)
       SetzeBerPeriode2(daten, berechnet, true);
@@ -1203,6 +1243,11 @@ public class BudgetService : ServiceBase, IBudgetService
     return weiter;
   }
 
+  /// <summary>
+  /// Saves balance list to database.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="l">Affected balance list.</param>
   private static void SaveBanlaceList(ServiceDaten daten, Dictionary<string, HhBilanz> l)
   {
     foreach (var b in l.Values.ToList())
@@ -1211,12 +1256,14 @@ public class BudgetService : ServiceBase, IBudgetService
     }
   }
 
-  /*
-   * Anlegen aller Konten in allen Bilanz (außer Plan) zur vorgegebenen Periode.
-   * @param pnr Perioden-Nummer.
-   * @param strKz Bilanz-Kennzeichen.
-   * @param pmin erste Perioden-Nummer.
-   */
+  /// <summary>
+  /// Creates all accounts in a balances dictionary for a period.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="pnr">Affected period number.</param>
+  /// <param name="strKz">Affected balance type.</param>
+  /// <param name="pmin">Minimun period number.</param>
+  /// <returns>Created balances dictionary.</returns>
   private static Dictionary<string, HhBilanz> AnlegenKontenBilanz(ServiceDaten daten, int pnr, string strKz, int pmin)
   {
     var l = new Dictionary<string, HhBilanz>();
@@ -1257,14 +1304,16 @@ public class BudgetService : ServiceBase, IBudgetService
     return l;
   }
 
-  /**
-   * Übertragen der Beträge von einer Bilanz in eine andere mit evtl. anschließendem Neuberechnen des Eigenkapitals.
-   * @param pnr1 Quell-Perioden-Nummer.
-   * @param strK2 Ziel-Bilanz-Kennzeichen.
-   * @param bEKAktuell True, wenn Eigenkapital neu berechnet wird.
-   * @param ek Eigenkapital-Kontonummer.
-   * @param gv Gewinn+Verlust-Kontonummer.
-   */
+  /// <summary>
+  /// Transfers account balances from a balance to another with possibly calculating the equity capital.
+  /// </summary>
+  /// <param name="pnr1">Source period number.</param>
+  /// <param name="l1">Affected source balances dictionary.</param>
+  /// <param name="strK2">Target balance type.</param>
+  /// <param name="l2">Affected target balances dictionary.</param>
+  /// <param name="bEKAktuell">Should equity capital be calculated or not.</param>
+  /// <param name="ek">Affected equity capital account uid.</param>
+  /// <param name="gv">Affected profit loass account uid.</param>
   private static void UebernehmenBilanz(int pnr1, Dictionary<string, HhBilanz> l1,
     string strK2, Dictionary<string, HhBilanz> l2, bool bEKAktuell, string ek, string gv)
   {
@@ -1295,13 +1344,13 @@ public class BudgetService : ServiceBase, IBudgetService
     }
   }
 
-  /**
-   * Aktualisieren der Eigenkapital- oder G+V-Kontos in einer Bilanz.
-   * @param strK Bilanzkennzeichen (EB, SB, GV oder PL).
-   * @param l Liste von Bilanz-Einträgen.
-   * @param ek Eigenkapital-Kontonummer.
-   * @param gv Gewinn+Verlust-Kontonummer.
-   */
+  /// <summary>
+  /// Calculates balance of equity capital or profit loss account.
+  /// </summary>
+  /// <param name="strK">Affected balance type.</param>
+  /// <param name="l">Affected balances dictionary.</param>
+  /// <param name="ek">Affected equity capital account uid.</param>
+  /// <param name="gv">Affected profit loass account uid.</param>
   private static void AktualisierenEK(string strK, Dictionary<string, HhBilanz> l, string ek, string gv)
   {
     var knr = strK == Constants.KZBI_GV || strK == Constants.KZBI_PLAN ? gv : ek;
@@ -1317,13 +1366,17 @@ public class BudgetService : ServiceBase, IBudgetService
       throw new MessageException(HH031);
   }
 
-  /**
-   * Aktualisieren aller Bilanzen einer Periode außer EB: Kopieren von EB nach SB; GV auf 0 setzen; Buchungen in SB
-   * und GV eintragen; Summenkonten in SB, GB und PL aktualisieren.
-   * @param pnr Perioden-Nummer.
-   * @param ek Eigenkapital-Kontonummer.
-   * @param gv Gewinn+Verlust-Kontonummer.
-   */
+  /// <summary>
+  /// Calcutales all balances of a period except the equity capital, copies opening balance to final balance.
+  /// Zeroes profit loss balance and calculates profit loss from bookings.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="pnr">Affected period number.</param>
+  /// <param name="ebliste">Opening balances dictionary.</param>
+  /// <param name="gvliste">Profit loss balances dictionary.</param>
+  /// <param name="sbliste">Final balances dictionary.</param>
+  /// <param name="ek">Affected equity capital account uid.</param>
+  /// <param name="gv">Affected profit loss account uid.</param>
   private static void AktualisierenBilanz1(ServiceDaten daten, int pnr, Dictionary<string, HhBilanz> ebliste,
     Dictionary<string, HhBilanz> gvliste, Dictionary<string, HhBilanz> sbliste,
     string ek, string gv)
@@ -1504,55 +1557,13 @@ public class BudgetService : ServiceBase, IBudgetService
     return result;
   }
 
-  /// <summary>Saves a booking with revision.</summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">Affected ID.</param>
-  /// <param name="vd">Affected value date.</param>
-  /// <param name="kz">Affected attribute.</param>
-  /// <param name="vdm">Affected value in DM.</param>
-  /// <param name="v">Affected value in EUR.</param>
-  /// <param name="duid">Affected debit account ID.</param>
-  /// <param name="cuid">Affected credit account ID.</param>
-  /// <param name="text">Affected posting text.</param>
-  /// <param name="rn">Affected receipt number.</param>
-  /// <param name="rd">Affected receipt date.</param>
-  /// <param name="angelegtVon">Affected creator.</param>
-  /// <param name="angelegtAm">Affected creation date.</param>
-  /// <param name="geaendertVon">Affected changer.</param>
-  /// <param name="geaendertAm">Affected change date.</param>
-  /// <returns>Saved entity.</returns>
-  public HhBuchung SaveBookingIntern(ServiceDaten daten, string uid, DateTime vd, string kz, decimal vdm, decimal v,
-    string sollUid, string habenUid, string text, string bn, DateTime bd, string angelegtVon, DateTime? angelegtAm,
-    string geaendertVon, DateTime? geaendertAm)
-  {
-    kz = kz == Constants.KZB_STORNO ? Constants.KZB_STORNO : Constants.KZB_AKTIV;
-    var strT = text;
-    DateTime dValt;
-
-    var balt = HhBuchungRep.Get(daten, daten.MandantNr, uid);
-    var insert = balt == null;
-    PruefBuchung(daten, vd, vdm, v, sollUid, habenUid, strT, bn, bd);
-    var buchung = HhBuchungRep.Save(daten, daten.MandantNr, uid, vd, vd, kz, vdm, v, sollUid, habenUid, strT, bn, bd,
-      angelegtVon, angelegtAm, geaendertVon, geaendertAm);
-    if (insert)
-      SetzePassendeBerPeriode(daten, vd);
-    else
-    {
-      dValt = balt.Soll_Valuta;
-      if (dValt > vd)
-        dValt = vd;
-      SetzePassendeBerPeriode(daten, dValt);
-    }
-    return buchung;
-  }
-
   /// <summary>
-  /// x
+  /// Gets value from a column.
   /// </summary>
-  /// <param name="werte"></param>
-  /// <param name="h"></param>
-  /// <param name="c"></param>
-  /// <returns></returns>
+  /// <param name="werte">List of values.</param>
+  /// <param name="h">Dictionary of column names and indices.</param>
+  /// <param name="c">Affected column name.</param>
+  /// <returns>Value or null.</returns>
   private static string GetWert(List<string> werte, Dictionary<string, int> h, string c)
   {
     if (h != null && c != null && h.ContainsKey(c))
@@ -1564,23 +1575,18 @@ public class BudgetService : ServiceBase, IBudgetService
     return null;
   }
 
-  /**
-   * Prüfung der Buchung.
-   * @param daten Service-Daten für Datenbankzugriff.
-   * @param buchung HhBuchung-Instanz.
-   */
   /// <summary>
-  /// x
+  /// Checks a booking. Possibly errors are thrown as exceptions.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="sv"></param>
-  /// <param name="b"></param>
-  /// <param name="eb"></param>
-  /// <param name="sollUid"></param>
-  /// <param name="habenUid"></param>
-  /// <param name="text"></param>
-  /// <param name="bn"></param>
-  /// <param name="bd"></param>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="sv">Affected valuta.</param>
+  /// <param name="b">Affected non euro amount.</param>
+  /// <param name="eb">Affected euro amount.</param>
+  /// <param name="sollUid">Affected debit account uid.</param>
+  /// <param name="habenUid">Affected credit account uid.</param>
+  /// <param name="text">Affected booking text.</param>
+  /// <param name="bn">Affected receipt number.</param>
+  /// <param name="bd">Affected receipt date.</param>
   private static void PruefBuchung(ServiceDaten daten, DateTime? sv, decimal b, decimal eb, string sollUid,
     string habenUid, string text, string bn, DateTime? bd)
   {
@@ -1619,18 +1625,12 @@ public class BudgetService : ServiceBase, IBudgetService
       throw new MessageException(HH042(hhKonto.Gueltig_Bis.Value));
   }
 
-  /**
-   * Liefert die Konto-Nummer des Eigenkapitals.
-   * @param mandantNr Mandantennummer.
-   * @param exception Soll eine Exception geworfen werden, wenn das Konto fehlt?
-   * @return Konto-Nummer des Eigenkapitals.
-   */
   /// <summary>
-  /// x
+  /// Gets the equity capital account uid.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="exception"></param>
-  /// <returns></returns>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="exception">Throws exception if the account does not exist or not.</param>
+  /// <returns>Equity capital account uid.</returns>
   private static string HoleEkKonto(ServiceDaten daten, bool exception = true)
   {
     var ek = HhKontoRep.GetMin(daten, null, Constants.KZK_EK, null, null);
@@ -1639,18 +1639,12 @@ public class BudgetService : ServiceBase, IBudgetService
     return ek?.Uid;
   }
 
-  /**
-   * Liefert die Konto-Nummer des G+V-Kontos.
-   * @param mandantNr Mandantennummer.
-   * @param exception Soll eine Exception geworfen werden, wenn das Konto fehlt?
-   * @return Konto-Nummer des G+V-Kontos.
-   */
   /// <summary>
-  /// x
+  /// Gets the profit loss account uid.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="exception"></param>
-  /// <returns></returns>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="exception">Throws exception if the account does not exist or not.</param>
+  /// <returns>Profit loss account uid.</returns>
   private static string HoleGvKonto(ServiceDaten daten, bool exception = true)
   {
     var gv = HhKontoRep.GetMin(daten, null, Constants.KZK_GV, null, null);
@@ -1660,19 +1654,19 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Deletes a booking and sets the new period which must be calculated.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="uid"></param>
-  /// <param name="pruefen"></param>
-  private static void DeleteBuchungIntern(ServiceDaten daten, string uid, bool pruefen)
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected booking uid.</param>
+  /// <param name="exception">Throws exception if the booking does not exist or not.</param>
+  private static void DeleteBuchungIntern(ServiceDaten daten, string uid, bool exception)
   {
     var b = HhBuchungRep.Get(daten, daten.MandantNr, uid);
-    if (b == null && pruefen)
+    if (b == null && exception)
       throw new MessageException(HH043(uid));
     SetzePassendeBerPeriode(daten, b.Soll_Valuta);
     HhBuchungRep.Delete(daten, b);
-    // vmbuchungRep.delete(daten, new VmBuchungKey(daten.mandantNr, uid))
+    //// vmbuchungRep.delete(daten, new VmBuchungKey(daten.mandantNr, uid))
   }
 
   /// <summary>Setzen der passenden berechneten Periode.</summary>
@@ -1694,19 +1688,13 @@ public class BudgetService : ServiceBase, IBudgetService
     return p.Nr;
   }
 
-  /**
-   * Liefert die Periode, in der das angegebene Datum liegt.
-   * @param daten Service-Daten für Datenbankzugriff.
-   * @param d Datum.
-   * @return Passende Periode.
-   */
   /// <summary>
-  /// x
+  /// Gets a fitting period for a date.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="d"></param>
-  /// <param name="exception"></param>
-  /// <returns></returns>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="d">Affected date.</param>
+  /// <param name="exception">Throws exception if the period does not exist or not.</param>
+  /// <returns>Fitting period or null.</returns>
   private static HhPeriode HolePassendePeriode(ServiceDaten daten, DateTime d, bool exception = false)
   {
     var p = HhPeriodeRep.GetMaxMin(daten, false, d);
@@ -1810,66 +1798,46 @@ public class BudgetService : ServiceBase, IBudgetService
     }
   }
 
-  /**
-   * Prüfung auf Aktiv- oder Passiv-Konto.
-   * @param art Konto-Art.
-   * @return True, wenn Aktiv- oder Passiv-Konto.
-   */
   /// <summary>
-  /// x
+  /// Checks whether the account type is asset or liability.
   /// </summary>
-  /// <param name="art"></param>
-  /// <returns></returns>
+  /// <param name="art">Affected account type.</param>
+  /// <returns>Account type is asset or liability or not.</returns>
   private static bool IstAktivPassivKontoIntern(string art)
   {
-    return (Constants.ARTK_AKTIVKONTO == art || Constants.ARTK_PASSIVKONTO == art);
+    return art == Constants.ARTK_AKTIVKONTO || art == Constants.ARTK_PASSIVKONTO;
   }
 
-  /**
-   * Prüfung auf Aktiv- oder Aufwands-Konto.
-   * @param art Konto-Art.
-   * @return True, wenn Aktiv- oder Aufwands-Konto.
-   */
   /// <summary>
-  /// x
+  /// Checks whether the account type is asset or expense.
   /// </summary>
-  /// <param name="art"></param>
-  /// <returns></returns>
+  /// <param name="art">Affected account type.</param>
+  /// <returns>Account type is asset or expense or not.</returns>
   private static bool IstAktivAufwandKontoIntern(string art)
   {
-    return (Constants.ARTK_AKTIVKONTO == art || Constants.ARTK_AUFWANDSKONTO == art);
+    return art == Constants.ARTK_AKTIVKONTO || art == Constants.ARTK_AUFWANDSKONTO;
   }
 
-  /**
-   * Prüfung auf Aufwand- oder Ertrag-Konto.
-   * @param strArt Konto-Art.
-   * @return True, wenn Aufwand- oder Ertrag-Konto.
-   */
   /// <summary>
-  /// x
+  /// Checks whether the account type is expense or income.
   /// </summary>
-  /// <param name="art"></param>
-  /// <returns></returns>
+  /// <param name="art">Affected account type.</param>
+  /// <returns>Account type is expense or income or not.</returns>
   private static bool IstAufwandErtragKontoIntern(string art)
   {
-    return (Constants.ARTK_AUFWANDSKONTO == art || Constants.ARTK_ERTRAGSKONTO == art);
+    return art == Constants.ARTK_AUFWANDSKONTO || art == Constants.ARTK_ERTRAGSKONTO;
   }
 
-  /**
-   * Liefert Soll/Haben-Kennzeichen für Bilanz an Hand der Konto-Art. A bei Aktiv- oder Aufwandskonto, sonst P.
-   * @param art Konto-Art.
-   * @return Soll/Haben-Kennzeichen für Bilanz: A oder P.
-   */
   /// <summary>
-  /// x
+  /// Gets debit credit type for a balance by account type.
   /// </summary>
-  /// <param name="art"></param>
-  /// <returns></returns>
+  /// <param name="art">Affected account type.</param>
+  /// <returns>Debit credit type A (asset or expense) or P (liability or income).</returns>
   private static string HoleBilanzSH(string art)
   {
     if (IstAktivAufwandKontoIntern(art))
       return Constants.KZSH_A;
-    // if(strArt == ARTK_PASSIVKONTO || strArt == ARTK_ERTRAGSKONTO)
+    //// if(strArt == ARTK_PASSIVKONTO || strArt == ARTK_ERTRAGSKONTO)
     return Constants.KZSH_P;
   }
 
@@ -1887,12 +1855,12 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Gets an account by uid.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="uid"></param>
-  /// <param name="exception"></param>
-  /// <returns></returns>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected account uid.</param>
+  /// <param name="exception">Throws exception if the account does not exist or not.</param>
+  /// <returns>Account or null.</returns>
   private static HhKonto GetKontoIntern(ServiceDaten daten, string uid, bool exception = true)
   {
     var hhKonto = HhKontoRep.Get(daten, daten.MandantNr, uid);
@@ -1910,11 +1878,11 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Finds new sorting criteria for an account.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="uid"></param>
-  /// <returns></returns>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected account uid.</param>
+  /// <returns>New sorting criteria.</returns>
   private static string FindKontoSortierung(ServiceDaten daten, string uid = null)
   {
     string sort = null;
@@ -1929,13 +1897,13 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Inserts balances for a several periods.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="hhBilanz"></param>
-  /// <param name="from"></param>
-  /// <param name="to"></param>
-  /// <returns></returns>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="hhBilanz">Affected balance entity.</param>
+  /// <param name="from">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
+  /// <returns>Number of affected periods.</returns>
   private static int InsertBilanzPerioden(ServiceDaten daten, HhBilanz hhBilanz, DateTime? from, DateTime? to)
   {
     var list = HhPeriodeRep.GetList(daten, from, to);
@@ -1948,13 +1916,14 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Deletes balances for an account and several periods.
   /// </summary>
-  /// <param name="daten"></param>
-  /// <param name="kontoUid"></param>
-  /// <param name="before"></param>
-  /// <param name="after"></param>
-  private static void DeleteKontoVonBis(ServiceDaten daten, string kontoUid, int before = -1, int after = -1)
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="kontoUid">Affected account uid.</param>
+  /// <param name="before">Affected minimum period number.</param>
+  /// <param name="after">Affected maximum period number.</param>
+  private static void DeleteKontoVonBis(ServiceDaten daten, string kontoUid,
+    int before = Constants.PN_BERECHNET, int after = Constants.PN_BERECHNET)
   {
     var l = HhBilanzRep.GetList(daten, null, after, before, kontoUid);
     foreach (var b in l)
@@ -1964,9 +1933,9 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Gets list of booking columns.
   /// </summary>
-  /// <returns></returns>
+  /// <returns>list of booking columns.</returns>
   private static List<string> GetBookingColumns()
   {
     var columns = new List<string>
@@ -1979,10 +1948,10 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
-  /// x
+  /// Fills booking list.
   /// </summary>
-  /// <param name="bookings"></param>
-  /// <returns></returns>
+  /// <param name="bookings">List of bookings.</param>
+  /// <returns>List of string as lines.</returns>
   private static List<string> FillBookingList(List<HhBuchung> bookings)
   {
     var list = new List<string>();

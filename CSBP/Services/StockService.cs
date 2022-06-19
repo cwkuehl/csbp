@@ -182,8 +182,8 @@ public class StockService : ServiceBase, IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="cuid">Affected configuration ID.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
   public ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string stuid,
     DateTime date, bool inactive, string search, string cuid, StringBuilder state, StringBuilder cancel)
   {
@@ -515,8 +515,8 @@ public class StockService : ServiceBase, IStockService
   /// <param name="date">Affected date.</param>
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
   public ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
       DateTime date, bool inactive, string search, StringBuilder state, StringBuilder cancel)
   {
@@ -954,8 +954,8 @@ public class StockService : ServiceBase, IStockService
   /// <param name="cuid">Affected configuration IDs, separated by semikolon.</param>
   /// <param name="date">Affected date.</param>
   /// <param name="days">Affected konfiguration ID.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
   public ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
     string cuid, DateTime date, int days, StringBuilder state, StringBuilder cancel)
   {
@@ -1178,8 +1178,8 @@ public class StockService : ServiceBase, IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="kuid">Affected konfiguration ID.</param>
-  /// <param name="state">State of backup is always updated.</param>
-  /// <param name="cancel">Cancel backup if not empty.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <param name="cancel">Cancel calculation if not empty.</param>
   private List<WpWertpapier> CalculateStocksIntern(ServiceDaten daten, string desc, string pattern, string uid,
     DateTime date, bool inactive, string search, string kuid, StringBuilder state, StringBuilder cancel)
   {

@@ -343,7 +343,7 @@ public class ClientService : ServiceBase, IClientService
   /// <summary>
   /// x
   /// </summary>
-  /// <param name="daten"></param>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="mandantNr"></param>
   /// <param name="benutzerId"></param>
   /// <returns></returns>
