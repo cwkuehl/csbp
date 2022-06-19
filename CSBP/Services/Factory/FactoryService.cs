@@ -2,22 +2,40 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Services.Factory
+namespace CSBP.Services.Factory;
+
+using CSBP.Apis.Services;
+using CSBP.Services.Base;
+
+/// <summary>
+/// Factory creates service instances.
+/// </summary>
+public class FactoryService
 {
-  using CSBP.Apis.Services;
-  using CSBP.Services.Base;
+  /// <summary>Injector for csbp services.</summary>
+  private static readonly Injector Injector = Injector.Create(new CsbpInjector());
 
-  public class FactoryService
-  {
-    private static readonly Injector injector = Injector.Create(new CsbpInjector());
+  /// <summary>Gets instance of address service.</summary>
+  public static IAddressService AddressService => Injector.GetInstance<IAddressService>();
 
-    public static IAddressService AddressService => injector.GetInstance<IAddressService>();
-    public static IBudgetService BudgetService => injector.GetInstance<IBudgetService>();
-    public static IClientService ClientService => injector.GetInstance<IClientService>();
-    public static IDiaryService DiaryService => injector.GetInstance<IDiaryService>();
-    public static ILoginService LoginService => injector.GetInstance<ILoginService>();
-    public static IPedigreeService PedigreeService => injector.GetInstance<IPedigreeService>();
-    public static IPrivateService PrivateService => injector.GetInstance<IPrivateService>();
-    public static IStockService StockService => injector.GetInstance<IStockService>();
-  }
+  /// <summary>Gets instance of address service.</summary>
+  public static IBudgetService BudgetService => Injector.GetInstance<IBudgetService>();
+
+  /// <summary>Gets instance of client service.</summary>
+  public static IClientService ClientService => Injector.GetInstance<IClientService>();
+
+  /// <summary>Gets instance of diary service.</summary>
+  public static IDiaryService DiaryService => Injector.GetInstance<IDiaryService>();
+
+  /// <summary>Gets instance of login service.</summary>
+  public static ILoginService LoginService => Injector.GetInstance<ILoginService>();
+
+  /// <summary>Gets instance of pedigree service.</summary>
+  public static IPedigreeService PedigreeService => Injector.GetInstance<IPedigreeService>();
+
+  /// <summary>Gets instance of private service.</summary>
+  public static IPrivateService PrivateService => Injector.GetInstance<IPrivateService>();
+
+  /// <summary>Gets instance of stock service.</summary>
+  public static IStockService StockService => Injector.GetInstance<IStockService>();
 }

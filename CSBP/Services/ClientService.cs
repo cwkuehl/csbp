@@ -26,12 +26,15 @@ using Newtonsoft.Json.Linq;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
+/// <summary>
+/// Implementation of client service.
+/// </summary>
 public class ClientService : ServiceBase, IClientService
 {
-  /// <summary>Holt oder setzt den Haushalt-Service.</summary>
+  /// <summary>Sets budget service.</summary>
   public IBudgetService BudgetService { private get; set; }
 
-  /// <summary>Holt oder setzt den Privat-Service.</summary>
+  /// <summary>Sets private service.</summary>
   public IPrivateService PrivateService { private get; set; }
 
   /// <summary>
@@ -85,7 +88,7 @@ public class ClientService : ServiceBase, IClientService
       {
         var mout = new List<string>
         {
-          "update sb_person set quelle_uid=null where quelle_uid='0'"
+          "update sb_person set quelle_uid=null where quelle_uid='0'",
         };
         MaMandantRep.Execute(daten, mout);
         version = 55;
@@ -151,6 +154,7 @@ public class ClientService : ServiceBase, IClientService
         dba.createTab1("Geaendert_Von", "D_STRING_20", true);
         dba.createTab1("Geaendert_Am", "D_DATETIME", true);
         dba.createTab2(mout, tab, "Mandant_Nr, Ort_Uid, Datum_Von, Datum_Bis");
+
         // mout.Add("INSERT INTO TB_Ort(Mandant_Nr,Uid,Breite,Laenge,Hoehe,Notiz,Angelegt_Von,Angelegt_Am) VALUES(1,'2',3,4,5,'6','ich','2020-08-15');");
         // dba.addTab0();
         // dba.addTab1("Mandant_Nr", "D_INTEGER", false);
@@ -281,7 +285,7 @@ public class ClientService : ServiceBase, IClientService
           Benutzer_ID = Constants.USER_ID,
           Passwort = null,
           Berechtigung = (int)PermissionEnum.Admin,
-          Akt_Periode = 0
+          Akt_Periode = 0,
         };
         BenutzerRep.Insert(daten, b);
       }
@@ -336,6 +340,13 @@ public class ClientService : ServiceBase, IClientService
   }
 
   /** Berechtigung eines Benutzers lesen */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="mandantNr"></param>
+  /// <param name="benutzerId"></param>
+  /// <returns></returns>
   private static int GetBerechtigung(ServiceDaten daten, int mandantNr, string benutzerId)
   {
     var b = BenutzerRep.Get(daten, mandantNr, benutzerId);
@@ -499,7 +510,7 @@ public class ClientService : ServiceBase, IClientService
     foreach (var mp in olist)
     {
       var save = false;
-      //mp.Wert = mp.Wert ?? "";
+      //// mp.Wert = mp.Wert ?? "";
       if (plist.TryGetValue(mp.Schluessel, out var p))
       {
         p.SetValue(mp.Wert);
@@ -735,6 +746,7 @@ public class ClientService : ServiceBase, IClientService
     return new ServiceErgebnis();
   }
 
+  /// <summary>x</summary>
   private static readonly Regex pread = new("^([a-z]+)(_([0-9]+)d?)?$", RegexOptions.Compiled);
 
   /// <summary>
@@ -1055,7 +1067,6 @@ Lokal: {e.Eintrag}";
   /// <summary>
   /// Prepares a backup.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="source">Source folder.</param>
   /// <param name="target">Target folder.</param>
@@ -1063,9 +1074,9 @@ Lokal: {e.Eintrag}";
   /// <param name="encrypted">Should the target folder be encrypted?</param>
   /// <param name="zipped">Should the target folder be compressed?</param>
   /// <param name="blist">Backup list to fill.</param>
-  /// <param name="status">State of backup is always updated.</param>
+  /// <param name="state">State of backup is always updated.</param>
   /// <param name="cancel">Cancel backup if not empty.</param>
-  void PrepareBackup(ServiceDaten daten, string source, string target,
+  private void PrepareBackup(ServiceDaten daten, string source, string target,
       bool restore, bool encrypted, bool zipped, List<BackupFile> blist,
       StringBuilder state, StringBuilder cancel)
   {
@@ -1094,7 +1105,7 @@ Lokal: {e.Eintrag}";
           Type = BackupType.ZipFolder,
           Path = source,
           Path2 = p,
-          Modified = restore ? tm : sm
+          Modified = restore ? tm : sm,
         });
       return;
     }
@@ -1107,7 +1118,7 @@ Lokal: {e.Eintrag}";
     {
       Type = BackupType.ModifyFolder,
       Path = t,
-      Modified = Directory.GetLastWriteTimeUtc(s)
+      Modified = Directory.GetLastWriteTimeUtc(s),
     });
     var sfiles = new Dictionary<string, BackupPreparation>();
     var sfolders = new Dictionary<string, BackupPreparation>();
@@ -1149,7 +1160,7 @@ Lokal: {e.Eintrag}";
       {
         Type = BackupType.ModifyFolder,
         Path = tf.Path,
-        Modified = f.Modified
+        Modified = f.Modified,
       });
       tfolders.Remove(f.Name);
     }
@@ -1161,22 +1172,22 @@ Lokal: {e.Eintrag}";
       {
         Type = BackupType.CreateFolder,
         Path = Path.Combine(t, f.Name),
-        Modified = f.Modified
+        Modified = f.Modified,
       });
     }
 
-    // Delete folders
+    // Deletes folders
     foreach (var f in tfolders.Values)
     {
       blist.Add(new BackupFile
       {
         Type = BackupType.DeleteFolder,
         Path = Path.Combine(t, f.Name),
-        Modified = f.Modified
+        Modified = f.Modified,
       });
     }
 
-    // Copy files
+    // Copys files
     foreach (var f in cfiles.Values)
     {
       blist.Add(new BackupFile
@@ -1184,24 +1195,24 @@ Lokal: {e.Eintrag}";
         Type = BackupType.CopyFile,
         Path = Path.Combine(s, f.Name),
         Path2 = Path.Combine(t, f.Name),
-        Modified = f.Modified
+        Modified = f.Modified,
       });
     }
 
-    // Delete files
+    // Deletes files
     foreach (var f in tfiles.Values)
     {
       blist.Add(new BackupFile
       {
         Type = BackupType.DeleteFile,
         Path = Path.Combine(t, f.Name),
-        Modified = f.Modified
+        Modified = f.Modified,
       });
     }
   }
 
   /// <summary>
-  /// Get an table report.
+  /// Gets an table report.
   /// </summary>
   /// <returns>An table report.</returns>
   /// <param name="daten">Service data for database access.</param>
@@ -1234,7 +1245,7 @@ Lokal: {e.Eintrag}";
     var e = new FileData
     {
       Name = name,
-      Bytes = bytes
+      Bytes = bytes,
     };
     var ul = new UndoList();
     ul.Insert(e);
@@ -1258,7 +1269,7 @@ Lokal: {e.Eintrag}";
       {
         Path = folder,
         Name = dir,
-        Modified = Directory.GetLastWriteTimeUtc(folder)
+        Modified = Directory.GetLastWriteTimeUtc(folder),
       });
     foreach (var f in Directory.GetFiles(folder))
     {
@@ -1266,7 +1277,7 @@ Lokal: {e.Eintrag}";
       {
         Path = f,
         Name = Functions.CutStart(f, source),
-        Modified = File.GetLastWriteTimeUtc(f)
+        Modified = File.GetLastWriteTimeUtc(f),
       };
       files.Add(bf.Name, bf);
     }
@@ -1318,31 +1329,30 @@ Lokal: {e.Eintrag}";
   /// <param name="password"></param>
   public static void FileEncrypt(string inputFile, string outputFile, string password)
   {
-    //http://stackoverflow.com/questions/27645527/aes-encryption-on-large-files
-
-    //generate random salt
+    // http://stackoverflow.com/questions/27645527/aes-encryption-on-large-files
+    // generate random salt
     var salt = GenerateRandomSalt();
 
-    //create output file name
+    // create output file name
     File.Delete(outputFile);
     var fsCrypt = new FileStream(outputFile, FileMode.Create);
 
-    //convert password string to byte arrray
+    // convert password string to byte arrray
     var passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
 
-    //Set Rijndael symmetric encryption algorithm
+    // Set Rijndael symmetric encryption algorithm
     var AES = Aes.Create();
     AES.KeySize = 256;
     AES.BlockSize = 128;
     AES.Padding = PaddingMode.PKCS7;
 
-    //http://stackoverflow.com/questions/2659214/why-do-i-need-to-use-the-rfc2898derivebytes-class-in-net-instead-of-directly
-    //"What it does is repeatedly hash the user password along with the salt." High iteration counts.
+    // http://stackoverflow.com/questions/2659214/why-do-i-need-to-use-the-rfc2898derivebytes-class-in-net-instead-of-directly
+    // "What it does is repeatedly hash the user password along with the salt." High iteration counts.
     var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000);
     AES.Key = key.GetBytes(AES.KeySize / 8);
     AES.IV = key.GetBytes(AES.BlockSize / 8);
 
-    //Cipher modes: http://security.stackexchange.com/questions/52665/which-is-the-best-cipher-mode-and-padding-mode-for-aes-encryption
+    // Cipher modes: http://security.stackexchange.com/questions/52665/which-is-the-best-cipher-mode-and-padding-mode-for-aes-encryption
     AES.Mode = CipherMode.CFB; // CBC
 
     // write salt to the begining of the output file, so in this case can be random every time
@@ -1351,7 +1361,7 @@ Lokal: {e.Eintrag}";
     var cs = new CryptoStream(fsCrypt, AES.CreateEncryptor(), CryptoStreamMode.Write);
     var fsIn = new FileStream(inputFile, FileMode.Open);
 
-    //create a buffer (1mb) so only this amount will allocate in the memory and not the whole file
+    // create a buffer (1mb) so only this amount will allocate in the memory and not the whole file
     var buffer = new byte[1048576]; // 1048576
     int read;
 
@@ -1361,7 +1371,7 @@ Lokal: {e.Eintrag}";
       {
         cs.Write(buffer, 0, read);
       }
-      //} catch (Exception ex) {
+      // } catch (Exception ex) {
       //    Console.WriteLine("Error: " + ex.Message);
     }
     finally
@@ -1407,9 +1417,10 @@ Lokal: {e.Eintrag}";
       {
         fsOut.Write(buffer, 0, read);
       }
-      //} catch (CryptographicException ex_CryptographicException) {
+
+      // } catch (CryptographicException ex_CryptographicException) {
       //    Console.WriteLine("CryptographicException error: " + ex_CryptographicException.Message);
-      //} catch (Exception ex) {
+      // } catch (Exception ex) {
       //    Console.WriteLine("Error: " + ex.Message);
     }
     finally
@@ -1427,7 +1438,8 @@ Lokal: {e.Eintrag}";
     }
   }
 
-  static List<ReplicationTable> GetAllTables()
+  /// <summary>x</summary>
+  private static List<ReplicationTable> GetAllTables()
   {
     var l = new List<ReplicationTable> {
       new ReplicationTable("AD_Adresse", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
@@ -1441,57 +1453,68 @@ Lokal: {e.Eintrag}";
       new ReplicationTable("FZ_Buchstatus", "Mandant_Nr", "Mandant_Nr, Buch_Uid", true, true),
       new ReplicationTable("FZ_Fahrrad", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("FZ_Fahrradstand", "Mandant_Nr", "Mandant_Nr, Fahrrad_Uid, Datum, Nr", true, true),
-      //new ReplicationTable("FZ_Lektion", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("FZ_Lektioninhalt", "Mandant_Nr", "Mandant_Nr, Lektion_Uid, Lfd_Nr", true, true),
-      //new ReplicationTable("FZ_Lektionstand", "Mandant_Nr", "Mandant_Nr, Lektion_Uid", true, true),
+      //// new ReplicationTable("FZ_Lektion", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("FZ_Lektioninhalt", "Mandant_Nr", "Mandant_Nr, Lektion_Uid, Lfd_Nr", true, true),
+      //// new ReplicationTable("FZ_Lektionstand", "Mandant_Nr", "Mandant_Nr, Lektion_Uid", true, true),
       new ReplicationTable("FZ_Notiz", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("HH_Bilanz", "Mandant_Nr", "Mandant_Nr, Periode, Kz, Konto_Uid", true, true),
       new ReplicationTable("HH_Buchung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("HH_Ereignis", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("HH_Konto", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("HH_Periode", "Mandant_Nr", "Mandant_Nr, Nr", true, true),
-      //new ReplicationTable("HP_Behandlung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("HP_Behandlung_Leistung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("HP_Leistung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("HP_Leistungsgruppe", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("HP_Patient", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("HP_Rechnung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("HP_Status", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("MA_Einstellung", "Mandant_Nr", "Mandant_Nr, Schluessel", false, false),
+      //// new ReplicationTable("HP_Behandlung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("HP_Behandlung_Leistung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("HP_Leistung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("HP_Leistungsgruppe", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("HP_Patient", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("HP_Rechnung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("HP_Status", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("MA_Einstellung", "Mandant_Nr", "Mandant_Nr, Schluessel", false, false),
       new ReplicationTable("MA_Mandant", "Nr", "Nr", true, true), //
       new ReplicationTable("MA_Parameter", "Mandant_Nr", "Mandant_Nr, Schluessel", true, true),
-      //new ReplicationTable("MA_Replikation", "Mandant_Nr", "Mandant_Nr, Tabellen_Nr, Replikation_Uid", true, false),
-      //new ReplicationTable("MO_Einteilung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("MO_Gottesdienst", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("MO_Messdiener", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("MO_Profil", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("MA_Replikation", "Mandant_Nr", "Mandant_Nr, Tabellen_Nr, Replikation_Uid", true, false),
+      //// new ReplicationTable("MO_Einteilung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("MO_Gottesdienst", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("MO_Messdiener", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("MO_Profil", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("SB_Ereignis", "Mandant_Nr", "Mandant_Nr, Person_Uid, Familie_Uid, Typ", true, true),
       new ReplicationTable("SB_Familie", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("SB_Kind", "Mandant_Nr", "Mandant_Nr, Familie_Uid, Kind_Uid", true, true),
       new ReplicationTable("SB_Person", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("SB_Quelle", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("TB_Eintrag", "Mandant_Nr", "Mandant_Nr, Datum", true, true),
-      //new ReplicationTable("VM_Abrechnung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Buchung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Ereignis", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Haus", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Konto", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Miete", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Mieter", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("VM_Wohnung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Abrechnung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Buchung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Ereignis", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Haus", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Konto", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Miete", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Mieter", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
+      //// new ReplicationTable("VM_Wohnung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("WP_Anlage", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("WP_Buchung", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("WP_Konfiguration", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
       new ReplicationTable("WP_Stand", "Mandant_Nr", "Mandant_Nr, Wertpapier_Uid, Datum", true, true),
       new ReplicationTable("WP_Wertpapier", "Mandant_Nr", "Mandant_Nr, Uid", true, true),
-      //new ReplicationTable("zEinstellung", null, "Schluessel", false, false)
+      //// new ReplicationTable("zEinstellung", null, "Schluessel", false, false)
     };
     return l;
   }
 }
 
+/// <summary>
+/// X
+/// </summary>
 class ReplicationTable
 {
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="name"></param>
+  /// <param name="clientNumber"></param>
+  /// <param name="primaryKey"></param>
+  /// <param name="delete"></param>
+  /// <param name="copy"></param>
   public ReplicationTable(string name, string clientNumber, string primaryKey,
     bool delete, bool copy)
   {
@@ -1521,6 +1544,9 @@ class BackupPreparation
 /// </summary>
 enum BackupType { CreateFolder, CopyFile, DeleteFile, DeleteFolder, ModifyFolder, ZipFolder };
 
+/// <summary>
+/// x
+/// </summary>
 class BackupFile
 {
   public BackupType Type { get; set; }

@@ -44,7 +44,6 @@ public interface IDiaryService
   /// <summary>
   /// Searches the next fitting entry in search direction.
   /// </summary>
-  /// <returns>Next fitting date.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="stelle">Affected search direction.</param>
   /// <param name="aktDatum">Starting point of search.</param>
@@ -52,19 +51,20 @@ public interface IDiaryService
   /// <param name="puid">Affected position uid.</param>
   /// <param name="from">Affected from date.</param>
   /// <param name="to">Affected to date.</param>
+  /// <returns>Next fitting date.</returns>
   ServiceErgebnis<DateTime?> SearchDate(ServiceDaten daten, SearchDirectionEnum stelle,
     DateTime? aktDatum, string[] search, string puid, DateTime? from, DateTime? to);
 
   /// <summary>
   /// Create list of lines which contains all diary entries fitting the search string.
   /// </summary>
-  /// <returns>String array which can be stored in a text file.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="search">Affected search string, possibly with placeholders, e.g. %B_den% finds Baden and Boden.
   /// To check counters use ####, e.g. %####. BGS: %.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <param name="from">Affected from date.</param>
   /// <param name="to">Affected to date.</param>
+  /// <returns>String array which can be stored in a text file.</returns>
   ServiceErgebnis<List<string>> GetDiaryReport(ServiceDaten daten, string[] search, string puid, DateTime? from, DateTime? to);
 
   /// <summary>

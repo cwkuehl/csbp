@@ -20,6 +20,9 @@ using CSBP.Services.Reports;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
+/// <summary>
+/// Implementation of pedigree service.
+/// </summary>
 public class PedigreeService : ServiceBase, IPedigreeService
 {
   /// <summary>
@@ -27,7 +30,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="name">Affected last or birth name.</param>
-  /// <param name="vorname">Affected first name.</param>
+  /// <param name="firstname">Affected first name.</param>
   /// <param name="uid">ID of ancestor.</param>
   /// <returns>List of ancestors.</returns>
   public ServiceErgebnis<List<SbPerson>> GetAncestorList(ServiceDaten daten, string name = null, string firstname = null, string uid = null)
@@ -68,6 +71,34 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <param name="name">Affected name.</param>
   /// <param name="vorname">Affected first names.</param>
   /// <param name="gebname">Affected birth name.</param>
+  /// <param name="geschlecht"></param>
+  /// <param name="titel"></param>
+  /// <param name="konfession"></param>
+  /// <param name="bemerkung"></param>
+  /// <param name="quid"></param>
+  /// <param name="status1"></param>
+  /// <param name="status2"></param>
+  /// <param name="status3"></param>
+  /// <param name="geburtsdatum"></param>
+  /// <param name="geburtsort"></param>
+  /// <param name="geburtsbem"></param>
+  /// <param name="geburtsQuelle"></param>
+  /// <param name="taufdatum"></param>
+  /// <param name="taufort"></param>
+  /// <param name="taufbem"></param>
+  /// <param name="taufQuelle"></param>
+  /// <param name="todesdatum"></param>
+  /// <param name="todesort"></param>
+  /// <param name="todesbem"></param>
+  /// <param name="todesQuelle"></param>
+  /// <param name="begraebnisdatum"></param>
+  /// <param name="begraebnisort"></param>
+  /// <param name="begraebnisbem"></param>
+  /// <param name="begraebnisQuelle"></param>
+  /// <param name="gatteNeu"></param>
+  /// <param name="vaterUidNeu"></param>
+  /// <param name="mutterUidNeu"></param>
+  /// <param name="byteliste"></param>
   /// <returns>Created or changed ancestor.</returns>
   public ServiceErgebnis<SbPerson> SaveAncestor(ServiceDaten daten, string uid, string name, string vorname,
     string gebname, string geschlecht, string titel, string konfession, string bemerkung, string quid, int status1,
@@ -534,6 +565,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (string.IsNullOrEmpty(op) && string.IsNullOrEmpty(anc) && string.IsNullOrEmpty(desc))
         throw new MessageException(SB025);
+
       // status2 = 0; // Unselect all ancestors.
       // SbPersonRep.UpdateStatus2(daten, null, 0, status2);
       // SaveChanges(daten);
@@ -558,6 +590,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     WriteFamily(daten, list, map, op, tot, anc, desc);
     WriteSource(daten, list, map);
     WriteFoot(daten, list, version, name);
+
     // var l = map.Where(a => a.Value < 0).Select(a => a.Key).ToList();
     // foreach (var i in l)
     //   Debug.WriteLine(i);
@@ -647,8 +680,8 @@ public class PedigreeService : ServiceBase, IPedigreeService
         else if (pd.Date2.Jahr != 0)
           p.Status1 = -(pd.Date2.Jahr + alter);
       }
-      // if (p.Status1 != 0)
-      //  SbPersonRep.Update(daten, p);
+      //// if (p.Status1 != 0)
+      ////  SbPersonRep.Update(daten, p);
     }
     SaveChanges(daten);
     var anzahl3 = SbPersonRep.CountStatus1(daten, 0);
@@ -665,7 +698,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
         {
           if (p.Status1 != 0)
             continue;
-          // State of wife or spouse.
+          //// State of wife or spouse.
           if ((f.Father?.Status1 ?? 0) != 0)
             p.Status1 = -Math.Abs(f.Father.Status1);
           else if ((f.Mother?.Status1 ?? 0) != 0)
@@ -695,7 +728,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
           {
             if (p.Status1 != 0)
               continue;
-            // State of father or mother.
+            //// State of father or mother.
             if ((f.Father?.Status1 ?? 0) != 0)
               p.Status1 = -(Math.Abs(f.Father.Status1) + generation);
             else if ((f.Mother?.Status1 ?? 0) != 0)
@@ -928,7 +961,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
               if (m.Success)
               {
                 uid = GetUid(map, m.Groups[1].Value);
-                //ImportSource(daten, v, uid);
+                //// ImportSource(daten, v, uid);
                 g = true;
               }
             }
@@ -946,6 +979,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
     return anzahl;
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="v"></param>
+  /// <param name="uid"></param>
+  /// <param name="map"></param>
   private static void ImportIndividual(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
   {
     var ve = new List<string>();
@@ -1093,6 +1133,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
     SbPersonRep.Insert(daten, p);
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="v"></param>
+  /// <param name="uid"></param>
+  /// <param name="map"></param>
   private static void ImportFamily(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
   {
     var ve = new List<string>();
@@ -1155,6 +1202,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 
 #pragma warning disable IDE0051
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="v"></param>
+  /// <param name="uid"></param>
   private static void ImportSource(ServiceDaten daten, List<string> v, string uid)
   {
     var zuletzt = 0;
@@ -1225,6 +1278,14 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 #pragma warning restore IDE0051
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="v"></param>
+  /// <param name="uid"></param>
+  /// <param name="nrTyp"></param>
+  /// <param name="typ"></param>
   private static void ImportEvent(ServiceDaten daten, List<string> v, string uid, string nrTyp, GedcomEventEnum typ)
   {
     var datum = new PedigreeTimeData();
@@ -1284,6 +1345,11 @@ public class PedigreeService : ServiceBase, IPedigreeService
     SbEreignisRep.Insert(daten, e);
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="str"></param>
+  /// <returns></returns>
   private static int GetLevel(string str)
   {
     var l = -1;
@@ -1445,8 +1511,8 @@ public class PedigreeService : ServiceBase, IPedigreeService
       var familienUid = f.Uid;
       var muid = f.Mann_Uid;
       var fuid = f.Frau_Uid;
-      // var mannTot = f.Father?.Status1 ?? 0;
-      // var frauTot = f.Mother?.Status1 ?? 0;
+      //// var mannTot = f.Father?.Status1 ?? 0;
+      //// var frauTot = f.Mother?.Status1 ?? 0;
       if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Father?.Status1 ?? 0), op, tot)
         || (!string.IsNullOrEmpty(anc) && (f.Father?.Status3 ?? 0) != 1) || (!string.IsNullOrEmpty(desc) && (f.Father?.Status3 ?? 0) != 1))
         muid = null;
@@ -1521,7 +1587,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <param name="l">List of lines for GEDCOM file.</param>
   /// <param name="version">Affected version of GEDCOM file, e.g. 5.5.</param>
   /// <param name="name">Affected pedigree name.</param>
-  private static void WriteFoot(ServiceDaten daten, List<String> l, String version, String name)
+  private static void WriteFoot(ServiceDaten daten, List<string> l, string version, string name)
   {
     Functions.MachNichts(daten);
     if (version.CompareTo("5.5") >= 0)
@@ -1541,7 +1607,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
           l.Add("2 CONT " + arr[3]);
         if (arr.Length > 4)
           l.Add("2 CONT " + arr[4]);
-        // l.Add("1 PHON 00000-11111");
+        //// l.Add("1 PHON 00000-11111");
       }
     }
     if (version.CompareTo("5.5") >= 0)
@@ -1561,6 +1627,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param uid Nummer des Objekts.
    * @return Objekt-Referenz als Zeichenkette.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="map"></param>
+  /// <param name="typ"></param>
+  /// <param name="uid"></param>
+  /// <returns></returns>
   private static string GetXref(Dictionary<string, int> map, string typ, string uid)
   {
     string s;
@@ -1594,6 +1667,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param type Typ des Eintrags, z.B. TITL, TEXT, AUTH.
    * @param text Auszugebender Inhalt.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="l"></param>
+  /// <param name="level"></param>
+  /// <param name="type"></param>
+  /// <param name="text"></param>
   private static void SchreibeFortsetzung(List<string> l, int level, string type, string text)
   {
     // Maximal Länge einer GEDCOM-Zeile.
@@ -1601,7 +1681,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     var iLen = text == null ? 0 : text.Length;
     if (iLen > 0)
     {
-      var iMax = (iLen - 1) / MAX_GEDCOM_ZEILE + 1;
+      var iMax = ((iLen - 1) / MAX_GEDCOM_ZEILE) + 1;
       for (var i = 1; i <= iMax; i++)
       {
         string str;
@@ -1628,6 +1708,15 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param liste Liste von Nachfahren.
    * @return Daten als NachfahrDaten.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="uid"></param>
+  /// <param name="stufe"></param>
+  /// <param name="generation"></param>
+  /// <param name="max"></param>
+  /// <param name="liste"></param>
   private void GetNachfahrenRekursiv(ServiceDaten daten, string uid, int stufe, int generation, int max, List<SbPerson> liste)
   {
     var mitEreignis = (stufe & 1) == 0;
@@ -1664,7 +1753,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
           if (!string.IsNullOrEmpty(f.Frau_Uid))
           {
             GetNachfahrenRekursiv(daten, f.Frau_Uid, stufe | 2, generation, max, liste);
-            // auchKinder = true;
+            //// auchKinder = true;
           }
         }
         else
@@ -1672,7 +1761,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
           if (!string.IsNullOrEmpty(f.Mann_Uid))
           {
             GetNachfahrenRekursiv(daten, f.Mann_Uid, stufe | 2, generation, max, liste);
-            // auchKinder = true;
+            //// auchKinder = true;
           }
         }
         var auchKinder = true;
@@ -1700,6 +1789,17 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param liste Liste von Nachfahren.
    * @return Daten als NachfahrDaten.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="uid"></param>
+  /// <param name="mitEreignis"></param>
+  /// <param name="mitGeschwistern"></param>
+  /// <param name="mitEltern"></param>
+  /// <param name="generation"></param>
+  /// <param name="max"></param>
+  /// <param name="liste"></param>
   private void GetVorfahrenRekursiv(ServiceDaten daten, string uid, bool mitEreignis, bool mitGeschwistern,
     bool mitEltern, int generation, int max, List<SbPerson> liste)
   {
@@ -1747,6 +1847,11 @@ public class PedigreeService : ServiceBase, IPedigreeService
     }
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="q"></param>
   private static void DeleteQuelleIntern(ServiceDaten daten, SbQuelle q)
   {
     var pliste = SbPersonRep.GetList(daten, suid: q.Uid);
@@ -1768,6 +1873,17 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param bemerkung Ereignis-Bemerkung.
    * @param quid Quellen-Nummer zum Ereignis.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="puid"></param>
+  /// <param name="fuid"></param>
+  /// <param name="typ"></param>
+  /// <param name="datum"></param>
+  /// <param name="ort"></param>
+  /// <param name="bemerkung"></param>
+  /// <param name="quid"></param>
   private static void SpeichereEreignis(ServiceDaten daten, string puid, string fuid, string typ, string datum,
     string ort, string bemerkung, string quid)
   {
@@ -1806,6 +1922,16 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @throws Exception falls die neue Familien-Nummer nicht bestimmt werden konnte oder Ahn schon Kind in anderer
    *         Familie ist.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="uid"></param>
+  /// <param name="mannUid"></param>
+  /// <param name="frauUid"></param>
+  /// <param name="kindUid"></param>
+  /// <param name="doppelt"></param>
+  /// <returns></returns>
   private static SbFamilie NeueFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid, string kindUid,
     bool doppelt)
   {
@@ -1849,6 +1975,14 @@ public class PedigreeService : ServiceBase, IPedigreeService
     return f;
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="uid"></param>
+  /// <param name="mannUid"></param>
+  /// <param name="frauUid"></param>
+  /// <returns></returns>
   private static SbFamilie IuFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid)
   {
     if (string.IsNullOrEmpty(mannUid) && string.IsNullOrEmpty(frauUid))
@@ -1863,6 +1997,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param fuid Familien-Nummer.
    * @param kindUid Ahnen-Nummer des Kindes.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="fuid"></param>
+  /// <param name="kindUid"></param>
+  /// <returns></returns>
   private static SbKind IuKind(ServiceDaten daten, string fuid, string kindUid)
   {
     if (string.IsNullOrEmpty(fuid) || string.IsNullOrEmpty(kindUid))
@@ -1875,6 +2016,11 @@ public class PedigreeService : ServiceBase, IPedigreeService
     return k;
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="p"></param>
   private static void DeletePersonIntern(ServiceDaten daten, SbPerson p)
   {
     // Person aus Familie löschen
@@ -1919,6 +2065,11 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param daten Service-Daten mit Mandantennummer.
    * @param uid Familie-Nummer.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="f"></param>
   private static void DeleteFamilieIntern(ServiceDaten daten, SbFamilie f)
   {
     // Kinder löschen
@@ -1941,6 +2092,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
       SbFamilieRep.Delete(daten, f);
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="puid"></param>
+  /// <returns></returns>
   private static List<string> GetAlleEhegatten(ServiceDaten daten, string puid)
   {
     var liste = new List<string>();
@@ -1973,6 +2130,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
     return liste;
   }
 
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="puid"></param>
+  /// <returns></returns>
   private static List<string> GetEhegatten0(ServiceDaten daten, string puid)
   {
     var liste = new List<String>();
@@ -1996,6 +2159,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param uid Ahnen-Nummer.
    * @return Familie des Ahnen.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="uid"></param>
+  /// <returns></returns>
   private static SbFamilie GetElternFamilieIntern(ServiceDaten daten, String uid)
   {
     var fliste = SbFamilieRep.GetList(daten, personuid: uid);
@@ -2008,6 +2177,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
    * @param uid Ahnen-Nummer.
    * @return Kind-Datensatz des Ahnen.
    */
+  /// <summary>
+  /// x
+  /// </summary>
+  /// <param name="daten"></param>
+  /// <param name="uid"></param>
+  /// <returns></returns>
   private static SbKind GetKindFamilieIntern(ServiceDaten daten, string uid)
   {
     var k = SbKindRep.GetList(daten, null, uid).FirstOrDefault();
