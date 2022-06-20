@@ -25,6 +25,87 @@ using static CSBP.Resources.Messages;
 /// </summary>
 public class PedigreeService : ServiceBase, IPedigreeService
 {
+  /// <summary>Regex for Level.</summary>
+  private static readonly Regex Level = new("^([\\d]+) (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 0 INDI.</summary>
+  private static readonly Regex Indi0 = new("^0 @I([\\da-fA-F;\\-]+)@ INDI$", RegexOptions.Compiled); // 297f9764:141887cfc37:-8000-
+
+  /// <summary>Regex for 1 NAME.</summary>
+  private static readonly Regex Name1 = new("^1 NAME [^/]*/([^/]+)/$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 2 GIVN.</summary>
+  private static readonly Regex Givn2 = new("^2 GIVN (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 2 SURN.</summary>
+  private static readonly Regex Surn2 = new("^2 SURN (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 SEX.</summary>
+  private static readonly Regex Sex1 = new("^1 SEX ([M|F])$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 BIRT.</summary>
+  private static readonly Regex Birt1 = new("^1 BIRT$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 BURI.</summary>
+  private static readonly Regex Buri1 = new("^1 BURI$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 CHR.</summary>
+  private static readonly Regex Chr1 = new("^1 CHR$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 DEAT.</summary>
+  private static readonly Regex Deat1 = new("^1 DEAT$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 2 DATE.</summary>
+  private static readonly Regex Date2 = new("^2 DATE (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 2 PLAC.</summary>
+  private static readonly Regex Plac2 = new("^2 PLAC (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 2 NOTE.</summary>
+  private static readonly Regex Note2 = new("^2 NOTE (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 3 CONT.</summary>
+  private static readonly Regex Cont3 = new("^3 CONT (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 RELI.</summary>
+  private static readonly Regex Reli1 = new("^1 RELI (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 NOTE.</summary>
+  private static readonly Regex Note1 = new("^1 NOTE (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 2 CONT.</summary>
+  private static readonly Regex Cont2 = new("^2 CONT (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 SOUR.</summary>
+  private static readonly Regex Sour1 = new("^1 SOUR @Q([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 0 FAM.</summary>
+  private static readonly Regex Fam0 = new("^0 @F([\\da-fA-F;\\-]+)@ FAM$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 HUSB.</summary>
+  private static readonly Regex Husb1 = new("^1 HUSB @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 WIFE.</summary>
+  private static readonly Regex Wife1 = new("^1 WIFE @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 MARR.</summary>
+  private static readonly Regex Marr1 = new("^1 MARR$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 CHIL.</summary>
+  private static readonly Regex Chil1 = new("^1 CHIL @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 0 SOUR.</summary>
+  private static readonly Regex Sour0 = new("^0 @Q([\\da-fA-F;\\-]+)@ SOUR$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 AUTH.</summary>
+  private static readonly Regex Auth1 = new("^1 AUTH (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 TITL.</summary>
+  private static readonly Regex Titl1 = new("^1 TITL (.*)$", RegexOptions.Compiled);
+
+  /// <summary>Regex for 1 TEXT.</summary>
+  private static readonly Regex Text1 = new("^1 TEXT (.*)$", RegexOptions.Compiled);
+
   /// <summary>
   /// Gets a list of ancestors.
   /// </summary>
@@ -127,10 +208,10 @@ public class PedigreeService : ServiceBase, IPedigreeService
       return r;
     var e = SbPersonRep.Save(daten, daten.MandantNr, uid, N(name2), N(vorname), N(gebname), N(gesch), N(titel),
       N(konfession), N(bemerkung), N(quid), status1, status2, status3);
-    SpeichereEreignis(daten, e.Uid, "", GedcomEventEnum.BIRTH.ToString(), geburtsdatum, geburtsort, geburtsbem, geburtsQuelle);
-    SpeichereEreignis(daten, e.Uid, "", GedcomEventEnum.CHRIST.ToString(), taufdatum, taufort, taufbem, taufQuelle);
-    SpeichereEreignis(daten, e.Uid, "", GedcomEventEnum.DEATH.ToString(), todesdatum, todesort, todesbem, todesQuelle);
-    SpeichereEreignis(daten, e.Uid, "", GedcomEventEnum.BURIAL.ToString(), begraebnisdatum, begraebnisort, begraebnisbem, begraebnisQuelle);
+    SaveEvent(daten, e.Uid, "", GedcomEventEnum.BIRTH.ToString(), geburtsdatum, geburtsort, geburtsbem, geburtsQuelle);
+    SaveEvent(daten, e.Uid, "", GedcomEventEnum.CHRIST.ToString(), taufdatum, taufort, taufbem, taufQuelle);
+    SaveEvent(daten, e.Uid, "", GedcomEventEnum.DEATH.ToString(), todesdatum, todesort, todesbem, todesQuelle);
+    SaveEvent(daten, e.Uid, "", GedcomEventEnum.BURIAL.ToString(), begraebnisdatum, begraebnisort, begraebnisbem, begraebnisQuelle);
     SaveChanges(daten);
     if (byteliste != null)
       ByteDatenRep.SaveList(daten, "SB_Person", e.Uid, byteliste);
@@ -346,7 +427,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     string mdate, string mplace, string mmemo, string suid, List<string> children)
   {
     var e = NeueFamilie(daten, uid, fuid, muid, null, true);
-    SpeichereEreignis(daten, "", e.Uid, GedcomEventEnum.MARRIAGE.ToString(), mdate, mplace, mmemo, suid);
+    SaveEvent(daten, "", e.Uid, GedcomEventEnum.MARRIAGE.ToString(), mdate, mplace, mmemo, suid);
     //// bestehende Kinder lesen
     var listeAlt = SbKindRep.GetList(daten, e.Uid);
     foreach (var i in children)
@@ -576,7 +657,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       // SbQuelleRep.UpdatePersonStatus2(daten, status2);
       // SaveChanges(daten);
     }
-    var list = new List<String>();
+    var list = new List<string>();
     var map = new Dictionary<string, int>();
     WriteHead(daten, list, version, skript);
     WriteIndividual(daten, list, map, version, op, tot, anc, desc);
@@ -618,7 +699,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     }
     SaveChanges(daten);
     var map = new Dictionary<string, string>();
-    var anzahl = ImportiereAhnen(daten, lines, map);
+    var anzahl = ImportAncestors(daten, lines, map);
     var r = new ServiceErgebnis<string>(SB026(anzahl));
     return r;
   }
@@ -763,10 +844,10 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <summary>
   /// Calculate the ancestors of a person (Status2).
   /// </summary>
-  /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="anc">Affected number of root ancestor.</param>
-  public static ServiceErgebnis CalculateAncestor(ServiceDaten daten, string anc)
+  /// <returns>Possibly errors.</returns>
+  private static ServiceErgebnis CalculateAncestor(ServiceDaten daten, string anc)
   {
     var r = new ServiceErgebnis();
     var plist = SbPersonRep.GetList(daten, daten.MandantNr);
@@ -817,7 +898,8 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       SaveChanges(daten);
       c0 = c1;
-    } while (true);
+    }
+    while (true);
     return r;
   }
 
@@ -827,7 +909,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="desc">Affected number of root descendant.</param>
-  public static ServiceErgebnis CalculateDescendant(ServiceDaten daten, string desc)
+  private static ServiceErgebnis CalculateDescendant(ServiceDaten daten, string desc)
   {
     var r = new ServiceErgebnis();
     var plist = SbPersonRep.GetList(daten, daten.MandantNr);
@@ -877,41 +959,19 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       SaveChanges(daten);
       c0 = c1;
-    } while (true);
+    }
+    while (true);
     return r;
   }
 
-  /// <summary>Regex for level.</summary>
-  private static readonly Regex level = new("^([\\d]+) (.*)$", RegexOptions.Compiled);
-  /// <summary>Regex for individual.</summary>
-  private static readonly Regex indi0 = new("^0 @I([\\da-fA-F;\\-]+)@ INDI$", RegexOptions.Compiled); // 297f9764:141887cfc37:-8000-
-  private static readonly Regex name1 = new("^1 NAME [^/]*/([^/]+)/$", RegexOptions.Compiled);
-  private static readonly Regex givn2 = new("^2 GIVN (.*)$", RegexOptions.Compiled);
-  private static readonly Regex surn2 = new("^2 SURN (.*)$", RegexOptions.Compiled);
-  private static readonly Regex sex1 = new("^1 SEX ([M|F])$", RegexOptions.Compiled);
-  private static readonly Regex birt1 = new("^1 BIRT$", RegexOptions.Compiled);
-  private static readonly Regex buri1 = new("^1 BURI$", RegexOptions.Compiled);
-  private static readonly Regex chr1 = new("^1 CHR$", RegexOptions.Compiled);
-  private static readonly Regex deat1 = new("^1 DEAT$", RegexOptions.Compiled);
-  private static readonly Regex date2 = new("^2 DATE (.*)$", RegexOptions.Compiled);
-  private static readonly Regex plac2 = new("^2 PLAC (.*)$", RegexOptions.Compiled);
-  private static readonly Regex note2 = new("^2 NOTE (.*)$", RegexOptions.Compiled);
-  private static readonly Regex cont3 = new("^3 CONT (.*)$", RegexOptions.Compiled);
-  private static readonly Regex reli1 = new("^1 RELI (.*)$", RegexOptions.Compiled);
-  private static readonly Regex note1 = new("^1 NOTE (.*)$", RegexOptions.Compiled);
-  private static readonly Regex cont2 = new("^2 CONT (.*)$", RegexOptions.Compiled);
-  private static readonly Regex sour1 = new("^1 SOUR @Q([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-  private static readonly Regex fam0 = new("^0 @F([\\da-fA-F;\\-]+)@ FAM$", RegexOptions.Compiled);
-  private static readonly Regex husb1 = new("^1 HUSB @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-  private static readonly Regex wife1 = new("^1 WIFE @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-  private static readonly Regex marr1 = new("^1 MARR$", RegexOptions.Compiled);
-  private static readonly Regex chil1 = new("^1 CHIL @I([\\da-fA-F;\\-]+)@$", RegexOptions.Compiled);
-  private static readonly Regex sour0 = new("^0 @Q([\\da-fA-F;\\-]+)@ SOUR$", RegexOptions.Compiled);
-  private static readonly Regex auth1 = new("^1 AUTH (.*)$", RegexOptions.Compiled);
-  private static readonly Regex titl1 = new("^1 TITL (.*)$", RegexOptions.Compiled);
-  private static readonly Regex text1 = new("^1 TEXT (.*)$", RegexOptions.Compiled);
-
-  private static int ImportiereAhnen(ServiceDaten daten, List<string> datei, Dictionary<string, string> map)
+  /// <summary>
+  /// Imports Ancestors.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="datei">File as list of lines.</param>
+  /// <param name="map">Mapping dictionary.</param>
+  /// <returns>Number of imported individuals.</returns>
+  private static int ImportAncestors(ServiceDaten daten, List<string> datei, Dictionary<string, string> map)
   {
     Match m;
     var v = new List<string>();
@@ -929,7 +989,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
             var str0 = v[0];
             var g = false;
             v.RemoveAt(0);
-            m = indi0.Match(str0);
+            m = Indi0.Match(str0);
             string uid;
             if (m.Success)
             {
@@ -940,7 +1000,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
             }
             if (!g)
             {
-              m = fam0.Match(str0);
+              m = Fam0.Match(str0);
               if (m.Success)
               {
                 uid = GetUid(map, m.Groups[1].Value);
@@ -950,7 +1010,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
             }
             if (!g)
             {
-              m = sour0.Match(str0);
+              m = Sour0.Match(str0);
               if (m.Success)
               {
                 uid = GetUid(map, m.Groups[1].Value);
@@ -973,12 +1033,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 
   /// <summary>
-  /// x
+  /// Imports an individual.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="v"></param>
-  /// <param name="uid"></param>
-  /// <param name="map"></param>
+  /// <param name="v">Affected lines.</param>
+  /// <param name="uid">Affected ancestor uid.</param>
+  /// <param name="map">Mapping dictionary.</param>
   private static void ImportIndividual(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
   {
     var ve = new List<string>();
@@ -993,7 +1053,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       var str = v[0];
       v.RemoveAt(0);
       var g = false;
-      var m = name1.Match(str);
+      var m = Name1.Match(str);
       if (m.Success)
       {
         p.Name = N(m.Groups[1].Value);
@@ -1001,7 +1061,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = givn2.Match(str);
+        m = Givn2.Match(str);
         if (m.Success)
         {
           p.Vorname = N(m.Groups[1].Value);
@@ -1010,7 +1070,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = surn2.Match(str);
+        m = Surn2.Match(str);
         if (m.Success)
         {
           p.Geburtsname = N(m.Groups[1].Value);
@@ -1019,17 +1079,17 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = sex1.Match(str);
+        m = Sex1.Match(str);
         if (m.Success)
         {
-          if ("F" == m.Groups[1].Value)
+          if (m.Groups[1].Value == "F")
             p.Geschlecht = GenderEnum.WEIBLICH.ToString();
           g = true;
         }
       }
       if (!g)
       {
-        m = birt1.Match(str);
+        m = Birt1.Match(str);
         if (m.Success)
         {
           ve.Clear();
@@ -1044,7 +1104,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = buri1.Match(str);
+        m = Buri1.Match(str);
         if (m.Success)
         {
           ve.Clear();
@@ -1059,7 +1119,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = chr1.Match(str);
+        m = Chr1.Match(str);
         if (m.Success)
         {
           ve.Clear();
@@ -1074,7 +1134,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = deat1.Match(str);
+        m = Deat1.Match(str);
         if (m.Success)
         {
           ve.Clear();
@@ -1089,7 +1149,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = reli1.Match(str);
+        m = Reli1.Match(str);
         if (m.Success)
         {
           p.Konfession = N(m.Groups[1].Value);
@@ -1098,7 +1158,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = note1.Match(str);
+        m = Note1.Match(str);
         if (m.Success)
         {
           p.Bemerkung = N(m.Groups[1].Value);
@@ -1107,7 +1167,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = cont2.Match(str);
+        m = Cont2.Match(str);
         if (m.Success)
         {
           p.Bemerkung = Functions.Append(p.Bemerkung, null, N(m.Groups[1].Value));
@@ -1116,7 +1176,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = sour1.Match(str);
+        m = Sour1.Match(str);
         if (m.Success)
         {
           p.Quelle_Uid = GetUid(map, m.Groups[1].Value);
@@ -1127,12 +1187,12 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 
   /// <summary>
-  /// x
+  /// Imports a family.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="v"></param>
-  /// <param name="uid"></param>
-  /// <param name="map"></param>
+  /// <param name="v">Affected lines.</param>
+  /// <param name="uid">Affected family uid.</param>
+  /// <param name="map">Mapping dictionary.</param>
   private static void ImportFamily(ServiceDaten daten, List<string> v, string uid, Dictionary<string, string> map)
   {
     var ve = new List<string>();
@@ -1146,7 +1206,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       var str = v[0];
       v.RemoveAt(0);
       var g = false;
-      var m = husb1.Match(str);
+      var m = Husb1.Match(str);
       if (m.Success)
       {
         f.Mann_Uid = GetUid(map, m.Groups[1].Value);
@@ -1154,7 +1214,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = wife1.Match(str);
+        m = Wife1.Match(str);
         if (m.Success)
         {
           f.Frau_Uid = GetUid(map, m.Groups[1].Value);
@@ -1163,7 +1223,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = marr1.Match(str);
+        m = Marr1.Match(str);
         if (m.Success)
         {
           ve.Clear();
@@ -1178,7 +1238,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = chil1.Match(str);
+        m = Chil1.Match(str);
         if (m.Success)
         {
           var k = new SbKind
@@ -1195,12 +1255,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 
 #pragma warning disable IDE0051
+
   /// <summary>
-  /// x
+  /// Imports sources.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="v"></param>
-  /// <param name="uid"></param>
+  /// <param name="v">List of lines.</param>
+  /// <param name="uid">Affected source uid.</param>
   private static void ImportSource(ServiceDaten daten, List<string> v, string uid)
   {
     var zuletzt = 0;
@@ -1214,7 +1275,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       var str = v[0];
       v.RemoveAt(0);
       var g = false;
-      var m = auth1.Match(str);
+      var m = Auth1.Match(str);
       if (m.Success)
       {
         q.Autor = N(m.Groups[1].Value);
@@ -1223,7 +1284,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = titl1.Match(str);
+        m = Titl1.Match(str);
         if (m.Success)
         {
           q.Beschreibung = N(m.Groups[1].Value);
@@ -1233,7 +1294,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = text1.Match(str);
+        m = Text1.Match(str);
         if (m.Success)
         {
           q.Zitat = N(m.Groups[1].Value);
@@ -1243,7 +1304,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = note1.Match(str);
+        m = Note1.Match(str);
         if (m.Success)
         {
           q.Bemerkung = N(m.Groups[1].Value);
@@ -1253,7 +1314,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = cont2.Match(str);
+        m = Cont2.Match(str);
         if (m.Success)
         {
           if (zuletzt == 1)
@@ -1272,13 +1333,13 @@ public class PedigreeService : ServiceBase, IPedigreeService
 #pragma warning restore IDE0051
 
   /// <summary>
-  /// x
+  /// Imports event.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="v"></param>
-  /// <param name="uid"></param>
-  /// <param name="nrTyp"></param>
-  /// <param name="typ"></param>
+  /// <param name="v">Affected lines.</param>
+  /// <param name="uid">Affected ancestor or family uid.</param>
+  /// <param name="nrTyp">INDI or FAM.</param>
+  /// <param name="typ">Affected event type.</param>
   private static void ImportEvent(ServiceDaten daten, List<string> v, string uid, string nrTyp, GedcomEventEnum typ)
   {
     var datum = new PedigreeTimeData();
@@ -1294,7 +1355,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       var str = v[0];
       v.RemoveAt(0);
       var g = false;
-      var m = date2.Match(str);
+      var m = Date2.Match(str);
       if (m.Success)
       {
         datum.Parse(m.Groups[1].Value, true);
@@ -1309,7 +1370,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = plac2.Match(str);
+        m = Plac2.Match(str);
         if (m.Success)
         {
           e.Ort = N(m.Groups[1].Value);
@@ -1318,7 +1379,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = note2.Match(str);
+        m = Note2.Match(str);
         if (m.Success)
         {
           e.Bemerkung = N(m.Groups[1].Value);
@@ -1327,7 +1388,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       }
       if (!g)
       {
-        m = cont3.Match(str);
+        m = Cont3.Match(str);
         if (m.Success)
         {
           e.Bemerkung = Functions.Append(e.Bemerkung, null, N(m.Groups[1].Value));
@@ -1339,29 +1400,29 @@ public class PedigreeService : ServiceBase, IPedigreeService
   }
 
   /// <summary>
-  /// x
+  /// Gets GEDCOM level from string.
   /// </summary>
-  /// <param name="str"></param>
-  /// <returns></returns>
+  /// <param name="str">Affected string.</param>
+  /// <returns>Level number.</returns>
   private static int GetLevel(string str)
   {
     var l = -1;
     if (!string.IsNullOrEmpty(str))
     {
-      var m = level.Match(str);
+      var m = Level.Match(str);
       if (m.Success)
         l = Functions.ToInt32(m.Groups[1].Value);
     }
     return l;
   }
 
-  /**
-   * Liefert eine Uid aus Objekt-Referenz.
-   * @param map Mapping zwischen Objekt-Referenz und Uid für Import kleinerer IDs.
-   * @param xref Objekt-Referenz als Zeichenkette.
-   * @return Uid als Zeichenkette.
-   */
-  private static String GetUid(Dictionary<string, string> map, string xref)
+  /// <summary>
+  /// Gets uid from object reference xref and mapping dictionary.
+  /// </summary>
+  /// <param name="map">Dictionary with mapping between xref and uio.</param>
+  /// <param name="xref">Affected xref.</param>
+  /// <returns>Fitting uid.</returns>
+  private static string GetUid(Dictionary<string, string> map, string xref)
   {
     if (xref == null)
       return null;
@@ -1400,8 +1461,8 @@ public class PedigreeService : ServiceBase, IPedigreeService
     l.Add("1 GEDC");
     l.Add("2 VERS " + version);
     l.Add("2 FORM LINEAGE-LINKED");
-    // l.Add("1 CHAR ANSI");
-    // UNICODE: Fehler wegen fehlendem BOM
+    //// l.Add("1 CHAR ANSI");
+    //// UNICODE: Fehler wegen fehlendem BOM
     l.Add("1 CHAR UTF-8");
   }
 
@@ -1424,7 +1485,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     var status3 = !string.IsNullOrEmpty(desc) ? (int?)null : 1;
     foreach (var p in liste)
     {
-      if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(p.Status1), op, tot)
+      if ((!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(p.Status1), op, tot))
         || (!string.IsNullOrEmpty(anc) && p.Status2 != 1) || (!string.IsNullOrEmpty(desc) && p.Status3 != 1))
         continue;
       var uid = p.Uid;
@@ -1450,7 +1511,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
         if (Regex.Match(geschlecht, "M|F").Success)
           l.Add("1 SEX " + geschlecht);
       }
-      // Ereignisse
+      //// Events
       var ereignisse = SbEreignisRep.GetList(daten, uid, null, null, null);
       foreach (var e in ereignisse)
       {
@@ -1477,7 +1538,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
       string fuid = null;
       foreach (var f in eltern)
       {
-        // keine doppelten Einträge
+        // No duplicate entries.
         if (f.Uid != fuid)
           l.Add("1 FAMS " + GetXref(map, "FAM", f.Uid));
         fuid = f.Uid;
@@ -1498,7 +1559,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   private static void WriteFamily(ServiceDaten daten, List<string> l, Dictionary<string, int> map,
     string op, int tot, string anc = null, string desc = null)
   {
-    var familien = SbFamilieRep.GetList(daten); //, status2: status2);
+    var familien = SbFamilieRep.GetList(daten);
     foreach (var f in familien)
     {
       var familienUid = f.Uid;
@@ -1506,10 +1567,10 @@ public class PedigreeService : ServiceBase, IPedigreeService
       var fuid = f.Frau_Uid;
       //// var mannTot = f.Father?.Status1 ?? 0;
       //// var frauTot = f.Mother?.Status1 ?? 0;
-      if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Father?.Status1 ?? 0), op, tot)
+      if ((!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Father?.Status1 ?? 0), op, tot))
         || (!string.IsNullOrEmpty(anc) && (f.Father?.Status3 ?? 0) != 1) || (!string.IsNullOrEmpty(desc) && (f.Father?.Status3 ?? 0) != 1))
         muid = null;
-      if (!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Mother?.Status1 ?? 0), op, tot)
+      if ((!string.IsNullOrEmpty(op) && !Functions.VergleicheInt(Math.Abs(f.Mother?.Status1 ?? 0), op, tot))
         || (!string.IsNullOrEmpty(anc) && (f.Mother?.Status3 ?? 0) != 1) || (!string.IsNullOrEmpty(desc) && (f.Mother?.Status3 ?? 0) != 1))
         fuid = null;
       if (string.IsNullOrEmpty(muid) && string.IsNullOrEmpty(fuid))
@@ -1551,7 +1612,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="l">List of lines for GEDCOM file.</param>
   /// <param name="map">Mapping for xref.</param>
-  private static void WriteSource(ServiceDaten daten, List<String> l, Dictionary<string, int> map)
+  private static void WriteSource(ServiceDaten daten, List<string> l, Dictionary<string, int> map)
   {
     var quellen = SbQuelleRep.GetList(daten, null); // , status2);
     foreach (var q in quellen)
@@ -1613,21 +1674,14 @@ public class PedigreeService : ServiceBase, IPedigreeService
     l.Add("0 TRLR");
   }
 
-  /**
-   * Liefert aus typ und nr eine Objekt-Referenz.
-   * @param map Mapping zwischen Uid und Integer für Export kleinerer IDs.
-   * @param typ "FAM" für Familie, "INDI" für Individuum, "SOUR" für Quelle.
-   * @param uid Nummer des Objekts.
-   * @return Objekt-Referenz als Zeichenkette.
-   */
   /// <summary>
-  /// x
+  /// Gets object reference xref from type and uid.
   /// </summary>
-  /// <param name="map"></param>
-  /// <param name="typ"></param>
-  /// <param name="uid"></param>
-  /// <returns></returns>
-  private static string GetXref(Dictionary<string, int> map, string typ, string uid)
+  /// <param name="map">Mapping dictionary.</param>
+  /// <param name="type">FAM for family, INDI for individual, SOUR for source.</param>
+  /// <param name="uid">Affected uid.</param>
+  /// <returns>Fittiing object reference.</returns>
+  private static string GetXref(Dictionary<string, int> map, string type, string uid)
   {
     string s;
     if (map == null)
@@ -1637,36 +1691,30 @@ public class PedigreeService : ServiceBase, IPedigreeService
       if (!map.TryGetValue(uid, out var i))
       {
         i = map.Count + 1;
-        // if (typ == "SOUR")
-        //   i = -i;
+        //// if (typ == "SOUR")
+        ////   i = -i;
         map[uid] = i;
       }
       s = i.ToString();
     }
-    if (typ == "FAM")
+    if (type == "FAM")
       return $"@F{s}@";
-    else if (typ == "INDI")
+    else if (type == "INDI")
       return $"@I{s}@";
     else
-    { // SOUR
+    {
+      // SOUR
       return $"@Q{s}@";
     }
   }
 
-  /**
-   * Schreibt einen längeren Text in eine GEDCOM-Datei, der in maximal 248 Zeichen lange Zeilen umgebrochen wird.
-   * @param l String-Vector zum Schreiben.
-   * @param level Stufennummer.
-   * @param type Typ des Eintrags, z.B. TITL, TEXT, AUTH.
-   * @param text Auszugebender Inhalt.
-   */
   /// <summary>
-  /// x
+  /// Adds a longer text in GEDCOM format to a list of lines. The text is broken up after 248 characters.
   /// </summary>
-  /// <param name="l"></param>
-  /// <param name="level"></param>
-  /// <param name="type"></param>
-  /// <param name="text"></param>
+  /// <param name="l">Affected list of lines.</param>
+  /// <param name="level">Affected level.</param>
+  /// <param name="type">Entry type, e.g. TITL, TEXT, AUTH.</param>
+  /// <param name="text">Affected text.</param>
   private static void SchreibeFortsetzung(List<string> l, int level, string type, string text)
   {
     // Maximal Länge einer GEDCOM-Zeile.
@@ -1690,26 +1738,313 @@ public class PedigreeService : ServiceBase, IPedigreeService
     }
   }
 
-  /**
-   * Liefert Daten zu einem Nachfahren.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param uid Ahnen-Nummer aus Datenbank.
-   * @param stufe Daten mit (0,2) oder ohne (1,3) Ereignisse sowie mit (0,1) oder ohne (2,3)
-   *        Familien-/Ehepartner-Bestimmung.
-   * @param generation Hiervon abhängig werden weniger Zeichen pro Zeile zugelassen.
-   * @param max maximale Anzahl von Generationen.
-   * @param liste Liste von Nachfahren.
-   * @return Daten als NachfahrDaten.
-   */
   /// <summary>
-  /// x
+  /// Deletes a source.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid"></param>
-  /// <param name="stufe"></param>
-  /// <param name="generation"></param>
-  /// <param name="max"></param>
-  /// <param name="liste"></param>
+  /// <param name="q">Affected entity.</param>
+  private static void DeleteQuelleIntern(ServiceDaten daten, SbQuelle q)
+  {
+    var pliste = SbPersonRep.GetList(daten, suid: q.Uid);
+    if (pliste.Any())
+      throw new MessageException(SB015);
+    var eliste = SbEreignisRep.GetList(daten, suid: q.Uid);
+    if (eliste.Any())
+      throw new MessageException(SB016);
+    SbQuelleRep.Delete(daten, q);
+  }
+
+  /// <summary>
+  /// Saves a person or family event.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="puid">Affected ancestor uid.</param>
+  /// <param name="fuid">Affected familiy uid.</param>
+  /// <param name="type">Affected event type, e.g. BIRT or MARR.</param>
+  /// <param name="date">Affected event date.</param>
+  /// <param name="place">Affected place.</param>
+  /// <param name="memo">Affected memo.</param>
+  /// <param name="quid">Affected source uid.</param>
+  private static void SaveEvent(ServiceDaten daten, string puid, string fuid, string type, string date,
+    string place, string memo, string quid)
+  {
+    var zeitangabe = new PedigreeTimeData();
+    if (zeitangabe.Parse(date))
+      throw new MessageException(SB003(date));
+    if (string.IsNullOrEmpty(puid) && string.IsNullOrEmpty(fuid))
+      throw new MessageException(SB004);
+    if (string.IsNullOrEmpty(type))
+      throw new MessageException(SB005);
+    if (string.IsNullOrEmpty(zeitangabe.DateType) && !zeitangabe.Date1.Empty)
+      throw new MessageException(SB006);
+    var loeschen = zeitangabe.Date1.Empty && string.IsNullOrEmpty(zeitangabe.DateType) && zeitangabe.Date2.Empty &&
+      string.IsNullOrEmpty(place) && string.IsNullOrEmpty(memo);
+    if (loeschen)
+    {
+      var e = SbEreignisRep.Get(daten, daten.MandantNr, puid, fuid, type);
+      if (e != null)
+        SbEreignisRep.Delete(daten, e);
+      return;
+    }
+    SbEreignisRep.Save(daten, daten.MandantNr, puid, fuid, type, zeitangabe.Date1.Tag, zeitangabe.Date1.Monat,
+      zeitangabe.Date1.Jahr, zeitangabe.Date2.Tag, zeitangabe.Date2.Monat, zeitangabe.Date2.Jahr,
+      zeitangabe.DateType, place, memo, quid);
+  }
+
+  /// <summary>
+  /// Saves a new family and adds a child relation.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected family uid.</param>
+  /// <param name="mannUid">Affected father uid.</param>
+  /// <param name="frauUid">Affected mother uid.</param>
+  /// <param name="kindUid">Affected child uid.</param>
+  /// <param name="doppelt">Throws an exception if this family with father and mother already exists or not.</param>
+  /// <returns>New family.</returns>
+  private static SbFamilie NeueFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid, string kindUid,
+    bool doppelt)
+  {
+    var fuid = uid;
+    string fuid2 = null;
+    SbPerson sbPerson;
+    var maUid = mannUid;
+    var frUid = frauUid;
+    if (string.IsNullOrEmpty(maUid) && string.IsNullOrEmpty(frUid))
+      throw new MessageException(SB007);
+    if (!string.IsNullOrEmpty(maUid))
+    {
+      sbPerson = SbPersonRep.Get(daten, daten.MandantNr, maUid);
+      if (sbPerson == null || GenderEnum.MAENNLICH.ToString() != sbPerson.Geschlecht)
+        throw new MessageException(SB008);
+    }
+    if (!string.IsNullOrEmpty(frUid))
+    {
+      sbPerson = SbPersonRep.Get(daten, daten.MandantNr, frUid);
+      if (sbPerson == null || GenderEnum.WEIBLICH.ToString() != sbPerson.Geschlecht)
+        throw new MessageException(SB009);
+    }
+    var fliste = SbFamilieRep.GetList(daten, null, maUid, frUid, null, fuid);
+    var sbFamilie = fliste.FirstOrDefault();
+    if (sbFamilie != null)
+    {
+      fuid2 = sbFamilie.Uid;
+      maUid = sbFamilie.Mann_Uid;
+      frUid = sbFamilie.Frau_Uid;
+    }
+    if (!string.IsNullOrEmpty(fuid2))
+    {
+      if (doppelt)
+        throw new MessageException(SB010(fuid2));
+      fuid = fuid2;
+    }
+    var f = IuFamilie(daten, fuid, maUid, frUid);
+    fuid = f.Uid;
+    if (!string.IsNullOrEmpty(kindUid))
+      IuKind(daten, fuid, kindUid);
+    return f;
+  }
+
+  /// <summary>
+  /// Saves a family.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected family uid.</param>
+  /// <param name="mannUid">Affected father uid.</param>
+  /// <param name="frauUid">Affected mother uid.</param>
+  /// <returns>Affected entity.</returns>
+  private static SbFamilie IuFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid)
+  {
+    if (string.IsNullOrEmpty(mannUid) && string.IsNullOrEmpty(frauUid))
+      throw new MessageException(SB007);
+    var f = SbFamilieRep.Save(daten, daten.MandantNr, uid, mannUid, frauUid, 0, 0, 0);
+    return f;
+  }
+
+  /// <summary>
+  /// Saves a family child relation.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="fuid">Affected family uid.</param>
+  /// <param name="kindUid">Affected child uid.</param>
+  /// <returns>Affected entity.</returns>
+  private static SbKind IuKind(ServiceDaten daten, string fuid, string kindUid)
+  {
+    if (string.IsNullOrEmpty(fuid) || string.IsNullOrEmpty(kindUid))
+      throw new MessageException(SB011);
+    var kliste = SbKindRep.GetList(daten, null, kindUid, fuid);
+    var vo2 = kliste.FirstOrDefault();
+    if (vo2 != null)
+      throw new MessageException(SB012(vo2.Familie_Uid));
+    var k = SbKindRep.Save(daten, daten.MandantNr, fuid, kindUid);
+    return k;
+  }
+
+  /// <summary>
+  /// Deletes an ancestor with all relations like family, child, events, pictures.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="p">Affected entity.</param>
+  private static void DeletePersonIntern(ServiceDaten daten, SbPerson p)
+  {
+    // Delets person from family.
+    var liste = SbFamilieRep.GetList(daten, null, null, null, p.Uid);
+    foreach (var f in liste)
+    {
+      if (f.Mann_Uid == p.Uid)
+        f.Mann_Uid = null;
+      if (f.Frau_Uid == p.Uid)
+        f.Frau_Uid = null;
+      if (string.IsNullOrEmpty(f.Mann_Uid) && string.IsNullOrEmpty(f.Frau_Uid))
+        DeleteFamilieIntern(daten, f);
+      else
+        SbFamilieRep.Update(daten, f);
+    }
+
+    // Person als Kind löschen
+    var kliste = SbKindRep.GetList(daten, null, p.Uid);
+    foreach (var k in kliste)
+    {
+      SbKindRep.Delete(daten, k);
+    }
+
+    // Person-Ereignisse löschen
+    var eliste = SbEreignisRep.GetList(daten, p.Uid);
+    foreach (var e in eliste)
+    {
+      SbEreignisRep.Delete(daten, e);
+    }
+
+    // Bilder löschen
+    var bliste = ByteDatenRep.GetList(daten, "SB_Person", p.Uid);
+    foreach (var b in bliste)
+    {
+      ByteDatenRep.Delete(daten, b);
+    }
+    SbPersonRep.Delete(daten, p);
+  }
+
+  /// <summary>
+  /// Deletes a family with children and events.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="f">Affected family.</param>
+  private static void DeleteFamilieIntern(ServiceDaten daten, SbFamilie f)
+  {
+    // Kinder löschen
+    var liste = SbKindRep.GetList(daten, f.Uid);
+    foreach (var k in liste)
+    {
+      SbKindRep.Delete(daten, k);
+    }
+
+    // Familien-Ereignisse löschen
+    var eliste = SbEreignisRep.GetList(daten, null, f.Uid, null, null);
+    foreach (var e in eliste)
+    {
+      SbEreignisRep.Delete(daten, e);
+    }
+
+    // Holt die unveränderte Familie.
+    f = SbFamilieRep.Get(daten, daten.MandantNr, f.Uid);
+    if (f != null)
+      SbFamilieRep.Delete(daten, f);
+  }
+
+  /// <summary>
+  /// Gets all spouces of an ancestor.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="puid">Affected ancestor.</param>
+  /// <returns>List of all spouces.</returns>
+  private static List<string> GetAlleEhegatten(ServiceDaten daten, string puid)
+  {
+    var liste = new List<string>();
+    if (puid == null)
+      return liste;
+
+    var liste0 = new List<string>();
+    var liste1 = new List<string>();
+    liste0.Add(puid);
+    var anz = -1;
+    while (anz < liste.Count)
+    {
+      anz = liste.Count;
+      liste1.Clear();
+      foreach (var s in liste0)
+      {
+        var l = GetEhegatten0(daten, s);
+        foreach (var e in l)
+        {
+          if (!liste.Contains(e))
+          {
+            liste.Add(e);
+            liste1.Add(e);
+          }
+        }
+      }
+      liste0.Clear();
+      liste0.AddRange(liste1);
+    }
+    return liste;
+  }
+
+  /// <summary>
+  /// Gets list of uids of spouces of an ancestor.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="puid">Affected ancestor.</param>
+  /// <returns>List of uids of spouces of an ancestor.</returns>
+  private static List<string> GetEhegatten0(ServiceDaten daten, string puid)
+  {
+    var liste = new List<string>();
+    if (!string.IsNullOrEmpty(puid))
+    {
+      var fliste = SbFamilieRep.GetList(daten, null, null, null, puid);
+      foreach (var f in fliste)
+      {
+        if (!string.IsNullOrEmpty(f.Mann_Uid) && puid != f.Mann_Uid)
+          liste.Add(f.Mann_Uid);
+        if (!string.IsNullOrEmpty(f.Frau_Uid) && puid != f.Frau_Uid)
+          liste.Add(f.Frau_Uid);
+      }
+    }
+    return liste;
+  }
+
+  /// <summary>
+  /// Gets first family with ancestor as father or mother.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected ancestor uid.</param>
+  /// <returns>Affected family.</returns>
+  private static SbFamilie GetElternFamilieIntern(ServiceDaten daten, string uid)
+  {
+    var fliste = SbFamilieRep.GetList(daten, personuid: uid);
+    return fliste.FirstOrDefault();
+  }
+
+  /// <summary>
+  /// Gets child relation where the ancestor is a child.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected ancestor uid.</param>
+  /// <returns>Affected child relation.</returns>
+  private static SbKind GetKindFamilieIntern(ServiceDaten daten, string uid)
+  {
+    var k = SbKindRep.GetList(daten, null, uid).FirstOrDefault();
+    return k;
+  }
+
+  /// <summary>
+  /// Gets descendants of an ancestor in recursive manner.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected ancestor uid.</param>
+  /// <param name="stufe">Affected level: 0 with events, with spouces; 1 without events, with spouces;
+  /// 2 with events, without spouces; 3 without event, without spouces.</param>
+  /// <param name="generation">Current generation, also for indentation.</param>
+  /// <param name="max">Maximum number of generations.</param>
+  /// <param name="liste">List of descendants will be filled.</param>
   private void GetNachfahrenRekursiv(ServiceDaten daten, string uid, int stufe, int generation, int max, List<SbPerson> liste)
   {
     var mitEreignis = (stufe & 1) == 0;
@@ -1770,29 +2105,17 @@ public class PedigreeService : ServiceBase, IPedigreeService
     }
   }
 
-  /**
-   * Liefert Daten zu einem Vorfahren.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param uid Ahnen-Nummer aus Datenbank.
-   * @param mitEreignis Mit Ereignissen?
-   * @param mitGeschwistern Mit Geschwistern?
-   * @param mitEltern Mit Eltern?
-   * @param generation Hiervon abhängig werden weniger Zeichen pro Zeile zugelassen.
-   * @param max maximale Anzahl von Generationen.
-   * @param liste Liste von Nachfahren.
-   * @return Daten als NachfahrDaten.
-   */
   /// <summary>
-  /// x
+  /// Gets forebears of an ancestor in recursive manner.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid"></param>
-  /// <param name="mitEreignis"></param>
-  /// <param name="mitGeschwistern"></param>
-  /// <param name="mitEltern"></param>
-  /// <param name="generation"></param>
-  /// <param name="max"></param>
-  /// <param name="liste"></param>
+  /// <param name="uid">Affected ancestor uid.</param>
+  /// <param name="mitEreignis">With events or not.</param>
+  /// <param name="mitGeschwistern">With siblings or not.</param>
+  /// <param name="mitEltern">With parents or not.</param>
+  /// <param name="generation">Current generation, also for indentation.</param>
+  /// <param name="max">Maximum number of generations.</param>
+  /// <param name="liste">List of forebears will be filled.</param>
   private void GetVorfahrenRekursiv(ServiceDaten daten, string uid, bool mitEreignis, bool mitGeschwistern,
     bool mitEltern, int generation, int max, List<SbPerson> liste)
   {
@@ -1838,347 +2161,5 @@ public class PedigreeService : ServiceBase, IPedigreeService
           GetVorfahrenRekursiv(daten, f.Frau_Uid, mitEreignis, mitGeschwistern, true, generation + 1, max, liste);
       }
     }
-  }
-
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="q"></param>
-  private static void DeleteQuelleIntern(ServiceDaten daten, SbQuelle q)
-  {
-    var pliste = SbPersonRep.GetList(daten, suid: q.Uid);
-    if (pliste.Any())
-      throw new MessageException(SB015);
-    var eliste = SbEreignisRep.GetList(daten, suid: q.Uid);
-    if (eliste.Any())
-      throw new MessageException(SB016);
-    SbQuelleRep.Delete(daten, q);
-  }
-
-  /**
-   * Speichert ein Personen- oder Familien-Ereignis.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param puid Ahnen-Nummer.
-   * @param typ Typ des Ereignisses, z.B. BIRT.
-   * @param datum Ereignis-Datum.
-   * @param ort Ereignis-Ort.
-   * @param bemerkung Ereignis-Bemerkung.
-   * @param quid Quellen-Nummer zum Ereignis.
-   */
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="puid"></param>
-  /// <param name="fuid"></param>
-  /// <param name="typ"></param>
-  /// <param name="datum"></param>
-  /// <param name="ort"></param>
-  /// <param name="bemerkung"></param>
-  /// <param name="quid"></param>
-  private static void SpeichereEreignis(ServiceDaten daten, string puid, string fuid, string typ, string datum,
-    string ort, string bemerkung, string quid)
-  {
-    var zeitangabe = new PedigreeTimeData();
-    if (zeitangabe.Parse(datum))
-      throw new MessageException(SB003(datum));
-    if (string.IsNullOrEmpty(puid) && string.IsNullOrEmpty(fuid))
-      throw new MessageException(SB004);
-    if (string.IsNullOrEmpty(typ))
-      throw new MessageException(SB005);
-    if (string.IsNullOrEmpty(zeitangabe.DateType) && !zeitangabe.Date1.Empty)
-      throw new MessageException(SB006);
-    var loeschen = zeitangabe.Date1.Empty && string.IsNullOrEmpty(zeitangabe.DateType) && zeitangabe.Date2.Empty &&
-      string.IsNullOrEmpty(ort) && string.IsNullOrEmpty(bemerkung);
-    if (loeschen)
-    {
-      var e = SbEreignisRep.Get(daten, daten.MandantNr, puid, fuid, typ);
-      if (e != null)
-        SbEreignisRep.Delete(daten, e);
-      return;
-    }
-    SbEreignisRep.Save(daten, daten.MandantNr, puid, fuid, typ, zeitangabe.Date1.Tag, zeitangabe.Date1.Monat,
-      zeitangabe.Date1.Jahr, zeitangabe.Date2.Tag, zeitangabe.Date2.Monat, zeitangabe.Date2.Jahr,
-      zeitangabe.DateType, ort, bemerkung, quid);
-  }
-
-  /**
-   * Evtl. Anlegen einer neuen Familie.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param uid Familien-Nummer wird neu bestimmt, falls null.
-   * @param mannUid Ahnen-Nummer des Mannes.
-   * @param frauUid Ahnen-Nummer der Frau.
-   * @param kindUid Ahnen-Nummer des Kindes.
-   * @param doppelt Exception bei anderer Familie.
-   * @return Evtl. neu bestimmte Familien-Nummer.
-   * @throws Exception falls die neue Familien-Nummer nicht bestimmt werden konnte oder Ahn schon Kind in anderer
-   *         Familie ist.
-   */
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid"></param>
-  /// <param name="mannUid"></param>
-  /// <param name="frauUid"></param>
-  /// <param name="kindUid"></param>
-  /// <param name="doppelt"></param>
-  /// <returns></returns>
-  private static SbFamilie NeueFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid, string kindUid,
-    bool doppelt)
-  {
-    var fuid = uid;
-    string fuid2 = null;
-    SbPerson sbPerson;
-    var maUid = mannUid;
-    var frUid = frauUid;
-    if (string.IsNullOrEmpty(maUid) && string.IsNullOrEmpty(frUid))
-      throw new MessageException(SB007);
-    if (!string.IsNullOrEmpty(maUid))
-    {
-      sbPerson = SbPersonRep.Get(daten, daten.MandantNr, maUid);
-      if (sbPerson == null || GenderEnum.MAENNLICH.ToString() != sbPerson.Geschlecht)
-        throw new MessageException(SB008);
-    }
-    if (!string.IsNullOrEmpty(frUid))
-    {
-      sbPerson = SbPersonRep.Get(daten, daten.MandantNr, frUid);
-      if (sbPerson == null || GenderEnum.WEIBLICH.ToString() != sbPerson.Geschlecht)
-        throw new MessageException(SB009);
-    }
-    var fliste = SbFamilieRep.GetList(daten, null, maUid, frUid, null, fuid);
-    var sbFamilie = fliste.FirstOrDefault();
-    if (sbFamilie != null)
-    {
-      fuid2 = sbFamilie.Uid;
-      maUid = sbFamilie.Mann_Uid;
-      frUid = sbFamilie.Frau_Uid;
-    }
-    if (!string.IsNullOrEmpty(fuid2))
-    {
-      if (doppelt)
-        throw new MessageException(SB010(fuid2));
-      fuid = fuid2;
-    }
-    var f = IuFamilie(daten, fuid, maUid, frUid);
-    fuid = f.Uid;
-    if (!string.IsNullOrEmpty(kindUid))
-      IuKind(daten, fuid, kindUid);
-    return f;
-  }
-
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid"></param>
-  /// <param name="mannUid"></param>
-  /// <param name="frauUid"></param>
-  /// <returns></returns>
-  private static SbFamilie IuFamilie(ServiceDaten daten, string uid, string mannUid, string frauUid)
-  {
-    if (string.IsNullOrEmpty(mannUid) && string.IsNullOrEmpty(frauUid))
-      throw new MessageException(SB007);
-    var f = SbFamilieRep.Save(daten, daten.MandantNr, uid, mannUid, frauUid, 0, 0, 0);
-    return f;
-  }
-
-  /**
-   * Anlegen oder Ändern einer Familien-Kind-Zuordung.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param fuid Familien-Nummer.
-   * @param kindUid Ahnen-Nummer des Kindes.
-   */
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="fuid"></param>
-  /// <param name="kindUid"></param>
-  /// <returns></returns>
-  private static SbKind IuKind(ServiceDaten daten, string fuid, string kindUid)
-  {
-    if (string.IsNullOrEmpty(fuid) || string.IsNullOrEmpty(kindUid))
-      throw new MessageException(SB011);
-    var kliste = SbKindRep.GetList(daten, null, kindUid, fuid);
-    var vo2 = kliste.FirstOrDefault();
-    if (vo2 != null)
-      throw new MessageException(SB012(vo2.Familie_Uid));
-    var k = SbKindRep.Save(daten, daten.MandantNr, fuid, kindUid);
-    return k;
-  }
-
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="p"></param>
-  private static void DeletePersonIntern(ServiceDaten daten, SbPerson p)
-  {
-    // Person aus Familie löschen
-    var liste = SbFamilieRep.GetList(daten, null, null, null, p.Uid);
-    foreach (var f in liste)
-    {
-      if (f.Mann_Uid == p.Uid)
-        f.Mann_Uid = null;
-      if (f.Frau_Uid == p.Uid)
-        f.Frau_Uid = null;
-      if (string.IsNullOrEmpty(f.Mann_Uid) && string.IsNullOrEmpty(f.Frau_Uid))
-        DeleteFamilieIntern(daten, f);
-      else
-        SbFamilieRep.Update(daten, f);
-    }
-
-    // Person als Kind löschen
-    var kliste = SbKindRep.GetList(daten, null, p.Uid);
-    foreach (var k in kliste)
-    {
-      SbKindRep.Delete(daten, k);
-    }
-
-    // Person-Ereignisse löschen
-    var eliste = SbEreignisRep.GetList(daten, p.Uid);
-    foreach (var e in eliste)
-    {
-      SbEreignisRep.Delete(daten, e);
-    }
-
-    // Bilder löschen
-    var bliste = ByteDatenRep.GetList(daten, "SB_Person", p.Uid);
-    foreach (var b in bliste)
-    {
-      ByteDatenRep.Delete(daten, b);
-    }
-    SbPersonRep.Delete(daten, p);
-  }
-
-  /**
-   * Löschen einer Familie mit Kindern und Ereignissen.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param uid Familie-Nummer.
-   */
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="f"></param>
-  private static void DeleteFamilieIntern(ServiceDaten daten, SbFamilie f)
-  {
-    // Kinder löschen
-    var liste = SbKindRep.GetList(daten, f.Uid);
-    foreach (var k in liste)
-    {
-      SbKindRep.Delete(daten, k);
-    }
-
-    // Familien-Ereignisse löschen
-    var eliste = SbEreignisRep.GetList(daten, null, f.Uid, null, null);
-    foreach (var e in eliste)
-    {
-      SbEreignisRep.Delete(daten, e);
-    }
-
-    // Holt die unveränderte Familie.
-    f = SbFamilieRep.Get(daten, daten.MandantNr, f.Uid);
-    if (f != null)
-      SbFamilieRep.Delete(daten, f);
-  }
-
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="puid"></param>
-  /// <returns></returns>
-  private static List<string> GetAlleEhegatten(ServiceDaten daten, string puid)
-  {
-    var liste = new List<string>();
-    if (puid == null)
-      return liste;
-
-    var liste0 = new List<string>();
-    var liste1 = new List<string>();
-    liste0.Add(puid);
-    var anz = -1;
-    while (anz < liste.Count)
-    {
-      anz = liste.Count;
-      liste1.Clear();
-      foreach (var s in liste0)
-      {
-        var l = GetEhegatten0(daten, s);
-        foreach (var e in l)
-        {
-          if (!liste.Contains(e))
-          {
-            liste.Add(e);
-            liste1.Add(e);
-          }
-        }
-      }
-      liste0.Clear();
-      liste0.AddRange(liste1);
-    }
-    return liste;
-  }
-
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="puid"></param>
-  /// <returns></returns>
-  private static List<string> GetEhegatten0(ServiceDaten daten, string puid)
-  {
-    var liste = new List<String>();
-    if (!string.IsNullOrEmpty(puid))
-    {
-      var fliste = SbFamilieRep.GetList(daten, null, null, null, puid);
-      foreach (var f in fliste)
-      {
-        if (!string.IsNullOrEmpty(f.Mann_Uid) && puid != f.Mann_Uid)
-          liste.Add(f.Mann_Uid);
-        if (!string.IsNullOrEmpty(f.Frau_Uid) && puid != f.Frau_Uid)
-          liste.Add(f.Frau_Uid);
-      }
-    }
-    return liste;
-  }
-
-  /**
-   * Liefert erste Familie, in der der Ahn Vater oder Mutter ist.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param uid Ahnen-Nummer.
-   * @return Familie des Ahnen.
-   */
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid"></param>
-  /// <returns></returns>
-  private static SbFamilie GetElternFamilieIntern(ServiceDaten daten, String uid)
-  {
-    var fliste = SbFamilieRep.GetList(daten, personuid: uid);
-    return fliste.FirstOrDefault();
-  }
-
-  /**
-   * Liefert Kind-Datensatz der Familie, in der der Ahn Kind ist.
-   * @param daten Service-Daten mit Mandantennummer.
-   * @param uid Ahnen-Nummer.
-   * @return Kind-Datensatz des Ahnen.
-   */
-  /// <summary>
-  /// x
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid"></param>
-  /// <returns></returns>
-  private static SbKind GetKindFamilieIntern(ServiceDaten daten, string uid)
-  {
-    var k = SbKindRep.GetList(daten, null, uid).FirstOrDefault();
-    return k;
   }
 }

@@ -15,16 +15,21 @@ using static CSBP.Resources.M;
 /// </summary>
 public class PedigreeTimeData
 {
-  /// <summary>First Date.</summary>
-  public PedigreeDate Date1 { get; private set; }
+  /// <summary>Regex for month format 1.</summary>
+  private static readonly Regex Month1 = new("((\\d) +)(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
 
-  /// <summary>Second Date.</summary>
-  public PedigreeDate Date2 { get; private set; }
+  /// <summary>Regex for month format 2.</summary>
+  private static readonly Regex Month2 = new("(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
 
-  /// <summary>Date type relation: EXAC, ABT, BET, BEF, AFT or OR.</summary>
-  public string DateType { get; private set; }
+  /// <summary>Array of month names.</summary>
+  private static readonly string[] Months = new[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
 
-  /// <summary>Constructor with initialization.</summary>
+  /// <summary>
+  /// Initializes a new instance of the <see cref="PedigreeTimeData"/> class.
+  /// </summary>
+  /// <param name="d1">Affected first date.</param>
+  /// <param name="d2">Affected second date.</param>
+  /// <param name="datetype">Affected date type relation.</param>
   public PedigreeTimeData(PedigreeDate d1 = null, PedigreeDate d2 = null, string datetype = null)
   {
     Date1 = d1 ?? new PedigreeDate();
@@ -32,7 +37,10 @@ public class PedigreeTimeData
     DateType = datetype ?? "";
   }
 
-  /// <summary>Constructor with initialization.</summary>
+  /// <summary>
+  /// Initializes a new instance of the <see cref="PedigreeTimeData"/> class.
+  /// </summary>
+  /// <param name="e">Affected event.</param>
   public PedigreeTimeData(SbEreignis e)
   {
     Date1 = e == null ? new PedigreeDate() : new PedigreeDate(e.Tag1, e.Monat1, e.Jahr1);
@@ -40,7 +48,16 @@ public class PedigreeTimeData
     DateType = e?.Datum_Typ ?? "";
   }
 
-  /// <summary>Initialization of date.</summary>
+  /// <summary>Gets first Date.</summary>
+  public PedigreeDate Date1 { get; private set; }
+
+  /// <summary>Gets second Date.</summary>
+  public PedigreeDate Date2 { get; private set; }
+
+  /// <summary>Gets date type relation: EXAC, ABT, BET, BEF, AFT or OR.</summary>
+  public string DateType { get; private set; }
+
+  /// <summary>Initialization of the dates.</summary>
   public void Init()
   {
     Date1.Init();
@@ -48,11 +65,11 @@ public class PedigreeTimeData
     DateType = "";
   }
 
-  /**
-   * Konvertiert interne Zeitangaben in String. Funktion Deparse.
-   * @param gedcom Bei true werden Datumsangaben im GEDCOM-Format dargestellt.
-   * @return Zeitangaben als String.
-   */
+  /// <summary>
+  /// Formats internal dates as string.
+  /// </summary>
+  /// <param name="gedcom">Formats for GEDCOM file or not.</param>
+  /// <returns>Formatted string.</returns>
   public string Deparse(bool gedcom = false)
   {
     var dat1 = Date1.Deparse(gedcom);
@@ -89,46 +106,35 @@ public class PedigreeTimeData
     return datum;
   }
 
-  private static readonly Regex monat1 = new("((\\d) +)(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
-  private static readonly Regex monat2 = new("(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)( +(\\d))", RegexOptions.Compiled);
-  private static readonly string[] monate = new[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
-
-  private static int GetMonat(string monat)
-  {
-    var m = Array.IndexOf(monate, monat);
-    if (m >= 0)
-      return m + 1;
-    return -1;
-  }
-
-  /**
-    * Setzt die interne Zeitangabe an Hand des übergebenen Strings.
-    * @param datumString Datum als String.
-    * @return true, wenn unbekannter Text gefunden wird.
-    */
+  /// <summary>
+  /// Parses string dates.
+  /// </summary>
+  /// <param name="datumString">Affected string with dates.</param>
+  /// <param name="gedcom">Parses for GEDCOM file or not.</param>
+  /// <returns>Are there unparsed parts of the string or not.</returns>
   public bool Parse(string datumString, bool gedcom = false)
   {
     var mitText = false;
     var hinten = "";
     var mitte = "";
-    // var vorn = "";
+    //// var vorn = "";
     var datum = datumString;
     if (gedcom)
     {
       // [JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC] ersetzen durch Monatsnummer
-      var m = monat1.Match(datum);
+      var m = Month1.Match(datum);
       while (m.Success)
       {
         datum = datum.Replace(m.Groups[1].Value + m.Groups[3].Value + m.Groups[4].Value,
           $"{m.Groups[2].Value}.{GetMonat(m.Groups[3].Value)}.{m.Groups[5].Value}");
         m = m.NextMatch();
-      };
-      m = monat2.Match(datum);
+      }
+      m = Month2.Match(datum);
       while (m.Success)
       {
         datum = datum.Replace(m.Groups[1].Value + m.Groups[2].Value, $"{GetMonat(m.Groups[1].Value)}.{m.Groups[3].Value}");
         m = m.NextMatch();
-      };
+      }
     }
     Init();
     if (!string.IsNullOrEmpty(datum))
@@ -140,13 +146,13 @@ public class PedigreeTimeData
       datum = Date2.Parse(datum);
       DateType = "EXAC";
       m = Regex.Match(datum, "^(.*?)([^\\d\\.]*)$");
-      // datum = m.Groups[1].Value;
+      //// datum = m.Groups[1].Value;
       mitte = m.Groups[2].Value;
-      // vorn = Date1.Parse(datum);
+      //// vorn = Date1.Parse(datum);
     }
     var b1 = !Date1.Empty;
     var b2 = !Date2.Empty;
-    // vorn = vorn.Replace(" ", ""); // Leerzeichen entfernen
+    //// vorn = vorn.Replace(" ", ""); // Leerzeichen entfernen
     mitte = mitte.Replace(" ", "").ToLower(); // Leerzeichen entfernen
     hinten = hinten.Replace(" ", ""); // Leerzeichen entfernen
     if (b1 == b2)
@@ -190,5 +196,18 @@ public class PedigreeTimeData
       }
     }
     return mitText;
+  }
+
+  /// <summary>
+  /// Gets month as integer, beginning with 1 for January.
+  /// </summary>
+  /// <param name="monat">Affected month.</param>
+  /// <returns>Month as integer.</returns>
+  private static int GetMonat(string monat)
+  {
+    var m = Array.IndexOf(Months, monat);
+    if (m >= 0)
+      return m + 1;
+    return -1;
   }
 }
