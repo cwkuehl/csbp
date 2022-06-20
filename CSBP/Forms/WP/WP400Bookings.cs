@@ -72,7 +72,7 @@ public partial class WP400Bookings : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      bezeichnung.Text = "%%";
+      SetText(bezeichnung, "%%");
       var rl = Get(FactoryService.StockService.GetInvestmentList(daten, true)) ?? new List<WpAnlage>();
       var rs = AddColumns(anlage, emptyentry: true);
       foreach (var p in rl)

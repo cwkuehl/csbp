@@ -137,22 +137,19 @@ public partial class FZ260Mileage : CsbpBin
         var k = Get(FactoryService.PrivateService.GetMileage(daten, key.Item1, key.Item2.Value, key.Item3));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = k.Nr.ToString();
+        SetText(nr, k.Nr.ToString());
         SetText(fahrrad, k.Fahrrad_Uid);
         datum.Value = k.Datum;
-        zaehler.Text = Functions.ToString(k.Zaehler_km, 0);
-        km.Text = Functions.ToString(k.Periode_km, 0);
-        schnitt.Text = Functions.ToString(k.Periode_Schnitt, 2);
-        beschreibung.Text = k.Beschreibung;
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(zaehler, Functions.ToString(k.Zaehler_km, 0));
+        SetText(km, Functions.ToString(k.Periode_km, 0));
+        SetText(schnitt, Functions.ToString(k.Periode_Schnitt, 2));
+        SetText(beschreibung, Functions.ToString(k.Beschreibung));
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       fahrrad.Sensitive = neu;
@@ -188,7 +185,7 @@ public partial class FZ260Mileage : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnZaehlerKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
-    km.Text = "";
+    SetText(km, "");
   }
 
   /// <summary>Handles Km.</summary>
@@ -196,7 +193,7 @@ public partial class FZ260Mileage : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnKmKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
-    zaehler.Text = "";
+    SetText(zaehler, "");
   }
 
   /// <summary>Handles Ok.</summary>

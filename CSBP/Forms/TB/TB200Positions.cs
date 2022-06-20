@@ -64,7 +64,7 @@ public partial class TB200Positions : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      search.Text = "%%";
+      SetText(search, "%%");
       EventsActive = true;
     }
     if (step <= 1)

@@ -91,11 +91,11 @@ public partial class AM100Change : CsbpBin
     if (step <= 0)
     {
       var daten = ServiceDaten;
-      mandant.Text = Functions.ToString(daten.MandantNr);
-      benutzer.Text = daten.BenutzerId;
-      kennwortAlt.Text = "";
-      kennwortNeu.Text = "";
-      kennwortNeu2.Text = "";
+      SetText(mandant, Functions.ToString(daten.MandantNr));
+      SetText(benutzer, daten.BenutzerId);
+      SetText(kennwortAlt, "");
+      SetText(kennwortNeu, "");
+      SetText(kennwortNeu2, "");
       //// mandant.IsEditable = false;
       //// benutzer.IsEditable = false;
     }

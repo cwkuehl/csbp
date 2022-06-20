@@ -109,7 +109,7 @@ public partial class SB300Families : CsbpBin
         // No.;Father;Mother;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Father?.AncestorName ?? "", e.Mother?.AncestorName ?? "",
+          e.Uid, Functions.ToString(e.Father?.AncestorName), Functions.ToString(e.Mother?.AncestorName),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

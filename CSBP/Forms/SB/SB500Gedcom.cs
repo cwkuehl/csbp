@@ -66,11 +66,9 @@ public partial class SB500Gedcom : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      name.Text = Parameter.SB500Name ?? "";
-      datei.Text = string.IsNullOrEmpty(Parameter.SB500File)
-        ? System.IO.Path.Combine(Parameter.TempPath, SB500_select_file)
-        : Parameter.SB500File;
-      filter.Buffer.Text = Parameter.SB500Filter ?? "";
+      SetText(name, Parameter.SB500Name);
+      SetText(datei, string.IsNullOrEmpty(Parameter.SB500File) ? System.IO.Path.Combine(Parameter.TempPath, SB500_select_file) : Parameter.SB500File);
+      SetText(filter, Parameter.SB500Filter);
       EventsActive = true;
     }
   }
@@ -103,7 +101,7 @@ public partial class SB500Gedcom : CsbpBin
     var file = SelectFile(string.IsNullOrEmpty(datei.Text) ? SB500_select_file : datei.Text, "*.csv", SB500_select_ext);
     if (!string.IsNullOrEmpty(file))
     {
-      datei.Text = file;
+      SetText(datei, file);
       Parameter.SB500File = file;
     }
   }

@@ -69,7 +69,7 @@ public partial class FZ700Memos : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      text.Text = "%%";
+      SetText(text, "%%");
       EventsActive = true;
     }
     if (step <= 1)

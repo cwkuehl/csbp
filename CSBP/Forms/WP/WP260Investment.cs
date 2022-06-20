@@ -176,17 +176,17 @@ public partial class WP260Investment : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid;
+        SetText(nr, k.Uid);
         SetText(wertpapier, k.Wertpapier_Uid);
-        bezeichnung.Text = k.Bezeichnung;
+        SetText(bezeichnung, k.Bezeichnung);
         SetText(status, Functions.ToString(k.State));
         SetText(depot, k.PortfolioAccountUid);
         SetText(abrechnung, k.SettlementAccountUid);
         SetText(ertrag, k.IncomeAccountUid);
-        notiz.Buffer.Text = k.Notiz ?? "";
-        data.Buffer.Text = k.Data ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(notiz, k.Notiz);
+        SetText(data, k.Data);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       wertpapier.Sensitive = !loeschen;

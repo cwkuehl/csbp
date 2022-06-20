@@ -6,6 +6,7 @@ namespace CSBP.Forms.AG;
 
 using System;
 using CSBP.Apis.Enums;
+using CSBP.Base;
 using CSBP.Services.Factory;
 using Gtk;
 using static CSBP.Resources.M;
@@ -63,7 +64,7 @@ public partial class AG420Encryption : CsbpBin
       if (Parameter1 is string uid)
       {
         var k = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
-        target.Text = k?.Target ?? "";
+        SetText(target, k?.Target);
       }
       target.IsEditable = false;
       password.IsEditable = true;

@@ -464,7 +464,7 @@ public class MainWindow : Window
       if (title.Length > 18)
       {
         var sh = title.Left(18) + "...";
-        lbl.Text = sh;
+        lbl.Text = sh ?? "";
         lbl.TooltipText = title;
       }
       var tab = new Box(Orientation.Horizontal, 0);

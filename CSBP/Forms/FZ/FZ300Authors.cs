@@ -64,7 +64,7 @@ public partial class FZ300Authors : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      name.Text = "%%";
+      SetText(name, "%%");
       EventsActive = true;
     }
     if (step <= 1)

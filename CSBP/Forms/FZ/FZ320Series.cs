@@ -64,7 +64,7 @@ public partial class FZ320Series : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      name.Text = "%%";
+      SetText(name, "%%");
       EventsActive = true;
     }
     if (step <= 1)

@@ -153,18 +153,18 @@ public partial class WP310Configuration : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        bezeichnung.Text = k.Bezeichnung;
-        box.Text = Functions.ToString(k.Box, 2);
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Bezeichnung);
+        SetText(box, Functions.ToString(k.Box, 2));
         SetText(skala, Functions.ToString(k.Scale));
-        umkehr.Text = Functions.ToString(k.Reversal);
+        SetText(umkehr, Functions.ToString(k.Reversal));
         SetText(methode, Functions.ToString(k.Method));
-        dauer.Text = Functions.ToString(k.Duration);
+        SetText(dauer, Functions.ToString(k.Duration));
         relativ.Active = k.Relative;
         SetText(status, k.Status);
-        notiz.Buffer.Text = k.Notiz ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(notiz, k.Notiz);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       bezeichnung.IsEditable = !loeschen;

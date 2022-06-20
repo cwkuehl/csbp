@@ -141,9 +141,9 @@ public partial class WP100Chart : CsbpBin
       {
         SetText(wertpapier, model.Item2);
       }
-      box.Text = Functions.ToString(k.Box);
+      SetText(box, Functions.ToString(k.Box));
       SetText(skala, k.Scale.ToString());
-      umkehr.Text = k.Reversal.ToString();
+      SetText(umkehr, k.Reversal.ToString());
       SetText(methode, k.Method.ToString());
       relativ.Active = k.Relative;
     }

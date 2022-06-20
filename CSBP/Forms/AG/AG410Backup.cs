@@ -99,13 +99,13 @@ public partial class AG410Backup : CsbpBin
       {
         var k = Get(FactoryService.ClientService.GetBackupEntry(ServiceDaten, uid));
         model = k;
-        nr.Text = k.Uid;
-        ziel.Text = k.Target;
+        SetText(nr, k.Uid);
+        SetText(ziel, k.Target);
         encrypted.Active = k.Encrypted;
         zipped.Active = k.Zipped;
-        quelle.Text = k.SourcesText;
-        angelegt.Text = Base.ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = Base.ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(quelle, k.SourcesText);
+        SetText(angelegt, Base.ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, Base.ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       ziel.IsEditable = !loeschen;

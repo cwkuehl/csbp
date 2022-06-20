@@ -99,18 +99,15 @@ public partial class FZ210Bike : CsbpBin
         var k = Get(FactoryService.PrivateService.GetBike(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        bezeichnung.Text = k.Bezeichnung ?? "";
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Bezeichnung);
         SetText(typ1, k.Typ.ToString());
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       bezeichnung.IsEditable = !loeschen;

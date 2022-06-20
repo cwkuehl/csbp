@@ -132,8 +132,8 @@ public partial class HH400Bookings : CsbpBin
       var d = ServiceDaten.Heute;
       bis.Value = d.AddDays(1 - d.Day).AddMonths(1);
       von.Value = d.AddDays(1 - d.Day).AddMonths(-14);
-      bText.Text = "%%";
-      betrag.Text = "";
+      SetText(bText, "%%");
+      SetText(betrag, "");
       SetText(konto, "");
       //// Parameter
       if (Parameter1 is Tuple<HhKonto, DateTime, DateTime> p1)
@@ -163,7 +163,7 @@ public partial class HH400Bookings : CsbpBin
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
-      buchungenStatus.Text = HH054(anz, summe);
+      SetText(buchungenStatus, HH054(anz, summe));
       AddStringColumnsSort(buchungen, HH400_buchungen_columns, values);
     }
   }

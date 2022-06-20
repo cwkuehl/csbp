@@ -116,8 +116,8 @@ public partial class HH100Periods : CsbpBin
       }
       if (l.Count > 0)
       {
-        anfang.Text = Functions.ToString(l.Last().Datum_Von);
-        ende.Text = Functions.ToString(l.First().Datum_Bis);
+        SetText(anfang, Functions.ToString(l.Last().Datum_Von));
+        SetText(ende, Functions.ToString(l.First().Datum_Bis));
       }
       AddStringColumnsSort(perioden, HH100_perioden_columns, values);
     }

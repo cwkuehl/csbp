@@ -243,7 +243,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPasteClicked(object sender, EventArgs e)
   {
-    entry.Buffer.Text = Copy ?? "";
+    SetText(entry, Copy);
     BearbeiteEintraege(true, false);
   }
 
@@ -310,7 +310,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
   {
-    var uid = GetText(positions) ?? "";
+    var uid = Functions.ToString(GetText(positions));
     var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (p != null)
     {
@@ -482,34 +482,34 @@ public partial class TB100Diary : CsbpBin
     if (!d.HasValue)
       return r;
     var tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddDays(-1)));
-    before1.Buffer.Text = tb?.Eintrag ?? "";
+    SetText(before1, tb?.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddMonths(-1)));
-    before2.Buffer.Text = tb?.Eintrag ?? "";
+    SetText(before2, tb?.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddYears(-1)));
-    before3.Buffer.Text = tb?.Eintrag ?? "";
+    SetText(before3, tb?.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value, true));
     EntryOld.Positions.Clear();
     if (tb == null)
     {
-      EntryOld.Eintrag = string.Empty;
-      angelegt.Text = string.Empty;
-      geaendert.Text = string.Empty;
+      EntryOld.Eintrag = "";
+      SetText(angelegt, "");
+      SetText(geaendert, "");
     }
     else
     {
       EntryOld.Eintrag = tb.Eintrag;
       EntryOld.Positions.AddRange(tb.Positions);
-      angelegt.Text = ModelBase.FormatDateOf(tb.Angelegt_Am, tb.Angelegt_Von);
-      geaendert.Text = ModelBase.FormatDateOf(tb.Geaendert_Am, tb.Geaendert_Von);
+      SetText(angelegt, ModelBase.FormatDateOf(tb.Angelegt_Am, tb.Angelegt_Von));
+      SetText(geaendert, ModelBase.FormatDateOf(tb.Geaendert_Am, tb.Geaendert_Von));
     }
     EntryOld.Datum = d.Value;
-    entry.Buffer.Text = EntryOld.Eintrag ?? "";
+    SetText(entry, EntryOld.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddDays(1)));
-    after1.Buffer.Text = tb?.Eintrag ?? "";
+    SetText(after1, tb?.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddMonths(1)));
-    after2.Buffer.Text = tb?.Eintrag ?? "";
+    SetText(after2, tb?.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddYears(1)));
-    after3.Buffer.Text = tb?.Eintrag ?? "";
+    SetText(after3, tb?.Eintrag);
     InitPositions(EntryOld.Positions);
     return r;
   }
@@ -591,15 +591,15 @@ public partial class TB100Diary : CsbpBin
   /// </summary>
   private void ClearSearch()
   {
-    search1.Text = "%%";
-    search2.Text = "%%";
-    search3.Text = "%%";
-    search4.Text = "%%";
-    search5.Text = "%%";
-    search6.Text = "%%";
-    search7.Text = "%%";
-    search8.Text = "%%";
-    search9.Text = "%%";
+    SetText(search1, "%%");
+    SetText(search2, "%%");
+    SetText(search3, "%%");
+    SetText(search4, "%%");
+    SetText(search5, "%%");
+    SetText(search6, "%%");
+    SetText(search7, "%%");
+    SetText(search8, "%%");
+    SetText(search9, "%%");
     SetText(position2, null);
     from.Value = Functions.IsLinux() ? DateTime.Today.AddYears(-1) : null;
     to.Value = DateTime.Today;

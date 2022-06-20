@@ -77,10 +77,10 @@ public class AM000Login : CsbpBin
   {
     if (step == 0)
     {
-      client.Text = Parameter.LoginClient;
-      user.Text = Parameter.LoginUser;
+      SetText(client, Parameter.LoginClient);
+      SetText(user, Parameter.LoginUser);
       if (string.IsNullOrWhiteSpace(user.Text))
-        user.Text = Environment.UserName;
+        SetText(user, Environment.UserName);
       if (string.IsNullOrWhiteSpace(client.Text))
         client.GrabFocus();
       else if (string.IsNullOrWhiteSpace(user.Text))

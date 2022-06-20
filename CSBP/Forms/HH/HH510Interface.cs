@@ -134,9 +134,9 @@ public partial class HH510Interface : CsbpBin
   {
     if (step <= 0)
     {
-      titel.Text = Parameter.HH510Title;
+      SetText(titel, Parameter.HH510Title);
       kassenbericht.Active = Parameter.HH510Cashreport;
-      datei.Text = Parameter.HH510File;
+      SetText(datei, Parameter.HH510File);
       if (Parameter1 is Tuple<string, DateTime, DateTime> p)
       {
         var kz = p.Item1;
@@ -223,7 +223,7 @@ public partial class HH510Interface : CsbpBin
     var file = SelectFile(string.IsNullOrEmpty(datei.Text) ? HH510_select_file : datei.Text, "*.csv", HH510_select_ext);
     if (!string.IsNullOrEmpty(file))
     {
-      datei.Text = file;
+      SetText(datei, file);
       Parameter.HH510File = file;
     }
   }

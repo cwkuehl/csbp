@@ -111,7 +111,7 @@ public partial class WP250Investments : CsbpBin
     {
       EventsActive = false;
       bis.Value = daten.Heute;
-      bezeichnung.Text = "%%";
+      SetText(bezeichnung, "%%");
       var rl = Get(FactoryService.StockService.GetStockList(daten, true));
       var rs = AddColumns(wertpapier, emptyentry: true);
       foreach (var p in rl)
@@ -147,7 +147,7 @@ public partial class WP250Investments : CsbpBin
         diff += e.Value2 == 0 ? 0 : e.Value - e.Value2;
       }
       var pgewinn = (wert == 0 || summe == 0) ? 0 : (gewinn < 0) ? gewinn / wert * 100 : gewinn / summe * 100;
-      anlagenStatus.Text = WP029(anz, summe, wert, gewinn, pgewinn, diff);
+      SetText(anlagenStatus, WP029(anz, summe, wert, gewinn, pgewinn, diff));
       AddStringColumnsSort(anlagen, WP250_anlagen_columns, values);
     }
   }

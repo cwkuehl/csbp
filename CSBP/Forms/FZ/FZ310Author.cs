@@ -8,6 +8,7 @@ using System;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
+using CSBP.Base;
 using CSBP.Services.Factory;
 using Gtk;
 using static CSBP.Resources.Messages;
@@ -91,19 +92,16 @@ public partial class FZ310Author : CsbpBin
         var k = Get(FactoryService.PrivateService.GetAuthor(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        name.Text = k.Name;
-        vorname.Text = k.Vorname;
-        notiz.Buffer.Text = k.Notiz ?? "";
-        angelegt.Text = Base.ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = Base.ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(nr, k.Uid);
+        SetText(name, k.Name);
+        SetText(vorname, k.Vorname);
+        SetText(notiz, k.Notiz);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       name.IsEditable = !loeschen;

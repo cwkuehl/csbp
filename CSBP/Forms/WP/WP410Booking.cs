@@ -209,21 +209,21 @@ public partial class WP410Booking : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid;
+        SetText(nr, k.Uid);
         SetText(anlage, k.Anlage_Uid);
         valuta.Value = k.Datum;
-        preis.Text = Functions.ToString(k.Price, 4);
-        betrag.Text = Functions.ToString(k.Zahlungsbetrag, 2);
-        rabatt.Text = Functions.ToString(k.Rabattbetrag, 2);
-        anteile.Text = Functions.ToString(k.Anteile, 5);
-        zinsen.Text = Functions.ToString(k.Zinsen, 2);
-        bText.Text = k.BText;
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(preis, Functions.ToString(k.Price, 4));
+        SetText(betrag, Functions.ToString(k.Zahlungsbetrag, 2));
+        SetText(rabatt, Functions.ToString(k.Rabattbetrag, 2));
+        SetText(anteile, Functions.ToString(k.Anteile, 5));
+        SetText(zinsen, Functions.ToString(k.Zinsen, 2));
+        SetText(bText, k.BText);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
         //// k.BookingUid = "6acdd0a1:16fd83aa41e:-7fed";
         if (kopieren)
           k.BookingUid = null;
-        hhbuchung.Text = k.BookingUid ?? "";
+        SetText(hhbuchung, k.BookingUid);
         hhvaluta.Value = k.Datum;
         EventList(k.Anlage_Uid);
         if (!string.IsNullOrEmpty(k.BookingUid))
@@ -232,7 +232,7 @@ public partial class WP410Booking : CsbpBin
           if (b != null)
           {
             hhvaluta.Value = b.Soll_Valuta;
-            hhbetrag.Text = Functions.ToString(b.EBetrag, 2);
+            SetText(hhbetrag, Functions.ToString(b.EBetrag, 2));
             if (events != null)
             {
               var ev = events.FirstOrDefault(a => a.Soll_Konto_Uid == b.Soll_Konto_Uid && a.Haben_Konto_Uid == b.Haben_Konto_Uid);
@@ -340,18 +340,18 @@ public partial class WP410Booking : CsbpBin
       var text = ev?.Bezeichnung;
       if (!string.IsNullOrEmpty(text))
       {
-        bText.Text = text;
+        SetText(bText, text);
         if (ev?.EText == "1")
         {
           // Shares without interests.
-          zinsen.Text = "";
+          SetText(zinsen, "");
         }
         else if (ev?.EText == "2")
         {
           // Interests without changes of shares.
-          betrag.Text = "";
-          //// rabatt.Text = "";
-          anteile.Text = "";
+          SetText(betrag, "");
+          //// SetText(rabatt, "");
+          SetText(anteile, "");
         }
       }
     }
@@ -409,10 +409,9 @@ public partial class WP410Booking : CsbpBin
         if (DialogType == DialogTypeEnum.New)
         {
           var desc = GetText(anlage, false);
-          buchung.Text = WP030(valuta.ValueNn, betrag.Text, rabatt.Text, anteile.Text,
-            zinsen.Text, desc, bText.Text);
-          betrag.Text = "";
-          rabatt.Text = "";
+          SetText(buchung, WP030(valuta.ValueNn, betrag.Text, rabatt.Text, anteile.Text, zinsen.Text, desc, bText.Text));
+          SetText(betrag, "");
+          SetText(rabatt, "");
           betrag.GrabFocus();
         }
         else
@@ -429,6 +428,7 @@ public partial class WP410Booking : CsbpBin
     dialog.Hide();
   }
 
+  /// <summary>Handles valuta.</summary>
   private void OnValuta()
   {
     if (!EventsActive)
@@ -439,12 +439,13 @@ public partial class WP410Booking : CsbpBin
       Get(FactoryService.StockService.GetInvestment(daten, inuid));
     var p = inv == null || !valuta.Value.HasValue ? null :
       Get(FactoryService.StockService.GetPrice(daten, inv.Wertpapier_Uid, valuta.Value.Value));
-    preis.Text = Functions.ToString(p?.Stueckpreis, 4);
+    SetText(preis, Functions.ToString(p?.Stueckpreis, 4));
     if (string.IsNullOrEmpty(hhbuchung.Text))
       hhvaluta.Value = valuta.ValueNn;
     EventList(inuid);
   }
 
+  /// <summary>Handles shares.</summary>
   private void OnShares()
   {
     if (!EventsActive)
@@ -452,14 +453,13 @@ public partial class WP410Booking : CsbpBin
     var p = Functions.ToDecimal(betrag.Text);
     var s = Functions.ToDecimal(anteile.Text);
     var z = Functions.ToDecimal(zinsen.Text) ?? 0;
-    preis2.Text = Functions.ToString(Functions.CompDouble4(p, 0) == 0
-      || Functions.CompDouble4(s, 0) == 0 ? null : p / s, 6);
+    SetText(preis2, Functions.ToString(Functions.CompDouble4(p, 0) == 0 || Functions.CompDouble4(s, 0) == 0 ? null : p / s, 6));
     if (string.IsNullOrEmpty(hhbuchung.Text))
     {
       if (z == 0)
-        hhbetrag.Text = Functions.ToString(Math.Abs((p ?? 0) - (Functions.ToDecimal(rabatt.Text) ?? 0)), 2);
+        SetText(hhbetrag, Functions.ToString(Math.Abs((p ?? 0) - (Functions.ToDecimal(rabatt.Text) ?? 0)), 2));
       else
-        hhbetrag.Text = Functions.ToString(Math.Abs(z + (Functions.ToDecimal(rabatt.Text) ?? 0)), 2);
+        SetText(hhbetrag, Functions.ToString(Math.Abs(z + (Functions.ToDecimal(rabatt.Text) ?? 0)), 2));
     }
   }
 
@@ -472,6 +472,8 @@ public partial class WP410Booking : CsbpBin
       Start(typeof(HH410Booking), HH410_title, dt, uid, csbpparent: this);
   }
 
+  /// <summary>Handles event list.</summary>
+  /// <param name="inuid">Affected investment uid.</param>
   private void EventList(string inuid)
   {
     if (invuid != inuid)

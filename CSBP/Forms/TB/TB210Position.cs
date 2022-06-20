@@ -117,14 +117,14 @@ public partial class TB210Position : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid ?? "";
-        bezeichnung.Buffer.Text = k.Bezeichnung ?? "";
-        breite.Buffer.Text = Functions.ToString(k.Breite, 5);
-        laenge.Buffer.Text = Functions.ToString(k.Laenge, 5);
-        hoehe.Buffer.Text = Functions.ToString(k.Hoehe, 2);
-        notiz.Buffer.Text = k.Notiz ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Bezeichnung);
+        SetText(breite, Functions.ToString(k.Breite, 5));
+        SetText(laenge, Functions.ToString(k.Laenge, 5));
+        SetText(hoehe, Functions.ToString(k.Hoehe, 2));
+        SetText(notiz, k.Notiz);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       bezeichnung.Sensitive = !loeschen;
@@ -148,9 +148,9 @@ public partial class TB210Position : CsbpBin
     var c = Functions.ToCoordinates(breite.Text);
     if (c != null)
     {
-      breite.Text = Functions.ToString(c.Item1, 5);
-      laenge.Text = Functions.ToString(c.Item2, 5);
-      hoehe.Text = Functions.ToString(c.Item3, 2);
+      SetText(breite, Functions.ToString(c.Item1, 5));
+      SetText(laenge, Functions.ToString(c.Item2, 5));
+      SetText(hoehe, Functions.ToString(c.Item3, 2));
     }
   }
 

@@ -73,7 +73,7 @@ public partial class AM500Options : CsbpBin
       {
         // Client;Key;Value_e;Comment;Default;Changed at;Changed by;Created at;Created by
         store.AppendValues(Functions.ToString(e.Mandant_Nr), e.Schluessel,
-          e.Wert ?? "", e.Comment ?? "", e.Default ?? "",
+          Functions.ToString(e.Wert), Functions.ToString(e.Comment), Functions.ToString(e.Default),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von);
       }

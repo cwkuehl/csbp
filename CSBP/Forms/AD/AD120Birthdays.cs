@@ -87,7 +87,7 @@ public partial class AD120Birthdays : CsbpBin
     if (step <= 0)
     {
       datum.Value = daten.Heute;
-      tage.Text = Functions.ToString(Parameter.AD120Days);
+      SetText(tage, Functions.ToString(Parameter.AD120Days));
       starten.Active = Parameter.AD120Start;
       EventsActive = true;
     }
@@ -97,13 +97,10 @@ public partial class AD120Birthdays : CsbpBin
           Functions.ToInt32(tage.Text))) ?? new List<string>();
       if (l.Count <= 1)
       {
-        Application.Invoke((sender, e) =>
-        {
-          dialog.Hide();
-        });
+        Application.Invoke((sender, e) => { dialog.Hide(); });
         return;
       }
-      geburtstage.Buffer.Text = string.Join("\n", l.ToArray());
+      SetText(geburtstage, string.Join("\n", l.ToArray()));
     }
   }
 

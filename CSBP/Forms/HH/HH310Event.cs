@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
+using CSBP.Base;
 using CSBP.Services.Factory;
 using Gtk;
 using static CSBP.Resources.Messages;
@@ -132,14 +133,14 @@ public partial class HH310Event : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        bezeichnung.Text = k.Bezeichnung;
-        kennzeichen.Text = k.Kz;
-        eText.Text = k.EText;
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Bezeichnung);
+        SetText(kennzeichen, k.Kz);
+        SetText(eText, k.EText);
         SetText(sollkonto, k.Soll_Konto_Uid);
         SetText(habenkonto, k.Haben_Konto_Uid);
-        angelegt.Text = Base.ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = Base.ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       bezeichnung.IsEditable = !loeschen;

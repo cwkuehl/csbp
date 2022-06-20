@@ -131,20 +131,17 @@ public partial class AG210User : CsbpBin
         var k = Get(FactoryService.ClientService.GetUser(ServiceDaten, Functions.ToInt32(uid)));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = Functions.ToString(k.Person_Nr);
-        benutzerId.Text = k.Benutzer_ID ?? "";
-        kennwort.Text = k.Passwort ?? "";
+        SetText(nr, Functions.ToString(k.Person_Nr));
+        SetText(benutzerId, k.Benutzer_ID);
+        SetText(kennwort, k.Passwort);
         SetText(berechtigung1, k.Berechtigung.ToString());
         geburt.Value = k.Geburt;
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       benutzerId.IsEditable = !loeschen;

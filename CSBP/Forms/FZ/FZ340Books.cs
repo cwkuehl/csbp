@@ -76,7 +76,7 @@ public partial class FZ340Books : CsbpBin
     var daten = ServiceDaten;
     if (step <= 0)
     {
-      titel.Text = "%%";
+      SetText(titel, "%%");
       var al = Get(FactoryService.PrivateService.GetAuthorList(daten));
       var rs = AddColumns(autor, emptyentry: true);
       foreach (var p in al)

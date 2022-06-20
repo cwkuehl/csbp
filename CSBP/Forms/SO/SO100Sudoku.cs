@@ -130,7 +130,7 @@ public partial class SO100Sudoku : CsbpBin
       var l = Math.Min(arr.Length, fields.Length);
       for (var i = 0; i < l; i++)
       {
-        fields[i].Text = arr[i] <= 0 ? "" : arr[i].ToString();
+        SetText(fields[i], arr[i] <= 0 ? "" : arr[i].ToString());
       }
       diagonal.Active = context.Diagonal;
       anzahl.LabelProp = M.SO002(context.Count());
@@ -215,7 +215,7 @@ public partial class SO100Sudoku : CsbpBin
   /// <param name="e">Affected event.</param>
   private void OnFieldKeyRelease(object sender, KeyReleaseEventArgs e)
   {
-    ((Entry)sender).Text = e.Event.Key switch
+    var key = e.Event.Key switch
     {
       Gdk.Key.Key_1 => "1",
       Gdk.Key.Key_2 => "2",
@@ -228,6 +228,7 @@ public partial class SO100Sudoku : CsbpBin
       Gdk.Key.Key_9 => "9",
       _ => "",
     };
+    SetText((Entry)sender, key);
     for (var i = 0; i < fields.Length; i++)
     {
       if (fields[i] == sender)
@@ -247,7 +248,7 @@ public partial class SO100Sudoku : CsbpBin
   {
     // if (e.Event.Key == Gdk.Key.a)
     // {
-    //   ((Entry)sender).Text = "X";
+    //   SetText((Entry)sender, "X");
     //   Functions.MachNichts();
     // }
   }

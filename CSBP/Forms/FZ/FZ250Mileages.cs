@@ -78,7 +78,7 @@ public partial class FZ250Mileages : CsbpBin
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
       SetText(fahrrad, null);
-      text.Text = "%%";
+      SetText(text, "%%");
       EventsActive = true;
     }
     if (step <= 1)

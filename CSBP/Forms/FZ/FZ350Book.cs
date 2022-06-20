@@ -188,27 +188,24 @@ public partial class FZ350Book : CsbpBin
         var k = Get(FactoryService.PrivateService.GetBook(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        titel.Text = k.Titel ?? "";
-        untertitel.Text = k.Untertitel ?? "";
+        SetText(nr, k.Uid);
+        SetText(titel, k.Titel);
+        SetText(untertitel, k.Untertitel);
         SetText(autor, k.Autor_Uid);
         SetText(serie, k.Serie_Uid);
-        seriennummer.Text = Functions.ToString(k.Seriennummer == 0 ? (int?)null : k.Seriennummer);
-        seiten.Text = Functions.ToString(k.Seiten == 0 ? (int?)null : k.Seiten);
+        SetText(seriennummer, Functions.ToString(k.Seriennummer == 0 ? (int?)null : k.Seriennummer));
+        SetText(seiten, Functions.ToString(k.Seiten == 0 ? (int?)null : k.Seiten));
         SetText(sprache1, Functions.ToString(k.Sprache_Nr));
         besitz.Active = k.StatePossession;
         lesedatum.Value = k.StateRead;
         hoerdatum.Value = k.StateHeard;
-        notiz.Buffer.Text = k.Notiz ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(notiz, k.Notiz);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       titel.IsEditable = !loeschen;

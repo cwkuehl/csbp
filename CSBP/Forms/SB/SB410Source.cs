@@ -108,13 +108,13 @@ public partial class SB410Source : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid ?? "";
-        autor.Buffer.Text = k.Autor ?? "";
-        beschreibung.Buffer.Text = k.Beschreibung ?? "";
-        zitat.Buffer.Text = k.Zitat ?? "";
-        bemerkung.Buffer.Text = k.Bemerkung ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(nr, k.Uid);
+        SetText(autor, k.Autor);
+        SetText(beschreibung, k.Beschreibung);
+        SetText(zitat, k.Zitat);
+        SetText(bemerkung, k.Bemerkung);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       autor.Sensitive = !loeschen;

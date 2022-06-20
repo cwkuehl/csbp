@@ -136,17 +136,17 @@ public partial class SB310Family : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid ?? "";
+        SetText(nr, k.Uid);
         SetText(vater, k.Mann_Uid);
         SetText(mutter, k.Frau_Uid);
-        heiratsdatum.Text = k.Marriagedate ?? "";
-        heiratsort.Text = k.Marriageplace ?? "";
-        heiratsbem.Buffer.Text = k.Marriagememo ?? "";
+        SetText(heiratsdatum, k.Marriagedate);
+        SetText(heiratsort, k.Marriageplace);
+        SetText(heiratsbem, k.Marriagememo);
         var chl = Get(FactoryService.PedigreeService.GetChildList(daten, k.Uid)) ?? new List<SbPerson>();
         childList.AddRange(chl);
         InitChildren();
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       vater.Sensitive = !loeschen;

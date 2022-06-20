@@ -77,9 +77,9 @@ public partial class AD100Persons : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      suche.Text = "%%";
-      name.Text = "%%";
-      vorname.Text = "%%";
+      SetText(suche, "%%");
+      SetText(name, "%%");
+      SetText(vorname, "%%");
       EventsActive = true;
     }
     if (step <= 1)
@@ -96,13 +96,13 @@ public partial class AD100Persons : CsbpBin
         // No.;Description;Site;Changed at;Changed by;Created at;Created by
         if (uid == e.Person?.Uid)
         {
-          store.AppendValues(pi, e.Uid, "", e.SiteName,
+          store.AppendValues(pi, e.Uid, "", Functions.ToString(e.SiteName),
             Functions.ToString(e.ChangedAt, true), e.ChangedBy,
             Functions.ToString(e.CreatedAt, true), e.CreatedBy);
         }
         else
         {
-          pi = store.AppendValues(e.Uid, e.PersonName, e.SiteName,
+          pi = store.AppendValues(e.Uid, Functions.ToString(e.PersonName), Functions.ToString(e.SiteName),
             Functions.ToString(e.ChangedAt, true), e.ChangedBy,
             Functions.ToString(e.CreatedAt, true), e.CreatedBy);
           uid = e.Person?.Uid;

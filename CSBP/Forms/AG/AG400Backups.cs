@@ -88,7 +88,7 @@ public partial class AG400Backups : CsbpBin
     var daten = ServiceDaten;
     if (step <= 0)
     {
-      mandant.Text = daten.MandantNr.ToString();
+      SetText(mandant, daten.MandantNr.ToString());
       var http = HttpsServer.IsStarted();
 #if DEBUG
       http = true;

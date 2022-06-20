@@ -61,9 +61,7 @@ public partial class AD200Interface : CsbpBin
   {
     if (step <= 0)
     {
-      datei.Text = string.IsNullOrEmpty(Parameter.AD200File)
-        ? System.IO.Path.Combine(Parameter.TempPath, AD200_select_file)
-        : Parameter.AD200File;
+      SetText(datei, string.IsNullOrEmpty(Parameter.AD200File) ? System.IO.Path.Combine(Parameter.TempPath, AD200_select_file) : Parameter.AD200File);
     }
   }
 
@@ -75,7 +73,7 @@ public partial class AD200Interface : CsbpBin
     var file = SelectFile(string.IsNullOrEmpty(datei.Text) ? AD200_select_file : datei.Text, "*.csv", AD200_select_ext);
     if (!string.IsNullOrEmpty(file))
     {
-      datei.Text = file;
+      SetText(datei, file);
       Parameter.AD200File = file;
     }
   }
@@ -103,10 +101,7 @@ public partial class AD200Interface : CsbpBin
     if (loeschen.Active)
     {
       var r = FactoryService.AddressService.ImportAddressList(ServiceDaten, null, true);
-      Application.Invoke((sender1, e1) =>
-      {
-        UpdateParent();
-      });
+      Application.Invoke((sender1, e1) => { UpdateParent(); });
       if (!r.Ok)
       {
         Get(r);
@@ -115,10 +110,7 @@ public partial class AD200Interface : CsbpBin
     }
     var lines = UiTools.ReadFile(datei.Text);
     var message = Get(FactoryService.AddressService.ImportAddressList(ServiceDaten, lines, false));
-    Application.Invoke((sender1, e1) =>
-    {
-      UpdateParent();
-    });
+    Application.Invoke((sender1, e1) => { UpdateParent(); });
     if (!string.IsNullOrEmpty(message))
       ShowInfo(message);
   }

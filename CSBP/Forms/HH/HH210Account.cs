@@ -161,23 +161,20 @@ public partial class HH210Account : CsbpBin
         var k = Get(FactoryService.BudgetService.GetAccount(daten, uid));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        bezeichnung.Text = k.Name;
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Name);
         SetText(kennzeichen1, k.Kz);
         SetText(kontoart1, k.Art);
         von.Value = k.Gueltig_Von;
         bis.Value = k.Gueltig_Bis;
-        betrag.Text = Functions.ToString(k.EBetrag, 2);
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
-        buchung.Text = Get(FactoryService.BudgetService.GetBookingSpan(daten, k.Uid));
+        SetText(betrag, Functions.ToString(k.EBetrag, 2));
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
+        SetText(buchung, Get(FactoryService.BudgetService.GetBookingSpan(daten, k.Uid)));
       }
       nr.IsEditable = false;
       bezeichnung.IsEditable = !loeschen;

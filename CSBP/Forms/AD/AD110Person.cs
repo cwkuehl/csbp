@@ -221,38 +221,38 @@ public partial class AD110Person : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Person?.Uid ?? "";
-        sitzNr.Text = k.Uid ?? "";
-        adressNr.Text = k.Address?.Uid ?? "";
-        titel.Text = k.Person?.Titel ?? "";
-        vorname.Text = k.Person?.Vorname ?? "";
-        praedikat.Text = k.Person?.Praedikat ?? "";
-        name1.Text = k.Person?.Name1 ?? "";
-        name2.Text = k.Person?.Name2 ?? "";
+        SetText(nr, k.Person?.Uid);
+        SetText(sitzNr, k.Uid);
+        SetText(adressNr, k.Address?.Uid);
+        SetText(titel, k.Person?.Titel);
+        SetText(vorname, k.Person?.Vorname);
+        SetText(praedikat, k.Person?.Praedikat);
+        SetText(name1, k.Person?.Name1);
+        SetText(name2, k.Person?.Name2);
         geschlecht1.Active = k.Person?.Geschlecht != "M" && k.Person?.Geschlecht != "F";
         geschlecht2.Active = k.Person?.Geschlecht == "M";
         geschlecht3.Active = k.Person?.Geschlecht == "F";
         geburt.Value = k.Person?.Geburt;
         personStatus1.Active = k.Person?.Person_Status == 0;
         personStatus2.Active = k.Person?.Person_Status != 0;
-        name.Text = k.Name;
-        postfach.Text = k.Postfach ?? "";
-        telefon.Text = k.Telefon ?? "";
-        fax.Text = k.Fax ?? "";
-        mobil.Text = k.Mobil ?? "";
-        homepage.Text = k.Homepage ?? "";
-        email.Text = k.Email ?? "";
-        notiz.Buffer.Text = k.Bemerkung ?? "";
+        SetText(name, k.Name);
+        SetText(postfach, k.Postfach);
+        SetText(telefon, k.Telefon);
+        SetText(fax, k.Fax);
+        SetText(mobil, k.Mobil);
+        SetText(homepage, k.Homepage);
+        SetText(email, k.Email);
+        SetText(notiz, k.Bemerkung);
         sitzStatus1.Active = k.Sitz_Status == 0;
         sitzStatus2.Active = k.Sitz_Status != 0;
         SetAddress(k.Address);
-        angelegt.Text = ModelBase.FormatDateOf(k.CreatedAt, k.CreatedBy);
-        geaendert.Text = ModelBase.FormatDateOf(k.ChangedAt, k.CreatedBy);
+        SetText(angelegt, ModelBase.FormatDateOf(k.CreatedAt, k.CreatedBy));
+        SetText(geaendert, ModelBase.FormatDateOf(k.ChangedAt, k.CreatedBy));
       }
       if (DialogType == DialogTypeEnum.Copy2)
       {
-        sitzNr.Text = "";
-        adressNr.Text = "";
+        SetText(sitzNr, "");
+        SetText(adressNr, "");
       }
       nr.IsEditable = false;
       sitzNr.IsEditable = false;
@@ -337,8 +337,8 @@ public partial class AD110Person : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAdresseduplClicked(object sender, EventArgs e)
   {
-    adressNr.Text = "";
-    adresseAnzahl.Text = "0";
+    SetText(adressNr, "");
+    SetText(adresseAnzahl, "0");
   }
 
   /// <summary>Handles Adressewechseln.</summary>
@@ -372,12 +372,11 @@ public partial class AD110Person : CsbpBin
       // If the number is changing, the new number will be used once more.
       diff = 1;
     }
-    strasse.Text = ad?.Strasse ?? "";
-    hausnr.Text = ad?.HausNr ?? "";
-    staat.Text = ad?.Staat ?? "";
-    plz.Text = ad?.Plz ?? "";
-    ort.Text = ad?.Ort ?? "";
-    adresseAnzahl.Text = Functions.ToString(diff
-      + Get(FactoryService.AddressService.GetAddressCount(ServiceDaten, ad?.Uid)));
+    SetText(strasse, ad?.Strasse);
+    SetText(hausnr, ad?.HausNr);
+    SetText(staat, ad?.Staat);
+    SetText(plz, ad?.Plz);
+    SetText(ort, ad?.Ort);
+    SetText(adresseAnzahl, Functions.ToString(diff + Get(FactoryService.AddressService.GetAddressCount(ServiceDaten, ad?.Uid))));
   }
 }

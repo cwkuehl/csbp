@@ -68,7 +68,7 @@ public partial class HH300Events : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      text.Text = "%%";
+      SetText(text, "%%");
       EventsActive = true;
     }
     if (step <= 1)

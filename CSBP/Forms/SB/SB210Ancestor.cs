@@ -239,10 +239,10 @@ public partial class SB210Ancestor : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid ?? "";
-        geburtsname.Text = k.Geburtsname ?? "";
-        vorname.Text = k.Vorname ?? "";
-        name.Text = k.Name ?? "";
+        SetText(nr, k.Uid);
+        SetText(geburtsname, k.Geburtsname);
+        SetText(vorname, k.Vorname);
+        SetText(name, k.Name);
         imagelist = Get(FactoryService.PedigreeService.GetBytes(daten, k.Uid));
         if (imagelist != null)
         {
@@ -252,21 +252,21 @@ public partial class SB210Ancestor : CsbpBin
           }
         }
         SetText(geschlecht1, k.Geschlecht);
-        geburtsdatum.Text = k.Birthdate ?? "";
-        geburtsort.Text = k.Birthplace ?? "";
-        geburtsbem.Buffer.Text = k.Birthmemo ?? "";
-        taufdatum.Text = k.Christdate ?? "";
-        taufort.Text = k.Christplace ?? "";
-        taufbem.Buffer.Text = k.Christmemo ?? "";
-        todesdatum.Text = k.Deathdate ?? "";
-        todesort.Text = k.Deathplace ?? "";
-        todesbem.Buffer.Text = k.Deathmemo ?? "";
-        begraebnisdatum.Text = k.Burialdate ?? "";
-        begraebnisort.Text = k.Burialplace ?? "";
-        begraebnisbem.Buffer.Text = k.Burialmemo ?? "";
-        konfession.Text = k.Konfession ?? "";
-        titel.Text = k.Titel ?? "";
-        bemerkung.Buffer.Text = k.Bemerkung ?? "";
+        SetText(geburtsdatum, k.Birthdate);
+        SetText(geburtsort, k.Birthplace);
+        SetText(geburtsbem, k.Birthmemo);
+        SetText(taufdatum, k.Christdate);
+        SetText(taufort, k.Christplace);
+        SetText(taufbem, k.Christmemo);
+        SetText(todesdatum, k.Deathdate);
+        SetText(todesort, k.Deathplace);
+        SetText(todesbem, k.Deathmemo);
+        SetText(begraebnisdatum, k.Burialdate);
+        SetText(begraebnisort, k.Burialplace);
+        SetText(begraebnisbem, k.Burialmemo);
+        SetText(konfession, k.Konfession);
+        SetText(titel, k.Titel);
+        SetText(bemerkung, k.Bemerkung);
         var g = Get(FactoryService.PedigreeService.GetSpouseList(daten, uid)); // alle Ehegatten
         if (g != null)
         {
@@ -275,22 +275,22 @@ public partial class SB210Ancestor : CsbpBin
           {
             Functions.Append(sb, "; ", p.AncestorName);
           }
-          gatte.Text = sb.ToString();
+          SetText(gatte, sb.ToString());
         }
-        vater.Text = Functions.AhnString(k.Father?.Uid, k.Father?.Geburtsname, k.Father?.Vorname);
-        mutter.Text = Functions.AhnString(k.Mother?.Uid, k.Mother?.Geburtsname, k.Mother?.Vorname);
+        SetText(vater, Functions.AhnString(k.Father?.Uid, k.Father?.Geburtsname, k.Father?.Vorname));
+        SetText(mutter, Functions.AhnString(k.Mother?.Uid, k.Mother?.Geburtsname, k.Mother?.Vorname));
         if (DialogType == DialogTypeEnum.Copy)
         {
-          gatteNr.Text = k.Uid ?? "";
-          vaterNr.Text = k.Father?.Uid ?? "";
-          mutterNr.Text = k.Mother?.Uid ?? "";
+          SetText(gatteNr, k.Uid);
+          SetText(vaterNr, k.Father?.Uid);
+          SetText(mutterNr, k.Mother?.Uid);
         }
         SetText(quelle, k.Quelle_Uid);
-        status1.Text = Functions.ToString(k.Status1);
-        status2.Text = Functions.ToString(k.Status2);
-        status3.Text = Functions.ToString(k.Status3);
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(status1, Functions.ToString(k.Status1));
+        SetText(status2, Functions.ToString(k.Status2));
+        SetText(status3, Functions.ToString(k.Status3));
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       geburtsname.IsEditable = !loeschen;
@@ -426,7 +426,7 @@ public partial class SB210Ancestor : CsbpBin
   {
     if (list == null || list.Count <= 0)
       return list;
-    var xml = $"<images>{metadata ?? ""}</images>";
+    var xml = $"<images>{Functions.ToString(metadata)}</images>";
     var doc = new XmlDocument();
     doc.Load(new StringReader(xml));
     var root = doc.DocumentElement;
@@ -462,8 +462,8 @@ public partial class SB210Ancestor : CsbpBin
     };
     bilder.Add(p);
     if (!string.IsNullOrWhiteSpace(dropname))
-      bilddaten.Buffer.Text = bilddaten.Buffer.Text.Replace(dropname, "");
-    bilddaten.Buffer.Text = Functions.Append(bilddaten.Buffer.Text, Constants.CRLF, metadata);
+      SetText(bilddaten, bilddaten.Buffer.Text.Replace(dropname, ""));
+    SetText(bilddaten, Functions.Append(bilddaten.Buffer.Text, Constants.CRLF, metadata));
     if (append)
     {
       imagelist.Add(new ByteDaten

@@ -169,22 +169,22 @@ public partial class WP210Stock : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        bezeichnung.Text = k.Bezeichnung;
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Bezeichnung);
         SetText(provider, k.Datenquelle);
-        kuerzel.Text = k.Kuerzel;
+        SetText(kuerzel, k.Kuerzel);
         SetText(status, k.Status);
-        aktKurs.Text = Functions.ToString(k.CurrentPrice);
-        stopKurs.Text = Functions.ToString(k.StopPrice);
-        signalKurs1.Text = Functions.ToString(k.SignalPrice1);
-        muster.Text = k.Pattern;
-        typ.Text = k.Type;
-        waehrung.Text = k.Currency;
-        sortierung.Text = k.Sorting;
+        SetText(aktKurs, Functions.ToString(k.CurrentPrice));
+        SetText(stopKurs, Functions.ToString(k.StopPrice));
+        SetText(signalKurs1, Functions.ToString(k.SignalPrice1));
+        SetText(muster, k.Pattern);
+        SetText(typ, k.Type);
+        SetText(waehrung, k.Currency);
+        SetText(sortierung, k.Sorting);
         SetText(relation, k.Relation_Uid);
-        notiz.Buffer.Text = k.Notiz ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(notiz, k.Notiz);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       if (neu || copy)
         anlage.Active = true;

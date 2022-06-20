@@ -29,6 +29,18 @@ public class PnfChart
   /// <summary>Number of days.</summary>
   private readonly int dauer = 0;
 
+  /// <summary>List of columns.</summary>
+  private readonly List<PnfColumn> saeulen = new();
+
+  /// <summary>List of values.</summary>
+  private readonly List<decimal> werte = new();
+
+  /// <summary>List of trend lines.</summary>
+  private readonly List<PnfTrend> trends = new();
+
+  /// <summary>List of patterns.</summary>
+  private readonly List<PnfPattern> pattern = new();
+
   /// <summary>Chart description.</summary>
   private string bezeichnung = null;
 
@@ -44,7 +56,7 @@ public class PnfChart
   /// <summary>Anzahl der Umkehr-Boxen.</summary>
   private int umkehr = 1;
 
-  /// <summary>Handelt es sich um eine Relation?</summary>
+  /// <summary>Is it a relative chart or not.</summary>
   private bool relativ = false;
 
   /// <summary>Boxbezeichnung.</summary>
@@ -65,20 +77,8 @@ public class PnfChart
   /// <summary>Boxtyp: 0 unbestimmt; 1 aufwärts (X); 2 abwärts (O).</summary>
   private int boxtyp = 0;
 
-  /// <summary>Liste der Säulen.</summary>
-  private readonly List<PnfColumn> saeulen = new();
-
   /// <summary>Aktuelle Säule.</summary>
   private PnfColumn saeule = null;
-
-  /// <summary>Liste der Werte.</summary>
-  private readonly List<decimal> werte = new();
-
-  /// <summary>Liste der Trendlinien.</summary>
-  private readonly List<PnfTrend> trends = new();
-
-  /// <summary>Liste der Muster.</summary>
-  private readonly List<PnfPattern> pattern = new();
 
   /// <summary>Zielkurs.</summary>
   private decimal ziel = 0;
@@ -96,13 +96,13 @@ public class PnfChart
   private int ygroesse = 10;
 
   /// <summary>
-  /// x
+  /// Initializes a new instance of the <see cref="PnfChart"/> class.
   /// </summary>
-  /// <param name="method"></param>
-  /// <param name="box"></param>
-  /// <param name="scale"></param>
-  /// <param name="reversal"></param>
-  /// <param name="desc"></param>
+  /// <param name="method">Affected method.</param>
+  /// <param name="box">Affected box size.</param>
+  /// <param name="scale">Affected scale.</param>
+  /// <param name="reversal">Affected reversal.</param>
+  /// <param name="desc">Affected description.</param>
   public PnfChart(int method, decimal box, int scale, int reversal, string desc)
   {
     methode = method;

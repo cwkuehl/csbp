@@ -111,8 +111,8 @@ public partial class WP200Stocks : CsbpBin
     {
       EventsActive = false;
       bis.Value = DateTime.Today;
-      bezeichnung.Text = "%%";
-      muster.Text = "%%";
+      SetText(bezeichnung, "%%");
+      SetText(muster, "%%");
       var kliste = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, true, "1"));
       var rs = AddColumns(konfiguration, emptyentry: true);
       foreach (var p in kliste)
@@ -139,7 +139,7 @@ public partial class WP200Stocks : CsbpBin
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
-      status.Text = WP056(anz);
+      SetText(status, WP056(anz));
       AddStringColumnsSort(wertpapiere, WP200_wertpapiere_columns, values);
     }
   }

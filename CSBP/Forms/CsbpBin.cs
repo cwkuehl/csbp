@@ -442,6 +442,36 @@ public partial class CsbpBin : Bin
   }
 
   /// <summary>
+  /// Sets the value of a Label.
+  /// </summary>
+  /// <param name="e">Affected Label.</param>
+  /// <param name="v">Affected value.</param>
+  protected static void SetText(Label e, string v)
+  {
+    e.Text = v ?? "";
+  }
+
+  /// <summary>
+  /// Sets the value of a Entry.
+  /// </summary>
+  /// <param name="e">Affected Entry.</param>
+  /// <param name="v">Affected value.</param>
+  protected static void SetText(Entry e, string v)
+  {
+    e.Text = v ?? "";
+  }
+
+  /// <summary>
+  /// Sets the value of a TextView.
+  /// </summary>
+  /// <param name="e">Affected TextView.</param>
+  /// <param name="v">Affected value.</param>
+  protected static void SetText(TextView e, string v)
+  {
+    e.Buffer.Text = v ?? "";
+  }
+
+  /// <summary>
   /// Sets the value of a TreeView.
   /// </summary>
   /// <param name="tv">Affected TreeView.</param>

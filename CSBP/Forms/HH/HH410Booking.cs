@@ -199,19 +199,19 @@ public partial class HH410Booking : CsbpBin
           return;
         }
         model = k;
-        nr.Text = k.Uid;
+        SetText(nr, k.Uid);
         valuta.Value = k.Soll_Valuta;
         InitLists();
         init = true;
-        betrag.Text = Functions.ToString(k.EBetrag, 2);
-        summe.Text = "";
+        SetText(betrag, Functions.ToString(k.EBetrag, 2));
+        SetText(summe, "");
         SetText(sollkonto, k.Soll_Konto_Uid);
         SetText(habenkonto, k.Haben_Konto_Uid);
-        bText.Text = k.BText;
-        belegNr.Text = k.Beleg_Nr;
+        SetText(bText, k.BText);
+        SetText(belegNr, k.Beleg_Nr);
         belegDatum.Value = k.Beleg_Datum;
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       if (!init)
         InitLists();
@@ -280,7 +280,7 @@ public partial class HH410Booking : CsbpBin
     {
       SetText(sollkonto, k.Soll_Konto_Uid);
       SetText(habenkonto, k.Haben_Konto_Uid);
-      bText.Text = k.EText;
+      SetText(bText, k.EText);
     }
   }
 
@@ -306,7 +306,7 @@ public partial class HH410Booking : CsbpBin
     if (string.IsNullOrEmpty(belegNr.Text))
     {
       var no = Get(FactoryService.BudgetService.GetNewReceipt(ServiceDaten, belegDatum.ValueNn));
-      belegNr.Text = no;
+      SetText(belegNr, no);
     }
   }
 
@@ -356,11 +356,11 @@ public partial class HH410Booking : CsbpBin
             sb.Append(HH058(belegNr.Text));
           if (valuta.ValueNn != belegDatum.ValueNn)
             sb.Append(HH059(belegDatum.ValueNn));
-          buchung.Text = sb.ToString();
-          betrag.Text = "";
-          summe.Text = "";
+          SetText(buchung, sb.ToString());
+          SetText(betrag, "");
+          SetText(summe, "");
           if (!string.IsNullOrEmpty(belegNr.Text))
-            belegNr.Text = Functions.ToString(Functions.ToInt64(belegNr.Text) + 1);
+            SetText(belegNr, Functions.ToString(Functions.ToInt64(belegNr.Text) + 1));
           betrag.GrabFocus();
         }
         else
@@ -385,8 +385,8 @@ public partial class HH410Booking : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAdditionClicked(object sender, EventArgs e)
   {
-    summe.Text = Functions.ToString(CalculateValue(), 2);
-    betrag.Text = "";
+    SetText(summe, Functions.ToString(CalculateValue(), 2));
+    SetText(betrag, "");
     betrag.GrabFocus();
   }
 
@@ -465,7 +465,7 @@ public partial class HH410Booking : CsbpBin
       op = "/";
       strBetrag = strBetrag[1..];
     }
-    betrag.Text = strBetrag;
+    SetText(betrag, strBetrag);
     return op;
   }
 }

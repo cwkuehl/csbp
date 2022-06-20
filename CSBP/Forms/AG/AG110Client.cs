@@ -83,10 +83,10 @@ public partial class AG110Client : CsbpBin
       {
         var k = Get(FactoryService.ClientService.GetClient(ServiceDaten, Functions.ToInt32(uid)));
         model = k;
-        nr.Text = k.Nr.ToString();
-        beschreibung.Text = k.Beschreibung;
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(nr, k.Nr.ToString());
+        SetText(beschreibung, k.Beschreibung);
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       nr.IsEditable = false;
       beschreibung.IsEditable = !loeschen;

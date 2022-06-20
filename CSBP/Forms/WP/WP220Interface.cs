@@ -160,8 +160,8 @@ public partial class WP220Interface : CsbpBin
       var daten = ServiceDaten;
       var today = daten.Heute;
       datum.Value = Functions.Workday(today);
-      anzahl.Text = "5";
-      bezeichnung.Text = "%%";
+      SetText(anzahl, "5");
+      SetText(bezeichnung, "%%");
       datum2.Value = Functions.Workday(new DateTime(today.Year - 1, 1, 1));
       datum3.Value = Functions.Workday(new DateTime(today.Year, 1, 1));
       datum4.Value = Functions.Workday(today);
@@ -181,7 +181,7 @@ public partial class WP220Interface : CsbpBin
       }
       AddStringColumnsSort(konfiguration, WP220_konfiguration_columns, cvalues);
       SetText(konfiguration, Parameter.WP220Configuration);
-      datei.Text = Parameter.WP220File ?? "";
+      SetText(datei, Parameter.WP220File);
       var slist = Get(FactoryService.StockService.GetStockList(ServiceDaten, true));
       var svalues = new List<string[]>
         {
@@ -212,7 +212,7 @@ public partial class WP220Interface : CsbpBin
       wertpapier0.NoShowAll = true;
       wertpapier.Visible = false;
       wertpapier.NoShowAll = true;
-      datei2.Text = Parameter.WP220File2 ?? "";
+      SetText(datei2, Parameter.WP220File2);
       datei20.Visible = false;
       datei20.NoShowAll = true;
       datei2.Visible = false;
@@ -248,7 +248,7 @@ public partial class WP220Interface : CsbpBin
     var file = SelectFile(string.IsNullOrEmpty(datei.Text) ? WP220_select_file : datei.Text, "*.csv", WP220_select_ext);
     if (!string.IsNullOrEmpty(file))
     {
-      datei.Text = file;
+      SetText(datei, file);
       Parameter.WP220File = file;
     }
   }
@@ -297,7 +297,7 @@ public partial class WP220Interface : CsbpBin
     var file = SelectFile(string.IsNullOrEmpty(datei2.Text) ? WP220_select2_file : datei2.Text, "*.xls", WP220_select2_ext);
     if (!string.IsNullOrEmpty(file))
     {
-      datei2.Text = file;
+      SetText(datei2, file);
       Parameter.WP220File2 = file;
     }
   }

@@ -93,8 +93,8 @@ public partial class TB110Date : CsbpBin
           Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
-        nr.Text = k.Uid ?? "";
-        bezeichnung.Buffer.Text = k.Bezeichnung ?? "";
+        SetText(nr, k.Uid);
+        SetText(bezeichnung, k.Bezeichnung);
         date.Value = p.Item2;
       }
       nr.IsEditable = false;

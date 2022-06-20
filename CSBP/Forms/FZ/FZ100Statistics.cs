@@ -104,11 +104,11 @@ public partial class FZ100Statistics : CsbpBin
     if (step <= 1)
     {
       var str = Get(FactoryService.PrivateService.GetStatistics(daten, 1, datum.ValueNn));
-      bilanz.Buffer.Text = str ?? "";
+      SetText(bilanz, str);
       str = Get(FactoryService.PrivateService.GetStatistics(daten, 2, datum.ValueNn));
-      buecher.Buffer.Text = str ?? "";
+      SetText(buecher, str);
       str = Get(FactoryService.PrivateService.GetStatistics(daten, 3, datum.ValueNn));
-      fahrrad.Buffer.Text = str ?? "";
+      SetText(fahrrad, str);
 
       var l = Get(FactoryService.BudgetService.GetProprietaryPlList(daten, datum.ValueNn));
       l.Reverse();

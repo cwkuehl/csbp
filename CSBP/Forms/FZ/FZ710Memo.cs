@@ -113,18 +113,15 @@ public partial class FZ710Memo : CsbpBin
         var k = Get(FactoryService.PrivateService.GetMemo(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke((sender, e) =>
-          {
-            dialog.Hide();
-          });
+          Application.Invoke((sender, e) => { dialog.Hide(); });
           return;
         }
         model = k;
-        nr.Text = k.Uid;
-        thema.Text = k.Thema ?? "";
-        notiz.Buffer.Text = GetMemo(k.Notiz) ?? "";
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(nr, k.Uid);
+        SetText(thema, k.Thema);
+        SetText(notiz, GetMemo(k.Notiz));
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       else
         GetMemo(null);
@@ -243,7 +240,7 @@ public partial class FZ710Memo : CsbpBin
     {
       table.Add(new XElement("spalte", new XAttribute("nr", $"{x}"), new XAttribute("breite", "50")));
     }
-    table.Add(new XElement("notiz", memo ?? ""));
+    table.Add(new XElement("notiz", Functions.ToString(memo)));
     using var stringWriter = new StringWriter();
     using var xmlTextWriter = XmlWriter.Create(stringWriter);
     doc.WriteTo(xmlTextWriter);

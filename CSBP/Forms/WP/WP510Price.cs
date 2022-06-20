@@ -124,9 +124,9 @@ public partial class WP510Price : CsbpBin
         model = k;
         SetText(wertpapier, k.Wertpapier_Uid);
         valuta.Value = k.Datum;
-        betrag.Text = Functions.ToString(k.Stueckpreis, 4);
-        angelegt.Text = ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von);
-        geaendert.Text = ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von);
+        SetText(betrag, Functions.ToString(k.Stueckpreis, 4));
+        SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
+        SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
       wertpapier.Sensitive = neu || copy;
       valuta.Sensitive = neu || copy;

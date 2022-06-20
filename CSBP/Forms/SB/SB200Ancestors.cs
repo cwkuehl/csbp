@@ -91,8 +91,8 @@ public partial class SB200Ancestors : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      name.Text = "%%";
-      vorname.Text = "%%";
+      SetText(name, "%%");
+      SetText(vorname, "%%");
       filtern.Active = false;
       EventsActive = true;
     }
@@ -117,7 +117,7 @@ public partial class SB200Ancestors : CsbpBin
           anzg++;
       }
       AddStringColumnsSort(ahnen, SB200_ahnen_columns, values);
-      ahnenStatus.Text = SB028(anz, anzg);
+      SetText(ahnenStatus, SB028(anz, anzg));
     }
   }
 

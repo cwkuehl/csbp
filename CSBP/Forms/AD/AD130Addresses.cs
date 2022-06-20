@@ -69,7 +69,8 @@ public partial class AD130Addresses : CsbpBin
         // No.;St.;Postal code;Town;Street;No.;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
           {
-            e.Uid, e.Staat, e.Plz, e.Ort, e.Strasse, e.HausNr,
+            Functions.ToString(e.Uid), Functions.ToString(e.Staat), Functions.ToString(e.Plz),
+            Functions.ToString(e.Ort), Functions.ToString(e.Strasse), Functions.ToString(e.HausNr),
             Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
             Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
           });

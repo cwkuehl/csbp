@@ -91,7 +91,7 @@ public partial class SB220Print : CsbpBin
       }
       AddColumns(person, fl, true);
       SetText(person, Parameter.SB220Ancestor);
-      generation.Text = Parameter.SB220Generation ?? "3";
+      SetText(generation, Parameter.SB220Generation ?? "3");
       EventsActive = true;
     }
   }

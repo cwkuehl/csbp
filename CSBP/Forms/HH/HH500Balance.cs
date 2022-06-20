@@ -157,14 +157,14 @@ public partial class HH500Balance : CsbpBin
       }
       if (parameter == Constants.KZBI_GV)
       {
-        soll0.Text = HH500_soll_GV;
-        haben0.Text = HH500_haben_GV;
+        SetText(soll0, HH500_soll_GV);
+        SetText(haben0, HH500_haben_GV);
       }
       else
       {
-        soll0.Text = HH500_soll_EB;
-        haben0.Text = HH500_haben_EB;
-        von0.Text = HH500_von_EB;
+        SetText(soll0, HH500_soll_EB);
+        SetText(haben0, HH500_haben_EB);
+        SetText(von0, HH500_von_EB);
         bis0.Visible = false;
         bis0.NoShowAll = true;
         bis.Visible = false;
@@ -203,8 +203,8 @@ public partial class HH500Balance : CsbpBin
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
-      sollBetrag0.Text = Functions.ToString(sollListe.Sum(a => a.AccountEsum), 2);
-      habenBetrag0.Text = Functions.ToString(habenListe.Sum(a => a.AccountEsum), 2);
+      SetText(sollBetrag0, Functions.ToString(sollListe.Sum(a => a.AccountEsum), 2));
+      SetText(habenBetrag0, Functions.ToString(habenListe.Sum(a => a.AccountEsum), 2));
       AddStringColumnsSort(soll, HH500_soll_columns, svalues);
       AddStringColumnsSort(haben, HH500_haben_columns, hvalues);
     }
