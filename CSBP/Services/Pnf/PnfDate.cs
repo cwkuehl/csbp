@@ -2,64 +2,78 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
+namespace CSBP.Services.Pnf;
+
 using System;
 
-namespace CSBP.Services.Pnf
+/// <summary>Month letter for chart.</summary>
+public class PnfDate
 {
-  /// <summary>Diese Klasse regelt das Schreiben des Monatzeichens in das Chart.</summary>
-  public class PnfDate
+  /// <summary>Curent date of price.</summary>
+  private DateTime? date = null;
+
+  /// <summary>Last date of column for determinating the beginning of the month.</summary>
+  private DateTime? datumm = null;
+
+  /// <summary>Month number to write.</summary>
+  private int monat = 0;
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="PnfDate"/> class.
+  /// </summary>
+  public PnfDate()
   {
-    public PnfDate()
+  }
+
+  /// <summary>Gets or sets current date of price.</summary>
+  public DateTime? Date
+  {
+    get
     {
+      return date;
     }
 
-    /// <summary>Aktueller Kurs-Zeitpunkt.</summary>
-    private DateTime? datum = null;
-
-    /// <summary>Letztes Datum der Säule zur Bestimmung des Monatsanfangs.</summary>
-    private DateTime? datumm = null;
-
-    /// <summary>Aktuell zu schreibender Monat.</summary>
-    private int monat = 0;
-
-    public DateTime? GetDatum()
+    set
     {
-      return datum;
-    }
-
-    public void SetDatum(DateTime? datum)
-    {
-      this.datum = datum;
+      date = value;
       monat = 0;
-      if (!datum.HasValue)
+      if (!date.HasValue)
         return;
-      var d = datum.Value;
-      if (!datumm.HasValue || (datumm.Value.Year * 100 + datumm.Value.Month < d.Year * 100 + d.Month))
+      var d = date.Value;
+      if (!datumm.HasValue || ((datumm.Value.Year * 100) + datumm.Value.Month < (d.Year * 100) + d.Month))
       {
         monat = d.Month;
       }
     }
+  }
 
-    public char GetNeuerMonat(char c)
+  /// <summary>
+  /// Gets letter for new month.
+  /// </summary>
+  /// <param name="c">Default value if month is 0.</param>
+  /// <returns>New month letter or c.</returns>
+  public char GetNewMonth(char c)
+  {
+    if (monat > 0)
     {
-      if (monat > 0)
+      if (monat < 10)
       {
-        if (monat < 10)
-        {
-          return (char)((int)'0' + monat);
-        }
-        return (char)((int)'A' + monat - 10);
+        return (char)((int)'0' + monat);
       }
-      return c;
+      return (char)((int)'A' + monat - 10);
     }
+    return c;
+  }
 
-    public void SetMonatVerwendet()
+  /// <summary>
+  /// Sets the used month.
+  /// </summary>
+  public void SetUsedMonth()
+  {
+    if (date.HasValue)
     {
-      if (datum.HasValue)
-      {
-        datumm = datum;
-      }
-      monat = 0;
+      datumm = date;
     }
+    monat = 0;
   }
 }

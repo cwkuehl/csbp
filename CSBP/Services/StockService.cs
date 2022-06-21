@@ -1344,7 +1344,7 @@ public class StockService : ServiceBase, IStockService
               signalbez = PnfPattern.GetBezeichnung(p.Muster);
             }
           }
-          if (c.Saeulen.Count > 0 && c.Saeulen.Last().Datum == kursdatum)
+          if (c.Saeulen.Count > 0 && c.Saeulen.Last().Date == kursdatum)
           {
             st.Xo = WP048(c.Saeulen.Last().IsO ? "xo" : "ox", c.Box);
           }

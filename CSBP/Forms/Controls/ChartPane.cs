@@ -22,7 +22,7 @@ public class ChartPane
     Functions.MachNichts();
   }
 
-  /// <summary>Zeichnen eines Point and Figure-Charts.</summary>
+  /// <summary>Draws a Point and Figure charts.</summary>
   /// <param name="c">Affected chart.</param>
   /// <param name="pc">Affected context.</param>
   /// <param name="ww">Affected window width.</param>
@@ -152,9 +152,9 @@ public class ChartPane
     {
       // Vertical lines.
       DrawLine(pc, x, yoffset, x, y);
-      if (i % 6 == 0 && i < xanzahl && c.Saeulen[i].Datum != null)
+      if (i % 6 == 0 && i < xanzahl && c.Saeulen[i].Date != null)
       {
-        DrawString(pc, x + xgroesse, y + (ygroesse * 0.5m), Functions.ToString(c.Saeulen[i].Datum), font, color);
+        DrawString(pc, x + xgroesse, y + (ygroesse * 0.5m), Functions.ToString(c.Saeulen[i].Date), font, color);
       }
       x += xgroesse;
     }
@@ -217,7 +217,7 @@ public class ChartPane
   private static void DrawString(Cairo.Context pc, /*Window p, Layout layout, Gdk.GC gc,*/ decimal x, decimal y, string str,
     FontFace font = null, Cairo.Color? color = null)
   {
-    // Position links unten
+    // Position left bottom
     if (string.IsNullOrEmpty(str)) // || string.IsNullOrEmpty(color))
       return;
     pc.Save();
@@ -240,10 +240,10 @@ public class ChartPane
   /// <param name="x2">Affected x2 coordinate of target.</param>
   /// <param name="y2">Affected yy coordinate or target.</param>
   /// <param name="color">Affected color.</param>
-  private static void DrawLine(Cairo.Context pc, /*Window p, Gdk.GC gc,*/ decimal x, decimal y,
+  private static void DrawLine(Cairo.Context pc, decimal x, decimal y,
     decimal x2, decimal y2, Cairo.Color? color = null)
   {
-    // Position links oben
+    // Position left top
     pc.Save();
     if (color.HasValue)
       pc.SetSourceColor(color.Value);
