@@ -35,4 +35,3 @@ public partial class FzBuchautorRep
 
 #pragma warning restore CA1822
 }
-

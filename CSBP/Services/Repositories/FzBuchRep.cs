@@ -76,9 +76,10 @@ public partial class FzBuchRep
   /// <param name="suid">Affected series ID.</param>
   /// <param name="suidne">Not affected series ID.</param>
   /// <param name="createdle">Affected max. creation date.</param>
-  /// <param name="readle">Affected max. creation date.</param>
-  /// <param name="heardle">Affected max. creation date.</param>
-  /// <returns>Number of books or pages.</returns>
+  /// <param name="readle">Affected max. read date.</param>
+  /// <param name="heardle">Affected max. heard date.</param>
+  /// <param name="pages">Sum of pages or number of books are returned.</param>
+  /// <returns>Number of books or sum of pages.</returns>
   public int Count(ServiceDaten daten, int lnr, string suid = null, string suidne = null,
     DateTime? createdle = null, DateTime? readle = null, DateTime? heardle = null, bool pages = false)
   {

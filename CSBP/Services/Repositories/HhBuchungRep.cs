@@ -33,7 +33,8 @@ public partial class HhBuchungRep
   /// <param name="to">Affected maximum date.</param>
   /// <param name="text">Affected posting text.</param>
   /// <param name="value">Affected value.</param>
-  /// <param name="desc">Is the order descending?</param>
+  /// <param name="desc">Is the order descending or not.</param>
+  /// <param name="euro">Compares euro value or not.</param>
   /// <param name="max">How many rows? 0 means all.</param>
   public List<HhBuchung> GetList(ServiceDaten daten, string auid, bool? debit, string attr = Constants.KZB_AKTIV,
     bool valuta = true, DateTime? from = null, DateTime? to = null, string text = null, string value = null,

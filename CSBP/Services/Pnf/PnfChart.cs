@@ -391,7 +391,7 @@ public class PnfChart
     {
       kurs = liste.Last().Close; // last price
       var datum = liste.Last().Datum;
-      var k1 = liste[^2].Close; // second to las price
+      var k1 = liste[^2].Close; // second to last price
       var p = PnfPattern.GetMusterKurse(this, datum, kurs, k1, ziel, ziel);
       if (p != null)
       {
@@ -540,12 +540,12 @@ public class PnfChart
           if (x.Xpos + x.Laenge >= anzahls)
           {
             // till the end
-            if (x.Boxtyp == 1 && auf == null)
+            if (x.Boxtype == 1 && auf == null)
             {
               // up
               auf = x;
             }
-            else if (x.Boxtyp == 2 && ab == null)
+            else if (x.Boxtype == 2 && ab == null)
             {
               // down
               ab = x;
@@ -1319,7 +1319,7 @@ public class PnfChart
     {
       return;
     }
-    bool aufwaerts = t.Boxtyp == 1;
+    bool aufwaerts = t.Boxtype == 1;
     int grenze = t.Ypos;
     int d = aufwaerts ? 1 : -1;
     bool bruch = false;
@@ -1344,7 +1344,7 @@ public class PnfChart
       {
         break;
       }
-      t.SetLaenge(t.Laenge + 1);
+      t.Laenge++;
       grenze += d;
     }
   }

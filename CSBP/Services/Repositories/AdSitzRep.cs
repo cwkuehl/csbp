@@ -24,7 +24,7 @@ public partial class AdSitzRep
   /// </summary>
   /// <returns>List with sites.</returns>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="actual">Only actual persons?</param>
+  /// <param name="actual">Only actual persons or not.</param>
   /// <param name="search">Affected search string.</param>
   /// <param name="name">Affected name.</param>
   /// <param name="firstname">Affected first name.</param>
@@ -52,10 +52,10 @@ public partial class AdSitzRep
     if (actual)
       pl = pl.Where(a => a.Person_Status == 0);
     var al = db.AD_Adresse.Where(a => a.Mandant_Nr == daten.MandantNr);
-    //IEnumerable<AdSitz> l;
     List<AdSitz> l;
     if (Functions.MachNichts() == 0)
-    { // !string.IsNullOrEmpty(suid)
+    {
+      // !string.IsNullOrEmpty(suid)
       // Es muss immer einen Sitz zu der Person geben. Adresse ist optional.
       l = pl.Join(sl, a => new { a.Mandant_Nr, a.Uid },
         b => new { b.Mandant_Nr, Uid = b.Person_Uid }, (a, b) => new { person = a, site = b })

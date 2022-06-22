@@ -16,6 +16,14 @@ public partial class BenutzerRep
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets list or users.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="nr">Affected user number or 0.</param>
+  /// <param name="id">Affected user id.</param>
+  /// <param name="nrne">User id which has to be omitted.</param>
+  /// <returns>List of users.</returns>
   public List<Benutzer> GetList(ServiceDaten daten, int nr, string id, int nrne = 0)
   {
     var db = GetDb(daten);

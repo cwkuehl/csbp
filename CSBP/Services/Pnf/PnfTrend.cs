@@ -4,55 +4,33 @@
 
 namespace CSBP.Services.Pnf
 {
-  /// <summary>Point and Figure-Trennlinien mit 45° oder 0°.</summary>
+  /// <summary>Point and Figure trend line mit 45° oder 0°.</summary>
   public class PnfTrend
   {
-    /** Start-Position der Säule. */
-    private readonly int xpos = 0;
-    /** Start-Position der Säule. */
-    private readonly int ypos = 0;
-    /** Boxtyp: 0 horizontal; 1 aufwärts (X); 2 abwärts (O). */
-    private readonly int boxtyp = 0;
-    /** Länge der Trendlinie in Anzahl Säulen. */
-    private int laenge = 0;
-
-    /**
-     * Konstruktor mit Initialisierung.
-     * @param x Startpunkt der Linie.
-     * @param y Startpunkt der Linie.
-     * @param aufwaerts 0 horizontal; 1 aufwärts (X); 2 abwärts (O).
-     */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PnfTrend"/> class.
+    /// </summary>
+    /// <param name="x">X coordinate of starting point.</param>
+    /// <param name="y">Y coordinate of starting point.</param>
+    /// <param name="aufwaerts">Affected box type: 0 horizontal, 1 up X, 2 down O.</param>
     public PnfTrend(int x, int y, int aufwaerts)
     {
-      this.xpos = x;
-      this.ypos = y;
-      this.boxtyp = aufwaerts;
-      this.laenge = 1;
+      Xpos = x;
+      Ypos = y;
+      Boxtype = aufwaerts;
+      Laenge = 1;
     }
 
-    public int Laenge
-    {
-      get { return laenge; }
-    }
+    /// <summary>Gets or sets the length of line.</summary>
+    public int Laenge { get; set; }
 
-    public void SetLaenge(int laenge)
-    {
-      this.laenge = laenge;
-    }
+    /// <summary>Gets x coordinate of starting point.</summary>
+    public int Xpos { get; private set; }
 
-    public int Xpos
-    {
-      get { return xpos; }
-    }
+    /// <summary>Gets y coordinate of starting point.</summary>
+    public int Ypos { get; private set; }
 
-    public int Ypos
-    {
-      get { return ypos; }
-    }
-
-    public int Boxtyp
-    {
-      get { return boxtyp; }
-    }
+    /// <summary>Gets box type: 0 horizontal, 1 up X, 2 down O.</summary>
+    public int Boxtype { get; private set; }
   }
 }

@@ -16,7 +16,7 @@ namespace CSBP.Services.Repositories.Base
   public class RepositoryBase
   {
     /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="RepositoryBase" /> Klasse.
+    /// Initializes a new instance of the <see cref="RepositoryBase"/> class.
     /// </summary>
     public RepositoryBase()
     {

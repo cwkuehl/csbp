@@ -29,7 +29,7 @@ public partial class FzFahrradstandRep
   /// <param name="text">Affected text.</param>
   /// <param name="datege">Affected date greater or equal.</param>
   /// <param name="datele">Affected date lower or equal.</param>
-  /// <param name="desc">Sorting order descending?</param>
+  /// <param name="desc">Sorting order descending or not.</param>
   /// <param name="max">Maximal amount of records.</param>
   /// <returns>List of mileages.</returns>
   public List<FzFahrradstand> GetList(ServiceDaten daten, string buid, DateTime? date = null,
@@ -67,7 +67,7 @@ public partial class FzFahrradstandRep
   /// Gets number of kilometers.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="suid">Affected bike ID.</param>
+  /// <param name="buid">Affected bike ID.</param>
   /// <param name="datege">Affected min. date.</param>
   /// <param name="datele">Affected max. date.</param>
   /// <returns>Number of kilometers.</returns>

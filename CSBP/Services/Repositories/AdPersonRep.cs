@@ -26,8 +26,8 @@ public partial class AdPersonRep
   /// <param name="to">Maximum birthday.</param>
   public List<AdPerson> GetList(ServiceDaten daten, DateTime from, DateTime to)
   {
-    var f = from.Month * 100 + from.Day;
-    var t = to.Month * 100 + to.Day;
+    var f = (from.Month * 100) + from.Day;
+    var t = (to.Month * 100) + to.Day;
     var db = GetDb(daten);
     var pl = db.AD_Person.Where(a => a.Mandant_Nr == daten.MandantNr && a.Person_Status == 0
         && a.GeburtK != 0);
