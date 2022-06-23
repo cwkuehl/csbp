@@ -15,7 +15,7 @@ using CSBP.Services.Pedigree;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für SB_Person-Repository.
+/// Repository class for table SB_Person.
 /// </summary>
 public partial class SbPersonRep
 {
@@ -26,9 +26,9 @@ public partial class SbPersonRep
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="name">Affected last or birth name.</param>
-  /// <param name="vorname">Affected first name.</param>
+  /// <param name="firstname">Affected first name.</param>
   /// <param name="uid">ID of ancestor.</param>
-  /// <param name="desc">Descending by name?</param>
+  /// <param name="desc">Descending by name or not.</param>
   /// <param name="suid">Affected source uid.</param>
   /// <param name="fuid">Affected family uid.</param>
   /// <param name="status1">Affected Status1.</param>
@@ -127,7 +127,7 @@ public partial class SbPersonRep
   /// Gets the next ancestor by name.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">ID of ancestor.</param>
+  /// <param name="p0">Affected ancestor.</param>
   /// <param name="name">Affected name.</param>
   /// <param name="firstname">Affected first name.</param>
   /// <returns>Ancestor uid or null.</returns>
@@ -164,7 +164,7 @@ public partial class SbPersonRep
   /// Count rows of value Status1.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="status1">Affected value for Status1.</param>
+  /// <param name="status1">Affected value for column Status1.</param>
   /// <returns>Number of rows.</returns>
   public int CountStatus1(ServiceDaten daten, int status1)
   {
@@ -177,7 +177,7 @@ public partial class SbPersonRep
   /// Count rows of value Status2.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="status2">Affected value for Status1.</param>
+  /// <param name="status2">Affected value for column Status2.</param>
   /// <returns>Number of rows.</returns>
   public int CountStatus2(ServiceDaten daten, int status2)
   {
@@ -190,7 +190,7 @@ public partial class SbPersonRep
   /// Updates for column Status1.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="status1">Affected value for Status1.</param>
+  /// <param name="status1">Affected value for column Status1.</param>
   /// <returns>Number of updates.</returns>
   public int UpdateStatus1(ServiceDaten daten, int status1)
   {
@@ -200,7 +200,7 @@ public partial class SbPersonRep
     foreach (var e in l.ToList())
     {
       e.Status1 = status1;
-      // Update(daten, e);
+      //// Update(daten, e);
       anzahl++;
     }
     return anzahl;
@@ -210,17 +210,15 @@ public partial class SbPersonRep
   /// Updates for column Status2.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="op">Affected operator for Status1.</param>
-  /// <param name="status1">Affected value for Status1.</param>
-  /// <param name="status2">Affected value for Status2.</param>
+  /// <param name="op">Affected operator for column Status1.</param>
+  /// <param name="status1">Affected value for column Status1.</param>
+  /// <param name="status2">Affected value for column Status2.</param>
   /// <returns>Number of updates.</returns>
   public int UpdateStatus2(ServiceDaten daten, string op, int status1, int status2)
   {
     var db = GetDb(daten);
     var l = db.SB_Person.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != status2);
     if (!string.IsNullOrEmpty(op))
-    //   l = l.Where(a => a.Status2 == status1);
-    // else
     {
       if (op == "=")
         l = l.Where(a => Math.Abs(a.Status1) == status1);
@@ -239,7 +237,7 @@ public partial class SbPersonRep
     foreach (var e in l.ToList())
     {
       e.Status2 = status2;
-      // Update(daten, e);
+      //// Update(daten, e);
       anzahl++;
     }
     return anzahl;

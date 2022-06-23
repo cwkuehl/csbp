@@ -11,7 +11,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für AD_Person-Repository.
+/// Repository class for table AD_Person.
 /// </summary>
 public partial class AdPersonRep
 {

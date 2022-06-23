@@ -10,7 +10,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für SB_Kind-Repository.
+/// Repository class for table SB_Kind.
 /// </summary>
 public partial class SbKindRep
 {

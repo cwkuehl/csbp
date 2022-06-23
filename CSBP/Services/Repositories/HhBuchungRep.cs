@@ -14,7 +14,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für HH_Buchung-Repository.
+/// Repository class for table HH_Buchung.
 /// </summary>
 public partial class HhBuchungRep
 {

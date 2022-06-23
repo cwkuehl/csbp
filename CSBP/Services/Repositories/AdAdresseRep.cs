@@ -9,7 +9,7 @@ using System.Linq;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für AD_Adresse-Repository.
+/// Repository class for table AD_Adresse.
 /// </summary>
 public partial class AdAdresseRep
 {

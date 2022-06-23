@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für TB_Ort-Repository.
+/// Repository class for table TB_Ort.
 /// </summary>
 public partial class TbOrtRep
 {
@@ -23,11 +23,9 @@ public partial class TbOrtRep
   /// Gets a list of positions.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="puid">Affected position ID.</param>
+  /// <param name="puid">Affected position uid.</param>
   /// <param name="text">Affected text.</param>
-  /// <param name="datege">Affected date greater or equal.</param>
-  /// <param name="datele">Affected date lower or equal.</param>
-  /// <param name="desc">Sorting order descending?</param>
+  /// <param name="desc">Sorting order descending or not.</param>
   /// <param name="max">Maximal amount of records.</param>
   /// <returns>List of positions.</returns>
   public List<TbOrt> GetList(ServiceDaten daten, string puid, string text = null, bool desc = false, int max = 0)

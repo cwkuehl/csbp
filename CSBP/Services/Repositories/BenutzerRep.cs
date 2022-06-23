@@ -10,7 +10,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für Benutzer-Repository.
+/// Repository class for table Benutzer.
 /// </summary>
 public partial class BenutzerRep
 {

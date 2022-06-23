@@ -7,7 +7,7 @@ namespace CSBP.Services.Repositories
   using System;
 
   /// <summary>
-  /// Klasse für FZ_Buchstatus-Repository.
+  /// Repository class for table FZ_Buchstatus.
   /// </summary>
   public partial class FzBuchstatusRep
   {

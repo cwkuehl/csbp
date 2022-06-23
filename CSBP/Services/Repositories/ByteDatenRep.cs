@@ -10,7 +10,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für Byte_Daten-Repository.
+/// Repository class for table Byte_Daten.
 /// </summary>
 public partial class ByteDatenRep
 {

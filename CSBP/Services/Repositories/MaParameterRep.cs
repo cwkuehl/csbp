@@ -7,7 +7,7 @@ namespace CSBP.Services.Repositories
   using System;
 
   /// <summary>
-  /// Klasse für MA_Parameter-Repository.
+  /// Repository class for table MA_Parameter.
   /// </summary>
   public partial class MaParameterRep
   {

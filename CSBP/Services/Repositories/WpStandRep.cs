@@ -11,7 +11,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für WP_Stand-Repository.
+/// Repository class for table WP_Stand.
 /// </summary>
 public partial class WpStandRep
 {

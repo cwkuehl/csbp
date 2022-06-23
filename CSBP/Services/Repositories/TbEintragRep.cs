@@ -13,12 +13,20 @@ using CSBP.Apis.Services;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für TB_Eintrag-Repository.
+/// Repository class for table TB_Eintrag.
 /// </summary>
 public partial class TbEintragRep
 {
 #pragma warning disable CA1822
 
+  /// <summary>
+  /// Gets list of diary entries before a date.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Affected client number.</param>
+  /// <param name="date">Affected to date.</param>
+  /// <param name="days">Number of days.</param>
+  /// <returns>List of diary entries.</returns>
   public List<TbEintrag> GetList(ServiceDaten daten, int mandantnr, DateTime date, int days = 1)
   {
     var db = GetDb(daten);
@@ -27,6 +35,14 @@ public partial class TbEintragRep
     return l.ToList();
   }
 
+  /// <summary>
+  /// Gets list of diary entries for a number of months.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Affected client number.</param>
+  /// <param name="date">Date within the affected month.</param>
+  /// <param name="months">Number of months.</param>
+  /// <returns>List of diary entries.</returns>
   public List<TbEintrag> GetMonthList(ServiceDaten daten, int mandantnr, DateTime date, int months = 1)
   {
     var db = GetDb(daten);
@@ -39,52 +55,52 @@ public partial class TbEintragRep
   /// <summary>
   /// Suche des nächsten passenden Eintrags in der Suchrichtung.
   /// </summary>
-  /// <returns>Datum des passenden Eintrags.</returns>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="stelle">Gewünschte Such-Richtung.</param>
-  /// <param name="aktDatum">Aufsetzpunkt der Suche.</param>
-  /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
+  /// <param name="stelle">Affected search direction.</param>
+  /// <param name="aktDatum">Starting point of search.</param>
+  /// <param name="search">Affected search string, possibly with placeholders, e.g. %B_den% finds Baden and Boden.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <param name="from">Affected from date.</param>
-  /// <param name="to">Affected from date.</param>
-  public DateTime? SearchDate(ServiceDaten daten, SearchDirectionEnum stelle, DateTime? aktDatum, string[] suche,
+  /// <param name="to">Affected to date.</param>
+  /// <returns>Datum des passenden Eintrags.</returns>
+  public DateTime? SearchDate(ServiceDaten daten, SearchDirectionEnum stelle, DateTime? aktDatum, string[] search,
     string puid, DateTime? from, DateTime? to)
   {
     if (stelle == SearchDirectionEnum.None)
       return null;
-    var l = GetSearch(daten, stelle, aktDatum, suche, puid, from, to);
+    var l = GetSearch(daten, stelle, aktDatum, search, puid, from, to);
     if (stelle == SearchDirectionEnum.First || stelle == SearchDirectionEnum.Forward)
       return l.Any() ? l.Min(a => a.Datum) : (DateTime?)null;
     return l.Any() ? l.Max(a => a.Datum) : (DateTime?)null;
   }
 
   /// <summary>
-  /// Suche aller passenden Einträge.
+  /// Gets list or diary entries.
   /// </summary>
-  /// <returns>Liste aller passenden Einträge.</returns>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
+  /// <param name="search">Affected search string, possibly with placeholders, e.g. %B_den% finds Baden and Boden.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <param name="from">Affected from date.</param>
-  /// <param name="to">Affected from date.</param>
-  public List<TbEintrag> SearchEntries(ServiceDaten daten, string[] suche, string puid, DateTime? from, DateTime? to)
+  /// <param name="to">Affected to date.</param>
+  /// <returns>List of fitting diary entries.</returns>
+  public List<TbEintrag> SearchEntries(ServiceDaten daten, string[] search, string puid, DateTime? from, DateTime? to)
   {
-    var l = GetSearch(daten, SearchDirectionEnum.First, null, suche, puid, from, to);
+    var l = GetSearch(daten, SearchDirectionEnum.First, null, search, puid, from, to);
     return l.ToList();
   }
 
   /// <summary>
-  /// Suche des nächsten passenden Eintrags in der Suchrichtung.
+  /// Searches the next fitting entry in search direction.
   /// </summary>
-  /// <returns>Datum des passenden Eintrags.</returns>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="stelle">Gewünschte Such-Richtung.</param>
-  /// <param name="aktDatum">Aufsetzpunkt der Suche.</param>
-  /// <param name="suche">Such-Strings, evtl. mit Platzhalter, z.B. %B_den% findet Baden und Boden.</param>
+  /// <param name="stelle">Affected search direction.</param>
+  /// <param name="aktDatum">Starting point of search.</param>
+  /// <param name="search">Affected search string, possibly with placeholders, e.g. %B_den% finds Baden and Boden.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <param name="from">Affected from date.</param>
-  /// <param name="to">Affected from date.</param>
-  IQueryable<TbEintrag> GetSearch(ServiceDaten daten, SearchDirectionEnum stelle, DateTime? aktDatum, string[] suche,
+  /// <param name="to">Affected to date.</param>
+  /// <returns>Next fitting date.</returns>
+  public IQueryable<TbEintrag> GetSearch(ServiceDaten daten, SearchDirectionEnum stelle, DateTime? aktDatum, string[] search,
     string puid, DateTime? from, DateTime? to)
   {
     var db = GetDb(daten);
@@ -96,33 +112,33 @@ public partial class TbEintragRep
       if (stelle == SearchDirectionEnum.Forward)
         l = l.Where(a => a.Datum > aktDatum);
     }
-    if (!string.IsNullOrEmpty(suche[2]))
-      l = l.Where(a => EF.Functions.Like(a.Eintrag, suche[0])
-                  || EF.Functions.Like(a.Eintrag, suche[1])
-                  || EF.Functions.Like(a.Eintrag, suche[2]));
-    else if (!string.IsNullOrEmpty(suche[1]))
-      l = l.Where(a => EF.Functions.Like(a.Eintrag, suche[0])
-                  || EF.Functions.Like(a.Eintrag, suche[1]));
+    if (!string.IsNullOrEmpty(search[2]))
+      l = l.Where(a => EF.Functions.Like(a.Eintrag, search[0])
+                  || EF.Functions.Like(a.Eintrag, search[1])
+                  || EF.Functions.Like(a.Eintrag, search[2]));
+    else if (!string.IsNullOrEmpty(search[1]))
+      l = l.Where(a => EF.Functions.Like(a.Eintrag, search[0])
+                  || EF.Functions.Like(a.Eintrag, search[1]));
     else
-      l = l.Where(a => EF.Functions.Like(a.Eintrag, suche[0]));
-    if (!string.IsNullOrEmpty(suche[5]))
-      l = l.Where(a => EF.Functions.Like(a.Eintrag, suche[3])
-                  || EF.Functions.Like(a.Eintrag, suche[4])
-                         || EF.Functions.Like(a.Eintrag, suche[5]));
-    else if (!string.IsNullOrEmpty(suche[4]))
-      l = l.Where(a => EF.Functions.Like(a.Eintrag, suche[3])
-                         || EF.Functions.Like(a.Eintrag, suche[4]));
-    else if (!string.IsNullOrEmpty(suche[3]))
-      l = l.Where(a => EF.Functions.Like(a.Eintrag, suche[3]));
-    if (!string.IsNullOrEmpty(suche[8]))
-      l = l.Where(a => !(EF.Functions.Like(a.Eintrag, suche[6])
-                  || EF.Functions.Like(a.Eintrag, suche[7])
-                         || EF.Functions.Like(a.Eintrag, suche[8])));
-    else if (!string.IsNullOrEmpty(suche[7]))
-      l = l.Where(a => !(EF.Functions.Like(a.Eintrag, suche[6])
-                         || EF.Functions.Like(a.Eintrag, suche[7])));
-    else if (!string.IsNullOrEmpty(suche[6]))
-      l = l.Where(a => !EF.Functions.Like(a.Eintrag, suche[6]));
+      l = l.Where(a => EF.Functions.Like(a.Eintrag, search[0]));
+    if (!string.IsNullOrEmpty(search[5]))
+      l = l.Where(a => EF.Functions.Like(a.Eintrag, search[3])
+                  || EF.Functions.Like(a.Eintrag, search[4])
+                         || EF.Functions.Like(a.Eintrag, search[5]));
+    else if (!string.IsNullOrEmpty(search[4]))
+      l = l.Where(a => EF.Functions.Like(a.Eintrag, search[3])
+                         || EF.Functions.Like(a.Eintrag, search[4]));
+    else if (!string.IsNullOrEmpty(search[3]))
+      l = l.Where(a => EF.Functions.Like(a.Eintrag, search[3]));
+    if (!string.IsNullOrEmpty(search[8]))
+      l = l.Where(a => !(EF.Functions.Like(a.Eintrag, search[6])
+                  || EF.Functions.Like(a.Eintrag, search[7])
+                         || EF.Functions.Like(a.Eintrag, search[8])));
+    else if (!string.IsNullOrEmpty(search[7]))
+      l = l.Where(a => !(EF.Functions.Like(a.Eintrag, search[6])
+                         || EF.Functions.Like(a.Eintrag, search[7])));
+    else if (!string.IsNullOrEmpty(search[6]))
+      l = l.Where(a => !EF.Functions.Like(a.Eintrag, search[6]));
     if (!string.IsNullOrEmpty(puid))
     {
       if (puid == "0")

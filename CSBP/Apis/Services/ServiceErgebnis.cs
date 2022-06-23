@@ -10,7 +10,7 @@ using System.Linq;
 using CSBP.Base;
 
 /// <summary>
-/// Diese Klasse beinhaltet die Ergebnisse einer Service-Funktion in Form von Fehlermeldungen, Meldungen und Entscheidungen.
+/// Contains all results of a service function: result, errors and/or messages.
 /// </summary>
 public class ServiceErgebnis
 {
@@ -19,7 +19,6 @@ public class ServiceErgebnis
   {
     Messages = new List<Message>();
     Errors = new List<Message>();
-    //// Entscheidungen = new List<Entscheidung>();
   }
 
   /// <summary>Gets the messages for the user.</summary>

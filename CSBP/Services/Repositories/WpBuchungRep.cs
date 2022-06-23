@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für WP_Buchung-Repository.
+/// Repository class for table WP_Buchung.
 /// </summary>
 public partial class WpBuchungRep
 {
@@ -23,13 +23,14 @@ public partial class WpBuchungRep
   /// Gets a list of bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="text">Affected Description.</param>
-  /// <param name="uid">Affected ID.</param>
-  /// <param name="stuid">Affected stock ID.</param>
-  /// <param name="inuid">Affected investment ID.</param>
+  /// <param name="mandantnr">Affected client number.</param>
+  /// <param name="text">Affected description.</param>
+  /// <param name="uid">Affected uid.</param>
+  /// <param name="stuid">Affected stock uid.</param>
+  /// <param name="inuid">Affected investment uid.</param>
   /// <param name="from">Affected from date.</param>
   /// <param name="to">Affected to date.</param>
-  /// <param name="desc">Descending by date?</param>
+  /// <param name="desc">Descending by date or not.</param>
   /// <returns>List of bookings.</returns>
   public List<WpBuchung> GetList(ServiceDaten daten, int mandantnr, string text, string uid = null,
       string stuid = null, string inuid = null, DateTime? from = null, DateTime? to = null, bool desc = false)

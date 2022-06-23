@@ -12,7 +12,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für WP_Anlage-Repository.
+/// Repository class for table WP_Anlage.
 /// </summary>
 public partial class WpAnlageRep
 {

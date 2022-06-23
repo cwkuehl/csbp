@@ -27,7 +27,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using NLog;
 
 /// <summary>
-/// Basis-Klasse für alle Services.
+/// Base class for services.
 /// </summary>
 public class ServiceBase
 {

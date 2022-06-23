@@ -12,7 +12,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für FZ_Buchautor-Repository.
+/// Repository class for table FZ_Buchautor.
 /// </summary>
 public partial class FzBuchautorRep
 {

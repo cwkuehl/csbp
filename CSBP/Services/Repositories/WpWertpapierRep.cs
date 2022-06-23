@@ -12,7 +12,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für WP_Wertpapier-Repository.
+/// Repository class for table WP_Wertpapier.
 /// </summary>
 public partial class WpWertpapierRep
 {

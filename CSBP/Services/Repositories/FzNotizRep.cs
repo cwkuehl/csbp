@@ -12,7 +12,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für FZ_Notiz-Repository.
+/// Repository class for table FZ_Notiz.
 /// </summary>
 public partial class FzNotizRep
 {

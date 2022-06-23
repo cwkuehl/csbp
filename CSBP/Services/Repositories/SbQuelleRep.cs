@@ -10,7 +10,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für SB_Quelle-Repository.
+/// Repository class for table SB_Quelle.
 /// </summary>
 public partial class SbQuelleRep
 {
@@ -39,19 +39,17 @@ public partial class SbQuelleRep
   /// Updates for column Status2.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">Affected operator for Status1.</param>
-  /// <param name="name">Affected name.</param>
-  /// <param name="firstname">Affected first name.</param>
+  /// <param name="state2">Affected operator for column Status2.</param>
   /// <returns>Number of updates.</returns>
-  public int UpdateStatus2(ServiceDaten daten, int status2)
+  public int UpdateStatus2(ServiceDaten daten, int state2)
   {
     var db = GetDb(daten);
-    var l = db.SB_Quelle.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != status2);
+    var l = db.SB_Quelle.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != state2);
     var anzahl = 0;
     foreach (var e in l.ToList())
     {
-      e.Status2 = status2;
-      // Update(daten, e);
+      e.Status2 = state2;
+      //// Update(daten, e);
       anzahl++;
     }
     return anzahl;
@@ -61,23 +59,21 @@ public partial class SbQuelleRep
   /// Updates for column Status2.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">Affected operator for Status1.</param>
-  /// <param name="name">Affected name.</param>
-  /// <param name="firstname">Affected first name.</param>
+  /// <param name="state2">Affected value of column Status2.</param>
   /// <returns>Number of updates.</returns>
-  public int UpdatePersonStatus2(ServiceDaten daten, int status2)
+  public int UpdatePersonStatus2(ServiceDaten daten, int state2)
   {
     var db = GetDb(daten);
-    var l = db.SB_Quelle.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != status2)
+    var l = db.SB_Quelle.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != state2)
       .GroupJoin(db.SB_Person.Where(a => a.Mandant_Nr == daten.MandantNr),
       a => new { a.Uid }, b => new { Uid = b.Quelle_Uid }, (a, b) => new { source = a, person = b })
       .SelectMany(ab => ab.person.DefaultIfEmpty(), (a, b) => new { a.source, person = b })
-      .Where(a => a.person.Status2 == status2).Select(a => a.source);
+      .Where(a => a.person.Status2 == state2).Select(a => a.source);
     var anzahl = 0;
     foreach (var e in l.ToList())
     {
-      e.Status2 = status2;
-      // Update(daten, e);
+      e.Status2 = state2;
+      //// Update(daten, e);
       anzahl++;
     }
     return anzahl;

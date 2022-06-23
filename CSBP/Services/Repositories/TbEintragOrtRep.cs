@@ -12,7 +12,7 @@ using CSBP.Apis.Services;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für TB_Eintrag_Ort-Repository.
+/// Repository class for table TB_Eintrag_Ort.
 /// </summary>
 public partial class TbEintragOrtRep
 {

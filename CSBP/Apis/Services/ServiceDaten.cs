@@ -8,7 +8,7 @@ using System;
 using CSBP.Services.Undo;
 
 /// <summary>
-/// Diese Klasse enthält alle Daten zum Ausführen einer Service-Funktion.
+/// Contains all data for executing service functions.
 /// </summary>
 public class ServiceDaten
 {

@@ -7,7 +7,7 @@ namespace CSBP.Services.Repositories
   using System;
 
   /// <summary>
-  /// Klasse für WP_Konfiguration-Repository.
+  /// Repository class for table WP_Konfiguration.
   /// </summary>
   public partial class WpKonfigurationRep
   {

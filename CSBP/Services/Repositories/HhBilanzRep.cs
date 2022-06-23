@@ -15,7 +15,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für HH_Bilanz-Repository.
+/// Repository class for table HH_Bilanz.
 /// </summary>
 public partial class HhBilanzRep
 {

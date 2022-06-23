@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für FZ_Fahrradstand-Repository.
+/// Repository class for table FZ_Fahrradstand.
 /// </summary>
 public partial class FzFahrradstandRep
 {

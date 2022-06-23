@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für HH_Konto-Repository.
+/// Repository class for table HH_Konto.
 /// </summary>
 public partial class HhKontoRep
 {

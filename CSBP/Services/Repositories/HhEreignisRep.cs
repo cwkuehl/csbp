@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für HH_Ereignis-Repository.
+/// Repository class for table HH_Ereignis.
 /// </summary>
 public partial class HhEreignisRep
 {

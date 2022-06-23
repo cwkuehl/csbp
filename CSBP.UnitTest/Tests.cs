@@ -463,7 +463,7 @@ namespace CSBP.Services.Repositories;
 using System;
 
 /// <summary>
-/// Klasse für {tabelle}-Repository.
+/// Repository class for table {tabelle}.
 /// </summary>
 public partial class {rep}
 {{

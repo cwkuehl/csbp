@@ -7,7 +7,7 @@ namespace CSBP.Services.Repositories
   using System;
 
   /// <summary>
-  /// Klasse für FZ_Fahrrad-Repository.
+  /// Repository class for table FZ_Fahrrad.
   /// </summary>
   public partial class FzFahrradRep
   {

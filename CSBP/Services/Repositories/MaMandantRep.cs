@@ -9,7 +9,7 @@ using CSBP.Apis.Services;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für MA_Mandant-Repository.
+/// Repository class for table MA_Mandant.
 /// </summary>
 public partial class MaMandantRep
 {

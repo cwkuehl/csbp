@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für HH_Periode-Repository.
+/// Repository class for table HH_Periode.
 /// </summary>
 public partial class HhPeriodeRep
 {

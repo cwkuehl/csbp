@@ -10,7 +10,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 
 /// <summary>
-/// Klasse für SB_Ereignis-Repository.
+/// Repository class for table SB_Ereignis.
 /// </summary>
 public partial class SbEreignisRep
 {

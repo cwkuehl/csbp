@@ -12,7 +12,7 @@ using CSBP.Apis.Services;
 using CSBP.Services.Pedigree;
 
 /// <summary>
-/// Klasse für SB_Familie-Repository.
+/// Repository class for table SB_Familie.
 /// </summary>
 public partial class SbFamilieRep
 {
@@ -83,19 +83,17 @@ public partial class SbFamilieRep
   /// Updates for column Status2.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">Affected operator for Status1.</param>
-  /// <param name="name">Affected name.</param>
-  /// <param name="firstname">Affected first name.</param>
+  /// <param name="state2">Affected value for column Status2.</param>
   /// <returns>Number of updates.</returns>
-  public int UpdateStatus2(ServiceDaten daten, int status2)
+  public int UpdateStatus2(ServiceDaten daten, int state2)
   {
     var db = GetDb(daten);
-    var l = db.SB_Familie.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != status2);
+    var l = db.SB_Familie.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != state2);
     var anzahl = 0;
     foreach (var e in l.ToList())
     {
-      e.Status2 = status2;
-      // Update(daten, e);
+      e.Status2 = state2;
+      //// Update(daten, e);
       anzahl++;
     }
     return anzahl;
@@ -105,26 +103,24 @@ public partial class SbFamilieRep
   /// Updates for column Status2.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">Affected operator for Status1.</param>
-  /// <param name="name">Affected name.</param>
-  /// <param name="firstname">Affected first name.</param>
+  /// <param name="state2">Affected value for column Status2.</param>
   /// <returns>Number of updates.</returns>
-  public int UpdateParentStatus2(ServiceDaten daten, int status2)
+  public int UpdateParentStatus2(ServiceDaten daten, int state2)
   {
     var db = GetDb(daten);
-    var l = db.SB_Familie.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != status2)
+    var l = db.SB_Familie.Where(a => a.Mandant_Nr == daten.MandantNr && a.Status2 != state2)
       .GroupJoin(db.SB_Person.Where(a => a.Mandant_Nr == daten.MandantNr),
       a => new { Uid = a.Mann_Uid }, b => new { b.Uid }, (a, b) => new { family = a, father = b })
       .SelectMany(ab => ab.father.DefaultIfEmpty(), (a, b) => new { a.family, father = b })
       .GroupJoin(db.SB_Person.Where(a => a.Mandant_Nr == daten.MandantNr),
       a => new { Uid = a.family.Frau_Uid }, b => new { b.Uid }, (a, b) => new { a.family, a.father, mother = b })
       .SelectMany(ab => ab.mother.DefaultIfEmpty(), (a, b) => new { a.family, a.father, mother = b })
-      .Where(a => a.father.Status2 == status2 || a.mother.Status2 == status2).Select(a => a.family);
+      .Where(a => a.father.Status2 == state2 || a.mother.Status2 == state2).Select(a => a.family);
     var anzahl = 0;
     foreach (var e in l.ToList())
     {
-      e.Status2 = status2;
-      // Update(daten, e);
+      e.Status2 = state2;
+      //// Update(daten, e);
       anzahl++;
     }
     return anzahl;

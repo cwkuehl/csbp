@@ -13,7 +13,7 @@ using CSBP.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Klasse für AD_Sitz-Repository.
+/// Repository class for table AD_Sitz.
 /// </summary>
 public partial class AdSitzRep
 {
