@@ -541,14 +541,14 @@ public class StockService : ServiceBase, IStockService
     {
       var inv = list[i];
       var ulist = GetPriceUrlsIntern(from, date, inv.StockProvider, inv.StockShortcut, inv.StockType);
-      foreach (var url in ulist)
+      foreach (var (udate, url) in ulist)
       {
         var su = new StockUrl
         {
           Uid = inv.Wertpapier_Uid,
           Description = inv.Bezeichnung,
-          Date = url.Date,
-          Url = url.Url,
+          Date = udate,
+          Url = url,
         };
         if (!dictresponse.TryGetValue(su.Key, out var du))
         {
@@ -1217,14 +1217,14 @@ public class StockService : ServiceBase, IStockService
     {
       var st = list[i];
       var ulist = GetPriceUrlsIntern(from, date, st.Datenquelle, st.Kuerzel, st.Type);
-      foreach (var url in ulist)
+      foreach (var (udate, url) in ulist)
       {
         var su = new StockUrl
         {
           Uid = st.Uid,
           Description = st.Bezeichnung,
-          Date = url.Date,
-          Url = url.Url,
+          Date = udate,
+          Url = url,
         };
         if (!dictresponse.TryGetValue(su.Key, out var du))
         {
