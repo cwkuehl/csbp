@@ -1306,7 +1306,7 @@ public partial class CsbpBin : Bin
     }
     else if (l == Menu_table_print)
     {
-      // Copy with values to HTML format.
+      // Copy with values to html format.
       var lines = new List<List<string>>();
       if (store.GetIterFirst(out var i))
       {

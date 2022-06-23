@@ -226,9 +226,9 @@ public interface IPedigreeService
   /// <param name="generations">Number of generations.</param>
   /// <param name="siblings">With siblings or not.</param>
   /// <param name="descendants">List of descendants or not.</param>
-  /// <param name="forbears">List of forbears or not.</param>
+  /// <param name="forebears">List of forebears or not.</param>
   /// <returns>Ahnenbericht als PDF-Dokument in Bytes.</returns>
-  ServiceErgebnis<byte[]> GetAncestorReport(ServiceDaten daten, string uid, int generations, bool siblings, bool descendants, bool forbears);
+  ServiceErgebnis<byte[]> GetAncestorReport(ServiceDaten daten, string uid, int generations, bool siblings, bool descendants, bool forebears);
 
   /// <summary>
   /// Exports the ancestor report as GEDCOM file in version 4.0 or 5.5.

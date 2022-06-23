@@ -10,7 +10,7 @@ using CSBP.Apis.Models;
 using CSBP.Base;
 using static CSBP.Base.Functions;
 
-/// <summary>Klasse für die Erstellung eines Adressen-Berichts.</summary>
+/// <summary>Creates a html address report.</summary>
 public partial class AddressReport : ReportBase
 {
   /// <summary>Initializes a new instance of the <see cref="AddressReport"/> class.</summary>
@@ -55,11 +55,11 @@ public partial class AddressReport : ReportBase
   {
     if (Sites == null)
       return;
-    xml.WriteStartElement("table");
-    xml.WriteAttributeString("class", "row");
-    xml.WriteStartElement("tr");
-    xml.WriteStartElement("td");
-    xml.WriteAttributeString("class", "column1");
+    Xml.WriteStartElement("table");
+    Xml.WriteAttributeString("class", "row");
+    Xml.WriteStartElement("tr");
+    Xml.WriteStartElement("td");
+    Xml.WriteAttributeString("class", "column1");
     var uid = "";
     var anzahl = 0;
     foreach (var s in Sites)
@@ -70,21 +70,21 @@ public partial class AddressReport : ReportBase
       {
         if (s?.Person.Uid != uid)
         {
-          xml.WriteStartElement("p");
-          xml.WriteAttributeString("class", "person");
-          xml.WriteString(GetPersonName(s.Person));
-          xml.WriteEndElement();
+          Xml.WriteStartElement("p");
+          Xml.WriteAttributeString("class", "person");
+          Xml.WriteString(GetPersonName(s.Person));
+          Xml.WriteEndElement();
         }
-        xml.WriteStartElement("p");
-        xml.WriteAttributeString("class", "site");
-        xml.WriteString(GetSitzName(s));
-        xml.WriteEndElement();
+        Xml.WriteStartElement("p");
+        Xml.WriteAttributeString("class", "site");
+        Xml.WriteString(GetSitzName(s));
+        Xml.WriteEndElement();
       }
       uid = s?.Person.Uid;
     }
-    xml.WriteEndElement();
-    xml.WriteStartElement("td");
-    xml.WriteAttributeString("class", "column2");
+    Xml.WriteEndElement();
+    Xml.WriteStartElement("td");
+    Xml.WriteAttributeString("class", "column2");
     uid = "";
     anzahl = 0;
     foreach (var s in Sites)
@@ -95,21 +95,21 @@ public partial class AddressReport : ReportBase
       {
         if (s?.Person.Uid != uid)
         {
-          xml.WriteStartElement("p");
-          xml.WriteAttributeString("class", "person");
-          xml.WriteString(GetPersonName(s.Person));
-          xml.WriteEndElement();
+          Xml.WriteStartElement("p");
+          Xml.WriteAttributeString("class", "person");
+          Xml.WriteString(GetPersonName(s.Person));
+          Xml.WriteEndElement();
         }
-        xml.WriteStartElement("p");
-        xml.WriteAttributeString("class", "site");
-        xml.WriteString(GetSitzName(s));
-        xml.WriteEndElement();
+        Xml.WriteStartElement("p");
+        Xml.WriteAttributeString("class", "site");
+        Xml.WriteString(GetSitzName(s));
+        Xml.WriteEndElement();
       }
       uid = s?.Person.Uid;
     }
-    xml.WriteEndElement(); // td
-    xml.WriteEndElement(); // tr
-    xml.WriteEndElement(); // table
+    Xml.WriteEndElement(); // td
+    Xml.WriteEndElement(); // tr
+    Xml.WriteEndElement(); // table
   }
 
   /// <summary>

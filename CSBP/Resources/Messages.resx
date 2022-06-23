@@ -22,7 +22,7 @@
         <value>../Csbp-Help.html</value>
     </data>
     <data name="parm.AG_HILFE_DATEI.text" xml:space="preserve">
-        <value>Name of HTML help file, e.g. HILFE_DATEI=../Csbp-Help.html</value>
+        <value>Name of html help file, e.g. HILFE_DATEI=../Csbp-Help.html</value>
     </data>
     <data name="parm.AG_STARTDIALOGE.value" xml:space="preserve">
         <value></value>
@@ -550,7 +550,7 @@
         <value>SB019Descendants of {0} with max. {1} generations</value>
     </data>
     <data name="SB021_" xml:space="preserve">
-        <value>SB021Forbears of {0} with max. {1} generations{2}</value>
+        <value>SB021Forebears of {0} with max. {1} generations{2}</value>
     </data>
     <data name="SB022" xml:space="preserve">
         <value>SB022 and siblings</value>

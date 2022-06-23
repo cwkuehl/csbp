@@ -12,17 +12,20 @@ using CSBP.Base;
 /// <summary>Base class for html reports.</summary>
 public partial class ReportBase
 {
-  /// <summary>Holt oder setzt den Wert der Überschrift.</summary>
+  /// <summary>Gets or sets the report caption.</summary>
   public string Caption { get; set; }
 
-  /// <summary>Holt oder setzt das HTML-Stylesheet.</summary>
+  /// <summary>Gets or sets the html stylesheet.</summary>
   protected string Style { get; set; }
 
-  /// <summary>Holt den XML-Writer.</summary>
-  protected XmlTextWriter xml { get; private set; }
+  /// <summary>Gets the internal xml writer.</summary>
+  protected XmlTextWriter Xml { get; private set; }
 
-  /// <summary>Holt einen Wert, der angibt, ob alle Daten für den Report vorhanden sind.</summary>
-  protected virtual bool DataOk { get { return true; } }
+  /// <summary>Gets a value indicating whether all values for the report are present.</summary>
+  protected virtual bool DataOk
+  {
+    get { return true; }
+  }
 
   /// <summary>Erzeugen des Reports.</summary>
   /// <returns>Ergebnis als Bytes oder null.</returns>
@@ -32,35 +35,35 @@ public partial class ReportBase
       return null;
     using (var stream = new MemoryStream())
     using (var sw = new StreamWriter(stream, new UTF8Encoding(false)))
-    using (xml = new XmlTextWriter(sw))
+    using (Xml = new XmlTextWriter(sw))
     {
       //// xml.WriteStartDocument();
-      xml.WriteStartElement("html");
-      xml.WriteStartElement("head");
-      xml.WriteStartElement("title");
-      xml.WriteString(Caption);
-      xml.WriteEndElement();
-      xml.WriteStartElement("meta");
-      xml.WriteAttributeString("charset", "UTF-8");
-      xml.WriteEndElement();
+      Xml.WriteStartElement("html");
+      Xml.WriteStartElement("head");
+      Xml.WriteStartElement("title");
+      Xml.WriteString(Caption);
+      Xml.WriteEndElement();
+      Xml.WriteStartElement("meta");
+      Xml.WriteAttributeString("charset", "UTF-8");
+      Xml.WriteEndElement();
       if (!string.IsNullOrEmpty(Style))
       {
-        xml.WriteStartElement("style");
-        xml.WriteString(Style);
-        xml.WriteEndElement(); // style
+        Xml.WriteStartElement("style");
+        Xml.WriteString(Style);
+        Xml.WriteEndElement(); // style
       }
-      xml.WriteEndElement(); // head
-      xml.WriteStartElement("body");
+      Xml.WriteEndElement(); // head
+      Xml.WriteStartElement("body");
       DoGenerate();
-      xml.WriteEndElement(); // body
-      xml.WriteEndElement(); // html
+      Xml.WriteEndElement(); // body
+      Xml.WriteEndElement(); // html
       //// xml.WriteEndDocument();
-      xml.Flush();
+      Xml.Flush();
       return stream.ToArray();
     }
   }
 
-  /// <summary>Internes Erzeugen des Reports muss überschrieben werden.</summary>
+  /// <summary>Internal generation of report has to be overridden.</summary>
   protected virtual void DoGenerate()
   {
     Functions.MachNichts();
@@ -71,6 +74,6 @@ public partial class ReportBase
   protected void AddNewLine(int anzahl = 1)
   {
     for (var i = 0; i < anzahl; i++)
-      xml.WriteRaw("</br>");
+      Xml.WriteRaw("</br>");
   }
 }

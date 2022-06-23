@@ -166,13 +166,13 @@ public class ChartPane
       x = ((t.Xpos + 1) * xgroesse) + xoffset;
       y = ((max - t.Ypos) * ygroesse) + yoffset;
       b = t.Laenge * xgroesse;
-      if (t.Boxtyp == 0)
+      if (t.Boxtype == 0)
       {
         b += xgroesse;
         h = 0;
         color = red;
       }
-      else if (t.Boxtyp == 1)
+      else if (t.Boxtype == 1)
       {
         h = -t.Laenge * ygroesse;
         color = blue;

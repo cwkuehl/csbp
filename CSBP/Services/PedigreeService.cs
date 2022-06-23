@@ -531,9 +531,9 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <param name="generations">Number of generations.</param>
   /// <param name="siblings">With siblings or not.</param>
   /// <param name="descendants">List of descendants or not.</param>
-  /// <param name="forbears">List of forbears or not.</param>
+  /// <param name="forebears">List of forebears or not.</param>
   /// <returns>Ancestor report as pdf file in bytes.</returns>
-  public ServiceErgebnis<byte[]> GetAncestorReport(ServiceDaten daten, string uid, int generations, bool siblings, bool descendants, bool forbears)
+  public ServiceErgebnis<byte[]> GetAncestorReport(ServiceDaten daten, string uid, int generations, bool siblings, bool descendants, bool forebears)
   {
     // Nachfahren-Liste
     // 1 Vorname <b>Name</b> * tt.mm.jjjj Ort
@@ -556,7 +556,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     if (descendants)
       GetNachfahrenRekursiv(daten, uid, 0, 1, anzahl, dlist);
     var flist = new List<SbPerson>();
-    if (forbears)
+    if (forebears)
       GetVorfahrenRekursiv(daten, uid, true, siblings, true, 1, anzahl, flist);
     var ueberschrift = SB018(daten.Jetzt);
     var untertitel = SB019(p.AncestorName, anzahl);
@@ -564,10 +564,10 @@ public class PedigreeService : ServiceBase, IPedigreeService
     var rp = new AncestorReport
     {
       Caption = ueberschrift,
-      Undertitle = untertitel,
-      UndertitleForbears = untertitel2,
+      Subtitle = untertitel,
+      SubtitleForebears = untertitel2,
       Descendants = dlist,
-      Forbears = flist,
+      Forebears = flist,
     };
     r.Ergebnis = rp.Generate();
     return r;
