@@ -305,12 +305,12 @@ public class MainWindow : Window
     MainClass.Login(new ServiceDaten(1, username.ToFirstUpper()));
     //// MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
-      var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
-      var r = FactoryService.LoginService.IsWithoutPassword(daten);
-      if (r?.Ergebnis ?? false)
-        MainClass.Login(daten);
-      else
-        CsbpBin.Start(typeof(AM000Login), AM000_title, p: p, modal: true);
+    var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
+    var r = FactoryService.LoginService.IsWithoutPassword(daten);
+    if (r?.Ergebnis ?? false)
+      MainClass.Login(daten);
+    else
+      CsbpBin.Start(typeof(AM000Login), AM000_title, p: p, modal: true);
 #endif
 
     // MenuClients.Activate();
@@ -372,7 +372,7 @@ public class MainWindow : Window
 #if DEBUG
     var client = "";
 #else
-      var client = daten.MandantNr == 0 ? M.AM005 : daten.MandantNr == 1 ? "" : $" ({M.AG110_title} {daten.MandantNr})";
+    var client = daten.MandantNr == 0 ? M.AM005 : daten.MandantNr == 1 ? "" : $" ({M.AG110_title} {daten.MandantNr})";
 #endif
     Title = $"{test}CSBP {Parameter.GetValue(Parameter.AG_ANWENDUNGS_TITEL)} W. Kuehl{client}";
   }

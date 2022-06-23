@@ -125,6 +125,7 @@ csharp_space_between_method_call_empty_parameter_list_parentheses = false
 csharp_preserve_single_line_statements = true
 csharp_preserve_single_line_blocks = true
 # StyleCop (stylecop.json does not work e.g. for rule SA1636)
+dotnet_diagnostic.SA0001.severity = None # XML comment analysis is disabled due to project configuration
 dotnet_diagnostic.SA1009.severity = None # Closing parenthesis should not be preceded by a space
 dotnet_diagnostic.SA1101.severity = None # Prefix local calls with this [CSBP.UnitTest]
 dotnet_diagnostic.SA1111.severity = None # Closing parenthesis should be on line of last parameter
