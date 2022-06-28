@@ -902,6 +902,7 @@ public class BudgetService : ServiceBase, IBudgetService
       k.EBetrag = -GetKontoStandIntern(daten, k.Uid, to);
     }
     var bListe = HhBuchungRep.GetList(daten, null, null, Constants.KZB_AKTIV, true, from, to, null, null, false, euro);
+    var bn = 0;
     foreach (var b in bListe)
     {
       var db = euro ? b.EBetrag : b.Betrag;
@@ -909,6 +910,10 @@ public class BudgetService : ServiceBase, IBudgetService
       if (string.IsNullOrEmpty(b.Beleg_Nr))
       {
         b.Beleg_Nr = b.Uid;
+      }
+      if ((b?.Beleg_Nr?.Length ?? 0) > 9 && (b.Beleg_Nr.Contains(':') || b.Beleg_Nr.Contains('-')))
+      {
+        b.Beleg_Nr = $"B{++bn:0000}";
       }
     }
 
