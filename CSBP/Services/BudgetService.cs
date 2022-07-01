@@ -907,7 +907,7 @@ public class BudgetService : ServiceBase, IBudgetService
     {
       var db = euro ? b.EBetrag : b.Betrag;
       b.EBetrag = db;
-      if (string.IsNullOrEmpty(b.Beleg_Nr))
+      if (string.IsNullOrEmpty(b.Beleg_Nr) || ((b?.Beleg_Nr?.Length ?? 0) > 9 && (b.Beleg_Nr.Contains(':') || b.Beleg_Nr.Contains('-'))))
       {
         // b.Beleg_Nr = b.Uid;
         b.Beleg_Nr = $"B{++bn:000}";
