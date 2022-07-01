@@ -392,7 +392,7 @@ public class BudgetService : ServiceBase, IBudgetService
   public ServiceErgebnis DeleteAccount(ServiceDaten daten, HhKonto e)
   {
     var hhKonto = GetKontoIntern(daten, e.Uid);
-    var buliste = HhBuchungRep.GetList(daten, e.Uid, null, null);
+    var buliste = HhBuchungRep.GetList(daten, e.Uid, null, null, tracking: true);
     if (buliste.Any())
       throw new MessageException(HH020);
     if (IstSpezialKontokennzeichen(hhKonto.Kz))
@@ -901,7 +901,7 @@ public class BudgetService : ServiceBase, IBudgetService
       k.Betrag = -GetKontoStandIntern(daten, k.Uid, from);
       k.EBetrag = -GetKontoStandIntern(daten, k.Uid, to);
     }
-    var bListe = HhBuchungRep.GetList(daten, null, null, Constants.KZB_AKTIV, true, from, to, null, null, false, euro);
+    var bListe = HhBuchungRep.GetList(daten, null, null, Constants.KZB_AKTIV, true, from, to, null, null, false, euro, tracking: false);
     var bn = 0;
     foreach (var b in bListe)
     {
@@ -909,12 +909,18 @@ public class BudgetService : ServiceBase, IBudgetService
       b.EBetrag = db;
       if (string.IsNullOrEmpty(b.Beleg_Nr))
       {
-        b.Beleg_Nr = b.Uid;
+        // b.Beleg_Nr = b.Uid;
+        b.Beleg_Nr = $"B{++bn:000}";
       }
-      if ((b?.Beleg_Nr?.Length ?? 0) > 9 && (b.Beleg_Nr.Contains(':') || b.Beleg_Nr.Contains('-')))
-      {
-        b.Beleg_Nr = $"B{++bn:0000}";
-      }
+
+      // if ((b?.Beleg_Nr?.Length ?? 0) > 9 && (b.Beleg_Nr.Contains(':') || b.Beleg_Nr.Contains('-')))
+      // {
+      //   b.Beleg_Nr = $"B{++bn:0000}";
+      // }
+      // if ((b?.Beleg_Nr?.Length ?? 0) == 5 && b.Beleg_Nr.StartsWith("B"))
+      // {
+      //   b.Beleg_Nr = null;
+      // }
     }
 
     // Gruppierung nach Soll- und Habenkonto

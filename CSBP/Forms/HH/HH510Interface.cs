@@ -151,7 +151,7 @@ public partial class HH510Interface : CsbpBin
         else if (kz == Constants.KZBI_SCHLUSS)
         {
           bis.Value = v;
-          von.Value = b.AddDays(1 - b.DayOfYear);
+          von.Value = b <= v ? b.AddDays(1 - b.DayOfYear) : new DateTime(v.Year, 1, 1);
           sb.Active = true;
         }
         else

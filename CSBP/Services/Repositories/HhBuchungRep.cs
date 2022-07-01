@@ -36,12 +36,15 @@ public partial class HhBuchungRep
   /// <param name="desc">Is the order descending or not.</param>
   /// <param name="euro">Compares euro value or not.</param>
   /// <param name="max">How many rows? 0 means all.</param>
+  /// <param name="tracking">With tracking or AsNoTracking.</param>
   public List<HhBuchung> GetList(ServiceDaten daten, string auid, bool? debit, string attr = Constants.KZB_AKTIV,
     bool valuta = true, DateTime? from = null, DateTime? to = null, string text = null, string value = null,
-    bool desc = true, bool euro = true, int max = 0)
+    bool desc = true, bool euro = true, int max = 0, bool tracking = false)
   {
     var db = GetDb(daten);
     var l = db.HH_Buchung.Where(a => a.Mandant_Nr == daten.MandantNr);
+    if (!tracking)
+      l = l.AsNoTracking();
     if (!string.IsNullOrEmpty(auid))
     {
       if (debit.HasValue)
