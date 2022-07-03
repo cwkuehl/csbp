@@ -915,6 +915,10 @@ public class BudgetService : ServiceBase, IBudgetService
 
       // if ((b?.Beleg_Nr?.Length ?? 0) > 9 && (b.Beleg_Nr.Contains(':') || b.Beleg_Nr.Contains('-')))
       // {
+      //   b.Beleg_Nr = null;
+      // }
+      // if ((b?.Beleg_Nr?.Length ?? 0) > 9 && (b.Beleg_Nr.Contains(':') || b.Beleg_Nr.Contains('-')))
+      // {
       //   b.Beleg_Nr = $"B{++bn:0000}";
       // }
       // if ((b?.Beleg_Nr?.Length ?? 0) == 5 && b.Beleg_Nr.StartsWith("B"))
