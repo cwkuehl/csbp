@@ -4139,7 +4139,7 @@
         <value>Bewertungen berechnen</value>
     </data>
     <data name="WP250.berechnen.tt" xml:space="preserve">
-        <value>Soll die Bewertung für jedes aktive Wertpapier berechnet werden?</value>
+        <value>Soll die Bewertung für jede ausgewählte Anlage berechnet werden?</value>
     </data>
     <data name="WP250.auchinaktiv" xml:space="preserve">
         <value>auch inaktive</value>

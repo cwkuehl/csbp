@@ -4139,7 +4139,7 @@
         <value>Calculate rating</value>
     </data>
     <data name="WP250.berechnen.tt" xml:space="preserve">
-        <value>Calculate rating for all active stocks?</value>
+        <value>Calculate rating for all selected investments?</value>
     </data>
     <data name="WP250.auchinaktiv" xml:space="preserve">
         <value>also inactive</value>
