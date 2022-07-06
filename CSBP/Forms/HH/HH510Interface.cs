@@ -146,19 +146,19 @@ public partial class HH510Interface : CsbpBin
         {
           von.Value = v;
           bis.Value = new DateTime(v.Year, 12, 31);
-          eb.Active = true;
+          eb.Active = !kassenbericht.Active;
         }
         else if (kz == Constants.KZBI_SCHLUSS)
         {
           bis.Value = v;
           von.Value = b <= v ? b.AddDays(1 - b.DayOfYear) : new DateTime(v.Year, 1, 1);
-          sb.Active = true;
+          sb.Active = !kassenbericht.Active;
         }
         else
         {
           von.Value = v;
           bis.Value = b;
-          gv.Active = true;
+          gv.Active = !kassenbericht.Active;
         }
       }
       if (ServiceDaten.BenutzerId.ToLower() != "wolfgang")
