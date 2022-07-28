@@ -76,7 +76,7 @@ public class StockService : ServiceBase, IStockService
   /// <param name="sort">Affected sorting criteria.</param>
   /// <param name="source">Affected source.</param>
   /// <param name="state">Affected state.</param>
-  /// <param name="relationuid">Affected relationuid.</param>
+  /// <param name="relationuid">Affected relation uid.</param>
   /// <param name="notice">Affected memo.</param>
   /// <param name="type">Affected type.</param>
   /// <param name="currency">Affected currency.</param>
@@ -1089,33 +1089,13 @@ public class StockService : ServiceBase, IStockService
     }
     else if (source == "onvista")
     {
-      if (string.IsNullOrWhiteSpace(type))
+      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("F") || type.StartsWith("S")))
       {
-        // https://api.onvista.de/api/v1/instruments/FUND/103926/times_and_sales?endDate=2021-04-19T23%3A59%3A59.000%2B00%3A00&idNotation=120531642&order=DESC&startDate=2021-04-19T00%3A00%3A00.000%2B00%3A00
-        // var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
-        // var span = $"{d}D";
-        // var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
-        var fr = from.ToString("dd.MM.yyyy");
-        var d = (to.Year * 365) + to.DayOfYear - ((from.Year * 365) + from.DayOfYear);
-        var span = d <= 31 ? "M1" : "Y1";
-        var url = $"https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId={shortcut}&dateStart={fr}&interval={span}";
-        urls.Add((to, url));
-      }
-      else
-      {
-        // var date = Functions.Workday(to);
-        // while (date >= from)
-        // {
-        //   var d = Functions.ToEpochSecond(date) + 39944;
-        //   var url = $"https://www.onvista.de/component/timesAndSalesCsv?codeMarket=_STU&idInstrument={shortcut}&idTypeCategory=2&day={d}";
-        //   urls.Add((date, url));
-        //   //// if (l.Any())
-        //   date = Functions.Workday(date.AddDays(-1));
-        //   //// else
-        //   ////   date = from.AddDays(-1); // Schleife beenden
-        // }
-        // https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
-        var url = $"https://api.onvista.de/api/v1/instruments/BOND/{type}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to)}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
+        // type B... BOND, F... FUND, S... STOCK
+        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("F") ? "FUND" : "STOCK";
+        var type1 = type[1..];
+        //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
+        var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to)}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
         urls.Add((to, url));
       }
     }
@@ -1626,7 +1606,7 @@ public class StockService : ServiceBase, IStockService
   /// <param name="to">End of the period.</param>
   /// <param name="source">Affected provider for prices.</param>
   /// <param name="shortcut">Affected shortcut for source.</param>
-  /// <param name="type">Affected type (stock or bond).</param>
+  /// <param name="type">Affected type (bond, fund or stock with id).</param>
   /// <param name="currency">Affected currency for bond.</param>
   /// <param name="price">Actual price.</param>
   /// <param name="uid">Affected stock uid.</param>
@@ -1636,6 +1616,7 @@ public class StockService : ServiceBase, IStockService
     string source, string shortcut, string type, string currency, decimal price,
     string uid = null, Dictionary<string, StockUrl> dictresponse = null)
   {
+    Functions.MachNichts(currency);
     var l = new List<SoKurse>();
     if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
       return l;
@@ -1737,91 +1718,9 @@ public class StockService : ServiceBase, IStockService
     }
     else if (source == "onvista")
     {
-      if (string.IsNullOrWhiteSpace(type))
+      if (!string.IsNullOrWhiteSpace(type))
       {
-        // var d = to.Year * 365 + to.DayOfYear - (from.Year * 365 + from.DayOfYear);
-        // var span = $"{d}D";
-        // var url = $"https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation={shortcut}&datetimeTzStartRange={Functions.ToStringDe(from)}&timeSpan={span}&codeResolution=1D";
-        var fr = from.ToString("dd.MM.yyyy");
-        var d = (to.Year * 365) + to.DayOfYear - ((from.Year * 365) + from.DayOfYear);
-        var span = d <= 31 ? "M1" : "Y1";
-        var url = $"https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId={shortcut}&dateStart={fr}&interval={span}";
-        string response = null;
-        if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
-          response = resp.Response;
-        var v = response == null ? ExecuteHttps(url, true) : Functions.SplitLines(response, true);
-        var f = "Datum;Eroeffnung;Hoch;Tief;Schluss;Volumen";
-        if (v[0] != f)
-          throw new MessageException(WP050(v[0], f));
-        for (var i = 1; i < v.Count; i++)
-        {
-          var c = Functions.DecodeCSV(v[i], ';', ';');
-          if (c != null && c.Count >= 5)
-          {
-            var k = new SoKurse
-            {
-              Datum = Functions.ToDateTimeDe(Functions.TrimNull(c[0])) ?? daten.Heute,
-              Open = Functions.ToDecimalDe(c[1]) ?? 0,
-              High = Functions.ToDecimalDe(c[2]) ?? 0,
-              Low = Functions.ToDecimalDe(c[3]) ?? 0,
-              Close = Functions.ToDecimalDe(c[4]) ?? 0,
-              Bewertung = string.IsNullOrWhiteSpace(currency) ? "EUR" : currency,
-              Price = 1,
-            };
-            if (k.Datum >= from && k.Datum <= to)
-              l.Add(k);
-          }
-        }
-      }
-      else
-      {
-        // var date = Functions.Workday(to);
-        // while (date >= from)
-        // {
-        //   var d = Functions.ToEpochSecond(date) + 39944;
-        //   var url = $"https://www.onvista.de/component/timesAndSalesCsv?codeMarket=_STU&idInstrument={shortcut}&idTypeCategory=2&day={d}";
-        //   string response = null;
-        //   if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, date), out var resp))
-        //     response = resp.Response;
-        //   var v = response == null ? ExecuteHttps(url, true) : Functions.SplitLines(response, true);
-        //   var f = "Zeit;Kurs;Stück;Kumuliert";
-        //   if (v[0] != f)
-        //     throw new MessageException(WP050(v[0], f));
-        //   var k = new SoKurse();
-        //   for (var i = 1; i < v.Count; i++)
-        //   {
-        //     // absteigende Uhrzeit
-        //     var c = Functions.DecodeCSV(v[i], ';', ';');
-        //     if (c != null && c.Count >= 4)
-        //     {
-        //       // Prozent
-        //       k.Open = (Functions.ToDecimal(c[1], english: true) ?? 0) / 100;
-        //       if (i == 1)
-        //       {
-        //         k.High = k.Open;
-        //         k.Low = k.Open;
-        //         k.Close = k.Open;
-        //       }
-        //       else
-        //       {
-        //         k.High = Math.Max(k.High, k.Open);
-        //         k.Low = Math.Min(k.Low, k.Open);
-        //       }
-        //     }
-        //   }
-        //   if (Functions.CompDouble4(k.Open, 0) != 0)
-        //   {
-        //     k.Datum = date;
-        //     k.Bewertung = string.IsNullOrWhiteSpace(currency) ? "EUR" : currency;
-        //     k.Price = 1;
-        //     l.Add(k);
-        //   }
-        //   //// if (l.Any())
-        //   date = Functions.Workday(date.AddDays(-1));
-        //   //// else
-        //   ////   date = from.AddDays(-1); // Schleife beenden
-        // }
-        //// Json result "{\"expires\":1658347274322,\"isoCurrency\":\"EUR\",\"unitType\":\"PCT\",\"displayUnit\":\"PCT\",\"datetimeTick\":[1657735289000,1657780419000,1657809305000,1657821684000,1657830330000,1657889989000,1657908083000,1657916730000,1658167302000,1658213095000,1658220109000,1658223076000,1658227261000,1658238488000,1658253681000,1658262331000],\"tick\":[92.345,92.449,91.783,92.004,92.004,92.48,92.468,92.468,92.188,92.314,92.059,92.065,91.964,91.909,92.141,92.141]}"
+        // Json result "{\"expires\":1658347274322,\"isoCurrency\":\"EUR\",\"unitType\":\"PCT\",\"displayUnit\":\"PCT\",\"datetimeTick\":[1657735289000,1657780419000,1657809305000,1657821684000,1657830330000,1657889989000,1657908083000,1657916730000,1658167302000,1658213095000,1658220109000,1658223076000,1658227261000,1658238488000,1658253681000,1658262331000],\"tick\":[92.345,92.449,91.783,92.004,92.004,92.48,92.468,92.468,92.188,92.314,92.059,92.065,91.964,91.909,92.141,92.141]}"
         string response = null;
         if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
           response = resp.Response;
@@ -1832,6 +1731,7 @@ public class StockService : ServiceBase, IStockService
         if (error != null)
           throw new Exception(error.ToString());
         var isoCurrency = jr["isoCurrency"]?.ToString()?.ToUpper();
+        var unitType = jr["unitType"]?.ToString()?.ToUpper();
         var dates = jr["datetimeTick"]?.ToArray();
         if (dates == null || dates.Length <= 0)
           throw new MessageException(WP050("", "datetimeTick"));
@@ -1842,9 +1742,11 @@ public class StockService : ServiceBase, IStockService
         var date0 = Functions.ToDateTime(0L).Date;
         for (var i = 0; dates != null && i < dates.Length; i++)
         {
-          // Assumes ascending dates and percentage.
+          // Assumes ascending dates.
           SoKurse k1 = null;
-          var tick = (ticks.Length <= i ? 0 : Functions.ToDecimal(ticks[i].ToString()) ?? 0) / 100;
+          var tick = ticks.Length <= i ? 0 : Functions.ToDecimal(ticks[i].ToString()) ?? 0;
+          if (unitType == "PCT")
+            tick /= 100; // percentage
           var date = Functions.ToDateTime(Functions.ToInt64(dates[i].ToString()) / 1000L);
           if (tick > 0)
           {
