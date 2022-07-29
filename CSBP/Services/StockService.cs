@@ -1058,6 +1058,21 @@ public class StockService : ServiceBase, IStockService
     inv.Value2 = 0;
   }
 
+  /// <summary>HTTPS-Abfrage synchron mit HttpClient ausführen.</summary>
+  private static List<string> ExecuteHttps(string url, bool lines)
+  {
+    var task = ExecuteHttpsClient(url);
+    task.Wait();
+    var v = Functions.SplitLines(task.Result, lines);
+    return v;
+  }
+
+  /// <summary>HTTPS-Abfrage mit HttpClient ausführen.</summary>
+  private static Task<string> ExecuteHttpsClient(string url)
+  {
+    return Httpsclient.GetStringAsync(url);
+  }
+
   /// <summary>
   /// Gets a list of URLs for price request.
   /// </summary>
@@ -1089,10 +1104,10 @@ public class StockService : ServiceBase, IStockService
     }
     else if (source == "onvista")
     {
-      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("F") || type.StartsWith("S")))
+      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("D") || type.StartsWith("F") || type.StartsWith("S")))
       {
-        // type B... BOND, F... FUND, S... STOCK
-        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("F") ? "FUND" : "STOCK";
+        // type B... BOND, D... DERIVATIVE, F... FUND, S... STOCK
+        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : "STOCK";
         var type1 = type[1..];
         //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
         var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to)}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
@@ -1102,51 +1117,261 @@ public class StockService : ServiceBase, IStockService
     return urls;
   }
 
-  /// <summary>HTTPS-Abfrage synchron mit HttpClient ausführen.</summary>
-  private static List<string> ExecuteHttps(string url, bool lines)
+  /// <summary>
+  /// Gets a list of prices or rates for a period.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="from">Beginning of the period.</param>
+  /// <param name="to">End of the period.</param>
+  /// <param name="source">Affected provider for prices.</param>
+  /// <param name="shortcut">Affected shortcut for source.</param>
+  /// <param name="type">Affected type (bond, fund or stock with id).</param>
+  /// <param name="currency">Affected currency for bond.</param>
+  /// <param name="price">Actual price.</param>
+  /// <param name="uid">Affected stock uid.</param>
+  /// <param name="dictresponse">Affected preemptively read responses.</param>
+  /// <returns>List of prices.</returns>
+  private List<SoKurse> GetPriceListIntern(ServiceDaten daten, DateTime from, DateTime to,
+    string source, string shortcut, string type, string currency, decimal price,
+    string uid = null, Dictionary<string, StockUrl> dictresponse = null)
   {
-    var task = ExecuteHttpsClient(url);
-    task.Wait();
-    var v = Functions.SplitLines(task.Result, lines);
-    return v;
-
-    // // ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
-    // var l = new List<string>();
-    // try
-    // {
-    //   var request = WebRequest.Create(url) as HttpWebRequest;
-    //   using (var response = request.GetResponse() as HttpWebResponse)
-    //   {
-    //     if (response.StatusCode != HttpStatusCode.OK)
-    //       throw new MessageException(WP012((int)response.StatusCode));
-    //     using (var s = response.GetResponseStream())
-    //     {
-    //       var enc = string.IsNullOrEmpty(response.CharacterSet) ? null : Encoding.GetEncoding(response.CharacterSet);
-    //       using (var r = new StreamReader(s, enc))
-    //       {
-    //         if (lines)
-    //         {
-    //           string line;
-    //           while ((line = r.ReadLine()) != null)
-    //             l.Add(line);
-    //         }
-    //         else
-    //           l.Add(r.ReadToEnd());
-    //       }
-    //     }
-    //   }
-    // }
-    // catch (Exception ex)
-    // {
-    //   throw new Exception($"{url}: {ex.Message}", ex);
-    // }
-    // return l;
-  }
-
-  /// <summary>HTTPS-Abfrage mit HttpClient ausführen.</summary>
-  private static Task<string> ExecuteHttpsClient(string url)
-  {
-    return Httpsclient.GetStringAsync(url);
+    Functions.MachNichts(currency);
+    var l = new List<SoKurse>();
+    if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
+      return l;
+    if (dictresponse == null)
+    {
+      dictresponse = new Dictionary<string, StockUrl>();
+      var ulist = GetPriceUrlsIntern(from, to, source, shortcut, type);
+      foreach (var (udate, url) in ulist)
+      {
+        var su = new StockUrl
+        {
+          Uid = "",
+          Description = "",
+          Date = udate,
+          Url = url,
+        };
+        if (!dictresponse.TryGetValue(su.Key, out var du))
+        {
+          dictresponse.Add(su.Key, su);
+        }
+      }
+      var l1 = dictresponse.Count;
+      var i1 = 1;
+      foreach (var su in dictresponse.Values)
+      {
+        su.Task = ExecuteHttpsClient(su.Url);
+        if (i1 < l1)
+        {
+          // Verzögerung wegen onvista.de notwendig. 500 OK.
+          Thread.Sleep(HttpDelay);
+        }
+        i1++;
+      }
+      var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
+      Task.WaitAll(tasks, HttpTimeout);
+      foreach (var su in dictresponse.Values)
+      {
+        su.Response = su.Task.Result;
+        su.Task.Dispose();
+        su.Task = null;
+      }
+    }
+    if (source == "yahoo")
+    {
+      var p1 = (int)(from - new DateTime(1970, 1, 1)).TotalSeconds;
+      var p2 = (int)(to - new DateTime(1970, 1, 1)).TotalSeconds;
+      var url = $"https://query1.finance.yahoo.com/v7/finance/chart/{shortcut}?period1={p1}&period2={p2}&interval=1d&indicators=quote&includeTimestamps=true";
+      string response = null;
+      if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
+        response = resp.Response;
+      var v = response == null ? ExecuteHttps(url, false) : Functions.SplitLines(response, false);
+      if (v != null && v.Count > 0)
+      {
+        var jr = JObject.Parse(v[0]);
+        var jc = jr["chart"];
+        var error = jc["error"];
+        if (error != null && error.HasValues)
+          throw new Exception(error.ToString());
+        var jresult = jc["result"][0];
+        var jmeta = jresult["meta"];
+        var jts = jresult["timestamp"]?.ToArray();
+        var jquote = jresult["indicators"]["quote"][0];
+        if (jquote.HasValues)
+        {
+          var jopen = jquote["open"];
+          var jclose = jquote["close"];
+          var jlow = jquote["low"];
+          var jhigh = jquote["high"];
+          for (var i = 0; jts != null && i < jts.Length; i++)
+          {
+            var k = new SoKurse
+            {
+              Datum = Functions.ToDateTime(Functions.ToInt64(jts[i].ToString())).Date,
+              Open = Functions.ToDecimal(jopen[i].ToString(), 4) ?? 0,
+              High = Functions.ToDecimal(jhigh[i].ToString(), 4) ?? 0,
+              Low = Functions.ToDecimal(jlow[i].ToString(), 4) ?? 0,
+              Close = Functions.ToDecimal(jclose[i].ToString(), 4) ?? 0,
+              Bewertung = jmeta["currency"].ToString().ToUpper(),
+            };
+            if (k.Close != 0)
+            {
+              k.Open = k.Open == 0 ? k.Close : k.Open;
+              k.High = k.Open == 0 ? k.Close : k.High;
+              k.Low = k.Open == 0 ? k.Close : k.Low;
+              l.Add(k);
+            }
+          }
+        }
+        else
+        {
+          var tl = jmeta["currentTradingPeriod"]["pre"]["end"].ToString();
+          var k = new SoKurse
+          {
+            Datum = Functions.ToDateTime(Functions.ToInt64(tl)),
+            Close = Functions.ToDecimal(jmeta["chartPreviousClose"].ToString(), 4) ?? 0,
+            Bewertung = jmeta["currency"].ToString().ToUpper(),
+          };
+          if (k.Close != 0)
+          {
+            k.Open = k.Close;
+            k.High = k.Close;
+            k.Low = k.Close;
+            l.Add(k);
+          }
+        }
+      }
+    }
+    else if (source == "ariva")
+    {
+#pragma warning disable IDE0071
+      var url = $"https://www.ariva.de/quote/historic/historic.csv?secu={shortcut}&boerse_id=6&clean_split=1&clean_payout=0&clean_bezug=1&min_time={from.ToString("dd.MM.yyyy")}&max_time={to.ToString("dd.MM.yyyy")}&trenner=%3B&go=Download";
+#pragma warning restore IDE0071
+      string response = null;
+      if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
+        response = resp.Response;
+      var v = response == null ? ExecuteHttps(url, true) : Functions.SplitLines(response, true);
+      var f = "Datum;Erster;Hoch;Tief;Schlusskurs;Stuecke;Volumen";
+      if (v[0] != f)
+        throw new MessageException(WP050(v[0], f));
+      for (var i = 1; i < v.Count; i++)
+      {
+        var c = Functions.DecodeCSV(v[i], ';', ';');
+        if (c != null && c.Count >= 5)
+        {
+          var k = new SoKurse
+          {
+            Datum = Functions.ToDateTime(c[0]) ?? daten.Heute,
+            Open = Functions.ToDecimalDe(c[1]) ?? 0,
+            High = Functions.ToDecimalDe(c[2]) ?? 0,
+            Low = Functions.ToDecimalDe(c[3]) ?? 0,
+            Close = Functions.ToDecimalDe(c[4]) ?? 0,
+            Bewertung = "EUR",
+            Price = 1,
+          };
+          l.Add(k);
+        }
+      }
+    }
+    else if (source == "onvista")
+    {
+      if (!string.IsNullOrWhiteSpace(type))
+      {
+        // Json result "{\"expires\":1658347274322,\"isoCurrency\":\"EUR\",\"unitType\":\"PCT\",\"displayUnit\":\"PCT\",\"datetimeTick\":[1657735289000,1657780419000,1657809305000,1657821684000,1657830330000,1657889989000,1657908083000,1657916730000,1658167302000,1658213095000,1658220109000,1658223076000,1658227261000,1658238488000,1658253681000,1658262331000],\"tick\":[92.345,92.449,91.783,92.004,92.004,92.48,92.468,92.468,92.188,92.314,92.059,92.065,91.964,91.909,92.141,92.141]}"
+        string response = null;
+        if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
+          response = resp.Response;
+        if (string.IsNullOrEmpty(response))
+          throw new MessageException(WP050("", "JSON"));
+        var jr = JObject.Parse(response);
+        var error = jr["displayErrorMessage"];
+        if (error != null)
+          throw new Exception(error.ToString());
+        var isoCurrency = jr["isoCurrency"]?.ToString()?.ToUpper();
+        var unitType = jr["unitType"]?.ToString()?.ToUpper();
+        var dates = jr["datetimeTick"]?.ToArray();
+        if (dates == null || dates.Length <= 0)
+          throw new MessageException(WP050("", "datetimeTick"));
+        var ticks = jr["tick"]?.ToArray();
+        if (ticks == null || ticks.Length <= 0)
+          throw new MessageException(WP050("", "tick"));
+        SoKurse k = null;
+        var date0 = Functions.ToDateTime(0L).Date;
+        for (var i = 0; dates != null && i < dates.Length; i++)
+        {
+          // Assumes ascending dates.
+          SoKurse k1 = null;
+          var tick = ticks.Length <= i ? 0 : Functions.ToDecimal(ticks[i].ToString()) ?? 0;
+          if (unitType == "PCT")
+            tick /= 100; // percentage
+          var date = Functions.ToDateTime(Functions.ToInt64(dates[i].ToString()) / 1000L);
+          if (tick > 0)
+          {
+            if (date0 != date.Date)
+            {
+              k1 = k;
+              k = new SoKurse
+              {
+                Datum = date.Date,
+                Open = tick,
+                High = tick,
+                Low = tick,
+                Close = tick,
+                Bewertung = isoCurrency ?? "EUR",
+              };
+            }
+            else if (k != null)
+            {
+              k.High = Math.Max(k.High, tick);
+              k.Low = Math.Min(k.Low, tick);
+              k.Close = tick;
+            }
+          }
+          if (i == dates.Length - 1)
+            k1 = k;
+          if (k1 != null)
+            l.Add(k1);
+          date0 = date.Date;
+        }
+      }
+    }
+    var cur = l.Count <= 0 ? null : l[0].Bewertung;
+    SoKurse curPrice = null;
+    if (l.Count > 0)
+    {
+      try
+      {
+        curPrice = GetCurrencyPrice(daten, l.Last().Datum, cur);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(WP054(cur, ex.Message));
+      }
+    }
+    foreach (var k in l)
+    {
+      if (price == 0)
+        price = k.Close;
+      if (curPrice != null)
+      {
+        k.Open = Functions.Round4(k.Open * curPrice.Close) ?? 0;
+        k.High = Functions.Round4(k.High * curPrice.Close) ?? 0;
+        k.Low = Functions.Round4(k.Low * curPrice.Close) ?? 0;
+        k.Close = Functions.Round4(k.Close * curPrice.Close) ?? 0;
+        k.Price = curPrice.Close;
+      }
+      while (price != 0 && k.Close / price > 5)
+      {
+        // Skales right: WATL.L with factor 100.
+        k.Open /= 10;
+        k.High /= 10;
+        k.Low /= 10;
+        k.Close /= 10;
+      }
+    }
+    l = l.OrderBy(a => a.Datum).ToList();
+    return l;
   }
 
   /// <summary>
@@ -1596,224 +1821,6 @@ public class StockService : ServiceBase, IStockService
       }
     }
     return null;
-  }
-
-  /// <summary>
-  /// Gets a list of prices or rates for a period.
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="from">Beginning of the period.</param>
-  /// <param name="to">End of the period.</param>
-  /// <param name="source">Affected provider for prices.</param>
-  /// <param name="shortcut">Affected shortcut for source.</param>
-  /// <param name="type">Affected type (bond, fund or stock with id).</param>
-  /// <param name="currency">Affected currency for bond.</param>
-  /// <param name="price">Actual price.</param>
-  /// <param name="uid">Affected stock uid.</param>
-  /// <param name="dictresponse">Affected preemptively read responses.</param>
-  /// <returns>List of prices.</returns>
-  private List<SoKurse> GetPriceListIntern(ServiceDaten daten, DateTime from, DateTime to,
-    string source, string shortcut, string type, string currency, decimal price,
-    string uid = null, Dictionary<string, StockUrl> dictresponse = null)
-  {
-    Functions.MachNichts(currency);
-    var l = new List<SoKurse>();
-    if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
-      return l;
-    if (source == "yahoo")
-    {
-      var p1 = (int)(from - new DateTime(1970, 1, 1)).TotalSeconds;
-      var p2 = (int)(to - new DateTime(1970, 1, 1)).TotalSeconds;
-      var url = $"https://query1.finance.yahoo.com/v7/finance/chart/{shortcut}?period1={p1}&period2={p2}&interval=1d&indicators=quote&includeTimestamps=true";
-      string response = null;
-      if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
-        response = resp.Response;
-      var v = response == null ? ExecuteHttps(url, false) : Functions.SplitLines(response, false);
-      if (v != null && v.Count > 0)
-      {
-        var jr = JObject.Parse(v[0]);
-        var jc = jr["chart"];
-        var error = jc["error"];
-        if (error != null && error.HasValues)
-          throw new Exception(error.ToString());
-        var jresult = jc["result"][0];
-        var jmeta = jresult["meta"];
-        var jts = jresult["timestamp"]?.ToArray();
-        var jquote = jresult["indicators"]["quote"][0];
-        if (jquote.HasValues)
-        {
-          var jopen = jquote["open"];
-          var jclose = jquote["close"];
-          var jlow = jquote["low"];
-          var jhigh = jquote["high"];
-          for (var i = 0; jts != null && i < jts.Length; i++)
-          {
-            var k = new SoKurse
-            {
-              Datum = Functions.ToDateTime(Functions.ToInt64(jts[i].ToString())).Date,
-              Open = Functions.ToDecimal(jopen[i].ToString(), 4) ?? 0,
-              High = Functions.ToDecimal(jhigh[i].ToString(), 4) ?? 0,
-              Low = Functions.ToDecimal(jlow[i].ToString(), 4) ?? 0,
-              Close = Functions.ToDecimal(jclose[i].ToString(), 4) ?? 0,
-              Bewertung = jmeta["currency"].ToString().ToUpper(),
-            };
-            if (k.Close != 0)
-            {
-              k.Open = k.Open == 0 ? k.Close : k.Open;
-              k.High = k.Open == 0 ? k.Close : k.High;
-              k.Low = k.Open == 0 ? k.Close : k.Low;
-              l.Add(k);
-            }
-          }
-        }
-        else
-        {
-          var tl = jmeta["currentTradingPeriod"]["pre"]["end"].ToString();
-          var k = new SoKurse
-          {
-            Datum = Functions.ToDateTime(Functions.ToInt64(tl)),
-            Close = Functions.ToDecimal(jmeta["chartPreviousClose"].ToString(), 4) ?? 0,
-            Bewertung = jmeta["currency"].ToString().ToUpper(),
-          };
-          if (k.Close != 0)
-          {
-            k.Open = k.Close;
-            k.High = k.Close;
-            k.Low = k.Close;
-            l.Add(k);
-          }
-        }
-      }
-    }
-    else if (source == "ariva")
-    {
-#pragma warning disable IDE0071
-      var url = $"https://www.ariva.de/quote/historic/historic.csv?secu={shortcut}&boerse_id=6&clean_split=1&clean_payout=0&clean_bezug=1&min_time={from.ToString("dd.MM.yyyy")}&max_time={to.ToString("dd.MM.yyyy")}&trenner=%3B&go=Download";
-#pragma warning restore IDE0071
-      string response = null;
-      if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
-        response = resp.Response;
-      var v = response == null ? ExecuteHttps(url, true) : Functions.SplitLines(response, true);
-      var f = "Datum;Erster;Hoch;Tief;Schlusskurs;Stuecke;Volumen";
-      if (v[0] != f)
-        throw new MessageException(WP050(v[0], f));
-      for (var i = 1; i < v.Count; i++)
-      {
-        var c = Functions.DecodeCSV(v[i], ';', ';');
-        if (c != null && c.Count >= 5)
-        {
-          var k = new SoKurse
-          {
-            Datum = Functions.ToDateTime(c[0]) ?? daten.Heute,
-            Open = Functions.ToDecimalDe(c[1]) ?? 0,
-            High = Functions.ToDecimalDe(c[2]) ?? 0,
-            Low = Functions.ToDecimalDe(c[3]) ?? 0,
-            Close = Functions.ToDecimalDe(c[4]) ?? 0,
-            Bewertung = "EUR",
-            Price = 1,
-          };
-          l.Add(k);
-        }
-      }
-    }
-    else if (source == "onvista")
-    {
-      if (!string.IsNullOrWhiteSpace(type))
-      {
-        // Json result "{\"expires\":1658347274322,\"isoCurrency\":\"EUR\",\"unitType\":\"PCT\",\"displayUnit\":\"PCT\",\"datetimeTick\":[1657735289000,1657780419000,1657809305000,1657821684000,1657830330000,1657889989000,1657908083000,1657916730000,1658167302000,1658213095000,1658220109000,1658223076000,1658227261000,1658238488000,1658253681000,1658262331000],\"tick\":[92.345,92.449,91.783,92.004,92.004,92.48,92.468,92.468,92.188,92.314,92.059,92.065,91.964,91.909,92.141,92.141]}"
-        string response = null;
-        if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))
-          response = resp.Response;
-        if (string.IsNullOrEmpty(response))
-          throw new MessageException(WP050("", "JSON"));
-        var jr = JObject.Parse(response);
-        var error = jr["displayErrorMessage"];
-        if (error != null)
-          throw new Exception(error.ToString());
-        var isoCurrency = jr["isoCurrency"]?.ToString()?.ToUpper();
-        var unitType = jr["unitType"]?.ToString()?.ToUpper();
-        var dates = jr["datetimeTick"]?.ToArray();
-        if (dates == null || dates.Length <= 0)
-          throw new MessageException(WP050("", "datetimeTick"));
-        var ticks = jr["tick"]?.ToArray();
-        if (ticks == null || ticks.Length <= 0)
-          throw new MessageException(WP050("", "tick"));
-        SoKurse k = null;
-        var date0 = Functions.ToDateTime(0L).Date;
-        for (var i = 0; dates != null && i < dates.Length; i++)
-        {
-          // Assumes ascending dates.
-          SoKurse k1 = null;
-          var tick = ticks.Length <= i ? 0 : Functions.ToDecimal(ticks[i].ToString()) ?? 0;
-          if (unitType == "PCT")
-            tick /= 100; // percentage
-          var date = Functions.ToDateTime(Functions.ToInt64(dates[i].ToString()) / 1000L);
-          if (tick > 0)
-          {
-            if (date0 != date.Date)
-            {
-              k1 = k;
-              k = new SoKurse
-              {
-                Datum = date.Date,
-                Open = tick,
-                High = tick,
-                Low = tick,
-                Close = tick,
-                Bewertung = isoCurrency ?? "EUR",
-              };
-            }
-            else if (k != null)
-            {
-              k.High = Math.Max(k.High, tick);
-              k.Low = Math.Min(k.Low, tick);
-              k.Close = tick;
-            }
-          }
-          if (i == dates.Length - 1)
-            k1 = k;
-          if (k1 != null)
-            l.Add(k1);
-          date0 = date.Date;
-        }
-      }
-    }
-    var cur = l.Count <= 0 ? null : l[0].Bewertung;
-    SoKurse curPrice = null;
-    if (l.Count > 0)
-    {
-      try
-      {
-        curPrice = GetCurrencyPrice(daten, l.Last().Datum, cur);
-      }
-      catch (Exception ex)
-      {
-        throw new Exception(WP054(cur, ex.Message));
-      }
-    }
-    foreach (var k in l)
-    {
-      if (price == 0)
-        price = k.Close;
-      if (curPrice != null)
-      {
-        k.Open = Functions.Round4(k.Open * curPrice.Close) ?? 0;
-        k.High = Functions.Round4(k.High * curPrice.Close) ?? 0;
-        k.Low = Functions.Round4(k.Low * curPrice.Close) ?? 0;
-        k.Close = Functions.Round4(k.Close * curPrice.Close) ?? 0;
-        k.Price = curPrice.Close;
-      }
-      while (price != 0 && k.Close / price > 5)
-      {
-        // Skales right: WATL.L with factor 100.
-        k.Open /= 10;
-        k.High /= 10;
-        k.Low /= 10;
-        k.Close /= 10;
-      }
-    }
-    l = l.OrderBy(a => a.Datum).ToList();
-    return l;
   }
 
   /// <summary>
