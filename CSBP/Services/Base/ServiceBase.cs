@@ -38,7 +38,7 @@ public class ServiceBase
   protected const int HttpTimeout = 10000;
 
   /// <summary>Milliseconds between http requests.</summary>
-  protected const int HttpDelay = 500;
+  protected const int HttpDelay = 1; // 500
 
   /// <summary>Repository for table AD_Adresse.</summary>
   protected static readonly AdAdresseRep AdAdresseRep = new();

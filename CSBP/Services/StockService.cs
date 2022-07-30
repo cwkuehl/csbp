@@ -711,7 +711,7 @@ public class StockService : ServiceBase, IStockService
       && !string.IsNullOrEmpty(inv.SettlementAccountUid) && !string.IsNullOrEmpty(inv.IncomeAccountUid))
     {
       var st = WpWertpapierRep.Get(daten, daten.MandantNr, inv.Wertpapier_Uid);
-      var anleihe = st != null && !string.IsNullOrEmpty(st.Type);
+      var anleihe = st != null && !string.IsNullOrEmpty(st.Type) && st.Type.StartsWith("B");
       if (!anleihe)
       {
         r.Ergebnis.Add(new HhEreignis
@@ -1104,10 +1104,10 @@ public class StockService : ServiceBase, IStockService
     }
     else if (source == "onvista")
     {
-      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("D") || type.StartsWith("F") || type.StartsWith("S")))
+      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("C") || type.StartsWith("D") || type.StartsWith("F") || type.StartsWith("P") || type.StartsWith("S")))
       {
-        // type B... BOND, D... DERIVATIVE, F... FUND, S... STOCK
-        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : "STOCK";
+        // type B... BOND, C... COMMODITY, D... DERIVATIVE, F... FUND, P... PRECIOUS_METAL, S... STOCK
+        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("C") ? "COMMODITY" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : type.StartsWith("P") ? "PRECIOUS_METAL" : "STOCK";
         var type1 = type[1..];
         //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
         var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to)}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
