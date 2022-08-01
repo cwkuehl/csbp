@@ -13,6 +13,9 @@
     <AnalysisMode>None</AnalysisMode>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors-->
   </PropertyGroup>
+  <PropertyGroup>
+    <Version>1.2</Version>
+  </PropertyGroup>
 
   <!--ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
     <PackageReference Include="gtksharp" Version="3.22.25.128" />
