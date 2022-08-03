@@ -1104,13 +1104,13 @@ public class StockService : ServiceBase, IStockService
     }
     else if (source == "onvista")
     {
-      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("C") || type.StartsWith("D") || type.StartsWith("F") || type.StartsWith("P") || type.StartsWith("S")))
+      if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("C") || type.StartsWith("D") || type.StartsWith("F") || type.StartsWith("P") || type.StartsWith("S") || type.StartsWith("Y")))
       {
-        // type B... BOND, C... COMMODITY, D... DERIVATIVE, F... FUND, P... PRECIOUS_METAL, S... STOCK
-        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("C") ? "COMMODITY" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : type.StartsWith("P") ? "PRECIOUS_METAL" : "STOCK";
+        // type B... BOND, C... COMMODITY, D... DERIVATIVE, F... FUND, P... PRECIOUS_METAL, S... STOCK, Y... CURRENCY
+        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("C") ? "COMMODITY" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : type.StartsWith("P") ? "PRECIOUS_METAL" : type.StartsWith("S") ? "STOCK" : "CURRENCY";
         var type1 = type[1..];
         //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
-        var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to)}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
+        var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to.AddDays(1))}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
         urls.Add((to, url));
       }
     }
@@ -1135,7 +1135,6 @@ public class StockService : ServiceBase, IStockService
     string source, string shortcut, string type, string currency, decimal price,
     string uid = null, Dictionary<string, StockUrl> dictresponse = null)
   {
-    Functions.MachNichts(currency);
     var l = new List<SoKurse>();
     if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
       return l;
@@ -1336,38 +1335,41 @@ public class StockService : ServiceBase, IStockService
         }
       }
     }
-    var cur = l.Count <= 0 ? null : l[0].Bewertung;
-    SoKurse curPrice = null;
-    if (l.Count > 0)
+    if (currency != "Y")
     {
-      try
+      var cur = l.Count <= 0 ? null : l[0].Bewertung;
+      SoKurse curPrice = null;
+      if (l.Count > 0)
       {
-        curPrice = GetCurrencyPrice(daten, l.Last().Datum, cur);
+        try
+        {
+          curPrice = GetCurrencyPrice(daten, l.Last().Datum, cur);
+        }
+        catch (Exception ex)
+        {
+          throw new Exception(WP054(cur, ex.Message));
+        }
       }
-      catch (Exception ex)
+      foreach (var k in l)
       {
-        throw new Exception(WP054(cur, ex.Message));
-      }
-    }
-    foreach (var k in l)
-    {
-      if (price == 0)
-        price = k.Close;
-      if (curPrice != null)
-      {
-        k.Open = Functions.Round4(k.Open * curPrice.Close) ?? 0;
-        k.High = Functions.Round4(k.High * curPrice.Close) ?? 0;
-        k.Low = Functions.Round4(k.Low * curPrice.Close) ?? 0;
-        k.Close = Functions.Round4(k.Close * curPrice.Close) ?? 0;
-        k.Price = curPrice.Close;
-      }
-      while (price != 0 && k.Close / price > 5)
-      {
-        // Skales right: WATL.L with factor 100.
-        k.Open /= 10;
-        k.High /= 10;
-        k.Low /= 10;
-        k.Close /= 10;
+        if (price == 0)
+          price = k.Close;
+        if (curPrice != null)
+        {
+          k.Open = Functions.Round4(k.Open * curPrice.Close) ?? 0;
+          k.High = Functions.Round4(k.High * curPrice.Close) ?? 0;
+          k.Low = Functions.Round4(k.Low * curPrice.Close) ?? 0;
+          k.Close = Functions.Round4(k.Close * curPrice.Close) ?? 0;
+          k.Price = curPrice.Close;
+        }
+        while (price != 0 && k.Close / price > 5)
+        {
+          // Skales right: WATL.L with factor 100.
+          k.Open /= 10;
+          k.High /= 10;
+          k.Low /= 10;
+          k.Close /= 10;
+        }
       }
     }
     l = l.OrderBy(a => a.Datum).ToList();
@@ -1690,6 +1692,30 @@ public class StockService : ServiceBase, IStockService
     Wkurse.TryGetValue(key, out var wert);
     if (wert != null)
       return wert;
+    var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
+    if (wp != null)
+    {
+      var to = date.AddDays(1);
+      var from = to.AddDays(-7);
+      var l = GetPriceListIntern(daten, from, to, wp.Datenquelle, wp.Kuerzel, wp.Type, "Y", 0);
+      foreach (var p1 in l ?? new List<SoKurse>())
+      {
+        var k = new SoKurse
+        {
+          Datum = p1.Datum,
+          Close = p1.Close,
+          Bewertung = shortcut,
+        };
+        WpStandRep.Save(daten, daten.MandantNr, wp.Uid, k.Datum, k.Close);
+        SaveChanges(daten);
+        if (k.Close != 0)
+          k.Close = Functions.Round4(1 / k.Close) ?? 0; // Invert for multiplication.
+        Wkurse.Add($"{k.Datum} {shortcut}", k);
+      }
+      Wkurse.TryGetValue(key, out wert);
+      if (wert != null)
+        return wert;
+    }
     List<string> v;
     try
     {
@@ -1717,7 +1743,7 @@ public class StockService : ServiceBase, IStockService
         if (error.StartsWith("Your monthly usage limit has been reached."))
         {
           // Your monthly usage limit has been reached. Please upgrade your Subscription Plan.
-          var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
+          // var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
           if (wp != null)
           {
             var s = WpStandRep.GetLatest(daten, daten.MandantNr, wp.Uid, date);
@@ -1747,10 +1773,10 @@ public class StockService : ServiceBase, IStockService
           Close = Functions.ToDecimal(jresult[shortcut].ToString()) ?? 0,
           Bewertung = shortcut,
         };
-        var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
+        //// var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
         if (wp != null)
         {
-          WpStandRep.Save(daten, daten.MandantNr, wp.Uid, date, k.Close);
+          WpStandRep.Save(daten, daten.MandantNr, wp.Uid, k.Datum, k.Close);
           SaveChanges(daten);
         }
         if (k.Close != 0)
