@@ -1710,7 +1710,10 @@ public class StockService : ServiceBase, IStockService
         SaveChanges(daten);
         if (k.Close != 0)
           k.Close = Functions.Round4(1 / k.Close) ?? 0; // Invert for multiplication.
-        Wkurse.Add($"{k.Datum} {shortcut}", k);
+        var key1 = $"{k.Datum} {shortcut}";
+        if (Wkurse.ContainsKey(key1))
+          Wkurse.Remove(key1);
+        Wkurse.Add(key1, k);
       }
       Wkurse.TryGetValue(key, out wert);
       if (wert != null)
