@@ -234,7 +234,7 @@ public class M : Messages
   /// <summary>
   /// Cuts the first 5 characters of a message or not.
   /// </summary>
-  /// <param name="m">Affrected message.</param>
+  /// <param name="m">Affected message.</param>
   /// <param name="cut">Cuts the first 5 characters if true.</param>
   /// <returns>Changed or same message.</returns>
   public static string M0(string m, bool cut = true)

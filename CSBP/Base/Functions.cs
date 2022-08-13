@@ -611,7 +611,7 @@ public static class Functions
   /// Parses string to nullable DateTime, with following formats:
   /// yyyy-MM-dd HH:mm:ss, dd.MM.yyyy HH:mm:ss, yyyy-MM-d and d.M.yyyy.
   /// </summary>
-  /// <param name="s">Affrected string.</param>
+  /// <param name="s">Affected string.</param>
   /// <returns>Converted value.</returns>
   public static DateTime? ToDateTime(string s)
   {
@@ -630,7 +630,7 @@ public static class Functions
   /// <summary>
   /// Parses string to nullable DateTime with format d.MM.yyyy.
   /// </summary>
-  /// <param name="s">Affrected string.</param>
+  /// <param name="s">Affected string.</param>
   /// <returns>Converted value.</returns>
   public static DateTime? ToDateTimeDe(string s)
   {

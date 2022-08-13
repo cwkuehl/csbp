@@ -4,10 +4,10 @@
 https://github.com/GtkSharp/GtkSharp
 
 
-License notice for Microsoft.EntityFrameworkCore.Sqlite (v6.0.5)
+License notice for Microsoft.EntityFrameworkCore.Sqlite (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/ef/core/
 
@@ -112,10 +112,10 @@ License notice for GLibSharp (v3.24.24.38)
 https://github.com/GtkSharp/GtkSharp
 
 
-License notice for Microsoft.Data.Sqlite.Core (v6.0.5)
+License notice for Microsoft.Data.Sqlite.Core (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/dotnet/standard/data/sqlite/
 
@@ -126,10 +126,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore (v6.0.5)
+License notice for Microsoft.EntityFrameworkCore (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/ef/core/
 
@@ -140,10 +140,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Abstractions (v6.0.5)
+License notice for Microsoft.EntityFrameworkCore.Abstractions (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/ef/core/
 
@@ -154,10 +154,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Analyzers (v6.0.5)
+License notice for Microsoft.EntityFrameworkCore.Analyzers (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/ef/core/
 
@@ -168,10 +168,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Relational (v6.0.5)
+License notice for Microsoft.EntityFrameworkCore.Relational (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/ef/core/
 
@@ -182,10 +182,10 @@ Licensed under MIT
 Available at https://licenses.nuget.org/MIT
 
 
-License notice for Microsoft.EntityFrameworkCore.Sqlite.Core (v6.0.5)
+License notice for Microsoft.EntityFrameworkCore.Sqlite.Core (v6.0.8)
 ------------------------------------
 
-https://github.com/dotnet/efcore at 9b03633bb18b617088b32260065ee385bf9c4491
+https://github.com/dotnet/efcore at 62e1b2f494af376a4588bf3d365f7be5443d4a5d
 
 https://docs.microsoft.com/ef/core/
 

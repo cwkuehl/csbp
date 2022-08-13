@@ -61,11 +61,11 @@
       "requireExactSource": true
     },
     {
-      "name": ".NET 5 Launch Windows",
+      "name": ".NET 6 Win B Launch",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP/bin/Debug/net5.0/CSBP.dll",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net6.0/CSBP.dll",
       "args": [
         "DB_DRIVER_CONNECT=Data Source=C:\\Users\\Benni\\Documents\\csbp\\csbp.db"
       ],

@@ -398,7 +398,7 @@ public class ServiceBase
   /// <summary>
   /// Converts object to string with additional replacing line break by &lt; br &gt;.
   /// </summary>
-  /// <param name="o">Affrected object.</param>
+  /// <param name="o">Affected object.</param>
   /// <returns>Converted string.</returns>
   protected static string ToStr(object o)
   {
