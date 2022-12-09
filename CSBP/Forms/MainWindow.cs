@@ -234,8 +234,7 @@ public class MainWindow : Window
     // this.RenderIconPixbuf("gtk-select-color", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-select-color.png", "png");
     SetupHandlers();
     var size = Parameter.GetDialogSize(typeof(MainWindow));
-    //// WidthRequest = size.Width;
-    //// HeightRequest = size.Height;
+    Console.WriteLine($"MainWindow Old size x {size.X} y {size.Y} w {size.Width} h {size.Height}");
     SetSizeRequest(size.Width, size.Height);
     DefaultWidth = size.Width;
     DefaultHeight = size.Height;
@@ -266,8 +265,6 @@ public class MainWindow : Window
           Window.GetOrigin(out int x, out int y);
           //// Höhe der Titelleiste abziehen
           Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y - CsbpBin.TitleHeight, w, h));
-          //// Console.WriteLine($"{x} {y} {w} {h}");
-          //// Console.WriteLine($"{DateTime.Now}");
         }
       });
     });
@@ -952,10 +949,8 @@ Client: {daten.MandantNr} User: {daten.BenutzerId}",
   /// <returns>Liste mit Kindelementen.</returns>
   private List<Widget> GetChildren(Container con = null, List<Widget> l = null)
   {
-    if (con == null)
-      con = this;
-    if (l == null)
-      l = new List<Widget>();
+    con ??= this;
+    l ??= new List<Widget>();
     var array = con.Children;
     foreach (var c in array)
     {

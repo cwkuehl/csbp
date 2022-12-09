@@ -331,8 +331,7 @@ public class MainClass
   private static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
   {
     Console.WriteLine(e.ExceptionObject.ToString());
-    if (MainWindow != null)
-      MainWindow.SetError(e.ExceptionObject.ToString());
+    MainWindow?.SetError(e.ExceptionObject.ToString());
     //// Environment.Exit(1);
   }
 

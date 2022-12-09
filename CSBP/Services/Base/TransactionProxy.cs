@@ -193,8 +193,7 @@ public class TransactionProxy<T> : DispatchProxy
     {
       if (daten != null)
         daten.Tiefe--;
-      if (db != null)
-        db.Dispose();
+      db?.Dispose();
     }
 
     if (returnValue == null && method.ReturnParameter != null && method.ReturnParameter.ParameterType != typeof(void))

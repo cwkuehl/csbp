@@ -112,11 +112,8 @@ public class Parameter
       string setting = null, bool database = false, bool client = false)
   {
     Key = key;
-    Default = default_.TrimNull(trim);
-    if (Default == null)
-    {
-      Default = typeof(Messages).GetProperty($"parm_{key}_value", BindingFlags.Static | BindingFlags.Public)?.GetValue(null) as string;
-    }
+    Default = default_.TrimNull(trim)
+      ?? typeof(Messages).GetProperty($"parm_{key}_value", BindingFlags.Static | BindingFlags.Public)?.GetValue(null) as string;
     Comment = typeof(Messages).GetProperty($"parm_{key}_text", BindingFlags.Static | BindingFlags.Public)?.GetValue(null) as string;
     Trim = trim;
     Crypted = crypted;
@@ -402,8 +399,7 @@ public class Parameter
         Functions.MachNichts();
       }
     }
-    if (l == null)
-      l = new[] { -1, -1, 400, 300 };
+    l ??= new[] { -1, -1, 400, 300 };
     return new Rectangle(l[0], l[1], l[2], l[3]);
   }
 
@@ -418,6 +414,8 @@ public class Parameter
     var bytes = Functions.Serialize(new[] { l.X, l.Y, l.Width, l.Height });
     var v = Convert.ToBase64String(bytes);
     SetValue(key, v);
+    Console.WriteLine($"{type.Name} New size x {l.X} y {l.Y} w {l.Width} h {l.Height}");
+    //// Console.WriteLine($"{DateTime.Now}");
   }
 
   /// <summary>

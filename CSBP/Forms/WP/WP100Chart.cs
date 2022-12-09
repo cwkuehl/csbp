@@ -125,8 +125,7 @@ public partial class WP100Chart : CsbpBin
     var daten = ServiceDaten;
     if (step <= 0)
     {
-      if (model == null)
-        model = Parameter1 as Tuple<DateTime?, string, string>;
+      model ??= Parameter1 as Tuple<DateTime?, string, string>;
       var rl = Get(FactoryService.StockService.GetStockList(daten, true)) ?? new List<WpWertpapier>();
       var rs = AddColumns(wertpapier);
       foreach (var p in rl)

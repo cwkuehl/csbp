@@ -100,8 +100,7 @@ public class HttpsServer
   {
     lock (Locking)
     {
-      if (listener != null)
-        listener.Stop();
+      listener?.Stop();
       listener = null;
     }
   }

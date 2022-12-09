@@ -64,8 +64,7 @@ public class HttpServer
   {
     lock (Locking)
     {
-      if (listener != null)
-        listener.Stop();
+      listener?.Stop();
       listener = null;
     }
   }

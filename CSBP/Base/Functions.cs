@@ -1237,8 +1237,7 @@ public static class Functions
   /// <returns>String with or &lt; b &gt; tag around.</returns>
   public static string MakeBold(string s, bool unbold = false)
   {
-    if (s == null)
-      s = "";
+    s ??= "";
     if (unbold)
     {
       if (IsBold(s))

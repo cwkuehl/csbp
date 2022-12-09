@@ -227,8 +227,7 @@ public class ServiceBase
       transaction.Commit();
       if (db.PreUndoList.List.Any())
       {
-        if (ul == null)
-          ul = new UndoList();
+        ul ??= new UndoList();
         ul.List.AddRange(db.PreUndoList.List);
         db.PreUndoList.List.Clear();
       }

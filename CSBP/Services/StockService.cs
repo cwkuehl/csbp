@@ -636,16 +636,13 @@ public class StockService : ServiceBase, IStockService
           };
         }
       }
-      if (k == null)
+      k ??= new SoKurse
       {
-        k = new SoKurse
-        {
-          Close = inv.ShareValue,
-          Datum = inv.MinDate ?? daten.Heute,
-          Bewertung = "EUR",
-          Price = 1,
-        };
-      }
+        Close = inv.ShareValue,
+        Datum = inv.MinDate ?? daten.Heute,
+        Bewertung = "EUR",
+        Price = 1,
+      };
       CalculateInvestment(daten, inv, blist, k);
       if (k1 != null)
       {
@@ -1402,17 +1399,16 @@ public class StockService : ServiceBase, IStockService
       if (k != null)
         k.Bezeichnung = PnfChart.GetBezeichnung(k.Bezeichnung, 0, k.Scale, k.Reversal, k.Method, k.Relative, k.Duration);
     }
-    if (k == null)
-      k = new WpKonfiguration
-      {
-        Bezeichnung = "",
-        Duration = 182, // half year
-        Box = 1,
-        Scale = 2, // dynamic
-        Reversal = 3,
-        Method = 4, // Open high low close
-        Relative = false,
-      };
+    k ??= new WpKonfiguration
+    {
+      Bezeichnung = "",
+      Duration = 182, // half year
+      Box = 1,
+      Scale = 2, // dynamic
+      Reversal = 3,
+      Method = 4, // Open high low close
+      Relative = false,
+    };
     var from = date.AddDays(-k.Duration);
     var dictlist = new Dictionary<string, List<SoKurse>>();
     var dictresponse = new Dictionary<string, StockUrl>();
@@ -1695,7 +1691,7 @@ public class StockService : ServiceBase, IStockService
     var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
     if (wp != null)
     {
-      var to = date.AddDays(1);
+      var to = date.AddDays(0); // 1
       var from = to.AddDays(-7);
       var l = GetPriceListIntern(daten, from, to, wp.Datenquelle, wp.Kuerzel, wp.Type, "Y", 0);
       foreach (var p1 in l ?? new List<SoKurse>())

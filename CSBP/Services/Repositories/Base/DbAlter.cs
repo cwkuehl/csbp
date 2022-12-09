@@ -368,10 +368,7 @@ public partial class DbAlter
   private static List<string> Init(List<string> columns)
   {
     List<string> col = columns;
-    if (col == null)
-    {
-      col = new List<string>();
-    }
+    col ??= new List<string>();
     col.Clear();
     return col;
   }

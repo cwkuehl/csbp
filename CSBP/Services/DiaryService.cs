@@ -90,8 +90,7 @@ public class DiaryService : ServiceBase, IDiaryService
       if (!leer)
       {
         tbEintrag = new TbEintrag();
-        if (tbEintrag.Replikation_Uid == null)
-          tbEintrag.Replikation_Uid = Functions.GetUid();
+        tbEintrag.Replikation_Uid ??= Functions.GetUid();
         tbEintrag.Mandant_Nr = daten.MandantNr;
         tbEintrag.Datum = date;
         tbEintrag.Eintrag = entry;
@@ -102,8 +101,7 @@ public class DiaryService : ServiceBase, IDiaryService
     {
       if (Functions.CompString(entry, tbEintrag.Eintrag) != 0)
       {
-        if (tbEintrag.Replikation_Uid == null)
-          tbEintrag.Replikation_Uid = Functions.GetUid();
+        tbEintrag.Replikation_Uid ??= Functions.GetUid();
         tbEintrag.Eintrag = entry;
         TbEintragRep.Update(daten, tbEintrag);
       }

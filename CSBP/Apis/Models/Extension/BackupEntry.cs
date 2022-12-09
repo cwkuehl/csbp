@@ -80,8 +80,7 @@ public class BackupEntry : ModelBase
       {
         Functions.MachNichts();
       }
-    if (l == null)
-      l = new List<BackupEntry>();
+    l ??= new List<BackupEntry>();
     return l;
   }
 

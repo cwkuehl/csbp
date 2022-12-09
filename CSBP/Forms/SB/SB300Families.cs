@@ -202,8 +202,7 @@ public partial class SB300Families : CsbpBin
       if (f != null)
       {
         var dlg = Focus<SB200Ancestors>(SB200_title);
-        if (dlg != null)
-          dlg.OnAncestor(f.Mann_Uid);
+        dlg?.OnAncestor(f.Mann_Uid);
       }
     }
   }
@@ -220,8 +219,7 @@ public partial class SB300Families : CsbpBin
       if (f != null)
       {
         var dlg = Focus<SB200Ancestors>(SB200_title);
-        if (dlg != null)
-          dlg.OnAncestor(f.Frau_Uid);
+        dlg?.OnAncestor(f.Frau_Uid);
       }
     }
   }
@@ -238,8 +236,7 @@ public partial class SB300Families : CsbpBin
       if (!string.IsNullOrEmpty(cuid))
       {
         var dlg = Focus<SB200Ancestors>(SB200_title);
-        if (dlg != null)
-          dlg.OnAncestor(cuid);
+        dlg?.OnAncestor(cuid);
       }
     }
   }

@@ -320,8 +320,7 @@ public partial class SB200Ancestors : CsbpBin
     if (!string.IsNullOrEmpty(uid))
     {
       var f = Focus<SB300Families>(SB300_title);
-      if (f != null)
-        f.OnSpElternFamilie(uid);
+      f?.OnSpElternFamilie(uid);
     }
   }
 
@@ -334,8 +333,7 @@ public partial class SB200Ancestors : CsbpBin
     if (!string.IsNullOrEmpty(uid))
     {
       var f = Focus<SB300Families>(SB300_title);
-      if (f != null)
-        f.OnSpFamilienKind(uid);
+      f?.OnSpFamilienKind(uid);
     }
   }
 
