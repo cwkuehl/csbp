@@ -234,7 +234,6 @@ public class MainWindow : Window
     // this.RenderIconPixbuf("gtk-select-color", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-select-color.png", "png");
     SetupHandlers();
     var size = Parameter.GetDialogSize(typeof(MainWindow));
-    Console.WriteLine($"MainWindow Old size x {size.X} y {size.Y} w {size.Width} h {size.Height}");
     SetSizeRequest(size.Width, size.Height);
     DefaultWidth = size.Width;
     DefaultHeight = size.Height;
@@ -263,8 +262,7 @@ public class MainWindow : Window
           SetSizeRequest(0, 0);
           Window.GetGeometry(out int x0, out int y0, out int w, out int h);
           Window.GetOrigin(out int x, out int y);
-          //// Höhe der Titelleiste abziehen
-          Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y - CsbpBin.TitleHeight, w, h));
+          Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y, w, h));
         }
       });
     });

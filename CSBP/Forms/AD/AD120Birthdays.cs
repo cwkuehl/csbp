@@ -50,11 +50,12 @@ public partial class AD120Birthdays : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public AD120Birthdays(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public AD120Birthdays(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(AD120Birthdays), dt, p1, p)
   {
     datum = new Date(Builder.GetObject("datum").Handle)
     {
@@ -97,7 +98,7 @@ public partial class AD120Birthdays : CsbpBin
           Functions.ToInt32(tage.Text))) ?? new List<string>();
       if (l.Count <= 1)
       {
-        Application.Invoke((sender, e) => { dialog.Hide(); });
+        Application.Invoke((sender, e) => { CloseDialog(); });
         return;
       }
       SetText(geburtstage, string.Join("\n", l.ToArray()));
@@ -129,6 +130,6 @@ public partial class AD120Birthdays : CsbpBin
   {
     Parameter.AD120Days = Functions.ToInt32(tage.Text);
     Parameter.AD120Start = starten.Active;
-    dialog.Hide();
+    CloseDialog();
   }
 }

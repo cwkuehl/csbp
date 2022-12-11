@@ -35,11 +35,12 @@ public partial class AG420Encryption : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public AG420Encryption(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public AG420Encryption(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(AG420Encryption), dt, p1, p)
   {
     SetBold(password0);
     InitData(0);
@@ -82,7 +83,7 @@ public partial class AG420Encryption : CsbpBin
       return;
     }
     Response = password.Text;
-    dialog.Hide();
+    CloseDialog();
   }
 
   /// <summary>Handles Abbrechen.</summary>
@@ -91,6 +92,6 @@ public partial class AG420Encryption : CsbpBin
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
     Response = null;
-    dialog.Hide();
+    CloseDialog();
   }
 }

@@ -36,11 +36,12 @@ public partial class AD130Addresses : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public AD130Addresses(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-    : base(b, h, d, dt, p1, p)
+  public AD130Addresses(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+    : base(b, h, d, type ?? typeof(AD130Addresses), dt, p1, p)
   {
     SetBold(adressen0);
     InitData(0);
@@ -94,7 +95,7 @@ public partial class AD130Addresses : CsbpBin
   {
     var uid = GetValue<string>(adressen);
     Response = uid;
-    dialog.Hide();
+    CloseDialog();
   }
 
   /// <summary>Handles Abbrechen.</summary>
@@ -102,6 +103,6 @@ public partial class AD130Addresses : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 }

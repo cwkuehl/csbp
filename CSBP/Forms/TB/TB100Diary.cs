@@ -140,11 +140,12 @@ public partial class TB100Diary : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public TB100Diary(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public TB100Diary(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(TB100Diary), dt, p1, p)
   {
     date = new Date(Builder.GetObject("date").Handle)
     {

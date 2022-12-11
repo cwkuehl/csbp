@@ -100,11 +100,12 @@ public partial class WP220Interface : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public WP220Interface(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public WP220Interface(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(WP220Interface), dt, p1, p)
   {
     datum = new Date(Builder.GetObject("datum").Handle)
     {
@@ -317,7 +318,7 @@ public partial class WP220Interface : CsbpBin
     if (cancel.Length <= 0)
       cancel.Append("cancel");
     else
-      dialog.Hide();
+      CloseDialog();
   }
 
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.

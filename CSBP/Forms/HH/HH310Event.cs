@@ -80,11 +80,12 @@ public partial class HH310Event : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public HH310Event(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public HH310Event(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(HH310Event), dt, p1, p)
   {
     SetBold(bezeichnung0);
     SetBold(eText0);
@@ -128,7 +129,7 @@ public partial class HH310Event : CsbpBin
         {
           Application.Invoke((sender, e) =>
           {
-            dialog.Hide();
+            CloseDialog();
           });
           return;
         }
@@ -192,7 +193,7 @@ public partial class HH310Event : CsbpBin
       if (r.Ok)
       {
         UpdateParent();
-        dialog.Hide();
+        CloseDialog();
       }
     }
   }
@@ -213,6 +214,6 @@ public partial class HH310Event : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 }

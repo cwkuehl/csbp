@@ -55,11 +55,12 @@ public partial class FZ330Series : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public FZ330Series(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public FZ330Series(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(FZ330Series), dt, p1, p)
   {
     SetBold(name0);
     InitData(0);
@@ -88,7 +89,7 @@ public partial class FZ330Series : CsbpBin
         var k = Get(FactoryService.PrivateService.GetSeries(ServiceDaten, uid));
         if (k == null)
         {
-          Application.Invoke((sender, e) => { dialog.Hide(); });
+          Application.Invoke((sender, e) => { CloseDialog(); });
           return;
         }
         model = k;
@@ -134,7 +135,7 @@ public partial class FZ330Series : CsbpBin
       {
         UpdateParent();
         Response = series;
-        dialog.Hide();
+        CloseDialog();
       }
     }
   }
@@ -144,6 +145,6 @@ public partial class FZ330Series : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 }

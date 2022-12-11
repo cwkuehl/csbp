@@ -41,14 +41,16 @@ public partial class CsbpBin : Bin
   /// <param name="builder">Affected Builder.</param>
   /// <param name="handle">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="parameter1">1. parameter for dialog.</param>
   /// <param name="csbpparent">Affected parent dialog.</param>
-  public CsbpBin(Builder builder, IntPtr handle, Dialog d, DialogTypeEnum dt = DialogTypeEnum.Without, object parameter1 = null, CsbpBin csbpparent = null)
+  public CsbpBin(Builder builder, IntPtr handle, Dialog d, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object parameter1 = null, CsbpBin csbpparent = null)
     : base(handle)
   {
     Builder = builder;
     dialog = d;
+    ClassType = type;
     DialogType = dt;
     CsbpParent = csbpparent;
     Parameter1 = parameter1;
@@ -102,6 +104,9 @@ public partial class CsbpBin : Bin
   /// <summary>Gets or sets a value indicating whether events are active or not.</summary>
   protected bool EventsActive { get => eventsActive; set => eventsActive = value; }
 
+  /// <summary>Gets the dialog class type.</summary>
+  protected Type ClassType { get; private set; }
+
   /// <summary>Starts a modal or non modal dialog.</summary>
   /// <param name="type">Affected dialog class type.</param>
   /// <param name="title">Affected title.</param>
@@ -133,7 +138,7 @@ public partial class CsbpBin : Bin
 
     var dialog = new Dialog(title, p, f);
     var builder = GetBuilder(type.Name, out var handle);
-    var form = Activator.CreateInstance(type, builder, handle, dialog, dialogType, parameter1, csbpparent) as CsbpBin;
+    var form = Activator.CreateInstance(type, builder, handle, dialog, type, dialogType, parameter1, csbpparent) as CsbpBin;
     ////form.ShowAll();
     dialog.ContentArea.PackStart(form, true, true, 0);
     var size = Parameter.GetDialogSize(type);
@@ -144,32 +149,40 @@ public partial class CsbpBin : Bin
       dialog.SetPosition(WindowPosition.Center);
     else
       dialog.Move(size.X, size.Y);
-    var ob = Observable.FromEvent<SizeAllocatedHandler, SizeAllocatedArgs>(
-      h0 =>
-      {
-        void H(object sender, SizeAllocatedArgs e)
-        {
-          h0(e);
-        }
-        return H;
-      },
-      h => dialog.SizeAllocated += h, h => dialog.SizeAllocated -= h
-    ).Throttle(TimeSpan.FromMilliseconds(1000));
-    ob.Subscribe(e =>
+
+    // var ob = Observable.FromEvent<SizeAllocatedHandler, SizeAllocatedArgs>(
+    //   h0 =>
+    //   {
+    //     void H(object sender, SizeAllocatedArgs e)
+    //     {
+    //       h0(e);
+    //     }
+    //     return H;
+    //   },
+    //   h => dialog.SizeAllocated += h, h => dialog.SizeAllocated -= h
+    // ).Throttle(TimeSpan.FromMilliseconds(1000));
+    // ob.Subscribe(e =>
+    // {
+    //   // Possibly for closing by x.
+    //   Application.Invoke((sender, e1) =>
+    //   {
+    //     if (dialog.Window != null)
+    //     {
+    //       dialog.Window.GetGeometry(out int x0, out int y0, out int w, out int h);
+    //       dialog.Window.GetOrigin(out int x, out int y);
+    //       Parameter.SetDialogSize(type, new Rectangle(x, y, w, h));
+    //     }
+    //   });
+    // });
+    dialog.DeleteEvent += (sender, e) =>
     {
-      Application.Invoke((sender, e1) =>
+      if (dialog?.Window != null)
       {
-        if (dialog.Window != null)
-        {
-          dialog.Window.GetGeometry(out int x0, out int y0, out int w, out int h);
-          dialog.Window.GetOrigin(out int x, out int y);
-          //// Subtracts title height.
-          Parameter.SetDialogSize(type, new Rectangle(x, y - TitleHeight, w, h));
-          //// Console.WriteLine($"{x} {y} {w} {h}");
-          //// Console.WriteLine($"{DateTime.Now}");
-        }
-      });
-    });
+        dialog.Window.GetGeometry(out int x0, out int y0, out int w, out int h);
+        dialog.Window.GetOrigin(out int x, out int y);
+        Parameter.SetDialogSize(type, new Rectangle(x, y, w, h));
+      }
+    };
     dialog.DefaultResponse = ResponseType.Cancel;
     var def = form.GetDefaultButton();
     if (def != null)
@@ -628,8 +641,7 @@ public partial class CsbpBin : Bin
   protected virtual void UpdateParent()
   {
     var p = CsbpParent;
-    if (p != null)
-      p.UpdateParent();
+    p?.UpdateParent();
   }
 
   /// <summary>
@@ -639,8 +651,7 @@ public partial class CsbpBin : Bin
   /// <returns>Default button as Widget or null.</returns>
   protected Widget GetDefaultButton(Container con = null)
   {
-    if (con == null)
-      con = this;
+    con ??= this;
     var array = con.Children;
     foreach (var c in array)
     {
@@ -973,6 +984,20 @@ public partial class CsbpBin : Bin
   }
 
   /// <summary>
+  /// Close non modal dialog.
+  /// </summary>
+  protected void CloseDialog()
+  {
+    if (dialog.Window != null)
+    {
+      dialog.Window.GetGeometry(out _, out _, out int w, out int h);
+      dialog.Window.GetOrigin(out int x, out int y);
+      Parameter.SetDialogSize(ClassType, new Rectangle(x, y, w, h));
+    }
+    dialog.Dispose();
+  }
+
+  /// <summary>
   /// Matches two strings: first letter must match, the following must appear in sequence.
   /// </summary>
   /// <param name="s">First string.</param>
@@ -1003,10 +1028,8 @@ public partial class CsbpBin : Bin
   /// <returns>List of child controls.</returns>
   private List<Widget> GetChildren(Container con = null, List<Widget> l = null)
   {
-    if (con == null)
-      con = this;
-    if (l == null)
-      l = new List<Widget>();
+    con ??= this;
+    l ??= new List<Widget>();
     var array = con.Children;
     foreach (var c in array)
     {

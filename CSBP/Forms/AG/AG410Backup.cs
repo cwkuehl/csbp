@@ -66,11 +66,12 @@ public partial class AG410Backup : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public AG410Backup(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public AG410Backup(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(AG410Backup), dt, p1, p)
   {
     SetBold(quelle0);
     SetBold(ziel0);
@@ -142,7 +143,7 @@ public partial class AG410Backup : CsbpBin
       if (r.Ok)
       {
         UpdateParent();
-        dialog.Hide();
+        CloseDialog();
       }
     }
   }
@@ -152,6 +153,6 @@ public partial class AG410Backup : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 }

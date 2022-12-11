@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using CSBP.Forms;
 using CSBP.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -400,6 +401,7 @@ public class Parameter
       }
     }
     l ??= new[] { -1, -1, 400, 300 };
+    Console.WriteLine($"{type.Name} Old size x {l[0]} y {l[1]} w {l[2]} h {l[3]} {DateTime.Now:HH:mm:ss.fff}");
     return new Rectangle(l[0], l[1], l[2], l[3]);
   }
 
@@ -410,12 +412,26 @@ public class Parameter
   /// <param name="l">Affected dialog size as rectangle.</param>
   public static void SetDialogSize(Type type, Rectangle l)
   {
+    var th0 = CsbpBin.TitleHeight; // Functions.IsLinux() ? 37 : 0;
+    var th = l.X < 1920 ? CsbpBin.TitleHeight : 0; // Title height only on the left screen.
+    var y = l.Y - th;
+    var l0 = GetDialogSize(type);
+    if (th0 > 0 && l.X == l0.X && l.Width == l0.Width && l.Height == l0.Height)
+    {
+      if (y - th0 == l0.Y || y + th0 == l0.Y)
+        y = l0.Y;
+    }
+
+    // if (l.X == l0.X && (y == l0.Y || y - th0 == l0.Y) && l.Width == l0.Width && l.Height == l0.Height)
+    // {
+    //   Console.WriteLine($"{type.Name} New size x {l.X} y {y} w {l.Width} h {l.Height} {DateTime.Now:HH:mm:ss.fff} th {th} th0 {th0} ignored");
+    //   return;
+    // }
     var key = GetDialogKey(type);
-    var bytes = Functions.Serialize(new[] { l.X, l.Y, l.Width, l.Height });
+    var bytes = Functions.Serialize(new[] { l.X, y, l.Width, l.Height });
     var v = Convert.ToBase64String(bytes);
     SetValue(key, v);
-    Console.WriteLine($"{type.Name} New size x {l.X} y {l.Y} w {l.Width} h {l.Height}");
-    //// Console.WriteLine($"{DateTime.Now}");
+    Console.WriteLine($"{type.Name} New size x {l.X} y {y} w {l.Width} h {l.Height} {DateTime.Now:HH:mm:ss.fff} th {th} th0 {th0}");
   }
 
   /// <summary>

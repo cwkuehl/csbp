@@ -42,11 +42,12 @@ public partial class AM510Dialogs : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public AM510Dialogs(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public AM510Dialogs(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(AM510Dialogs), dt, p1, p)
   {
     // SetBold(client0);
     InitData(0);
@@ -188,7 +189,7 @@ public partial class AM510Dialogs : CsbpBin
     if (Get(FactoryService.ClientService.SaveOption(daten, daten.MandantNr,
         Parameter.Params[Parameter.AG_STARTDIALOGE], sd)))
     {
-      dialog.Hide();
+      CloseDialog();
     }
   }
 
@@ -197,7 +198,7 @@ public partial class AM510Dialogs : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 
   /// <summary>

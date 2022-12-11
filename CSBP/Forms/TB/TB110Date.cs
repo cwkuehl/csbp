@@ -43,11 +43,12 @@ public partial class TB110Date : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public TB110Date(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public TB110Date(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(TB110Date), dt, p1, p)
   {
     date = new Date(Builder.GetObject("datum").Handle)
     {
@@ -90,7 +91,7 @@ public partial class TB110Date : CsbpBin
         var k = Get(FactoryService.DiaryService.GetPosition(daten, p.Item1));
         if (k == null)
         {
-          Application.Invoke((sender, e) => { dialog.Hide(); });
+          Application.Invoke((sender, e) => { CloseDialog(); });
           return;
         }
         SetText(nr, k.Uid);
@@ -122,7 +123,7 @@ public partial class TB110Date : CsbpBin
     }
     var d = date.ValueNn;
     Response = d;
-    dialog.Hide();
+    CloseDialog();
   }
 
   /// <summary>Handles Abbrechen.</summary>
@@ -130,6 +131,6 @@ public partial class TB110Date : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 }

@@ -68,11 +68,12 @@ public partial class WP510Price : CsbpBin
   /// <param name="b">Affected Builder.</param>
   /// <param name="h">Affected handle from Builder.</param>
   /// <param name="d">Affected embedded dialog.</param>
+  /// <param name="type">Affected dialog class type.</param>
   /// <param name="dt">Affected dialog type.</param>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
-  public WP510Price(Builder b, IntPtr h, Dialog d = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
-      : base(b, h, d, dt, p1, p)
+  public WP510Price(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
+      : base(b, h, d, type ?? typeof(WP510Price), dt, p1, p)
   {
     valuta = new Date(Builder.GetObject("valuta").Handle)
     {
@@ -118,7 +119,7 @@ public partial class WP510Price : CsbpBin
         var k = Get(FactoryService.StockService.GetPrice(ServiceDaten, key.Item1, key.Item2.Value));
         if (k == null)
         {
-          Application.Invoke((sender, e) => { dialog.Hide(); });
+          Application.Invoke((sender, e) => { CloseDialog(); });
           return;
         }
         model = k;
@@ -177,7 +178,7 @@ public partial class WP510Price : CsbpBin
         // Saves last valuta.
         lastvaluta = valuta.Value ?? lastvaluta;
         UpdateParent();
-        dialog.Hide();
+        CloseDialog();
       }
     }
   }
@@ -187,6 +188,6 @@ public partial class WP510Price : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    dialog.Hide();
+    CloseDialog();
   }
 }
