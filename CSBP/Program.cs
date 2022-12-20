@@ -164,8 +164,8 @@ public class MainClass
         }
         if (Parameter.AD120Start)
         {
-          // Geburtstagsliste starten
-          CsbpBin.Start(typeof(AD120Birthdays), AD120_title);
+          // Show birthday list.
+          CsbpBin.Start(typeof(AD120Birthdays), AD120_title, parameter1: true);
         }
       }
     }

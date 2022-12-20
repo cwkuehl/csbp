@@ -96,7 +96,8 @@ public partial class AD120Birthdays : CsbpBin
     {
       var l = Get(FactoryService.AddressService.GetBirthdayList(daten, datum.ValueNn,
           Functions.ToInt32(tage.Text))) ?? new List<string>();
-      if (l.Count <= 1)
+      var optional = Parameter1 != null;
+      if (l.Count <= 1 && optional)
       {
         Application.Invoke((sender, e) => { CloseDialog(); });
         return;
