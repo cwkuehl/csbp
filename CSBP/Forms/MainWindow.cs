@@ -7,8 +7,10 @@ namespace CSBP.Forms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Text;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Services;
 using CSBP.Base;
@@ -259,8 +261,8 @@ public class MainWindow : Window
       {
         if (Window != null && Visible)
         {
-          SetSizeRequest(0, 0);
-          Window.GetGeometry(out int x0, out int y0, out int w, out int h);
+          SetSizeRequest(0, 0); // Enable MainWindow to get smaller
+          Window.GetGeometry(out int _, out int _, out int w, out int h);
           Window.GetOrigin(out int x, out int y);
           Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y, w, h));
         }
@@ -340,6 +342,26 @@ public class MainWindow : Window
     // MenuInvestments.Activate();
     // MenuBookings3.Activate();
     // MenuPrices.Activate();
+    if (Functions.MachNichts() != 0)
+    {
+      var alist = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.GetName().Name).ToList();
+      var sb = new StringBuilder();
+      foreach (var assembly in alist)
+      {
+        var name = assembly.GetName();
+        var loc = "not available";
+        try
+        {
+          loc = assembly.Location;
+        }
+        catch (Exception)
+        {
+          // Ignore.
+        }
+        sb.Append($"Name={name.Name} Version={name.Version} Location={loc}").Append(Constants.CRLF);
+      }
+      ServiceBase.Log.Warn(sb.ToString());
+    }
   }
 
   /// <summary>Resets the main window position and size.</summary>

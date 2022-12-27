@@ -142,9 +142,8 @@ public partial class CsbpBin : Bin
     ////form.ShowAll();
     dialog.ContentArea.PackStart(form, true, true, 0);
     var size = Parameter.GetDialogSize(type);
-    dialog.DefaultWidth = size.Width;
-    dialog.DefaultHeight = size.Height;
-    ////dialog.SetSizeRequest(200, 100);
+    //// dialog.SetSizeRequest(size.Width, size.Height); // Window doesn't get smaller than that.
+    dialog.SetDefaultSize(size.Width, size.Height);
     if (size.X == -1 && size.Y == -1)
       dialog.SetPosition(WindowPosition.Center);
     else
@@ -178,8 +177,19 @@ public partial class CsbpBin : Bin
     {
       if (dialog?.Window != null)
       {
-        dialog.Window.GetGeometry(out int x0, out int y0, out int w, out int h);
+        // dialog.SetSizeRequest(0, 0);
+        // dialog.Window.GetPosition(out x, out y);
+        // Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
+        dialog.Window.GetGeometry(out int _, out int _, out int w, out int h);
+        //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetGeometry x {x} y {y} w {w} h {h} {DateTime.Now:HH:mm:ss.fff}");
         dialog.Window.GetOrigin(out int x, out int y);
+        //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetOrigin x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
+        dialog.GetSize(out w, out h); // better than dialog.Window.GetGeometry(out x, out y, out w, out h);
+        //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Gtk.GetSize w {w} h {h} {DateTime.Now:HH:mm:ss.fff}");
+        //// dialog.GetPosition(out x, out y);
+        //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Gtk.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
+        //// dialog.GetOrigin(out x, out y);
+        //// Services.Base.ServiceBase.Log.Warn($"{type.Name} GetOrigin x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
         Parameter.SetDialogSize(type, new Rectangle(x, y, w, h));
       }
     };
@@ -990,8 +1000,10 @@ public partial class CsbpBin : Bin
   {
     if (dialog.Window != null)
     {
+      // dialog.SetSizeRequest(0, 0);
       dialog.Window.GetGeometry(out _, out _, out int w, out int h);
       dialog.Window.GetOrigin(out int x, out int y);
+      //// dialog.Window.GetPosition(out int x, out int y);
       Parameter.SetDialogSize(ClassType, new Rectangle(x, y, w, h));
     }
     dialog.Dispose();

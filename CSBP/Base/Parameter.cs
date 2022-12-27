@@ -401,7 +401,15 @@ public class Parameter
       }
     }
     l ??= new[] { -1, -1, 400, 300 };
-    Console.WriteLine($"{type.Name} Old size x {l[0]} y {l[1]} w {l[2]} h {l[3]} {DateTime.Now:HH:mm:ss.fff}");
+    //// var s = $"{type.Name} Old size x {l[0]} y {l[1]} w {l[2]} h {l[3]} {DateTime.Now:HH:mm:ss.fff}";
+    //// Services.Base.ServiceBase.Log.Warn(s);
+    //// if (type.Name == "MainWindow")
+    ////   Console.WriteLine(s);
+    //// else
+    ////   Gtk.Application.Invoke((sender, e) =>
+    ////   {
+    ////     MainClass.MainWindow.SetError(s);
+    ////   });
     return new Rectangle(l[0], l[1], l[2], l[3]);
   }
 
@@ -414,7 +422,7 @@ public class Parameter
   {
     var th0 = CsbpBin.TitleHeight; // Functions.IsLinux() ? 37 : 0;
     var th = l.X < 1920 ? CsbpBin.TitleHeight : 0; // Title height only on the left screen.
-    var y = l.Y - th;
+    var y = Math.Max(0, l.Y - th);
     var l0 = GetDialogSize(type);
     if (th0 > 0 && l.X == l0.X && l.Width == l0.Width && l.Height == l0.Height)
     {
@@ -431,7 +439,15 @@ public class Parameter
     var bytes = Functions.Serialize(new[] { l.X, y, l.Width, l.Height });
     var v = Convert.ToBase64String(bytes);
     SetValue(key, v);
-    Console.WriteLine($"{type.Name} New size x {l.X} y {y} w {l.Width} h {l.Height} {DateTime.Now:HH:mm:ss.fff} th {th} th0 {th0}");
+    //// var s = $"{type.Name} New size x {l.X} y {y} w {l.Width} h {l.Height} {DateTime.Now:HH:mm:ss.fff} th {th} th0 {th0}";
+    //// Services.Base.ServiceBase.Log.Warn(s);
+    //// if (type.Name == "MainWindow")
+    ////   Console.WriteLine(s);
+    //// else
+    ////   Gtk.Application.Invoke((sender, e) =>
+    ////   {
+    ////     MainClass.MainWindow.SetError(s);
+    ////   });
   }
 
   /// <summary>
