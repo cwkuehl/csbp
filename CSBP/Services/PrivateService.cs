@@ -784,12 +784,13 @@ public class PrivateService : ServiceBase, IPrivateService
       // Bike statistics
       var summe = 0M;
       var summeJahr = 0M;
+      var sumyear1 = 0M;
       const int laenge = 18;
       DateTime? anfangMin = null;
       var anzahlTageMax = 0;
       const decimal jahresTage = 365.25M;
       var sb = new StringBuilder();
-      var aktJahr = date.AddDays(1 - date.DayOfYear);
+      var aktJahr = date.AddDays(1 - date.DayOfYear); // 01.01.
       var fliste = FzFahrradRep.GetList(daten, daten.MandantNr).OrderBy(a => a.Bezeichnung);
       foreach (var vo in fliste)
       {
@@ -798,6 +799,7 @@ public class PrivateService : ServiceBase, IPrivateService
           jetzt1 = Functions.Sunday(jetzt1);
         var km = FzFahrradstandRep.Count(daten, vo.Uid, null, jetzt1);
         var kmJahr = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr, jetzt1);
+        var kmyear1 = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr.AddYears(-1), aktJahr.AddDays(-1));
         var anzahlTage = 0;
         var liste = FzFahrradstandRep.GetList(daten, vo.Uid, datele: jetzt1, desc: false, max: 1);
         DateTime? anfang = null;
@@ -812,9 +814,10 @@ public class PrivateService : ServiceBase, IPrivateService
         }
         summe += km;
         summeJahr += kmJahr;
+        sumyear1 += kmyear1;
         if (sb.Length > 0)
           sb.Append(Constants.CRLF);
-        sb.Append(FZ016(Functions.Cut((vo.Bezeichnung + ": ").PadRight(laenge, ' '), laenge), km, kmJahr));
+        sb.Append(FZ016(Functions.Cut((vo.Bezeichnung + ": ").PadRight(laenge, ' '), laenge), km, kmJahr, kmyear1));
         if (anzahlTage > 0)
         {
           sb.Append(Constants.CRLF).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfang) + ": ").PadRight(laenge, ' '), laenge),
@@ -823,7 +826,7 @@ public class PrivateService : ServiceBase, IPrivateService
       }
       if (anzahlTageMax > 0)
       {
-        sb.Append(Constants.CRLF).Append(FZ016(Functions.Cut((M0(FZ018) + ": ").PadRight(laenge, ' '), laenge), summe, summeJahr));
+        sb.Append(Constants.CRLF).Append(FZ016(Functions.Cut((M0(FZ018) + ": ").PadRight(laenge, ' '), laenge), summe, summeJahr, sumyear1));
         sb.Append(Constants.CRLF).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfangMin) + ": ").PadRight(laenge, ' '), laenge),
           summe / anzahlTageMax, summe / anzahlTageMax * jahresTage));
       }

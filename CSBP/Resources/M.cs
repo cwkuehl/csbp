@@ -54,7 +54,7 @@ public class M : Messages
 
   public static string FZ015(decimal l, bool cut = true) => string.Format(M0(FZ015_, cut), l);
 
-  public static string FZ016(string s, decimal k, decimal y, bool cut = true) => string.Format(M0(FZ016_, cut), s, k, y);
+  public static string FZ016(string s, decimal k, decimal y, decimal y1, bool cut = true) => string.Format(M0(FZ016_, cut), s, k, y, y1);
 
   public static string FZ017(string s, decimal k, decimal y, bool cut = true) => string.Format(M0(FZ017_, cut), s, k, y);
 

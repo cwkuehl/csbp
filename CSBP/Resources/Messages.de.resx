@@ -170,7 +170,7 @@
         <value>FZ015Gelesene Seiten/Tag:  {0:#,##0.0000}</value>
     </data>
     <data name="FZ016_" xml:space="preserve">
-        <value>FZ016{0}{1:#,##0} ({2:#,##0}) km</value>
+        <value>FZ016{0}{1:#,##0} ({2:#,##0} {3:#,##0}) km</value>
     </data>
     <data name="FZ017_" xml:space="preserve">
         <value>FZ017{0}{1:#,##0.0000} km/Tag ({2:#,##0.0000} km/Jahr)</value>
