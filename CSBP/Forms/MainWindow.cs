@@ -261,10 +261,10 @@ public class MainWindow : Window
       {
         if (Window != null && Visible)
         {
-          SetSizeRequest(0, 0); // Enable MainWindow to get smaller
-          Window.GetGeometry(out int _, out int _, out int w, out int h);
-          Window.GetOrigin(out int x, out int y);
-          Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y, w, h));
+          SetSizeRequest(0, 0); // Enables MainWindow to get smaller
+          //// Window.GetGeometry(out int _, out int _, out int w, out int h);
+          //// Window.GetOrigin(out int x, out int y);
+          //// Parameter.SetDialogSize(typeof(MainWindow), new Rectangle(x, y, w, h));
         }
       });
     });

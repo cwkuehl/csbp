@@ -112,6 +112,18 @@ public class MainClass
   /// <summary>Closes all tabs and the application and saves all parameters.</summary>
   public static void Quit()
   {
+    if (MainWindow != null)
+    {
+      // MainWindow.Window.GetGeometry(out int _, out int _, out int w, out int h);
+      MainWindow.GetSize(out int w, out int h); // better than MainWindow.Window.GetGeometry(out x, out y, out w, out h);
+      //// MainWindow.Window.GetOrigin(out x, out y);
+      //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.Window.GetOrigin x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
+      //// MainWindow.Window.GetPosition(out x, out y);
+      //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.Window.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
+      MainWindow.GetPosition(out int x, out int y); // gets also values for x <= 37.
+      //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
+      Parameter.SetDialogSize(typeof(MainWindow), new System.Drawing.Rectangle(x, y, w, h));
+    }
     MainWindow.ClosePages();
     Parameter.Save();
     Application.Quit();

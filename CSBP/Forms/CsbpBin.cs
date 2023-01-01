@@ -180,11 +180,11 @@ public partial class CsbpBin : Bin
         // dialog.SetSizeRequest(0, 0);
         // dialog.Window.GetPosition(out x, out y);
         // Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
-        dialog.Window.GetGeometry(out int _, out int _, out int w, out int h);
-        //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetGeometry x {x} y {y} w {w} h {h} {DateTime.Now:HH:mm:ss.fff}");
+        // dialog.Window.GetGeometry(out int _, out int _, out int w, out int h);
+        // Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetGeometry x {x} y {y} w {w} h {h} {DateTime.Now:HH:mm:ss.fff}");
         dialog.Window.GetOrigin(out int x, out int y);
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Window.GetOrigin x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
-        dialog.GetSize(out w, out h); // better than dialog.Window.GetGeometry(out x, out y, out w, out h);
+        dialog.GetSize(out int w, out int h); // better than dialog.Window.GetGeometry(out x, out y, out w, out h);
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Gtk.GetSize w {w} h {h} {DateTime.Now:HH:mm:ss.fff}");
         //// dialog.GetPosition(out x, out y);
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Gtk.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");

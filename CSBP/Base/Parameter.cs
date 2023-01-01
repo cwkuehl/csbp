@@ -402,8 +402,8 @@ public class Parameter
     }
     l ??= new[] { -1, -1, 400, 300 };
     //// var s = $"{type.Name} Old size x {l[0]} y {l[1]} w {l[2]} h {l[3]} {DateTime.Now:HH:mm:ss.fff}";
-    //// Services.Base.ServiceBase.Log.Warn(s);
     //// if (type.Name == "MainWindow")
+    ////   Services.Base.ServiceBase.Log.Warn(s);
     ////   Console.WriteLine(s);
     //// else
     ////   Gtk.Application.Invoke((sender, e) =>
@@ -440,8 +440,8 @@ public class Parameter
     var v = Convert.ToBase64String(bytes);
     SetValue(key, v);
     //// var s = $"{type.Name} New size x {l.X} y {y} w {l.Width} h {l.Height} {DateTime.Now:HH:mm:ss.fff} th {th} th0 {th0}";
-    //// Services.Base.ServiceBase.Log.Warn(s);
     //// if (type.Name == "MainWindow")
+    ////   Services.Base.ServiceBase.Log.Warn(s);
     ////   Console.WriteLine(s);
     //// else
     ////   Gtk.Application.Invoke((sender, e) =>
