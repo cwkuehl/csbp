@@ -791,7 +791,7 @@ public class PrivateService : ServiceBase, IPrivateService
       const decimal jahresTage = 365.25M;
       var sb = new StringBuilder();
       var aktJahr = date.AddDays(1 - date.DayOfYear); // 01.01.
-      var fliste = FzFahrradRep.GetList(daten, daten.MandantNr).OrderBy(a => a.Bezeichnung);
+      var fliste = FzFahrradRep.GetList(daten, daten.MandantNr).OrderBy(a => a.Bezeichnung).ToList();
       foreach (var vo in fliste)
       {
         var jetzt1 = date;

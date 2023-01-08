@@ -99,7 +99,7 @@ public partial class FZ100Statistics : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      datum.Value = ServiceDaten.Jetzt;
+      datum.Value = ServiceDaten.Heute;
       EventsActive = true;
     }
     if (step <= 1)
