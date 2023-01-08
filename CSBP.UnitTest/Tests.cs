@@ -41,13 +41,13 @@ public class Tests
       t.MachNichts();
     if (Functions.MachNichts() != 0)
       t.GenerateForm();
-    if (Functions.MachNichts() == 0)
-      t.GenerateResxDesigner();
-    if (Functions.MachNichts() == 0)
-      t.GenerierenReps();
-    if (Functions.MachNichts() == 0)
-      t.GenerierenModelCs();
     if (Functions.MachNichts() != 0)
+      t.GenerateResxDesigner();
+    if (Functions.MachNichts() != 0)
+      t.GenerierenReps();
+    if (Functions.MachNichts() != 0)
+      t.GenerierenModelCs();
+    if (Functions.MachNichts() == 0)
       t.Tls();
   }
 
@@ -691,10 +691,11 @@ public partial class {filename}
     if (Functions.MachNichts() == 0)
     {
       // The request was canceled due to the configured HttpClient.Timeout of 5 seconds elapsing.
-      url = "https://www.onvista.de/onvista/boxes/historicalquote/export.csv?notationId=9385716&dateStart=20.08.2021&interval=Y1";
+      // Probably error after firmware update 2022-01-03.
+      url = "https://api.onvista.de/api/v1/instruments/STOCK/179565893/simple_chart_history?chartType=PRICE&endDate=2023-01-05&idNotation=302403043&startDate=2022-12-28&withEarnings=true";
       //// url = "https://query1.finance.yahoo.com/v7/finance/chart/GC=F?period1=1628294400&period2=1628899200&interval=1d&indicators=quote&includeTimestamps=true";
       // httpsclient.Timeout = TimeSpan.FromMilliseconds(10000);
-      httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
+      httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0");
       var wr = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
       _ = httpsclient.Send(wr);
     }
