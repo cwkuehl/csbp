@@ -92,6 +92,16 @@ public partial class Messages
     get { return rm.GetString("parm.WP_FIXER_IO_ACCESS_KEY.text"); }
   }
 
+  public static string parm_TB_OPENWEATHERMAP_ORG_ACCESS_KEY_value
+  {
+    get { return rm.GetString("parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.value"); }
+  }
+
+  public static string parm_TB_OPENWEATHERMAP_ORG_ACCESS_KEY_text
+  {
+    get { return rm.GetString("parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.text"); }
+  }
+
   public static string AD001_
   {
     get { return rm.GetString("AD001_"); }

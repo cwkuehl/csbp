@@ -54,6 +54,12 @@
     <data name="parm.WP_FIXER_IO_ACCESS_KEY.text" xml:space="preserve">
         <value>Bitte Access Key für Währungskurse von https://fixer.io eintragen.</value>
     </data>
+    <data name="parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.text" xml:space="preserve">
+        <value>Bitte Access Key für Wetterdaten von http://api.openweathermap.org eintragen.</value>
+    </data>
 
     <data name="AG001" xml:space="preserve">
         <value>AG001Sind Sie sicher, dass die Rücksicherung durchgeführt werden soll?</value>

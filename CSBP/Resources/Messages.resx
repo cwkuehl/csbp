@@ -54,6 +54,12 @@
     <data name="parm.WP_FIXER_IO_ACCESS_KEY.text" xml:space="preserve">
         <value>Type in access key for currency rates of https://fixer.io.</value>
     </data>
+    <data name="parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.text" xml:space="preserve">
+        <value>Type in access key for weather data of http://api.openweathermap.org.</value>
+    </data>
 
     <data name="AD001_" xml:space="preserve">
         <value>AD001Birthdays between {0:yyyy-MM-dd} and {1:yyyy-MM-dd}:</value>

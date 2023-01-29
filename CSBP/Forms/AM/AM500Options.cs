@@ -67,17 +67,19 @@ public partial class AM500Options : CsbpBin
     {
       model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr,
         Parameter.Params)) ?? new List<MaParameter>();
-#pragma warning disable CS0618
-      store = AddStringColumns(einstellungen, AM500_einstellungen_columns);
-#pragma warning restore CS0618
+      var values = new List<string[]>();
       foreach (var e in model)
       {
-        // Client;Key;Value_e;Comment;Default;Changed at;Changed by;Created at;Created by
-        store.AppendValues(Functions.ToString(e.Mandant_Nr), e.Schluessel,
-          Functions.ToString(e.Wert), Functions.ToString(e.Comment), Functions.ToString(e.Default),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von);
+        // No.;Description;Latitude_r;Longitude_r;From;To;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+        Functions.ToString(e.Mandant_Nr), e.Schluessel,
+        Functions.ToString(e.Wert), Functions.ToString(e.Comment), Functions.ToString(e.Default),
+        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
       }
+      store = AddStringColumnsSort(einstellungen, AM500_einstellungen_columns, values);
     }
   }
 

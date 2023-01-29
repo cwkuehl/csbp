@@ -882,7 +882,8 @@ public partial class CsbpBin : Bin
   /// <param name="tv">Affected TreeView.</param>
   /// <param name="headers">Affected header titles.</param>
   /// <param name="values">List of row values.</param>
-  protected void AddStringColumnsSort(TreeView tv, string headers, List<string[]> values = null)
+  /// <returns>TreeStore with values.<returns>
+  protected TreeStore AddStringColumnsSort(TreeView tv, string headers, List<string[]> values = null)
   {
     var titles = headers.Split(';');
     if (titles.Length <= 1)
@@ -891,7 +892,7 @@ public partial class CsbpBin : Bin
     for (var i = 0; i < titles.Length; i++)
       types[i] = typeof(string);
     //// types[i] = titles[i].EndsWith("_r", StringComparison.InvariantCulture) ? typeof(decimal) : typeof(string);
-    AddColumnsSort(tv, titles, types, values: values);
+    return AddColumnsSort(tv, titles, types, values: values);
   }
 
   /// <summary>
@@ -902,7 +903,8 @@ public partial class CsbpBin : Bin
   /// <param name="types">Affected column value types.</param>
   /// <param name="editable">Are the columns editable or not.</param>
   /// <param name="values">List of row values.</param>
-  protected void AddColumnsSort(TreeView tv, string[] titles, Type[] types, bool editable = false,
+  /// <returns>TreeStore with values.<returns>
+  protected TreeStore AddColumnsSort(TreeView tv, string[] titles, Type[] types, bool editable = false,
       List<string[]> values = null)
   {
     foreach (var c in tv.Columns)
@@ -941,6 +943,7 @@ public partial class CsbpBin : Bin
     }
     else
       tv.EnableSearch = false;
+    return store;
   }
 
   /// <summary>Select a file name.</summary>
@@ -1128,6 +1131,17 @@ public partial class CsbpBin : Bin
     var store = cr.Data["store"] as TreeStore;
     var flist = cr.Data["flist"] as Formulas;
     //// Debug.Print($"TableCell_Edited cnr {cnr}");
+    if (flist == null)
+    {
+      var path = new TreePath(args.Path);
+      store.GetIter(out var it, path);
+      var v = default(GLib.Value);
+      store.GetValue(it, cnr, ref v);
+      var val = v.Val as string;
+      var newtext = args.NewText;
+      if (val != newtext)
+        store.SetValue(it, cnr, newtext);
+    }
     flist?.EndEdit(store, cnr, args);
   }
 
