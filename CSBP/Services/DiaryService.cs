@@ -449,6 +449,24 @@ public class DiaryService : ServiceBase, IDiaryService
   }
 
   /// <summary>
+  /// Gets a list of timezones.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of timezones.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetTimezoneList(ServiceDaten daten)
+  {
+    var l = new List<MaParameter>
+    {
+      new MaParameter { Schluessel = "America/New_York", Wert = "America/New_York UTC -5:00" },
+      new MaParameter { Schluessel = "Europe/London", Wert = "Europe/London UTC +0:00" },
+      new MaParameter { Schluessel = "Europe/Berlin", Wert = "Europe/Berlin UTC +1:00" },
+      new MaParameter { Schluessel = "Europe/Kiev", Wert = "Europe/Kiev UTC +2:00" },
+      new MaParameter { Schluessel = "Asia/Dubai", Wert = "Asia/Dubai UTC +4:00" },
+    };
+    return new ServiceErgebnis<List<MaParameter>>(l);
+  }
+
+  /// <summary>
   /// Optimizes the positions, i.e. lengthening or filling gaps.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

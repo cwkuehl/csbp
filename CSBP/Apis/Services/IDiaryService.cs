@@ -105,4 +105,11 @@ public interface IDiaryService
   /// <param name="e">Affected entity.</param>
   /// <returns>Possibly errors.</returns>
   ServiceErgebnis DeletePosition(ServiceDaten daten, TbOrt e);
+
+  /// <summary>
+  /// Gets a list of timezones.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of timezones.</returns>
+  ServiceErgebnis<List<MaParameter>> GetTimezoneList(ServiceDaten daten);
 }

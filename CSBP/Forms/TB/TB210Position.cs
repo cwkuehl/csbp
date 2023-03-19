@@ -50,6 +50,10 @@ public partial class TB210Position : CsbpBin
   [Builder.Object]
   private readonly Entry hoehe;
 
+  /// <summary>ComboBox zeitzone.</summary>
+  [Builder.Object]
+  private readonly ComboBox zeitzone;
+
   /// <summary>TextView notiz.</summary>
   [Builder.Object]
   private readonly TextView notiz;
@@ -109,6 +113,8 @@ public partial class TB210Position : CsbpBin
       var neu = DialogType == DialogTypeEnum.New;
       var loeschen = DialogType == DialogTypeEnum.Delete;
       var aendern = DialogType == DialogTypeEnum.Edit;
+      var rl = Get(FactoryService.DiaryService.GetTimezoneList(daten));
+      var rs = AddColumns(zeitzone, rl, emptyentry: true);
       if (!neu && Parameter1 is string uid)
       {
         var k = Get(FactoryService.DiaryService.GetPosition(daten, uid));
@@ -123,6 +129,7 @@ public partial class TB210Position : CsbpBin
         SetText(breite, Functions.ToString(k.Breite, 5));
         SetText(laenge, Functions.ToString(k.Laenge, 5));
         SetText(hoehe, Functions.ToString(k.Hoehe, 2));
+        SetText(zeitzone, k.Zeitzone);
         SetText(notiz, k.Notiz);
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
@@ -166,7 +173,7 @@ public partial class TB210Position : CsbpBin
     {
       r = FactoryService.DiaryService.SavePosition(ServiceDaten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, breite.Text,
-        laenge.Text, hoehe.Text, "Europe/Berlin", notiz.Buffer.Text);
+        laenge.Text, hoehe.Text, GetText(zeitzone), notiz.Buffer.Text);
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {

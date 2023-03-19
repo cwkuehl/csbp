@@ -16,6 +16,7 @@ image:TB210.png[{tb210-title},title={tb210-title}]
 |Breite       |Eine geographische Breite der Position im Bereich von -90° und 90° muss angegeben werden.
 |Länge        |Eine geographische Länge der Position im Bereich von -180° und 180° muss angegeben werden.
 |Höhe         |Eine Höhe kann angegeben werden.
+|Zeitzone     |Eine Zeitzone kann ausgwählt werden.
 |Notiz        |Eine beliebig lange Notiz kann erfasst werden.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.

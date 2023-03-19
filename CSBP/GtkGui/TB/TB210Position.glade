@@ -324,14 +324,17 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="zeitzone">
+      <object class="GtkComboBoxText" id="zeitzone">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB210.hoehe.tt</property>
-        <property name="valign">start</property>
-        <property name="hexpand">True</property>
-        <property name="activates-default">True</property>
-        <property name="placeholder-text">TB210.hoehe.tt</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text">TB210.zeitzone.tt</property>
+        <property name="has_entry">True</property>
+        <child internal-child="entry">
+          <object class="GtkEntry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="left-attach">1</property>
