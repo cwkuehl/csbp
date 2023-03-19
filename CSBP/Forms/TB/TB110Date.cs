@@ -116,7 +116,7 @@ public partial class TB110Date : CsbpBin
     var p = Get(FactoryService.DiaryService.GetPosition(daten, nr.Text));
     if (p != null && p.Bezeichnung != bezeichnung.Text)
     {
-      var r = FactoryService.DiaryService.SavePosition(daten, p.Uid, bezeichnung.Text, Functions.ToString(p.Breite, 5), Functions.ToString(p.Laenge, 5), Functions.ToString(p.Hoehe, 2), p.Notiz);
+      var r = FactoryService.DiaryService.SavePosition(daten, p.Uid, bezeichnung.Text, Functions.ToString(p.Breite, 5), Functions.ToString(p.Laenge, 5), Functions.ToString(p.Hoehe, 2), p.Zeitzone, p.Notiz);
       Get(r);
       if (!r.Ok)
         return;

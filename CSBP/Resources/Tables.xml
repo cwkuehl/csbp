@@ -702,7 +702,8 @@
     <column name="Breite" type="DECIMAL(21,4)" nullable="false" />
     <column name="Laenge" type="DECIMAL(21,4)" nullable="false" />
     <column name="Hoehe" type="DECIMAL(21,4)" nullable="false" />
-    <column name="Notiz" type="VARCHAR" length="-1" nullable="false" />
+    <column name="Zeitzone" type="VARCHAR" length="50" nullable="true" />
+    <column name="Notiz" type="VARCHAR" length="-1" nullable="true" />
     <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
     <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
     <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />

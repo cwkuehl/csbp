@@ -1087,8 +1087,8 @@ public class StockService : ServiceBase, IStockService
       return urls;
     if (source == "yahoo")
     {
-      var p1 = (int)(from - new DateTime(1970, 1, 1)).TotalSeconds;
-      var p2 = (int)(to - new DateTime(1970, 1, 1)).TotalSeconds;
+      var p1 = Functions.ToEpochSecond(from);
+      var p2 = Functions.ToEpochSecond(to);
       var url = $"https://query1.finance.yahoo.com/v7/finance/chart/{shortcut}?period1={p1}&period2={p2}&interval=1d&indicators=quote&includeTimestamps=true";
       urls.Add((to, url));
     }
@@ -1176,8 +1176,8 @@ public class StockService : ServiceBase, IStockService
     }
     if (source == "yahoo")
     {
-      var p1 = (int)(from - new DateTime(1970, 1, 1)).TotalSeconds;
-      var p2 = (int)(to - new DateTime(1970, 1, 1)).TotalSeconds;
+      var p1 = Functions.ToEpochSecond(from);
+      var p2 = Functions.ToEpochSecond(to);
       var url = $"https://query1.finance.yahoo.com/v7/finance/chart/{shortcut}?period1={p1}&period2={p2}&interval=1d&indicators=quote&includeTimestamps=true";
       string response = null;
       if (dictresponse != null && dictresponse.TryGetValue(StockUrl.GetKey(uid, to), out var resp))

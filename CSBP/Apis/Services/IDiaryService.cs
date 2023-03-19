@@ -93,9 +93,10 @@ public interface IDiaryService
   /// <param name="lat">Affected latitude.</param>
   /// <param name="lon">Affected longitude.</param>
   /// <param name="alt">Affected altitude.</param>
+  /// <param name="tz">Affected timezone.</param>
   /// <param name="memo">Affected memos.</param>
   /// <returns>Saved entity.</returns>
-  ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string memo);
+  ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string tz, string memo);
 
   /// <summary>
   /// Deletes a position.

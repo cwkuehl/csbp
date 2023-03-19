@@ -407,12 +407,14 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <param name="lat">Affected latitude.</param>
   /// <param name="lon">Affected longitude.</param>
   /// <param name="alt">Affected altitude.</param>
+  /// <param name="tz">Affected timezone.</param>
   /// <param name="memo">Affected memos.</param>
   /// <returns>Saved entity.</returns>
-  public ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string memo)
+  public ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string tz, string memo)
   {
     var r = new ServiceErgebnis<TbOrt>();
     desc = Functions.TrimNull(desc);
+    tz = Functions.TrimNull(tz);
     memo = Functions.TrimNull(memo);
     if (string.IsNullOrEmpty(desc))
       r.Errors.Add(Message.New(TB007));
@@ -425,7 +427,7 @@ public class DiaryService : ServiceBase, IDiaryService
     var h = Functions.ToDecimal(alt) ?? 0;
     if (!r.Ok)
       return r;
-    r.Ergebnis = TbOrtRep.Save(daten, daten.MandantNr, uid, desc, b, l, h, memo, null, null, null, null);
+    r.Ergebnis = TbOrtRep.Save(daten, daten.MandantNr, uid, desc, b, l, h, tz, memo, null, null, null, null);
     return r;
   }
 

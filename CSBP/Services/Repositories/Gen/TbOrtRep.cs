@@ -102,13 +102,14 @@ public partial class TbOrtRep : RepositoryBase
   /// <param name="breite">Value of column Breite.</param>
   /// <param name="laenge">Value of column Laenge.</param>
   /// <param name="hoehe">Value of column Hoehe.</param>
+  /// <param name="zeitzone">Value of column Zeitzone.</param>
   /// <param name="notiz">Value of column Notiz.</param>
   /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
   /// <param name="angelegtam">Value of column Angelegt_Am.</param>
   /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
   /// <param name="geaendertam">Value of column Geaendert_Am.</param>
   /// <returns>Saved entity.</returns>
-  public TbOrt Save(ServiceDaten daten, int mandantnr, string uid, string bezeichnung, decimal breite, decimal laenge, decimal hoehe, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+  public TbOrt Save(ServiceDaten daten, int mandantnr, string uid, string bezeichnung, decimal breite, decimal laenge, decimal hoehe, string zeitzone, string notiz, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
@@ -119,6 +120,7 @@ public partial class TbOrtRep : RepositoryBase
     e.Breite = breite;
     e.Laenge = laenge;
     e.Hoehe = hoehe;
+    e.Zeitzone = zeitzone;
     e.Notiz = notiz;
     if (a == null)
     {

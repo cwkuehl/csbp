@@ -3779,6 +3779,12 @@
     <data name="TB210.hoehe.tt" xml:space="preserve">
         <value>Höhe</value>
     </data>
+    <data name="TB210.zeitzone" xml:space="preserve">
+        <value>_Zeitzone</value>
+    </data>
+    <data name="TB210.zeitzone.tt" xml:space="preserve">
+        <value>Zeitzone</value>
+    </data>
     <data name="TB210.notiz" xml:space="preserve">
         <value>_Notiz</value>
     </data>

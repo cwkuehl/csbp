@@ -166,7 +166,7 @@ public partial class TB210Position : CsbpBin
     {
       r = FactoryService.DiaryService.SavePosition(ServiceDaten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, breite.Text,
-        laenge.Text, hoehe.Text, notiz.Buffer.Text);
+        laenge.Text, hoehe.Text, "Europe/Berlin", notiz.Buffer.Text);
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {

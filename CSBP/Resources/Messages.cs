@@ -6157,6 +6157,16 @@ public partial class Messages
     get { return rm.GetString("TB210.hoehe.tt"); }
   }
 
+  public static string TB210_zeitzone
+  {
+    get { return rm.GetString("TB210.zeitzone"); }
+  }
+
+  public static string TB210_zeitzone_tt
+  {
+    get { return rm.GetString("TB210.zeitzone.tt"); }
+  }
+
   public static string TB210_notiz
   {
     get { return rm.GetString("TB210.notiz"); }

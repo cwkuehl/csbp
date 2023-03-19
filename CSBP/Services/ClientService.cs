@@ -6,7 +6,6 @@ namespace CSBP.Services;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -225,6 +224,28 @@ public class ClientService : ServiceBase, IClientService
         dba.AddTab2(mout, tab, "Mandant_Nr, Uid", "Mandant_Nr, Uid");
         MaMandantRep.Execute(daten, mout);
         version = 57;
+      }
+      else if (version <= 57)
+      {
+        var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+        var mout = new List<string>();
+        var tab = "TB_Ort";
+        dba.AddTab0();
+        dba.AddTab1("Mandant_Nr", "D_INTEGER", false);
+        dba.AddTab1("Uid", "D_REPL_ID", false);
+        dba.AddTab1("Bezeichnung", "D_STRING_50", true);
+        dba.AddTab1("Breite", "D_GELDBETRAG", false);
+        dba.AddTab1("Laenge", "D_GELDBETRAG", false);
+        dba.AddTab1("Hoehe", "D_GELDBETRAG", false);
+        dba.AddTab1a("Zeitzone", "D_STRING_50", true, "NULL");
+        dba.AddTab1("Notiz", "D_MEMO", true);
+        dba.AddTab1("Angelegt_Von", "D_STRING_20", true);
+        dba.AddTab1("Angelegt_Am", "D_DATETIME", true);
+        dba.AddTab1("Geaendert_Von", "D_STRING_20", true);
+        dba.AddTab1("Geaendert_Am", "D_DATETIME", true);
+        dba.AddTab2(mout, tab, "Mandant_Nr, Uid", "Mandant_Nr, Uid");
+        MaMandantRep.Execute(daten, mout);
+        version = 58;
       }
       if (versionalt < version)
       {

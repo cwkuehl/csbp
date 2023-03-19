@@ -39,6 +39,9 @@ public partial class TbOrt : ModelBase
   /// <summary>Gets or sets the value of column Hoehe.</summary>
   public decimal Hoehe { get; set; }
 
+  /// <summary>Gets or sets the value of column Zeitzone.</summary>
+  public string Zeitzone { get; set; }
+
   /// <summary>Gets or sets the value of column Notiz.</summary>
   public string Notiz { get; set; }
 

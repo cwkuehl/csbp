@@ -652,7 +652,7 @@ public static class Functions
   }
 
   /// <summary>
-  /// Calculates seconds after 1970-01-01.
+  /// Calculates seconds after 1970-01-01, Unix time.
   /// </summary>
   /// <param name="d">Betroffenes Datum.</param>
   /// <returns>Seconds after 1970-01-01.</returns>
