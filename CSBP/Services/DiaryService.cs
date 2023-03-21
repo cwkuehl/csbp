@@ -457,11 +457,19 @@ public class DiaryService : ServiceBase, IDiaryService
   {
     var l = new List<MaParameter>
     {
-      new MaParameter { Schluessel = "America/New_York", Wert = "America/New_York UTC -5:00" },
-      new MaParameter { Schluessel = "Europe/London", Wert = "Europe/London UTC +0:00" },
-      new MaParameter { Schluessel = "Europe/Berlin", Wert = "Europe/Berlin UTC +1:00" },
-      new MaParameter { Schluessel = "Europe/Kiev", Wert = "Europe/Kiev UTC +2:00" },
-      new MaParameter { Schluessel = "Asia/Dubai", Wert = "Asia/Dubai UTC +4:00" },
+      new MaParameter { Schluessel = "America/Los_Angeles", Wert = "America/Los_Angeles UTC -08:00" },
+      new MaParameter { Schluessel = "America/Denver", Wert = "America/Denver UTC -07:00" },
+      new MaParameter { Schluessel = "America/Chicago", Wert = "America/Chicago UTC -06:00" },
+      new MaParameter { Schluessel = "America/New_York", Wert = "America/New_York UTC -05:00" },
+      new MaParameter { Schluessel = "Atlantic/Bermuda", Wert = "Atlantic/Bermuda UTC -04:00" },
+      new MaParameter { Schluessel = "America/Nuuk", Wert = "America/Nuuk UTC -03:00" },
+      new MaParameter { Schluessel = "Brazil/DeNoronha", Wert = "Brazil/DeNoronha UTC -02:00" },
+      new MaParameter { Schluessel = "Atlantic/Azores", Wert = "Atlantic/Azores UTC -01:00" },
+      new MaParameter { Schluessel = "Europe/London", Wert = "Europe/London UTC +00:00" },
+      new MaParameter { Schluessel = "Europe/Berlin", Wert = "Europe/Berlin UTC +01:00" },
+      new MaParameter { Schluessel = "Europe/Kiev", Wert = "Europe/Kiev UTC +02:00" },
+      new MaParameter { Schluessel = "Europe/Istanbul", Wert = "Europe/Istanbul UTC +03:00" },
+      new MaParameter { Schluessel = "Asia/Dubai", Wert = "Asia/Dubai UTC +04:00" },
     };
     return new ServiceErgebnis<List<MaParameter>>(l);
   }
