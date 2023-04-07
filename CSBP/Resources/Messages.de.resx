@@ -54,11 +54,11 @@
     <data name="parm.WP_FIXER_IO_ACCESS_KEY.text" xml:space="preserve">
         <value>Bitte Access Key für Währungskurse von https://fixer.io eintragen.</value>
     </data>
-    <data name="parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.value" xml:space="preserve">
+    <data name="parm.TB_METEOSTAT_COM_ACCESS_KEY.value" xml:space="preserve">
         <value></value>
     </data>
-    <data name="parm.TB_OPENWEATHERMAP_ORG_ACCESS_KEY.text" xml:space="preserve">
-        <value>Bitte Access Key für Wetterdaten von http://api.openweathermap.org eintragen.</value>
+    <data name="parm.TB_METEOSTAT_COM_ACCESS_KEY.text" xml:space="preserve">
+        <value>Bitte Access Key für Wetterdaten von https://meteostat.p.rapidapi.com eintragen.</value>
     </data>
 
     <data name="AG001" xml:space="preserve">

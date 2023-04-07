@@ -50,8 +50,8 @@ public class Parameter
   /// <summary>Constant key for access key for fixer.io.</summary>
   public const string WP_FIXER_IO_ACCESS_KEY = "WP_FIXER_IO_ACCESS_KEY";
 
-  /// <summary>Constant key for access key for openweathermap.org.</summary>
-  public const string TB_OPENWEATHERMAP_ORG_ACCESS_KEY = "TB_OPENWEATHERMAP_ORG_ACCESS_KEY";
+  /// <summary>Constant key for access key for meteostat.com.</summary>
+  public const string TB_METEOSTAT_COM_ACCESS_KEY = "TB_METEOSTAT_COM_ACCESS_KEY";
 
 #pragma warning restore SA1310
 
@@ -75,7 +75,7 @@ public class Parameter
       { AG_TEST_PRODUKTION, new Parameter(AG_TEST_PRODUKTION, setting: "TestProduktion", database: true) },
       { SB_SUBMITTER, new Parameter(SB_SUBMITTER, setting: "GedcomSubmitter", database: true) },
       { WP_FIXER_IO_ACCESS_KEY, new Parameter(WP_FIXER_IO_ACCESS_KEY, setting: "FixerIoAccessKey", database: true) },
-      { TB_OPENWEATHERMAP_ORG_ACCESS_KEY, new Parameter(TB_OPENWEATHERMAP_ORG_ACCESS_KEY, setting: "OpenweathermapOrgAccessKey", database: true) },
+      { TB_METEOSTAT_COM_ACCESS_KEY, new Parameter(TB_METEOSTAT_COM_ACCESS_KEY, setting: "MeteostatComAccessKey", database: true) },
     };
     Params2 = new Dictionary<string, string>();
     AppConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".csbp.json");
