@@ -247,6 +247,25 @@ public class ClientService : ServiceBase, IClientService
         MaMandantRep.Execute(daten, mout);
         version = 58;
       }
+      else if (version <= 58)
+      {
+        var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+        var mout = new List<string>();
+        var tab = "TB_Wetter";
+        dba.CreateTab0();
+        dba.CreateTab1("Mandant_Nr", "D_INTEGER", false);
+        dba.CreateTab1("Datum", "D_DATE", false);
+        dba.CreateTab1("Ort_Uid", "D_REPL_ID", false);
+        dba.CreateTab1("Api", "D_STRING_10", false);
+        dba.CreateTab1("Werte", "D_MEMO", true);
+        dba.CreateTab1("Angelegt_Von", "D_STRING_20", true);
+        dba.CreateTab1("Angelegt_Am", "D_DATETIME", true);
+        dba.CreateTab1("Geaendert_Von", "D_STRING_20", true);
+        dba.CreateTab1("Geaendert_Am", "D_DATETIME", true);
+        dba.CreateTab2(mout, tab, "Mandant_Nr, Datum, Ort_Uid, Api");
+        MaMandantRep.Execute(daten, mout);
+        version = 59;
+      }
       if (versionalt < version)
       {
         p.Wert = Functions.ToString(version);

@@ -93,6 +93,9 @@ public partial class CsbpContext : DbContext
   /// <summary>Gets or sets the set of rows of table TB_Ort.</summary>
   public DbSet<TbOrt> TB_Ort { get; set; }
 
+  /// <summary>Gets or sets the set of rows of table TB_Wetter.</summary>
+  public DbSet<TbWetter> TB_Wetter { get; set; }
+
   /// <summary>Gets or sets the set of rows of table WP_Anlage.</summary>
   public DbSet<WpAnlage> WP_Anlage { get; set; }
 
@@ -141,6 +144,7 @@ public partial class CsbpContext : DbContext
     modelBuilder.Entity<TbEintrag>().HasKey(a => new { a.Mandant_Nr, a.Datum });
     modelBuilder.Entity<TbEintragOrt>().HasKey(a => new { a.Mandant_Nr, a.Ort_Uid, a.Datum_Von, a.Datum_Bis });
     modelBuilder.Entity<TbOrt>().HasKey(a => new { a.Mandant_Nr, a.Uid });
+    modelBuilder.Entity<TbWetter>().HasKey(a => new { a.Mandant_Nr, a.Datum, a.Ort_Uid, a.Api });
     modelBuilder.Entity<WpAnlage>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<WpBuchung>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<WpKonfiguration>().HasKey(a => new { a.Mandant_Nr, a.Uid });

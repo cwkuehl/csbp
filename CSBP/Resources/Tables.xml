@@ -713,6 +713,23 @@
       <keycolumn name="Uid" />
     </primarykey>
   </table>
+  <table name="TB_Wetter">
+    <column name="Mandant_Nr" type="INTEGER" nullable="false" />
+    <column name="Datum" type="DATE" nullable="false" />
+    <column name="Ort_Uid" type="VARCHAR" length="36" nullable="false" />
+    <column name="Api" type="VARCHAR" length="10" nullable="false" />
+    <column name="Werte" type="VARCHAR" length="-1" nullable="true" />
+    <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
+    <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
+    <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />
+    <column name="Geaendert_Am" type="TIMESTAMP" nullable="true" />
+    <primarykey>
+      <keycolumn name="Mandant_Nr" />
+      <keycolumn name="Datum" />
+      <keycolumn name="Ort_Uid" />
+      <keycolumn name="Api" />
+    </primarykey>
+  </table>
   <table name="VM_Abrechnung">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />

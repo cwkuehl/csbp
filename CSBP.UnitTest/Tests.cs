@@ -734,7 +734,7 @@ public partial class {filename}
     //// {"coord":{"lon":8.3184,"lat":49.9353},"weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],"base":"stations","main":{"temp":287.37,"feels_like":286.83,"temp_min":285.99,"temp_max":288.75,"pressure":1011,"humidity":76},"visibility":10000,"wind":{"speed":2.57,"deg":220},"clouds":{"all":75},"dt":1679240762,"sys":{"type":2,"id":2031846,"country":"DE","sunrise":1679203964,"sunset":1679247392},"timezone":3600,"id":2947133,"name":"Bodenheim","cod":200}
   }
 
-  /// <summary>Tests für OpenWeatherMap.</summary>
+  /// <summary>Tests für RapidapiMeteostat.</summary>
   [Test]
   public void RapidapiMeteostatWeather()
   {
