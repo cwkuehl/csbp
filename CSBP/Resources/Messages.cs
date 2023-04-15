@@ -1917,6 +1917,11 @@ public partial class Messages
     get { return rm.GetString("Action.details"); }
   }
 
+  public static string Action_weather
+  {
+    get { return rm.GetString("Action.weather"); }
+  }
+
   public static string Forms_ok
   {
     get { return rm.GetString("Forms.ok"); }

@@ -272,6 +272,14 @@ public partial class TB100Diary : CsbpBin
     }
   }
 
+  /// <summary>Handles Weather.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnWeatherClicked(object sender, EventArgs e)
+  {
+    Functions.MachNichts();
+  }
+
   /// <summary>Handles Save.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
