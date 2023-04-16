@@ -24,6 +24,7 @@ thirdlicense --project ../CSBP/CSBP.csproj --output ../THIRD-PARTY-NOTICES.TXT
 cd ../Asciidoc
 ./asciidoc-csbp.sh
 cd ../Install
+# Browser cannot show html file in opt folder
 cp -a ../Asciidoc/Csbp-Hilfe.html /opt/Haushalt/CSBP
 
 dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained true

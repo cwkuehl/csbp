@@ -69,6 +69,10 @@ public partial class TB100Diary : CsbpBin
 
   /// <summary>Entry search1.</summary>
   [Builder.Object]
+  private readonly Grid searchgrid;
+
+  /// <summary>Entry search1.</summary>
+  [Builder.Object]
   private readonly Entry search1;
 
   /// <summary>Entry search2.</summary>
@@ -209,6 +213,7 @@ public partial class TB100Diary : CsbpBin
       EventsActive = false;
       InitLists();
       ClearSearch();
+      searchgrid.Visible = false;
       EntryOld.Datum = DateTime.Today;
       date.Value = EntryOld.Datum;
       BearbeiteEintraege(false);
@@ -418,6 +423,14 @@ public partial class TB100Diary : CsbpBin
       return;
     positionList = positionList.Where(a => a.Ort_Uid != uid).ToList();
     InitPositions();
+  }
+
+  /// <summary>Handles Search.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnSearchClicked(object sender, EventArgs e)
+  {
+    searchgrid.Visible = !searchgrid.Visible;
   }
 
   /// <summary>Handles First.</summary>
