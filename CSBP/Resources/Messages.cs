@@ -5907,6 +5907,11 @@ public partial class Messages
     get { return rm.GetString("TB100.add.tt"); }
   }
 
+  public static string TB100_search_tt
+  {
+    get { return rm.GetString("TB100.search.tt"); }
+  }
+
   public static string TB100_search0
   {
     get { return rm.GetString("TB100.search0"); }

@@ -3626,6 +3626,9 @@
     <data name="TB100.add.tt" xml:space="preserve">
         <value>Ausgewählten Ort oder Position hinzufügen.</value>
     </data>
+    <data name="TB100.search.tt" xml:space="preserve">
+        <value>Such-Bereich ein- bzw. ausblenden.</value>
+    </data>
     <data name="TB100.search0" xml:space="preserve">
         <value>_Suche (Platzhalter % und __; Reihenfolge-Prüfung ####)</value>
     </data>

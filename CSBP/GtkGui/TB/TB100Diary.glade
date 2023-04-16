@@ -6,67 +6,73 @@
   <object class="GtkImage" id="addImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-add</property>
+    <property name="icon-name">list-add</property>
   </object>
   <object class="GtkImage" id="clearImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-clear</property>
+    <property name="icon-name">dialog-cancel</property>
   </object>
   <object class="GtkImage" id="copyImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-copy</property>
+    <property name="icon-name">edit-copy</property>
   </object>
   <object class="GtkImage" id="goBackImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-go-back</property>
+    <property name="icon-name">go-previous</property>
   </object>
   <object class="GtkImage" id="goForwardImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-go-forward</property>
+    <property name="icon-name">go-next</property>
   </object>
   <object class="GtkImage" id="gotoFirstImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-goto-first</property>
+    <property name="icon-name">go-first</property>
   </object>
   <object class="GtkImage" id="gotoLastImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-goto-last</property>
+    <property name="icon-name">go-last</property>
   </object>
   <object class="GtkImage" id="newImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-new</property>
+    <property name="icon-name">document-new</property>
   </object>
   <object class="GtkImage" id="pasteImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-paste</property>
+    <property name="icon-name">edit-paste</property>
   </object>
   <object class="GtkImage" id="redoImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-redo</property>
+    <property name="icon-name">edit-redo</property>
   </object>
   <object class="GtkImage" id="removeImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-remove</property>
+    <property name="icon-name">list-remove</property>
   </object>
   <object class="GtkImage" id="saveImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-save</property>
+    <property name="icon-name">document-save</property>
+  </object>
+  <object class="GtkImage" id="searchImage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-search</property>
+    <property name="use-fallback">True</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="stock">gtk-undo</property>
+    <property name="icon-name">edit-undo</property>
   </object>
   <object class="GtkImage" id="weatherImage">
     <property name="visible">True</property>
@@ -78,8 +84,8 @@
   <object class="GtkGrid" id="TB100Diary">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="margin-left">5</property>
-    <property name="margin-right">5</property>
+    <property name="margin-start">5</property>
+    <property name="margin-end">5</property>
     <property name="margin-top">5</property>
     <property name="margin-bottom">5</property>
     <property name="hexpand">True</property>
@@ -296,8 +302,8 @@
       <object class="GtkGrid" id="id8">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-left">5</property>
-        <property name="margin-right">5</property>
+        <property name="margin-start">5</property>
+        <property name="margin-end">5</property>
         <property name="margin-top">5</property>
         <property name="margin-bottom">5</property>
         <property name="hexpand">True</property>
@@ -380,8 +386,8 @@
           <object class="GtkGrid" id="id13">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="margin-left">5</property>
-            <property name="margin-right">5</property>
+            <property name="margin-start">5</property>
+            <property name="margin-end">5</property>
             <property name="margin-top">5</property>
             <property name="margin-bottom">5</property>
             <property name="row-spacing">5</property>
@@ -1063,7 +1069,6 @@
               <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">3</property>
-                <property name="width">2</property>
               </packing>
             </child>
             <child>
@@ -1079,7 +1084,6 @@
               <packing>
                 <property name="left-attach">1</property>
                 <property name="top-attach">4</property>
-                <property name="width">2</property>
               </packing>
             </child>
             <child>
@@ -1095,6 +1099,24 @@
                 <property name="left-attach">0</property>
                 <property name="top-attach">1</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="search">
+                <property name="label" translatable="yes">TB100.search</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">TB100.search.tt</property>
+                <property name="image">searchImage</property>
+                <property name="always-show-image">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>
