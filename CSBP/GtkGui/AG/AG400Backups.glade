@@ -26,7 +26,7 @@
   <object class="GtkImage" id="refreshImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-refresh</property>
+    <property name="icon-name">view-refresh</property>
   </object>
   <object class="GtkGrid" id="AG400Backups">
     <property name="visible">True</property>

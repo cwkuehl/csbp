@@ -1,6 +1,6 @@
-= CSBP Dokumentation (C) 2022 cwkuehl.de
+= CSBP Dokumentation (C) 2023 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-Version 2022-04-16
+Version 2023-04-16
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -401,3 +401,34 @@ Dieser Bereich bietet Hilfe-Funktionen. Dieser Bereich besteht aus folgenden Dia
 * Aufruf dieser Hilfe-Datei im Browser.
 
 include::../de/ag/AG000.adoc[]
+
+////
+Icon-Umsetzung aus Verzeichnis /usr/share/icons/Yaru/48x48/actions/
+gtk-add
+gtk-clear
+gtk-copy
+gtk-delete
+gtk-edit
+gtk-floppy
+gtk-go-back
+gtk-go-forward
+gtk-goto-first
+gtk-goto-last
+gtk-justify-fill
+gtk-new
+gtk-paste
+gtk-print
+gtk-redo         edit-redo
+gtk-refresh      view-refresh
+gtk-remove
+gtk-save
+gtk-select-color
+gtk-undo         edit-undo
+
+Ersetzen;
+<property name="stock">gtk-undo</property>
+<property name="icon-name">edit-undo</property>
+und
+gtk-undo.png[
+edit-undo.png[
+////

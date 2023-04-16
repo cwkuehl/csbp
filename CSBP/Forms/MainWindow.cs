@@ -204,16 +204,26 @@ public class MainWindow : Window
       {
         mi.Label = Messages.Get(mi.Label);
       }
-      if (c is ImageMenuItem imi && !string.IsNullOrEmpty(imi.Label) && imi.Label.StartsWith("gtk-", StringComparison.CurrentCulture))
+      if (c is ImageMenuItem imi && !string.IsNullOrEmpty(imi.Label))
       {
-        var m = Messages.Get(imi.Label.Replace("gtk-", "Menu."));
-        if (!string.IsNullOrEmpty(m))
-          imi.Label = m;
+        if (imi.Label.StartsWith("edit-", StringComparison.CurrentCulture))
+        {
+          var m = Messages.Get(imi.Label.Replace("edit-", "Menu."));
+          if (!string.IsNullOrEmpty(m))
+            imi.Label = m;
+        }
+        else if (imi.Label.StartsWith("gtk-", StringComparison.CurrentCulture))
+        {
+          var m = Messages.Get(imi.Label.Replace("gtk-", "Menu."));
+          if (!string.IsNullOrEmpty(m))
+            imi.Label = m;
+        }
       }
     });
     Icon = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif");
 
     // Icon.Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icon/test.png", "png");
+    // find /usr/share/icons -type f -name '*.png'
     // this.RenderIconPixbuf("gtk-refresh", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-refresh.png", "png");
     // this.RenderIconPixbuf("gtk-undo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-undo.png", "png");
     // this.RenderIconPixbuf("gtk-redo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-redo.png", "png");

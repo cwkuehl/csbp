@@ -12,8 +12,8 @@ image:TB100.png[{tb100-title},title={tb100-title}]
 |Steuerelement|Erklärung
 |image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Merken des aktuellen Eintrags.
 |image:icons/gtk-paste.png[title="Einfügen",width={icon-width}]       |Diese Schaltfläche überschreibt den aktuellen Eintrag mit dem zuvor kopierten Eintrag.
-|image:icons/gtk-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
-|image:icons/gtk-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
+|image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
+|image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
 |1 Tag vorher |Eintrag vom vorherigen Tag wird nur angezeigt.
 |1 Monat vorher|Eintrag vom vorherigen Monat wird nur angezeigt.
 |1 Jahr vorher|Eintrag vom vorherigen Jahr wird nur angezeigt.
