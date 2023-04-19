@@ -96,8 +96,9 @@ public class AM000Login : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnLogin(object sender, EventArgs e)
   {
+    var c = client.Text;
     var id = user.Text;
-    var daten = new ServiceDaten(Functions.ToInt32(client.Text), id);
+    var daten = new ServiceDaten(Functions.ToInt32(c), id);
     var r = FactoryService.LoginService.Login(daten, password.Text, save.Active);
     Get(r);
     if (r.Ok)
@@ -108,7 +109,7 @@ public class AM000Login : CsbpBin
       Response = ResponseType.Ok;
       MainClass.Login(daten);
     }
-    Parameter.LoginClient = client.Text;
+    Parameter.LoginClient = c;
     Parameter.LoginUser = id;
     Parameter.Save();
   }
