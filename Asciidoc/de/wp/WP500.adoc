@@ -13,10 +13,10 @@ image:WP500.png[{wp500-title},title={wp500-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Ständen.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Standes. <<WP510>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Standes.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Standes.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Standes.
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Standes. <<WP510>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Standes.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Standes.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Standes.
 |Stände       |Liste von ausgewählten Ständen. Wenn keine Datums-Begrenzungen vorliegen, werden maximal 100 Datensätze angezeigt.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.
 |Wertpapier   |Auswahlliste für ein Wertpapier. Das zuletzt ausgewählte Wertpapier wird beim Öffnen wieder angezeigt.

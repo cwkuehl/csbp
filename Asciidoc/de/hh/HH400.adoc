@@ -18,11 +18,11 @@ image:HH400.png[{hh400-title},title={hh400-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Buchungen an Hand der Suchkriterien.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Buchung. <<HH410>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Buchung.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Buchung.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Buchung.
-|image:icons/gtk-floppy.png[title="Export",width={icon-width}]        |Schaltfläche zum Exportieren der aktuellen Buchungsliste als CSV-Datei.
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Buchung. <<HH410>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Buchung.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Buchung.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Buchung.
+|image:icons/media-floppy.png[title="Export",width={icon-width}]        |Schaltfläche zum Exportieren der aktuellen Buchungsliste als CSV-Datei.
 |Buchungen    |Liste von ausgewählten Buchungen.
 |Status       |Anzeige von Informationen zur aktuellen Buchungsliste.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.

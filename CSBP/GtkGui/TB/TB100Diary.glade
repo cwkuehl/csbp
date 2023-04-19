@@ -11,7 +11,7 @@
   <object class="GtkImage" id="clearImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">dialog-cancel</property>
+    <property name="icon-name">edit-clear</property>
   </object>
   <object class="GtkImage" id="copyImage">
     <property name="visible">True</property>
@@ -63,10 +63,10 @@
     <property name="can-focus">False</property>
     <property name="icon-name">document-save</property>
   </object>
-  <object class="GtkImage" id="searchImage">
+  <object class="GtkImage" id="findImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">system-search</property>
+    <property name="icon-name">edit-find</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
@@ -588,7 +588,7 @@
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="tooltip-text" translatable="yes">TB100.search.tt</property>
-                <property name="image">searchImage</property>
+                <property name="image">findImage</property>
                 <property name="always-show-image">True</property>
                 <signal name="clicked" handler="OnSearchClicked" swapped="no"/>
               </object>

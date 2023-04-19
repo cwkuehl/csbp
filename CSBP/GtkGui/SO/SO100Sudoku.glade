@@ -6,7 +6,7 @@
   <object class="GtkImage" id="deleteImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-delete</property>
+    <property name="icon-name">edit-delete</property>
   </object>
   <object class="GtkImage" id="refreshImage">
     <property name="visible">True</property>
@@ -16,7 +16,7 @@
   <object class="GtkImage" id="saveImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-save</property>
+    <property name="icon-name">document-save</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>

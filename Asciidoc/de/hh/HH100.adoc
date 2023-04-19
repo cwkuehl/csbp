@@ -31,8 +31,8 @@ image:HH100.png[{hh100-title},title={hh100-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Perioden.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Periode.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen einer Periode am Anfang oder Ende.
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Periode.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen einer Periode am Anfang oder Ende.
 |Perioden     |Liste von allen Perioden mit Periodennummer sowie Anfangs- und Enddatum.
 |Anfang       |Anfangsdatum der ersten Periode.
 |Ende         |Enddatum der letzten Periode.

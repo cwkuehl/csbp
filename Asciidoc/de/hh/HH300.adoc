@@ -13,10 +13,10 @@ image:HH300.png[{hh300-title},title={hh300-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Ereignissen.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Ereignisses. <<HH310>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Ereignisses.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ereignisses.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ereignisses.
+|image:icons/document-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Ereignisses. <<HH310>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Ereignisses.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ereignisses.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ereignisses.
 |Ereignisse   |Liste mit allen bestehenden Ereignissen.
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
 |Suche        |Suchfeld für alle Textfelder mit Platzhaltern, z.B. '_ind%'. Beim Aktualisieren werden nur Ereignisse mit den passenden Texten angezeigt.

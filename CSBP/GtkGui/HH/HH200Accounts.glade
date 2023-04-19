@@ -6,22 +6,22 @@
   <object class="GtkImage" id="copyImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-copy</property>
+    <property name="icon-name">edit-copy</property>
   </object>
   <object class="GtkImage" id="deleteImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-delete</property>
+    <property name="icon-name">edit-delete</property>
   </object>
   <object class="GtkImage" id="editImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-edit</property>
+    <property name="icon-name">document-edit</property>
   </object>
   <object class="GtkImage" id="newImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-new</property>
+    <property name="icon-name">document-new</property>
   </object>
   <object class="GtkImage" id="redoImage">
     <property name="visible">True</property>

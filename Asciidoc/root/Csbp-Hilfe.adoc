@@ -404,26 +404,28 @@ include::../de/ag/AG000.adoc[]
 
 ////
 Icon-Umsetzung aus Verzeichnis /usr/share/icons/Yaru/48x48/actions/
-gtk-add
-gtk-clear
-gtk-copy
-gtk-delete
-gtk-edit
-gtk-floppy
-gtk-go-back
-gtk-go-forward
-gtk-goto-first
-gtk-goto-last
-gtk-justify-fill
-gtk-new
-gtk-paste
-gtk-print
-gtk-redo         edit-redo
-gtk-refresh      view-refresh
-gtk-remove
-gtk-save
-gtk-select-color
-gtk-undo         edit-undo
+gtk-add          list-add              x
+gtk-clear        dialog-cancel         x
+gtk-copy         edit-copy             x
+gtk-delete       edit-delete           x
+gtk-edit         document-edit         x
+gtk-floppy       media-floppy          x
+gtk-go-back      go-previous           x
+gtk-go-forward   go-next               x
+gtk-goto-first   go-first              x
+gtk-goto-last    go-last               x
+gtk-justify-fill format-justify-fill   x
+gtk-new          document-new          x
+gtk-paste        edit-paste            x
+gtk-print        document-print        x
+gtk-redo         edit-redo             x
+gtk-refresh      view-refresh          x
+gtk-remove       list-remove           x
+gtk-save         document-save         x
+gtk-select-color applications-graphics h
+gtk-undo         edit-undo             x
+                 edit-find
+                 weather-few-clouds
 
 Ersetzen;
 <property name="stock">gtk-undo</property>

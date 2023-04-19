@@ -224,26 +224,27 @@ public class MainWindow : Window
 
     // Icon.Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icon/test.png", "png");
     // find /usr/share/icons -type f -name '*.png'
-    // this.RenderIconPixbuf("gtk-refresh", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-refresh.png", "png");
-    // this.RenderIconPixbuf("gtk-undo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-undo.png", "png");
-    // this.RenderIconPixbuf("gtk-redo", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-redo.png", "png");
-    // this.RenderIconPixbuf("gtk-new", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-new.png", "png");
-    // this.RenderIconPixbuf("gtk-copy", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-copy.png", "png");
-    // this.RenderIconPixbuf("gtk-edit", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-edit.png", "png");
-    // this.RenderIconPixbuf("gtk-delete", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-delete.png", "png");
-    // this.RenderIconPixbuf("gtk-floppy", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-floppy.png", "png");
-    // this.RenderIconPixbuf("gtk-print", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-print.png", "png");
-    // this.RenderIconPixbuf("gtk-paste", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-paste.png", "png");
-    // this.RenderIconPixbuf("gtk-clear", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-clear.png", "png");
-    // this.RenderIconPixbuf("gtk-add", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-add.png", "png");
-    // this.RenderIconPixbuf("gtk-remove", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-remove.png", "png");
-    // this.RenderIconPixbuf("gtk-save", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-save.png", "png");
-    // this.RenderIconPixbuf("gtk-goto-first", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-goto-first.png", "png");
-    // this.RenderIconPixbuf("gtk-go-back", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-go-back.png", "png");
-    // this.RenderIconPixbuf("gtk-go-forward", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-go-forward.png", "png");
-    // this.RenderIconPixbuf("gtk-goto-last", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-goto-last.png", "png");
-    // this.RenderIconPixbuf("gtk-justify-fill", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-justify-fill.png", "png");
-    // this.RenderIconPixbuf("gtk-select-color", Gtk.IconSize.Button).Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons/gtk-select-color.png", "png");
+    if (Functions.MachNichts() != 0)
+    {
+      var path = "/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons";
+      var theme = IconTheme.Default;
+      //// theme.CustomTheme = "Yaru-olive-dark";
+      //// theme.RescanIfNeeded();
+      var names = new List<string>
+      {
+        "applications-graphics", "dialog-cancel",
+        "document-new", "document-edit", "document-print", "document-save",
+        "edit-clear", "edit-copy", "edit-delete", "edit-find", "edit-paste", "edit-redo", "edit-undo",
+        "format-justify-fill", "go-first", "go-last", "go-next", "go-previous", "list-add", "list-remove",
+        "media-floppy", "view-refresh", "weather-few-clouds",
+      };
+      foreach (var n in names)
+      {
+        var icon = theme.LoadIcon(n, 48, 0);
+        icon.Save(System.IO.Path.Combine(path, n + ".png"), "png");
+      }
+    }
+
     SetupHandlers();
     var size = Parameter.GetDialogSize(typeof(MainWindow));
     SetSizeRequest(size.Width, size.Height);

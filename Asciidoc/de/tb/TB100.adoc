@@ -10,8 +10,8 @@ image:TB100.png[{tb100-title},title={tb100-title}]
 [width="100%",cols="1,5a",frame="all",options="header"]
 |==========================
 |Steuerelement|Erklärung
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Merken des aktuellen Eintrags.
-|image:icons/gtk-paste.png[title="Einfügen",width={icon-width}]       |Diese Schaltfläche überschreibt den aktuellen Eintrag mit dem zuvor kopierten Eintrag.
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Merken des aktuellen Eintrags.
+|image:icons/edit-paste.png[title="Einfügen",width={icon-width}]       |Diese Schaltfläche überschreibt den aktuellen Eintrag mit dem zuvor kopierten Eintrag.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
 |1 Tag vorher |Eintrag vom vorherigen Tag wird nur angezeigt.
@@ -21,19 +21,19 @@ image:TB100.png[{tb100-title},title={tb100-title}]
 |Eintrag      |Texteintrag für das eingestellte Datum kann editiert werden.
 |Positionen   |Liste der zugeordneten Positionen für das Datum.
 |P. Vortag    |Diese Schaltfläche übernimmt die Positionen vom Vortag.
-|image:icons/gtk-new.png[title="Neue Position",width={icon-width}]|Schaltfläche zum Erfassen einer neuen Position. <<TB210>>
-|image:icons/gtk-remove.png[title="Position entfernen",width={icon-width}]|Schaltfläche zum Entfernen der ausgewählten Position in der Liste. Sollte die Position für mehrere Tage zugeordnet sein, wird aber nur die Zuordnung für das Datum entfernt.
+|image:icons/document-new.png[title="Neue Position",width={icon-width}]|Schaltfläche zum Erfassen einer neuen Position. <<TB210>>
+|image:icons/list-remove.png[title="Position entfernen",width={icon-width}]|Schaltfläche zum Entfernen der ausgewählten Position in der Liste. Sollte die Position für mehrere Tage zugeordnet sein, wird aber nur die Zuordnung für das Datum entfernt.
 |Position     |Auswahlliste mit allen erfassten Positionen. Die Postionen sind nach der Häufigkeit der Zuordnung absteigend sortiert. Die ausgewählte Position kann zur Liste hinzugefügt werden.
-|image:icons/gtk-add.png[title="Position hinzufügen",width={icon-width}]|Schaltfläche zum Hinzufügen der in der Auswahlliste ausgewählten Position zur Liste. Falls die Position schon in der Liste ist, kann der Zeitraum für diese Position verlängert oder verkürzt werden. Mit dem Dialog <<TB110>> wird ein neues Anfangs- oder Enddatum festgelegt, je nach dem, ob das ausgewählte Zeitpunkt vor oder nach dem Datum liegt.
+|image:icons/list-add.png[title="Position hinzufügen",width={icon-width}]|Schaltfläche zum Hinzufügen der in der Auswahlliste ausgewählten Position zur Liste. Falls die Position schon in der Liste ist, kann der Zeitraum für diese Position verlängert oder verkürzt werden. Mit dem Dialog <<TB110>> wird ein neues Anfangs- oder Enddatum festgelegt, je nach dem, ob das ausgewählte Zeitpunkt vor oder nach dem Datum liegt.
 |Angelegt     |Datum und Uhrzeit sowie Benutzer-ID von der Erstellung des Datensatzes.
 |Geändert     |Datum und Uhrzeit sowie Benutzer-ID von der letzten Änderung des Datensatzes.
 |Suche        |Such-Maske für Eintragstexte, z.B. %arzt%. % steht für eine beliebige Anzahl von Zeichen. _ steht für ein beliebiges Zeichen. Es können auch mehrere Such-Masken eingegeben werden, die alternativ (oder), gleichzeitig (und) oder nicht (und nicht) zutreffen sollen.
-|image:icons/gtk-clear.png[title="Leeren",width={icon-width}]|Schaltfläche zum Leeren der Such-Kriterien.
-|image:icons/gtk-goto-first.png[title="Erster Datensatz",width={icon-width}]|Schaltfläche zum Springen zum 1. Eintrag, der der Such-Maske entspricht.
-|image:icons/gtk-go-back.png[title="Zurück",width={icon-width}]             |Schaltfläche zum Springen zum vorherigen Eintrag, der der Such-Maske entspricht.
-|image:icons/gtk-go-forward.png[title="Weiter",width={icon-width}]          |Schaltfläche zum Springen zum nächsten Eintrag, der der Such-Maske entspricht.
-|image:icons/gtk-goto-last.png[title="Letzter Datensatz",width={icon-width}]|Schaltfläche zum Springen zum letzten Eintrag, der der Such-Maske entspricht.
-|image:icons/gtk-save.png[title="Speichern",width={icon-width}]             |Schaltfläche zum Schreiben einer Datei mit allen Einträgen, die der Such-Maske entsprechen. Die Datei öffnet sich direkt. Falls im ersten Such-Eintrag +++####+++ steht, wird eine Reihenfolge-Prüfung durchgeführt. Ein Fehler wird sofort angezeigt. Ist die geprüfte Reihenfolge OK, wird die Datei gespeichert und öffnet sich sofort.
+|image:icons/dialog-cancel.png[title="Leeren",width={icon-width}]|Schaltfläche zum Leeren der Such-Kriterien.
+|image:icons/go-first.png[title="Erster Datensatz",width={icon-width}]|Schaltfläche zum Springen zum 1. Eintrag, der der Such-Maske entspricht.
+|image:icons/go-previous.png[title="Zurück",width={icon-width}]             |Schaltfläche zum Springen zum vorherigen Eintrag, der der Such-Maske entspricht.
+|image:icons/go-next.png[title="Weiter",width={icon-width}]          |Schaltfläche zum Springen zum nächsten Eintrag, der der Such-Maske entspricht.
+|image:icons/go-last.png[title="Letzter Datensatz",width={icon-width}]|Schaltfläche zum Springen zum letzten Eintrag, der der Such-Maske entspricht.
+|image:icons/document-save.png[title="Speichern",width={icon-width}]             |Schaltfläche zum Schreiben einer Datei mit allen Einträgen, die der Such-Maske entsprechen. Die Datei öffnet sich direkt. Falls im ersten Such-Eintrag +++####+++ steht, wird eine Reihenfolge-Prüfung durchgeführt. Ein Fehler wird sofort angezeigt. Ist die geprüfte Reihenfolge OK, wird die Datei gespeichert und öffnet sich sofort.
 |1 Tag danach |Eintrag vom folgenden Tag wird nur angezeigt.
 |1 Monat danach|Eintrag vom folgenden Monat wird nur angezeigt.
 |1 Jahr danach|Eintrag vom folgenden Jahr wird nur angezeigt.

@@ -13,12 +13,12 @@ image:WP250.png[{wp250-title},title={wp250-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Anlagen inkl. aktuellen Werte.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Anlage. <<WP260>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Anlage.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Anlage.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Anlage.
-|image:icons/gtk-select-color.png[title="Chart",width={icon-width}]   |Schaltfläche zum Anzeigen des Point and Figure-Charts. <<WP100>>
-|image:icons/gtk-justify-fill.png[title="Details",width={icon-width}] |Schaltfläche zum Bearbeiten aller WP-Buchungen der ausgewählten Anlage. <<WP400>>
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Anlage. <<WP260>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Anlage.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Anlage.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Anlage.
+|image:icons/applications-graphics.png[title="Chart",width={icon-width}]   |Schaltfläche zum Anzeigen des Point and Figure-Charts. <<WP100>>
+|image:icons/format-justify-fill.png[title="Details",width={icon-width}] |Schaltfläche zum Bearbeiten aller WP-Buchungen der ausgewählten Anlage. <<WP400>>
 |Anlagen      |Liste von ausgewählten Anlagen inkl. der aktuellen Werte.
 |Status       |Anzeige von Informationen zur aktuellen Anlagenliste: Anzahl der Datensätze, Summe der angelegten Beträge, Werte, sich daraus ergebenen Gewinne und die Änderungen zum Vortag.
 |Alle         |Schaltfläche zum Zurücksetzen aller Selektionskriterien.

@@ -13,12 +13,12 @@ image:SB200.png[{sb200-title},title={sb200-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Ahnen.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Ahnen. <<SB210>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Ahnen.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ahnen.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ahnen.
-|image:icons/gtk-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Öffnen des Dialogs <<SB220>>.
-|image:icons/gtk-floppy.png[title="Import-Export",width={icon-width}] |Diese Schaltfläche öffnet den Dialog <<SB500>>.
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Ahnen. <<SB210>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Ahnen.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Ahnen.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Ahnen.
+|image:icons/document-print.png[title="Drucken",width={icon-width}]        |Schaltfläche zum Öffnen des Dialogs <<SB220>>.
+|image:icons/media-floppy.png[title="Import-Export",width={icon-width}] |Diese Schaltfläche öffnet den Dialog <<SB500>>.
 |Ahnen        |Liste mit allen ausgewählten Ahnen.
 |Status       |Anzeige von Informationen zur aktuellen Ahnenliste.
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.

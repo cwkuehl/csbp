@@ -13,10 +13,10 @@ image:FZ250.png[{fz250-title},title={fz250-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Fahrradständen.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Fahrradstandes. <<FZ260>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Fahrradstandes.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Fahrradstandes.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Fahrradstandes.
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen eines neuen Fahrradstandes. <<FZ260>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Fahrradstandes.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Fahrradstandes.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Fahrradstandes.
 |Fahrradstände|Liste mit allen bestehenden Fahrradständen.
 |Alle         |Schaltfläche zum Zurücksetzen der Selektionskriterien.
 |Fahrrad      |Ein Fahrrad kann ausgewählt werden. Es werden nur die Fahrradstände des ausgewählten Fahrrads angezeigt.

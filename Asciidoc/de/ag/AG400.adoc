@@ -15,10 +15,10 @@ image:AG400.png[{ag400-title},title={ag400-title}]
 |==========================
 |Steuerelement|Erklärung
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Sicherungseinträgen.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Sicherungseintrages. <<AG410>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Sicherungseintrages.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Sicherungseintrages.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sicherungseintrages.
+|image:icons/document-new.png[title="Neu",width={icon-width}]     |Schaltfläche zum Erstellen eines neuen Sicherungseintrages. <<AG410>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren des ausgewählten Sicherungseintrages.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern des ausgewählten Sicherungseintrages.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen des ausgewählten Sicherungseintrages.
 |Sicherungseinträge|Liste mit allen einzelnen Sicherungseinträgen. Eine Sicherungseintrag besteht aus einem Ziel- und evtl. mehreren Quell-Verzeichnissen.
 |Sicherung    |Schaltfläche zum Durchführen der ausgewählten Sicherung. Die Sicherung läuft asynchron. Der Fortschritt wird im Status angezeigt und kann abgebrochen werden.
 |Rück-Sicherung|Schaltfläche zum Durchführen der ausgewählten Sicherung als Rück-Sicherung. Dabei wird die Kopierrichtung umgedreht.

@@ -13,10 +13,10 @@ image:TB200.png[{tb200-title},title={tb200-title}]
 |image:icons/view-refresh.png[title="Aktualisieren",width={icon-width}]|Schaltfläche zum Aktualisieren der Liste von Positionen.
 |image:icons/edit-undo.png[title="Rückgängig",width={icon-width}]      |Diese Schaltfläche macht die letzte Aktion rückgängig.
 |image:icons/edit-redo.png[title="Wiederherstellen",width={icon-width}]|Diese Schaltfläche stellt die letzte rückgängig gemachte Aktion wieder her.
-|image:icons/gtk-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Position. <<TB210>>
-|image:icons/gtk-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Position.
-|image:icons/gtk-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Position.
-|image:icons/gtk-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Position.
-|image:icons/gtk-select-color.png[title="Karte",width={icon-width}]   |Schaltfläche zum Anzeigen der ausgewählten Position in https://www.openstreetmap.de/karte[OpenStreetMap].
+|image:icons/document-new.png[title="Neu",width={icon-width}]              |Schaltfläche zum Erstellen einer neuen Position. <<TB210>>
+|image:icons/edit-copy.png[title="Kopieren",width={icon-width}]        |Schaltfläche zum Kopieren der ausgewählten Position.
+|image:icons/document-edit.png[title="Ändern",width={icon-width}]          |Schaltfläche zum Ändern der ausgewählten Position.
+|image:icons/edit-delete.png[title="Löschen",width={icon-width}]       |Schaltfläche zum Löschen der ausgewählten Position.
+|image:icons/applications-graphics.png[title="Karte",width={icon-width}]   |Schaltfläche zum Anzeigen der ausgewählten Position in https://www.openstreetmap.de/karte[OpenStreetMap].
 |Positionen   |Liste mit allen Positionen.
 |==========================
