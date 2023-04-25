@@ -1143,6 +1143,9 @@
     </data>
 
     <!-- Aktionen -->
+    <data name="Action.menu" xml:space="preserve">
+        <value>Menü ein- oder aufklappen.</value>
+    </data>
     <data name="Action.copy" xml:space="preserve">
         <value>Kopieren</value>
     </data>

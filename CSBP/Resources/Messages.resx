@@ -1143,6 +1143,9 @@
     </data>
 
     <!-- Aktionen -->
+    <data name="Action.menu" xml:space="preserve">
+        <value>Menu</value>
+    </data>
     <data name="Action.copy" xml:space="preserve">
         <value>Copy</value>
     </data>

@@ -35,6 +35,10 @@ public class MainWindow : Window
 {
 #pragma warning disable CS0649, SA1306
 
+  /// <summary>PopoverMenu popovermenu1.</summary>
+  [Builder.Object]
+  private readonly PopoverMenu popovermenu1;
+
   /// <summary>Notebook with all tab dialogs.</summary>
   [Builder.Object]
   private readonly Notebook Notebook;
@@ -206,18 +210,29 @@ public class MainWindow : Window
       }
       if (c is ImageMenuItem imi && !string.IsNullOrEmpty(imi.Label))
       {
-        if (imi.Label.StartsWith("edit-", StringComparison.CurrentCulture))
-        {
-          var m = Messages.Get(imi.Label.Replace("edit-", "Menu."));
-          if (!string.IsNullOrEmpty(m))
-            imi.Label = m;
-        }
-        else if (imi.Label.StartsWith("gtk-", StringComparison.CurrentCulture))
+        if (imi.Label.StartsWith("gtk-", StringComparison.CurrentCulture))
         {
           var m = Messages.Get(imi.Label.Replace("gtk-", "Menu."));
           if (!string.IsNullOrEmpty(m))
             imi.Label = m;
         }
+      }
+      if (!string.IsNullOrEmpty(c.TooltipText) && c.TooltipText.StartsWith("Action.", StringComparison.CurrentCulture))
+      {
+        c.TooltipText = Messages.Get(c.TooltipText);
+      }
+    });
+    var lpo = GetChildren(popovermenu1);
+    lpo.ForEach(c =>
+    {
+      if (c is ModelButton mb)
+      {
+        if (mb.Text == "Menu.undo")
+          mb.Clicked += OnMenuUndo;
+        else if (mb.Text == "Menu.redo")
+          mb.Clicked += OnMenuRedo;
+        if (!string.IsNullOrEmpty(mb.Text) && mb.Text.Contains('.', StringComparison.CurrentCulture))
+          mb.Text = Messages.Get(mb.Text);
       }
     });
     Icon = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif");
@@ -615,6 +630,15 @@ public class MainWindow : Window
   protected void SetupHandlers()
   {
     DeleteEvent += OnDeleteEvent;
+  }
+
+  /// <summary>Menu open or close.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnMenuClicked(object sender, EventArgs e)
+  {
+    // Functions.MachNichts();
+    popovermenu1.Visible = !popovermenu1.Visible;
   }
 
   /// <summary>Menu Rückgängig.</summary>

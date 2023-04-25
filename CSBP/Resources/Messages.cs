@@ -1857,6 +1857,11 @@ public partial class Messages
     get { return rm.GetString("Enum.method.c"); }
   }
 
+  public static string Action_menu
+  {
+    get { return rm.GetString("Action.menu"); }
+  }
+
   public static string Action_copy
   {
     get { return rm.GetString("Action.copy"); }
