@@ -6,7 +6,6 @@ namespace CSBP.Forms;
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
@@ -51,13 +50,25 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly MenuItem MenuClients;
 
+  /// <summary>Menu Clients.</summary>
+  [Builder.Object]
+  private readonly Button menuclients;
+
   /// <summary>Menu Users.</summary>
   [Builder.Object]
   private readonly MenuItem MenuUsers;
 
+  /// <summary>Menu Users.</summary>
+  [Builder.Object]
+  private readonly Button menuusers;
+
   /// <summary>Menu Backups.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBackups;
+
+  /// <summary>Menu Backups.</summary>
+  [Builder.Object]
+  private readonly Button menubackups;
 
   /// <summary>Menu Login.</summary>
   [Builder.Object]
@@ -194,11 +205,14 @@ public class MainWindow : Window
 #pragma warning restore CS0649, SA1306
 
   /// <summary>Initializes a new instance of the <see cref="MainWindow"/> class.</summary>
+  /// <param name="app">Affected application.</param>
   /// <param name="builder">Affected builder.</param>
   /// <param name="handle">Affected handle.</param>
-  protected MainWindow(Builder builder, IntPtr handle)
+  protected MainWindow(Application app, Builder builder, IntPtr handle)
     : base(handle)
   {
+    if (app != null)
+      Application = app;
     Settings.Default.ApplicationPreferDarkTheme = true;
     builder.Autoconnect(this);
     var l = GetChildren();
@@ -227,14 +241,37 @@ public class MainWindow : Window
     {
       if (c is ModelButton mb)
       {
-        if (mb.Text == "Menu.undo")
-          mb.Clicked += OnMenuUndo;
-        else if (mb.Text == "Menu.redo")
-          mb.Clicked += OnMenuRedo;
         if (!string.IsNullOrEmpty(mb.Text) && mb.Text.Contains('.', StringComparison.CurrentCulture))
           mb.Text = Messages.Get(mb.Text);
       }
+      if (c is Button b)
+      {
+        if (b.Label == "Menu.undo")
+          b.Clicked += OnMenuUndo;
+        else if (b.Label == "Menu.redo")
+          b.Clicked += OnMenuRedo;
+        else if (b.Label == "Menu.clients")
+          b.Clicked += OnMenuClients;
+        else if (b.Label == "Menu.users")
+          b.Clicked += OnMenuUsers;
+        else if (b.Label == "Menu.backups")
+          b.Clicked += OnMenuBackups;
+        else if (b.Label == "Menu.quit")
+          b.Clicked += OnMenuQuit;
+        else if (b.Label == "Menu.about")
+          b.Clicked += OnMenuAbout;
+        else if (b.Label == "Menu.help2")
+          b.Clicked += OnMenuHelp2;
+        if (!string.IsNullOrEmpty(b.Label) && b.Label.Contains('.', StringComparison.CurrentCulture))
+          b.Label = Messages.Get(b.Label);
+      }
     });
+    ////var actionGroup = new GLib.SimpleActionGroup();
+    ////var action = new GLib.SimpleAction("undo", null);
+    ////action.Activate(new GLib.Variant("Hallo"));
+    ////action.Activated += OnMenuUndo;
+    ////actionGroup.AddAction(action);
+    ////app.AddAction(action);
     Icon = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif");
 
     // Icon.Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icon/test.png", "png");
@@ -310,14 +347,15 @@ public class MainWindow : Window
 
   /// <summary>Creates main window.</summary>
   /// <returns>The MainWindow.</returns>
-  public static MainWindow Create()
+  /// <param name="app">Affected application.</param>
+  public static MainWindow Create(Application app)
   {
     var builder = new Builder("CSBP.GtkGui.MainWindow.glade");
-    return new MainWindow(builder, builder.GetObject("MainWindow").Handle);
+    return new MainWindow(app, builder, builder.GetObject("MainWindow").Handle);
   }
 
   /// <summary>Starten der Anmeldung und der Tabs.</summary>
-  /// <param name="p">Betroffenes Main Window.</param>
+  /// <param name="p">Affected MainWindow.</param>
   public void Start(Gtk.Window p)
   {
     Notebook.RemovePage(0);
@@ -429,9 +467,9 @@ public class MainWindow : Window
   {
     RefreshTitle();
 
-    MenuClients.Visible = b && per >= (int)PermissionEnum.Admin;
-    MenuUsers.Visible = b;
-    MenuBackups.Visible = b;
+    MenuClients.Visible = menuclients.Visible = b && per >= (int)PermissionEnum.Admin;
+    MenuUsers.Visible = menuusers.Visible = b;
+    MenuBackups.Visible = menubackups.Visible = b;
 
     MenuLogin.Visible = !b;
     MenuLogout.Visible = b;
@@ -647,6 +685,7 @@ public class MainWindow : Window
   protected void OnMenuUndo(object sender, EventArgs e)
   {
     MainClass.Undo();
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Wiederherstellen.</summary>
@@ -655,6 +694,7 @@ public class MainWindow : Window
   protected void OnMenuRedo(object sender, EventArgs e)
   {
     MainClass.Redo();
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Mandanten.</summary>
@@ -663,6 +703,7 @@ public class MainWindow : Window
   protected void OnMenuClients(object sender, EventArgs e)
   {
     AppendPage(AG100Clients.Create(), AG100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Benutzer.</summary>
@@ -671,6 +712,7 @@ public class MainWindow : Window
   protected void OnMenuUsers(object sender, EventArgs e)
   {
     AppendPage(AG200Users.Create(), AG200_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Sicherungen.</summary>
@@ -679,6 +721,7 @@ public class MainWindow : Window
   protected void OnMenuBackups(object sender, EventArgs e)
   {
     AppendPage(AG400Backups.Create(), AG400_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Schließen der Anwendung.</summary>
@@ -696,6 +739,7 @@ public class MainWindow : Window
   {
     //// AppendPage(AM000Login.Create(), AM000_title);
     CsbpBin.Start(typeof(AM000Login), AM000_title, modal: true);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Abmeldung.</summary>
@@ -705,6 +749,7 @@ public class MainWindow : Window
   {
     ClosePages();
     MainClass.Logout();
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Kennwort-Änderung.</summary>
@@ -713,6 +758,7 @@ public class MainWindow : Window
   protected void OnMenuPwchange(object sender, EventArgs e)
   {
     CsbpBin.Start(typeof(AM100Change), AM100_title, modal: true);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Einstellungen.</summary>
@@ -721,6 +767,7 @@ public class MainWindow : Window
   protected void OnMenuOptions(object sender, EventArgs e)
   {
     CsbpBin.Start(typeof(AM500Options), AM500_title, modal: true);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Start-Formulare.</summary>
@@ -729,6 +776,7 @@ public class MainWindow : Window
   protected void OnMenuDialogs(object sender, EventArgs e)
   {
     CsbpBin.Start(typeof(AM510Dialogs), AM510_title, modal: true);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Dialoge zurücksetzen.</summary>
@@ -737,6 +785,7 @@ public class MainWindow : Window
   protected void OnMenuReset(object sender, EventArgs e)
   {
     Parameter.ResetDialogSizes();
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Tagebuch.</summary>
@@ -745,6 +794,7 @@ public class MainWindow : Window
   protected void OnMenuDiary(object sender, EventArgs e)
   {
     AppendPage(TB100Diary.Create(), TB100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Positionen.</summary>
@@ -753,6 +803,7 @@ public class MainWindow : Window
   protected void OnMenuPositions(object sender, EventArgs e)
   {
     AppendPage(TB200Positions.Create(), TB200_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Notizen.</summary>
@@ -761,6 +812,7 @@ public class MainWindow : Window
   protected void OnMenuNotes(object sender, EventArgs e)
   {
     AppendPage(FZ700Memos.Create(), FZ700_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Personen/Adressen.</summary>
@@ -769,6 +821,7 @@ public class MainWindow : Window
   protected void OnMenuPersons(object sender, EventArgs e)
   {
     AppendPage(AD100Persons.Create(), AD100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Fahrradstände.</summary>
@@ -777,6 +830,7 @@ public class MainWindow : Window
   protected void OnMenuMileages(object sender, EventArgs e)
   {
     AppendPage(FZ250Mileages.Create(), FZ250_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Fahrraäder.</summary>
@@ -785,6 +839,7 @@ public class MainWindow : Window
   protected void OnMenuBikes(object sender, EventArgs e)
   {
     AppendPage(FZ200Bikes.Create(), FZ200_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Bücher.</summary>
@@ -793,6 +848,7 @@ public class MainWindow : Window
   protected void OnMenuBooks(object sender, EventArgs e)
   {
     AppendPage(FZ340Books.Create(), FZ340_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Autoren.</summary>
@@ -801,6 +857,7 @@ public class MainWindow : Window
   protected void OnMenuAuthors(object sender, EventArgs e)
   {
     AppendPage(FZ300Authors.Create(), FZ300_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Serien.</summary>
@@ -809,6 +866,7 @@ public class MainWindow : Window
   protected void OnMenuSeries(object sender, EventArgs e)
   {
     AppendPage(FZ320Series.Create(), FZ320_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Statistik.</summary>
@@ -817,6 +875,7 @@ public class MainWindow : Window
   protected void OnMenuStatistics(object sender, EventArgs e)
   {
     AppendPage(FZ100Statistics.Create(), FZ100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Sudoku.</summary>
@@ -825,6 +884,7 @@ public class MainWindow : Window
   protected void OnMenuSudoku(object sender, EventArgs e)
   {
     AppendPage(SO100Sudoku.Create(), SO100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Buchungen.</summary>
@@ -833,6 +893,7 @@ public class MainWindow : Window
   protected void OnMenuBookings(object sender, EventArgs e)
   {
     AppendPage(HH400Bookings.Create(), HH400_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Ereignisse.</summary>
@@ -841,6 +902,7 @@ public class MainWindow : Window
   protected void OnMenuEvents(object sender, EventArgs e)
   {
     AppendPage(HH300Events.Create(), HH300_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Konten.</summary>
@@ -849,6 +911,7 @@ public class MainWindow : Window
   protected void OnMenuAccounts(object sender, EventArgs e)
   {
     AppendPage(HH200Accounts.Create(), HH200_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Perioden.</summary>
@@ -857,6 +920,7 @@ public class MainWindow : Window
   protected void OnMenuPeriods(object sender, EventArgs e)
   {
     AppendPage(HH100Periods.Create(), HH100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Schlussbilanz.</summary>
@@ -865,6 +929,7 @@ public class MainWindow : Window
   protected void OnMenuFinalbalance(object sender, EventArgs e)
   {
     AppendPage(HH500Balance.Create(Constants.KZBI_SCHLUSS), HH500_title_SB);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Gewinn+Verlust-Rechnung.</summary>
@@ -873,6 +938,7 @@ public class MainWindow : Window
   protected void OnMenuPlbalance(object sender, EventArgs e)
   {
     AppendPage(HH500Balance.Create(Constants.KZBI_GV), HH500_title_GV);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Eröffnungsbilanz.</summary>
@@ -881,6 +947,7 @@ public class MainWindow : Window
   protected void OnMenuOpeningbalance(object sender, EventArgs e)
   {
     AppendPage(HH500Balance.Create(Constants.KZBI_EROEFFNUNG), HH500_title_EB);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Ahnen.</summary>
@@ -889,6 +956,7 @@ public class MainWindow : Window
   protected void OnMenuAncestors(object sender, EventArgs e)
   {
     AppendPage(SB200Ancestors.Create(), SB200_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Familien.</summary>
@@ -897,6 +965,7 @@ public class MainWindow : Window
   protected void OnMenuFamilies(object sender, EventArgs e)
   {
     AppendPage(SB300Families.Create(), SB300_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Quellen.</summary>
@@ -905,6 +974,7 @@ public class MainWindow : Window
   protected void OnMenuSources(object sender, EventArgs e)
   {
     AppendPage(SB400Sources.Create(), SB400_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Wertpapiere.</summary>
@@ -913,6 +983,7 @@ public class MainWindow : Window
   protected void OnMenuStocks(object sender, EventArgs e)
   {
     AppendPage(WP200Stocks.Create(), WP200_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Konfigurationen.</summary>
@@ -921,6 +992,7 @@ public class MainWindow : Window
   protected void OnMenuConfigurations(object sender, EventArgs e)
   {
     AppendPage(WP300Configurations.Create(), WP300_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Chart.</summary>
@@ -929,6 +1001,7 @@ public class MainWindow : Window
   protected void OnMenuChart(object sender, EventArgs e)
   {
     AppendPage(WP100Chart.Create(), WP100_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Anlagen.</summary>
@@ -937,6 +1010,7 @@ public class MainWindow : Window
   protected void OnMenuInvestments(object sender, EventArgs e)
   {
     AppendPage(WP250Investments.Create(), WP250_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Buchungen.</summary>
@@ -945,6 +1019,7 @@ public class MainWindow : Window
   protected void OnMenuBookings3(object sender, EventArgs e)
   {
     AppendPage(WP400Bookings.Create(), WP400_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Stände.</summary>
@@ -953,6 +1028,7 @@ public class MainWindow : Window
   protected void OnMenuPrices(object sender, EventArgs e)
   {
     AppendPage(WP500Prices.Create(), WP500_title);
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Menu Über.</summary>
@@ -960,6 +1036,7 @@ public class MainWindow : Window
   /// <param name="e">Affected event.</param>
   protected void OnMenuAbout(object sender, EventArgs e)
   {
+    popovermenu1.Visible = false;
     var daten = MainClass.ServiceDaten;
     var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.1";
     var db = Parameter.Connect;
@@ -985,6 +1062,7 @@ Client: {daten.MandantNr} User: {daten.BenutzerId}",
   protected void OnMenuHelp2(object sender, EventArgs e)
   {
     MainClass.Help();
+    popovermenu1.Visible = false;
   }
 
   /// <summary>Schließen des Fensters und der Anwendung.</summary>

@@ -31,6 +31,9 @@ public class MainClass
   private static ServiceDaten intServiceData = ServiceDaten0;
 
   /// <summary>Gets the main window.</summary>
+  public static Application App { get; private set; }
+
+  /// <summary>Gets the main window.</summary>
   public static MainWindow MainWindow { get; private set; }
 
   /// <summary>Gets new copy of service data.</summary>
@@ -70,7 +73,9 @@ public class MainClass
     Application.Init();
     ApplyTheme();
 
-    MainWindow = MainWindow.Create();
+    // App = new Application("cwkuehl.de", GLib.ApplicationFlags.None);
+    MainWindow = MainWindow.Create(App);
+    App?.AddWindow(MainWindow);
     MainWindow.Show();
     MainWindow.SetPermission();
     MainWindow.Start(MainWindow);
