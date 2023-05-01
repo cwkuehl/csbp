@@ -425,7 +425,7 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis<string> GetBookingSpan(ServiceDaten daten, string uid)
   {
-    var r = new ServiceErgebnis<string>(HH022);
+    var r = new ServiceErgebnis<string>(M0(HH022));
     var min = HhBuchungRep.GetList(daten, uid, null, desc: false, max: 1).FirstOrDefault();
     if (min != null)
     {
