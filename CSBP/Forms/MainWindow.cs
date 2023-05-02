@@ -74,33 +74,65 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly MenuItem MenuLogin;
 
+  /// <summary>Menu Login.</summary>
+  [Builder.Object]
+  private readonly Button menulogin;
+
   /// <summary>Menu Logout.</summary>
   [Builder.Object]
   private readonly MenuItem MenuLogout;
+
+  /// <summary>Menu Logout.</summary>
+  [Builder.Object]
+  private readonly Button menulogout;
 
   /// <summary>Menu Password change.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPwchange;
 
+  /// <summary>Menu Pwchange.</summary>
+  [Builder.Object]
+  private readonly Button menupwchange;
+
   /// <summary>Menu Options.</summary>
   [Builder.Object]
   private readonly MenuItem MenuOptions;
+
+  /// <summary>Menu Options.</summary>
+  [Builder.Object]
+  private readonly Button menuoptions;
 
   /// <summary>Menu Start dialogs.</summary>
   [Builder.Object]
   private readonly MenuItem MenuDialogs;
 
+  /// <summary>Menu Options.</summary>
+  [Builder.Object]
+  private readonly Button menudialogs;
+
   /// <summary>Menu Reset.</summary>
   [Builder.Object]
   private readonly MenuItem MenuReset;
+
+  /// <summary>Menu Reset.</summary>
+  [Builder.Object]
+  private readonly Button menureset;
 
   /// <summary>Menu Diary.</summary>
   [Builder.Object]
   private readonly MenuItem MenuDiary;
 
+  /// <summary>Menu Diary.</summary>
+  [Builder.Object]
+  private readonly Button menudiary;
+
   /// <summary>Menu Positions.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPositions;
+
+  /// <summary>Menu Positions.</summary>
+  [Builder.Object]
+  private readonly Button menupositions;
 
   /// <summary>Menu Notes.</summary>
   [Builder.Object]
@@ -258,6 +290,22 @@ public class MainWindow : Window
           b.Clicked += OnMenuBackups;
         else if (b.Label == "Menu.quit")
           b.Clicked += OnMenuQuit;
+        else if (b.Label == "Menu.login")
+          b.Clicked += OnMenuLogin;
+        else if (b.Label == "Menu.logout")
+          b.Clicked += OnMenuLogout;
+        else if (b.Label == "Menu.pwchange")
+          b.Clicked += OnMenuPwchange;
+        else if (b.Label == "Menu.options")
+          b.Clicked += OnMenuOptions;
+        else if (b.Label == "Menu.dialogs")
+          b.Clicked += OnMenuDialogs;
+        else if (b.Label == "Menu.reset")
+          b.Clicked += OnMenuReset;
+        else if (b.Label == "Menu.diary")
+          b.Clicked += OnMenuDiary;
+        else if (b.Label == "Menu.positions")
+          b.Clicked += OnMenuPositions;
         else if (b.Label == "Menu.about")
           b.Clicked += OnMenuAbout;
         else if (b.Label == "Menu.help2")
@@ -471,15 +519,15 @@ public class MainWindow : Window
     MenuUsers.Visible = menuusers.Visible = b;
     MenuBackups.Visible = menubackups.Visible = b;
 
-    MenuLogin.Visible = !b;
-    MenuLogout.Visible = b;
-    MenuPwchange.Visible = b;
-    MenuOptions.Visible = b;
-    MenuDialogs.Visible = b;
-    MenuReset.Visible = true;
+    MenuLogin.Visible = menulogin.Visible = !b;
+    MenuLogout.Visible = menulogout.Visible = b;
+    MenuPwchange.Visible = menupwchange.Visible = b;
+    MenuOptions.Visible = menuoptions.Visible = b;
+    MenuDialogs.Visible = menudialogs.Visible = b;
+    MenuReset.Visible = menureset.Visible = true;
 
-    MenuDiary.Visible = b;
-    MenuPositions.Visible = b;
+    MenuDiary.Visible = menudiary.Visible = b;
+    MenuPositions.Visible = menupositions.Visible = b;
     MenuNotes.Visible = b;
     MenuPersons.Visible = b;
     MenuMileages.Visible = b;
