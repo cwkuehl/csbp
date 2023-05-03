@@ -46,6 +46,10 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly Statusbar Statusbar;
 
+  /// <summary>Menu bar.</summary>
+  [Builder.Object]
+  private readonly MenuBar menubar;
+
   /// <summary>Menu Clients.</summary>
   [Builder.Object]
   private readonly MenuItem MenuClients;
@@ -266,37 +270,73 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly MenuItem MenuAncestors;
 
+  /// <summary>Menu Ancestors.</summary>
+  [Builder.Object]
+  private readonly Button menuancestors;
+
   /// <summary>Menu Families.</summary>
   [Builder.Object]
   private readonly MenuItem MenuFamilies;
+
+  /// <summary>Menu Families.</summary>
+  [Builder.Object]
+  private readonly Button menufamilies;
 
   /// <summary>Menu Sources.</summary>
   [Builder.Object]
   private readonly MenuItem MenuSources;
 
+  /// <summary>Menu Sources.</summary>
+  [Builder.Object]
+  private readonly Button menusources;
+
   /// <summary>Menu Stocks.</summary>
   [Builder.Object]
   private readonly MenuItem MenuStocks;
 
-  /// <summary>Menu Konfigurations.</summary>
+  /// <summary>Menu Stocks.</summary>
+  [Builder.Object]
+  private readonly Button menustocks;
+
+  /// <summary>Menu Configurations.</summary>
   [Builder.Object]
   private readonly MenuItem MenuConfigurations;
+
+  /// <summary>Menu Configurations.</summary>
+  [Builder.Object]
+  private readonly Button menuconfigurations;
 
   /// <summary>Menu Chart.</summary>
   [Builder.Object]
   private readonly MenuItem MenuChart;
 
+  /// <summary>Menu Chart.</summary>
+  [Builder.Object]
+  private readonly Button menuchart;
+
   /// <summary>Menu Investments.</summary>
   [Builder.Object]
   private readonly MenuItem MenuInvestments;
 
-  /// <summary>Menu Investments booking.</summary>
+  /// <summary>Menu Investments.</summary>
+  [Builder.Object]
+  private readonly Button menuinvestments;
+
+  /// <summary>Menu Investment bookings.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBookings3;
+
+  /// <summary>Menu Investment bookings.</summary>
+  [Builder.Object]
+  private readonly Button menubookings3;
 
   /// <summary>Menu Prices.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPrices;
+
+  /// <summary>Menu Prices.</summary>
+  [Builder.Object]
+  private readonly Button menuprices;
 
 #pragma warning restore CS0649, SA1306
 
@@ -402,6 +442,24 @@ public class MainWindow : Window
           b.Clicked += OnMenuPlbalance;
         else if (b.Label == "Menu.openingbalance")
           b.Clicked += OnMenuOpeningbalance;
+        else if (b.Label == "Menu.ancestors")
+          b.Clicked += OnMenuAncestors;
+        else if (b.Label == "Menu.families")
+          b.Clicked += OnMenuFamilies;
+        else if (b.Label == "Menu.sources")
+          b.Clicked += OnMenuSources;
+        else if (b.Label == "Menu.stocks")
+          b.Clicked += OnMenuStocks;
+        else if (b.Label == "Menu.configurations")
+          b.Clicked += OnMenuConfigurations;
+        else if (b.Label == "Menu.chart")
+          b.Clicked += OnMenuChart;
+        else if (b.Label == "Menu.investments")
+          b.Clicked += OnMenuInvestments;
+        else if (b.Label == "Menu.bookings3")
+          b.Clicked += OnMenuBookings3;
+        else if (b.Label == "Menu.prices")
+          b.Clicked += OnMenuPrices;
         else if (b.Label == "Menu.about")
           b.Clicked += OnMenuAbout;
         else if (b.Label == "Menu.help2")
@@ -611,6 +669,7 @@ public class MainWindow : Window
   {
     RefreshTitle();
 
+    menubar.Visible = false;
     MenuClients.Visible = menuclients.Visible = b && per >= (int)PermissionEnum.Admin;
     MenuUsers.Visible = menuusers.Visible = b;
     MenuBackups.Visible = menubackups.Visible = b;
@@ -642,16 +701,16 @@ public class MainWindow : Window
     MenuPlbalance.Visible = menuplbalance.Visible = b;
     MenuOpeningbalance.Visible = menuopeningbalance.Visible = b;
 
-    MenuAncestors.Visible = b;
-    MenuFamilies.Visible = b;
-    MenuSources.Visible = b;
+    MenuAncestors.Visible = menuancestors.Visible = b;
+    MenuFamilies.Visible = menufamilies.Visible = b;
+    MenuSources.Visible = menusources.Visible = b;
 
-    MenuStocks.Visible = b;
-    MenuConfigurations.Visible = b;
-    MenuChart.Visible = b;
-    MenuInvestments.Visible = b;
-    MenuBookings3.Visible = b;
-    MenuPrices.Visible = b;
+    MenuStocks.Visible = menustocks.Visible = b;
+    MenuConfigurations.Visible = menuconfigurations.Visible = b;
+    MenuChart.Visible = menuchart.Visible = b;
+    MenuInvestments.Visible = menuinvestments.Visible = b;
+    MenuBookings3.Visible = menubookings3.Visible = b;
+    MenuPrices.Visible = menuprices.Visible = b;
   }
 
   /// <summary>

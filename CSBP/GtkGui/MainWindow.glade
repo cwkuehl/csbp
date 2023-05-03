@@ -39,7 +39,7 @@
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkMenuBar">
+          <object class="GtkMenuBar" id="menubar">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
@@ -1403,16 +1403,14 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
-                <property name="label">Menu.about</property>
+              <object class="GtkButton" id="menuancestors">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="image">infoImage</property>
+                <property name="label">Menu.ancestors</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
-                <property name="always-show-image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1421,21 +1419,35 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
-                <property name="label">Menu.help2</property>
+              <object class="GtkButton" id="menufamilies">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="image">helpImage</property>
+                <property name="label">Menu.families</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
-                <property name="always-show-image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="menusources">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="label">Menu.sources</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
               </packing>
             </child>
           </object>
@@ -1475,16 +1487,14 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
-                <property name="label">Menu.about</property>
+              <object class="GtkButton" id="menustocks">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="image">infoImage</property>
+                <property name="label">Menu.stocks</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
-                <property name="always-show-image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1493,21 +1503,94 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
-                <property name="label">Menu.help2</property>
+              <object class="GtkButton" id="menuconfigurations">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="image">helpImage</property>
+                <property name="label">Menu.configurations</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
-                <property name="always-show-image">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="menuchart">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="label">Menu.chart</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="menuinvestments">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="label">Menu.investments</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="menubookings3">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="label">Menu.bookings3</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">7</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="menuprices">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="label">Menu.prices</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">8</property>
               </packing>
             </child>
           </object>
