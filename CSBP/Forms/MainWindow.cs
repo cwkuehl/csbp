@@ -138,65 +138,129 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly MenuItem MenuNotes;
 
+  /// <summary>Menu Notes.</summary>
+  [Builder.Object]
+  private readonly Button menunotes;
+
   /// <summary>Menu Persons/Addresses.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPersons;
+
+  /// <summary>Menu Persons.</summary>
+  [Builder.Object]
+  private readonly Button menupersons;
 
   /// <summary>Menu Mileages.</summary>
   [Builder.Object]
   private readonly MenuItem MenuMileages;
 
+  /// <summary>Menu Mileages.</summary>
+  [Builder.Object]
+  private readonly Button menumileages;
+
   /// <summary>Menu Bikes.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBikes;
+
+  /// <summary>Menu Bikes.</summary>
+  [Builder.Object]
+  private readonly Button menubikes;
 
   /// <summary>Menu Books.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBooks;
 
+  /// <summary>Menu Books.</summary>
+  [Builder.Object]
+  private readonly Button menubooks;
+
   /// <summary>Menu Authors.</summary>
   [Builder.Object]
   private readonly MenuItem MenuAuthors;
+
+  /// <summary>Menu Authors.</summary>
+  [Builder.Object]
+  private readonly Button menuauthors;
 
   /// <summary>Menu Series.</summary>
   [Builder.Object]
   private readonly MenuItem MenuSeries;
 
+  /// <summary>Menu Series.</summary>
+  [Builder.Object]
+  private readonly Button menuseries;
+
   /// <summary>Menu Statistics.</summary>
   [Builder.Object]
   private readonly MenuItem MenuStatistics;
+
+  /// <summary>Menu Statistics.</summary>
+  [Builder.Object]
+  private readonly Button menustatistics;
 
   /// <summary>Menu Sudoku.</summary>
   [Builder.Object]
   private readonly MenuItem MenuSudoku;
 
+  /// <summary>Menu Sudoku.</summary>
+  [Builder.Object]
+  private readonly Button menusudoku;
+
   /// <summary>Menu Bookings.</summary>
   [Builder.Object]
   private readonly MenuItem MenuBookings;
+
+  /// <summary>Menu Bookings.</summary>
+  [Builder.Object]
+  private readonly Button menubookings;
 
   /// <summary>Menu Events.</summary>
   [Builder.Object]
   private readonly MenuItem MenuEvents;
 
+  /// <summary>Menu Events.</summary>
+  [Builder.Object]
+  private readonly Button menuevents;
+
   /// <summary>Menu Accounts.</summary>
   [Builder.Object]
   private readonly MenuItem MenuAccounts;
+
+  /// <summary>Menu Accounts.</summary>
+  [Builder.Object]
+  private readonly Button menuaccounts;
 
   /// <summary>Menu Periods.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPeriods;
 
+  /// <summary>Menu Periods.</summary>
+  [Builder.Object]
+  private readonly Button menuperiods;
+
   /// <summary>Menu Final balance.</summary>
   [Builder.Object]
   private readonly MenuItem MenuFinalbalance;
+
+  /// <summary>Menu Final balance.</summary>
+  [Builder.Object]
+  private readonly Button menufinalbalance;
 
   /// <summary>Menu Profit loss balance.</summary>
   [Builder.Object]
   private readonly MenuItem MenuPlbalance;
 
+  /// <summary>Menu Profit loss balance.</summary>
+  [Builder.Object]
+  private readonly Button menuplbalance;
+
   /// <summary>Menu Opening balance.</summary>
   [Builder.Object]
   private readonly MenuItem MenuOpeningbalance;
+
+  /// <summary>Menu Opening balance.</summary>
+  [Builder.Object]
+  private readonly Button menuopeningbalance;
 
   /// <summary>Menu Ancestors.</summary>
   [Builder.Object]
@@ -306,6 +370,38 @@ public class MainWindow : Window
           b.Clicked += OnMenuDiary;
         else if (b.Label == "Menu.positions")
           b.Clicked += OnMenuPositions;
+        else if (b.Label == "Menu.notes")
+          b.Clicked += OnMenuNotes;
+        else if (b.Label == "Menu.persons")
+          b.Clicked += OnMenuPersons;
+        else if (b.Label == "Menu.mileages")
+          b.Clicked += OnMenuMileages;
+        else if (b.Label == "Menu.bikes")
+          b.Clicked += OnMenuBikes;
+        else if (b.Label == "Menu.books")
+          b.Clicked += OnMenuBooks;
+        else if (b.Label == "Menu.authors")
+          b.Clicked += OnMenuAuthors;
+        else if (b.Label == "Menu.series")
+          b.Clicked += OnMenuSeries;
+        else if (b.Label == "Menu.statistics")
+          b.Clicked += OnMenuStatistics;
+        else if (b.Label == "Menu.sudoku")
+          b.Clicked += OnMenuSudoku;
+        else if (b.Label == "Menu.bookings")
+          b.Clicked += OnMenuBookings;
+        else if (b.Label == "Menu.events")
+          b.Clicked += OnMenuEvents;
+        else if (b.Label == "Menu.accounts")
+          b.Clicked += OnMenuAccounts;
+        else if (b.Label == "Menu.periods")
+          b.Clicked += OnMenuPeriods;
+        else if (b.Label == "Menu.finalbalance")
+          b.Clicked += OnMenuFinalbalance;
+        else if (b.Label == "Menu.plbalance")
+          b.Clicked += OnMenuPlbalance;
+        else if (b.Label == "Menu.openingbalance")
+          b.Clicked += OnMenuOpeningbalance;
         else if (b.Label == "Menu.about")
           b.Clicked += OnMenuAbout;
         else if (b.Label == "Menu.help2")
@@ -528,23 +624,23 @@ public class MainWindow : Window
 
     MenuDiary.Visible = menudiary.Visible = b;
     MenuPositions.Visible = menupositions.Visible = b;
-    MenuNotes.Visible = b;
-    MenuPersons.Visible = b;
-    MenuMileages.Visible = b;
-    MenuBikes.Visible = b;
-    MenuBooks.Visible = b;
-    MenuAuthors.Visible = b;
-    MenuSeries.Visible = b;
-    MenuStatistics.Visible = b;
-    MenuSudoku.Visible = b;
+    MenuNotes.Visible = menunotes.Visible = b;
+    MenuPersons.Visible = menupersons.Visible = b;
+    MenuMileages.Visible = menumileages.Visible = b;
+    MenuBikes.Visible = menubikes.Visible = b;
+    MenuBooks.Visible = menubooks.Visible = b;
+    MenuAuthors.Visible = menuauthors.Visible = b;
+    MenuSeries.Visible = menuseries.Visible = b;
+    MenuStatistics.Visible = menustatistics.Visible = b;
+    MenuSudoku.Visible = menusudoku.Visible = b;
 
-    MenuBookings.Visible = b;
-    MenuEvents.Visible = b;
-    MenuAccounts.Visible = b;
-    MenuPeriods.Visible = b;
-    MenuFinalbalance.Visible = b;
-    MenuPlbalance.Visible = b;
-    MenuOpeningbalance.Visible = b;
+    MenuBookings.Visible = menubookings.Visible = b;
+    MenuEvents.Visible = menuevents.Visible = b;
+    MenuAccounts.Visible = menuaccounts.Visible = b;
+    MenuPeriods.Visible = menuperiods.Visible = b;
+    MenuFinalbalance.Visible = menufinalbalance.Visible = b;
+    MenuPlbalance.Visible = menuplbalance.Visible = b;
+    MenuOpeningbalance.Visible = menuopeningbalance.Visible = b;
 
     MenuAncestors.Visible = b;
     MenuFamilies.Visible = b;
