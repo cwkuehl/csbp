@@ -138,12 +138,7 @@ public class LoginService : ServiceBase, ILoginService
     }
     if (!r.Ok)
       return r;
-    var benutzer = BenutzerRep.Get(daten, client, id);
-    if (benutzer == null)
-    {
-      // Invalid login. User not found.
-      throw new MessageException(AM001);
-    }
+    var benutzer = BenutzerRep.Get(daten, client, id) ?? throw new MessageException(AM001);
     if (Functions.CompString(benutzer.Passwort, passwordold) != 0)
     {
       // Invalid login. Old password wrong.

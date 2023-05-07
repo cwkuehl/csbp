@@ -549,9 +549,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     //   2 Vorname <b>Name</b> * tt.mm.jjjj Ort
     var r = new ServiceErgebnis<byte[]>();
     var anzahl = Math.Max(1, generations);
-    var p = SbPersonRep.Get(daten, daten.MandantNr, uid);
-    if (p == null)
-      throw new MessageException(SB017(uid));
+    var p = SbPersonRep.Get(daten, daten.MandantNr, uid) ?? throw new MessageException(SB017(uid));
     var dlist = new List<SbPerson>();
     if (descendants)
       GetNachfahrenRekursiv(daten, uid, 0, 1, anzahl, dlist);
@@ -2050,9 +2048,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     var mitEreignis = (stufe & 1) == 0;
     var mitPartner = (stufe & 2) == 0;
     var zeile = new StringBuilder();
-    var sbPerson = SbPersonRep.Get(daten, daten.MandantNr, uid);
-    if (sbPerson == null)
-      throw new MessageException(SB017(uid));
+    var sbPerson = SbPersonRep.Get(daten, daten.MandantNr, uid) ?? throw new MessageException(SB017(uid));
     var strGen = mitPartner ? "" + generation : "+";
     var strPraefix = new string(' ', (Math.Abs(generation) - 1) * 1);
     zeile.Append(strPraefix).Append(strGen).Append(' ').Append(
@@ -2120,9 +2116,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     bool mitEltern, int generation, int max, List<SbPerson> liste)
   {
     var zeile = new StringBuilder();
-    var sbPerson = SbPersonRep.Get(daten, daten.MandantNr, uid);
-    if (sbPerson == null)
-      throw new MessageException(SB017(uid));
+    var sbPerson = SbPersonRep.Get(daten, daten.MandantNr, uid) ?? throw new MessageException(SB017(uid));
     var strGen = mitEltern ? "" + generation : "+";
     var strPraefix = new string(' ', (Math.Abs(generation) - 1) * 1);
     zeile.Append(strPraefix).Append(strGen).Append(' ').Append(

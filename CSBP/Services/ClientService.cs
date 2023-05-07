@@ -679,9 +679,7 @@ public class ClientService : ServiceBase, IClientService
   {
     if (state == null || cancel == null)
       throw new ArgumentException(null, nameof(state));
-    var e = GetBackupEntryIntern(daten, uid);
-    if (e == null)
-      throw new MessageException(M1013);
+    var e = GetBackupEntryIntern(daten, uid) ?? throw new MessageException(M1013);
     state.Clear().Append(M0(M1031));
     var blist = new List<BackupFile>();
     foreach (var source in e.Sources)

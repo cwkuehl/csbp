@@ -97,11 +97,7 @@ public class ModelBase
     var von = GetType().GetProperty("Geaendert_Von");
     if (am == null || von == null)
       return;
-    var datum = am.GetGetMethod().Invoke(this, null) as DateTime?;
-    if (datum == null)
-    {
-      datum = GetType().GetProperty("Angelegt_Am")?.GetGetMethod().Invoke(this, null) as DateTime?;
-    }
+    var datum = am.GetGetMethod().Invoke(this, null) as DateTime? ?? GetType().GetProperty("Angelegt_Am")?.GetGetMethod().Invoke(this, null) as DateTime?;
     if (datum == null || now == null || (now.Value - datum.Value).TotalMilliseconds > Constants.AEND_ZEIT)
     {
       am.GetSetMethod().Invoke(this, new object[] { now });

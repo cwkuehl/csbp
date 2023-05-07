@@ -708,9 +708,7 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis ReverseBooking(ServiceDaten daten, HhBuchung e)
   {
-    var b = HhBuchungRep.Get(daten, e);
-    if (b == null)
-      throw new MessageException(HH043(e.Uid));
+    var b = HhBuchungRep.Get(daten, e) ?? throw new MessageException(HH043(e.Uid));
     b.Kz = b.Kz == Constants.KZB_AKTIV ? Constants.KZB_STORNO : Constants.KZB_AKTIV;
     HhBuchungRep.Update(daten, b);
     SetzePassendeBerPeriode(daten, b.Soll_Valuta);
@@ -1396,9 +1394,7 @@ public class BudgetService : ServiceBase, IBudgetService
     Dictionary<string, HhBilanz> gvliste, Dictionary<string, HhBilanz> sbliste,
     string ek, string gv)
   {
-    var vo = HhPeriodeRep.Get(daten, daten.MandantNr, pnr);
-    if (vo == null)
-      throw new MessageException(HH005(pnr));
+    var vo = HhPeriodeRep.Get(daten, daten.MandantNr, pnr) ?? throw new MessageException(HH005(pnr));
     UebernehmenBilanz(pnr, ebliste, Constants.KZBI_SCHLUSS, sbliste, false, ek, gv);
     UebernehmenBilanz(0, null, Constants.KZBI_GV, gvliste, false, ek, gv);
     string knr2 = null;
@@ -1624,9 +1620,7 @@ public class BudgetService : ServiceBase, IBudgetService
     Functions.MachNichts(bn);
     if (bd == null)
       throw new MessageException(HH036);
-    var hhKonto = GetKontoIntern(daten, sollUid, false);
-    if (hhKonto == null)
-      throw new MessageException(HH037);
+    var hhKonto = GetKontoIntern(daten, sollUid, false) ?? throw new MessageException(HH037);
     if (hhKonto.Gueltig_Von.HasValue && sv < hhKonto.Gueltig_Von.Value)
       throw new MessageException(HH038(hhKonto.Gueltig_Von.Value));
     if (hhKonto.Gueltig_Bis.HasValue && sv > hhKonto.Gueltig_Bis.Value)

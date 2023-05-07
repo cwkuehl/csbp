@@ -726,9 +726,7 @@ public class PrivateService : ServiceBase, IPrivateService
     {
       // Book statistics
       var prSerie = "";
-      var benutzer = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId);
-      if (benutzer == null)
-        throw new MessageException(FZ036(daten.BenutzerId));
+      var benutzer = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId) ?? throw new MessageException(FZ036(daten.BenutzerId));
       var geburt = benutzer.Geburt;
       var wk = benutzer.Benutzer_ID.ToLower() == "wolfgang";
       var sb = new StringBuilder();
