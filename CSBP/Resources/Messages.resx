@@ -671,6 +671,12 @@
     <data name="TB013_" xml:space="preserve">
         <value>TB013The Position is used in diary entries and cannot be deleted, e.g. {0:yyyy-MM-dd}.</value>
     </data>
+    <data name="TB014" xml:space="preserve">
+        <value>TB014Select a position.</value>
+    </data>
+    <data name="TB015" xml:space="preserve">
+        <value>TB015Get a free access key from https://meteostat.p.rapidapi.com and type in to option TB_METEOSTAT_COM_ACCESS_KEY eintragen.</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Type in a description.</value>

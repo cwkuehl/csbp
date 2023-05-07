@@ -457,6 +457,7 @@ public class DiaryService : ServiceBase, IDiaryService
   {
     var l = new List<MaParameter>
     {
+      // https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
       new MaParameter { Schluessel = "America/Los_Angeles", Wert = "America/Los_Angeles UTC -08:00" },
       new MaParameter { Schluessel = "America/Denver", Wert = "America/Denver UTC -07:00" },
       new MaParameter { Schluessel = "America/Chicago", Wert = "America/Chicago UTC -06:00" },
@@ -472,6 +473,29 @@ public class DiaryService : ServiceBase, IDiaryService
       new MaParameter { Schluessel = "Asia/Dubai", Wert = "Asia/Dubai UTC +04:00" },
     };
     return new ServiceErgebnis<List<MaParameter>>(l);
+  }
+
+  /// <summary>
+  /// Gets a list of weather data.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="puid">Affected position uid.</param>
+  /// <returns>List of weather data.</returns>
+  public ServiceErgebnis<List<KeyValuePair<string, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid)
+  {
+    var r = new ServiceErgebnis<List<KeyValuePair<string, decimal>>>();
+    var apikey = Parameter.GetValue(Parameter.TB_METEOSTAT_COM_ACCESS_KEY);
+    if (string.IsNullOrEmpty(apikey))
+      r.Errors.Add(Message.New(TB015));
+    var p = string.IsNullOrEmpty(puid) ? null : TbOrtRep.Get(daten, daten.MandantNr, puid);
+    if (p == null)
+      r.Errors.Add(Message.New(TB014));
+    if (!r.Ok)
+      return r;
+    var s = RapidapiMeteostatWeather(apikey, p.Breite, p.Laenge, p.Hoehe, date, p.Zeitzone);
+    Functions.MachNichts(s);
+    return r;
   }
 
   /// <summary>
@@ -555,5 +579,39 @@ public class DiaryService : ServiceBase, IDiaryService
     }
     if (string.IsNullOrEmpty(search[0]))
       search[0] = "%";
+  }
+
+  /// <summary>Reads weather values from RapidapiMeteostat.</summary>
+  /// <param name="apikey">Affected application key.</param>
+  /// <param name="lat">Affected latitude.</param>
+  /// <param name="lon">Affected longitude.</param>
+  /// <param name="alt">Affected altitude.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="tz">Affected timezone.</param>
+  private static string RapidapiMeteostatWeather(string apikey, decimal lat, decimal lon, decimal alt, DateTime date, string tz)
+  {
+    var start = Functions.ToString(date);
+    var sb = new StringBuilder();
+    var la = Functions.ToString(lat, 4, Functions.CultureInfoEn);
+    var lo = Functions.ToString(lon, 4, Functions.CultureInfoEn);
+    var al = Functions.ToString(alt, 0, Functions.CultureInfoEn);
+    sb.Append(@$"https://meteostat.p.rapidapi.com/point/hourly?lat={la}&lon={lo}&start={start}&end={start}&alt={al}");
+    if (!string.IsNullOrEmpty(tz))
+      sb.Append(@$"&tz={System.Web.HttpUtility.UrlEncode(tz)}");
+    var url = sb.ToString();
+    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
+    var httpsclient = new System.Net.Http.HttpClient
+    {
+      Timeout = TimeSpan.FromMilliseconds(5000),
+    };
+    httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Key", apikey);
+    httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
+    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
+    var task = httpsclient.GetStringAsync(url);
+    task.Wait();
+    var s = task.Result;
+    System.Diagnostics.Debug.Print($"{s}");
+    //// {"meta":{"generated": "2023-03-18 21:48:14", "stations": ["D1814", "D4090", "D6100", "D5542"]},"data":[{"time":"2023-02-05 00:00:00","temp":3.5,"dwpt":1.5,"rhum":87.0,"prcp":0.0,"snow":null,"wdir":97.0,"wspd":7.6,"wpgt":null,"pres":1039.1,"tsun":null,"coco":3},{"time":"2023-02-05 01:00:00","temp":3.5,"dwpt":1.2,"rhum":85.0,"prcp":0.0,"snow":null,"wdir":98.0,"wspd":6.5,"wpgt":null,"pres":1038.8,"tsun":null,"coco":3},{"time":"2023-02-05 02:00:00","temp":3.3,"dwpt":0.7,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":144.0,"wspd":6.5,"wpgt":null,"pres":1038.3,"tsun":null,"coco":3},{"time":"2023-02-05 03:00:00","temp":3.2,"dwpt":0.6,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":144.0,"wspd":6.1,"wpgt":null,"pres":1037.6,"tsun":null,"coco":3},{"time":"2023-02-05 04:00:00","temp":3.2,"dwpt":0.4,"rhum":82.0,"prcp":0.0,"snow":null,"wdir":73.0,"wspd":4.0,"wpgt":null,"pres":1037.3,"tsun":null,"coco":3},{"time":"2023-02-05 05:00:00","temp":3.2,"dwpt":0.6,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":67.0,"wspd":3.6,"wpgt":null,"pres":1037.2,"tsun":null,"coco":3},{"time":"2023-02-05 06:00:00","temp":3.1,"dwpt":0.2,"rhum":81.0,"prcp":0.1,"snow":null,"wdir":88.0,"wspd":4.3,"wpgt":null,"pres":1037.1,"tsun":null,"coco":3},{"time":"2023-02-05 07:00:00","temp":3.0,"dwpt":-0.1,"rhum":80.0,"prcp":0.5,"snow":null,"wdir":166.0,"wspd":7.2,"wpgt":null,"pres":1036.6,"tsun":null,"coco":3},{"time":"2023-02-05 08:00:00","temp":3.0,"dwpt":0.2,"rhum":82.0,"prcp":0.0,"snow":null,"wdir":179.0,"wspd":8.3,"wpgt":null,"pres":1036.2,"tsun":null,"coco":8},{"time":"2023-02-05 09:00:00","temp":3.1,"dwpt":1.5,"rhum":89.0,"prcp":0.0,"snow":null,"wdir":212.0,"wspd":7.2,"wpgt":null,"pres":1036.1,"tsun":null,"coco":8},{"time":"2023-02-05 10:00:00","temp":3.3,"dwpt":2.0,"rhum":91.0,"prcp":0.1,"snow":null,"wdir":221.0,"wspd":4.7,"wpgt":null,"pres":1035.9,"tsun":null,"coco":8},{"time":"2023-02-05 11:00:00","temp":3.6,"dwpt":2.7,"rhum":94.0,"prcp":0.7,"snow":null,"wdir":151.0,"wspd":5.4,"wpgt":null,"pres":1035.3,"tsun":null,"coco":9},{"time":"2023-02-05 12:00:00","temp":5.0,"dwpt":4.3,"rhum":95.0,"prcp":1.4,"snow":null,"wdir":214.0,"wspd":6.8,"wpgt":null,"pres":1034.4,"tsun":null,"coco":8},{"time":"2023-02-05 13:00:00","temp":5.6,"dwpt":4.1,"rhum":90.0,"prcp":1.9,"snow":null,"wdir":272.0,"wspd":7.6,"wpgt":null,"pres":1034.2,"tsun":null,"coco":8},{"time":"2023-02-05 14:00:00","temp":5.7,"dwpt":4.0,"rhum":89.0,"prcp":0.2,"snow":null,"wdir":313.0,"wspd":10.4,"wpgt":null,"pres":1034.1,"tsun":null,"coco":7},{"time":"2023-02-05 15:00:00","temp":5.7,"dwpt":4.3,"rhum":91.0,"prcp":0.0,"snow":null,"wdir":2.0,"wspd":12.2,"wpgt":null,"pres":1034.1,"tsun":null,"coco":8},{"time":"2023-02-05 16:00:00","temp":5.1,"dwpt":4.4,"rhum":95.0,"prcp":0.0,"snow":null,"wdir":51.0,"wspd":11.5,"wpgt":null,"pres":1034.9,"tsun":null,"coco":8},{"time":"2023-02-05 17:00:00","temp":4.2,"dwpt":3.5,"rhum":95.0,"prcp":0.1,"snow":null,"wdir":52.0,"wspd":12.6,"wpgt":null,"pres":1036.2,"tsun":null,"coco":3},{"time":"2023-02-05 18:00:00","temp":3.5,"dwpt":2.8,"rhum":95.0,"prcp":0.0,"snow":null,"wdir":41.0,"wspd":11.5,"wpgt":null,"pres":1037.0,"tsun":null,"coco":3},{"time":"2023-02-05 19:00:00","temp":3.5,"dwpt":2.6,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":38.0,"wspd":9.7,"wpgt":null,"pres":1037.5,"tsun":null,"coco":3},{"time":"2023-02-05 20:00:00","temp":3.3,"dwpt":2.4,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":41.0,"wspd":9.0,"wpgt":null,"pres":1038.0,"tsun":null,"coco":3},{"time":"2023-02-05 21:00:00","temp":3.2,"dwpt":2.0,"rhum":92.0,"prcp":0.0,"snow":null,"wdir":53.0,"wspd":9.0,"wpgt":null,"pres":1038.5,"tsun":null,"coco":3},{"time":"2023-02-05 22:00:00","temp":3.6,"dwpt":2.7,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":47.0,"wspd":10.8,"wpgt":null,"pres":1038.9,"tsun":null,"coco":3},{"time":"2023-02-05 23:00:00","temp":3.5,"dwpt":2.6,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":53.0,"wspd":10.1,"wpgt":null,"pres":1039.7,"tsun":null,"coco":3}]}
+    return s;
   }
 }

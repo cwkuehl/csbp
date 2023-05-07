@@ -282,7 +282,9 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
-    Functions.MachNichts();
+    var puid = GetText(positions, true);
+    var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
+    Functions.MachNichts(r);
   }
 
   /// <summary>Handles Save.</summary>

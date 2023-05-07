@@ -671,6 +671,12 @@
     <data name="TB013_" xml:space="preserve">
         <value>TB013Die Position wird in Tagebucheinträgen verwendet und kann nicht gelöscht werden, z.B. {0:yyyy-MM-dd}.</value>
     </data>
+    <data name="TB014" xml:space="preserve">
+        <value>TB014Eine Position muss ausgewählt werden.</value>
+    </data>
+    <data name="TB015" xml:space="preserve">
+        <value>TB015Bitte einen kostenlosen Access Key von https://meteostat.p.rapidapi.com besorgen und in der Einstellung TB_METEOSTAT_COM_ACCESS_KEY eintragen.</value>
+    </data>
 
     <data name="WP001" xml:space="preserve">
         <value>WP001Die Bezeichnung darf nicht leer sein.</value>

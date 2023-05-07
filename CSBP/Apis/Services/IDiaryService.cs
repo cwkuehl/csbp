@@ -112,4 +112,13 @@ public interface IDiaryService
   /// <param name="daten">Service data for database access.</param>
   /// <returns>List of timezones.</returns>
   ServiceErgebnis<List<MaParameter>> GetTimezoneList(ServiceDaten daten);
+
+  /// <summary>
+  /// Gets a list of weather data.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="puid">Affected position uid.</param>
+  /// <returns>List of weather data.</returns>
+  ServiceErgebnis<List<KeyValuePair<string, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid);
 }

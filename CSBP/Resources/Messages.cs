@@ -1107,6 +1107,16 @@ public partial class Messages
     get { return rm.GetString("TB013_"); }
   }
 
+  public static string TB014
+  {
+    get { return rm.GetString("TB014"); }
+  }
+
+  public static string TB015
+  {
+    get { return rm.GetString("TB015"); }
+  }
+
   public static string WP001
   {
     get { return rm.GetString("WP001"); }
