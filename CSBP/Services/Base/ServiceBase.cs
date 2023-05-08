@@ -121,6 +121,9 @@ public class ServiceBase
   /// <summary>Repository for table TB_Ort.</summary>
   protected static readonly TbOrtRep TbOrtRep = new();
 
+  /// <summary>Repository for table TB_Wetter.</summary>
+  protected static readonly TbWetterRep TbWetterRep = new();
+
   /// <summary>Repository for table WP_Anlage.</summary>
   protected static readonly WpAnlageRep WpAnlageRep = new();
 

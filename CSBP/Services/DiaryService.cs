@@ -484,7 +484,8 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <returns>List of weather data.</returns>
   public ServiceErgebnis<List<KeyValuePair<string, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid)
   {
-    var r = new ServiceErgebnis<List<KeyValuePair<string, decimal>>>();
+    var l = new List<KeyValuePair<string, decimal>>();
+    var r = new ServiceErgebnis<List<KeyValuePair<string, decimal>>>(l);
     var apikey = Parameter.GetValue(Parameter.TB_METEOSTAT_COM_ACCESS_KEY);
     if (string.IsNullOrEmpty(apikey))
       r.Errors.Add(Message.New(TB015));
@@ -493,8 +494,28 @@ public class DiaryService : ServiceBase, IDiaryService
       r.Errors.Add(Message.New(TB014));
     if (!r.Ok)
       return r;
-    var s = RapidapiMeteostatWeather(apikey, p.Breite, p.Laenge, p.Hoehe, date, p.Zeitzone);
-    Functions.MachNichts(s);
+    const string api = "RAPIDAPI";
+    var w = TbWetterRep.Get(daten, daten.MandantNr, date, puid, api);
+    if (w == null)
+    {
+      var s = RapidapiMeteostatWeather(apikey, p.Breite, p.Laenge, p.Hoehe, date, p.Zeitzone);
+      if (!string.IsNullOrEmpty(s))
+      {
+        w = new TbWetter
+        {
+          Mandant_Nr = daten.MandantNr,
+          Datum = date,
+          Ort_Uid = puid,
+          Api = api,
+          Werte = s,
+        };
+        TbWetterRep.Insert(daten, w);
+      }
+    }
+    if (w != null)
+    {
+      Functions.MachNichts();
+    }
     return r;
   }
 
