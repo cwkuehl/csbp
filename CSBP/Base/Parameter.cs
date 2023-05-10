@@ -9,10 +9,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
 using CSBP.Forms;
 using CSBP.Resources;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Manager of parameter which are stored in setting file or database.
@@ -83,13 +82,16 @@ public class Parameter
     {
       try
       {
-        using var file = File.OpenText(AppConfig);
-        using var reader = new JsonTextReader(file);
-        var jo = (JObject)JToken.ReadFrom(reader);
-        foreach (var jt in jo.Values())
+        var file = File.OpenRead(AppConfig);
+        using var doc = JsonDocument.Parse(file);
+        var root = doc.RootElement;
+        Console.WriteLine(root);
+        var values = root.EnumerateObject();
+        while (values.MoveNext())
         {
-          if (jt.Type == JTokenType.String)
-            Params2[jt.Path] = jt.Value<string>();
+          var v = values.Current;
+          if (v.Value.ValueKind == JsonValueKind.String)
+            Params2[v.Name] = v.Value.GetString();
         }
       }
       catch (Exception)
@@ -479,15 +481,16 @@ public class Parameter
         if (!string.IsNullOrEmpty(p.Value.Setting))
           Params2[p.Value.Setting] = GetValue(p.Key);
       }
-      var jo = new JObject();
+      using var file = File.OpenWrite(AppConfig);
+      using var writer = new Utf8JsonWriter(file, new JsonWriterOptions { Indented = false });
+      writer.WriteStartObject();
       foreach (var p in Params2)
       {
         if (!string.IsNullOrEmpty(p.Value))
-          jo[p.Key] = p.Value;
+          writer.WriteString(p.Key, p.Value);
       }
-      using var file = File.CreateText(AppConfig);
-      using var writer = new JsonTextWriter(file);
-      jo.WriteTo(writer);
+      writer.WriteEndObject();
+      writer.Flush();
     }
   }
 
