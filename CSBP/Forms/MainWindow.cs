@@ -565,7 +565,7 @@ public class MainWindow : Window
 #if DEBUG
     var username = Environment.UserName;
     //// Automatic login with current user.
-    MainClass.Login(new ServiceDaten(1, username.ToFirstUpper()));
+    MainClass.Login(new ServiceDaten(1, username.ToLower())); // Lower for Replication.
     //// MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
     var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);

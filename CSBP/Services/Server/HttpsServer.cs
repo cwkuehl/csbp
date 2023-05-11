@@ -14,6 +14,7 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,8 +22,6 @@ using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Simple https server.
@@ -160,20 +159,22 @@ public class HttpsServer
       string data = null;
       try
       {
-        using var reader = new JsonTextReader(new StringReader(req.Body ?? ""));
-        var jo = (JObject)JToken.ReadFrom(reader);
-        foreach (var jt in jo.Values())
+        using var doc = JsonDocument.Parse(req.Body ?? "");
+        var root = doc.RootElement;
+        var values = root.EnumerateObject();
+        while (values.MoveNext())
         {
-          if (jt.Type == JTokenType.String)
+          var v = values.Current;
+          if (v.Value.ValueKind == JsonValueKind.String)
           {
-            if (jt.Path == "token")
-              token = jt.Value<string>();
-            else if (jt.Path == "table")
-              table = jt.Value<string>();
-            else if (jt.Path == "mode")
-              mode = jt.Value<string>();
-            else if (jt.Path == "data")
-              data = jt.Value<string>();
+            if (v.Name == "token")
+              token = v.Value.GetString();
+            else if (v.Name == "table")
+              table = v.Value.GetString();
+            else if (v.Name == "mode")
+              mode = v.Value.GetString();
+            else if (v.Name == "data")
+              data = v.Value.GetString();
           }
         }
       }
