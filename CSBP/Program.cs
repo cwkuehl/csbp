@@ -57,6 +57,18 @@ public class MainClass
     var ci = new System.Globalization.CultureInfo("de-DE");
     //// var ci = new System.Globalization.CultureInfo("en-US");
     Functions.SetCultureInfo(ci);
+    try
+    {
+      // Parameter lesen.
+      var _ = Parameter.Connect;
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine(ex);
+      Application.Init();
+      ShowError(ex.ToString());
+      return;
+    }
     if (args != null && args.Length > 0)
     {
       var re = new Regex("^" + Regex.Escape(Parameter.DB_DRIVER_CONNECT) + "=(.+)$", RegexOptions.Compiled);
@@ -263,7 +275,8 @@ public class MainClass
   /// <param name="dialog">Shows as message dialog or not.</param>
   public static void ShowError(string s, bool dialog = true)
   {
-    MainWindow.SetError(s);
+    if (MainWindow != null)
+      MainWindow.SetError(s);
     if (dialog && !string.IsNullOrWhiteSpace(s))
     {
       s = s.Replace("{", @"{{").Replace("}", @"}}");

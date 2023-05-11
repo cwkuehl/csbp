@@ -85,7 +85,6 @@ public class Parameter
         var file = File.OpenRead(AppConfig);
         using var doc = JsonDocument.Parse(file);
         var root = doc.RootElement;
-        Console.WriteLine(root);
         var values = root.EnumerateObject();
         while (values.MoveNext())
         {
@@ -97,6 +96,7 @@ public class Parameter
       catch (Exception)
       {
         Functions.MachNichts();
+        throw;
       }
     }
     foreach (var p in Params)
@@ -481,13 +481,18 @@ public class Parameter
         if (!string.IsNullOrEmpty(p.Value.Setting))
           Params2[p.Value.Setting] = GetValue(p.Key);
       }
+      if (File.Exists(AppConfig))
+        File.Delete(AppConfig);
       using var file = File.OpenWrite(AppConfig);
-      using var writer = new Utf8JsonWriter(file, new JsonWriterOptions { Indented = false });
+      using var writer = new Utf8JsonWriter(file, new JsonWriterOptions { Indented = true });
       writer.WriteStartObject();
       foreach (var p in Params2)
       {
         if (!string.IsNullOrEmpty(p.Value))
+        {
           writer.WriteString(p.Key, p.Value);
+          //// writer.Flush();
+        }
       }
       writer.WriteEndObject();
       writer.Flush();
