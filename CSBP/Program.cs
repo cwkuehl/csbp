@@ -60,7 +60,7 @@ public class MainClass
     try
     {
       // Parameter lesen.
-      var _ = Parameter.Connect;
+      Functions.MachNichts(Parameter.Connect);
     }
     catch (Exception ex)
     {
@@ -275,8 +275,7 @@ public class MainClass
   /// <param name="dialog">Shows as message dialog or not.</param>
   public static void ShowError(string s, bool dialog = true)
   {
-    if (MainWindow != null)
-      MainWindow.SetError(s);
+    MainWindow?.SetError(s);
     if (dialog && !string.IsNullOrWhiteSpace(s))
     {
       s = s.Replace("{", @"{{").Replace("}", @"}}");
