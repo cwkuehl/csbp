@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
@@ -793,19 +794,22 @@ public class ClientService : ServiceBase, IClientService
       r.Errors.Add(new Message("Modus fehlt.", true));
     else if (table == "TB_Eintrag")
     {
-      var jo = (JObject)JToken.Parse(json ?? "");
-      var jarr = (JArray)jo[table];
-      foreach (var a in jarr)
+      // "{\"TB_Eintrag\":[{\"datum\":\"2023-05-12\",\"eintrag\":\"Bbbccc\",\"replid\":\"0ab93c7aa65d-4cb8-86b5-628be744342c\",\"angelegtAm\":\"2023-05-12T15:04:27.000Z\",\"angelegtVon\":\"wolfgang\",\"geaendertAm\":\"2023-05-12T15:04:45.000Z\",\"geaendertVon\":\"wolfgang\"},{\"datum\":\"2023-05-11\",\"eintrag\":\"Aaa\",\"replid\":\"94b48bd702e7-4f03-8a66-f50bfeb83edb\",\"angelegtAm\":\"2023-05-12T15:04:36.000Z\",\"angelegtVon\":\"wolfgang\"}]}"
+      using var doc = JsonDocument.Parse(json ?? "");
+      var root = doc.RootElement;
+      var arr = root.GetProperty(table).EnumerateArray();
+      while (arr.MoveNext())
       {
+        var a = arr.Current;
         var e = new TbEintrag
         {
           Mandant_Nr = daten.MandantNr,
-          Datum = (DateTime)a["datum"], // 2020-03-27
-          Eintrag = Functions.FilterWindows1252((string)a["eintrag"]),
-          Angelegt_Am = Functions.ToDateTimeLocal((DateTime?)a["angelegtAm"]), // 2020-03-27T16:39:20Z
-          Angelegt_Von = (string)a["angelegtVon"],
-          Geaendert_Am = Functions.ToDateTimeLocal((DateTime?)a["geaendertAm"]),
-          Geaendert_Von = (string)a["geaendertVon"],
+          Datum = GetDateTime(a, "datum") ?? DateTime.MinValue, // 2020-03-27
+          Eintrag = GetString(a, "eintrag"),
+          Angelegt_Am = GetDateTime(a, "angelegtAm"), // 2020-03-27T16:39:20Z
+          Angelegt_Von = GetString(a, "angelegtVon"),
+          Geaendert_Am = GetDateTime(a, "geaendertAm"),
+          Geaendert_Von = GetString(a, "geaendertVon"),
         };
         var es = TbEintragRep.Get(daten, daten.MandantNr, e.Datum);
         if (es == null)
@@ -881,29 +885,32 @@ Lokal: {e.Eintrag}";
     }
     else if (table == "HH_Buchung")
     {
-      var jo = (JObject)JToken.Parse(json ?? "");
-      var jarr = (JArray)jo[table];
+      // "{\"HH_Buchung\":[{\"uid\":\"5e1b51c08631-401f-a369-11768799ccda\",\"sollValuta\":\"2023-05-12T00:00:00.000Z\",\"habenValuta\":\"2023-05-12T00:00:00.000Z\",\"kz\":\"A\",\"betrag\":2066.22,\"ebetrag\":1056.44,\"sollKontoUid\":\"5f0d190d:13e2884456a:-7f4e\",\"habenKontoUid\":\"5f0d190d:13e2884456a:-7f4b\",\"btext\":\"Wertpapierverkauf ING Spotify Technology SA\",\"belegNr\":\"xxx\",\"belegDatum\":\"2023-05-12T00:00:00.000Z\",\"replid\":\"80c7bba64830-4e5d-851c-64508cb87459\",\"angelegtAm\":\"2023-05-13T20:14:16.000Z\",\"angelegtVon\":\"wolfgang\",\"geaendertAm\":null,\"geaendertVon\":null}]}"
       var today = DateTime.Today;
-      foreach (var a in jarr)
+      using var doc = JsonDocument.Parse(json ?? "");
+      var root = doc.RootElement;
+      var arr = root.GetProperty(table).EnumerateArray();
+      while (arr.MoveNext())
       {
+        var a = arr.Current;
         var e = new HhBuchung
         {
           Mandant_Nr = daten.MandantNr,
-          Uid = (string)a["uid"],
-          Soll_Valuta = Functions.ToDateTimeLocal((DateTime)a["sollValuta"]) ?? today,
-          Haben_Valuta = Functions.ToDateTimeLocal((DateTime)a["habenValuta"]) ?? today,
-          Kz = (string)a["kz"],
-          Betrag = (decimal)a["betrag"],
-          EBetrag = (decimal)a["ebetrag"],
-          Soll_Konto_Uid = (string)a["sollKontoUid"],
-          Haben_Konto_Uid = (string)a["habenKontoUid"],
-          BText = Functions.FilterWindows1252((string)a["btext"]),
-          Beleg_Nr = Functions.FilterWindows1252((string)a["belegNr"]),
-          Beleg_Datum = Functions.ToDateTimeLocal((DateTime)a["belegDatum"]) ?? today,
-          Angelegt_Am = Functions.ToDateTimeLocal((DateTime?)a["angelegtAm"]), // 2020-03-27T16:39:20Z
-          Angelegt_Von = (string)a["angelegtVon"],
-          Geaendert_Am = Functions.ToDateTimeLocal((DateTime?)a["geaendertAm"]),
-          Geaendert_Von = (string)a["geaendertVon"],
+          Uid = GetString(a, "uid"),
+          Soll_Valuta = GetDateTime(a, "sollValuta") ?? today,
+          Haben_Valuta = GetDateTime(a, "habenValuta") ?? today,
+          Kz = GetString(a, "kz"),
+          Betrag = GetDecimal(a, "betrag") ?? 0,
+          EBetrag = GetDecimal(a, "ebetrag") ?? 0,
+          Soll_Konto_Uid = GetString(a, "sollKontoUid"),
+          Haben_Konto_Uid = GetString(a, "habenKontoUid"),
+          BText = GetString(a, "btext"),
+          Beleg_Nr = GetString(a, "belegNr"),
+          Beleg_Datum = GetDateTime(a, "belegDatum") ?? today,
+          Angelegt_Am = GetDateTime(a, "angelegtAm"), // 2020-03-27T16:39:20Z
+          Angelegt_Von = GetString(a, "angelegtVon"),
+          Geaendert_Am = GetDateTime(a, "geaendertAm"),
+          Geaendert_Von = GetString(a, "geaendertVon"),
         };
         var alt = HhBuchungRep.Get(daten, daten.MandantNr, e.Uid);
         var save = alt == null;
@@ -1020,25 +1027,28 @@ Lokal: {e.Eintrag}";
     }
     else if (table == "FZ_Fahrradstand")
     {
-      var jo = (JObject)JToken.Parse(json ?? "");
-      var jarr = (JArray)jo[table];
-      //// var today = DateTime.Today;
-      foreach (var a in jarr)
+      // "{\"FZ_Fahrradstand\":[{\"fahrradUid\":\"7c185036:13e081c0a7f:-8000-\",\"datum\":\"2023-05-14\",\"nr\":0,\"zaehlerKm\":0,\"periodeKm\":123,\"periodeSchnitt\":0,\"beschreibung\":\"\",\"replid\":\"fbc2bdc04099-4795-ac19-4446950b8b52\",\"angelegtAm\":\"2023-05-08T15:43:28.000Z\",\"angelegtVon\":\"wolfgang\",\"geaendertAm\":\"2023-05-13T21:04:18.000Z\",\"geaendertVon\":\"wolfgang\"}]}"
+      var today = DateTime.Today;
+      using var doc = JsonDocument.Parse(json ?? "");
+      var root = doc.RootElement;
+      var arr = root.GetProperty(table).EnumerateArray();
+      while (arr.MoveNext())
       {
+        var a = arr.Current;
         var e = new FzFahrradstand
         {
           Mandant_Nr = daten.MandantNr,
-          Fahrrad_Uid = (string)a["fahrradUid"],
-          Datum = (DateTime)a["datum"], // 2020-03-27
-          Nr = (int)a["nr"],
-          Zaehler_km = (decimal)a["zaehlerKm"],
-          Periode_km = (decimal)a["periodeKm"],
-          Periode_Schnitt = (decimal)a["periodeSchnitt"],
-          Beschreibung = Functions.FilterWindows1252((string)a["beschreibung"]),
-          Angelegt_Am = Functions.ToDateTimeLocal((DateTime?)a["angelegtAm"]), // 2020-03-27T16:39:20Z
-          Angelegt_Von = (string)a["angelegtVon"],
-          Geaendert_Am = Functions.ToDateTimeLocal((DateTime?)a["geaendertAm"]),
-          Geaendert_Von = (string)a["geaendertVon"],
+          Fahrrad_Uid = GetString(a, "fahrradUid"),
+          Datum = GetDateTime(a, "datum") ?? today, // 2020-03-27
+          Nr = (int)(GetDecimal(a, "nr") ?? 0),
+          Zaehler_km = GetDecimal(a, "zaehlerKm") ?? 0,
+          Periode_km = GetDecimal(a, "periodeKm") ?? 0,
+          Periode_Schnitt = GetDecimal(a, "periodeSchnitt") ?? 0,
+          Beschreibung = GetString(a, "beschreibung"),
+          Angelegt_Am = GetDateTime(a, "angelegtAm"), // 2020-03-27T16:39:20Z
+          Angelegt_Von = GetString(a, "angelegtVon"),
+          Geaendert_Am = GetDateTime(a, "geaendertAm"),
+          Geaendert_Von = GetString(a, "geaendertVon"),
         };
         var alt = FzFahrradstandRep.Get(daten, daten.MandantNr, e.Fahrrad_Uid, e.Datum, e.Nr);
         var save = alt == null;
@@ -1130,6 +1140,39 @@ Lokal: {e.Eintrag}";
     ul.Insert(e);
     Commit(ul);
     return r;
+  }
+
+  /// <summary>
+  /// Get a string value from a json property.
+  /// </summary>
+  /// <param name="a">Affected json element.</param>
+  /// <param name="prop">Affected property name.</param>
+  /// <returns>Value of json property.</returns>
+  private static string GetString(JsonElement a, string prop)
+  {
+    return Functions.FilterWindows1252(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetString() : null);
+  }
+
+  /// <summary>
+  /// Get a datetime value from a json property.
+  /// </summary>
+  /// <param name="a">Affected json element.</param>
+  /// <param name="prop">Affected property name.</param>
+  /// <returns>Value of json property.</returns>
+  private static DateTime? GetDateTime(JsonElement a, string prop)
+  {
+    return Functions.ToDateTimeLocal(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetDateTime() : (DateTime?)null);
+  }
+
+  /// <summary>
+  /// Get a decimal value from a json property.
+  /// </summary>
+  /// <param name="a">Affected json element.</param>
+  /// <param name="prop">Affected property name.</param>
+  /// <returns>Value of json property.</returns>
+  private static decimal? GetDecimal(JsonElement a, string prop)
+  {
+    return a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.Number ? p.GetDecimal() : (decimal?)null;
   }
 
   /// <summary>
