@@ -557,6 +557,19 @@ public static class Functions
   }
 
   /// <summary>
+  /// Converts nullable DateTime to string in format yyyy-MM-ddTHH:mm:ss.
+  /// </summary>
+  /// <param name="d">Affected value.</param>
+  /// <param name="nullstring">Null for no value.</param>
+  /// <returns>Converted value.</returns>
+  public static string ToStringT(DateTime? d, bool nullstring = false)
+  {
+    if (!d.HasValue)
+      return nullstring ? null : string.Empty;
+    return d.Value.ToString("yyyy-MM-dd'T'HH:mm:ss");
+  }
+
+  /// <summary>
   /// Converts nullable DateTime to string in format dd.MM.yyyy or dd.MM.yyyy HH:mm:ss.
   /// </summary>
   /// <param name="d">Affected value.</param>

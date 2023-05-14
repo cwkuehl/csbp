@@ -24,7 +24,6 @@ using CSBP.Services.Client;
 using CSBP.Services.Reports;
 using CSBP.Services.Repositories.Base;
 using CSBP.Services.Undo;
-using Newtonsoft.Json.Linq;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
@@ -789,7 +788,7 @@ public class ClientService : ServiceBase, IClientService
     var r = new ServiceErgebnis<string>();
     var m = Pread.Match(mode);
     var days = Math.Max(1, m.Success ? Functions.ToInt32(m.Groups[3].Value) : 1);
-    var ja = new JArray();
+    var ja = new List<Dictionary<string, string>>();
     if (string.IsNullOrEmpty(mode))
       r.Errors.Add(new Message("Modus fehlt.", true));
     else if (table == "TB_Eintrag")
@@ -853,15 +852,16 @@ Lokal: {e.Eintrag}";
       var l = TbEintragRep.GetList(daten, daten.MandantNr, daten.Heute, days);
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("datum", Functions.ToString(e.Datum)),
-          new JProperty("eintrag", e.Eintrag),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "datum", Functions.ToString(e.Datum) },
+          { "eintrag", e.Eintrag },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
@@ -870,16 +870,17 @@ Lokal: {e.Eintrag}";
       var l = FzNotizRep.GetList(daten, daten.MandantNr);
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("uid", e.Uid),
-          new JProperty("thema", e.Thema),
-          new JProperty("notiz", e.Notiz),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "uid", e.Uid },
+          { "thema", e.Thema },
+          { "notiz", e.Notiz },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
@@ -939,24 +940,25 @@ Lokal: {e.Eintrag}";
       var l = HhBuchungRep.GetList(daten, null, null, from: daten.Heute.AddDays(-days));
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("uid", e.Uid),
-          new JProperty("sollValuta", Functions.ToString(e.Soll_Valuta)),
-          new JProperty("habenValuta", Functions.ToString(e.Haben_Valuta)),
-          new JProperty("kz", e.Kz),
-          new JProperty("betrag", Functions.ToString(e.Betrag, 2, Functions.CultureInfoEn)),
-          new JProperty("ebetrag", Functions.ToString(e.EBetrag, 2, Functions.CultureInfoEn)),
-          new JProperty("sollKontoUid", e.Soll_Konto_Uid),
-          new JProperty("habenKontoUid", e.Haben_Konto_Uid),
-          new JProperty("btext", e.BText),
-          new JProperty("belegNr", e.Beleg_Nr),
-          new JProperty("belegDatum", Functions.ToString(e.Beleg_Datum)),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "uid", e.Uid },
+          { "sollValuta", Functions.ToString(e.Soll_Valuta) },
+          { "habenValuta", Functions.ToString(e.Haben_Valuta) },
+          { "kz", e.Kz },
+          { "betrag", Functions.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
+          { "ebetrag", Functions.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
+          { "sollKontoUid", e.Soll_Konto_Uid },
+          { "habenKontoUid", e.Haben_Konto_Uid },
+          { "btext", e.BText },
+          { "belegNr", e.Beleg_Nr },
+          { "belegDatum", Functions.ToString(e.Beleg_Datum) },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
@@ -965,19 +967,20 @@ Lokal: {e.Eintrag}";
       var l = HhEreignisRep.GetList(daten, daten.MandantNr);
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("uid", e.Uid),
-          new JProperty("kz", e.Kz),
-          new JProperty("sollKontoUid", e.Soll_Konto_Uid),
-          new JProperty("habenKontoUid", e.Haben_Konto_Uid),
-          new JProperty("bezeichnung", e.Bezeichnung),
-          new JProperty("etext", e.EText),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "uid", e.Uid },
+          { "kz", e.Kz },
+          { "sollKontoUid", e.Soll_Konto_Uid },
+          { "habenKontoUid", e.Haben_Konto_Uid },
+          { "bezeichnung", e.Bezeichnung },
+          { "etext", e.EText },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
@@ -986,24 +989,25 @@ Lokal: {e.Eintrag}";
       var l = HhKontoRep.GetList(daten, -1, -1, dle: daten.Heute.AddDays(-days));
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("uid", e.Uid),
-          new JProperty("sortierung", e.Sortierung),
-          new JProperty("art", e.Art),
-          new JProperty("kz", e.Kz),
-          new JProperty("name", e.Name),
-          new JProperty("gueltigVon", Functions.ToString(e.Gueltig_Von)),
-          new JProperty("gueltigBis", Functions.ToString(e.Gueltig_Bis)),
-          new JProperty("periodeVon", Functions.ToString(e.Periode_Von)),
-          new JProperty("periodeBis", Functions.ToString(e.Periode_Bis)),
-          new JProperty("betrag", Functions.ToString(e.Betrag, 2, Functions.CultureInfoEn)),
-          new JProperty("ebetrag", Functions.ToString(e.EBetrag, 2, Functions.CultureInfoEn)),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "uid", e.Uid },
+          { "sortierung", e.Sortierung },
+          { "art", e.Art },
+          { "kz", e.Kz },
+          { "name", e.Name },
+          { "gueltigVon", Functions.ToString(e.Gueltig_Von) },
+          { "gueltigBis", Functions.ToString(e.Gueltig_Bis) },
+          { "periodeVon", Functions.ToString(e.Periode_Von) },
+          { "periodeBis", Functions.ToString(e.Periode_Bis) },
+          { "betrag", Functions.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
+          { "ebetrag", Functions.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
@@ -1012,16 +1016,17 @@ Lokal: {e.Eintrag}";
       var l = FzFahrradRep.GetList(daten, daten.MandantNr);
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("uid", e.Uid),
-          new JProperty("bezeichnung", e.Bezeichnung),
-          new JProperty("typ", e.Typ),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "uid", e.Uid },
+          { "bezeichnung", e.Bezeichnung },
+          { "typ", Functions.ToString(e.Typ) },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
@@ -1077,26 +1082,27 @@ Lokal: {e.Eintrag}";
       var l = FzFahrradstandRep.GetList(daten, null, datege: daten.Heute.AddDays(-days));
       foreach (var e in l)
       {
-        var j = new JObject(
-          new JProperty("fahrradUid", e.Fahrrad_Uid),
-          new JProperty("datum", Functions.ToString(e.Datum)),
-          new JProperty("nr", Functions.ToString(e.Nr, 0, Functions.CultureInfoEn)),
-          new JProperty("zaehlerKm", Functions.ToString(e.Zaehler_km, 2, Functions.CultureInfoEn)),
-          new JProperty("periodeKm", Functions.ToString(e.Periode_km, 2, Functions.CultureInfoEn)),
-          new JProperty("periodeSchnitt", Functions.ToString(e.Periode_Schnitt, 2, Functions.CultureInfoEn)),
-          new JProperty("beschreibung", e.Beschreibung),
-          new JProperty("replid", "server"),
-          new JProperty("angelegtAm", e.Angelegt_Am),
-          new JProperty("angelegtVon", e.Angelegt_Von),
-          new JProperty("geaendertAm", e.Geaendert_Am),
-          new JProperty("geaendertVon", e.Geaendert_Von)
-        );
+        var j = new Dictionary<string, string>
+        {
+          { "fahrradUid", e.Fahrrad_Uid },
+          { "datum", Functions.ToString(e.Datum) },
+          { "nr", Functions.ToString(e.Nr, 0, Functions.CultureInfoEn) },
+          { "zaehlerKm", Functions.ToString(e.Zaehler_km, 2, Functions.CultureInfoEn) },
+          { "periodeKm", Functions.ToString(e.Periode_km, 2, Functions.CultureInfoEn) },
+          { "periodeSchnitt", Functions.ToString(e.Periode_Schnitt, 2, Functions.CultureInfoEn) },
+          { "beschreibung", e.Beschreibung },
+          { "replid", "server" },
+          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtVon", e.Angelegt_Von },
+          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertVon", e.Geaendert_Von },
+        };
         ja.Add(j);
       }
     }
     else
       r.Errors.Add(new Message("Falsche Tabelle {0}", true, table));
-    r.Ergebnis = ja.ToString();
+    r.Ergebnis = JsonSerializer.Serialize(ja, new JsonSerializerOptions { WriteIndented = true });
     return r;
   }
 
