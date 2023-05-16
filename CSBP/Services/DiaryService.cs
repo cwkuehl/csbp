@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
@@ -482,10 +483,10 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <param name="date">Affected date.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <returns>List of weather data.</returns>
-  public ServiceErgebnis<List<KeyValuePair<string, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid)
+  public ServiceErgebnis<List<KeyValuePair<DateTime, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid)
   {
-    var l = new List<KeyValuePair<string, decimal>>();
-    var r = new ServiceErgebnis<List<KeyValuePair<string, decimal>>>(l);
+    var l = new List<KeyValuePair<DateTime, decimal>>();
+    var r = new ServiceErgebnis<List<KeyValuePair<DateTime, decimal>>>(l);
     var apikey = Parameter.GetValue(Parameter.TB_METEOSTAT_COM_ACCESS_KEY);
     if (string.IsNullOrEmpty(apikey))
       r.Errors.Add(Message.New(TB015));
@@ -514,7 +515,16 @@ public class DiaryService : ServiceBase, IDiaryService
     }
     if (w != null)
     {
-      Functions.MachNichts();
+      using var doc = JsonDocument.Parse(w.Werte ?? "");
+      var root = doc.RootElement;
+      var values = root.EnumerateObject();
+      var arr = root.GetProperty("data").EnumerateArray();
+      while (arr.MoveNext())
+      {
+        var a = arr.Current;
+        var v = new KeyValuePair<DateTime, decimal>(Functions.ToDateTime(GetString(a, "time")) ?? daten.Heute, GetDecimal(a, "temp") ?? 0);
+        l.Add(v);
+      }
     }
     return r;
   }

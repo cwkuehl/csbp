@@ -120,5 +120,5 @@ public interface IDiaryService
   /// <param name="date">Affected date.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <returns>List of weather data.</returns>
-  ServiceErgebnis<List<KeyValuePair<string, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid);
+  ServiceErgebnis<List<KeyValuePair<DateTime, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid);
 }

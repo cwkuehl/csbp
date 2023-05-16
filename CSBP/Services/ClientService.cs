@@ -1149,39 +1149,6 @@ Lokal: {e.Eintrag}";
   }
 
   /// <summary>
-  /// Get a string value from a json property.
-  /// </summary>
-  /// <param name="a">Affected json element.</param>
-  /// <param name="prop">Affected property name.</param>
-  /// <returns>Value of json property.</returns>
-  private static string GetString(JsonElement a, string prop)
-  {
-    return Functions.FilterWindows1252(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetString() : null);
-  }
-
-  /// <summary>
-  /// Get a datetime value from a json property.
-  /// </summary>
-  /// <param name="a">Affected json element.</param>
-  /// <param name="prop">Affected property name.</param>
-  /// <returns>Value of json property.</returns>
-  private static DateTime? GetDateTime(JsonElement a, string prop)
-  {
-    return Functions.ToDateTimeLocal(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetDateTime() : (DateTime?)null);
-  }
-
-  /// <summary>
-  /// Get a decimal value from a json property.
-  /// </summary>
-  /// <param name="a">Affected json element.</param>
-  /// <param name="prop">Affected property name.</param>
-  /// <returns>Value of json property.</returns>
-  private static decimal? GetDecimal(JsonElement a, string prop)
-  {
-    return a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.Number ? p.GetDecimal() : (decimal?)null;
-  }
-
-  /// <summary>
   /// Gets permission of a user.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

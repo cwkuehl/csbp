@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json;
 using System.Xml.Serialization;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
@@ -446,6 +447,39 @@ public class ServiceBase
   protected static string N(string s)
   {
     return Functions.TrimNull(s);
+  }
+
+  /// <summary>
+  /// Get a string value from a json property.
+  /// </summary>
+  /// <param name="a">Affected json element.</param>
+  /// <param name="prop">Affected property name.</param>
+  /// <returns>Value of json property.</returns>
+  protected static string GetString(JsonElement a, string prop)
+  {
+    return Functions.FilterWindows1252(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetString() : null);
+  }
+
+  /// <summary>
+  /// Get a datetime value from a json property.
+  /// </summary>
+  /// <param name="a">Affected json element.</param>
+  /// <param name="prop">Affected property name.</param>
+  /// <returns>Value of json property.</returns>
+  protected static DateTime? GetDateTime(JsonElement a, string prop)
+  {
+    return Functions.ToDateTimeLocal(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetDateTime() : (DateTime?)null);
+  }
+
+  /// <summary>
+  /// Get a decimal value from a json property.
+  /// </summary>
+  /// <param name="a">Affected json element.</param>
+  /// <param name="prop">Affected property name.</param>
+  /// <returns>Value of json property.</returns>
+  protected static decimal? GetDecimal(JsonElement a, string prop)
+  {
+    return a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.Number ? p.GetDecimal() : (decimal?)null;
   }
 
   /// <summary>
