@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
+using CSBP.Services.NonService;
 
 /// <summary>
 /// Interface for diary service.
@@ -120,5 +121,5 @@ public interface IDiaryService
   /// <param name="date">Affected date.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <returns>List of weather data.</returns>
-  ServiceErgebnis<List<KeyValuePair<DateTime, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid);
+  ServiceErgebnis<List<Weather>> GetWeatherList(ServiceDaten daten, DateTime date, string puid);
 }

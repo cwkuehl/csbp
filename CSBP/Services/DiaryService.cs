@@ -15,6 +15,7 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Services.Base;
+using CSBP.Services.NonService;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
@@ -483,10 +484,10 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <param name="date">Affected date.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <returns>List of weather data.</returns>
-  public ServiceErgebnis<List<KeyValuePair<DateTime, decimal>>> GetWeatherList(ServiceDaten daten, DateTime date, string puid)
+  public ServiceErgebnis<List<Weather>> GetWeatherList(ServiceDaten daten, DateTime date, string puid)
   {
-    var l = new List<KeyValuePair<DateTime, decimal>>();
-    var r = new ServiceErgebnis<List<KeyValuePair<DateTime, decimal>>>(l);
+    var l = new List<Weather>();
+    var r = new ServiceErgebnis<List<Weather>>(l);
     var apikey = Parameter.GetValue(Parameter.TB_METEOSTAT_COM_ACCESS_KEY);
     if (string.IsNullOrEmpty(apikey))
       r.Errors.Add(Message.New(TB015));
@@ -515,6 +516,7 @@ public class DiaryService : ServiceBase, IDiaryService
     }
     if (w != null)
     {
+      // https://dev.meteostat.net/api/point/hourly.html#parameters
       using var doc = JsonDocument.Parse(w.Werte ?? "");
       var root = doc.RootElement;
       var values = root.EnumerateObject();
@@ -522,7 +524,21 @@ public class DiaryService : ServiceBase, IDiaryService
       while (arr.MoveNext())
       {
         var a = arr.Current;
-        var v = new KeyValuePair<DateTime, decimal>(Functions.ToDateTime(GetString(a, "time")) ?? daten.Heute, GetDecimal(a, "temp") ?? 0);
+        var v = new Weather
+        {
+          Time = Functions.ToDateTime(GetString(a, "time")) ?? daten.Heute,
+          Temp = GetDecimal(a, "temp") ?? 0,
+          Dwpt = GetDecimal(a, "dwpt") ?? 0,
+          Rhum = GetDecimal(a, "rhum") ?? 0,
+          Prcp = GetDecimal(a, "prcp") ?? 0,
+          Snow = GetDecimal(a, "snow") ?? 0,
+          Wdir = GetDecimal(a, "wdir") ?? 0,
+          Wspd = GetDecimal(a, "wspd") ?? 0,
+          Wpgt = GetDecimal(a, "wpgt") ?? 0,
+          Pres = GetDecimal(a, "pres") ?? 0,
+          Tsun = GetDecimal(a, "tsun") ?? 0,
+          Coco = (int)(GetDecimal(a, "coco") ?? 0),
+        };
         l.Add(v);
       }
     }
