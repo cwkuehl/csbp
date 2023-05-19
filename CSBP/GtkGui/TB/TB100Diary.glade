@@ -18,6 +18,11 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
   </object>
+  <object class="GtkImage" id="findImage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-find</property>
+  </object>
   <object class="GtkImage" id="goBackImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -62,11 +67,6 @@
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">document-save</property>
-  </object>
-  <object class="GtkImage" id="findImage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-find</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
@@ -192,22 +192,45 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="before1sw">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB100.before1.tt</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkTextView" id="before1">
+          <object class="GtkScrolledWindow" id="before1sw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="tooltip-text">TB100.before1.tt</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="hscroll-policy">natural</property>
-            <property name="wrap-mode">word</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="before1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="diagramb1">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -232,22 +255,45 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="before2sw">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB100.before2.tt</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkTextView" id="before2">
+          <object class="GtkScrolledWindow" id="before2sw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="tooltip-text">TB100.before2.tt</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="hscroll-policy">natural</property>
-            <property name="wrap-mode">word</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="before2">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="diagramb2">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -272,22 +318,45 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="before3sw">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB100.before3.tt</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkTextView" id="before3">
+          <object class="GtkScrolledWindow" id="before3sw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="tooltip-text">TB100.before3.tt</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="hscroll-policy">natural</property>
-            <property name="wrap-mode">word</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="before3">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="diagramb3">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -1025,6 +1094,11 @@
                     <property name="tooltip-text">TB100.position2.tt</property>
                     <property name="hexpand">True</property>
                     <property name="has-entry">True</property>
+                    <child internal-child="entry">
+                      <object class="GtkEntry">
+                        <property name="can-focus">False</property>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -1308,6 +1382,15 @@
         <child>
           <placeholder/>
         </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
       <packing>
         <property name="left-attach">1</property>
@@ -1332,22 +1415,45 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="after1sw">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB100.after1.tt</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkTextView" id="after1">
+          <object class="GtkScrolledWindow" id="after1sw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="tooltip-text">TB100.after1.tt</property>
             <property name="hexpand">True</property>
-            <property name="vexpand">False</property>
-            <property name="hscroll-policy">natural</property>
-            <property name="wrap-mode">word</property>
+            <property name="vexpand">True</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="after1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="diagrama1">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -1372,22 +1478,45 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="after2sw">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB100.after2.tt</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkTextView" id="after2">
+          <object class="GtkScrolledWindow" id="after2sw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="tooltip-text">TB100.after2.tt</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="hscroll-policy">natural</property>
-            <property name="wrap-mode">word</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="after2">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="diagrama2">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -1412,22 +1541,45 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="after3sw">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">TB100.after3.tt</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkTextView" id="after3">
+          <object class="GtkScrolledWindow" id="after3sw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="tooltip-text">TB100.after3.tt</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="hscroll-policy">natural</property>
-            <property name="wrap-mode">word</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="after3">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="diagrama3">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
       <packing>

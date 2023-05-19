@@ -27,13 +27,25 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly TextView before1;
 
+  /// <summary>DrawingArea diagramb1.</summary>
+  [Builder.Object]
+  private readonly DrawingArea diagramb1;
+
   /// <summary>TextView before2.</summary>
   [Builder.Object]
   private readonly TextView before2;
 
+  /// <summary>DrawingArea diagramb2.</summary>
+  [Builder.Object]
+  private readonly DrawingArea diagramb2;
+
   /// <summary>TextView before3.</summary>
   [Builder.Object]
   private readonly TextView before3;
+
+  /// <summary>DrawingArea diagramb3.</summary>
+  [Builder.Object]
+  private readonly DrawingArea diagramb3;
 
   /// <summary>Label date0.</summary>
   [Builder.Object]
@@ -127,13 +139,25 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly TextView after1;
 
+  /// <summary>DrawingArea diagrama1.</summary>
+  [Builder.Object]
+  private readonly DrawingArea diagrama1;
+
   /// <summary>TextView after2.</summary>
   [Builder.Object]
   private readonly TextView after2;
 
+  /// <summary>DrawingArea diagrama2.</summary>
+  [Builder.Object]
+  private readonly DrawingArea diagrama2;
+
   /// <summary>TextView after3.</summary>
   [Builder.Object]
   private readonly TextView after3;
+
+  /// <summary>DrawingArea diagrama3.</summary>
+  [Builder.Object]
+  private readonly DrawingArea diagrama3;
 
 #pragma warning restore CS0649
 
@@ -282,6 +306,11 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
+    var v = before1.Visible;
+    before1.Visible = before2.Visible = before3.Visible = after1.Visible = after2.Visible = after3.Visible = !v;
+    diagramb1.Visible = diagramb2.Visible = diagramb3.Visible = diagrama1.Visible = diagrama2.Visible = diagrama3.Visible = v;
+    if (!v)
+      return;
     var puid = GetText(positions, true);
     var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
     Functions.MachNichts(r);
