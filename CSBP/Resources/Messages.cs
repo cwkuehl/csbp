@@ -5812,6 +5812,11 @@ public partial class Messages
     get { return rm.GetString("TB100.before2"); }
   }
 
+  public static string TB100_before2w
+  {
+    get { return rm.GetString("TB100.before2w"); }
+  }
+
   public static string TB100_before2_tt
   {
     get { return rm.GetString("TB100.before2.tt"); }
@@ -5820,6 +5825,11 @@ public partial class Messages
   public static string TB100_before3
   {
     get { return rm.GetString("TB100.before3"); }
+  }
+
+  public static string TB100_before3w
+  {
+    get { return rm.GetString("TB100.before3w"); }
   }
 
   public static string TB100_before3_tt
@@ -5832,6 +5842,11 @@ public partial class Messages
     get { return rm.GetString("TB100.after1"); }
   }
 
+  public static string TB100_after1w
+  {
+    get { return rm.GetString("TB100.after1w"); }
+  }
+
   public static string TB100_after1_tt
   {
     get { return rm.GetString("TB100.after1.tt"); }
@@ -5842,6 +5857,11 @@ public partial class Messages
     get { return rm.GetString("TB100.after2"); }
   }
 
+  public static string TB100_after2w
+  {
+    get { return rm.GetString("TB100.after2w"); }
+  }
+
   public static string TB100_after2_tt
   {
     get { return rm.GetString("TB100.after2.tt"); }
@@ -5850,6 +5870,11 @@ public partial class Messages
   public static string TB100_after3
   {
     get { return rm.GetString("TB100.after3"); }
+  }
+
+  public static string TB100_after3w
+  {
+    get { return rm.GetString("TB100.after3w"); }
   }
 
   public static string TB100_after3_tt

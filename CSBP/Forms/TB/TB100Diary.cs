@@ -35,6 +35,10 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly DrawingArea diagramb1;
 
+  /// <summary>Label before20.</summary>
+  [Builder.Object]
+  private readonly Label before20;
+
   /// <summary>TextView before2.</summary>
   [Builder.Object]
   private readonly TextView before2;
@@ -42,6 +46,10 @@ public partial class TB100Diary : CsbpBin
   /// <summary>DrawingArea diagramb2.</summary>
   [Builder.Object]
   private readonly DrawingArea diagramb2;
+
+  /// <summary>Label before30.</summary>
+  [Builder.Object]
+  private readonly Label before30;
 
   /// <summary>TextView before3.</summary>
   [Builder.Object]
@@ -139,6 +147,10 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly Button last;
 
+  /// <summary>Label after10.</summary>
+  [Builder.Object]
+  private readonly Label after10;
+
   /// <summary>TextView after1.</summary>
   [Builder.Object]
   private readonly TextView after1;
@@ -147,6 +159,10 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly DrawingArea diagrama1;
 
+  /// <summary>Label after20.</summary>
+  [Builder.Object]
+  private readonly Label after20;
+
   /// <summary>TextView after2.</summary>
   [Builder.Object]
   private readonly TextView after2;
@@ -154,6 +170,10 @@ public partial class TB100Diary : CsbpBin
   /// <summary>DrawingArea diagrama2.</summary>
   [Builder.Object]
   private readonly DrawingArea diagrama2;
+
+  /// <summary>Label after30.</summary>
+  [Builder.Object]
+  private readonly Label after30;
 
   /// <summary>TextView after3.</summary>
   [Builder.Object]
@@ -312,6 +332,11 @@ public partial class TB100Diary : CsbpBin
   {
     var v = before1.Visible;
     before10.LabelProp = v ? TB100_before1w : TB100_before1;
+    before20.LabelProp = v ? TB100_before2w : TB100_before2;
+    before30.LabelProp = v ? TB100_before3w : TB100_before3;
+    after10.LabelProp = v ? TB100_after1w : TB100_after1;
+    after20.LabelProp = v ? TB100_after2w : TB100_after2;
+    after30.LabelProp = v ? TB100_after3w : TB100_after3;
     before1.Visible = before2.Visible = before3.Visible = after1.Visible = after2.Visible = after3.Visible = !v;
     diagramb1.Visible = diagramb2.Visible = diagramb3.Visible = diagrama1.Visible = diagrama2.Visible = diagrama3.Visible = v;
     if (!v)
@@ -707,5 +732,4 @@ public partial class TB100Diary : CsbpBin
     var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
     Functions.MachNichts(r);
   }
-
 }

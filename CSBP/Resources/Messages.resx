@@ -3569,11 +3569,17 @@
     <data name="TB100.before2" xml:space="preserve">
         <value>1 month before</value>
     </data>
+    <data name="TB100.before2w" xml:space="preserve">
+        <value>Temperature</value>
+    </data>
     <data name="TB100.before2.tt" xml:space="preserve">
         <value>Entry of previous month</value>
     </data>
     <data name="TB100.before3" xml:space="preserve">
         <value>1 year before</value>
+    </data>
+    <data name="TB100.before3w" xml:space="preserve">
+        <value>Temperature</value>
     </data>
     <data name="TB100.before3.tt" xml:space="preserve">
         <value>Entry of previous year</value>
@@ -3581,17 +3587,26 @@
     <data name="TB100.after1" xml:space="preserve">
         <value>1 day after</value>
     </data>
+    <data name="TB100.after1w" xml:space="preserve">
+        <value>Temperature</value>
+    </data>
     <data name="TB100.after1.tt" xml:space="preserve">
         <value>Entry of next day</value>
     </data>
     <data name="TB100.after2" xml:space="preserve">
         <value>1 month after</value>
     </data>
+    <data name="TB100.after2w" xml:space="preserve">
+        <value>Temperature</value>
+    </data>
     <data name="TB100.after2.tt" xml:space="preserve">
         <value>Entry of next month</value>
     </data>
     <data name="TB100.after3" xml:space="preserve">
         <value>1 year after</value>
+    </data>
+    <data name="TB100.after3w" xml:space="preserve">
+        <value>Temperature</value>
     </data>
     <data name="TB100.after3.tt" xml:space="preserve">
         <value>Entry of next year</value>
