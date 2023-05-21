@@ -3560,6 +3560,9 @@
     <data name="TB100.before1" xml:space="preserve">
         <value>1 Tag vorher</value>
     </data>
+    <data name="TB100.before1w" xml:space="preserve">
+        <value>Temperatur</value>
+    </data>
     <data name="TB100.before1.tt" xml:space="preserve">
         <value>Eintrag vom Vortag</value>
     </data>

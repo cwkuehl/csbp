@@ -5797,6 +5797,11 @@ public partial class Messages
     get { return rm.GetString("TB100.before1"); }
   }
 
+  public static string TB100_before1w
+  {
+    get { return rm.GetString("TB100.before1w"); }
+  }
+
   public static string TB100_before1_tt
   {
     get { return rm.GetString("TB100.before1.tt"); }

@@ -23,6 +23,10 @@ public partial class TB100Diary : CsbpBin
 {
 #pragma warning disable CS0649
 
+  /// <summary>Label before10.</summary>
+  [Builder.Object]
+  private readonly Label before10;
+
   /// <summary>TextView before1.</summary>
   [Builder.Object]
   private readonly TextView before1;
@@ -307,13 +311,12 @@ public partial class TB100Diary : CsbpBin
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
     var v = before1.Visible;
+    before10.LabelProp = v ? TB100_before1w : TB100_before1;
     before1.Visible = before2.Visible = before3.Visible = after1.Visible = after2.Visible = after3.Visible = !v;
     diagramb1.Visible = diagramb2.Visible = diagramb3.Visible = diagrama1.Visible = diagrama2.Visible = diagrama3.Visible = v;
     if (!v)
       return;
-    var puid = GetText(positions, true);
-    var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
-    Functions.MachNichts(r);
+    ShowWeather();
   }
 
   /// <summary>Handles Save.</summary>
@@ -348,6 +351,17 @@ public partial class TB100Diary : CsbpBin
     if (!EventsActive)
       return;
     LoadMonth(e.Date);
+  }
+
+  /// <summary>Handles Positions.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnPositionsCursorChanged(object sender, EventArgs e)
+  {
+    if (!before1.Visible)
+    {
+      ShowWeather();
+    }
   }
 
   /// <summary>Handles Positions.</summary>
@@ -685,4 +699,13 @@ public partial class TB100Diary : CsbpBin
       BearbeiteEintraege(false);
     }
   }
+
+  /// <summary>Show weather data.</summary>
+  private void ShowWeather()
+  {
+    var puid = GetText(positions, true);
+    var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
+    Functions.MachNichts(r);
+  }
+
 }

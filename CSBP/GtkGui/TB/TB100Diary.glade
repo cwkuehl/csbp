@@ -467,6 +467,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="tooltip-text">TB100.positions.tt</property>
+                    <signal name="cursor-changed" handler="OnPositionsCursorChanged" swapped="no"/>
                     <signal name="row-activated" handler="OnPositionsRowActivated" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection"/>
