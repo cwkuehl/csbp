@@ -225,9 +225,10 @@
           <object class="GtkDrawingArea" id="diagramb1">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <signal name="draw" handler="OnDiagramb1Draw" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -288,9 +289,10 @@
           <object class="GtkDrawingArea" id="diagramb2">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <signal name="draw" handler="OnDiagramb2Draw" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -351,9 +353,10 @@
           <object class="GtkDrawingArea" id="diagramb3">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <signal name="draw" handler="OnDiagramb3Draw" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -1449,9 +1452,10 @@
           <object class="GtkDrawingArea" id="diagrama1">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <signal name="draw" handler="OnDiagrama1Draw" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -1512,9 +1516,10 @@
           <object class="GtkDrawingArea" id="diagrama2">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <signal name="draw" handler="OnDiagrama2Draw" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -1575,9 +1580,10 @@
           <object class="GtkDrawingArea" id="diagrama3">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <signal name="draw" handler="OnDiagrama3Draw" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
