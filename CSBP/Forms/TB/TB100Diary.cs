@@ -27,10 +27,6 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly Label before10;
 
-  /// <summary>ScrolledWindow before1sw.</summary>
-  [Builder.Object]
-  private readonly ScrolledWindow before1sw;
-
   /// <summary>TextView before1.</summary>
   [Builder.Object]
   private readonly TextView before1;
@@ -43,10 +39,6 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly Label before20;
 
-  /// <summary>ScrolledWindow before2sw.</summary>
-  [Builder.Object]
-  private readonly ScrolledWindow before2sw;
-
   /// <summary>TextView before2.</summary>
   [Builder.Object]
   private readonly TextView before2;
@@ -58,10 +50,6 @@ public partial class TB100Diary : CsbpBin
   /// <summary>Label before30.</summary>
   [Builder.Object]
   private readonly Label before30;
-
-  /// <summary>ScrolledWindow before3sw.</summary>
-  [Builder.Object]
-  private readonly ScrolledWindow before3sw;
 
   /// <summary>TextView before3.</summary>
   [Builder.Object]
@@ -163,10 +151,6 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly Label after10;
 
-  /// <summary>ScrolledWindow after1sw.</summary>
-  [Builder.Object]
-  private readonly ScrolledWindow after1sw;
-
   /// <summary>TextView after1.</summary>
   [Builder.Object]
   private readonly TextView after1;
@@ -179,10 +163,6 @@ public partial class TB100Diary : CsbpBin
   [Builder.Object]
   private readonly Label after20;
 
-  /// <summary>ScrolledWindow after2sw.</summary>
-  [Builder.Object]
-  private readonly ScrolledWindow after2sw;
-
   /// <summary>TextView after2.</summary>
   [Builder.Object]
   private readonly TextView after2;
@@ -194,10 +174,6 @@ public partial class TB100Diary : CsbpBin
   /// <summary>Label after30.</summary>
   [Builder.Object]
   private readonly Label after30;
-
-  /// <summary>ScrolledWindow after3sw.</summary>
-  [Builder.Object]
-  private readonly ScrolledWindow after3sw;
 
   /// <summary>TextView after3.</summary>
   [Builder.Object]
@@ -357,14 +333,14 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
-    var v = before1sw.Visible;
+    var v = before1.Visible;
     before10.LabelProp = v ? TB100_before1w : TB100_before1;
     before20.LabelProp = v ? TB100_before2w : TB100_before2;
     before30.LabelProp = v ? TB100_before3w : TB100_before3;
     after10.LabelProp = v ? TB100_after1w : TB100_after1;
     after20.LabelProp = v ? TB100_after2w : TB100_after2;
     after30.LabelProp = v ? TB100_after3w : TB100_after3;
-    before1sw.Visible = before2sw.Visible = before3sw.Visible = after1sw.Visible = after2sw.Visible = after3sw.Visible = !v;
+    before1.Visible = before2.Visible = before3.Visible = after1.Visible = after2.Visible = after3.Visible = !v;
     diagramb1.Visible = diagramb2.Visible = diagramb3.Visible = diagrama1.Visible = diagrama2.Visible = diagrama3.Visible = v;
     if (!v)
       return;
@@ -413,7 +389,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPositionsCursorChanged(object sender, EventArgs e)
   {
-    if (!before1sw.Visible)
+    if (!before1.Visible)
     {
       ShowWeather();
     }
@@ -627,7 +603,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   private void OnDiagramaDraw(object sender, DrawnArgs e, string label, List<KeyValuePair<string, decimal>> list)
   {
-    if (before1sw.Visible && list == null)
+    if (before1.Visible && list == null)
       return;
     var da = sender as DrawingArea;
     var c = e.Cr;
@@ -825,7 +801,7 @@ public partial class TB100Diary : CsbpBin
     templist = new List<KeyValuePair<string, decimal>>();
     foreach (var w in r)
     {
-      templist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("hh"), w.Temp));
+      templist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Temp));
     }
   }
 }
