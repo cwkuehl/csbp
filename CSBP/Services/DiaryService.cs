@@ -498,20 +498,28 @@ public class DiaryService : ServiceBase, IDiaryService
       return r;
     const string api = "RAPIDAPI";
     var w = TbWetterRep.Get(daten, daten.MandantNr, date, puid, api);
-    if (w == null)
+    if (w == null || w.Angelegt_Am < w.Datum.AddDays(1))
     {
       var s = RapidapiMeteostatWeather(apikey, p.Breite, p.Laenge, p.Hoehe, date, p.Zeitzone);
       if (!string.IsNullOrEmpty(s))
       {
-        w = new TbWetter
+        if (w == null)
         {
-          Mandant_Nr = daten.MandantNr,
-          Datum = date,
-          Ort_Uid = puid,
-          Api = api,
-          Werte = s,
-        };
-        TbWetterRep.Insert(daten, w);
+          w = new TbWetter
+          {
+            Mandant_Nr = daten.MandantNr,
+            Datum = date,
+            Ort_Uid = puid,
+            Api = api,
+            Werte = s,
+          };
+          TbWetterRep.Insert(daten, w);
+        }
+        else
+        {
+          w.Werte = s;
+          TbWetterRep.Update(daten, w);
+        }
       }
     }
     if (w != null)

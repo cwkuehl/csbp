@@ -188,8 +188,23 @@ public partial class TB100Diary : CsbpBin
   /// <summary>List of current positions.</summary>
   private List<TbEintragOrt> positionList = new();
 
-  /// <summary>Diagram model bike mileages.</summary>
+  /// <summary>Diagram model temperature.</summary>
   private List<KeyValuePair<string, decimal>> templist;
+
+  /// <summary>Diagram model sea-level air pressure in hPa.</summary>
+  private List<KeyValuePair<string, decimal>> preslist;
+
+  /// <summary>Diagram model relative humidity in percent (%).</summary>
+  private List<KeyValuePair<string, decimal>> rhumlist;
+
+  /// <summary>Diagram model one hour precipitation total in mm.</summary>
+  private List<KeyValuePair<string, decimal>> prcplist;
+
+  /// <summary>Diagram model average wind speed in km/h.</summary>
+  private List<KeyValuePair<string, decimal>> wspdlist;
+
+  /// <summary>Diagram model wind direction in degrees (°).</summary>
+  private List<KeyValuePair<string, decimal>> wdirlist;
 
   /// <summary>Initializes a new instance of the <see cref="TB100Diary"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -563,7 +578,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagramb2Draw(object sender, DrawnArgs e)
   {
-    OnDiagramaDraw(sender, e, TB100_before2w, templist);
+    OnDiagramaDraw(sender, e, TB100_before2w, preslist);
   }
 
   /// <summary>Handles Diagramb3.</summary>
@@ -571,7 +586,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagramb3Draw(object sender, DrawnArgs e)
   {
-    OnDiagramaDraw(sender, e, TB100_before3w, templist);
+    OnDiagramaDraw(sender, e, TB100_before3w, rhumlist);
   }
 
   /// <summary>Handles Diagrama1.</summary>
@@ -579,7 +594,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagrama1Draw(object sender, DrawnArgs e)
   {
-    OnDiagramaDraw(sender, e, TB100_after1w, templist);
+    OnDiagramaDraw(sender, e, TB100_after1w, prcplist);
   }
 
   /// <summary>Handles Diagrama2.</summary>
@@ -587,7 +602,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagrama2Draw(object sender, DrawnArgs e)
   {
-    OnDiagramaDraw(sender, e, TB100_after2w, templist);
+    OnDiagramaDraw(sender, e, TB100_after2w, wspdlist);
   }
 
   /// <summary>Handles Diagrama3.</summary>
@@ -595,7 +610,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagrama3Draw(object sender, DrawnArgs e)
   {
-    OnDiagramaDraw(sender, e, TB100_after3w, templist);
+    OnDiagramaDraw(sender, e, TB100_after3w, wdirlist);
   }
 
   /// <summary>Handles Diagrama3.</summary>
@@ -799,9 +814,19 @@ public partial class TB100Diary : CsbpBin
     var puid = GetText(positions, true);
     var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
     templist = new List<KeyValuePair<string, decimal>>();
+    preslist = new List<KeyValuePair<string, decimal>>();
+    rhumlist = new List<KeyValuePair<string, decimal>>();
+    prcplist = new List<KeyValuePair<string, decimal>>();
+    wspdlist = new List<KeyValuePair<string, decimal>>();
+    wdirlist = new List<KeyValuePair<string, decimal>>();
     foreach (var w in r)
     {
       templist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Temp));
+      preslist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Pres));
+      rhumlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Rhum));
+      prcplist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Prcp));
+      wspdlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Wspd));
+      wdirlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Wdir));
     }
   }
 }

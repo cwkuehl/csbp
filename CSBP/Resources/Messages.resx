@@ -3561,7 +3561,7 @@
         <value>1 day before</value>
     </data>
     <data name="TB100.before1w" xml:space="preserve">
-        <value>Temperature</value>
+        <value>Temperature °C</value>
     </data>
     <data name="TB100.before1.tt" xml:space="preserve">
         <value>Entry of previous day</value>
@@ -3570,7 +3570,7 @@
         <value>1 month before</value>
     </data>
     <data name="TB100.before2w" xml:space="preserve">
-        <value>Temperature</value>
+        <value>Air Pressure hPa</value>
     </data>
     <data name="TB100.before2.tt" xml:space="preserve">
         <value>Entry of previous month</value>
@@ -3579,7 +3579,7 @@
         <value>1 year before</value>
     </data>
     <data name="TB100.before3w" xml:space="preserve">
-        <value>Temperature</value>
+        <value>Rel. Humidity %</value>
     </data>
     <data name="TB100.before3.tt" xml:space="preserve">
         <value>Entry of previous year</value>
@@ -3588,7 +3588,7 @@
         <value>1 day after</value>
     </data>
     <data name="TB100.after1w" xml:space="preserve">
-        <value>Temperature</value>
+        <value>Precipitation mm</value>
     </data>
     <data name="TB100.after1.tt" xml:space="preserve">
         <value>Entry of next day</value>
@@ -3597,7 +3597,7 @@
         <value>1 month after</value>
     </data>
     <data name="TB100.after2w" xml:space="preserve">
-        <value>Temperature</value>
+        <value>Wind Speed km/h</value>
     </data>
     <data name="TB100.after2.tt" xml:space="preserve">
         <value>Entry of next month</value>
@@ -3606,7 +3606,7 @@
         <value>1 year after</value>
     </data>
     <data name="TB100.after3w" xml:space="preserve">
-        <value>Temperature</value>
+        <value>Wind Direction °</value>
     </data>
     <data name="TB100.after3.tt" xml:space="preserve">
         <value>Entry of next year</value>
