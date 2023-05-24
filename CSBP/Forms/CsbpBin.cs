@@ -337,9 +337,10 @@ public partial class CsbpBin : Bin
   /// <param name="tv">Specific TreeView.</param>
   /// <param name="mandatory">Is the value mandatory or not.</param>
   /// <param name="column">Affected column number for value.</param>
+  /// <param name="first">Take first entry, if nothing is selected.</param>
   /// <typeparam name="T">Affected return value type.</typeparam>
   /// <returns>Selected value.</returns>
-  protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0)
+  protected static T GetValue<T>(TreeView tv, bool mandatory = true, int column = 0, bool first = false)
     where T : class
   {
     T value = default;
@@ -350,7 +351,7 @@ public partial class CsbpBin : Bin
       tv.Model.GetValue(iter, column, ref v);
       value = v.Val as T;
     }
-    else if (s.Length <= 0 && tv.Model != null && tv.Model.IterNChildren() == 1)
+    else if (s.Length <= 0 && tv.Model != null && (tv.Model.IterNChildren() == 1 || (tv.Model.IterNChildren() > 1 && first)))
     {
       if (tv.Model.GetIterFirst(out var iter1))
       {
@@ -370,10 +371,11 @@ public partial class CsbpBin : Bin
   /// <param name="tv">Specific TreeView.</param>
   /// <param name="mandatory">Is the value mandatory or not.</param>
   /// <param name="column">The column number.</param>
+  /// <param name="first">Take first entry, if nothing is selected.</param>
   /// <returns>Selected value.</returns>
-  protected static string GetText(TreeView tv, bool mandatory = false, int column = 0)
+  protected static string GetText(TreeView tv, bool mandatory = false, int column = 0, bool first = false)
   {
-    return GetValue<string>(tv, mandatory, column);
+    return GetValue<string>(tv, mandatory, column, first);
   }
 
   /// <summary>Sets bold fond in label.</summary>

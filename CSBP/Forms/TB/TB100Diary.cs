@@ -686,6 +686,8 @@ public partial class TB100Diary : CsbpBin
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddYears(1)));
     SetText(after3, tb?.Eintrag);
     InitPositions(EntryOld.Positions);
+    if (!before1.Visible)
+      ShowWeather();
     return r;
   }
 
@@ -811,14 +813,16 @@ public partial class TB100Diary : CsbpBin
   /// <summary>Show weather data.</summary>
   private void ShowWeather()
   {
-    var puid = GetText(positions, true);
-    var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
+    var puid = GetText(positions, false, 0, true);
     templist = new List<KeyValuePair<string, decimal>>();
     preslist = new List<KeyValuePair<string, decimal>>();
     rhumlist = new List<KeyValuePair<string, decimal>>();
     prcplist = new List<KeyValuePair<string, decimal>>();
     wspdlist = new List<KeyValuePair<string, decimal>>();
     wdirlist = new List<KeyValuePair<string, decimal>>();
+    if (string.IsNullOrEmpty(puid))
+      return;
+    var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
     foreach (var w in r)
     {
       templist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Temp));
@@ -828,5 +832,6 @@ public partial class TB100Diary : CsbpBin
       wspdlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Wspd));
       wdirlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Wdir));
     }
+    //// diagramb1.Window.InvalidateRect(new Gdk.Rectangle(0, 0, diagramb1.Window.Width, diagramb1.Window.Height), true);
   }
 }
