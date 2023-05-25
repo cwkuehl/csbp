@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
@@ -51,8 +52,10 @@ public class Tests
       t.Tls();
     if (Functions.MachNichts() != 0)
       t.OpenWeatherMap();
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
       t.RapidapiMeteostatWeather();
+    if (Functions.MachNichts() == 0)
+      t.OpenAiChatGpt();
   }
 
   /// <summary>
@@ -758,6 +761,101 @@ public partial class {filename}
     var s = task.Result;
     Debug.Print($"{s}");
     //// {"meta":{"generated": "2023-03-18 21:48:14", "stations": ["D1814", "D4090", "D6100", "D5542"]},"data":[{"time":"2023-02-05 00:00:00","temp":3.5,"dwpt":1.5,"rhum":87.0,"prcp":0.0,"snow":null,"wdir":97.0,"wspd":7.6,"wpgt":null,"pres":1039.1,"tsun":null,"coco":3},{"time":"2023-02-05 01:00:00","temp":3.5,"dwpt":1.2,"rhum":85.0,"prcp":0.0,"snow":null,"wdir":98.0,"wspd":6.5,"wpgt":null,"pres":1038.8,"tsun":null,"coco":3},{"time":"2023-02-05 02:00:00","temp":3.3,"dwpt":0.7,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":144.0,"wspd":6.5,"wpgt":null,"pres":1038.3,"tsun":null,"coco":3},{"time":"2023-02-05 03:00:00","temp":3.2,"dwpt":0.6,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":144.0,"wspd":6.1,"wpgt":null,"pres":1037.6,"tsun":null,"coco":3},{"time":"2023-02-05 04:00:00","temp":3.2,"dwpt":0.4,"rhum":82.0,"prcp":0.0,"snow":null,"wdir":73.0,"wspd":4.0,"wpgt":null,"pres":1037.3,"tsun":null,"coco":3},{"time":"2023-02-05 05:00:00","temp":3.2,"dwpt":0.6,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":67.0,"wspd":3.6,"wpgt":null,"pres":1037.2,"tsun":null,"coco":3},{"time":"2023-02-05 06:00:00","temp":3.1,"dwpt":0.2,"rhum":81.0,"prcp":0.1,"snow":null,"wdir":88.0,"wspd":4.3,"wpgt":null,"pres":1037.1,"tsun":null,"coco":3},{"time":"2023-02-05 07:00:00","temp":3.0,"dwpt":-0.1,"rhum":80.0,"prcp":0.5,"snow":null,"wdir":166.0,"wspd":7.2,"wpgt":null,"pres":1036.6,"tsun":null,"coco":3},{"time":"2023-02-05 08:00:00","temp":3.0,"dwpt":0.2,"rhum":82.0,"prcp":0.0,"snow":null,"wdir":179.0,"wspd":8.3,"wpgt":null,"pres":1036.2,"tsun":null,"coco":8},{"time":"2023-02-05 09:00:00","temp":3.1,"dwpt":1.5,"rhum":89.0,"prcp":0.0,"snow":null,"wdir":212.0,"wspd":7.2,"wpgt":null,"pres":1036.1,"tsun":null,"coco":8},{"time":"2023-02-05 10:00:00","temp":3.3,"dwpt":2.0,"rhum":91.0,"prcp":0.1,"snow":null,"wdir":221.0,"wspd":4.7,"wpgt":null,"pres":1035.9,"tsun":null,"coco":8},{"time":"2023-02-05 11:00:00","temp":3.6,"dwpt":2.7,"rhum":94.0,"prcp":0.7,"snow":null,"wdir":151.0,"wspd":5.4,"wpgt":null,"pres":1035.3,"tsun":null,"coco":9},{"time":"2023-02-05 12:00:00","temp":5.0,"dwpt":4.3,"rhum":95.0,"prcp":1.4,"snow":null,"wdir":214.0,"wspd":6.8,"wpgt":null,"pres":1034.4,"tsun":null,"coco":8},{"time":"2023-02-05 13:00:00","temp":5.6,"dwpt":4.1,"rhum":90.0,"prcp":1.9,"snow":null,"wdir":272.0,"wspd":7.6,"wpgt":null,"pres":1034.2,"tsun":null,"coco":8},{"time":"2023-02-05 14:00:00","temp":5.7,"dwpt":4.0,"rhum":89.0,"prcp":0.2,"snow":null,"wdir":313.0,"wspd":10.4,"wpgt":null,"pres":1034.1,"tsun":null,"coco":7},{"time":"2023-02-05 15:00:00","temp":5.7,"dwpt":4.3,"rhum":91.0,"prcp":0.0,"snow":null,"wdir":2.0,"wspd":12.2,"wpgt":null,"pres":1034.1,"tsun":null,"coco":8},{"time":"2023-02-05 16:00:00","temp":5.1,"dwpt":4.4,"rhum":95.0,"prcp":0.0,"snow":null,"wdir":51.0,"wspd":11.5,"wpgt":null,"pres":1034.9,"tsun":null,"coco":8},{"time":"2023-02-05 17:00:00","temp":4.2,"dwpt":3.5,"rhum":95.0,"prcp":0.1,"snow":null,"wdir":52.0,"wspd":12.6,"wpgt":null,"pres":1036.2,"tsun":null,"coco":3},{"time":"2023-02-05 18:00:00","temp":3.5,"dwpt":2.8,"rhum":95.0,"prcp":0.0,"snow":null,"wdir":41.0,"wspd":11.5,"wpgt":null,"pres":1037.0,"tsun":null,"coco":3},{"time":"2023-02-05 19:00:00","temp":3.5,"dwpt":2.6,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":38.0,"wspd":9.7,"wpgt":null,"pres":1037.5,"tsun":null,"coco":3},{"time":"2023-02-05 20:00:00","temp":3.3,"dwpt":2.4,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":41.0,"wspd":9.0,"wpgt":null,"pres":1038.0,"tsun":null,"coco":3},{"time":"2023-02-05 21:00:00","temp":3.2,"dwpt":2.0,"rhum":92.0,"prcp":0.0,"snow":null,"wdir":53.0,"wspd":9.0,"wpgt":null,"pres":1038.5,"tsun":null,"coco":3},{"time":"2023-02-05 22:00:00","temp":3.6,"dwpt":2.7,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":47.0,"wspd":10.8,"wpgt":null,"pres":1038.9,"tsun":null,"coco":3},{"time":"2023-02-05 23:00:00","temp":3.5,"dwpt":2.6,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":53.0,"wspd":10.1,"wpgt":null,"pres":1039.7,"tsun":null,"coco":3}]}
+  }
+
+  /// <summary>Tests für OpenAiChatGpt.</summary>
+  [Test]
+  public void OpenAiChatGpt()
+  {
+    var apikey = GetAppKey("openai.com");
+    var text = "Say this is a test!";
+    var url = @$"https://api.openai.com/v1/chat/completions";
+    ////     var content = $@"{{
+    ////   ""model"": ""gpt-3.5-turbo"",
+    ////   ""messages"": [{{""role"": ""user"", ""content"": ""{text}""}}],
+    ////   ""temperature"": 0.7
+    //// }}";
+    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
+    var httpsclient = new System.Net.Http.HttpClient
+    {
+      Timeout = TimeSpan.FromMilliseconds(5000),
+    };
+    httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
+    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
+    ////var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+    ////byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+    ////var task = httpsclient.PostAsync(url, byteContent);
+
+    var jcontent = new
+    {
+      model = "gpt-3.5-turbo",
+      messages = new List<Dictionary<string, string>>
+      {
+        new Dictionary<string, string> { { "role", "user" }, { "content", text }, },
+      },
+      temperature = 0.7,
+    };
+    ////Debug.Print($"{content}");
+    var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+    Debug.Print($"{json}");
+    var task = httpsclient.PostAsJsonAsync(url, jcontent);
+    task.Wait();
+    var task2 = task.Result.Content.ReadAsStringAsync();
+    task2.Wait();
+    var s = task2.Result;
+    Debug.Print($"{s}");
+
+    // {"id":"chatcmpl-7Jq1V5UeKe9vkwGZeJ0VVDahSZxPP","object":"chat.completion","created":1684962565,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":14,"completion_tokens":5,"total_tokens":19},"choices":[{"message":{"role":"assistant","content":"This is a test!"},"finish_reason":"stop","index":0}]}
+
+    // {
+    //     "error": {
+    //         "message": "you must provide a model parameter",
+    //         "type": "invalid_request_error",
+    //         "param": null,
+    //         "code": null
+    //     }
+    // }
+
+    // StatusCode: 401, ReasonPhrase: 'Unauthorized', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+    // {
+    //   Date: Wed, 24 May 2023 20:13:11 GMT
+    //   Connection: keep-alive
+    //   Vary: Origin
+    //   X-Request-ID: 841f7a65e4410419727c6f0808baf18d
+    //   Strict-Transport-Security: max-age=15724800; includeSubDomains
+    //   CF-Cache-Status: DYNAMIC
+    //   Server: cloudflare
+    //   CF-RAY: 7cc832a0bc8e68fd-FRA
+    //   Alt-Svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    //   Content-Type: application/json; charset=utf-8
+    //   Content-Length: 146
+    // }
+
+    // StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnectionResponseContent, Headers:
+    // {
+    //   Date: Wed, 24 May 2023 20:44:52 GMT
+    //   Connection: keep-alive
+    //   Access-Control-Allow-Origin: *
+    //   Cache-Control: no-cache, must-revalidate
+    //   openai-model: gpt-3.5-turbo-0301
+    //   openai-organization: user-lqkg0bkbnhqnfeah0ky35m3s
+    //   openai-processing-ms: 991
+    //   openai-version: 2020-10-01
+    //   Strict-Transport-Security: max-age=15724800; includeSubDomains
+    //   x-ratelimit-limit-requests: 3500
+    //   x-ratelimit-limit-tokens: 90000
+    //   x-ratelimit-remaining-requests: 3499
+    //   x-ratelimit-remaining-tokens: 89978
+    //   x-ratelimit-reset-requests: 17ms
+    //   x-ratelimit-reset-tokens: 14ms
+    //   X-Request-ID: 54216df2aa75c155efc7ab0ab9955ff0
+    //   CF-Cache-Status: DYNAMIC
+    //   Server: cloudflare
+    //   CF-RAY: 7cc861023cc41976-FRA
+    //   Alt-Svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+    //   Content-Type: application/json
+    //   Content-Length: 300
+    // }
   }
 
   /// <summary>Tests für Serialisierung.</summary>
