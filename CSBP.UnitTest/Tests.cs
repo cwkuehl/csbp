@@ -768,13 +768,14 @@ public partial class {filename}
   public void OpenAiChatGpt()
   {
     var apikey = GetAppKey("openai.com");
-    var text = "Say this is a test!";
-    var url = @$"https://api.openai.com/v1/chat/completions";
-    ////     var content = $@"{{
-    ////   ""model"": ""gpt-3.5-turbo"",
-    ////   ""messages"": [{{""role"": ""user"", ""content"": ""{text}""}}],
-    ////   ""temperature"": 0.7
-    //// }}";
+    const string davinci = "text-davinci-003";
+    const string gpt3 = "gpt-3.5-turbo";
+    ////var model = davinci;
+    var model = gpt3;
+    ////var text = "Say this is a test!";
+    var text = "Tell a joke";
+    ////var text = "Erzähl eine Witz"; // Schlechte deutsche Witze.
+    var url = model == davinci ? @$"https://api.openai.com/v1/completions" : @$"https://api.openai.com/v1/chat/completions";
     System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
     var httpsclient = new System.Net.Http.HttpClient
     {
@@ -782,30 +783,67 @@ public partial class {filename}
     };
     httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
-    ////var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
-    ////byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-    ////var task = httpsclient.PostAsync(url, byteContent);
-
-    var jcontent = new
-    {
-      model = "gpt-3.5-turbo",
-      messages = new List<Dictionary<string, string>>
+    object jcontent;
+    if (model == davinci)
+      jcontent = new
       {
-        new Dictionary<string, string> { { "role", "user" }, { "content", text }, },
-      },
-      temperature = 0.7,
-    };
+        model,
+        prompt = text,
+        temperature = 0.7,
+        max_tokens = 50,
+      };
+    else
+      jcontent = new
+      {
+        model,
+        messages = new List<Dictionary<string, string>>
+       {
+         new Dictionary<string, string> { { "role", "user" }, { "content", text }, },
+       },
+        temperature = 0.7,
+        max_tokens = 50,
+      };
     ////Debug.Print($"{content}");
-    var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
-    Debug.Print($"{json}");
+    ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+    ////Debug.Print($"{json}");
     var task = httpsclient.PostAsJsonAsync(url, jcontent);
     task.Wait();
     var task2 = task.Result.Content.ReadAsStringAsync();
     task2.Wait();
     var s = task2.Result;
+
+    string cc = null;
+    using var doc = System.Text.Json.JsonDocument.Parse(s ?? "");
+    var root = doc.RootElement;
+    if (root.TryGetProperty("choices", out var choices))
+    {
+      var arr = choices.EnumerateArray();
+      if (arr.MoveNext())
+      {
+        var arr1 = arr.Current;
+        if (arr1.TryGetProperty("message", out var message))
+        {
+          // gpt-3.5-turbo-0301
+          if (message.TryGetProperty("content", out var c))
+          {
+            cc = c.GetString();
+          }
+        }
+        else if (arr1.TryGetProperty("text", out var ptext))
+        {
+          // text-davinci-003
+          cc = ptext.GetString();
+        }
+      }
+    }
+    if (string.IsNullOrEmpty(cc))
+      throw new Exception(s);
+    Debug.Print($"Question to {model}: {text}");
     Debug.Print($"{s}");
+    Debug.Print($"Answer: {cc}");
 
     // {"id":"chatcmpl-7Jq1V5UeKe9vkwGZeJ0VVDahSZxPP","object":"chat.completion","created":1684962565,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":14,"completion_tokens":5,"total_tokens":19},"choices":[{"message":{"role":"assistant","content":"This is a test!"},"finish_reason":"stop","index":0}]}
+    // {"id":"cmpl-7KZzLheyRyuP8e5Now9KQB00jR9Ng","object":"text_completion","created":1685139255,"model":"text-davinci-003","choices":[{"text":"\n\nQ: What did the fish say when it hit the wall?\nA: Dam!","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":3,"completion_tokens":20,"total_tokens":23}}
 
     // {
     //     "error": {
