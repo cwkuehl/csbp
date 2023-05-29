@@ -769,28 +769,46 @@ public partial class {filename}
   {
     var apikey = GetAppKey("openai.com");
     const string davinci = "text-davinci-003";
-    const string gpt3 = "gpt-3.5-turbo";
+    ////const string gpt35 = "gpt-3.5-turbo"; // cheaper
+    const string dalle = "dalle";
     ////var model = davinci;
-    var model = gpt3;
+    ////var model = gpt35;
+    var model = dalle;
     ////var text = "Say this is a test!";
-    var text = "Tell a joke";
-    ////var text = "Erzähl eine Witz"; // Schlechte deutsche Witze.
-    var url = model == davinci ? @$"https://api.openai.com/v1/completions" : @$"https://api.openai.com/v1/chat/completions";
+    ////var text = "Tell a joke";
+    ////var text = "Write hello world in rust";
+    ////var text = "Rust code for signing";
+    ////var text = "Erzähl eine Witz"; // Bad Geman Jokes.
+    ////var text = "Create an app logo for a budget program that contains a house and the letters W and K.";
+    ////var text = "Create an app logo that contains one house and the letters W and K.";
+    var text = "A house that contains the letters W and K.";
+    var max_tokens = 50;
+    var url = model == dalle ? @$"https://api.openai.com/v1/images/generations"
+      : model == davinci ? @$"https://api.openai.com/v1/completions"
+      : @$"https://api.openai.com/v1/chat/completions";
     System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
     var httpsclient = new System.Net.Http.HttpClient
     {
-      Timeout = TimeSpan.FromMilliseconds(5000),
+      Timeout = TimeSpan.FromMilliseconds(50000),
     };
     httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
     object jcontent;
-    if (model == davinci)
+    if (model == dalle)
+      jcontent = new
+      {
+        prompt = text,
+        n = 1,
+        size = "256x256", // 512x512 1024x1024
+        response_format = "url", // b64_json
+      };
+    else if (model == davinci)
       jcontent = new
       {
         model,
         prompt = text,
         temperature = 0.7,
-        max_tokens = 50,
+        max_tokens,
       };
     else
       jcontent = new
@@ -801,7 +819,7 @@ public partial class {filename}
          new Dictionary<string, string> { { "role", "user" }, { "content", text }, },
        },
         temperature = 0.7,
-        max_tokens = 50,
+        max_tokens,
       };
     ////Debug.Print($"{content}");
     ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
@@ -836,14 +854,29 @@ public partial class {filename}
         }
       }
     }
-    if (string.IsNullOrEmpty(cc))
-      throw new Exception(s);
+    else if (root.TryGetProperty("data", out var data))
+    {
+      var arr = data.EnumerateArray();
+      if (arr.MoveNext())
+      {
+        var arr1 = arr.Current;
+        if (arr1.TryGetProperty("url", out var c))
+        {
+          cc = c.GetString();
+        }
+      }
+    }
     Debug.Print($"Question to {model}: {text}");
     Debug.Print($"{s}");
+
+    if (string.IsNullOrEmpty(cc))
+      throw new Exception(s);
+
     Debug.Print($"Answer: {cc}");
 
     // {"id":"chatcmpl-7Jq1V5UeKe9vkwGZeJ0VVDahSZxPP","object":"chat.completion","created":1684962565,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":14,"completion_tokens":5,"total_tokens":19},"choices":[{"message":{"role":"assistant","content":"This is a test!"},"finish_reason":"stop","index":0}]}
     // {"id":"cmpl-7KZzLheyRyuP8e5Now9KQB00jR9Ng","object":"text_completion","created":1685139255,"model":"text-davinci-003","choices":[{"text":"\n\nQ: What did the fish say when it hit the wall?\nA: Dam!","index":0,"logprobs":null,"finish_reason":"stop"}],"usage":{"prompt_tokens":3,"completion_tokens":20,"total_tokens":23}}
+    // {\n  \"created\": 1685307317,\n  \"data\": [\n    {\n      \"url\": \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-sKfcUzuHnPxKTTkDyyKAprcr/user-Lqkg0BKbNHQnfeAH0Ky35M3S/img-P7nOJhjMgWLAfnY4xH9ze0mE.png?st=2023-05-28T19%3A55%3A17Z&se=2023-05-28T21%3A55%3A17Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-05-28T11%3A03%3A48Z&ske=2023-05-29T11%3A03%3A48Z&sks=b&skv=2021-08-06&sig=U2VbMTUM8TzaNBcPybTL68zmcdyMsHXYDE4ncTHPX2s%3D\"\n    }\n  ]\n}
 
     // {
     //     "error": {
