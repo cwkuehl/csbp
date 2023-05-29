@@ -392,6 +392,8 @@ public class MainWindow : Window
           b.Clicked += OnMenuUsers;
         else if (b.Label == "Menu.backups")
           b.Clicked += OnMenuBackups;
+        else if (b.Label == "Menu.ai")
+          b.Clicked += OnMenuAi;
         else if (b.Label == "Menu.quit")
           b.Clicked += OnMenuQuit;
         else if (b.Label == "Menu.login")
@@ -922,6 +924,15 @@ public class MainWindow : Window
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnMenuBackups(object sender, EventArgs e)
+  {
+    AppendPage(AG400Backups.Create(), AG400_title);
+    popovermenu1.Visible = false;
+  }
+
+  /// <summary>Menu Künstliche Intelligenz.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnMenuAi(object sender, EventArgs e)
   {
     AppendPage(AG400Backups.Create(), AG400_title);
     popovermenu1.Visible = false;

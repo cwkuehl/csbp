@@ -1472,6 +1472,11 @@ public partial class Messages
     get { return rm.GetString("Menu.backups"); }
   }
 
+  public static string Menu_ai
+  {
+    get { return rm.GetString("Menu.ai"); }
+  }
+
   public static string Menu_quit
   {
     get { return rm.GetString("Menu.quit"); }

@@ -108,6 +108,15 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="MenuAi">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Menu.ai</property>
+                        <property name="use-underline">True</property>
+                        <signal name="activate" handler="OnMenuAi" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkSeparatorMenuItem">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -789,6 +798,22 @@
               </packing>
             </child>
             <child>
+              <object class="GtkButton" id="menuai">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="label">Menu.ai</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">8</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkSeparator">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -796,7 +821,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">8</property>
+                <property name="position">9</property>
               </packing>
             </child>
             <child>
@@ -814,7 +839,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">9</property>
+                <property name="position">10</property>
               </packing>
             </child>
           </object>

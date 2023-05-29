@@ -895,6 +895,9 @@
     <data name="Menu.backups" xml:space="preserve">
         <value>Backup_s</value>
     </data>
+    <data name="Menu.ai" xml:space="preserve">
+        <value>_Artificial Intelligence</value>
+    </data>
     <data name="Menu.quit" xml:space="preserve">
         <value>_Quit</value>
     </data>
