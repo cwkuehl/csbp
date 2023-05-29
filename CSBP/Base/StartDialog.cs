@@ -30,6 +30,7 @@ public class StartDialog
       { nameof(AG100Clients).Left(5), new StartDialog { Type = typeof(AG100Clients), Title = AG100_title } },
       { nameof(AG200Users).Left(5), new StartDialog { Type = typeof(AG200Users), Title = AG200_title } },
       { nameof(AG400Backups).Left(5), new StartDialog { Type = typeof(AG400Backups), Title = AG400_title } },
+      { nameof(AG500Ai).Left(5), new StartDialog { Type = typeof(AG500Ai), Title = AG500_title } },
       { nameof(AM500Options).Left(5), new StartDialog { Type = typeof(AM500Options), Title = AM500_title } },
       { nameof(AM510Dialogs).Left(5), new StartDialog { Type = typeof(AM510Dialogs), Title = AM510_title } },
       { nameof(FZ100Statistics).Left(5), new StartDialog { Type = typeof(FZ100Statistics), Title = FZ100_title } },

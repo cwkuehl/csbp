@@ -2927,6 +2927,11 @@ public partial class Messages
     get { return rm.GetString("AG420.password.tt"); }
   }
 
+  public static string AG500_title
+  {
+    get { return rm.GetString("AG500.title"); }
+  }
+
   public static string AM000_title
   {
     get { return rm.GetString("AM000.title"); }

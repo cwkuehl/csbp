@@ -1803,6 +1803,10 @@
         <value>Kennwort für Verschlüsselung</value>
     </data>
 
+    <data name="AG500.title" xml:space="preserve">
+        <value>KI</value>
+    </data>
+
     <data name="AM000.title" xml:space="preserve">
         <value>Anmeldung</value>
     </data>

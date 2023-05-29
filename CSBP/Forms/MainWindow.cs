@@ -934,7 +934,7 @@ public class MainWindow : Window
   /// <param name="e">Affected event.</param>
   protected void OnMenuAi(object sender, EventArgs e)
   {
-    AppendPage(AG400Backups.Create(), AG400_title);
+    AppendPage(AG500Ai.Create(), AG500_title);
     popovermenu1.Visible = false;
   }
 
