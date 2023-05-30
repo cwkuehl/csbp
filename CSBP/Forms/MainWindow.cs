@@ -74,6 +74,14 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly Button menubackups;
 
+  /// <summary>Menu AI.</summary>
+  [Builder.Object]
+  private readonly MenuItem MenuAi;
+
+  /// <summary>Menu AI.</summary>
+  [Builder.Object]
+  private readonly Button menuai;
+
   /// <summary>Menu Login.</summary>
   [Builder.Object]
   private readonly MenuItem MenuLogin;
@@ -581,6 +589,7 @@ public class MainWindow : Window
     // MenuClients.Activate();
     // MenuUsers.Activate();
     // MenuBackups.Activate();
+    // MenuAi.Activate();
     // MenuPwchange.Activate();
     // MenuOptions.Activate();
     // MenuDialogs.Activate();
@@ -675,6 +684,7 @@ public class MainWindow : Window
     MenuClients.Visible = menuclients.Visible = b && per >= (int)PermissionEnum.Admin;
     MenuUsers.Visible = menuusers.Visible = b;
     MenuBackups.Visible = menubackups.Visible = b;
+    MenuAi.Visible = menuai.Visible = b;
 
     MenuLogin.Visible = menulogin.Visible = !b;
     MenuLogout.Visible = menulogout.Visible = b;
