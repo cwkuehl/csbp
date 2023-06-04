@@ -102,6 +102,16 @@ public partial class Messages
     get { return rm.GetString("parm.TB_METEOSTAT_COM_ACCESS_KEY.text"); }
   }
 
+  public static string parm_AG_OPENAI_COM_ACCESS_KEY_value
+  {
+    get { return rm.GetString("parm.AG_OPENAI_COM_ACCESS_KEY.value"); }
+  }
+
+  public static string parm_AG_OPENAI_COM_ACCESS_KEY_text
+  {
+    get { return rm.GetString("parm.AG_OPENAI_COM_ACCESS_KEY.text"); }
+  }
+
   public static string AD001_
   {
     get { return rm.GetString("AD001_"); }
@@ -160,6 +170,11 @@ public partial class Messages
   public static string AG003
   {
     get { return rm.GetString("AG003"); }
+  }
+
+  public static string AG004
+  {
+    get { return rm.GetString("AG004"); }
   }
 
   public static string AM001

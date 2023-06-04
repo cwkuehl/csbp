@@ -52,6 +52,9 @@ public class Parameter
   /// <summary>Constant key for access key for meteostat.com.</summary>
   public const string TB_METEOSTAT_COM_ACCESS_KEY = "TB_METEOSTAT_COM_ACCESS_KEY";
 
+  /// <summary>Constant key for access key for openai.com.</summary>
+  public const string AG_OPENAI_COM_ACCESS_KEY = "AG_OPENAI_COM_ACCESS_KEY";
+
 #pragma warning restore SA1310
 
   /// <summary>Setting file name with path, e.g. .csbp.json.</summary>
@@ -75,6 +78,7 @@ public class Parameter
       { SB_SUBMITTER, new Parameter(SB_SUBMITTER, setting: "GedcomSubmitter", database: true) },
       { WP_FIXER_IO_ACCESS_KEY, new Parameter(WP_FIXER_IO_ACCESS_KEY, setting: "FixerIoAccessKey", database: true) },
       { TB_METEOSTAT_COM_ACCESS_KEY, new Parameter(TB_METEOSTAT_COM_ACCESS_KEY, setting: "MeteostatComAccessKey", database: true) },
+      { AG_OPENAI_COM_ACCESS_KEY, new Parameter(AG_OPENAI_COM_ACCESS_KEY, setting: "OpenaiComAccessKey", database: true) },
     };
     Params2 = new Dictionary<string, string>();
     AppConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".csbp.json");

@@ -60,6 +60,12 @@
     <data name="parm.TB_METEOSTAT_COM_ACCESS_KEY.text" xml:space="preserve">
         <value>Bitte Access Key für Wetterdaten von https://meteostat.p.rapidapi.com eintragen.</value>
     </data>
+    <data name="parm.AG_OPENAI_COM_ACCESS_KEY.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.AG_OPENAI_COM_ACCESS_KEY.text" xml:space="preserve">
+        <value>Bitte Access Key für ChatGPT von https://chat.openai.com eintragen.</value>
+    </data>
 
     <data name="AG001" xml:space="preserve">
         <value>AG001Sind Sie sicher, dass die Rücksicherung durchgeführt werden soll?</value>
@@ -69,6 +75,9 @@
     </data>
     <data name="AG003" xml:space="preserve">
         <value>AG003Es gibt Rückgängig- oder Wiederherstellungs-Aktionen, die beim Beenden verloren gehen. Soll das Programm beendet werden?</value>
+    </data>
+    <data name="AG004" xml:space="preserve">
+        <value>AG004Bitte eine Anfrage eingeben.</value>
     </data>
 
     <data name="AD001_" xml:space="preserve">

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -21,6 +22,7 @@ using CSBP.Base;
 using CSBP.Resources;
 using CSBP.Services.Base;
 using CSBP.Services.Client;
+using CSBP.Services.NonService;
 using CSBP.Services.Reports;
 using CSBP.Services.Repositories.Base;
 using CSBP.Services.Undo;
@@ -1146,6 +1148,126 @@ Lokal: {e.Eintrag}";
     ul.Insert(e);
     Commit(ul);
     return r;
+  }
+
+  /// <summary>
+  /// Gets response from ChatGPT.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="prompt">Affected input prompt string.</param>
+  /// <param name="model">Affected AI model.</param>
+  /// <param name="maxtokens">Affected maximal number of tokens.</param>
+  /// <param name="temperature">Affected temperature between 0 and 1.</param>
+  /// <returns>AI data with response from ChatGPT.</returns>
+  public ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M)
+  {
+    var r = new ServiceErgebnis<AiData>();
+    if (string.IsNullOrEmpty(prompt))
+      throw new MessageException(AG004);
+    var aidata = new AiData
+    {
+      Model = model,
+      MaxTokens = maxtokens,
+      Temperature = temperature,
+      Prompt = prompt,
+    };
+    OpenAiChatGpt(aidata);
+    r.Ergebnis = aidata;
+    return r;
+  }
+
+  /// <summary>Request to OpenAi ChatGpt.</summary>
+  private static void OpenAiChatGpt(AiData data)
+  {
+    var apikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
+    var url = data.Model == AiData.Dalle ? @$"https://api.openai.com/v1/images/generations"
+      : data.Model == AiData.Davinci ? @$"https://api.openai.com/v1/completions"
+      : @$"https://api.openai.com/v1/chat/completions";
+    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
+    var httpsclient = new System.Net.Http.HttpClient
+    {
+      Timeout = TimeSpan.FromMilliseconds(50000),
+    };
+    httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
+    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
+    object jcontent;
+    if (data.Model == AiData.Dalle)
+      jcontent = new
+      {
+        prompt = data.Prompt,
+        n = 1,
+        size = "256x256", // 512x512 1024x1024
+        response_format = "url", // b64_json
+      };
+    else if (data.Model == AiData.Davinci)
+      jcontent = new
+      {
+        model = data.Model,
+        prompt = data.Prompt,
+        temperature = data.Temperature,
+        max_tokens = data.MaxTokens,
+      };
+    else
+      jcontent = new
+      {
+        model = data.Model,
+        messages = new List<Dictionary<string, string>>
+       {
+         new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt }, },
+       },
+        temperature = data.Temperature,
+        max_tokens = data.MaxTokens,
+      };
+    ////Debug.Print($"{content}");
+    ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+    ////Debug.Print($"{json}");
+    var task = httpsclient.PostAsJsonAsync(url, jcontent);
+    task.Wait();
+    var task2 = task.Result.Content.ReadAsStringAsync();
+    task2.Wait();
+    var s = task2.Result;
+
+    string cc = null;
+    using var doc = System.Text.Json.JsonDocument.Parse(s ?? "");
+    var root = doc.RootElement;
+    if (root.TryGetProperty("choices", out var choices))
+    {
+      var arr = choices.EnumerateArray();
+      if (arr.MoveNext())
+      {
+        var arr1 = arr.Current;
+        if (arr1.TryGetProperty("message", out var message))
+        {
+          // gpt-3.5-turbo-0301
+          if (message.TryGetProperty("content", out var c))
+          {
+            cc = c.GetString();
+          }
+        }
+        else if (arr1.TryGetProperty("text", out var ptext))
+        {
+          // text-davinci-003
+          cc = ptext.GetString();
+        }
+      }
+    }
+    else if (root.TryGetProperty("data", out var data1))
+    {
+      var arr = data1.EnumerateArray();
+      if (arr.MoveNext())
+      {
+        var arr1 = arr.Current;
+        if (arr1.TryGetProperty("url", out var c))
+        {
+          cc = c.GetString();
+        }
+      }
+    }
+    System.Diagnostics.Debug.Print($"Question to {data.Model}: {data.Prompt}");
+    System.Diagnostics.Debug.Print($"{s}");
+    if (string.IsNullOrEmpty(cc))
+      throw new Exception(s);
+    System.Diagnostics.Debug.Print($"Answer: {cc}");
   }
 
   /// <summary>

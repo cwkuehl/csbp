@@ -60,6 +60,12 @@
     <data name="parm.TB_METEOSTAT_COM_ACCESS_KEY.text" xml:space="preserve">
         <value>Type in access key for weather data of https://meteostat.p.rapidapi.com.</value>
     </data>
+    <data name="parm.AG_OPENAI_COM_ACCESS_KEY.value" xml:space="preserve">
+        <value></value>
+    </data>
+    <data name="parm.AG_OPENAI_COM_ACCESS_KEY.text" xml:space="preserve">
+        <value>Type in access key for ChatGPT of https://chat.openai.com.</value>
+    </data>
 
     <data name="AD001_" xml:space="preserve">
         <value>AD001Birthdays between {0:yyyy-MM-dd} and {1:yyyy-MM-dd}:</value>
@@ -97,6 +103,9 @@
     </data>
     <data name="AG003" xml:space="preserve">
         <value>AG003The existing undo or redo actions will be deleted by quitting. Quit the program?</value>
+    </data>
+    <data name="AG004" xml:space="preserve">
+        <value>AG004Type in a request.</value>
     </data>
 
     <data name="AM001" xml:space="preserve">

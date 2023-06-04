@@ -24,42 +24,6 @@ public partial class AG500Ai : CsbpBin
 {
 #pragma warning disable CS0649
 
-  /// <summary>Label before10.</summary>
-  [Builder.Object]
-  private readonly Label before10;
-
-  /// <summary>TextView before1.</summary>
-  [Builder.Object]
-  private readonly TextView before1;
-
-  /// <summary>DrawingArea diagramb1.</summary>
-  [Builder.Object]
-  private readonly DrawingArea diagramb1;
-
-  /// <summary>Label before20.</summary>
-  [Builder.Object]
-  private readonly Label before20;
-
-  /// <summary>TextView before2.</summary>
-  [Builder.Object]
-  private readonly TextView before2;
-
-  /// <summary>DrawingArea diagramb2.</summary>
-  [Builder.Object]
-  private readonly DrawingArea diagramb2;
-
-  /// <summary>Label before30.</summary>
-  [Builder.Object]
-  private readonly Label before30;
-
-  /// <summary>TextView before3.</summary>
-  [Builder.Object]
-  private readonly TextView before3;
-
-  /// <summary>DrawingArea diagramb3.</summary>
-  [Builder.Object]
-  private readonly DrawingArea diagramb3;
-
   /// <summary>Label date0.</summary>
   [Builder.Object]
   private readonly Label date0;
@@ -92,62 +56,6 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly Entry geaendert;
 
-  /// <summary>Entry search1.</summary>
-  [Builder.Object]
-  private readonly Grid searchgrid;
-
-  /// <summary>Entry search1.</summary>
-  [Builder.Object]
-  private readonly Entry search1;
-
-  /// <summary>Entry search2.</summary>
-  [Builder.Object]
-  private readonly Entry search2;
-
-  /// <summary>Entry search3.</summary>
-  [Builder.Object]
-  private readonly Entry search3;
-
-  /// <summary>Entry search4.</summary>
-  [Builder.Object]
-  private readonly Entry search4;
-
-  /// <summary>Entry search5.</summary>
-  [Builder.Object]
-  private readonly Entry search5;
-
-  /// <summary>Entry search6.</summary>
-  [Builder.Object]
-  private readonly Entry search6;
-
-  /// <summary>Entry search7.</summary>
-  [Builder.Object]
-  private readonly Entry search7;
-
-  /// <summary>Entry search8.</summary>
-  [Builder.Object]
-  private readonly Entry search8;
-
-  /// <summary>Entry search9.</summary>
-  [Builder.Object]
-  private readonly Entry search9;
-
-  /// <summary>ComboBox position2.</summary>
-  [Builder.Object]
-  private readonly ComboBox position2;
-
-  /// <summary>From date.</summary>
-  //// [Builder.Object]
-  private readonly Date from;
-
-  /// <summary>To date.</summary>
-  //// [Builder.Object]
-  private readonly Date to;
-
-  /// <summary>Button last.</summary>
-  [Builder.Object]
-  private readonly Button last;
-
   /// <summary>Label after10.</summary>
   [Builder.Object]
   private readonly Label after10;
@@ -156,56 +64,10 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly TextView after1;
 
-  /// <summary>DrawingArea diagrama1.</summary>
-  [Builder.Object]
-  private readonly DrawingArea diagrama1;
-
-  /// <summary>Label after20.</summary>
-  [Builder.Object]
-  private readonly Label after20;
-
-  /// <summary>TextView after2.</summary>
-  [Builder.Object]
-  private readonly TextView after2;
-
-  /// <summary>DrawingArea diagrama2.</summary>
-  [Builder.Object]
-  private readonly DrawingArea diagrama2;
-
-  /// <summary>Label after30.</summary>
-  [Builder.Object]
-  private readonly Label after30;
-
-  /// <summary>TextView after3.</summary>
-  [Builder.Object]
-  private readonly TextView after3;
-
-  /// <summary>DrawingArea diagrama3.</summary>
-  [Builder.Object]
-  private readonly DrawingArea diagrama3;
-
 #pragma warning restore CS0649
 
   /// <summary>List of current positions.</summary>
   private List<TbEintragOrt> positionList = new();
-
-  /// <summary>Diagram model temperature.</summary>
-  private List<KeyValuePair<string, decimal>> templist;
-
-  /// <summary>Diagram model sea-level air pressure in hPa.</summary>
-  private List<KeyValuePair<string, decimal>> preslist;
-
-  /// <summary>Diagram model relative humidity in percent (%).</summary>
-  private List<KeyValuePair<string, decimal>> rhumlist;
-
-  /// <summary>Diagram model one hour precipitation total in mm.</summary>
-  private List<KeyValuePair<string, decimal>> prcplist;
-
-  /// <summary>Diagram model average wind speed in km/h.</summary>
-  private List<KeyValuePair<string, decimal>> wspdlist;
-
-  /// <summary>Diagram model wind direction in degrees (°).</summary>
-  private List<KeyValuePair<string, decimal>> wdirlist;
 
   /// <summary>Initializes a new instance of the <see cref="AG500Ai"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -222,31 +84,13 @@ public partial class AG500Ai : CsbpBin
     {
       IsNullable = false,
       IsWithCalendar = true,
-      IsCalendarOpen = Functions.IsLinux(),
+      IsCalendarOpen = false,
       YesterdayAccel = "m",
       TomorrowAccel = "p",
     };
     date.DateChanged += OnDateDateChanged;
     date.MonthChanged += OnDateMonthChanged;
     date.Show();
-    from = new Date(Builder.GetObject("from").Handle)
-    {
-      IsNullable = true,
-      IsWithCalendar = true,
-      IsCalendarOpen = false,
-      IsWithoutNullLabel = true,
-      IsWithoutDayOfWeek = true,
-    };
-    from.Show();
-    to = new Date(Builder.GetObject("to").Handle)
-    {
-      IsNullable = true,
-      IsWithCalendar = true,
-      IsCalendarOpen = false,
-      IsWithoutNullLabel = true,
-      IsWithoutDayOfWeek = true,
-    };
-    to.Show();
     SetBold(date0);
     SetBold(entry0);
     InitData(0);
@@ -279,18 +123,10 @@ public partial class AG500Ai : CsbpBin
     {
       EventsActive = false;
       InitLists();
-      ClearSearch();
-      searchgrid.Visible = false;
       EntryOld.Datum = DateTime.Today;
       date.Value = EntryOld.Datum;
       BearbeiteEintraege(false);
-      last.Click();
-      before1.Editable = false;
-      before2.Editable = false;
-      before3.Editable = false;
       after1.Editable = false;
-      after2.Editable = false;
-      after3.Editable = false;
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
       EventsActive = true;
@@ -349,21 +185,11 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
-    var v = before1.Visible;
-    before10.LabelProp = v ? TB100_before1w : TB100_before1;
-    before20.LabelProp = v ? TB100_before2w : TB100_before2;
-    before30.LabelProp = v ? TB100_before3w : TB100_before3;
+    var v = after1.Visible;
     after10.LabelProp = v ? TB100_after1w : TB100_after1;
-    after20.LabelProp = v ? TB100_after2w : TB100_after2;
-    after30.LabelProp = v ? TB100_after3w : TB100_after3;
-    before1.Visible = before2.Visible = before3.Visible = after1.Visible = after2.Visible = after3.Visible = !v;
-    diagramb1.Visible = diagramb2.Visible = diagramb3.Visible = diagrama1.Visible = diagrama2.Visible = diagrama3.Visible = v;
+    after1.Visible = !v;
     if (!v)
       return;
-    Application.Invoke((sender, e) =>
-    {
-      ShowWeather();
-    });
   }
 
   /// <summary>Handles Save.</summary>
@@ -373,11 +199,10 @@ public partial class AG500Ai : CsbpBin
   {
     // Bericht erzeugen
     BearbeiteEintraege(true, false);
-    var puid = GetText(position2);
     var pfad = Parameter.TempPath;
     var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
-    UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, GetSearchArray(),
-      puid, from.Value, to.Value)), pfad, datei);
+    UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, null,
+      null, null, null)), pfad, datei);
   }
 
   /// <summary>Handles Date.</summary>
@@ -405,10 +230,6 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPositionsCursorChanged(object sender, EventArgs e)
   {
-    if (!before1.Visible)
-    {
-      ShowWeather();
-    }
   }
 
   /// <summary>Handles Positions.</summary>
@@ -517,14 +338,6 @@ public partial class AG500Ai : CsbpBin
     InitPositions();
   }
 
-  /// <summary>Handles Search.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnSearchClicked(object sender, EventArgs e)
-  {
-    searchgrid.Visible = !searchgrid.Visible;
-  }
-
   /// <summary>Handles First.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
@@ -562,70 +375,7 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnClearClicked(object sender, EventArgs e)
   {
-    ClearSearch();
     BearbeiteEintraege(true, false);
-  }
-
-  /// <summary>Handles Diagramb1.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDiagramb1Draw(object sender, DrawnArgs e)
-  {
-    OnDiagramaDraw(sender, e, TB100_before1w, templist);
-  }
-
-  /// <summary>Handles Diagramb2.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDiagramb2Draw(object sender, DrawnArgs e)
-  {
-    OnDiagramaDraw(sender, e, TB100_before2w, preslist);
-  }
-
-  /// <summary>Handles Diagramb3.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDiagramb3Draw(object sender, DrawnArgs e)
-  {
-    OnDiagramaDraw(sender, e, TB100_before3w, rhumlist);
-  }
-
-  /// <summary>Handles Diagrama1.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDiagrama1Draw(object sender, DrawnArgs e)
-  {
-    OnDiagramaDraw(sender, e, TB100_after1w, prcplist);
-  }
-
-  /// <summary>Handles Diagrama2.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDiagrama2Draw(object sender, DrawnArgs e)
-  {
-    OnDiagramaDraw(sender, e, TB100_after2w, wspdlist);
-  }
-
-  /// <summary>Handles Diagrama3.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDiagrama3Draw(object sender, DrawnArgs e)
-  {
-    OnDiagramaDraw(sender, e, TB100_after3w, wdirlist);
-  }
-
-  /// <summary>Handles Diagrama3.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  private void OnDiagramaDraw(object sender, DrawnArgs e, string label, List<KeyValuePair<string, decimal>> list)
-  {
-    if (before1.Visible && list == null)
-      return;
-    var da = sender as DrawingArea;
-    var c = e.Cr;
-    var w = da.Window.Width;
-    var h = da.Window.Height;
-    Diagram.Draw(label, list, c, 0, 0, w, h);
   }
 
   /// <summary>Initialises the lists.</summary>
@@ -638,12 +388,6 @@ public partial class AG500Ai : CsbpBin
     foreach (var p in rl)
       rs.AppendValues(p.Bezeichnung, p.Uid);
     SetText(position, uid);
-    var uid2 = GetText(position2);
-    var rs2 = AddColumns(position2, emptyentry: true);
-    rl.Insert(0, new TbOrt { Uid = "0", Bezeichnung = M0(TB012) });
-    foreach (var p in rl)
-      rs2.AppendValues(p.Bezeichnung, p.Uid);
-    SetText(position2, uid2);
   }
 
   /// <summary>
@@ -657,13 +401,7 @@ public partial class AG500Ai : CsbpBin
     var r = new ServiceErgebnis();
     if (!d.HasValue)
       return r;
-    var tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddDays(-1)));
-    SetText(before1, tb?.Eintrag);
-    tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddMonths(-1)));
-    SetText(before2, tb?.Eintrag);
-    tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddYears(-1)));
-    SetText(before3, tb?.Eintrag);
-    tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value, true));
+    var tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value, true));
     EntryOld.Positions.Clear();
     if (tb == null)
     {
@@ -682,13 +420,7 @@ public partial class AG500Ai : CsbpBin
     SetText(entry, EntryOld.Eintrag);
     tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddDays(1)));
     SetText(after1, tb?.Eintrag);
-    tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddMonths(1)));
-    SetText(after2, tb?.Eintrag);
-    tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddYears(1)));
-    SetText(after3, tb?.Eintrag);
     InitPositions(EntryOld.Positions);
-    if (!before1.Visible)
-      ShowWeather();
     return r;
   }
 
@@ -765,74 +497,18 @@ public partial class AG500Ai : CsbpBin
   }
 
   /// <summary>
-  /// Clears the search data.
-  /// </summary>
-  private void ClearSearch()
-  {
-    SetText(search1, "%%");
-    SetText(search2, "%%");
-    SetText(search3, "%%");
-    SetText(search4, "%%");
-    SetText(search5, "%%");
-    SetText(search6, "%%");
-    SetText(search7, "%%");
-    SetText(search8, "%%");
-    SetText(search9, "%%");
-    SetText(position2, null);
-    from.Value = Functions.IsLinux() ? DateTime.Today.AddYears(-1) : null;
-    to.Value = DateTime.Today;
-    //// to.Value = null;
-  }
-
-  /// <summary>
-  /// Gets the search array.
-  /// </summary>
-  /// <returns>Search array.</returns>
-  private string[] GetSearchArray()
-  {
-    var search = new[] { search1.Text, search2.Text, search3.Text, search4.Text, search5.Text, search6.Text, search7.Text, search8.Text, search9.Text };
-    return search;
-  }
-
-  /// <summary>
   /// Searches for next fitting entry in search direction.
   /// </summary>
   /// <param name="stelle">Affected search direction.</param>
   private void SearchEntry(SearchDirectionEnum stelle)
   {
     BearbeiteEintraege(true, false);
-    var puid = GetText(position2);
-    var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, GetSearchArray(),
-      puid, from.Value, to.Value));
+    var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, null,
+      null, null, null));
     if (d.HasValue)
     {
       date.Value = d;
       BearbeiteEintraege(false);
     }
-  }
-
-  /// <summary>Show weather data.</summary>
-  private void ShowWeather()
-  {
-    var puid = GetText(positions, false, 0, true);
-    templist = new List<KeyValuePair<string, decimal>>();
-    preslist = new List<KeyValuePair<string, decimal>>();
-    rhumlist = new List<KeyValuePair<string, decimal>>();
-    prcplist = new List<KeyValuePair<string, decimal>>();
-    wspdlist = new List<KeyValuePair<string, decimal>>();
-    wdirlist = new List<KeyValuePair<string, decimal>>();
-    if (string.IsNullOrEmpty(puid))
-      return;
-    var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
-    foreach (var w in r)
-    {
-      templist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Temp));
-      preslist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Pres));
-      rhumlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Rhum));
-      prcplist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Prcp));
-      wspdlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Wspd));
-      wdirlist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Wdir));
-    }
-    //// diagramb1.Window.InvalidateRect(new Gdk.Rectangle(0, 0, diagramb1.Window.Width, diagramb1.Window.Height), true);
   }
 }

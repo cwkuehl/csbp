@@ -10,6 +10,7 @@ using System.Text;
 using CSBP.Apis.Models;
 using CSBP.Apis.Models.Extension;
 using CSBP.Base;
+using CSBP.Services.NonService;
 
 /// <summary>
 /// Interface for client service.
@@ -194,4 +195,15 @@ public interface IClientService
   /// <returns>Possibly errors.</returns>
   /// <param name="name">Affected file name with path.</param>
   ServiceErgebnis CommitFile(string name);
+
+  /// <summary>
+  /// Gets response from ChatGPT.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="prompt">Affected input prompt string.</param>
+  /// <param name="model">Affected AI model.</param>
+  /// <param name="maxtokens">Affected maximal number of tokens.</param>
+  /// <param name="temperature">Affected temperature between 0 and 1.</param>
+  /// <returns>AI data with response from ChatGPT.</returns>
+  ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M);
 }
