@@ -1815,6 +1815,12 @@
     <data name="AG500.title" xml:space="preserve">
         <value>KI</value>
     </data>
+    <data name="AG500.prompt" xml:space="preserve">
+        <value>Eingabe</value>
+    </data>
+    <data name="AG500.prompt.tt" xml:space="preserve">
+        <value>Eingabe für KI</value>
+    </data>
 
     <data name="AM000.title" xml:space="preserve">
         <value>Anmeldung</value>

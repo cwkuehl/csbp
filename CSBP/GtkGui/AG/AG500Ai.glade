@@ -209,14 +209,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="entry0">
+          <object class="GtkLabel" id="prompt0">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">start</property>
             <property name="valign">center</property>
-            <property name="label">TB100.entry</property>
+            <property name="label">AG500.prompt</property>
             <property name="use-underline">True</property>
-            <property name="mnemonic-widget">entry</property>
+            <property name="mnemonic-widget">prompt</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -444,11 +444,11 @@
           <object class="GtkScrolledWindow" id="entrysw">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="tooltip-text">TB100.entry.tt</property>
+            <property name="tooltip-text">AG500.prompt.tt</property>
             <property name="vexpand">True</property>
             <property name="shadow-type">in</property>
             <child>
-              <object class="GtkTextView" id="entry">
+              <object class="GtkTextView" id="prompt">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="hexpand">True</property>
@@ -512,11 +512,28 @@
         <child>
           <placeholder/>
         </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">1</property>
+        <property name="height">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkTextView" id="after1">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="hscroll-policy">natural</property>
+        <property name="wrap-mode">word</property>
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">1</property>
-        <property name="height">6</property>
+        <property name="top-attach">2</property>
       </packing>
     </child>
     <child>
@@ -530,22 +547,8 @@
         <property name="use-underline">True</property>
       </object>
       <packing>
-        <property name="left-attach">2</property>
+        <property name="left-attach">1</property>
         <property name="top-attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkTextView" id="after1">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="hscroll-policy">natural</property>
-        <property name="wrap-mode">word</property>
-      </object>
-      <packing>
-        <property name="left-attach">2</property>
-        <property name="top-attach">2</property>
       </packing>
     </child>
     <child>

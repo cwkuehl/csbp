@@ -1815,6 +1815,12 @@
     <data name="AG500.title" xml:space="preserve">
         <value>AI</value>
     </data>
+    <data name="AG500.prompt" xml:space="preserve">
+        <value>Prompt</value>
+    </data>
+    <data name="AG500.prompt.tt" xml:space="preserve">
+        <value>Prompt for AI</value>
+    </data>
 
     <data name="AM000.title" xml:space="preserve">
         <value>Login</value>

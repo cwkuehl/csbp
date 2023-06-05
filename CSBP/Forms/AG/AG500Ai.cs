@@ -32,13 +32,13 @@ public partial class AG500Ai : CsbpBin
   //// [Builder.Object]
   private readonly Date date;
 
-  /// <summary>Label entry0.</summary>
+  /// <summary>Label prompt0.</summary>
   [Builder.Object]
-  private readonly Label entry0;
+  private readonly Label prompt0;
 
-  /// <summary>TextView entry.</summary>
+  /// <summary>TextView prompt.</summary>
   [Builder.Object]
-  private readonly TextView entry;
+  private readonly TextView prompt;
 
   /// <summary>TreeView positions.</summary>
   [Builder.Object]
@@ -92,16 +92,13 @@ public partial class AG500Ai : CsbpBin
     date.MonthChanged += OnDateMonthChanged;
     date.Show();
     SetBold(date0);
-    SetBold(entry0);
+    SetBold(prompt0);
     InitData(0);
-    entry.GrabFocus();
+    prompt.GrabFocus();
   }
 
   /// <summary>Gets or sets the diary entry for copying.</summary>
   private string Copy { get; set; } = string.Empty;
-
-  /// <summary>Gets or sets a value indicating whether the diary entry is loaded or not.</summary>
-  private bool Loaded { get; set; }
 
   /// <summary>Gets or sets the origanal saved diary entry.</summary>
   private TbEintrag EntryOld { get; set; } = new TbEintrag { Positions = new List<TbEintragOrt>() };
@@ -125,7 +122,7 @@ public partial class AG500Ai : CsbpBin
       InitLists();
       EntryOld.Datum = DateTime.Today;
       date.Value = EntryOld.Datum;
-      BearbeiteEintraege(false);
+      SetText(prompt, "What is your temperatur");
       after1.Editable = false;
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
@@ -144,7 +141,7 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnCopyClicked(object sender, EventArgs e)
   {
-    Copy = entry.Buffer.Text;
+    Copy = prompt.Buffer.Text;
   }
 
   /// <summary>Handles Paste.</summary>
@@ -152,8 +149,7 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPasteClicked(object sender, EventArgs e)
   {
-    SetText(entry, Copy);
-    BearbeiteEintraege(true, false);
+    SetText(prompt, Copy);
   }
 
   /// <summary>Handles Undo.</summary>
@@ -164,7 +160,6 @@ public partial class AG500Ai : CsbpBin
     if (MainClass.Undo())
     {
       InitLists();
-      BearbeiteEintraege(false);
     }
   }
 
@@ -176,7 +171,6 @@ public partial class AG500Ai : CsbpBin
     if (MainClass.Redo())
     {
       InitLists();
-      BearbeiteEintraege(false);
     }
   }
 
@@ -198,7 +192,6 @@ public partial class AG500Ai : CsbpBin
   protected void OnSaveClicked(object sender, EventArgs e)
   {
     // Bericht erzeugen
-    BearbeiteEintraege(true, false);
     var pfad = Parameter.TempPath;
     var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
     UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, null,
@@ -212,7 +205,6 @@ public partial class AG500Ai : CsbpBin
   {
     if (!EventsActive)
       return;
-    BearbeiteEintraege();
   }
 
   /// <summary>Handles Date.</summary>
@@ -309,20 +301,13 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPosbeforeClicked(object sender, EventArgs e)
   {
-    var yd = date.ValueNn.AddDays(-1);
-    var r = FactoryService.DiaryService.GetEntry(ServiceDaten, yd, true);
-    if (r.Ok && r.Ergebnis != null)
+    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, prompt.Buffer.Text);
+    Get(r);
+    var data = r.Ergebnis;
+    if (r.Ok && data != null)
     {
-      foreach (var p in r.Ergebnis.Positions ?? new List<TbEintragOrt>())
-      {
-        if (positionList.FirstOrDefault(a => a.Ort_Uid == p.Ort_Uid) == null)
-        {
-          if (p.Datum_Bis == yd)
-            p.Datum_Bis = p.Datum_Bis.AddDays(1);
-          positionList.Add(p);
-        }
-      }
-      InitPositions();
+      if (data.Messages.Any())
+        SetText(after1, r.Ergebnis.Messages.FirstOrDefault());
     }
   }
 
@@ -338,44 +323,11 @@ public partial class AG500Ai : CsbpBin
     InitPositions();
   }
 
-  /// <summary>Handles First.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnFirstClicked(object sender, EventArgs e)
-  {
-    SearchEntry(SearchDirectionEnum.First);
-  }
-
-  /// <summary>Handles Back.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnBackClicked(object sender, EventArgs e)
-  {
-    SearchEntry(SearchDirectionEnum.Back);
-  }
-
-  /// <summary>Handles Forward.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnForwardClicked(object sender, EventArgs e)
-  {
-    SearchEntry(SearchDirectionEnum.Forward);
-  }
-
-  /// <summary>Handles Ende.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnLastClicked(object sender, EventArgs e)
-  {
-    SearchEntry(SearchDirectionEnum.Last);
-  }
-
   /// <summary>Handles Clear.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnClearClicked(object sender, EventArgs e)
   {
-    BearbeiteEintraege(true, false);
   }
 
   /// <summary>Initialises the lists.</summary>
@@ -388,40 +340,6 @@ public partial class AG500Ai : CsbpBin
     foreach (var p in rl)
       rs.AppendValues(p.Bezeichnung, p.Uid);
     SetText(position, uid);
-  }
-
-  /// <summary>
-  /// Loads the diary entries from date.
-  /// </summary>
-  /// <param name="d">Affected date.</param>
-  /// <returns>Service result and possibly errors.</returns>
-  private ServiceErgebnis LadeEintraege(DateTime? d)
-  {
-    var daten = ServiceDaten;
-    var r = new ServiceErgebnis();
-    if (!d.HasValue)
-      return r;
-    var tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value, true));
-    EntryOld.Positions.Clear();
-    if (tb == null)
-    {
-      EntryOld.Eintrag = "";
-      SetText(angelegt, "");
-      SetText(geaendert, "");
-    }
-    else
-    {
-      EntryOld.Eintrag = tb.Eintrag;
-      EntryOld.Positions.AddRange(tb.Positions);
-      SetText(angelegt, ModelBase.FormatDateOf(tb.Angelegt_Am, tb.Angelegt_Von));
-      SetText(geaendert, ModelBase.FormatDateOf(tb.Geaendert_Am, tb.Geaendert_Von));
-    }
-    EntryOld.Datum = d.Value;
-    SetText(entry, EntryOld.Eintrag);
-    tb = r.Get(FactoryService.DiaryService.GetEntry(daten, d.Value.AddDays(1)));
-    SetText(after1, tb?.Eintrag);
-    InitPositions(EntryOld.Positions);
-    return r;
   }
 
   /// <summary>
@@ -452,39 +370,6 @@ public partial class AG500Ai : CsbpBin
   }
 
   /// <summary>
-  /// Loads the diary entry from date. Optionally the current entry is saved before.
-  /// </summary>
-  /// <param name="speichern">Saves before or not.</param>
-  /// <param name="laden">Loads the entry or not.</param>
-  private void BearbeiteEintraege(bool speichern = true, bool laden = true)
-  {
-    var daten = ServiceDaten;
-    var r = new ServiceErgebnis();
-    //// Prohibits rekursion.
-    if (speichern && Loaded)
-    {
-      // Alten Eintrag von vorher merken.
-      var str = EntryOld.Eintrag;
-      var p0 = EntryOld.Positions.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
-      var p = positionList.OrderBy(a => a.Ort_Uid).Select(a => a.Hash()).Aggregate("", (c, n) => c + n);
-      //// Nur speichern, wenn etwas geändert ist.
-      if (str == null || Functions.CompString(str, entry.Buffer.Text) != 0 || Functions.CompString(p0, p) != 0)
-      {
-        var pos = positionList.Select(a => new Tuple<string, DateTime, DateTime>(a.Ort_Uid, a.Datum_Von, a.Datum_Bis)).ToList();
-        r.Get(FactoryService.DiaryService.SaveEntry(daten, EntryOld.Datum, entry.Buffer.Text, pos));
-      }
-    }
-    if (laden)
-    {
-      var d = date.Value;
-      r.Get(LadeEintraege(d));
-      LoadMonth(d);
-      Loaded = true;
-    }
-    Get(r);
-  }
-
-  /// <summary>
   /// Loads the month data.
   /// </summary>
   /// <param name="d">Affected date.</param>
@@ -494,21 +379,5 @@ public partial class AG500Ai : CsbpBin
     if (d.HasValue)
       m = Get(FactoryService.DiaryService.GetMonth(ServiceDaten, d.Value));
     date.MarkMonth(m);
-  }
-
-  /// <summary>
-  /// Searches for next fitting entry in search direction.
-  /// </summary>
-  /// <param name="stelle">Affected search direction.</param>
-  private void SearchEntry(SearchDirectionEnum stelle)
-  {
-    BearbeiteEintraege(true, false);
-    var d = Get(FactoryService.DiaryService.SearchDate(ServiceDaten, stelle, date.Value, null,
-      null, null, null));
-    if (d.HasValue)
-    {
-      date.Value = d;
-      BearbeiteEintraege(false);
-    }
   }
 }

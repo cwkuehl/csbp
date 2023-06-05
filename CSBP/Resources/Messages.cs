@@ -2947,6 +2947,16 @@ public partial class Messages
     get { return rm.GetString("AG500.title"); }
   }
 
+  public static string AG500_prompt
+  {
+    get { return rm.GetString("AG500.prompt"); }
+  }
+
+  public static string AG500_prompt_tt
+  {
+    get { return rm.GetString("AG500.prompt.tt"); }
+  }
+
   public static string AM000_title
   {
     get { return rm.GetString("AM000.title"); }

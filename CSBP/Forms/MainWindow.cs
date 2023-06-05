@@ -747,9 +747,10 @@ public class MainWindow : Window
   /// <summary>
   /// Hinzufügen einer Seite zum Notebook.
   /// </summary>
-  /// <param name="widget">Betroffener Dialog.</param>
-  /// <param name="label">Betroffene Bezeichnung.</param>
-  public void AppendPage(CsbpBin widget, string label)
+  /// <param name="widget">Affected dialog.</param>
+  /// <param name="label">Affected notebook title.</param>
+  /// <param name="focus">The focus can be grabbed.</param>
+  public void AppendPage(CsbpBin widget, string label, bool focus = false)
   {
     var title = label.Replace("_", ""); // .Replace("&", "&amp;");
     if (Functions.MachNichts() == 0)
@@ -806,6 +807,11 @@ public class MainWindow : Window
       Notebook.SetTabReorderable(widget, true);
       Notebook.ShowAll();
       Notebook.Page = p;
+    }
+    if (focus)
+    {
+      Notebook.GrabFocus();
+      widget.GrabFocus();
     }
   }
 
@@ -944,7 +950,7 @@ public class MainWindow : Window
   /// <param name="e">Affected event.</param>
   protected void OnMenuAi(object sender, EventArgs e)
   {
-    AppendPage(AG500Ai.Create(), AG500_title);
+    AppendPage(AG500Ai.Create(), AG500_title, true);
     popovermenu1.Visible = false;
   }
 

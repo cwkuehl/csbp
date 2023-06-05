@@ -1233,7 +1233,7 @@ Lokal: {e.Eintrag}";
     if (root.TryGetProperty("choices", out var choices))
     {
       var arr = choices.EnumerateArray();
-      if (arr.MoveNext())
+      while (arr.MoveNext())
       {
         var arr1 = arr.Current;
         if (arr1.TryGetProperty("message", out var message))
@@ -1242,24 +1242,27 @@ Lokal: {e.Eintrag}";
           if (message.TryGetProperty("content", out var c))
           {
             cc = c.GetString();
+            data.Messages.Add(cc);
           }
         }
         else if (arr1.TryGetProperty("text", out var ptext))
         {
           // text-davinci-003
           cc = ptext.GetString();
+          data.Messages.Add(cc);
         }
       }
     }
     else if (root.TryGetProperty("data", out var data1))
     {
       var arr = data1.EnumerateArray();
-      if (arr.MoveNext())
+      while (arr.MoveNext())
       {
         var arr1 = arr.Current;
         if (arr1.TryGetProperty("url", out var c))
         {
           cc = c.GetString();
+          data.Messages.Add(cc);
         }
       }
     }

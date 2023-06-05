@@ -177,8 +177,10 @@ public class MainClass
 #if DEBUG
         var sd = daten.MandantNr == 1 ? Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "" : "";
         sd = "#AG500";
+        var focus = true;
 #else
         var sd = Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "";
+        var focus = false;
 #endif
         var arr = sd.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
         foreach (var d in arr)
@@ -189,7 +191,7 @@ public class MainClass
             var parm = parr.Length > 1 ? parr[1] : null;
             var create = sf.Type.GetMethod("Create");
             var dlg = create.Invoke(null, new object[] { parm, null }) as CsbpBin;
-            MainWindow.AppendPage(dlg, sf.Title);
+            MainWindow.AppendPage(dlg, sf.Title, focus);
           }
         }
         if (Parameter.AD120Start)
