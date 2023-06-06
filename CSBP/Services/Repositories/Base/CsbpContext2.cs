@@ -21,6 +21,9 @@ public partial class CsbpContext : DbContext
   /// <summary>Gets or sets the set of rows of table AD_Sitz.</summary>
   public DbSet<AdSitz> AD_Sitz { get; set; }
 
+  /// <summary>Gets or sets the set of rows of table AG_Dialog.</summary>
+  public DbSet<AgDialog> AG_Dialog { get; set; }
+
   /// <summary>Gets or sets the set of rows of table Benutzer.</summary>
   public DbSet<Benutzer> Benutzer { get; set; }
 
@@ -120,6 +123,7 @@ public partial class CsbpContext : DbContext
     modelBuilder.Entity<AdAdresse>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<AdPerson>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<AdSitz>().HasKey(a => new { a.Mandant_Nr, a.Person_Uid, a.Reihenfolge, a.Uid });
+    modelBuilder.Entity<AgDialog>().HasKey(a => new { a.Mandant_Nr, a.Api, a.Datum, a.Nr });
     modelBuilder.Entity<Benutzer>().HasKey(a => new { a.Mandant_Nr, a.Benutzer_ID });
     modelBuilder.Entity<ByteDaten>().HasKey(a => new { a.Mandant_Nr, a.Typ, a.Uid, a.Lfd_Nr });
     modelBuilder.Entity<FzBuch>().HasKey(a => new { a.Mandant_Nr, a.Uid });

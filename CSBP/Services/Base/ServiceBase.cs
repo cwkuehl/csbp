@@ -50,6 +50,9 @@ public class ServiceBase
   /// <summary>Repository for table AD_Sitz.</summary>
   protected static readonly AdSitzRep AdSitzRep = new();
 
+  /// <summary>Repository for table AG_Dialog.</summary>
+  protected static readonly AgDialogRep AgDialogRep = new();
+
   /// <summary>Repository for table Benutzer.</summary>
   protected static readonly BenutzerRep BenutzerRep = new();
 

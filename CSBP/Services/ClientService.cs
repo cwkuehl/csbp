@@ -268,6 +268,27 @@ public class ClientService : ServiceBase, IClientService
         MaMandantRep.Execute(daten, mout);
         version = 59;
       }
+      else if (version <= 59)
+      {
+        var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+        var mout = new List<string>();
+        var tab = "AG_Dialog";
+        dba.CreateTab0();
+        dba.CreateTab1("Mandant_Nr", "D_INTEGER", false);
+        dba.CreateTab1("Api", "D_STRING_10", false);
+        dba.CreateTab1("Datum", "D_DATE", false);
+        dba.CreateTab1("Nr", "D_INTEGER", false);
+        dba.CreateTab1("Url", "D_STRING_255", true);
+        dba.CreateTab1("Frage", "D_MEMO", true);
+        dba.CreateTab1("Antwort", "D_MEMO", true);
+        dba.CreateTab1("Angelegt_Von", "D_STRING_20", true);
+        dba.CreateTab1("Angelegt_Am", "D_DATETIME", true);
+        dba.CreateTab1("Geaendert_Von", "D_STRING_20", true);
+        dba.CreateTab1("Geaendert_Am", "D_DATETIME", true);
+        dba.CreateTab2(mout, tab, "Mandant_Nr, Api, Datum, Nr");
+        MaMandantRep.Execute(daten, mout);
+        version = 60;
+      }
       if (versionalt < version)
       {
         p.Wert = Functions.ToString(version);

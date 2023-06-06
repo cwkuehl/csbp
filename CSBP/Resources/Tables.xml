@@ -68,6 +68,25 @@
       <keycolumn name="Uid" />
     </primarykey>
   </table>
+  <table name="AG_Dialog">
+    <column name="Mandant_Nr" type="INTEGER" nullable="false" />
+    <column name="Api" type="VARCHAR" length="10" nullable="false" />
+    <column name="Datum" type="DATE" nullable="false" />
+    <column name="Nr" type="INTEGER" nullable="false" />
+    <column name="Url" type="VARCHAR" length="255" nullable="true" />
+    <column name="Frage" type="VARCHAR" length="-1" nullable="true" />
+    <column name="Antwort" type="VARCHAR" length="-1" nullable="true" />
+    <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
+    <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
+    <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />
+    <column name="Geaendert_Am" type="TIMESTAMP" nullable="true" />
+    <primarykey>
+      <keycolumn name="Mandant_Nr" />
+      <keycolumn name="Api" />
+      <keycolumn name="Datum" />
+      <keycolumn name="Nr" />
+    </primarykey>
+  </table>
   <table name="Benutzer">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Benutzer_ID" type="VARCHAR" length="20" nullable="false" />

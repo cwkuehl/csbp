@@ -31,7 +31,8 @@ public class Tests
   /// Starting tests manually.
   /// Manually building:
   /// cd ../CSBP.UnitTest/
-  /// dotnet build -c Debug.
+  /// dotnet build -c Debug
+  /// .
   /// </summary>
   /// <param name="args">Parameters are ignored.</param>
   public static void Main(string[] args)
@@ -42,7 +43,7 @@ public class Tests
       t.MachNichts();
     if (Functions.MachNichts() != 0)
       t.GenerateForm();
-    if (Functions.MachNichts() != 0)
+    if (Functions.MachNichts() == 0)
       t.GenerateResxDesigner();
     if (Functions.MachNichts() != 0)
       t.GenerierenReps();
@@ -54,7 +55,7 @@ public class Tests
       t.OpenWeatherMap();
     if (Functions.MachNichts() != 0)
       t.RapidapiMeteostatWeather();
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
       t.OpenAiChatGpt();
   }
 
