@@ -204,6 +204,10 @@ public partial class DbAlter
       if (unique)
         sql = string.Format("ALTER TABLE {0}{1} ADD CONSTRAINT {2} UNIQUE ({3}){4}", tab, Constants.CRLF, index, spalten, ende);
     }
+    else if (zieldb == DatabaseTypeEnum.SqLite)
+    {
+      sql = string.Format("CREATE {0} INDEX IF NOT EXISTS {1} ON {2}{3}({4}){5}", unique ? "UNIQUE" : "INDEX", index, tab, Constants.CRLF, spalten, ende);
+    }
     else
     {
       // strSql = string.Format(

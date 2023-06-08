@@ -2957,6 +2957,21 @@ public partial class Messages
     get { return rm.GetString("AG500.prompt.tt"); }
   }
 
+  public static string AG500_dialogs
+  {
+    get { return rm.GetString("AG500.dialogs"); }
+  }
+
+  public static string AG500_dialogs_tt
+  {
+    get { return rm.GetString("AG500.dialogs.tt"); }
+  }
+
+  public static string AG500_dialogs_columns
+  {
+    get { return rm.GetString("AG500.dialogs.columns"); }
+  }
+
   public static string AM000_title
   {
     get { return rm.GetString("AM000.title"); }

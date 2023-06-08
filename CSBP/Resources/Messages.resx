@@ -1821,6 +1821,15 @@
     <data name="AG500.prompt.tt" xml:space="preserve">
         <value>Prompt for AI</value>
     </data>
+    <data name="AG500.dialogs" xml:space="preserve">
+        <value>_Dialoge</value>
+    </data>
+    <data name="AG500.dialogs.tt" xml:space="preserve">
+        <value>Former prompts with responses</value>
+    </data>
+    <data name="AG500.dialogs.columns" xml:space="preserve">
+        <value>No.;Date;Prompt;Changed at;Changed by;Created at;Created by</value>
+    </data>
 
     <data name="AM000.title" xml:space="preserve">
         <value>Login</value>

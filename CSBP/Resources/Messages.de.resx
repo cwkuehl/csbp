@@ -1816,10 +1816,19 @@
         <value>KI</value>
     </data>
     <data name="AG500.prompt" xml:space="preserve">
-        <value>Eingabe</value>
+        <value>_Eingabe</value>
     </data>
     <data name="AG500.prompt.tt" xml:space="preserve">
         <value>Eingabe für KI</value>
+    </data>
+    <data name="AG500.dialogs" xml:space="preserve">
+        <value>_Dialoge</value>
+    </data>
+    <data name="AG500.dialogs.tt" xml:space="preserve">
+        <value>Vorherige Eingaben mit Antworten.</value>
+    </data>
+    <data name="AG500.dialogs.columns" xml:space="preserve">
+        <value>Nr.;Datum;Eingabe;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
 
     <data name="AM000.title" xml:space="preserve">

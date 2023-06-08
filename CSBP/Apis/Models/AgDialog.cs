@@ -24,6 +24,9 @@ public partial class AgDialog : ModelBase
   /// <summary>Gets or sets the value of column Mandant_Nr.</summary>
   public int Mandant_Nr { get; set; }
 
+  /// <summary>Gets or sets the value of column Uid.</summary>
+  public string Uid { get; set; }
+
   /// <summary>Gets or sets the value of column Api.</summary>
   public string Api { get; set; }
 

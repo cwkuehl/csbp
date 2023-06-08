@@ -123,7 +123,7 @@ public partial class CsbpContext : DbContext
     modelBuilder.Entity<AdAdresse>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<AdPerson>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<AdSitz>().HasKey(a => new { a.Mandant_Nr, a.Person_Uid, a.Reihenfolge, a.Uid });
-    modelBuilder.Entity<AgDialog>().HasKey(a => new { a.Mandant_Nr, a.Api, a.Datum, a.Nr });
+    modelBuilder.Entity<AgDialog>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<Benutzer>().HasKey(a => new { a.Mandant_Nr, a.Benutzer_ID });
     modelBuilder.Entity<ByteDaten>().HasKey(a => new { a.Mandant_Nr, a.Typ, a.Uid, a.Lfd_Nr });
     modelBuilder.Entity<FzBuch>().HasKey(a => new { a.Mandant_Nr, a.Uid });

@@ -275,6 +275,7 @@ public class ClientService : ServiceBase, IClientService
         var tab = "AG_Dialog";
         dba.CreateTab0();
         dba.CreateTab1("Mandant_Nr", "D_INTEGER", false);
+        dba.CreateTab1("Uid", "D_REPL_ID", false);
         dba.CreateTab1("Api", "D_STRING_10", false);
         dba.CreateTab1("Datum", "D_DATE", false);
         dba.CreateTab1("Nr", "D_INTEGER", false);
@@ -285,7 +286,8 @@ public class ClientService : ServiceBase, IClientService
         dba.CreateTab1("Angelegt_Am", "D_DATETIME", true);
         dba.CreateTab1("Geaendert_Von", "D_STRING_20", true);
         dba.CreateTab1("Geaendert_Am", "D_DATETIME", true);
-        dba.CreateTab2(mout, tab, "Mandant_Nr, Api, Datum, Nr");
+        dba.CreateTab2(mout, tab, "Mandant_Nr, Uid");
+        dba.CreateTab3(mout, tab, "SK_AG_Dialog", true, "Mandant_Nr, Api, Datum, Nr, Uid");
         MaMandantRep.Execute(daten, mout);
         version = 60;
       }
@@ -1192,13 +1194,36 @@ Lokal: {e.Eintrag}";
       Temperature = temperature,
       Prompt = prompt,
     };
-    OpenAiChatGpt(aidata);
+    var d = OpenAiChatGpt(daten, aidata, "OPENAI");
+    d.Uid = Functions.GetUid();
+    var dlist = AgDialogRep.GetList(daten, d.Api, d.Datum, true);
+    d.Nr = (dlist?.FirstOrDefault()?.Nr ?? 0) + 1; // Starting with 1.
+    AgDialogRep.Insert(daten, d);
     r.Ergebnis = aidata;
     return r;
   }
 
+  /// <summary>
+  /// Gets list with dialog entries.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="api">Affected api string.</param>
+  /// <returns>List with dialog entries.</returns>
+  public ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = "OPENAI")
+  {
+    var r = new ServiceErgebnis<List<AgDialog>>(AgDialogRep.GetList(daten, api));
+    foreach (var d in r.Ergebnis)
+    {
+      d.Data = ParseRequestResponse(d.Frage, d.Antwort);
+    }
+    return r;
+  }
+
   /// <summary>Request to OpenAi ChatGpt.</summary>
-  private static void OpenAiChatGpt(AiData data)
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="data">Affected input data.</param>
+  /// <param name="api">Affected api string.</param>
+  private static AgDialog OpenAiChatGpt(ServiceDaten daten, AiData data, string api)
   {
     var apikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
     var url = data.Model == AiData.Dalle ? @$"https://api.openai.com/v1/images/generations"
@@ -1207,7 +1232,7 @@ Lokal: {e.Eintrag}";
     System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
     var httpsclient = new System.Net.Http.HttpClient
     {
-      Timeout = TimeSpan.FromMilliseconds(50000),
+      Timeout = TimeSpan.FromMilliseconds(20000),
     };
     httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
@@ -1247,51 +1272,105 @@ Lokal: {e.Eintrag}";
     var task2 = task.Result.Content.ReadAsStringAsync();
     task2.Wait();
     var s = task2.Result;
-
-    string cc = null;
-    using var doc = System.Text.Json.JsonDocument.Parse(s ?? "");
-    var root = doc.RootElement;
-    if (root.TryGetProperty("choices", out var choices))
+    data = ParseRequestResponse(null, s, data);
+    var json = JsonSerializer.Serialize(jcontent, new JsonSerializerOptions { WriteIndented = true });
+    var d = new AgDialog
     {
-      var arr = choices.EnumerateArray();
-      while (arr.MoveNext())
-      {
-        var arr1 = arr.Current;
-        if (arr1.TryGetProperty("message", out var message))
-        {
-          // gpt-3.5-turbo-0301
-          if (message.TryGetProperty("content", out var c))
-          {
-            cc = c.GetString();
-            data.Messages.Add(cc);
-          }
-        }
-        else if (arr1.TryGetProperty("text", out var ptext))
-        {
-          // text-davinci-003
-          cc = ptext.GetString();
-          data.Messages.Add(cc);
-        }
-      }
-    }
-    else if (root.TryGetProperty("data", out var data1))
-    {
-      var arr = data1.EnumerateArray();
-      while (arr.MoveNext())
-      {
-        var arr1 = arr.Current;
-        if (arr1.TryGetProperty("url", out var c))
-        {
-          cc = c.GetString();
-          data.Messages.Add(cc);
-        }
-      }
-    }
+      Mandant_Nr = daten.MandantNr,
+      Api = api,
+      Datum = daten.Heute,
+      Nr = 0,
+      Url = url,
+      Frage = json,
+      Antwort = s,
+      Data = data,
+    };
     System.Diagnostics.Debug.Print($"Question to {data.Model}: {data.Prompt}");
     System.Diagnostics.Debug.Print($"{s}");
+    var cc = data?.Messages?.FirstOrDefault();
     if (string.IsNullOrEmpty(cc))
       throw new Exception(s);
     System.Diagnostics.Debug.Print($"Answer: {cc}");
+    return d;
+  }
+
+  /// <summary>
+  /// Parses the request and response string.
+  /// </summary>
+  /// <param name="req">Affected request string.</param>
+  /// <param name="resp">Affected response string.</param>
+  /// <returns>Parsed data.</returns>
+  private static AiData ParseRequestResponse(string req, string resp, AiData data = null)
+  {
+    data ??= new AiData();
+    if (!string.IsNullOrEmpty(req))
+    {
+      using var doc = JsonDocument.Parse(req);
+      var root = doc.RootElement;
+      if (root.TryGetProperty("model", out var model))
+      {
+        data.Model = model.GetString();
+      }
+      if (root.TryGetProperty("temperature", out var temperature))
+      {
+        data.Temperature = temperature.GetDecimal();
+      }
+      if (root.TryGetProperty("max_tokens", out var mt))
+      {
+        data.MaxTokens = mt.GetInt32();
+      }
+      if (root.TryGetProperty("messages", out var messages))
+      {
+        var arr = messages.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (arr1.TryGetProperty("content", out var c))
+          {
+            data.Prompt = c.GetString();
+          }
+        }
+      }
+    }
+    if (!string.IsNullOrEmpty(resp))
+    {
+      using var doc = JsonDocument.Parse(resp);
+      var root = doc.RootElement;
+      if (root.TryGetProperty("choices", out var choices))
+      {
+        var arr = choices.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (arr1.TryGetProperty("message", out var message))
+          {
+            // gpt-3.5-turbo-0301
+            if (message.TryGetProperty("content", out var c))
+            {
+              data.Messages.Add(c.GetString());
+            }
+          }
+          else if (arr1.TryGetProperty("text", out var ptext))
+          {
+            // text-davinci-003
+            data.Messages.Add(ptext.GetString());
+          }
+        }
+      }
+      else if (root.TryGetProperty("data", out var data1))
+      {
+        var arr = data1.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (arr1.TryGetProperty("url", out var c))
+          {
+            data.Messages.Add(c.GetString());
+          }
+        }
+      }
+    }
+    return data;
   }
 
   /// <summary>

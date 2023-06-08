@@ -239,10 +239,10 @@
                 <property name="vexpand">True</property>
                 <property name="shadow-type">in</property>
                 <child>
-                  <object class="GtkTreeView" id="positions">
+                  <object class="GtkTreeView" id="dialogs">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="tooltip-text">TB100.positions.tt</property>
+                    <property name="tooltip-text">AG500.dialogs.tt</property>
                     <signal name="cursor-changed" handler="OnPositionsCursorChanged" swapped="no"/>
                     <signal name="row-activated" handler="OnPositionsRowActivated" swapped="no"/>
                     <child internal-child="selection">
@@ -258,12 +258,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="positions0">
+              <object class="GtkLabel" id="dialogs0">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">center</property>
-                <property name="label">TB100.positions</property>
+                <property name="label">AG500.dialogs</property>
                 <property name="use-underline">True</property>
               </object>
               <packing>

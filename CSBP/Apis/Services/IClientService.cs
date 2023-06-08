@@ -206,4 +206,12 @@ public interface IClientService
   /// <param name="temperature">Affected temperature between 0 and 1.</param>
   /// <returns>AI data with response from ChatGPT.</returns>
   ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M);
+
+  /// <summary>
+  /// Gets list with dialog entries.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="api">Affected api string.</param>
+  /// <returns>List with dialog entries.</returns>
+  ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null);
 }

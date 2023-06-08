@@ -70,6 +70,7 @@
   </table>
   <table name="AG_Dialog">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
+    <column name="Uid" type="VARCHAR" length="35" nullable="false" />
     <column name="Api" type="VARCHAR" length="10" nullable="false" />
     <column name="Datum" type="DATE" nullable="false" />
     <column name="Nr" type="INTEGER" nullable="false" />
@@ -82,9 +83,7 @@
     <column name="Geaendert_Am" type="TIMESTAMP" nullable="true" />
     <primarykey>
       <keycolumn name="Mandant_Nr" />
-      <keycolumn name="Api" />
-      <keycolumn name="Datum" />
-      <keycolumn name="Nr" />
+      <keycolumn name="Uid" />
     </primarykey>
   </table>
   <table name="Benutzer">

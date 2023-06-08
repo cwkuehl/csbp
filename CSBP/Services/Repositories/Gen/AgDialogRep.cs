@@ -28,7 +28,7 @@ public partial class AgDialogRep : RepositoryBase
   public AgDialog Get(ServiceDaten daten, AgDialog e)
   {
     var db = GetDb(daten);
-    var b = db.AG_Dialog.FirstOrDefault(a => a.Mandant_Nr == e.Mandant_Nr && a.Api == e.Api && a.Datum == e.Datum && a.Nr == e.Nr);
+    var b = db.AG_Dialog.FirstOrDefault(a => a.Mandant_Nr == e.Mandant_Nr && a.Uid == e.Uid);
     return b;
   }
 
@@ -37,15 +37,13 @@ public partial class AgDialogRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="mandantnr">Value of column Mandant_Nr.</param>
-  /// <param name="api">Value of column Api.</param>
-  /// <param name="datum">Value of column Datum.</param>
-  /// <param name="nr">Value of column Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
   /// <returns>Entity of null.</returns>
-  public AgDialog Get(ServiceDaten daten, int mandantnr, string api, DateTime datum, int nr, bool detached = false)
+  public AgDialog Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);
-    var b = db.AG_Dialog.FirstOrDefault(a => a.Mandant_Nr == mandantnr && a.Api == api && a.Datum == datum && a.Nr == nr);
+    var b = db.AG_Dialog.FirstOrDefault(a => a.Mandant_Nr == mandantnr && a.Uid == uid);
     if (detached && b != null)
       db.Entry(b).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
     return b;
@@ -72,6 +70,7 @@ public partial class AgDialogRep : RepositoryBase
   public void Insert(ServiceDaten daten, AgDialog e)
   {
     var db = GetDb(daten);
+    e.Uid = string.IsNullOrEmpty(e.Uid) ? Functions.GetUid() : e.Uid;
     MachAngelegt(e, daten);
     db.AG_Dialog.Add(e);
   }
@@ -98,6 +97,7 @@ public partial class AgDialogRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="uid">Value of column Uid.</param>
   /// <param name="api">Value of column Api.</param>
   /// <param name="datum">Value of column Datum.</param>
   /// <param name="nr">Value of column Nr.</param>
@@ -109,12 +109,13 @@ public partial class AgDialogRep : RepositoryBase
   /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
   /// <param name="geaendertam">Value of column Geaendert_Am.</param>
   /// <returns>Saved entity.</returns>
-  public AgDialog Save(ServiceDaten daten, int mandantnr, string api, DateTime datum, int nr, string url, string frage, string antwort, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+  public AgDialog Save(ServiceDaten daten, int mandantnr, string uid, string api, DateTime datum, int nr, string url, string frage, string antwort, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
-    var a = Get(daten, mandantnr, api, datum, nr);
+    var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new AgDialog();
     e.Mandant_Nr = mandantnr;
+    e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Api = api;
     e.Datum = datum;
     e.Nr = nr;

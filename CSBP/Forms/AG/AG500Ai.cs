@@ -40,9 +40,9 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly TextView prompt;
 
-  /// <summary>TreeView positions.</summary>
+  /// <summary>TreeView dialogs.</summary>
   [Builder.Object]
-  private readonly TreeView positions;
+  private readonly TreeView dialogs;
 
   /// <summary>ComboBox position.</summary>
   [Builder.Object]
@@ -127,6 +127,22 @@ public partial class AG500Ai : CsbpBin
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
       EventsActive = true;
+    }
+    if (step <= 1)
+    {
+      var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten)) ?? new List<AgDialog>();
+      var values = new List<string[]>();
+      foreach (var e in l)
+      {
+        // No.;Date;Prompt;Changed at;Changed by;Created at;Created by
+        values.Add(new string[]
+        {
+          e.Uid, Functions.ToString(e.Datum), e.Data.Prompt,
+          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        });
+      }
+      AddStringColumnsSort(dialogs, AG500_dialogs_columns, values);
     }
   }
 
@@ -229,7 +245,7 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
   {
-    var uid = Functions.ToString(GetText(positions));
+    var uid = Functions.ToString(GetText(dialogs));
     var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (p != null)
     {
@@ -273,7 +289,7 @@ public partial class AG500Ai : CsbpBin
         else
           o.Datum_Von = to.Value;
       }
-      InitPositions();
+      InitData(1);
       return;
     }
     var k = Get(FactoryService.DiaryService.GetPosition(ServiceDaten, uid));
@@ -292,7 +308,7 @@ public partial class AG500Ai : CsbpBin
         Memo = k.Notiz,
       };
       positionList.Add(p);
-      InitPositions();
+      InitData(1);
     }
   }
 
@@ -316,11 +332,11 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnRemoveClicked(object sender, EventArgs e)
   {
-    var uid = GetText(positions);
+    var uid = GetText(dialogs);
     if (string.IsNullOrEmpty(uid) || !positionList.Any(a => a.Ort_Uid == uid))
       return;
     positionList = positionList.Where(a => a.Ort_Uid != uid).ToList();
-    InitPositions();
+    InitData(1);
   }
 
   /// <summary>Handles Clear.</summary>
@@ -340,33 +356,6 @@ public partial class AG500Ai : CsbpBin
     foreach (var p in rl)
       rs.AppendValues(p.Bezeichnung, p.Uid);
     SetText(position, uid);
-  }
-
-  /// <summary>
-  /// Initialises the position list.
-  /// </summary>
-  /// <param name="list">New list.</param>
-  private void InitPositions(List<TbEintragOrt> list = null)
-  {
-    if (list != null)
-    {
-      positionList.Clear();
-      foreach (var p in list)
-        positionList.Add(ServiceBase.Clone(p));
-    }
-    var values = new List<string[]>();
-    foreach (var e in positionList)
-    {
-      // No.;Description;Latitude_r;Longitude_r;From;To;Changed at;Changed by;Created at;Created by
-      values.Add(new string[]
-      {
-        e.Ort_Uid, e.Description, Functions.ToString(e.Latitude, 5), Functions.ToString(e.Longitude, 5),
-        Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
-        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
-      });
-    }
-    AddStringColumnsSort(positions, TB100_positions_columns, values);
   }
 
   /// <summary>
