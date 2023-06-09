@@ -206,6 +206,7 @@ public partial class WP400Bookings : CsbpBin
   {
     SetText(anlage, null);
     RefreshTreeView(buchungen, 0);
+    bezeichnung.GrabFocus();
   }
 
   /// <summary>Starts the details dialog.</summary>

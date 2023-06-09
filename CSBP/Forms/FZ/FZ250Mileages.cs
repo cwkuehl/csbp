@@ -181,6 +181,7 @@ public partial class FZ250Mileages : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(fahrradstaende, 0);
+    text.GrabFocus();
   }
 
   /// <summary>Handles Fahrrad.</summary>

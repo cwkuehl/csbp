@@ -295,6 +295,7 @@ public partial class WP250Investments : CsbpBin
   {
     SetText(wertpapier, null);
     RefreshTreeView(anlagen, 0);
+    bezeichnung.GrabFocus();
   }
 
   /// <summary>Handles Berechnen.</summary>

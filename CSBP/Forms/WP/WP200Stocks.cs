@@ -254,6 +254,7 @@ public partial class WP200Stocks : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(wertpapiere, 0);
+    bezeichnung.GrabFocus();
   }
 
   /// <summary>Handles Auchinaktiv.</summary>

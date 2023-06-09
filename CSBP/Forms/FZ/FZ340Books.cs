@@ -213,6 +213,7 @@ public partial class FZ340Books : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(buecher, 0);
+    titel.GrabFocus();
   }
 
   /// <summary>Starts the details dialog.</summary>

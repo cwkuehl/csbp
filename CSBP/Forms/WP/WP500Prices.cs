@@ -201,6 +201,7 @@ public partial class WP500Prices : CsbpBin
   {
     RefreshTreeView(staende, 0);
     SetText(wertpapier, null);
+    wertpapier.GrabFocus();
   }
 
   /// <summary>Handles Wertpapier.</summary>

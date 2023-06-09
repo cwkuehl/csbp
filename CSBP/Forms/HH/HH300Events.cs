@@ -168,6 +168,7 @@ public partial class HH300Events : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(ereignisse, 0);
+    text.GrabFocus();
   }
 
   /// <summary>Handles Text.</summary>

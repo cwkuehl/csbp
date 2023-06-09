@@ -169,6 +169,7 @@ public partial class HH200Accounts : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(konten, 0);
+    text.GrabFocus();
   }
 
   /// <summary>Handles Text.</summary>

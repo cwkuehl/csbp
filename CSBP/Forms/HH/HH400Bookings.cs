@@ -308,6 +308,7 @@ public partial class HH400Bookings : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(buchungen, 0);
+    bText.GrabFocus();
   }
 
   /// <summary>Starts the details dialog.</summary>

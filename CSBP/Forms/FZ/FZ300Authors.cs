@@ -173,6 +173,7 @@ public partial class FZ300Authors : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(autoren, 0);
+    name.GrabFocus();
   }
 
   /// <summary>Starts the details dialog.</summary>

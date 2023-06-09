@@ -246,6 +246,7 @@ public partial class SB200Ancestors : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(ahnen, 0);
+    name.GrabFocus();
   }
 
   /// <summary>Handles Spname.</summary>

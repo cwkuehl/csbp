@@ -169,6 +169,7 @@ public partial class FZ700Memos : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(notizen, 0);
+    text.GrabFocus();
   }
 
   /// <summary>Handles Text.</summary>

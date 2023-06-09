@@ -173,6 +173,7 @@ public partial class FZ320Series : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(serien, 0);
+    name.GrabFocus();
   }
 
   /// <summary>Starts the details dialog.</summary>

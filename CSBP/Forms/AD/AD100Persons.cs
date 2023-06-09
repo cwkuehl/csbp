@@ -231,6 +231,7 @@ public partial class AD100Persons : CsbpBin
   protected void OnAlleClicked(object sender, EventArgs e)
   {
     RefreshTreeView(personen, 0);
+    suche.GrabFocus();
   }
 
   /// <summary>Handles Sitzneu.</summary>
