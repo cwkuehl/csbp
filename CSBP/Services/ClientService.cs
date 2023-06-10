@@ -484,6 +484,19 @@ public class ClientService : ServiceBase, IClientService
   }
 
   /// <summary>
+  /// Deletes an dialog.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected uid.</param>
+  /// <returns>Possibly errors.</returns>
+  public ServiceErgebnis DeleteDialog(ServiceDaten daten, string uid)
+  {
+    var e = AgDialogRep.Get(daten, daten.MandantNr, uid) ?? throw new MessageException(M1013);
+    AgDialogRep.Delete(daten, e);
+    return new ServiceErgebnis();
+  }
+
+  /// <summary>
   /// Gets a list of options.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

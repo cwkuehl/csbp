@@ -157,12 +157,9 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDeleteClicked(object sender, EventArgs e)
   {
-    // TODO Delete.
-    // var uid = GetText(dialogs);
-    // if (string.IsNullOrEmpty(uid) || !positionList.Any(a => a.Ort_Uid == uid))
-    //   return;
-    // positionList = positionList.Where(a => a.Ort_Uid != uid).ToList();
-    // InitData(1);
+    var uid = GetText(dialogs);
+    if (Get(FactoryService.ClientService.DeleteDialog(ServiceDaten, uid)))
+      InitData(1);
   }
 
   /// <summary>Handles Weather.</summary>
@@ -185,7 +182,6 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDialogsRowActivated(object sender, RowActivatedArgs e)
   {
-    // TODO OnDialogsRowActivated
     var uid = Functions.ToString(GetText(dialogs));
     var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten, null, uid)) ?? new List<AgDialog>();
     var d = l.FirstOrDefault();

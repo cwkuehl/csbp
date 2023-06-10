@@ -222,4 +222,12 @@ public interface IClientService
   /// <param name="uid">Affected uid.</param>
   /// <returns>List with dialog entries.</returns>
   ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null);
+
+  /// <summary>
+  /// Deletes an dialog.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected uid.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis DeleteDialog(ServiceDaten daten, string uid);
 }
