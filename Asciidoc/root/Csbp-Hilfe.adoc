@@ -110,7 +110,7 @@ Der Speicherplatz der SQLite-Datenbank ist in der Start-Batch-Datei Installation
 .Beispiel für _#Csbp.sh_ unter Linux
 ----
 #! /bin/bash
-# Start program CSBP (c) 2022 cwkuehl.de
+# Start program CSBP (c) 2023 cwkuehl.de
 cd /opt/Haushalt/CSBP/publish
 export GDK_BACKEND=x11
 dotnet CSBP.dll "DB_DRIVER_CONNECT=Data Source=/home/user/xxx/csbp/csbp.db"
