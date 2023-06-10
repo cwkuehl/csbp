@@ -1845,7 +1845,7 @@
     <data name="AG500.execute" xml:space="preserve">
         <value>Execute AI</value>
     </data>
-    <data name="AG500.tokens.tt" xml:space="preserve">
+    <data name="AG500.execute.tt" xml:space="preserve">
         <value>Starts the AI execution for the prompt.</value>
     </data>
 
