@@ -12,6 +12,7 @@ using CSBP.Apis.Models;
 using CSBP.Base;
 using CSBP.Forms.TB;
 using CSBP.Services.Factory;
+using CSBP.Services.NonService;
 using Gtk;
 using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
@@ -46,9 +47,6 @@ public partial class AG500Ai : CsbpBin
   private readonly TextView response;
 
 #pragma warning restore CS0649
-
-  /// <summary>List of current positions.</summary>
-  private List<TbEintragOrt> positionList = new();
 
   /// <summary>Initializes a new instance of the <see cref="AG500Ai"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -86,8 +84,9 @@ public partial class AG500Ai : CsbpBin
     {
       EventsActive = false;
       InitLists();
-      SetText(prompt, "What is your temperature");
+      SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
       SetText(tokens, "50");
+      SetText(model, AiData.Gpt35);
       response.Editable = false;
       EventsActive = true;
     }
@@ -112,7 +111,7 @@ public partial class AG500Ai : CsbpBin
   /// <summary>Updates parent dialog.</summary>
   protected override void UpdateParent()
   {
-    InitLists();
+    InitData(1);
   }
 
   /// <summary>Handles Copy.</summary>
@@ -138,7 +137,7 @@ public partial class AG500Ai : CsbpBin
   {
     if (MainClass.Undo())
     {
-      InitLists();
+      InitData(1);
     }
   }
 
@@ -149,8 +148,21 @@ public partial class AG500Ai : CsbpBin
   {
     if (MainClass.Redo())
     {
-      InitLists();
+      InitData(1);
     }
+  }
+
+  /// <summary>Handles Delete.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnDeleteClicked(object sender, EventArgs e)
+  {
+    // TODO Delete.
+    // var uid = GetText(dialogs);
+    // if (string.IsNullOrEmpty(uid) || !positionList.Any(a => a.Ort_Uid == uid))
+    //   return;
+    // positionList = positionList.Where(a => a.Ort_Uid != uid).ToList();
+    // InitData(1);
   }
 
   /// <summary>Handles Weather.</summary>
@@ -158,38 +170,24 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
+    // TODO Weather.
   }
 
-  /// <summary>Handles Save.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnSaveClicked(object sender, EventArgs e)
-  {
-    // Bericht erzeugen
-    var pfad = Parameter.TempPath;
-    var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
-    UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, null,
-      null, null, null)), pfad, datei);
-  }
-
-  /// <summary>Handles Positions.</summary>
+  /// <summary>Handles Dialogs.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDialogsCursorChanged(object sender, EventArgs e)
   {
   }
 
-  /// <summary>Handles Positions.</summary>
+  /// <summary>Handles Dialogs.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnDialogsRowActivated(object sender, RowActivatedArgs e)
   {
+    // TODO OnDialogsRowActivated
     var uid = Functions.ToString(GetText(dialogs));
-    var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
-    if (p != null)
-    {
-      UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Functions.ToString(p.Latitude, 5, Functions.CultureInfoEn)}/{Functions.ToString(p.Longitude, 5, Functions.CultureInfoEn)}");
-    }
+    Functions.MachNichts(uid);
   }
 
   /// <summary>Handles Execute.</summary>
@@ -205,30 +203,16 @@ public partial class AG500Ai : CsbpBin
     {
       if (data.Messages.Any())
         SetText(response, r.Ergebnis.Messages.FirstOrDefault());
+      InitData(1);
     }
-  }
-
-  /// <summary>Handles Remove.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnRemoveClicked(object sender, EventArgs e)
-  {
-    var uid = GetText(dialogs);
-    if (string.IsNullOrEmpty(uid) || !positionList.Any(a => a.Ort_Uid == uid))
-      return;
-    positionList = positionList.Where(a => a.Ort_Uid != uid).ToList();
-    InitData(1);
   }
 
   /// <summary>Initialises the lists.</summary>
   private void InitLists()
   {
     var daten = ServiceDaten;
-    var rl = Get(FactoryService.DiaryService.GetPositionList(daten));
     var uid = GetText(model);
-    var rs = AddColumns(model, emptyentry: true);
-    foreach (var p in rl)
-      rs.AppendValues(p.Bezeichnung, p.Uid);
+    AddColumns(model, Get(FactoryService.ClientService.GetAiModelList(daten)));
     SetText(model, uid);
   }
 }

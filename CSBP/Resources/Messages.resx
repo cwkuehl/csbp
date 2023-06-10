@@ -1831,10 +1831,22 @@
         <value>Prompt for AI</value>
     </data>
     <data name="AG500.tokens" xml:space="preserve">
-        <value>_Max. tokens</value>
+        <value>Ma_x. tokens</value>
     </data>
     <data name="AG500.tokens.tt" xml:space="preserve">
         <value>Maximum number of tokens for the response</value>
+    </data>
+    <data name="AG500.model" xml:space="preserve">
+        <value>AI _modell</value>
+    </data>
+    <data name="AG500.model.tt" xml:space="preserve">
+        <value>Which AI model should be used?</value>
+    </data>
+    <data name="AG500.execute" xml:space="preserve">
+        <value>Execute AI</value>
+    </data>
+    <data name="AG500.tokens.tt" xml:space="preserve">
+        <value>Starts the AI execution for the prompt.</value>
     </data>
 
     <data name="AM000.title" xml:space="preserve">

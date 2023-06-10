@@ -197,6 +197,13 @@ public interface IClientService
   ServiceErgebnis CommitFile(string name);
 
   /// <summary>
+  /// Gets a list of AI models.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of AI models.</returns>
+  ServiceErgebnis<List<MaParameter>> GetAiModelList(ServiceDaten daten);
+
+  /// <summary>
   /// Gets response from ChatGPT.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

@@ -1175,6 +1175,24 @@ Lokal: {e.Eintrag}";
   }
 
   /// <summary>
+  /// Gets a list of AI models.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of AI models.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetAiModelList(ServiceDaten daten)
+  {
+    Functions.MachNichts(daten);
+    var l = new List<MaParameter>
+    {
+      new MaParameter { Schluessel = AiData.Gpt35, Wert = AiData.Gpt35 },
+      new MaParameter { Schluessel = AiData.Davinci, Wert = AiData.Davinci },
+      new MaParameter { Schluessel = AiData.Dalle, Wert = AiData.Dalle },
+    };
+    var r = new ServiceErgebnis<List<MaParameter>>(l);
+    return r;
+  }
+
+  /// <summary>
   /// Gets response from ChatGPT.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

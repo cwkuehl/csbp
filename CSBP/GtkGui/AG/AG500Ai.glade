@@ -8,6 +8,11 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
   </object>
+  <object class="GtkImage" id="deleteImage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-delete</property>
+  </object>
   <object class="GtkImage" id="pasteImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -17,11 +22,6 @@
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-redo</property>
-  </object>
-  <object class="GtkImage" id="removeImage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">list-remove</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
@@ -33,7 +33,7 @@
     <property name="can-focus">False</property>
     <property name="icon-name">weather-few-clouds</property>
   </object>
-  <!-- n-columns=3 n-rows=9 -->
+  <!-- n-columns=3 n-rows=8 -->
   <object class="GtkGrid" id="AG500Ai">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -107,6 +107,20 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="deleteAction">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.delete</property>
+            <property name="image">deleteImage</property>
+            <property name="always-show-image">True</property>
+            <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="weatherAction">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -117,7 +131,7 @@
             <signal name="clicked" handler="OnWeatherClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -287,28 +301,13 @@
         <child internal-child="entry">
           <object class="GtkEntry">
             <property name="can-focus">False</property>
+            <property name="placeholder-text" translatable="yes">AG500.model.tt</property>
           </object>
         </child>
       </object>
       <packing>
         <property name="left-attach">1</property>
         <property name="top-attach">6</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkButton" id="remove">
-        <property name="label" translatable="yes">AG500.remove</property>
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="receives-default">False</property>
-        <property name="tooltip-text" translatable="yes">AG500.remove.tt</property>
-        <property name="image">removeImage</property>
-        <property name="always-show-image">True</property>
-        <signal name="clicked" handler="OnRemoveClicked" swapped="no"/>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">7</property>
       </packing>
     </child>
     <child>
@@ -324,23 +323,17 @@
             <property name="tooltip-text">AG500.dialogs.tt</property>
             <signal name="cursor-changed" handler="OnDialogsCursorChanged" swapped="no"/>
             <signal name="row-activated" handler="OnDialogsRowActivated" swapped="no"/>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
           </object>
         </child>
       </object>
       <packing>
         <property name="left-attach">0</property>
         <property name="top-attach">2</property>
-        <property name="height">5</property>
+        <property name="height">6</property>
       </packing>
-    </child>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <placeholder/>
     </child>
   </object>
 </interface>

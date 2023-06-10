@@ -2982,6 +2982,26 @@ public partial class Messages
     get { return rm.GetString("AG500.tokens.tt"); }
   }
 
+  public static string AG500_model
+  {
+    get { return rm.GetString("AG500.model"); }
+  }
+
+  public static string AG500_model_tt
+  {
+    get { return rm.GetString("AG500.model.tt"); }
+  }
+
+  public static string AG500_execute
+  {
+    get { return rm.GetString("AG500.execute"); }
+  }
+
+  public static string AG500_execute_tt
+  {
+    get { return rm.GetString("AG500.execute.tt"); }
+  }
+
   public static string AM000_title
   {
     get { return rm.GetString("AM000.title"); }
