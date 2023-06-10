@@ -22,13 +22,16 @@ public partial class AgDialogRep
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="api">Affected api name.</param>
+  /// <param name="uid">Affected uid.</param>
   /// <param name="d">Affected date.</param>
   /// <param name="ordernr">Ordering descending by nr wished.</param>
   /// <returns>List of entities.</returns>
-  public List<AgDialog> GetList(ServiceDaten daten, string api, DateTime? d = null, bool ordernr = false)
+  public List<AgDialog> GetList(ServiceDaten daten, string api, string uid = null, DateTime? d = null, bool ordernr = false)
   {
     var db = GetDb(daten);
     var l = db.AG_Dialog.Where(a => a.Mandant_Nr == daten.MandantNr);
+    if (!string.IsNullOrEmpty(uid))
+      l = l.Where(a => a.Uid == uid);
     if (!string.IsNullOrEmpty(api))
       l = l.Where(a => a.Api == api);
     if (d.HasValue)

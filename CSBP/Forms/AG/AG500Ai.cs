@@ -187,7 +187,15 @@ public partial class AG500Ai : CsbpBin
   {
     // TODO OnDialogsRowActivated
     var uid = Functions.ToString(GetText(dialogs));
-    Functions.MachNichts(uid);
+    var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten, null, uid)) ?? new List<AgDialog>();
+    var d = l.FirstOrDefault();
+    if (d != null && d.Data != null)
+    {
+      SetText(prompt, d.Data.Prompt);
+      SetText(tokens, Functions.ToString(d.Data.MaxTokens));
+      SetText(model, d.Data.Model);
+      SetText(response, d.Data.Messages.FirstOrDefault());
+    }
   }
 
   /// <summary>Handles Execute.</summary>

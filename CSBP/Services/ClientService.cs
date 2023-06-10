@@ -1219,7 +1219,7 @@ Lokal: {e.Eintrag}";
     };
     var d = OpenAiChatGpt(daten, aidata, "OPENAI");
     d.Uid = Functions.GetUid();
-    var dlist = AgDialogRep.GetList(daten, d.Api, d.Datum, true);
+    var dlist = AgDialogRep.GetList(daten, d.Api, null, d.Datum, true);
     d.Nr = (dlist?.FirstOrDefault()?.Nr ?? 0) + 1; // Starting with 1.
     AgDialogRep.Insert(daten, d);
     r.Ergebnis = aidata;
@@ -1231,10 +1231,13 @@ Lokal: {e.Eintrag}";
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="api">Affected api string.</param>
+  /// <param name="uid">Affected uid.</param>
   /// <returns>List with dialog entries.</returns>
-  public ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = "OPENAI")
+  public ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null)
   {
-    var r = new ServiceErgebnis<List<AgDialog>>(AgDialogRep.GetList(daten, api));
+    if (string.IsNullOrEmpty(api))
+      api = "OPENAI";
+    var r = new ServiceErgebnis<List<AgDialog>>(AgDialogRep.GetList(daten, api, uid));
     foreach (var d in r.Ergebnis)
     {
       d.Data = ParseRequestResponse(d.Frage, d.Antwort);
