@@ -9,11 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
-using CSBP.Apis.Services;
 using CSBP.Base;
-using CSBP.Forms.Controls;
 using CSBP.Forms.TB;
-using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
 using static CSBP.Resources.M;
@@ -23,14 +20,6 @@ using static CSBP.Resources.Messages;
 public partial class AG500Ai : CsbpBin
 {
 #pragma warning disable CS0649
-
-  /// <summary>Label date0.</summary>
-  [Builder.Object]
-  private readonly Label date0;
-
-  /// <summary>Date date.</summary>
-  //// [Builder.Object]
-  private readonly Date date;
 
   /// <summary>Label prompt0.</summary>
   [Builder.Object]
@@ -44,25 +33,17 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly TreeView dialogs;
 
-  /// <summary>ComboBox position.</summary>
+  /// <summary>ComboBox model.</summary>
   [Builder.Object]
-  private readonly ComboBox position;
+  private readonly ComboBox model;
 
-  /// <summary>Entry angelegt.</summary>
+  /// <summary>Entry tokens.</summary>
   [Builder.Object]
-  private readonly Entry angelegt;
+  private readonly Entry tokens;
 
-  /// <summary>Entry geaendert.</summary>
+  /// <summary>TextView response.</summary>
   [Builder.Object]
-  private readonly Entry geaendert;
-
-  /// <summary>Label after10.</summary>
-  [Builder.Object]
-  private readonly Label after10;
-
-  /// <summary>TextView after1.</summary>
-  [Builder.Object]
-  private readonly TextView after1;
+  private readonly TextView response;
 
 #pragma warning restore CS0649
 
@@ -80,18 +61,6 @@ public partial class AG500Ai : CsbpBin
   public AG500Ai(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, type ?? typeof(AG500Ai), dt, p1, p)
   {
-    date = new Date(Builder.GetObject("date").Handle)
-    {
-      IsNullable = false,
-      IsWithCalendar = true,
-      IsCalendarOpen = false,
-      YesterdayAccel = "m",
-      TomorrowAccel = "p",
-    };
-    date.DateChanged += OnDateDateChanged;
-    date.MonthChanged += OnDateMonthChanged;
-    date.Show();
-    SetBold(date0);
     SetBold(prompt0);
     InitData(0);
     prompt.GrabFocus();
@@ -99,9 +68,6 @@ public partial class AG500Ai : CsbpBin
 
   /// <summary>Gets or sets the diary entry for copying.</summary>
   private string Copy { get; set; } = string.Empty;
-
-  /// <summary>Gets or sets the origanal saved diary entry.</summary>
-  private TbEintrag EntryOld { get; set; } = new TbEintrag { Positions = new List<TbEintragOrt>() };
 
   /// <summary>Creates non modal dialog.</summary>
   /// <param name="p1">1. parameter for dialog.</param>
@@ -120,12 +86,9 @@ public partial class AG500Ai : CsbpBin
     {
       EventsActive = false;
       InitLists();
-      EntryOld.Datum = DateTime.Today;
-      date.Value = EntryOld.Datum;
-      SetText(prompt, "What is your temperatur");
-      after1.Editable = false;
-      angelegt.IsEditable = false;
-      geaendert.IsEditable = false;
+      SetText(prompt, "What is your temperature");
+      SetText(tokens, "50");
+      response.Editable = false;
       EventsActive = true;
     }
     if (step <= 1)
@@ -195,11 +158,6 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnWeatherClicked(object sender, EventArgs e)
   {
-    var v = after1.Visible;
-    after10.LabelProp = v ? TB100_after1w : TB100_after1;
-    after1.Visible = !v;
-    if (!v)
-      return;
   }
 
   /// <summary>Handles Save.</summary>
@@ -214,36 +172,17 @@ public partial class AG500Ai : CsbpBin
       null, null, null)), pfad, datei);
   }
 
-  /// <summary>Handles Date.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDateDateChanged(object sender, DateChangedEventArgs e)
-  {
-    if (!EventsActive)
-      return;
-  }
-
-  /// <summary>Handles Date.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnDateMonthChanged(object sender, DateChangedEventArgs e)
-  {
-    if (!EventsActive)
-      return;
-    LoadMonth(e.Date);
-  }
-
   /// <summary>Handles Positions.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnPositionsCursorChanged(object sender, EventArgs e)
+  protected void OnDialogsCursorChanged(object sender, EventArgs e)
   {
   }
 
   /// <summary>Handles Positions.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
+  protected void OnDialogsRowActivated(object sender, RowActivatedArgs e)
   {
     var uid = Functions.ToString(GetText(dialogs));
     var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
@@ -253,77 +192,19 @@ public partial class AG500Ai : CsbpBin
     }
   }
 
-  /// <summary>Handles Position.</summary>
+  /// <summary>Handles Execute.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnPositionChanged(object sender, EventArgs e)
+  protected void OnExecuteClicked(object sender, EventArgs e)
   {
-    // refreshAction.Click();
-  }
-
-  /// <summary>Handles New.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnNewClicked(object sender, EventArgs e)
-  {
-    Start(typeof(TB210Position), TB210_title, DialogTypeEnum.New, null, csbpparent: this);
-  }
-
-  /// <summary>Handles Add.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnAddClicked(object sender, EventArgs e)
-  {
-    var uid = GetText(position);
-    if (string.IsNullOrEmpty(uid))
-      return;
-    var o = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
-    if (o != null)
-    {
-      var p = new Tuple<string, DateTime>(o.Ort_Uid, o.Datum_Bis);
-      var to = Start(typeof(TB110Date), TB110_title, DialogTypeEnum.Edit, p, modal: true, csbpparent: this) as DateTime?;
-      if (to.HasValue)
-      {
-        if (to.Value >= date.ValueNn)
-          o.Datum_Bis = to.Value;
-        else
-          o.Datum_Von = to.Value;
-      }
-      InitData(1);
-      return;
-    }
-    var k = Get(FactoryService.DiaryService.GetPosition(ServiceDaten, uid));
-    if (k != null)
-    {
-      var p = new TbEintragOrt
-      {
-        Mandant_Nr = k.Mandant_Nr,
-        Ort_Uid = k.Uid,
-        Datum_Von = date.ValueNn,
-        Datum_Bis = date.ValueNn,
-        Description = k.Bezeichnung,
-        Latitude = k.Breite,
-        Longitude = k.Laenge,
-        Height = k.Hoehe,
-        Memo = k.Notiz,
-      };
-      positionList.Add(p);
-      InitData(1);
-    }
-  }
-
-  /// <summary>Handles Posbefore.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnPosbeforeClicked(object sender, EventArgs e)
-  {
-    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, prompt.Buffer.Text);
+    var maxtokens = Functions.ToInt32(tokens.Text);
+    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, prompt.Buffer.Text, null, maxtokens);
     Get(r);
     var data = r.Ergebnis;
     if (r.Ok && data != null)
     {
       if (data.Messages.Any())
-        SetText(after1, r.Ergebnis.Messages.FirstOrDefault());
+        SetText(response, r.Ergebnis.Messages.FirstOrDefault());
     }
   }
 
@@ -339,34 +220,15 @@ public partial class AG500Ai : CsbpBin
     InitData(1);
   }
 
-  /// <summary>Handles Clear.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnClearClicked(object sender, EventArgs e)
-  {
-  }
-
   /// <summary>Initialises the lists.</summary>
   private void InitLists()
   {
     var daten = ServiceDaten;
     var rl = Get(FactoryService.DiaryService.GetPositionList(daten));
-    var uid = GetText(position);
-    var rs = AddColumns(position, emptyentry: true);
+    var uid = GetText(model);
+    var rs = AddColumns(model, emptyentry: true);
     foreach (var p in rl)
       rs.AppendValues(p.Bezeichnung, p.Uid);
-    SetText(position, uid);
-  }
-
-  /// <summary>
-  /// Loads the month data.
-  /// </summary>
-  /// <param name="d">Affected date.</param>
-  private void LoadMonth(DateTime? d)
-  {
-    bool[] m = null;
-    if (d.HasValue)
-      m = Get(FactoryService.DiaryService.GetMonth(ServiceDaten, d.Value));
-    date.MarkMonth(m);
+    SetText(model, uid);
   }
 }

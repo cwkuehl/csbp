@@ -1815,12 +1815,6 @@
     <data name="AG500.title" xml:space="preserve">
         <value>AI</value>
     </data>
-    <data name="AG500.prompt" xml:space="preserve">
-        <value>Prompt</value>
-    </data>
-    <data name="AG500.prompt.tt" xml:space="preserve">
-        <value>Prompt for AI</value>
-    </data>
     <data name="AG500.dialogs" xml:space="preserve">
         <value>_Dialoge</value>
     </data>
@@ -1829,6 +1823,18 @@
     </data>
     <data name="AG500.dialogs.columns" xml:space="preserve">
         <value>No.;Date;Prompt;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="AG500.prompt" xml:space="preserve">
+        <value>Prompt</value>
+    </data>
+    <data name="AG500.prompt.tt" xml:space="preserve">
+        <value>Prompt for AI</value>
+    </data>
+    <data name="AG500.tokens" xml:space="preserve">
+        <value>_Max. tokens</value>
+    </data>
+    <data name="AG500.tokens.tt" xml:space="preserve">
+        <value>Maximum number of tokens for the response</value>
     </data>
 
     <data name="AM000.title" xml:space="preserve">

@@ -2947,16 +2947,6 @@ public partial class Messages
     get { return rm.GetString("AG500.title"); }
   }
 
-  public static string AG500_prompt
-  {
-    get { return rm.GetString("AG500.prompt"); }
-  }
-
-  public static string AG500_prompt_tt
-  {
-    get { return rm.GetString("AG500.prompt.tt"); }
-  }
-
   public static string AG500_dialogs
   {
     get { return rm.GetString("AG500.dialogs"); }
@@ -2970,6 +2960,26 @@ public partial class Messages
   public static string AG500_dialogs_columns
   {
     get { return rm.GetString("AG500.dialogs.columns"); }
+  }
+
+  public static string AG500_prompt
+  {
+    get { return rm.GetString("AG500.prompt"); }
+  }
+
+  public static string AG500_prompt_tt
+  {
+    get { return rm.GetString("AG500.prompt.tt"); }
+  }
+
+  public static string AG500_tokens
+  {
+    get { return rm.GetString("AG500.tokens"); }
+  }
+
+  public static string AG500_tokens_tt
+  {
+    get { return rm.GetString("AG500.tokens.tt"); }
   }
 
   public static string AM000_title

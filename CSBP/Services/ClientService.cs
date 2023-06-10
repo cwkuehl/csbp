@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -1187,6 +1188,10 @@ Lokal: {e.Eintrag}";
     var r = new ServiceErgebnis<AiData>();
     if (string.IsNullOrEmpty(prompt))
       throw new MessageException(AG004);
+    if (string.IsNullOrEmpty(model))
+      model = AiData.Gpt35;
+    if (maxtokens <= 16)
+      maxtokens = 16;
     var aidata = new AiData
     {
       Model = model,
