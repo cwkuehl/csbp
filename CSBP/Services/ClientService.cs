@@ -1271,7 +1271,7 @@ Lokal: {e.Eintrag}";
     System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
     var httpsclient = new System.Net.Http.HttpClient
     {
-      Timeout = TimeSpan.FromMilliseconds(20000),
+      Timeout = TimeSpan.FromMilliseconds(30000),
     };
     httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");

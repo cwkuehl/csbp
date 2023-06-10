@@ -37,8 +37,8 @@ public partial class AgDialogRep
     if (d.HasValue)
       l = l.Where(a => a.Datum == d.Value);
     if (ordernr)
-      return l.OrderBy(a => a.Nr).ToList();
-    return l.ToList();
+      return l.OrderByDescending(a => a.Nr).ToList();
+    return l.OrderByDescending(a => a.Datum).ThenByDescending(a => a.Nr).ToList();
   }
 
 #pragma warning restore CA1822
