@@ -1232,7 +1232,7 @@ Lokal: {e.Eintrag}";
     };
     var d = OpenAiChatGpt(daten, aidata, "OPENAI");
     d.Uid = Functions.GetUid();
-    var dlist = AgDialogRep.GetList(daten, d.Api, null, d.Datum, true);
+    var dlist = AgDialogRep.GetList(daten, d.Api, null, null, d.Datum, true);
     d.Nr = (dlist?.FirstOrDefault()?.Nr ?? 0) + 1; // Starting with 1.
     AgDialogRep.Insert(daten, d);
     r.Ergebnis = aidata;
@@ -1245,12 +1245,13 @@ Lokal: {e.Eintrag}";
   /// <param name="daten">Service data for database access.</param>
   /// <param name="api">Affected api string.</param>
   /// <param name="uid">Affected uid.</param>
+  /// <param name="search">Affected search string.</param>
   /// <returns>List with dialog entries.</returns>
-  public ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null)
+  public ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null, string search = null)
   {
     if (string.IsNullOrEmpty(api))
       api = "OPENAI";
-    var r = new ServiceErgebnis<List<AgDialog>>(AgDialogRep.GetList(daten, api, uid));
+    var r = new ServiceErgebnis<List<AgDialog>>(AgDialogRep.GetList(daten, api, uid, search));
     foreach (var d in r.Ergebnis)
     {
       d.Data = ParseRequestResponse(d.Frage, d.Antwort);
@@ -1375,6 +1376,17 @@ Lokal: {e.Eintrag}";
     {
       using var doc = JsonDocument.Parse(resp);
       var root = doc.RootElement;
+      if (root.TryGetProperty("usage", out var usage))
+      {
+        if (usage.TryGetProperty("prompt_tokens", out var t1))
+        {
+          data.PromptTokens = t1.GetDecimal();
+        }
+        if (usage.TryGetProperty("completion_tokens", out var t2))
+        {
+          data.CompletionTokens = t2.GetDecimal();
+        }
+      }
       if (root.TryGetProperty("choices", out var choices))
       {
         var arr = choices.EnumerateArray();
@@ -1393,6 +1405,10 @@ Lokal: {e.Eintrag}";
           {
             // text-davinci-003
             data.Messages.Add(ptext.GetString());
+          }
+          if (arr1.TryGetProperty("finish_reason", out var t3))
+          {
+            data.FinishReasons.Add(t3.GetString());
           }
         }
       }

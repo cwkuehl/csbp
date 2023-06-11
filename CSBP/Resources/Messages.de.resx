@@ -1824,6 +1824,18 @@
     <data name="AG500.dialogs.columns" xml:space="preserve">
         <value>Nr.;Datum;Eingabe;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
+    <data name="AG500.all" xml:space="preserve">
+        <value>A_lle</value>
+    </data>
+    <data name="AG500.all.tt" xml:space="preserve">
+        <value>Selektionskriterien zurücksetzen</value>
+    </data>
+    <data name="AG500.search" xml:space="preserve">
+        <value>_Suche</value>
+    </data>
+    <data name="AG500.search.tt" xml:space="preserve">
+        <value>Zu suchender Text</value>
+    </data>
     <data name="AG500.prompt" xml:space="preserve">
         <value>_Eingabe</value>
     </data>
@@ -1847,6 +1859,18 @@
     </data>
     <data name="AG500.execute.tt" xml:space="preserve">
         <value>Started die Ausführung der Eingabe mit dem gewünschten KI-Modell.</value>
+    </data>
+    <data name="AG500.response" xml:space="preserve">
+        <value>_Antwort von KI</value>
+    </data>
+    <data name="AG500.response.tt" xml:space="preserve">
+        <value>Antwort von KI</value>
+    </data>
+    <data name="AG500.tokens" xml:space="preserve">
+        <value>Antwort Tokens</value>
+    </data>
+    <data name="AG500.tokens.tt" xml:space="preserve">
+        <value>Eingabe-Tokens + Ausgabe-Tokens = Summe Tokens (Grund der Beendigung)</value>
     </data>
 
     <data name="AM000.title" xml:space="preserve">

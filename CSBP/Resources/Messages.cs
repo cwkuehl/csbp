@@ -2962,6 +2962,26 @@ public partial class Messages
     get { return rm.GetString("AG500.dialogs.columns"); }
   }
 
+  public static string AG500_all
+  {
+    get { return rm.GetString("AG500.all"); }
+  }
+
+  public static string AG500_all_tt
+  {
+    get { return rm.GetString("AG500.all.tt"); }
+  }
+
+  public static string AG500_search
+  {
+    get { return rm.GetString("AG500.search"); }
+  }
+
+  public static string AG500_search_tt
+  {
+    get { return rm.GetString("AG500.search.tt"); }
+  }
+
   public static string AG500_prompt
   {
     get { return rm.GetString("AG500.prompt"); }
@@ -2972,12 +2992,12 @@ public partial class Messages
     get { return rm.GetString("AG500.prompt.tt"); }
   }
 
-  public static string AG500_tokens
+  public static string AG500_maxtokens
   {
     get { return rm.GetString("AG500.maxtokens"); }
   }
 
-  public static string AG500_tokens_tt
+  public static string AG500_maxtokens_tt
   {
     get { return rm.GetString("AG500.maxtokens.tt"); }
   }
@@ -3000,6 +3020,26 @@ public partial class Messages
   public static string AG500_execute_tt
   {
     get { return rm.GetString("AG500.execute.tt"); }
+  }
+
+  public static string AG500_response
+  {
+    get { return rm.GetString("AG500.response"); }
+  }
+
+  public static string AG500_response_tt
+  {
+    get { return rm.GetString("AG500.response.tt"); }
+  }
+
+  public static string AG500_tokens
+  {
+    get { return rm.GetString("AG500.tokens"); }
+  }
+
+  public static string AG500_tokens_tt
+  {
+    get { return rm.GetString("AG500.tokens.tt"); }
   }
 
   public static string AM000_title

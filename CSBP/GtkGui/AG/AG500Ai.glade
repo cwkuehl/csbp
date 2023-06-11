@@ -23,7 +23,7 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-undo</property>
   </object>
-  <!-- n-columns=3 n-rows=8 -->
+  <!-- n-columns=4 n-rows=8 -->
   <object class="GtkGrid" id="AG500Ai">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -112,7 +112,7 @@
       <packing>
         <property name="left-attach">0</property>
         <property name="top-attach">0</property>
-        <property name="width">3</property>
+        <property name="width">4</property>
       </packing>
     </child>
     <child>
@@ -126,7 +126,7 @@
         <property name="use-underline">True</property>
       </object>
       <packing>
-        <property name="left-attach">2</property>
+        <property name="left-attach">3</property>
         <property name="top-attach">1</property>
       </packing>
     </child>
@@ -140,7 +140,7 @@
         <property name="use-underline">True</property>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">1</property>
       </packing>
     </child>
@@ -156,6 +156,7 @@
       <packing>
         <property name="left-attach">0</property>
         <property name="top-attach">1</property>
+        <property name="width">2</property>
       </packing>
     </child>
     <child>
@@ -168,7 +169,7 @@
         <signal name="clicked" handler="OnExecuteClicked" swapped="no"/>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">7</property>
       </packing>
     </child>
@@ -191,7 +192,7 @@
         </child>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">2</property>
       </packing>
     </child>
@@ -205,7 +206,7 @@
         <property name="use-underline">True</property>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">3</property>
       </packing>
     </child>
@@ -220,7 +221,7 @@
         <property name="placeholder-text">AG500.maxtokens.tt</property>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">4</property>
       </packing>
     </child>
@@ -243,9 +244,9 @@
         </child>
       </object>
       <packing>
-        <property name="left-attach">2</property>
+        <property name="left-attach">3</property>
         <property name="top-attach">2</property>
-        <property name="height">6</property>
+        <property name="height">5</property>
       </packing>
     </child>
     <child>
@@ -258,7 +259,7 @@
         <property name="use-underline">True</property>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">5</property>
       </packing>
     </child>
@@ -277,7 +278,7 @@
         </child>
       </object>
       <packing>
-        <property name="left-attach">1</property>
+        <property name="left-attach">2</property>
         <property name="top-attach">6</property>
       </packing>
     </child>
@@ -303,7 +304,53 @@
       <packing>
         <property name="left-attach">0</property>
         <property name="top-attach">2</property>
-        <property name="height">6</property>
+        <property name="width">2</property>
+        <property name="height">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="all">
+        <property name="label" translatable="yes">AG500.all</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="tooltip-text" translatable="yes">AG500.all.tt</property>
+        <signal name="clicked" handler="OnAllClicked" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="search">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">AG500.search.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">AG500.search.tt</property>
+        <signal name="key-release-event" handler="OnSearchKeyReleaseEvent" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="tokens">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">AG500.tokens.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">AG500.tokens.tt</property>
+      </object>
+      <packing>
+        <property name="left-attach">3</property>
+        <property name="top-attach">7</property>
       </packing>
     </child>
   </object>

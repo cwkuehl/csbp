@@ -1824,6 +1824,18 @@
     <data name="AG500.dialogs.columns" xml:space="preserve">
         <value>No.;Date;Prompt;Changed at;Changed by;Created at;Created by</value>
     </data>
+    <data name="AG500.all" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="AG500.all.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="AG500.search" xml:space="preserve">
+        <value>_Search</value>
+    </data>
+    <data name="AG500.search.tt" xml:space="preserve">
+        <value>Text to search</value>
+    </data>
     <data name="AG500.prompt" xml:space="preserve">
         <value>Prompt</value>
     </data>
@@ -1847,6 +1859,18 @@
     </data>
     <data name="AG500.execute.tt" xml:space="preserve">
         <value>Starts the AI execution for the prompt.</value>
+    </data>
+    <data name="AG500.response" xml:space="preserve">
+        <value>_Response from AI</value>
+    </data>
+    <data name="AG500.response.tt" xml:space="preserve">
+        <value>Response from AI</value>
+    </data>
+    <data name="AG500.tokens" xml:space="preserve">
+        <value>Response tokens</value>
+    </data>
+    <data name="AG500.tokens.tt" xml:space="preserve">
+        <value>Prompt tokens + completion tokens = total_tokens (finish reason)</value>
     </data>
 
     <data name="AM000.title" xml:space="preserve">

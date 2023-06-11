@@ -220,8 +220,9 @@ public interface IClientService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="api">Affected api string.</param>
   /// <param name="uid">Affected uid.</param>
+  /// <param name="search">Affected search string.</param>
   /// <returns>List with dialog entries.</returns>
-  ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null);
+  ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null, string search = null);
 
   /// <summary>
   /// Deletes an dialog.

@@ -13,7 +13,6 @@ using CSBP.Base;
 using CSBP.Services.Factory;
 using CSBP.Services.NonService;
 using Gtk;
-using static CSBP.Resources.M;
 using static CSBP.Resources.Messages;
 
 /// <summary>Controller for AG500Ai dialog.</summary>
@@ -37,17 +36,25 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly TreeView dialogs;
 
-  /// <summary>ComboBox model.</summary>
+  /// <summary>Entry search.</summary>
   [Builder.Object]
-  private readonly ComboBox model;
+  private readonly Entry search;
 
   /// <summary>Entry maxtokens.</summary>
   [Builder.Object]
   private readonly Entry maxtokens;
 
+  /// <summary>ComboBox model.</summary>
+  [Builder.Object]
+  private readonly ComboBox model;
+
   /// <summary>TextView response.</summary>
   [Builder.Object]
   private readonly TextView response;
+
+  /// <summary>Entry tokens.</summary>
+  [Builder.Object]
+  private readonly Entry tokens;
 
 #pragma warning restore CS0649
 
@@ -62,6 +69,7 @@ public partial class AG500Ai : CsbpBin
   public AG500Ai(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, type ?? typeof(AG500Ai), dt, p1, p)
   {
+    ObservableEventThrottle(refreshAction, (sender, e) => { RefreshTreeView(dialogs, 1); });
     SetBold(prompt0);
     InitData(0);
     prompt.GrabFocus();
@@ -83,16 +91,18 @@ public partial class AG500Ai : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
+      SetText(search, "%%");
       InitLists();
       SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
-      SetText(maxtokens, "50");
+      SetText(maxtokens, "100");
       SetText(model, AiData.Gpt35);
       response.Editable = false;
+      tokens.IsEditable = false;
       EventsActive = true;
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten)) ?? new List<AgDialog>();
+      var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten, search: search.Text)) ?? new List<AgDialog>();
       var values = new List<string[]>();
       foreach (var e in l)
       {
@@ -119,7 +129,7 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
   {
-    RefreshTreeView(dialogs, 1);
+    // RefreshTreeView(dialogs, 1);
   }
 
   /// <summary>Handles Undo.</summary>
@@ -169,13 +179,18 @@ public partial class AG500Ai : CsbpBin
     var uid = Functions.ToString(GetText(dialogs));
     var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten, null, uid)) ?? new List<AgDialog>();
     var d = l.FirstOrDefault();
-    if (d != null && d.Data != null)
+    if (d?.Data != null)
     {
-      SetText(prompt, d.Data.Prompt);
-      SetText(maxtokens, Functions.ToString(d.Data.MaxTokens));
-      SetText(model, d.Data.Model);
-      SetText(response, d.Data.Messages.FirstOrDefault());
+      SetData(d.Data);
     }
+  }
+
+  /// <summary>Handles Search.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnSearchKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
+  {
+    refreshAction.Click();
   }
 
   /// <summary>Handles Execute.</summary>
@@ -189,10 +204,19 @@ public partial class AG500Ai : CsbpBin
     var data = r.Ergebnis;
     if (r.Ok && data != null)
     {
-      if (data.Messages.Any())
-        SetText(response, r.Ergebnis.Messages.FirstOrDefault());
+      SetData(data, true);
       refreshAction.Click();
     }
+  }
+
+  /// <summary>Handles All.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnAllClicked(object sender, EventArgs e)
+  {
+    SetText(search, "%%");
+    refreshAction.Click();
+    search.GrabFocus();
   }
 
   /// <summary>Initialises the lists.</summary>
@@ -202,5 +226,21 @@ public partial class AG500Ai : CsbpBin
     var uid = GetText(model);
     AddColumns(model, Get(FactoryService.ClientService.GetAiModelList(daten)));
     SetText(model, uid);
+  }
+
+  /// <summary>Sets dialogs data.</summary>
+  /// <param name="data">Affected data.</param>
+  private void SetData(AiData data, bool responly = false)
+  {
+    if (data == null)
+      return;
+    if (!responly)
+    {
+      SetText(prompt, data.Prompt);
+      SetText(maxtokens, Functions.ToString(data.MaxTokens));
+      SetText(model, data.Model);
+    }
+    SetText(response, data.Messages.FirstOrDefault());
+    SetText(tokens, @$"{data.PromptTokens}+{data.CompletionTokens}={data.PromptTokens + data.CompletionTokens} ({data.FinishReasons.FirstOrDefault()})");
   }
 }
