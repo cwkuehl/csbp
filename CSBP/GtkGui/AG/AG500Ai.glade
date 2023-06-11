@@ -3,35 +3,25 @@
 <!-- Created with unit test GenerateForm -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="copyImage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-copy</property>
-  </object>
   <object class="GtkImage" id="deleteImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-delete</property>
-  </object>
-  <object class="GtkImage" id="pasteImage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-paste</property>
   </object>
   <object class="GtkImage" id="redoImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-redo</property>
   </object>
+  <object class="GtkImage" id="refreshImage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">view-refresh</property>
+  </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-undo</property>
-  </object>
-  <object class="GtkImage" id="weatherImage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">weather-few-clouds</property>
   </object>
   <!-- n-columns=3 n-rows=8 -->
   <object class="GtkGrid" id="AG500Ai">
@@ -51,31 +41,17 @@
         <property name="can-focus">False</property>
         <property name="hexpand">True</property>
         <child>
-          <object class="GtkButton" id="copyAction">
+          <object class="GtkButton" id="refreshAction">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="receives-default">True</property>
-            <property name="tooltip-text">Action.copy</property>
-            <property name="image">copyImage</property>
+            <property name="tooltip-text">Action.refresh</property>
+            <property name="image">refreshImage</property>
             <property name="always-show-image">True</property>
-            <signal name="clicked" handler="OnCopyClicked" swapped="no"/>
+            <signal name="clicked" handler="OnRefreshClicked" swapped="no"/>
           </object>
           <packing>
             <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="pasteAction">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text">Action.paste</property>
-            <property name="image">pasteImage</property>
-            <property name="always-show-image">True</property>
-            <signal name="clicked" handler="OnPasteClicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -89,7 +65,7 @@
             <signal name="clicked" handler="OnUndoClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">2</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -103,7 +79,7 @@
             <signal name="clicked" handler="OnRedoClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">3</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -117,22 +93,17 @@
             <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">4</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="weatherAction">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="receives-default">True</property>
-            <property name="tooltip-text">Action.weather</property>
-            <property name="image">weatherImage</property>
-            <property name="always-show-image">True</property>
-            <signal name="clicked" handler="OnWeatherClicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="position">5</property>
-          </packing>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>
@@ -230,7 +201,7 @@
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">AG500.tokens</property>
+        <property name="label">AG500.maxtokens</property>
         <property name="use-underline">True</property>
       </object>
       <packing>
@@ -239,14 +210,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="tokens">
+      <object class="GtkEntry" id="maxtokens">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">AG500.tokens.tt</property>
+        <property name="tooltip-text">AG500.maxtokens.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates-default">True</property>
-        <property name="placeholder-text">AG500.tokens.tt</property>
+        <property name="placeholder-text">AG500.maxtokens.tt</property>
       </object>
       <packing>
         <property name="left-attach">1</property>

@@ -10,7 +10,6 @@ using System.Linq;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Base;
-using CSBP.Forms.TB;
 using CSBP.Services.Factory;
 using CSBP.Services.NonService;
 using Gtk;
@@ -21,6 +20,10 @@ using static CSBP.Resources.Messages;
 public partial class AG500Ai : CsbpBin
 {
 #pragma warning disable CS0649
+
+  /// <summary>Button RefreshAction.</summary>
+  [Builder.Object]
+  private readonly Button refreshAction;
 
   /// <summary>Label prompt0.</summary>
   [Builder.Object]
@@ -38,9 +41,9 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly ComboBox model;
 
-  /// <summary>Entry tokens.</summary>
+  /// <summary>Entry maxtokens.</summary>
   [Builder.Object]
-  private readonly Entry tokens;
+  private readonly Entry maxtokens;
 
   /// <summary>TextView response.</summary>
   [Builder.Object]
@@ -64,9 +67,6 @@ public partial class AG500Ai : CsbpBin
     prompt.GrabFocus();
   }
 
-  /// <summary>Gets or sets the diary entry for copying.</summary>
-  private string Copy { get; set; } = string.Empty;
-
   /// <summary>Creates non modal dialog.</summary>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
@@ -85,7 +85,7 @@ public partial class AG500Ai : CsbpBin
       EventsActive = false;
       InitLists();
       SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
-      SetText(tokens, "50");
+      SetText(maxtokens, "50");
       SetText(model, AiData.Gpt35);
       response.Editable = false;
       EventsActive = true;
@@ -111,23 +111,15 @@ public partial class AG500Ai : CsbpBin
   /// <summary>Updates parent dialog.</summary>
   protected override void UpdateParent()
   {
-    InitData(1);
+    refreshAction.Click();
   }
 
-  /// <summary>Handles Copy.</summary>
+  /// <summary>Handles Refresh.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnCopyClicked(object sender, EventArgs e)
+  protected void OnRefreshClicked(object sender, EventArgs e)
   {
-    Copy = prompt.Buffer.Text;
-  }
-
-  /// <summary>Handles Paste.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnPasteClicked(object sender, EventArgs e)
-  {
-    SetText(prompt, Copy);
+    RefreshTreeView(dialogs, 1);
   }
 
   /// <summary>Handles Undo.</summary>
@@ -137,7 +129,7 @@ public partial class AG500Ai : CsbpBin
   {
     if (MainClass.Undo())
     {
-      InitData(1);
+      refreshAction.Click();
     }
   }
 
@@ -148,7 +140,7 @@ public partial class AG500Ai : CsbpBin
   {
     if (MainClass.Redo())
     {
-      InitData(1);
+      refreshAction.Click();
     }
   }
 
@@ -159,15 +151,7 @@ public partial class AG500Ai : CsbpBin
   {
     var uid = GetText(dialogs);
     if (Get(FactoryService.ClientService.DeleteDialog(ServiceDaten, uid)))
-      InitData(1);
-  }
-
-  /// <summary>Handles Weather.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnWeatherClicked(object sender, EventArgs e)
-  {
-    // TODO Weather.
+      refreshAction.Click();
   }
 
   /// <summary>Handles Dialogs.</summary>
@@ -188,7 +172,7 @@ public partial class AG500Ai : CsbpBin
     if (d != null && d.Data != null)
     {
       SetText(prompt, d.Data.Prompt);
-      SetText(tokens, Functions.ToString(d.Data.MaxTokens));
+      SetText(maxtokens, Functions.ToString(d.Data.MaxTokens));
       SetText(model, d.Data.Model);
       SetText(response, d.Data.Messages.FirstOrDefault());
     }
@@ -199,15 +183,15 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnExecuteClicked(object sender, EventArgs e)
   {
-    var maxtokens = Functions.ToInt32(tokens.Text);
-    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, prompt.Buffer.Text, null, maxtokens);
+    var maxt = Functions.ToInt32(maxtokens.Text);
+    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, prompt.Buffer.Text, null, maxt);
     Get(r);
     var data = r.Ergebnis;
     if (r.Ok && data != null)
     {
       if (data.Messages.Any())
         SetText(response, r.Ergebnis.Messages.FirstOrDefault());
-      InitData(1);
+      refreshAction.Click();
     }
   }
 

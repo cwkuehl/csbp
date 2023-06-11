@@ -2974,12 +2974,12 @@ public partial class Messages
 
   public static string AG500_tokens
   {
-    get { return rm.GetString("AG500.tokens"); }
+    get { return rm.GetString("AG500.maxtokens"); }
   }
 
   public static string AG500_tokens_tt
   {
-    get { return rm.GetString("AG500.tokens.tt"); }
+    get { return rm.GetString("AG500.maxtokens.tt"); }
   }
 
   public static string AG500_model

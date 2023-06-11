@@ -1830,10 +1830,10 @@
     <data name="AG500.prompt.tt" xml:space="preserve">
         <value>Prompt for AI</value>
     </data>
-    <data name="AG500.tokens" xml:space="preserve">
+    <data name="AG500.maxtokens" xml:space="preserve">
         <value>Ma_x. tokens</value>
     </data>
-    <data name="AG500.tokens.tt" xml:space="preserve">
+    <data name="AG500.maxtokens.tt" xml:space="preserve">
         <value>Maximum number of tokens for the response</value>
     </data>
     <data name="AG500.model" xml:space="preserve">
