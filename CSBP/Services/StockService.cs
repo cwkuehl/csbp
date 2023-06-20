@@ -385,7 +385,7 @@ public class StockService : ServiceBase, IStockService
       return r;
     if (relative && !string.IsNullOrEmpty(st.Relation_Uid))
       _ = WpWertpapierRep.Get(daten, daten.MandantNr, str.Relation_Uid);
-    r.Ergebnis = GetPriceListIntern(daten, from, to, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, 0);
+    r.Ergebnis = GetPriceListIntern(daten, from, to, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, 0, st.Uid);
     return r;
   }
 
@@ -1124,7 +1124,7 @@ public class StockService : ServiceBase, IStockService
   /// <param name="source">Affected provider for prices.</param>
   /// <param name="shortcut">Affected shortcut for source.</param>
   /// <param name="type">Affected type (bond, fund or stock with id).</param>
-  /// <param name="currency">Affected currency for bond.</param>
+  /// <param name="currency">Affected currency for bond. Y for currency price.</param>
   /// <param name="price">Actual price.</param>
   /// <param name="uid">Affected stock uid.</param>
   /// <param name="dictresponse">Affected preemptively read responses.</param>
@@ -1134,8 +1134,27 @@ public class StockService : ServiceBase, IStockService
     string uid = null, Dictionary<string, StockUrl> dictresponse = null)
   {
     var l = new List<SoKurse>();
-    if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
+    if (string.IsNullOrEmpty(source))
       return l;
+    if (UiFunctions.IgnoreShortcut(shortcut) && !string.IsNullOrEmpty(uid))
+    {
+      var slist = WpStandRep.GetList(daten, daten.MandantNr, from, to, uid);
+      foreach (var s in slist)
+      {
+        l.Add(new SoKurse
+        {
+          Datum = s.Datum,
+          Open = s.Stueckpreis,
+          High = s.Stueckpreis,
+          Low = s.Stueckpreis,
+          Close = s.Stueckpreis,
+          Bewertung = "EUR",
+          Price = 1,
+        });
+      }
+      l = l.OrderBy(a => a.Datum).ToList();
+      return l;
+    }
     if (dictresponse == null)
     {
       dictresponse = new Dictionary<string, StockUrl>();
