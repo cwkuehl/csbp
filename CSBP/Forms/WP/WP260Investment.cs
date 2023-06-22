@@ -234,20 +234,25 @@ public partial class WP260Investment : CsbpBin
   protected void OnOkClicked(object sender, EventArgs e)
   {
     ServiceErgebnis r = null;
+    var daten = ServiceDaten;
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
       || DialogType == DialogTypeEnum.Edit)
     {
-      var rb = FactoryService.StockService.SaveInvestment(ServiceDaten,
+      var rb = FactoryService.StockService.SaveInvestment(daten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(wertpapier), bezeichnung.Text,
         notiz.Buffer.Text, Functions.ToInt32(GetText(status)), GetText(depot), GetText(abrechnung), GetText(ertrag),
         valuta.Value, Functions.ToDecimal(stand.Text, 2) ?? 0);
       r = rb;
+      if (rb.Ok && !string.IsNullOrEmpty(stand.Text) && rb.Ergebnis != null)
+      {
+        Get(FactoryService.StockService.CalculateInvestments(daten, null, rb.Ergebnis.Uid, null, valuta.ValueNn, false, null, new System.Text.StringBuilder(), new System.Text.StringBuilder()));
+      }
       if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
         Lastcopyuid = rb.Ergebnis.Uid;
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeleteInvestment(ServiceDaten, model);
+      r = FactoryService.StockService.DeleteInvestment(daten, model);
     }
     if (r != null)
     {
