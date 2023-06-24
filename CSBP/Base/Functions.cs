@@ -20,7 +20,7 @@ using static CSBP.Resources.Messages;
 /// <summary>
 /// General useful functions.
 /// </summary>
-public static class Functions
+public static partial class Functions
 {
 #pragma warning disable SA1310
 
@@ -46,117 +46,6 @@ public static class Functions
 
   /// <summary>Epoch start at 1970-01-01.</summary>
   private static readonly DateTime EpochStart = new(1970, 1, 1);
-
-  /// <summary>Regular expression for coordinates.</summary>
-  private static readonly Regex RxCoordinates = new(@"^(-?\d+(\.\d+)),\s*(-?\d+(\.\d+))(,\s*(-?\d+(\.\d+))z?)?$", RegexOptions.Compiled);
-
-  /// <summary>
-  /// All Windows-1252 characters.
-  /// </summary>
-  private static readonly Regex RxWindow1252 = new(@"^(
-[\u0000-\u007F]|
-\u20AC| # 80 Euro
-\u201A| # 82
-\u0192| # 83
-\u201E| # 84
-\u2026| # 85
-\u2020| # 86
-\u2021| # 87
-\u02C6| # 88
-\u2030| # 89
-\u0160| # 8A
-\u2039| # 8B
-\u0152| # 8C
-\u017D| # 8E
-\u2018| # 91
-\u2019| # 92
-\u201C| # 93
-\u201D| # 94
-\u2022| # 95
-\u2013| # 96
-\u2014| # 97
-\u02DC| # 98
-\u2122| # 99
-\u0161| # 9A
-\u203A| # 9B
-\u0153| # 9C
-\u017E| # 9E
-\u0178| # 9F
-[\u00A0-\u00FF]|
-)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
-
-  /// <summary>
-  /// All allowed Windows-1252 characters without control characters but with CR, LF and Tab.
-  /// </summary>
-  private static readonly Regex RxWindow1252CrLfTab = new(@"^(
-\u0009| # Tab
-\u000A| # LF
-\u000D| # CR
-[\u0020-\u007F]|
-\u20AC| # 80 Euro
-\u201A| # 82
-\u0192| # 83
-\u201E| # 84
-\u2026| # 85
-\u2020| # 86
-\u2021| # 87
-\u02C6| # 88
-\u2030| # 89
-\u0160| # 8A
-\u2039| # 8B
-\u0152| # 8C
-\u017D| # 8E
-\u2018| # 91
-\u2019| # 92
-\u201C| # 93
-\u201D| # 94
-\u2022| # 95
-\u2013| # 96
-\u2014| # 97
-\u02DC| # 98
-\u2122| # 99
-\u0161| # 9A
-\u203A| # 9B
-\u0153| # 9C
-\u017E| # 9E
-\u0178| # 9F
-[\u00A0-\u00FF]|
-)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
-
-  /// <summary>
-  /// All allowed Windows-1252 characters without control characters.
-  /// </summary>
-  private static readonly Regex RxWindow1252Ohne = new(@"^(
-[\u0020-\u007F]|
-\u20AC| # 80 Euro
-\u201A| # 82
-\u0192| # 83
-\u201E| # 84
-\u2026| # 85
-\u2020| # 86
-\u2021| # 87
-\u02C6| # 88
-\u2030| # 89
-\u0160| # 8A
-\u2039| # 8B
-\u0152| # 8C
-\u017D| # 8E
-\u2018| # 91
-\u2019| # 92
-\u201C| # 93
-\u201D| # 94
-\u2022| # 95
-\u2013| # 96
-\u2014| # 97
-\u02DC| # 98
-\u2122| # 99
-\u0161| # 9A
-\u203A| # 9B
-\u0153| # 9C
-\u017E| # 9E
-\u0178| # 9F
-[\u00A0-\u00FF]|
-)*$", RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
   /// <summary>Instance of random number generator.</summary>
   private static readonly RandomNumberGenerator Csp = RandomNumberGenerator.Create();
@@ -234,7 +123,7 @@ public static class Functions
   /// <param name="s">Affected string.</param>
   public static long ToInt64(string s)
   {
-    if (string.IsNullOrWhiteSpace(s) || !long.TryParse(s, out long l))
+    if (string.IsNullOrWhiteSpace(s) || !long.TryParse(s, out var l))
     {
       return 0;
     }
@@ -413,7 +302,7 @@ public static class Functions
   public static string TabName(string t)
   {
     var arr = t.Split('_');
-    return string.Join(string.Empty, arr.Select(a => ToFirstUpper(a)));
+    return string.Join(string.Empty, arr.Select(a => a.ToFirstUpper()));
   }
 
   /// <summary>
@@ -799,8 +688,8 @@ public static class Functions
     if (minValue >= maxExclusiveValue)
       throw new ArgumentOutOfRangeException(nameof(minValue)); // "minValue must be lower than maxExclusiveValue");
 
-    long diff = (long)maxExclusiveValue - minValue;
-    long upperBound = uint.MaxValue / diff * diff;
+    var diff = (long)maxExclusiveValue - minValue;
+    var upperBound = uint.MaxValue / diff * diff;
 
     uint ui;
     do
@@ -916,9 +805,9 @@ public static class Functions
     var zustand = Z_ANFANG;
     var i = 0;
     char zeichen;
-    char anf = '"';
-    char cr = '\r';
-    char lf = '\n';
+    var anf = '"';
+    var cr = '\r';
+    var lf = '\n';
     var ende = false;
     var feld = new StringBuilder();
     do
@@ -1187,7 +1076,7 @@ public static class Functions
     if (string.IsNullOrEmpty(s))
       return new List<string>();
     if (split)
-      return Regex.Split(s, "\r\n|\r|\n").ToList();
+      return SplitLinesRegex().Split(s).ToList();
     return new List<string> { s };
   }
 
@@ -1223,7 +1112,7 @@ public static class Functions
   {
     if (string.IsNullOrEmpty(s))
       return null;
-    var m = RxCoordinates.Match(s);
+    var m = CoordinatesRegex().Match(s);
     if (m.Success)
     {
       return new Tuple<decimal, decimal, decimal>(ToDecimal(m.Groups[1].Value, -1, true) ?? 0,
@@ -1285,17 +1174,17 @@ public static class Functions
       return true;
     if (all)
     {
-      var m = RxWindow1252.Match(value);
+      var m = Windows1252Regex().Match(value);
       return m.Success;
     }
     if (crlftab)
     {
-      var m = RxWindow1252CrLfTab.Match(value);
+      var m = Windows1252CrLfTabRegex().Match(value);
       return m.Success;
     }
     if (value.Contains('\n'))
       return false; // \n is problematic in Regex.
-    var match = RxWindow1252Ohne.Match(value);
+    var match = Windows1252OhneRegex().Match(value);
     return match.Success;
   }
 
@@ -1317,7 +1206,7 @@ public static class Functions
       return value;
     replace ??= " ";
     var sb = new StringBuilder();
-    foreach (char c in value)
+    foreach (var c in value)
     {
       var s = char.ToString(c);
       //// ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
@@ -1346,7 +1235,7 @@ public static class Functions
   /// <returns>Random bytes.</returns>
   private static byte[] GenerateRandomBytes(int bytesNumber)
   {
-    byte[] buffer = new byte[bytesNumber];
+    var buffer = new byte[bytesNumber];
     Csp.GetBytes(buffer);
     return buffer;
   }
@@ -1363,4 +1252,24 @@ public static class Functions
     }
     return (char)0;
   }
+
+  /// <summary>Regular expression for coordinates.</summary>
+  [GeneratedRegex("^(-?\\d+(\\.\\d+)),\\s*(-?\\d+(\\.\\d+))(,\\s*(-?\\d+(\\.\\d+))z?)?$", RegexOptions.Compiled)]
+  private static partial Regex CoordinatesRegex();
+
+  /// <summary>All Windows-1252 characters.</summary>
+  [GeneratedRegex("^(\n[\\u0000-\\u007F]|\n\\u20AC| # 80 Euro\n\\u201A| # 82\n\\u0192| # 83\n\\u201E| # 84\n\\u2026| # 85\n\\u2020| # 86\n\\u2021| # 87\n\\u02C6| # 88\n\\u2030| # 89\n\\u0160| # 8A\n\\u2039| # 8B\n\\u0152| # 8C\n\\u017D| # 8E\n\\u2018| # 91\n\\u2019| # 92\n\\u201C| # 93\n\\u201D| # 94\n\\u2022| # 95\n\\u2013| # 96\n\\u2014| # 97\n\\u02DC| # 98\n\\u2122| # 99\n\\u0161| # 9A\n\\u203A| # 9B\n\\u0153| # 9C\n\\u017E| # 9E\n\\u0178| # 9F\n[\\u00A0-\\u00FF]|\n)*$", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace)]
+  private static partial Regex Windows1252Regex();
+
+  /// <summary>All allowed Windows-1252 characters without control characters but with CR, LF and Tab.</summary>
+  [GeneratedRegex("^(\n\\u0009| # Tab\n\\u000A| # LF\n\\u000D| # CR\n[\\u0020-\\u007F]|\n\\u20AC| # 80 Euro\n\\u201A| # 82\n\\u0192| # 83\n\\u201E| # 84\n\\u2026| # 85\n\\u2020| # 86\n\\u2021| # 87\n\\u02C6| # 88\n\\u2030| # 89\n\\u0160| # 8A\n\\u2039| # 8B\n\\u0152| # 8C\n\\u017D| # 8E\n\\u2018| # 91\n\\u2019| # 92\n\\u201C| # 93\n\\u201D| # 94\n\\u2022| # 95\n\\u2013| # 96\n\\u2014| # 97\n\\u02DC| # 98\n\\u2122| # 99\n\\u0161| # 9A\n\\u203A| # 9B\n\\u0153| # 9C\n\\u017E| # 9E\n\\u0178| # 9F\n[\\u00A0-\\u00FF]|\n)*$", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace)]
+  private static partial Regex Windows1252CrLfTabRegex();
+
+  /// <summary>All allowed Windows-1252 characters without control characters.</summary>
+  [GeneratedRegex("^(\n[\\u0020-\\u007F]|\n\\u20AC| # 80 Euro\n\\u201A| # 82\n\\u0192| # 83\n\\u201E| # 84\n\\u2026| # 85\n\\u2020| # 86\n\\u2021| # 87\n\\u02C6| # 88\n\\u2030| # 89\n\\u0160| # 8A\n\\u2039| # 8B\n\\u0152| # 8C\n\\u017D| # 8E\n\\u2018| # 91\n\\u2019| # 92\n\\u201C| # 93\n\\u201D| # 94\n\\u2022| # 95\n\\u2013| # 96\n\\u2014| # 97\n\\u02DC| # 98\n\\u2122| # 99\n\\u0161| # 9A\n\\u203A| # 9B\n\\u0153| # 9C\n\\u017E| # 9E\n\\u0178| # 9F\n[\\u00A0-\\u00FF]|\n)*$", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace)]
+  private static partial Regex Windows1252OhneRegex();
+
+  /// <summary>Regex for splitting lines.</summary>
+  [GeneratedRegex("\r\n|\r|\n")]
+  private static partial Regex SplitLinesRegex();
 }

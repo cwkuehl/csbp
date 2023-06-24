@@ -1728,8 +1728,7 @@ public class StockService : ServiceBase, IStockService
         if (k.Close != 0)
           k.Close = Functions.Round4(1 / k.Close) ?? 0; // Invert for multiplication.
         var key1 = $"{k.Datum} {shortcut}";
-        if (Wkurse.ContainsKey(key1))
-          Wkurse.Remove(key1);
+        Wkurse.Remove(key1);
         Wkurse.Add(key1, k);
       }
       Wkurse.TryGetValue(key, out wert);

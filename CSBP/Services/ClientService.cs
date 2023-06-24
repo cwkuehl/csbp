@@ -11,7 +11,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -20,7 +19,6 @@ using CSBP.Apis.Models;
 using CSBP.Apis.Models.Extension;
 using CSBP.Apis.Services;
 using CSBP.Base;
-using CSBP.Resources;
 using CSBP.Services.Base;
 using CSBP.Services.Client;
 using CSBP.Services.NonService;
@@ -33,11 +31,8 @@ using static CSBP.Resources.Messages;
 /// <summary>
 /// Implementation of client service.
 /// </summary>
-public class ClientService : ServiceBase, IClientService
+public partial class ClientService : ServiceBase, IClientService
 {
-  /// <summary>Regular expression for parsing parameter with number of days.</summary>
-  private static readonly Regex Pread = new("^([a-z]+)(_([0-9]+)d?)?$", RegexOptions.Compiled);
-
   /// <summary>Sets budget service.</summary>
   public IBudgetService BudgetService { private get; set; }
 
@@ -347,7 +342,7 @@ public class ClientService : ServiceBase, IClientService
     if (nr <= 0)
     {
       var last = MaMandantRep.GetList(daten).LastOrDefault();
-      nr = last == null ? 1 : (last.Nr + 1);
+      nr = last == null ? 1 : last.Nr + 1;
       if (BenutzerRep.Get(daten, nr, Constants.USER_ID) == null)
       {
         var b = new Benutzer
@@ -638,20 +633,20 @@ public class ClientService : ServiceBase, IClientService
   {
     var r = new ServiceErgebnis<BackupEntry>();
     if (string.IsNullOrEmpty(target))
-      r.Errors.Add(Message.New(Messages.M2023));
+      r.Errors.Add(Message.New(M2023));
     else if (Directory.Exists(target))
       target = Path.GetFullPath(target + Path.DirectorySeparatorChar);
     else
-      r.Errors.Add(Message.New(M.M1038(target)));
+      r.Errors.Add(Message.New(M1038(target)));
     if (sources == null || sources.Length <= 0 || string.IsNullOrEmpty(sources[0]))
-      r.Errors.Add(Message.New(Messages.M2024));
+      r.Errors.Add(Message.New(M2024));
     else
     {
       for (var i = 0; i < sources.Length; i++)
         if (Directory.Exists(sources[i]))
           sources[i] = Path.GetFullPath(sources[i] + Path.DirectorySeparatorChar);
         else
-          r.Errors.Add(Message.New(M.M1038(sources[i])));
+          r.Errors.Add(Message.New(M1038(sources[i])));
     }
     if (!r.Ok)
       return r;
@@ -825,7 +820,7 @@ public class ClientService : ServiceBase, IClientService
   public ServiceErgebnis<string> ReplicateTable(ServiceDaten daten, string table, string mode, string json)
   {
     var r = new ServiceErgebnis<string>();
-    var m = Pread.Match(mode);
+    var m = PreadRegex().Match(mode);
     var days = Math.Max(1, m.Success ? Functions.ToInt32(m.Groups[3].Value) : 1);
     var ja = new List<Dictionary<string, string>>();
     if (string.IsNullOrEmpty(mode))
@@ -1466,7 +1461,7 @@ Lokal: {e.Eintrag}";
     var data = new byte[32];
     using (var rng = RandomNumberGenerator.Create())
     {
-      for (int i = 0; i < 10; i++)
+      for (var i = 0; i < 10; i++)
       {
         // Fill the buffer with the generated data
         rng.GetBytes(data);
@@ -1492,7 +1487,7 @@ Lokal: {e.Eintrag}";
     var fsCrypt = new FileStream(outputFile, FileMode.Create);
 
     // convert password string to byte arrray
-    var passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+    var passwordBytes = Encoding.UTF8.GetBytes(password);
 
     // Set Rijndael symmetric encryption algorithm
     var aes = Aes.Create();
@@ -1502,7 +1497,7 @@ Lokal: {e.Eintrag}";
 
     // http://stackoverflow.com/questions/2659214/why-do-i-need-to-use-the-rfc2898derivebytes-class-in-net-instead-of-directly
     // "What it does is repeatedly hash the user password along with the salt." High iteration counts.
-    var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000);
+    var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000, HashAlgorithmName.SHA1);
     aes.Key = key.GetBytes(aes.KeySize / 8);
     aes.IV = key.GetBytes(aes.BlockSize / 8);
 
@@ -1544,7 +1539,7 @@ Lokal: {e.Eintrag}";
   /// <param name="password">Affected password.</param>
   private static void FileDecrypt(string inputFile, string outputFile, string password)
   {
-    var passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+    var passwordBytes = Encoding.UTF8.GetBytes(password);
     var salt = new byte[32];
     var fsCrypt = new FileStream(inputFile, FileMode.Open);
     fsCrypt.Read(salt, 0, salt.Length);
@@ -1552,7 +1547,7 @@ Lokal: {e.Eintrag}";
     var aes = Aes.Create();
     aes.KeySize = 256;
     aes.BlockSize = 128;
-    var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000);
+    var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000, HashAlgorithmName.SHA1);
     aes.Key = key.GetBytes(aes.KeySize / 8);
     aes.IV = key.GetBytes(aes.BlockSize / 8);
     aes.Padding = PaddingMode.PKCS7;
@@ -1680,7 +1675,7 @@ Lokal: {e.Eintrag}";
         : Path.GetFullPath(Path.Combine(target, tname) + Path.DirectorySeparatorChar);
     if (zipped)
     {
-      var paes = encrypted ? (p + ".aes") : p;
+      var paes = encrypted ? p + ".aes" : p;
       if (restore)
       {
         if (!File.Exists(paes))
@@ -1836,4 +1831,8 @@ Lokal: {e.Eintrag}";
       FillFileListRecursiv(f, source, files, folders);
     }
   }
+
+  /// <summary>Regular expression for parsing parameter with number of days.</summary>
+  [GeneratedRegex("^([a-z]+)(_([0-9]+)d?)?$", RegexOptions.Compiled)]
+  private static partial Regex PreadRegex();
 }
