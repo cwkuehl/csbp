@@ -39,11 +39,12 @@ public class Tests
   {
     Debug.Print("CSBP.UnitTest gestartet." + (args?[0] ?? ""));
     var t = new Tests();
+    t.Setup();
     if (Functions.MachNichts() != 0)
       t.MachNichts();
     if (Functions.MachNichts() != 0)
       t.GenerateForm();
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
       t.GenerateResxDesigner();
     if (Functions.MachNichts() != 0)
       t.GenerierenReps();
@@ -57,6 +58,12 @@ public class Tests
       t.RapidapiMeteostatWeather();
     if (Functions.MachNichts() != 0)
       t.OpenAiChatGpt();
+    if (Functions.MachNichts() == 0)
+    {
+      var t1 = new AntlrTest();
+      t1.Setup();
+      t1.TestParser();
+    }
   }
 
   /// <summary>

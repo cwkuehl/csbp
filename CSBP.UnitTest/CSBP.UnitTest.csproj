@@ -18,13 +18,21 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference-->
     <!--PackageReference Include="xunit.runner.console" Version="2.4.1" /-->
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.9.2" />
+    <!-- Wegen ANTLR4 plugin geht nicht die neuere Version: PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.0" /-->
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0"/>
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <!--PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" /-->
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" Condition=" '$(Configuration)' == 'Debug' "/>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" Condition=" '$(Configuration)' == 'Debug' " />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.CLSCompliantAttribute">
+      <_Parameter1>false</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>

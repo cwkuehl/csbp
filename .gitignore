@@ -448,3 +448,7 @@ Install/*.zip
 Install/csbp/*
 
 CSBP.Generator/*
+
+# ANTLR4 Files
+*.interp
+*.tokens
