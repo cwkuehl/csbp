@@ -1218,6 +1218,14 @@ public static partial class Functions
     return sb.ToString();
   }
 
+  /// <summary>Regex for splitting lines.</summary>
+  [GeneratedRegex("\r\n|\r|\n")]
+  public static partial Regex SplitLinesRegex();
+
+  /// <summary>Regex for file uri.</summary>
+  [GeneratedRegex("^(file:\\/*)(.+?)$")]
+  public static partial Regex FileRegex();
+
   /// <summary>
   /// Gets a random integer.
   /// </summary>
@@ -1268,8 +1276,4 @@ public static partial class Functions
   /// <summary>All allowed Windows-1252 characters without control characters.</summary>
   [GeneratedRegex("^(\n[\\u0020-\\u007F]|\n\\u20AC| # 80 Euro\n\\u201A| # 82\n\\u0192| # 83\n\\u201E| # 84\n\\u2026| # 85\n\\u2020| # 86\n\\u2021| # 87\n\\u02C6| # 88\n\\u2030| # 89\n\\u0160| # 8A\n\\u2039| # 8B\n\\u0152| # 8C\n\\u017D| # 8E\n\\u2018| # 91\n\\u2019| # 92\n\\u201C| # 93\n\\u201D| # 94\n\\u2022| # 95\n\\u2013| # 96\n\\u2014| # 97\n\\u02DC| # 98\n\\u2122| # 99\n\\u0161| # 9A\n\\u203A| # 9B\n\\u0153| # 9C\n\\u017E| # 9E\n\\u0178| # 9F\n[\\u00A0-\\u00FF]|\n)*$", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace)]
   private static partial Regex Windows1252OhneRegex();
-
-  /// <summary>Regex for splitting lines.</summary>
-  [GeneratedRegex("\r\n|\r|\n")]
-  private static partial Regex SplitLinesRegex();
 }

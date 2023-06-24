@@ -12,9 +12,6 @@ using CSBP.Apis.Models;
 /// <summary>Create a html ancestor report.</summary>
 public partial class AncestorReport : ReportBase
 {
-  /// <summary>Parser for ancestor formatting.</summary>
-  private static readonly Regex Parser = new("^( *)([0-9\\+]+ )<b>(.*)</b> (.*)$", RegexOptions.Compiled);
-
   /// <summary>Initializes a new instance of the <see cref="AncestorReport"/> class.</summary>
   public AncestorReport()
   {
@@ -56,6 +53,10 @@ public partial class AncestorReport : ReportBase
     WriteList(SubtitleForebears, Forebears);
   }
 
+  /// <summary>Parser for ancestor formatting.</summary>
+  [GeneratedRegex("^( *)([0-9\\+]+ )<b>(.*)</b> (.*)$", RegexOptions.Compiled)]
+  private static partial Regex AncestorRegex();
+
   /// <summary>
   /// Write a list of ancestors.
   /// </summary>
@@ -79,7 +80,7 @@ public partial class AncestorReport : ReportBase
       var normal1 = p.Bemerkung;
       var bold = "";
       var normal2 = "";
-      var m = Parser.Match(p.Bemerkung);
+      var m = AncestorRegex().Match(p.Bemerkung);
       if (m.Success)
       {
         ind = m.Groups[1].Length + 1;

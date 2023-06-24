@@ -17,23 +17,8 @@ using Gtk;
 /// <summary>
 /// Data and parser for a formula.
 /// </summary>
-public class Formula
+public partial class Formula
 {
-  /// <summary>Regex for formula sum.</summary>
-  private static readonly Regex RxSum = new(@"^=(sum|summe)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-  /// <summary>Regex for formula count.</summary>
-  private static readonly Regex RxCount = new(@"^=(count|anzahl)\(([a-z]+)(\d+):([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-  /// <summary>Regex for formula count.</summary>
-  private static readonly Regex RxDays = new(@"^=(days|tage)\(([a-z]+)(\d+);([a-z]+)(\d+)\)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-  /// <summary>Regex for formula today.</summary>
-  private static readonly Regex RxToday = new(@"^=(today|heute)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-  /// <summary>Regex for formula now.</summary>
-  private static readonly Regex RxNow = new(@"^=(now|jetzt)(\(\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
   /// <summary>Internal value as string.</summary>
   private string intvalue;
 
@@ -55,15 +40,15 @@ public class Formula
   private Formula(string formula, int c, int r, string function, bool bold, int c1 = -1, int r1 = -1, int c2 = -1, int r2 = -1)
   {
     // this.formula = formula;
-    this.Column = c;
-    this.Row = r;
-    this.Function = function;
-    this.Bold = bold;
-    this.Column1 = c1;
-    this.Row1 = r1;
-    this.Column2 = c2;
-    this.Row2 = r2;
-    this.Formula1 = ToString();
+    Column = c;
+    Row = r;
+    Function = function;
+    Bold = bold;
+    Column1 = c1;
+    Row1 = r1;
+    Column2 = c2;
+    Row2 = r2;
+    Formula1 = ToString();
     Debug.Print($"Formula {formula} {c} {r} {function} {bold}");
   }
 
@@ -130,27 +115,27 @@ public class Formula
       bold = true;
       formula = Functions.MakeBold(formula, true);
     }
-    var m = RxSum.Match(formula);
+    var m = SumRegex().Match(formula);
     if (m.Success)
     {
       return new Formula(formula, c, r, "sum", bold, GetColumnIndex(m.Groups[2].Value), Functions.ToInt32(m.Groups[3].Value) - 1, GetColumnIndex(m.Groups[4].Value), Functions.ToInt32(m.Groups[5].Value) - 1);
     }
-    m = RxCount.Match(formula);
+    m = CountRegex().Match(formula);
     if (m.Success)
     {
       return new Formula(formula, c, r, "count", bold, GetColumnIndex(m.Groups[2].Value), Functions.ToInt32(m.Groups[3].Value) - 1, GetColumnIndex(m.Groups[4].Value), Functions.ToInt32(m.Groups[5].Value) - 1);
     }
-    m = RxDays.Match(formula);
+    m = DaysRegex().Match(formula);
     if (m.Success)
     {
       return new Formula(formula, c, r, "days", bold, GetColumnIndex(m.Groups[2].Value), Functions.ToInt32(m.Groups[3].Value) - 1, GetColumnIndex(m.Groups[4].Value), Functions.ToInt32(m.Groups[5].Value) - 1);
     }
-    m = RxNow.Match(formula);
+    m = NowRegex().Match(formula);
     if (m.Success)
     {
       return new Formula(formula, c, r, "now", bold);
     }
-    m = RxToday.Match(formula);
+    m = TodayRegex().Match(formula);
     if (m.Success)
     {
       return new Formula(formula, c, r, "today", bold);
@@ -186,9 +171,9 @@ public class Formula
     if (string.IsNullOrWhiteSpace(name))
       return -1;
     var str = name.ToUpper();
-    int column = 0;
-    int p = 1;
-    for (int i = str.Length - 1; i >= 0; i--)
+    var column = 0;
+    var p = 1;
+    for (var i = str.Length - 1; i >= 0; i--)
     {
       column += (((str[i] - 'A') % 26) + 1) * p;
       p *= 26;
@@ -217,6 +202,26 @@ public class Formula
     sb.Append(')');
     return sb.ToString();
   }
+
+  /// <summary>Regex for formula sum.</summary>
+  [GeneratedRegex("^=(sum|summe)\\(([a-z]+)(\\d+):([a-z]+)(\\d+)\\)$", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex SumRegex();
+
+  /// <summary>Regex for formula count.</summary>
+  [GeneratedRegex("^=(count|anzahl)\\(([a-z]+)(\\d+):([a-z]+)(\\d+)\\)$", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex CountRegex();
+
+  /// <summary>Regex for formula count.</summary>
+  [GeneratedRegex("^=(days|tage)\\(([a-z]+)(\\d+);([a-z]+)(\\d+)\\)$", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex DaysRegex();
+
+  /// <summary>Regex for formula today.</summary>
+  [GeneratedRegex("^=(today|heute)(\\(\\))?$", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex TodayRegex();
+
+  /// <summary>Regex for formula now.</summary>
+  [GeneratedRegex("^=(now|jetzt)(\\(\\))?$", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex NowRegex();
 }
 
 /// <summary>

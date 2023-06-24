@@ -26,16 +26,10 @@ using CSBP.Services.Factory;
 /// <summary>
 /// Simple https server.
 /// </summary>
-public class HttpsServer
+public partial class HttpsServer
 {
   /// <summary>Lock object.</summary>
   private static readonly object Locking = new();
-
-  /// <summary>Regex for content length.</summary>
-  private static readonly Regex RxContentLength = new(@"\r\nContent-Length: *(\d+)\r\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-  /// <summary>Regex for origin.</summary>
-  private static readonly Regex RxOrigin = new(@"\r\nOrigin: *([^\r]+)\r\n", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
   /// <summary>Internal tcp listener.</summary>
   private static TcpListener listener;
@@ -338,11 +332,11 @@ Cache-control: no-cache
         if (headerlength >= 0)
         {
           r.Header = messageData.ToString(0, headerlength);
-          var m = RxOrigin.Match(r.Header);
+          var m = OriginRegex().Match(r.Header);
           r.Origin = m.Success ? m.Groups[1].Value : null;
-          m = RxContentLength.Match(r.Header);
+          m = ContentLengthRegex().Match(r.Header);
           r.ContentLenth = m.Success ? Functions.ToInt32(m.Groups[1].Value) : 0;
-          msheaderlength = ms.GetBuffer().IndexOf(new byte[] { 13, 10, 13, 10 });
+          msheaderlength = ms.GetBuffer().IndexOf("\r\n\r\n"u8.ToArray());
           if (msheaderlength >= 0)
             msheaderlength += 4;
           headerlength += 4;
@@ -357,4 +351,12 @@ Cache-control: no-cache
     while (bytes != 0);
     return r;
   }
+
+  /// <summary>Regex for content length.</summary>
+  [GeneratedRegex("\\r\\nContent-Length: *(\\d+)\\r\\n", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex ContentLengthRegex();
+
+  /// <summary>Regex for origin.</summary>
+  [GeneratedRegex("\\r\\nOrigin: *([^\\r]+)\\r\\n", RegexOptions.IgnoreCase | RegexOptions.Compiled, "de-DE")]
+  private static partial Regex OriginRegex();
 }

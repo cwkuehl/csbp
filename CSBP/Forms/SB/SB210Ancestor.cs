@@ -341,10 +341,10 @@ public partial class SB210Ancestor : CsbpBin
   {
     if (e.SelectionData.Text != null)
     {
-      var arr = Regex.Split(e.SelectionData.Text, "\r\n|\r|\n");
+      var arr = Functions.SplitLinesRegex().Split(e.SelectionData.Text);
       foreach (var file in arr)
       {
-        var m = Regex.Match(file, @"^(file:\/*)(.+?)$"); // Windows bzw. Linux
+        var m = Functions.FileRegex().Match(file);
         if (m.Success)
         {
           var f = m.Groups[2].Value;
