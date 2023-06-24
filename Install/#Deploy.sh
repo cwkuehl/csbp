@@ -27,10 +27,10 @@ cd ../Install
 # Browser cannot show html file in opt folder
 cp -a ../Asciidoc/Csbp-Hilfe.html /opt/Haushalt/CSBP
 
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r ubuntu-x64 --self-contained true
-build "net6.0/ubuntu-x64" "csbp-net6-ubuntu-x64-runtime.zip"
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net6.0 -r win-x64 --self-contained true
-build "net6.0/win-x64" "csbp-net6-win-x64-runtime.zip"
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r ubuntu-x64 --self-contained true
+build "net7.0/ubuntu-x64" "csbp-net6-ubuntu-x64-runtime.zip"
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r win-x64 --self-contained true
+build "net7.0/win-x64" "csbp-net6-win-x64-runtime.zip"
 
 cp -a linux/#InstallUpdateCsbp.sh ./InstallUpdateCsbp.sh_.txt
 cp -a windows/#InstallUpdateCsbp.cmd ./InstallUpdateCsbp.cmd_.txt

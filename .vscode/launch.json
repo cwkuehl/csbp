@@ -5,11 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": ".NET 5 Launch Linux",
+      "name": ".NET 7 Launch Linux",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP/bin/Debug/net5.0/CSBP.dll",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net7.0/CSBP.dll",
       "args": [
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/csbp/csbp.db",
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
@@ -20,11 +20,11 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET 5 Test Linux",
+      "name": ".NET 7 UnitTest Linux",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net5.0/CSBP.UnitTest.dll",
+      "preLaunchTask": "build.unittest",
+      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net7.0/CSBP.UnitTest.dll",
       "args": [
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
       ],
