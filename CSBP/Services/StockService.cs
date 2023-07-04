@@ -477,12 +477,17 @@ public class StockService : ServiceBase, IStockService
     inv.SettlementAccountUid = smuid;
     inv.IncomeAccountUid = icuid;
     r.Ergebnis = WpAnlageRep.Save(daten, daten.MandantNr, uid, stuid, desc, inv.Parameter, memo);
-    if (valuta.HasValue && value > 0 && inv.Shares > 0)
+    if (valuta.HasValue && value > 0)
     {
       SaveChanges(daten);
       var i = r.Ergebnis;
-      var sv = Functions.Round4(value / i.Shares) ?? 0;
-      WpStandRep.Save(daten, daten.MandantNr, i.Wertpapier_Uid, valuta.Value, sv);
+      var ilist = WpBuchungRep.GetList(daten, daten.MandantNr, null, null, null, i.Uid, null, valuta.Value);
+      var shares = ilist.Sum(a => a.Anteile);
+      if (shares > 0)
+      {
+        var sv = Functions.Round4(value / shares) ?? 0;
+        WpStandRep.Save(daten, daten.MandantNr, i.Wertpapier_Uid, valuta.Value, sv);
+      }
     }
     return r;
   }
