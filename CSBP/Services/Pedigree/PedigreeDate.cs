@@ -8,13 +8,11 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using CSBP.Base;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
 
 /// <summary>
 /// Date class for genealogy.
 /// </summary>
-public class PedigreeDate
+public partial class PedigreeDate
 {
   /// <summary>Divider between short and long year.</summary>
   private const int YearShort = 10000;
@@ -77,27 +75,27 @@ public class PedigreeDate
     Init();
     if (datum != null)
     {
-      // alles außer Ziffern und Punkten am Ende entfernen
-      var m = Regex.Match(datum, "(.+?)[^\\d\\.]*$");
+      // Removing all but digit and dota at the end.
+      var m = ParseDate1Regex().Match(datum);
       if (m.Success)
       {
         datum = m.Groups[1].Value;
-        m = Regex.Match(datum, "(.*?)([\\d]+)$");
+        m = ParseDate2Regex().Match(datum);
         if (m.Success)
         {
-          // letzte Zahl ist Jahr
+          // Last number is year.
           datum = m.Groups[1].Value;
           Jahr = Functions.ToInt32(m.Groups[2].Value);
-          m = Regex.Match(datum, "(.*?)([\\d]+)\\.$");
+          m = ParseDate3Regex().Match(datum);
           if (m.Success)
           {
-            // letzte Zahl mit Punkt ist Monat
+            // Last number with dot is month.
             datum = m.Groups[1].Value;
             Monat = Functions.ToInt32(m.Groups[2].Value);
-            m = Regex.Match(datum, "(.*?)([\\d]+)\\.$");
+            m = ParseDate4Regex().Match(datum);
             if (m.Success)
             {
-              // letzte Zahl mit Punkt ist Tag
+              // Last number with dot is day.
               datum = m.Groups[1].Value;
               Tag = Functions.ToInt32(m.Groups[2].Value);
             }
@@ -139,4 +137,20 @@ public class PedigreeDate
     }
     return datum.ToString();
   }
+
+  /// <summary>Regex for parsing date 1.</summary>
+  [GeneratedRegex("(.+?)[^\\d\\.]*$")]
+  private static partial Regex ParseDate1Regex();
+
+  /// <summary>Regex for parsing date 2.</summary>
+  [GeneratedRegex("(.*?)([\\d]+)$")]
+  private static partial Regex ParseDate2Regex();
+
+  /// <summary>Regex for parsing date 3.</summary>
+  [GeneratedRegex("(.*?)([\\d]+)\\.$")]
+  private static partial Regex ParseDate3Regex();
+
+  /// <summary>Regex for parsing date 24.</summary>
+  [GeneratedRegex("(.*?)([\\d]+)\\.$")]
+  private static partial Regex ParseDate4Regex();
 }
