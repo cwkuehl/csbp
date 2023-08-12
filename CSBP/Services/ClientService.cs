@@ -837,7 +837,7 @@ public partial class ClientService : ServiceBase, IClientService
         var e = new TbEintrag
         {
           Mandant_Nr = daten.MandantNr,
-          Datum = GetDateTime(a, "datum") ?? DateTime.MinValue, // 2020-03-27
+          Datum = GetDateTime(a, "datum", false) ?? DateTime.MinValue, // 2020-03-27
           Eintrag = GetString(a, "eintrag"),
           Angelegt_Am = GetDateTime(a, "angelegtAm"), // 2020-03-27T16:39:20Z
           Angelegt_Von = GetString(a, "angelegtVon"),
@@ -932,8 +932,8 @@ Lokal: {e.Eintrag}";
         {
           Mandant_Nr = daten.MandantNr,
           Uid = GetString(a, "uid"),
-          Soll_Valuta = GetDateTime(a, "sollValuta") ?? today,
-          Haben_Valuta = GetDateTime(a, "habenValuta") ?? today,
+          Soll_Valuta = GetDateTime(a, "sollValuta", false) ?? today,
+          Haben_Valuta = GetDateTime(a, "habenValuta", false) ?? today,
           Kz = GetString(a, "kz"),
           Betrag = GetDecimal(a, "betrag") ?? 0,
           EBetrag = GetDecimal(a, "ebetrag") ?? 0,
@@ -941,7 +941,7 @@ Lokal: {e.Eintrag}";
           Haben_Konto_Uid = GetString(a, "habenKontoUid"),
           BText = GetString(a, "btext"),
           Beleg_Nr = GetString(a, "belegNr"),
-          Beleg_Datum = GetDateTime(a, "belegDatum") ?? today,
+          Beleg_Datum = GetDateTime(a, "belegDatum", false) ?? today,
           Angelegt_Am = GetDateTime(a, "angelegtAm"), // 2020-03-27T16:39:20Z
           Angelegt_Von = GetString(a, "angelegtVon"),
           Geaendert_Am = GetDateTime(a, "geaendertAm"),
@@ -1078,7 +1078,7 @@ Lokal: {e.Eintrag}";
         {
           Mandant_Nr = daten.MandantNr,
           Fahrrad_Uid = GetString(a, "fahrradUid"),
-          Datum = GetDateTime(a, "datum") ?? today, // 2020-03-27
+          Datum = GetDateTime(a, "datum", false) ?? today, // 2020-03-27
           Nr = (int)(GetDecimal(a, "nr") ?? 0),
           Zaehler_km = GetDecimal(a, "zaehlerKm") ?? 0,
           Periode_km = GetDecimal(a, "periodeKm") ?? 0,

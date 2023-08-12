@@ -468,10 +468,14 @@ public class ServiceBase
   /// </summary>
   /// <param name="a">Affected json element.</param>
   /// <param name="prop">Affected property name.</param>
+  /// <param name="tolocal">Change to local time.</param>
   /// <returns>Value of json property.</returns>
-  protected static DateTime? GetDateTime(JsonElement a, string prop)
+  protected static DateTime? GetDateTime(JsonElement a, string prop, bool tolocal = true)
   {
-    return Functions.ToDateTimeLocal(a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetDateTime() : (DateTime?)null);
+    var d = a.TryGetProperty(prop, out var p) && p.ValueKind == JsonValueKind.String ? p.GetDateTime() : (DateTime?)null;
+    if (tolocal)
+      return Functions.ToDateTimeLocal(d);
+    return d;
   }
 
   /// <summary>
