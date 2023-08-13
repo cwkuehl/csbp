@@ -373,6 +373,7 @@ public partial class AD110Person : CsbpBin
       // If the number is changing, the new number will be used once more.
       diff = 1;
     }
+    SetText(adressNr, ad?.Uid);
     SetText(strasse, ad?.Strasse);
     SetText(hausnr, ad?.HausNr);
     SetText(staat, ad?.Staat);
