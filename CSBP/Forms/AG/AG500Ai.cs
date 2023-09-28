@@ -102,9 +102,9 @@ public partial class AG500Ai : CsbpBin
       EventsActive = false;
       SetText(search, "%%");
       InitLists();
-      SetText(systemprompt, Functions.IsDe
-        ? "Du bist einer der besten Programmierer. Du gibst präzise und korrekte Antworten. Du entwickelst Konzepte Schritt für Schritt."
-        : "You are a first class programmer. Let's think step by step.");
+      var spde = "Du bist einer der besten Programmierer. Du gibst präzise und korrekte Antworten. Du entwickelst Konzepte Schritt für Schritt.";
+      var sp = "You are a first class programmer. Let's think step by step.";
+      SetText(systemprompt, Functions.IsDe ? spde : sp);
       SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
       SetText(maxtokens, "100");
       SetText(model, AiData.Gpt35);
