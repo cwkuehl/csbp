@@ -37,6 +37,9 @@ public class AiData
   /// <summary>Gets or sets the number of completions, default 1.</summary>
   public int N { get; set; } = 1;
 
+  /// <summary>Gets or sets the input system prompt string for AI.</summary>
+  public string SystemPrompt { get; set; }
+
   /// <summary>Gets or sets the input prompt string for AI.</summary>
   public string Prompt { get; set; }
 

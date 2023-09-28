@@ -24,6 +24,14 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Label systemprompt0.</summary>
+  [Builder.Object]
+  private readonly Label systemprompt0;
+
+  /// <summary>TextView systemprompt.</summary>
+  [Builder.Object]
+  private readonly TextView systemprompt;
+
   /// <summary>Label prompt0.</summary>
   [Builder.Object]
   private readonly Label prompt0;
@@ -70,6 +78,7 @@ public partial class AG500Ai : CsbpBin
       : base(b, h, d, type ?? typeof(AG500Ai), dt, p1, p)
   {
     ObservableEventThrottle(refreshAction, (sender, e) => { RefreshTreeView(dialogs, 1); });
+    SetBold(systemprompt0);
     SetBold(prompt0);
     InitData(0);
     prompt.GrabFocus();
@@ -93,6 +102,9 @@ public partial class AG500Ai : CsbpBin
       EventsActive = false;
       SetText(search, "%%");
       InitLists();
+      SetText(systemprompt, Functions.IsDe
+        ? "Du bist einer der besten Programmierer. Du gibst präzise und korrekte Antworten. Du entwickelst Konzepte Schritt für Schritt."
+        : "You are a first class programmer. Let's think step by step.");
       SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
       SetText(maxtokens, "100");
       SetText(model, AiData.Gpt35);
@@ -199,7 +211,7 @@ public partial class AG500Ai : CsbpBin
   protected void OnExecuteClicked(object sender, EventArgs e)
   {
     var maxt = Functions.ToInt32(maxtokens.Text);
-    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, prompt.Buffer.Text, null, maxt);
+    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, systemprompt.Buffer.Text, prompt.Buffer.Text, null, maxt);
     Get(r);
     var data = r.Ergebnis;
     if (r.Ok && data != null)
@@ -236,6 +248,7 @@ public partial class AG500Ai : CsbpBin
       return;
     if (!responly)
     {
+      SetText(systemprompt, data.SystemPrompt);
       SetText(prompt, data.Prompt);
       SetText(maxtokens, Functions.ToString(data.MaxTokens));
       SetText(model, data.Model);

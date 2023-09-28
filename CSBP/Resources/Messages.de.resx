@@ -1836,6 +1836,12 @@
     <data name="AG500.search.tt" xml:space="preserve">
         <value>Zu suchender Text</value>
     </data>
+    <data name="AG500.systemprompt" xml:space="preserve">
+        <value>_System-Eingabe</value>
+    </data>
+    <data name="AG500.systemprompt.tt" xml:space="preserve">
+        <value>Eingabe der System-Rolle für KI</value>
+    </data>
     <data name="AG500.prompt" xml:space="preserve">
         <value>_Eingabe</value>
     </data>

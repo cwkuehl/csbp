@@ -23,7 +23,7 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-undo</property>
   </object>
-  <!-- n-columns=4 n-rows=8 -->
+  <!-- n-columns=4 n-rows=10 -->
   <object class="GtkGrid" id="AG500Ai">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -116,7 +116,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="after10">
+      <object class="GtkLabel" id="response0">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
@@ -127,20 +127,6 @@
       </object>
       <packing>
         <property name="left-attach">3</property>
-        <property name="top-attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="prompt0">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">center</property>
-        <property name="label">AG500.prompt</property>
-        <property name="use-underline">True</property>
-      </object>
-      <packing>
-        <property name="left-attach">2</property>
         <property name="top-attach">1</property>
       </packing>
     </child>
@@ -170,18 +156,18 @@
       </object>
       <packing>
         <property name="left-attach">2</property>
-        <property name="top-attach">7</property>
+        <property name="top-attach">9</property>
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="promptsw">
+      <object class="GtkScrolledWindow" id="systempromptsw">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">AG500.prompt.tt</property>
+        <property name="tooltip-text">AG500.systemprompt.tt</property>
         <property name="vexpand">True</property>
         <property name="shadow-type">in</property>
         <child>
-          <object class="GtkTextView" id="prompt">
+          <object class="GtkTextView" id="systemprompt">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="hexpand">True</property>
@@ -207,7 +193,7 @@
       </object>
       <packing>
         <property name="left-attach">2</property>
-        <property name="top-attach">3</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
@@ -222,7 +208,7 @@
       </object>
       <packing>
         <property name="left-attach">2</property>
-        <property name="top-attach">4</property>
+        <property name="top-attach">6</property>
       </packing>
     </child>
     <child>
@@ -246,7 +232,7 @@
       <packing>
         <property name="left-attach">3</property>
         <property name="top-attach">2</property>
-        <property name="height">5</property>
+        <property name="height">7</property>
       </packing>
     </child>
     <child>
@@ -260,7 +246,7 @@
       </object>
       <packing>
         <property name="left-attach">2</property>
-        <property name="top-attach">5</property>
+        <property name="top-attach">7</property>
       </packing>
     </child>
     <child>
@@ -279,7 +265,7 @@
       </object>
       <packing>
         <property name="left-attach">2</property>
-        <property name="top-attach">6</property>
+        <property name="top-attach">8</property>
       </packing>
     </child>
     <child>
@@ -305,7 +291,7 @@
         <property name="left-attach">0</property>
         <property name="top-attach">2</property>
         <property name="width">2</property>
-        <property name="height">5</property>
+        <property name="height">7</property>
       </packing>
     </child>
     <child>
@@ -319,7 +305,7 @@
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">7</property>
+        <property name="top-attach">9</property>
       </packing>
     </child>
     <child>
@@ -335,7 +321,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">7</property>
+        <property name="top-attach">9</property>
       </packing>
     </child>
     <child>
@@ -350,7 +336,58 @@
       </object>
       <packing>
         <property name="left-attach">3</property>
-        <property name="top-attach">7</property>
+        <property name="top-attach">9</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="systemprompt0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AG500.systemprompt</property>
+        <property name="use-underline">True</property>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="prompt0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">AG500.prompt</property>
+        <property name="use-underline">True</property>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="promptsw">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">AG500.prompt.tt</property>
+        <property name="vexpand">True</property>
+        <property name="shadow-type">in</property>
+        <child>
+          <object class="GtkTextView" id="prompt">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="hscroll-policy">natural</property>
+            <property name="wrap-mode">word</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
   </object>

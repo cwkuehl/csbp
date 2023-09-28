@@ -1204,12 +1204,13 @@ Lokal: {e.Eintrag}";
   /// Gets response from ChatGPT.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="systemprompt">Affected input system prompt string.</param>
   /// <param name="prompt">Affected input prompt string.</param>
   /// <param name="model">Affected AI model.</param>
   /// <param name="maxtokens">Affected maximal number of tokens.</param>
   /// <param name="temperature">Affected temperature between 0 and 1.</param>
   /// <returns>AI data with response from ChatGPT.</returns>
-  public ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M)
+  public ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string systemprompt, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M)
   {
     var r = new ServiceErgebnis<AiData>();
     if (string.IsNullOrEmpty(prompt))
@@ -1223,6 +1224,7 @@ Lokal: {e.Eintrag}";
       Model = model,
       MaxTokens = maxtokens,
       Temperature = temperature,
+      SystemPrompt = systemprompt,
       Prompt = prompt,
     };
     var d = OpenAiChatGpt(daten, aidata, "OPENAI");
@@ -1294,6 +1296,7 @@ Lokal: {e.Eintrag}";
         model = data.Model,
         messages = new List<Dictionary<string, string>>
        {
+         new Dictionary<string, string> { { "role", "system" }, { "content", data.SystemPrompt }, },
          new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt }, },
        },
         temperature = data.Temperature,
@@ -1320,7 +1323,7 @@ Lokal: {e.Eintrag}";
       Antwort = s,
       Data = data,
     };
-    System.Diagnostics.Debug.Print($"Question to {data.Model}: {data.Prompt}");
+    System.Diagnostics.Debug.Print($"Question to {data.Model}: ({data.SystemPrompt}) {data.Prompt}");
     System.Diagnostics.Debug.Print($"{s}");
     var cc = data?.Messages?.FirstOrDefault();
     if (string.IsNullOrEmpty(cc))
@@ -1362,6 +1365,8 @@ Lokal: {e.Eintrag}";
           var arr1 = arr.Current;
           if (arr1.TryGetProperty("content", out var c))
           {
+            if (!string.IsNullOrEmpty(data.Prompt))
+              data.SystemPrompt = data.Prompt;
             data.Prompt = c.GetString();
           }
         }

@@ -1836,6 +1836,12 @@
     <data name="AG500.search.tt" xml:space="preserve">
         <value>Text to search</value>
     </data>
+    <data name="AG500.systemprompt" xml:space="preserve">
+        <value>_System prompt</value>
+    </data>
+    <data name="AG500.systemprompt.tt" xml:space="preserve">
+        <value>System role for AI</value>
+    </data>
     <data name="AG500.prompt" xml:space="preserve">
         <value>Prompt</value>
     </data>

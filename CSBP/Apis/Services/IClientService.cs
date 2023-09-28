@@ -207,12 +207,13 @@ public interface IClientService
   /// Gets response from ChatGPT.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="systemprompt">Affected input system prompt string.</param>
   /// <param name="prompt">Affected input prompt string.</param>
   /// <param name="model">Affected AI model.</param>
   /// <param name="maxtokens">Affected maximal number of tokens.</param>
   /// <param name="temperature">Affected temperature between 0 and 1.</param>
   /// <returns>AI data with response from ChatGPT.</returns>
-  ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M);
+  ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string systemprompt, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M);
 
   /// <summary>
   /// Gets list with dialog entries.
