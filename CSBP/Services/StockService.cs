@@ -1313,11 +1313,12 @@ public class StockService : ServiceBase, IStockService
         var isoCurrency = root.TryGetProperty("isoCurrency", out var t1) ? t1.GetString()?.ToUpper() : null;
         var unitType = root.TryGetProperty("unitType", out var t2) ? t2.GetString()?.ToUpper() : null;
         var dates = root.TryGetProperty("datetimeTick", out var t3) ? t3.EnumerateArray().Select(a => Functions.ToDateTime(a.GetInt64() / 1000L)).ToArray() : Array.Empty<DateTime>();
-        if (!dates.Any())
-          throw new MessageException(WP050("", "datetimeTick"));
+        // Arrays can be empty.
+        // if (!dates.Any())
+        //   throw new MessageException(WP050("", "datetimeTick"));
         var ticks = root.TryGetProperty("tick", out var t4) ? t4.EnumerateArray().Select(a => a.GetDecimal()).ToArray() : Array.Empty<decimal>();
-        if (!ticks.Any())
-          throw new MessageException(WP050("", "tick"));
+        // if (!ticks.Any())
+        //   throw new MessageException(WP050("", "tick"));
         SoKurse k = null;
         var date0 = Functions.ToDateTime(0L).Date;
         for (var i = 0; dates != null && i < dates.Length; i++)
