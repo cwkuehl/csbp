@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2 -->
+<!-- Generated with glade 3.38.2 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkImage" id="copyImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
   </object>
   <object class="GtkImage" id="deleteImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">edit-delete</property>
   </object>
   <object class="GtkImage" id="editImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">document-edit</property>
   </object>
   <object class="GtkImage" id="newImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">document-new</property>
   </object>
   <object class="GtkImage" id="redoImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">edit-redo</property>
   </object>
   <object class="GtkImage" id="refreshImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">view-refresh</property>
   </object>
   <object class="GtkImage" id="undoImage">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="icon-name">edit-undo</property>
   </object>
+  <!-- n-columns=4 n-rows=5 -->
   <object class="GtkGrid" id="WP500Prices">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_left">5</property>
-    <property name="margin_right">5</property>
-    <property name="margin_top">5</property>
-    <property name="margin_bottom">5</property>
+    <property name="can-focus">False</property>
+    <property name="margin-left">5</property>
+    <property name="margin-right">5</property>
+    <property name="margin-top">5</property>
+    <property name="margin-bottom">5</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <property name="row_spacing">5</property>
-    <property name="column_spacing">5</property>
+    <property name="row-spacing">5</property>
+    <property name="column-spacing">5</property>
     <child>
       <object class="GtkActionBar" id="id3">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="hexpand">True</property>
         <child>
           <object class="GtkButton" id="refreshAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.refresh</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.refresh</property>
             <property name="image">refreshImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnRefreshClicked" swapped="no"/>
           </object>
           <packing>
@@ -71,11 +72,11 @@
         <child>
           <object class="GtkButton" id="undoAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.undo</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.undo</property>
             <property name="image">undoImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnUndoClicked" swapped="no"/>
           </object>
           <packing>
@@ -85,11 +86,11 @@
         <child>
           <object class="GtkButton" id="redoAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.redo</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.redo</property>
             <property name="image">redoImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnRedoClicked" swapped="no"/>
           </object>
           <packing>
@@ -99,11 +100,11 @@
         <child>
           <object class="GtkButton" id="newAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.new</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.new</property>
             <property name="image">newImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnNewClicked" swapped="no"/>
           </object>
           <packing>
@@ -113,11 +114,11 @@
         <child>
           <object class="GtkButton" id="copyAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.copy</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.copy</property>
             <property name="image">copyImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnCopyClicked" swapped="no"/>
           </object>
           <packing>
@@ -127,11 +128,11 @@
         <child>
           <object class="GtkButton" id="editAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.edit</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.edit</property>
             <property name="image">editImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnEditClicked" swapped="no"/>
           </object>
           <packing>
@@ -141,11 +142,11 @@
         <child>
           <object class="GtkButton" id="deleteAction">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text">Action.delete</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.delete</property>
             <property name="image">deleteImage</property>
-            <property name="always_show_image">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
           </object>
           <packing>
@@ -154,39 +155,39 @@
         </child>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">0</property>
         <property name="width">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="staende0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
         <property name="label">WP500.staende</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">staende</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">staende</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">1</property>
         <property name="width">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkScrolledWindow" id="staendesw">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
+        <property name="can-focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="shadow_type">in</property>
+        <property name="shadow-type">in</property>
         <child>
           <object class="GtkTreeView" id="staende">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="tooltip_text">WP500.staende.tt</property>
+            <property name="can-focus">True</property>
+            <property name="tooltip-text">WP500.staende.tt</property>
             <signal name="row-activated" handler="OnStaendeRowActivated" swapped="no"/>
             <child internal-child="selection">
               <object class="GtkTreeSelection"/>
@@ -195,30 +196,31 @@
         </child>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">2</property>
         <property name="width">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="von0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
         <property name="label">WP500.von</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">von</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">von</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
+      <!-- n-columns=3 n-rows=3 -->
       <object class="GtkGrid" id="von">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <child>
           <placeholder/>
         </child>
@@ -248,29 +250,30 @@
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="bis0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
         <property name="label">WP500.bis</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">bis</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">bis</property>
       </object>
       <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">2</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
+      <!-- n-columns=3 n-rows=3 -->
       <object class="GtkGrid" id="bis">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <child>
           <placeholder/>
         </child>
@@ -300,70 +303,86 @@
         </child>
       </object>
       <packing>
-        <property name="left_attach">3</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">3</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="alle">
-        <property name="label">WP500.alle</property>
+      <object class="GtkButton" id="all">
+        <property name="label">WP500.all</property>
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text">WP500.alle.tt</property>
-        <property name="use_underline">True</property>
-        <signal name="clicked" handler="OnAlleClicked" swapped="no"/>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="tooltip-text">WP500.all.tt</property>
+        <property name="use-underline">True</property>
+        <signal name="clicked" handler="OnAllClicked" swapped="no"/>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="spacing">5</property>
         <child>
           <object class="GtkLabel" id="wertpapier0">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="halign">start</property>
             <property name="valign">center</property>
             <property name="label">WP500.wertpapier</property>
-            <property name="use_underline">True</property>
-            <property name="mnemonic_widget">wertpapier</property>
+            <property name="use-underline">True</property>
+            <property name="mnemonic-widget">wertpapier</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
           <object class="GtkComboBoxText" id="wertpapier">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="tooltip_text">WP500.wertpapier.tt</property>
-            <property name="has_entry">True</property>
+            <property name="can-focus">False</property>
+            <property name="tooltip-text">WP500.wertpapier.tt</property>
+            <property name="has-entry">True</property>
             <signal name="changed" handler="OnWertpapierChanged" swapped="no"/>
             <child internal-child="entry">
               <object class="GtkEntry">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
               </object>
             </child>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="thin">
+            <property name="label">WP500.thin</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text">WP500.thin.tt</property>
+            <property name="use-underline">True</property>
+            <signal name="clicked" handler="OnThinClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">3</property>
         <property name="width">3</property>
       </packing>
     </child>

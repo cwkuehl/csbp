@@ -944,6 +944,48 @@ public class StockService : ServiceBase, IStockService
   }
 
   /// <summary>
+  /// Thinning the prices (1 week stays, 2 months only week closing, 10 months month closing, rest year closing, first and last stay).
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="stuid">Affected stock or null.</param>
+  /// <returns>Possibly errors.</returns>
+  public ServiceErgebnis ThinPrices(ServiceDaten daten, DateTime date, string stuid)
+  {
+    var r = new ServiceErgebnis();
+    var stocks = WpWertpapierRep.GetList(daten, daten.MandantNr, null, null, stuid);
+    date = Functions.Sunday(date); // Next sunday.
+    foreach (var st in stocks)
+    {
+      // Descending dates.
+      var prices = WpStandRep.GetList(daten, daten.MandantNr, null, date, st.Uid, 0);
+      var d = 0d; // Days after date
+      var lw = 0; // Last week number with a price.
+      var lm = 0; // Last month number with a price.
+      var ly = 0; // Last year number with a price.
+      var first = prices.FirstOrDefault()?.Datum ?? date;
+      var last = prices.LastOrDefault()?.Datum ?? date;
+      foreach (var p in prices)
+      {
+        d = (date - p.Datum).TotalDays;
+        var w = (int)Math.Floor(d / 7); // Total week difference
+        var m = (date.Year * 12) + date.Month - ((p.Datum.Year * 12) + p.Datum.Month); // Totel month difference
+        var y = date.Year - p.Datum.Year; // Total year difference
+        if (d <= 7 || (m <= 2 && w != lw) || (m > 2 && m <= 10 && m != lm) || (m > 10 && y != ly) || p.Datum == first || p.Datum == last)
+        {
+          lw = w;
+          lm = m;
+          ly = y;
+          Debug.WriteLine($"Price with date {p.Datum} kept");
+          continue; // Keep the price
+        }
+        WpStandRep.Delete(daten, p);
+      }
+    }
+    return r;
+  }
+
+  /// <summary>
   /// Export stocks in csv file.
   /// </summary>
   /// <returns>Csv file as lines array or errors.</returns>
@@ -1313,12 +1355,12 @@ public class StockService : ServiceBase, IStockService
         var isoCurrency = root.TryGetProperty("isoCurrency", out var t1) ? t1.GetString()?.ToUpper() : null;
         var unitType = root.TryGetProperty("unitType", out var t2) ? t2.GetString()?.ToUpper() : null;
         var dates = root.TryGetProperty("datetimeTick", out var t3) ? t3.EnumerateArray().Select(a => Functions.ToDateTime(a.GetInt64() / 1000L)).ToArray() : Array.Empty<DateTime>();
-        // Arrays can be empty.
-        // if (!dates.Any())
-        //   throw new MessageException(WP050("", "datetimeTick"));
+        //// Arrays can be empty.
+        //// if (!dates.Any())
+        ////   throw new MessageException(WP050("", "datetimeTick"));
         var ticks = root.TryGetProperty("tick", out var t4) ? t4.EnumerateArray().Select(a => a.GetDecimal()).ToArray() : Array.Empty<decimal>();
-        // if (!ticks.Any())
-        //   throw new MessageException(WP050("", "tick"));
+        //// if (!ticks.Any())
+        ////   throw new MessageException(WP050("", "tick"));
         SoKurse k = null;
         var date0 = Functions.ToDateTime(0L).Date;
         for (var i = 0; dates != null && i < dates.Length; i++)

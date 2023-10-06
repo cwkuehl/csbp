@@ -7452,14 +7452,24 @@ public partial class Messages
     get { return rm.GetString("WP500.wertpapier.tt"); }
   }
 
-  public static string WP500_alle
+  public static string WP500_all
   {
-    get { return rm.GetString("WP500.alle"); }
+    get { return rm.GetString("WP500.all"); }
   }
 
-  public static string WP500_alle_tt
+  public static string WP500_all_tt
   {
-    get { return rm.GetString("WP500.alle.tt"); }
+    get { return rm.GetString("WP500.all.tt"); }
+  }
+
+  public static string WP500_thin
+  {
+    get { return rm.GetString("WP500.thin"); }
+  }
+
+  public static string WP500_thin_tt
+  {
+    get { return rm.GetString("WP500.thin.tt"); }
   }
 
   public static string WP500_von

@@ -194,10 +194,10 @@ public partial class WP500Prices : CsbpBin
     editAction.Activate();
   }
 
-  /// <summary>Handles Alle.</summary>
+  /// <summary>Handles All.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnAlleClicked(object sender, EventArgs e)
+  protected void OnAllClicked(object sender, EventArgs e)
   {
     RefreshTreeView(staende, 0);
     SetText(wertpapier, null);
@@ -213,6 +213,20 @@ public partial class WP500Prices : CsbpBin
       return;
     Parameter.WP500Stock = GetText(wertpapier);
     refreshAction.Click();
+  }
+
+  /// <summary>Handles Thin.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnThinClicked(object sender, EventArgs e)
+  {
+    var daten = ServiceDaten;
+    var r = FactoryService.StockService.ThinPrices(daten, von.Value ?? daten.Heute, GetText(wertpapier));
+    if (Get(r))
+    {
+      RefreshTreeView(staende, 0);
+      wertpapier.GrabFocus();
+    }
   }
 
   /// <summary>Handles von.</summary>

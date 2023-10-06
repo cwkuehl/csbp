@@ -4568,17 +4568,23 @@
     <data name="WP500.staende.columns" xml:space="preserve">
         <value>Nr.;Wertpapier;Datum;Kurs_r;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
+    <data name="WP500.all" xml:space="preserve">
+        <value>A_lle</value>
+    </data>
+    <data name="WP500.all.tt" xml:space="preserve">
+        <value>Selektionskriterien zurücksetzen</value>
+    </data>
     <data name="WP500.wertpapier" xml:space="preserve">
         <value>_Wertpapier</value>
     </data>
     <data name="WP500.wertpapier.tt" xml:space="preserve">
         <value>Zu suchendes Wertpapier</value>
     </data>
-    <data name="WP500.alle" xml:space="preserve">
-        <value>A_lle</value>
+    <data name="WP500.thin" xml:space="preserve">
+        <value>Ausd_ünnen</value>
     </data>
-    <data name="WP500.alle.tt" xml:space="preserve">
-        <value>Selektionskriterien zurücksetzen</value>
+    <data name="WP500.thin.tt" xml:space="preserve">
+        <value>Stände ausdünnen (1 Woche bleibt, 2 Monate Wochenschluss, 10 Monate Monatsschluss, Rest Jahresschluss, erster und letzter bleiben)</value>
     </data>
     <data name="WP500.von" xml:space="preserve">
         <value>Datum _von</value>

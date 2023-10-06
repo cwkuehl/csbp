@@ -4568,17 +4568,23 @@
     <data name="WP500.staende.columns" xml:space="preserve">
         <value>No.;Stock;Date;Price_r;Changed at;Changed by;Created at;Created by</value>
     </data>
+    <data name="WP500.all" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="WP500.all.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
     <data name="WP500.wertpapier" xml:space="preserve">
         <value>_Stock</value>
     </data>
     <data name="WP500.wertpapier.tt" xml:space="preserve">
         <value>Search stock</value>
     </data>
-    <data name="WP500.alle" xml:space="preserve">
-        <value>A_ll</value>
+    <data name="WP500.thin" xml:space="preserve">
+        <value>Thinnin_g</value>
     </data>
-    <data name="WP500.alle.tt" xml:space="preserve">
-        <value>Clear selection criteria</value>
+    <data name="WP500.thin.tt" xml:space="preserve">
+        <value>Price thinning (1 week stays, 2 months only week closing, 10 months month closing, rest year closing, first and last stay)</value>
     </data>
     <data name="WP500.von" xml:space="preserve">
         <value>Date _from</value>

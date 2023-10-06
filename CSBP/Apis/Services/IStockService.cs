@@ -332,6 +332,15 @@ public interface IStockService
   ServiceErgebnis DeletePrice(ServiceDaten daten, WpStand e);
 
   /// <summary>
+  /// Thinning the prices (1 week stays, 2 months only week closing, 10 months month closing, rest year closing, first and last stay).
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="stuid">Affected stock or null.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis ThinPrices(ServiceDaten daten, DateTime date, string stuid);
+
+  /// <summary>
   /// Export stocks in csv file.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
