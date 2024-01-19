@@ -769,6 +769,14 @@ public class StockService : ServiceBase, IStockService
       r.Ergebnis.Add(new HhEreignis
       {
         Uid = Functions.GetUid(),
+        Bezeichnung = "Vorabpauschale",
+        EText = "2",
+        Soll_Konto_Uid = inv.IncomeAccountUid,
+        Haben_Konto_Uid = inv.SettlementAccountUid,
+      });
+      r.Ergebnis.Add(new HhEreignis
+      {
+        Uid = Functions.GetUid(),
         Bezeichnung = anleihe ? "Anleiheverkauf" : "Wertpapierverkauf",
         EText = "1",
         Soll_Konto_Uid = inv.SettlementAccountUid,
