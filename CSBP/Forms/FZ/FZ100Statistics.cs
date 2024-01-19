@@ -114,7 +114,7 @@ public partial class FZ100Statistics : CsbpBin
       var l = Get(FactoryService.BudgetService.GetProprietaryPlList(daten, datum.ValueNn));
       l.Reverse();
       pplList = l.Select(a => new KeyValuePair<string, decimal>(Functions.ToString(a.Geaendert_Am), a.EBetrag)).ToList();
-      var l2 = Get(FactoryService.PrivateService.GetMileages(daten, Functions.Sunday(datum.ValueNn)));
+      var l2 = Get(FactoryService.PrivateService.GetMileages(daten, datum.ValueNn));
       mileageList = l2.Select(a => new KeyValuePair<string, decimal>(Functions.ToString(a.Datum), a.Periode_km)).ToList();
     }
     if (step <= 0)

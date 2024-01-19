@@ -21,6 +21,9 @@ using static CSBP.Resources.Messages;
 /// </summary>
 public class PrivateService : ServiceBase, IPrivateService
 {
+  /// <summary>Fixed bike year in statistics.</summary>
+  private static readonly bool BikeYearFixed = Functions.MachNichts() != 0;
+
   /// <summary>Sets budget service.</summary>
   public IBudgetService BudgetService { private get; set; }
 
@@ -108,16 +111,22 @@ public class PrivateService : ServiceBase, IPrivateService
   {
     var v = new List<FzFahrradstand>();
     var r = new ServiceErgebnis<List<FzFahrradstand>>(v);
-    var von = date.AddYears(-years).AddDays(1 - date.DayOfYear);
+    if (BikeYearFixed)
+      date = Functions.Sunday(date);
+    var von = date.AddYears(-years);
+    if (BikeYearFixed)
+      von = von.AddDays(1 - date.DayOfYear); // separated commands because of leap year
     var min = FzFahrradstandRep.GetList(daten, null, desc: false, max: 1).FirstOrDefault();
     if (min != null)
       von = min.Datum;
     var schnitt = 0m;
     var summe = 0m;
     var d = von;
-    while (d.Year <= date.Year)
+    while (d.Year < date.Year || (BikeYearFixed && d.Year == date.Year))
     {
-      var dbis = d.Year < date.Year ? d.AddYears(1).AddDays(-d.DayOfYear) : date;
+      var dbis = d.Year < date.Year ? d.AddYears(1) : date;
+      if (BikeYearFixed && d.Year < date.Year)
+        dbis = dbis.AddDays(-d.DayOfYear);
       var kmJahr = FzFahrradstandRep.Count(daten, null, d, dbis);
       summe += kmJahr;
       int tage = ((dbis.Year - von.Year) * 365) + dbis.DayOfYear - von.DayOfYear;
@@ -131,7 +140,10 @@ public class PrivateService : ServiceBase, IPrivateService
       };
       v.Add(s);
       d = d.AddYears(1);
-      d = d.AddDays(1 - d.DayOfYear); // wegen Schaltjahr getrennte Befehle.
+      if (BikeYearFixed)
+        d = d.AddDays(1 - d.DayOfYear);
+      else
+        d = d.AddDays(date.DayOfYear - d.DayOfYear);
     }
     return r;
   }
@@ -788,7 +800,11 @@ public class PrivateService : ServiceBase, IPrivateService
       var anzahlTageMax = 0;
       const decimal jahresTage = 365.25M;
       var sb = new StringBuilder();
-      var aktJahr = date.AddDays(1 - date.DayOfYear); // 01.01.
+      var aktJahr = date;
+      if (BikeYearFixed)
+        aktJahr = aktJahr.AddDays(1 - date.DayOfYear); // 01.01.
+      else
+        aktJahr = aktJahr.AddYears(-1);
       var fliste = FzFahrradRep.GetList(daten, daten.MandantNr).OrderBy(a => a.Bezeichnung).ToList();
       foreach (var vo in fliste)
       {
