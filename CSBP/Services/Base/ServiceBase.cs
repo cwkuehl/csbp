@@ -250,10 +250,11 @@ public class ServiceBase
   /// <returns>Clone of source.</returns>
   public static T Clone<T>(T source)
   {
-    if (!typeof(T).IsSerializable)
-    {
-      throw new ArgumentException($"The type {typeof(T).Name} must be serializable.", nameof(source));
-    }
+    // Obsolete SYSLIB0050
+    // if (!typeof(T).IsSerializable)
+    // {
+    //   throw new ArgumentException($"The type {typeof(T).Name} must be serializable.", nameof(source));
+    // }
 
     // Don't serialize a null object, simply return the default for that object
     if (object.ReferenceEquals(source, null))
