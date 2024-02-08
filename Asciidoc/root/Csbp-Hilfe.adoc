@@ -1,6 +1,6 @@
-= CSBP Dokumentation (C) 2023 cwkuehl.de
+= CSBP Dokumentation (C) 2024 cwkuehl.de
 Wolfgang Kühl <wolfgang@cwkuehl.de>
-Version 2023-04-16
+Version 2024-02-08
 :homepage: http://cwkuehl.de
 :toc2:
 :icons: font
@@ -110,7 +110,7 @@ Der Speicherplatz der SQLite-Datenbank ist in der Start-Batch-Datei Installation
 .Beispiel für _#Csbp.sh_ unter Linux
 ----
 #! /bin/bash
-# Start program CSBP (c) 2023 cwkuehl.de
+# Start program CSBP (c) 2024 cwkuehl.de
 cd /opt/Haushalt/CSBP/publish
 export GDK_BACKEND=x11
 dotnet CSBP.dll "DB_DRIVER_CONNECT=Data Source=/home/user/xxx/csbp/csbp.db"

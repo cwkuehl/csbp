@@ -1,4 +1,4 @@
-Installation of program CSBP (c) 2023 cwkuehl.de
+Installation of program CSBP (c) 2024 cwkuehl.de
 
 Generell wird die Installation mit einer aktuellen .NET-Runtime ausgeliefert.
 Das Paket GTK+ 3.24 muss installiert sein, was im allgemeinen der Fall ist.

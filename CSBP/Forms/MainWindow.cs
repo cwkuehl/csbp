@@ -666,7 +666,7 @@ public class MainWindow : Window
 #if DEBUG
     var client = "";
 #else
-    var client = daten.MandantNr == 0 ? M.AM005 : daten.MandantNr == 1 ? "" : $" ({M.AG110_title} {daten.MandantNr})";
+    var client = daten.MandantNr == 0 ? M0(AM005) : daten.MandantNr == 1 ? "" : $" ({AG110_title} {daten.MandantNr})";
 #endif
     Title = $"{test}CSBP {Parameter.GetValue(Parameter.AG_ANWENDUNGS_TITEL)} W. Kuehl{client}";
   }
@@ -1275,7 +1275,7 @@ public class MainWindow : Window
       Title = "", // Titel geht nicht.
       ProgramName = "CSharp Budget Program",
       Version = ver + ", Runtime " + GetNetCoreVersion(),
-      Copyright = "(c) 2019-2023 Wolfgang Kuehl",
+      Copyright = "(c) 2019-2024 Wolfgang Kuehl",
       Comments = $@"CSBP is a simple budget program.
 Database: {db}
 Client: {daten.MandantNr} User: {daten.BenutzerId}",

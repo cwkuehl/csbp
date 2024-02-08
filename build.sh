@@ -19,7 +19,10 @@
 # sudo apt-get update
 # sudo apt-get install -y dotnet-sdk-5.0
 # ==> OK
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r ubuntu-x64 --self-contained false
+# ab .net8 RID linux-x64
+
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net8.0 -r linux-x64 --self-contained false
+#dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r ubuntu-x64 --self-contained false
 #dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r ubuntu-x64 --self-contained true
 #dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r win-x64 --self-contained true
 #thirdlicense --project ./CSBP/CSBP.csproj
@@ -27,7 +30,8 @@ dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net7.0 -r ubuntu-x64 --s
 #./asciidoc-csbp.sh
 #cd ..
 
-cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net7.0/ubuntu-x64/publish/ /opt/Haushalt/CSBP/
+cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net8.0/linux-x64/publish/ /opt/Haushalt/CSBP/
+#cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net7.0/ubuntu-x64/publish/ /opt/Haushalt/CSBP/
 #cp -rf /home/wolfgang/cs/csbp/CSBP/Resources/ /opt/Haushalt/CSBP/publish
 #rm /opt/Haushalt/CSBP/publish/Resources/T*
 #rm /opt/Haushalt/CSBP/publish/Resources/M*

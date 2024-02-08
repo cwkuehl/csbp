@@ -33,11 +33,11 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET 6 Launch Linux",
+      "name": ".NET 8 Launch Linux",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP/bin/Debug/net6.0/CSBP.dll",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net8.0/CSBP.dll",
       "args": [
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
       ],
@@ -47,11 +47,11 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET 6 UnitTest Linux",
+      "name": ".NET 8 UnitTest Linux",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build.unittest",
-      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net6.0/CSBP.UnitTest.dll",
+      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net8.0/CSBP.UnitTest.dll",
       "args": [
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
       ],
@@ -61,11 +61,11 @@
       "requireExactSource": true
     },
     {
-      "name": ".NET 6 Win B Launch",
+      "name": ".NET 8 Win B Launch",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP/bin/Debug/net6.0/CSBP.dll",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net8.0/CSBP.dll",
       "args": [
         "DB_DRIVER_CONNECT=Data Source=C:\\Users\\Benni\\Documents\\csbp\\csbp.db"
       ],
@@ -74,11 +74,11 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET 6 Launch Windows",
+      "name": ".NET 8 Launch Windows",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP/bin/Debug/net6.0/CSBP.dll",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net8.0/CSBP.dll",
       "args": [
         "DB_DRIVER_CONNECT=Data Source=C:\\Users\\Deborah\\Documents\\csbp\\csbp.db"
       ],

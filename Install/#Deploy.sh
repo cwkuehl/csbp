@@ -1,5 +1,5 @@
 #! /bin/bash
-echo "Deploy program CSBP (c) 2023 cwkuehl.de"
+echo "Deploy program CSBP (c) 2024 cwkuehl.de"
 
 build() {
   echo "$1 $2"
