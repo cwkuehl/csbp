@@ -1218,7 +1218,7 @@ public class StockService : ServiceBase, IStockService
       {
         var su = new StockUrl
         {
-          Uid = "",
+          Uid = uid,
           Description = "",
           Date = udate,
           Url = url,
