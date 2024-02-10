@@ -18,6 +18,11 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
   </object>
+  <object class="GtkImage" id="downloadImage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">emblem-downloads</property>
+  </object>
   <object class="GtkImage" id="findImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -166,7 +171,18 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkButton" id="downloadAction">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">True</property>
+            <property name="tooltip-text">Action.download</property>
+            <property name="image">downloadImage</property>
+            <property name="always-show-image">True</property>
+            <signal name="clicked" handler="OnDownloadClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">5</property>
+          </packing>
         </child>
       </object>
       <packing>

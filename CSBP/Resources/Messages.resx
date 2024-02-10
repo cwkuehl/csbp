@@ -1203,6 +1203,9 @@
     <data name="Action.weather" xml:space="preserve">
         <value>Weather</value>
     </data>
+    <data name="Action.download" xml:space="preserve">
+        <value>Download</value>
+    </data>
 
     <!-- Allgemeine Formular-Elemente -->
     <data name="Forms.ok" xml:space="preserve">

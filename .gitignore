@@ -452,3 +452,5 @@ CSBP.Generator/*
 # ANTLR4 Files
 *.interp
 *.tokens
+
+ConvertHtml.txt

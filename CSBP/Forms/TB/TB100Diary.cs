@@ -365,6 +365,13 @@ public partial class TB100Diary : CsbpBin
     });
   }
 
+  /// <summary>Handles Download.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnDownloadClicked(object sender, EventArgs e)
+  {
+  }
+
   /// <summary>Handles Save.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>

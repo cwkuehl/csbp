@@ -1957,6 +1957,11 @@ public partial class Messages
     get { return rm.GetString("Action.weather"); }
   }
 
+  public static string Action_download
+  {
+    get { return rm.GetString("Action.download"); }
+  }
+
   public static string Forms_ok
   {
     get { return rm.GetString("Forms.ok"); }
