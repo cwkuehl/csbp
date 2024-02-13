@@ -122,4 +122,21 @@ public interface IDiaryService
   /// <param name="puid">Affected position uid.</param>
   /// <returns>List of weather data.</returns>
   ServiceErgebnis<List<Weather>> GetWeatherList(ServiceDaten daten, DateTime date, string puid);
+
+  /// <summary>
+  /// Gets a list of diary entries from API.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="delete">True if old data should be deleted.</param>
+  /// <returns>List of diary entries.</returns>
+  ServiceErgebnis<Tuple<string, List<TbEintrag>>> GetApiDiaryList(ServiceDaten daten, DateTime date, bool delete = false);
+
+  /// <summary>
+  /// Inserts or updates the diary entryies.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="entries">Affected date.</param>
+  /// <returns>List of diary entries.</returns>
+  ServiceErgebnis ReplicateDiaryList(ServiceDaten daten, List<TbEintrag> entries);
 }

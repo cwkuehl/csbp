@@ -7,6 +7,7 @@ namespace CSBP.Forms.TB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
@@ -370,6 +371,33 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDownloadClicked(object sender, EventArgs e)
   {
+    var d = date.ValueNn;
+    var t = Get(FactoryService.DiaryService.GetApiDiaryList(ServiceDaten, d));
+    if (t == null)
+      return;
+    if (t.Item2.Count() <= 0)
+    {
+      // TODO Translate messages.
+      ShowInfo("Keine Rabp-Daten gefunden.");
+      return;
+    }
+    var sb = new StringBuilder();
+    sb.AppendLine(@$"""Rabp-Version {t.Item1}  {t.Item2.Count()} {Functions.Iif(t.Item2.Count() == 1, "Eintrag", "Einträge")} vor {d:yyyy-MM-dd}""");
+    foreach (var item in t.Item2)
+    {
+      sb.AppendLine($"{item.Datum:yyyy-MM-dd} {item.Eintrag}");
+    }
+    sb.AppendLine("Importieren der Rabp-Daten ins Tagebuch?");
+    if (ShowYesNoQuestion(sb.ToString()))
+    {
+      BearbeiteEintraege(); // Save
+      if (!Get(FactoryService.DiaryService.ReplicateDiaryList(ServiceDaten, t.Item2)))
+        return;
+      BearbeiteEintraege(false); // Reload
+    }
+    var s = @$"Löschen der Rabp-Daten?";
+    if (ShowYesNoQuestion(s))
+      Get(FactoryService.DiaryService.GetApiDiaryList(ServiceDaten, d, true));
   }
 
   /// <summary>Handles Save.</summary>

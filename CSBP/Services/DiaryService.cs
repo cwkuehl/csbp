@@ -7,6 +7,9 @@ namespace CSBP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -554,6 +557,57 @@ public class DiaryService : ServiceBase, IDiaryService
   }
 
   /// <summary>
+  /// Gets a list of diary entries from API.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="date">Affected date.</param>
+  /// <param name="delete">True if old data should be deleted.</param>
+  /// <returns>List of diary entries.</returns>
+  public ServiceErgebnis<Tuple<string, List<TbEintrag>>> GetApiDiaryList(ServiceDaten daten, DateTime date, bool delete = false)
+  {
+    var r = new ServiceErgebnis<Tuple<string, List<TbEintrag>>>();
+    if (delete)
+      RabpApi(date, delete: true);
+    else
+    {
+      var v = RabpApi(date, version: true);
+      var s = RabpApi(date);
+      var l0 = new List<TbEintrag>();
+      if (!string.IsNullOrEmpty(s))
+      {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+        };
+        var l = JsonSerializer.Deserialize<List<TbEintrag>>(s, options);
+        if (l != null)
+          l0.AddRange(l);
+      }
+      r.Ergebnis = new Tuple<string, List<TbEintrag>>(v, l0);
+    }
+    return r;
+  }
+
+  /// <summary>
+  /// Replicates the diary entryies.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="entries">Affected date.</param>
+  /// <returns>List of diary entries.</returns>
+  public ServiceErgebnis ReplicateDiaryList(ServiceDaten daten, List<TbEintrag> entries)
+  {
+    var r = new ServiceErgebnis();
+    if (entries != null)
+      foreach (var e in entries)
+      {
+        ReplicateDiary(daten, e);
+      }
+    //// if (Functions.MachNichts() == 0)
+    ////   throw new Exception("xxx");
+    return r;
+  }
+
+  /// <summary>
   /// Optimizes the positions, i.e. lengthening or filling gaps.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -654,8 +708,12 @@ public class DiaryService : ServiceBase, IDiaryService
     if (!string.IsNullOrEmpty(tz))
       sb.Append(@$"&tz={System.Web.HttpUtility.UrlEncode(tz)}");
     var url = sb.ToString();
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
+    var handler = new HttpClientHandler
+    {
+      ClientCertificateOptions = ClientCertificateOption.Manual,
+      SslProtocols = SslProtocols.Tls12, // SslProtocols.Tls13
+    };
+    var httpsclient = new HttpClient(handler)
     {
       Timeout = TimeSpan.FromMilliseconds(5000),
     };
@@ -667,6 +725,53 @@ public class DiaryService : ServiceBase, IDiaryService
     var s = task.Result;
     System.Diagnostics.Debug.Print($"{s}");
     //// {"meta":{"generated": "2023-03-18 21:48:14", "stations": ["D1814", "D4090", "D6100", "D5542"]},"data":[{"time":"2023-02-05 00:00:00","temp":3.5,"dwpt":1.5,"rhum":87.0,"prcp":0.0,"snow":null,"wdir":97.0,"wspd":7.6,"wpgt":null,"pres":1039.1,"tsun":null,"coco":3},{"time":"2023-02-05 01:00:00","temp":3.5,"dwpt":1.2,"rhum":85.0,"prcp":0.0,"snow":null,"wdir":98.0,"wspd":6.5,"wpgt":null,"pres":1038.8,"tsun":null,"coco":3},{"time":"2023-02-05 02:00:00","temp":3.3,"dwpt":0.7,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":144.0,"wspd":6.5,"wpgt":null,"pres":1038.3,"tsun":null,"coco":3},{"time":"2023-02-05 03:00:00","temp":3.2,"dwpt":0.6,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":144.0,"wspd":6.1,"wpgt":null,"pres":1037.6,"tsun":null,"coco":3},{"time":"2023-02-05 04:00:00","temp":3.2,"dwpt":0.4,"rhum":82.0,"prcp":0.0,"snow":null,"wdir":73.0,"wspd":4.0,"wpgt":null,"pres":1037.3,"tsun":null,"coco":3},{"time":"2023-02-05 05:00:00","temp":3.2,"dwpt":0.6,"rhum":83.0,"prcp":0.0,"snow":null,"wdir":67.0,"wspd":3.6,"wpgt":null,"pres":1037.2,"tsun":null,"coco":3},{"time":"2023-02-05 06:00:00","temp":3.1,"dwpt":0.2,"rhum":81.0,"prcp":0.1,"snow":null,"wdir":88.0,"wspd":4.3,"wpgt":null,"pres":1037.1,"tsun":null,"coco":3},{"time":"2023-02-05 07:00:00","temp":3.0,"dwpt":-0.1,"rhum":80.0,"prcp":0.5,"snow":null,"wdir":166.0,"wspd":7.2,"wpgt":null,"pres":1036.6,"tsun":null,"coco":3},{"time":"2023-02-05 08:00:00","temp":3.0,"dwpt":0.2,"rhum":82.0,"prcp":0.0,"snow":null,"wdir":179.0,"wspd":8.3,"wpgt":null,"pres":1036.2,"tsun":null,"coco":8},{"time":"2023-02-05 09:00:00","temp":3.1,"dwpt":1.5,"rhum":89.0,"prcp":0.0,"snow":null,"wdir":212.0,"wspd":7.2,"wpgt":null,"pres":1036.1,"tsun":null,"coco":8},{"time":"2023-02-05 10:00:00","temp":3.3,"dwpt":2.0,"rhum":91.0,"prcp":0.1,"snow":null,"wdir":221.0,"wspd":4.7,"wpgt":null,"pres":1035.9,"tsun":null,"coco":8},{"time":"2023-02-05 11:00:00","temp":3.6,"dwpt":2.7,"rhum":94.0,"prcp":0.7,"snow":null,"wdir":151.0,"wspd":5.4,"wpgt":null,"pres":1035.3,"tsun":null,"coco":9},{"time":"2023-02-05 12:00:00","temp":5.0,"dwpt":4.3,"rhum":95.0,"prcp":1.4,"snow":null,"wdir":214.0,"wspd":6.8,"wpgt":null,"pres":1034.4,"tsun":null,"coco":8},{"time":"2023-02-05 13:00:00","temp":5.6,"dwpt":4.1,"rhum":90.0,"prcp":1.9,"snow":null,"wdir":272.0,"wspd":7.6,"wpgt":null,"pres":1034.2,"tsun":null,"coco":8},{"time":"2023-02-05 14:00:00","temp":5.7,"dwpt":4.0,"rhum":89.0,"prcp":0.2,"snow":null,"wdir":313.0,"wspd":10.4,"wpgt":null,"pres":1034.1,"tsun":null,"coco":7},{"time":"2023-02-05 15:00:00","temp":5.7,"dwpt":4.3,"rhum":91.0,"prcp":0.0,"snow":null,"wdir":2.0,"wspd":12.2,"wpgt":null,"pres":1034.1,"tsun":null,"coco":8},{"time":"2023-02-05 16:00:00","temp":5.1,"dwpt":4.4,"rhum":95.0,"prcp":0.0,"snow":null,"wdir":51.0,"wspd":11.5,"wpgt":null,"pres":1034.9,"tsun":null,"coco":8},{"time":"2023-02-05 17:00:00","temp":4.2,"dwpt":3.5,"rhum":95.0,"prcp":0.1,"snow":null,"wdir":52.0,"wspd":12.6,"wpgt":null,"pres":1036.2,"tsun":null,"coco":3},{"time":"2023-02-05 18:00:00","temp":3.5,"dwpt":2.8,"rhum":95.0,"prcp":0.0,"snow":null,"wdir":41.0,"wspd":11.5,"wpgt":null,"pres":1037.0,"tsun":null,"coco":3},{"time":"2023-02-05 19:00:00","temp":3.5,"dwpt":2.6,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":38.0,"wspd":9.7,"wpgt":null,"pres":1037.5,"tsun":null,"coco":3},{"time":"2023-02-05 20:00:00","temp":3.3,"dwpt":2.4,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":41.0,"wspd":9.0,"wpgt":null,"pres":1038.0,"tsun":null,"coco":3},{"time":"2023-02-05 21:00:00","temp":3.2,"dwpt":2.0,"rhum":92.0,"prcp":0.0,"snow":null,"wdir":53.0,"wspd":9.0,"wpgt":null,"pres":1038.5,"tsun":null,"coco":3},{"time":"2023-02-05 22:00:00","temp":3.6,"dwpt":2.7,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":47.0,"wspd":10.8,"wpgt":null,"pres":1038.9,"tsun":null,"coco":3},{"time":"2023-02-05 23:00:00","temp":3.5,"dwpt":2.6,"rhum":94.0,"prcp":0.0,"snow":null,"wdir":53.0,"wspd":10.1,"wpgt":null,"pres":1039.7,"tsun":null,"coco":3}]}
+    return s;
+  }
+
+  /// <summary>Calls rabp API.</summary>
+  /// <param name="date">Affected date.</param>
+  /// <param name="version">True if interface version should be returned.</param>
+  /// <param name="delete">True if old data should be deleted.</param>
+  /// <returns>Response string from API.</returns>
+  private static string RabpApi(DateTime date, bool version = false, bool delete = false)
+  {
+    const string hostport = "https://192.168.8.190:8001";
+    var sb = new StringBuilder();
+    sb.Append($"{hostport}/api/");
+    if (version)
+      sb.Append("version");
+    else if (delete)
+      sb.Append($"diary/{date:yyyy-MM-dd}");
+    else
+      sb.Append($"diary/listlocal/{date:yyyy-MM-dd}");
+    var url = sb.ToString();
+    var handler = new HttpClientHandler
+    {
+      ClientCertificateOptions = ClientCertificateOption.Manual,
+      SslProtocols = SslProtocols.Tls13,
+      ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) =>
+      {
+        return true;
+      },
+    };
+    var httpsclient = new HttpClient(handler)
+    {
+      Timeout = TimeSpan.FromMilliseconds(5000),
+    };
+    //// httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
+    var s = "";
+    if (delete)
+    {
+      var task = httpsclient.DeleteAsync(url);
+      task.Wait();
+    }
+    else
+    {
+      var task = httpsclient.GetStringAsync(url);
+      task.Wait();
+      s = task.Result;
+    }
+    System.Diagnostics.Debug.Print($"{s}");
     return s;
   }
 }

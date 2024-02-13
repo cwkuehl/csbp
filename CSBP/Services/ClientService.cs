@@ -844,44 +844,7 @@ public partial class ClientService : ServiceBase, IClientService
           Geaendert_Am = GetDateTime(a, "geaendertAm"),
           Geaendert_Von = GetString(a, "geaendertVon"),
         };
-        var es = TbEintragRep.Get(daten, daten.MandantNr, e.Datum);
-        if (es == null)
-          TbEintragRep.Save(daten, daten.MandantNr, e.Datum, e.Eintrag,
-            e.Angelegt_Von, e.Angelegt_Am, e.Geaendert_Von, e.Geaendert_Am);
-        else if (es.Eintrag != e.Eintrag)
-        {
-          // Wenn es.angelegtAm != e.angelegtAm, Einträge zusammenkopieren
-          // Wenn es.angelegtAm == e.angelegtAm und (e.geaendertAm == null oder es.geaendertAm > e.geaendertAm), Eintrag lassen
-          // Wenn es.angelegtAm == e.angelegtAm und es.geaendertAm <= e.geaendertAm, Eintrag überschreiben
-          if (e.Angelegt_Am.HasValue && (!es.Angelegt_Am.HasValue || es.Angelegt_Am != e.Angelegt_Am))
-          {
-            // Zusammenkopieren
-            es.Eintrag = @$"Server: {es.Eintrag}
-Lokal: {e.Eintrag}";
-            es.Angelegt_Am = e.Angelegt_Am;
-            es.Angelegt_Von = e.Angelegt_Von;
-            es.Geaendert_Am = e.Geaendert_Am;
-            es.Geaendert_Von = e.Geaendert_Von;
-            TbEintragRep.Save(daten, daten.MandantNr, es.Datum, es.Eintrag,
-              es.Angelegt_Von, es.Angelegt_Am, es.Geaendert_Von, es.Geaendert_Am);
-          }
-          else if (es.Angelegt_Am.HasValue && e.Angelegt_Am.HasValue && es.Angelegt_Am == e.Angelegt_Am
-            && es.Geaendert_Am.HasValue && (!e.Geaendert_Am.HasValue || es.Geaendert_Am > e.Geaendert_Am))
-          {
-            // Lassen
-          }
-          else
-          {
-            // Überschreiben
-            es.Eintrag = e.Eintrag;
-            es.Angelegt_Am = e.Angelegt_Am;
-            es.Angelegt_Von = e.Angelegt_Von;
-            es.Geaendert_Am = e.Geaendert_Am;
-            es.Geaendert_Von = e.Geaendert_Von;
-            TbEintragRep.Save(daten, daten.MandantNr, es.Datum, es.Eintrag,
-              es.Angelegt_Von, es.Angelegt_Am, es.Geaendert_Von, es.Geaendert_Am);
-          }
-        }
+        ReplicateDiary(daten, e);
       }
       var l = TbEintragRep.GetList(daten, daten.MandantNr, daten.Heute, days);
       foreach (var e in l)

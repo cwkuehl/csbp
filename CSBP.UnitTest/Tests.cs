@@ -786,7 +786,7 @@ public partial class {filename}
     ////var text = "Tell a joke";
     ////var text = "Write hello world in rust";
     ////var text = "Rust code for signing";
-    ////var text = "Erzähl eine Witz"; // Bad Geman Jokes.
+    ////var text = "Erzähl eine Witz"; // Bad German Jokes.
     ////var text = "Create an app logo for a budget program that contains a house and the letters W and K.";
     ////var text = "Create an app logo that contains one house and the letters W and K.";
     var text = "A house that contains the letters W and K.";

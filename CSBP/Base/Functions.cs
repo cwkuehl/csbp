@@ -348,6 +348,20 @@ public static partial class Functions
   }
 
   /// <summary>
+  /// Returns first or second string depending on boolean value.
+  /// </summary>
+  /// <param name="b">Affected boolean value.</param>
+  /// <param name="s1">First string if true.</param>
+  /// <param name="s2">Second string if false.</param>
+  /// <returns>First or second string.</returns>
+  public static string Iif(bool b, string s1, string s2)
+  {
+    if (b)
+      return s1;
+    return s2;
+  }
+
+  /// <summary>
   /// Returns file name optionally with date and random number.
   /// </summary>
   /// <param name="name">Name am Anfang.</param>
