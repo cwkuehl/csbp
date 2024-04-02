@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
+using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -1229,8 +1231,12 @@ public partial class ClientService : ServiceBase, IClientService
     var url = data.Model == AiData.Dalle ? @$"https://api.openai.com/v1/images/generations"
       : data.Model == AiData.Davinci ? @$"https://api.openai.com/v1/completions"
       : @$"https://api.openai.com/v1/chat/completions";
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
+    var handler = new HttpClientHandler
+    {
+      ClientCertificateOptions = ClientCertificateOption.Manual,
+      SslProtocols = SslProtocols.Tls12, // SslProtocols.Tls13
+    };
+    var httpsclient = new HttpClient(handler)
     {
       Timeout = TimeSpan.FromMilliseconds(30000),
     };
@@ -1254,17 +1260,25 @@ public partial class ClientService : ServiceBase, IClientService
         max_tokens = data.MaxTokens,
       };
     else
+    {
+      var mdic = new List<Dictionary<string, string>>
+      {
+        new Dictionary<string, string> { { "role", "system" }, { "content", data.SystemPrompt } },
+      };
+      if (data.AssistantPrompts.Any())
+      {
+        foreach (var ap in data.AssistantPrompts)
+          mdic.Add(new Dictionary<string, string> { { "role", "assistant" }, { "content", ap } });
+      }
+      mdic.Add(new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt } });
       jcontent = new
       {
         model = data.Model,
-        messages = new List<Dictionary<string, string>>
-       {
-         new Dictionary<string, string> { { "role", "system" }, { "content", data.SystemPrompt }, },
-         new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt }, },
-       },
+        messages = mdic,
         temperature = data.Temperature,
         max_tokens = data.MaxTokens,
       };
+    }
     ////Debug.Print($"{content}");
     ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
     ////Debug.Print($"{json}");

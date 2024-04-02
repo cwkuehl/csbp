@@ -40,6 +40,9 @@ public class AiData
   /// <summary>Gets or sets the input system prompt string for AI.</summary>
   public string SystemPrompt { get; set; }
 
+  /// <summary>Gets the previous assistant prompts from the AI. Dialog history.</summary>
+  public List<string> AssistantPrompts { get; private set; } = new();
+
   /// <summary>Gets or sets the input prompt string for AI.</summary>
   public string Prompt { get; set; }
 

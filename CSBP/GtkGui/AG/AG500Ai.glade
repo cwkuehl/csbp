@@ -124,6 +124,7 @@
         <property name="hexpand">True</property>
         <property name="label">AG500.response</property>
         <property name="use-underline">True</property>
+        <property name="mnemonic-widget">response</property>
       </object>
       <packing>
         <property name="left-attach">3</property>
@@ -138,6 +139,7 @@
         <property name="valign">center</property>
         <property name="label">AG500.dialogs</property>
         <property name="use-underline">True</property>
+        <property name="mnemonic-widget">dialogs</property>
       </object>
       <packing>
         <property name="left-attach">0</property>
@@ -190,6 +192,7 @@
         <property name="valign">center</property>
         <property name="label">AG500.maxtokens</property>
         <property name="use-underline">True</property>
+        <property name="mnemonic-widget">maxtokens</property>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -243,6 +246,7 @@
         <property name="valign">center</property>
         <property name="label">AG500.model</property>
         <property name="use-underline">True</property>
+        <property name="mnemonic-widget">model</property>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -257,8 +261,8 @@
         <property name="hexpand">True</property>
         <property name="has-entry">True</property>
         <child internal-child="entry">
-          <object class="GtkEntry">
-            <property name="can-focus">False</property>
+          <object class="GtkEntry" id="entry1">
+            <property name="can-focus">True</property>
             <property name="placeholder-text" translatable="yes">AG500.model.tt</property>
           </object>
         </child>
@@ -301,6 +305,7 @@
         <property name="can-focus">True</property>
         <property name="receives-default">False</property>
         <property name="tooltip-text" translatable="yes">AG500.all.tt</property>
+        <property name="use-underline">True</property>
         <signal name="clicked" handler="OnAllClicked" swapped="no"/>
       </object>
       <packing>
@@ -347,6 +352,7 @@
         <property name="valign">center</property>
         <property name="label">AG500.systemprompt</property>
         <property name="use-underline">True</property>
+        <property name="mnemonic-widget">systemprompt</property>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -361,6 +367,7 @@
         <property name="valign">center</property>
         <property name="label">AG500.prompt</property>
         <property name="use-underline">True</property>
+        <property name="mnemonic-widget">prompt</property>
       </object>
       <packing>
         <property name="left-attach">2</property>
