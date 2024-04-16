@@ -6,6 +6,7 @@ namespace CSBP.Services.NonService;
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 /// <summary>
 /// Class for AI data.
@@ -60,4 +61,39 @@ public class AiData
 
   /// <summary>Gets or sets the number of completion tokens.</summary>
   public decimal CompletionTokens { get; set; }
+
+  /// <summary>Gets or sets a value indicating whether to continue as dialog.</summary>
+  public bool ContinueDialog { get; set; }
+
+  /// <summary>Gets the response messages as string.</summary>
+  public string GetMessages
+  {
+     get { return string.Join(Environment.NewLine, Messages); }
+  }
+
+  /// <summary>Gets the dialog history as string.</summary>
+  public string GetDialogHistory
+  {
+    get
+    {
+      if (!ContinueDialog)
+        return GetMessages;
+      var sb = new StringBuilder();
+      var i = 0;
+      foreach (var p in AssistantPrompts)
+      {
+        if (string.IsNullOrWhiteSpace(p))
+          continue;
+        if (sb.Length > 0)
+          sb.Append(Environment.NewLine);
+        if (i % 2 == 0)
+          sb.Append("User: ");
+        else
+          sb.Append("Assistant: ");
+        sb.AppendLine(p);
+        i++;
+      }
+      return sb.ToString();
+    }
+  }
 }

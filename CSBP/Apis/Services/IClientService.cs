@@ -212,8 +212,9 @@ public interface IClientService
   /// <param name="model">Affected AI model.</param>
   /// <param name="maxtokens">Affected maximal number of tokens.</param>
   /// <param name="temperature">Affected temperature between 0 and 1.</param>
+  /// <param name="dialog">Affected dialog to be continued.</param>
   /// <returns>AI data with response from ChatGPT.</returns>
-  ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string systemprompt, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M);
+  ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string systemprompt, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M, AgDialog dialog = null);
 
   /// <summary>
   /// Gets list with dialog entries.
@@ -232,4 +233,16 @@ public interface IClientService
   /// <param name="uid">Affected uid.</param>
   /// <returns>Possibly errors.</returns>
   ServiceErgebnis DeleteDialog(ServiceDaten daten, string uid);
+
+  /// <summary>
+  /// Continues a dialog.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="dialog">Affected dialog entry or null.</param>
+  /// <param name="continues">True if dialog continues.</param>
+  /// <param name="systemprompt">Affected input system prompt string.</param>
+  /// <param name="prompt">Affected input prompt string.</param>
+  /// <param name="response">Affected AI response.</param>
+  /// <returns>AI data with response as dialog.</returns>
+  ServiceErgebnis<AiData> ContinueDialog(ServiceDaten daten, AgDialog dialog, bool continues, string systemprompt, string prompt, string response);
 }

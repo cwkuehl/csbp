@@ -1863,6 +1863,12 @@
     <data name="AG500.model.tt" xml:space="preserve">
         <value>Welches KI-Modell soll für die Abfrage verwendet werden?</value>
     </data>
+    <data name="AG500.continues" xml:space="preserve">
+        <value>_Dialog fortsetzen?</value>
+    </data>
+    <data name="AG500.continues.tt" xml:space="preserve">
+        <value>Sollen die früheren Eingaben und Antworten für einen Dialog mitgegeben werden?</value>
+    </data>
     <data name="AG500.execute" xml:space="preserve">
         <value>Ausführen mit KI</value>
     </data>
@@ -1870,10 +1876,10 @@
         <value>Started die Ausführung der Eingabe mit dem gewünschten KI-Modell.</value>
     </data>
     <data name="AG500.response" xml:space="preserve">
-        <value>_Antwort von KI</value>
+        <value>_Antwort von KI (Verlauf)</value>
     </data>
     <data name="AG500.response.tt" xml:space="preserve">
-        <value>Antwort von KI</value>
+        <value>Antwort von KI inkl. Verlauf bei einem Dialog</value>
     </data>
     <data name="AG500.tokens" xml:space="preserve">
         <value>Antwort Tokens</value>

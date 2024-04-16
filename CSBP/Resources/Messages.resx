@@ -1863,6 +1863,12 @@
     <data name="AG500.model.tt" xml:space="preserve">
         <value>Which AI model should be used?</value>
     </data>
+    <data name="AG500.continues" xml:space="preserve">
+        <value>Continue as _dialog?</value>
+    </data>
+    <data name="AG500.continues.tt" xml:space="preserve">
+        <value>Include the previous prompts and responses?</value>
+    </data>
     <data name="AG500.execute" xml:space="preserve">
         <value>Execute AI</value>
     </data>
@@ -1870,10 +1876,10 @@
         <value>Starts the AI execution for the prompt.</value>
     </data>
     <data name="AG500.response" xml:space="preserve">
-        <value>_Response from AI</value>
+        <value>_Response from AI (history)</value>
     </data>
     <data name="AG500.response.tt" xml:space="preserve">
-        <value>Response from AI</value>
+        <value>Response from AI incl. history in case of continued dialog</value>
     </data>
     <data name="AG500.tokens" xml:space="preserve">
         <value>Response tokens</value>

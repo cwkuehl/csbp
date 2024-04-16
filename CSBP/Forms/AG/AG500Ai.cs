@@ -64,6 +64,13 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly Entry tokens;
 
+  /// <summary>CheckButton continues.</summary>
+  [Builder.Object]
+  private readonly CheckButton continues;
+
+  /// <summary>Seledted dialog entry.</summary>
+  private AgDialog selected;
+
 #pragma warning restore CS0649
 
   /// <summary>Initializes a new instance of the <see cref="AG500Ai"/> class.</summary>
@@ -102,12 +109,8 @@ public partial class AG500Ai : CsbpBin
       EventsActive = false;
       SetText(search, "%%");
       InitLists();
-      var spde = "Du bist einer der besten Programmierer. Du gibst präzise und korrekte Antworten. Du entwickelst Konzepte Schritt für Schritt.";
-      var sp = "You are a first class programmer. Let's think step by step.";
-      SetText(systemprompt, Functions.IsDe ? spde : sp);
-      SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
-      SetText(maxtokens, "100");
       SetText(model, AiData.Gpt35);
+      OnNewClicked(null, null);
       response.Editable = false;
       tokens.IsEditable = false;
       EventsActive = true;
@@ -166,6 +169,25 @@ public partial class AG500Ai : CsbpBin
     }
   }
 
+  /// <summary>Handles New.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnNewClicked(object sender, EventArgs e)
+  {
+    selected = null;
+    var spde = "Du bist einer der besten Programmierer. Du gibst präzise und korrekte Antworten. Du entwickelst Konzepte Schritt für Schritt.";
+    var sp = "You are a first class programmer. Let's think step by step.";
+    SetText(systemprompt, Functions.IsDe ? spde : sp);
+    SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
+    SetText(maxtokens, "1000");
+    SetText(response, null);
+    var ea = EventsActive;
+    EventsActive = false;
+    continues.Active = false;
+    EventsActive = ea;
+    refreshAction.Click();
+  }
+
   /// <summary>Handles Delete.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
@@ -173,7 +195,11 @@ public partial class AG500Ai : CsbpBin
   {
     var uid = GetText(dialogs);
     if (Get(FactoryService.ClientService.DeleteDialog(ServiceDaten, uid)))
+    {
+      if (selected?.Uid == uid)
+        selected = null;
       refreshAction.Click();
+    }
   }
 
   /// <summary>Handles Dialogs.</summary>
@@ -193,6 +219,7 @@ public partial class AG500Ai : CsbpBin
     var d = l.FirstOrDefault();
     if (d?.Data != null)
     {
+      selected = d;
       SetData(d.Data);
     }
   }
@@ -205,13 +232,42 @@ public partial class AG500Ai : CsbpBin
     refreshAction.Click();
   }
 
+  /// <summary>Handles continue.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnContinue(object sender, EventArgs e)
+  {
+    if (!EventsActive)
+      return;
+    var ea = EventsActive;
+    try
+    {
+      EventsActive = false;
+      var r = FactoryService.ClientService.ContinueDialog(ServiceDaten, selected, continues.Active, systemprompt.Buffer.Text, prompt.Buffer.Text, response.Buffer.Text);
+      Get(r);
+      var data = r.Ergebnis;
+      if (r.Ok && data != null)
+      {
+        SetText(prompt, data.Prompt);
+        SetText(response, data.GetDialogHistory);
+        continues.Active = data.ContinueDialog;
+      }
+    }
+    finally
+    {
+      EventsActive = ea;
+    }
+  }
+
   /// <summary>Handles Execute.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   protected void OnExecuteClicked(object sender, EventArgs e)
   {
+    var model0 = GetText(model);
     var maxt = Functions.ToInt32(maxtokens.Text);
-    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, systemprompt.Buffer.Text, prompt.Buffer.Text, null, maxt);
+    var r = FactoryService.ClientService.AskChatGpt(ServiceDaten, systemprompt.Buffer.Text, prompt.Buffer.Text, model0, maxt,
+      dialog: continues.Active ? selected : null);
     Get(r);
     var data = r.Ergebnis;
     if (r.Ok && data != null)
@@ -242,18 +298,30 @@ public partial class AG500Ai : CsbpBin
 
   /// <summary>Sets dialogs data.</summary>
   /// <param name="data">Affected data.</param>
+  /// <param name="responly">True, if only response should be set.</param>
   private void SetData(AiData data, bool responly = false)
   {
     if (data == null)
       return;
-    if (!responly)
+    try
     {
-      SetText(systemprompt, data.SystemPrompt);
-      SetText(prompt, data.Prompt);
-      SetText(maxtokens, Functions.ToString(data.MaxTokens));
-      SetText(model, data.Model);
+      EventsActive = false;
+      if (!responly)
+      {
+        SetText(systemprompt, data.SystemPrompt);
+        SetText(prompt, data.Prompt);
+        SetText(maxtokens, Functions.ToString(data.MaxTokens));
+        SetText(model, data.Model);
+      }
+      SetText(response, data.GetDialogHistory);
+      SetText(tokens, @$"{data.PromptTokens}+{data.CompletionTokens}={data.PromptTokens + data.CompletionTokens} ({data.FinishReasons.FirstOrDefault()})");
+      continues.Active = data.ContinueDialog;
     }
-    SetText(response, data.Messages.FirstOrDefault());
-    SetText(tokens, @$"{data.PromptTokens}+{data.CompletionTokens}={data.PromptTokens + data.CompletionTokens} ({data.FinishReasons.FirstOrDefault()})");
+    finally
+    {
+      EventsActive = true;
+    }
+    if (data.ContinueDialog)
+      SetText(prompt, null);
   }
 }

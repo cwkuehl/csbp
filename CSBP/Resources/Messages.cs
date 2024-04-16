@@ -3017,6 +3017,16 @@ public partial class Messages
     get { return rm.GetString("AG500.model.tt"); }
   }
 
+  public static string AG500_continues
+  {
+    get { return rm.GetString("AG500.continues"); }
+  }
+
+  public static string AG500_continues_tt
+  {
+    get { return rm.GetString("AG500.continues.tt"); }
+  }
+
   public static string AG500_execute
   {
     get { return rm.GetString("AG500.execute"); }

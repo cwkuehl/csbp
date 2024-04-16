@@ -481,19 +481,6 @@ public partial class ClientService : ServiceBase, IClientService
   }
 
   /// <summary>
-  /// Deletes an dialog.
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <param name="uid">Affected uid.</param>
-  /// <returns>Possibly errors.</returns>
-  public ServiceErgebnis DeleteDialog(ServiceDaten daten, string uid)
-  {
-    var e = AgDialogRep.Get(daten, daten.MandantNr, uid) ?? throw new MessageException(M1013);
-    AgDialogRep.Delete(daten, e);
-    return new ServiceErgebnis();
-  }
-
-  /// <summary>
   /// Gets a list of options.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -1174,8 +1161,9 @@ public partial class ClientService : ServiceBase, IClientService
   /// <param name="model">Affected AI model.</param>
   /// <param name="maxtokens">Affected maximal number of tokens.</param>
   /// <param name="temperature">Affected temperature between 0 and 1.</param>
+  /// <param name="dialog">Affected dialog to be continued.</param>
   /// <returns>AI data with response from ChatGPT.</returns>
-  public ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string systemprompt, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M)
+  public ServiceErgebnis<AiData> AskChatGpt(ServiceDaten daten, string systemprompt, string prompt, string model = AiData.Gpt35, int maxtokens = 50, decimal temperature = 0.7M, AgDialog dialog = null)
   {
     var r = new ServiceErgebnis<AiData>();
     if (string.IsNullOrEmpty(prompt))
@@ -1184,7 +1172,9 @@ public partial class ClientService : ServiceBase, IClientService
       model = AiData.Gpt35;
     if (maxtokens <= 16)
       maxtokens = 16;
-    var aidata = new AiData
+    AiData aidata;
+    if (dialog == null)
+      aidata = new AiData
     {
       Model = model,
       MaxTokens = maxtokens,
@@ -1192,11 +1182,26 @@ public partial class ClientService : ServiceBase, IClientService
       SystemPrompt = systemprompt,
       Prompt = prompt,
     };
+    else
+    {
+      aidata = ParseRequestResponse(dialog.Frage, dialog.Antwort);
+      aidata.ContinueDialog = true;
+      aidata.Prompt = prompt;
+    }
     var d = OpenAiChatGpt(daten, aidata, "OPENAI");
-    d.Uid = Functions.GetUid();
-    var dlist = AgDialogRep.GetList(daten, d.Api, null, null, d.Datum, true);
-    d.Nr = (dlist?.FirstOrDefault()?.Nr ?? 0) + 1; // Starting with 1.
-    AgDialogRep.Insert(daten, d);
+    if (dialog == null)
+    {
+      d.Uid = Functions.GetUid();
+      var dlist = AgDialogRep.GetList(daten, d.Api, null, null, d.Datum, true);
+      d.Nr = (dlist?.FirstOrDefault()?.Nr ?? 0) + 1; // Starting with 1.
+      AgDialogRep.Insert(daten, d);
+    }
+    else
+    {
+      d.Uid = dialog.Uid;
+      d.Nr = dialog.Nr;
+      AgDialogRep.Update(daten, d);
+    }
     r.Ergebnis = aidata;
     return r;
   }
@@ -1219,6 +1224,86 @@ public partial class ClientService : ServiceBase, IClientService
       d.Data = ParseRequestResponse(d.Frage, d.Antwort);
     }
     return r;
+  }
+
+  /// <summary>
+  /// Deletes an dialog.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="uid">Affected uid.</param>
+  /// <returns>Possibly errors.</returns>
+  public ServiceErgebnis DeleteDialog(ServiceDaten daten, string uid)
+  {
+    var e = AgDialogRep.Get(daten, daten.MandantNr, uid) ?? throw new MessageException(M1013);
+    AgDialogRep.Delete(daten, e);
+    return new ServiceErgebnis();
+  }
+
+  /// <summary>
+  /// Continues a dialog.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="dialog">Affected dialog entry or null.</param>
+  /// <param name="continues">True if dialog continues.</param>
+  /// <param name="systemprompt">Affected input system prompt string.</param>
+  /// <param name="prompt">Affected input prompt string.</param>
+  /// <param name="response">Affected AI response.</param>
+  /// <returns>AI data with response as dialog.</returns>
+  public ServiceErgebnis<AiData> ContinueDialog(ServiceDaten daten, AgDialog dialog, bool continues, string systemprompt, string prompt, string response)
+  {
+    var r = new ServiceErgebnis<AiData>();
+    var ai = new AiData();
+    if (dialog == null || string.IsNullOrEmpty(response))
+      return r;
+    ParseRequestResponse(dialog.Frage, dialog.Antwort, ai);
+    ai.ContinueDialog = ai.ContinueDialog || continues;
+    ai.Prompt = ai.ContinueDialog ? null : ai.Prompt;
+    r.Ergebnis = ai;
+    return r;
+
+    // ai.SystemPrompt = systemprompt;
+    // var re = new Regex(@"((?:\r?\n)?User|(?:\r?\n){2}Assistant)", RegexOptions.Singleline | RegexOptions.Compiled);
+    // var m = re.Match(response);
+    // // var matchCount = 0;
+    // // while (m.Success)
+    // // {
+    // //   Console.WriteLine("Match " + (++matchCount));
+    // //   for (int i = 1; i <= 2; i++)
+    // //   {
+    // //     Group g = m.Groups[i];
+    // //     Console.WriteLine("Group" + i + "='" + g + "'");
+    // //     CaptureCollection cc = g.Captures;
+    // //     for (int j = 0; j < cc.Count; j++)
+    // //     {
+    // //       Capture c = cc[j];
+    // //       Console.WriteLine("Capture" + j + "='" + c + "', Position=" + c.Index);
+    // //     }
+    // //   }
+    // //   m = m.NextMatch();
+    // // }
+    // if (m.Success)
+    // {
+    //   ai.Prompt = prompt;
+    //   ai.Messages.Add(response);
+    //   ai.ContinueDialog = false;
+    //   r.Ergebnis = ai;
+    // }
+    // else
+    // {
+    //   ai.Prompt = null;
+    //   ai.AssistantPrompts.Add(prompt);
+    //   ai.AssistantPrompts.Add(response);
+    //   ai.ContinueDialog = true;
+    //   r.Ergebnis = ai;
+    // }
+    // else
+    // {
+    //   ai.Prompt = prompt;
+    //   for (var i = 0; i < m.Count; i++)
+    //   {
+    //     var v = m[i].Value;
+    //     if (v.StartsWith("User:", StringComparison.Ordinal))
+    // }
   }
 
   /// <summary>Request to OpenAi ChatGpt.</summary>
@@ -1267,8 +1352,12 @@ public partial class ClientService : ServiceBase, IClientService
       };
       if (data.AssistantPrompts.Any())
       {
+        var i = 0;
         foreach (var ap in data.AssistantPrompts)
-          mdic.Add(new Dictionary<string, string> { { "role", "assistant" }, { "content", ap } });
+        {
+          mdic.Add(new Dictionary<string, string> { { "role", i % 2 == 0 ? "user" : "assistant" }, { "content", ap } });
+          i++;
+        }
       }
       mdic.Add(new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt } });
       jcontent = new
@@ -1340,11 +1429,17 @@ public partial class ClientService : ServiceBase, IClientService
         while (arr.MoveNext())
         {
           var arr1 = arr.Current;
-          if (arr1.TryGetProperty("content", out var c))
+          if (arr1.TryGetProperty("content", out var c) && arr1.TryGetProperty("role", out var role))
           {
-            if (!string.IsNullOrEmpty(data.Prompt))
-              data.SystemPrompt = data.Prompt;
-            data.Prompt = c.GetString();
+            if (role.GetString() == "system")
+              data.SystemPrompt = c.GetString();
+            else if (role.GetString() == "user")
+            {
+              data.Prompt = c.GetString();
+              data.AssistantPrompts.Add(c.GetString());
+            }
+            else if (role.GetString() == "assistant")
+              data.AssistantPrompts.Add(c.GetString());
           }
         }
       }
@@ -1376,7 +1471,9 @@ public partial class ClientService : ServiceBase, IClientService
             if (message.TryGetProperty("content", out var c))
             {
               data.Messages.Add(c.GetString());
+              data.AssistantPrompts.Add(c.GetString());
             }
+            break;
           }
           else if (arr1.TryGetProperty("text", out var ptext))
           {
@@ -1402,6 +1499,8 @@ public partial class ClientService : ServiceBase, IClientService
         }
       }
     }
+    if (data.AssistantPrompts.Count > 2)
+      data.ContinueDialog = true;
     return data;
   }
 

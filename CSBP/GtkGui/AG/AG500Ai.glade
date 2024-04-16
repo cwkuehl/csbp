@@ -8,6 +8,11 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-delete</property>
   </object>
+  <object class="GtkImage" id="newImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon-name">document-new</property>
+  </object>
   <object class="GtkImage" id="redoImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -23,7 +28,7 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-undo</property>
   </object>
-  <!-- n-columns=4 n-rows=10 -->
+  <!-- n-columns=4 n-rows=11 -->
   <object class="GtkGrid" id="AG500Ai">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -83,6 +88,20 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="newAction">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip_text">Action.new</property>
+            <property name="image">newImage</property>
+            <property name="always_show_image">True</property>
+            <signal name="clicked" handler="OnNewClicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="deleteAction">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -93,7 +112,7 @@
             <signal name="clicked" handler="OnDeleteClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -158,7 +177,7 @@
       </object>
       <packing>
         <property name="left-attach">2</property>
-        <property name="top-attach">9</property>
+        <property name="top-attach">10</property>
       </packing>
     </child>
     <child>
@@ -235,7 +254,7 @@
       <packing>
         <property name="left-attach">3</property>
         <property name="top-attach">2</property>
-        <property name="height">7</property>
+        <property name="height">8</property>
       </packing>
     </child>
     <child>
@@ -295,7 +314,7 @@
         <property name="left-attach">0</property>
         <property name="top-attach">2</property>
         <property name="width">2</property>
-        <property name="height">7</property>
+        <property name="height">8</property>
       </packing>
     </child>
     <child>
@@ -310,7 +329,7 @@
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">9</property>
+        <property name="top-attach">10</property>
       </packing>
     </child>
     <child>
@@ -326,7 +345,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">9</property>
+        <property name="top-attach">10</property>
       </packing>
     </child>
     <child>
@@ -341,7 +360,7 @@
       </object>
       <packing>
         <property name="left-attach">3</property>
-        <property name="top-attach">9</property>
+        <property name="top-attach">10</property>
       </packing>
     </child>
     <child>
@@ -395,6 +414,24 @@
       <packing>
         <property name="left-attach">2</property>
         <property name="top-attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="continues">
+        <property name="label" translatable="yes">AG500.continues</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="tooltip-text" translatable="yes">AG500.continues.tt</property>
+        <property name="valign">center</property>
+        <property name="hexpand">True</property>
+        <property name="use-underline">True</property>
+        <property name="draw-indicator">True</property>
+        <signal name="toggled" handler="OnContinue" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">9</property>
       </packing>
     </child>
   </object>
