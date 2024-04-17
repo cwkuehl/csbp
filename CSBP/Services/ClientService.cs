@@ -1174,20 +1174,17 @@ public partial class ClientService : ServiceBase, IClientService
       maxtokens = 16;
     AiData aidata;
     if (dialog == null)
-      aidata = new AiData
-    {
-      Model = model,
-      MaxTokens = maxtokens,
-      Temperature = temperature,
-      SystemPrompt = systemprompt,
-      Prompt = prompt,
-    };
+      aidata = new AiData();
     else
     {
       aidata = ParseRequestResponse(dialog.Frage, dialog.Antwort);
       aidata.ContinueDialog = true;
-      aidata.Prompt = prompt;
     }
+    aidata.Model = model;
+    aidata.MaxTokens = maxtokens;
+    aidata.Temperature = temperature;
+    aidata.SystemPrompt = systemprompt;
+    aidata.Prompt = prompt;
     var d = OpenAiChatGpt(daten, aidata, "OPENAI");
     if (dialog == null)
     {
