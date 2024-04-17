@@ -14,11 +14,14 @@ using System.Text;
 [Serializable]
 public class AiData
 {
-  /// <summary>AI model constant for davinci.</summary>
-  public const string Davinci = "text-davinci-003";
+  /// <summary>AI model constant for GPT 4 (Input $10/1M tokens Output $30/1M tokens).</summary>
+  public const string Gpt4 = "gpt-4-turbo";
 
-  /// <summary>AI model constant for GPT 3.5 (cheaper than davinci).</summary>
+  /// <summary>AI model constant for GPT 3.5 (Input $0.5/1M tokens Output $1.5/1M tokens).</summary>
   public const string Gpt35 = "gpt-3.5-turbo";
+
+  /// <summary>AI model constant for GPT 3.5 instruct (Input $1.5/1M tokens Output $2.0/1M tokens).</summary>
+  public const string Gpt35instruct = "gpt-3.5-turbo-instruct";
 
   /// <summary>AI model constant for DALL E.</summary>
   public const string Dalle = "dalle";

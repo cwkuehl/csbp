@@ -1145,7 +1145,8 @@ public partial class ClientService : ServiceBase, IClientService
     var l = new List<MaParameter>
     {
       new MaParameter { Schluessel = AiData.Gpt35, Wert = AiData.Gpt35 },
-      new MaParameter { Schluessel = AiData.Davinci, Wert = AiData.Davinci },
+      new MaParameter { Schluessel = AiData.Gpt35instruct, Wert = AiData.Gpt35instruct },
+      new MaParameter { Schluessel = AiData.Gpt4, Wert = AiData.Gpt4 },
       new MaParameter { Schluessel = AiData.Dalle, Wert = AiData.Dalle },
     };
     var r = new ServiceErgebnis<List<MaParameter>>(l);
@@ -1311,7 +1312,7 @@ public partial class ClientService : ServiceBase, IClientService
   {
     var apikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
     var url = data.Model == AiData.Dalle ? @$"https://api.openai.com/v1/images/generations"
-      : data.Model == AiData.Davinci ? @$"https://api.openai.com/v1/completions"
+      : data.Model == AiData.Gpt35instruct ? @$"https://api.openai.com/v1/completions"
       : @$"https://api.openai.com/v1/chat/completions";
     var handler = new HttpClientHandler
     {
@@ -1333,7 +1334,7 @@ public partial class ClientService : ServiceBase, IClientService
         size = "256x256", // 512x512 1024x1024
         response_format = "url", // b64_json
       };
-    else if (data.Model == AiData.Davinci)
+    else if (data.Model == AiData.Gpt35instruct)
       jcontent = new
       {
         model = data.Model,
@@ -1410,7 +1411,11 @@ public partial class ClientService : ServiceBase, IClientService
       var root = doc.RootElement;
       if (root.TryGetProperty("model", out var model))
       {
-        data.Model = model.GetString();
+        data.Model = Functions.TrimNull(model.GetString());
+      }
+      if (root.TryGetProperty("prompt", out var prompt))
+      {
+        data.Prompt = Functions.TrimNull(prompt.GetString());
       }
       if (root.TryGetProperty("temperature", out var temperature))
       {
@@ -1429,14 +1434,14 @@ public partial class ClientService : ServiceBase, IClientService
           if (arr1.TryGetProperty("content", out var c) && arr1.TryGetProperty("role", out var role))
           {
             if (role.GetString() == "system")
-              data.SystemPrompt = c.GetString();
+              data.SystemPrompt = Functions.TrimNull(c.GetString());
             else if (role.GetString() == "user")
             {
-              data.Prompt = c.GetString();
-              data.AssistantPrompts.Add(c.GetString());
+              data.Prompt = Functions.TrimNull(c.GetString());
+              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
             }
             else if (role.GetString() == "assistant")
-              data.AssistantPrompts.Add(c.GetString());
+              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
           }
         }
       }
@@ -1464,22 +1469,22 @@ public partial class ClientService : ServiceBase, IClientService
           var arr1 = arr.Current;
           if (arr1.TryGetProperty("message", out var message))
           {
-            // gpt-3.5-turbo-0301
+            // gpt-3.5-turbo
             if (message.TryGetProperty("content", out var c))
             {
-              data.Messages.Add(c.GetString());
-              data.AssistantPrompts.Add(c.GetString());
+              data.Messages.Add(Functions.TrimNull(c.GetString()));
+              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
             }
             break;
           }
           else if (arr1.TryGetProperty("text", out var ptext))
           {
             // text-davinci-003
-            data.Messages.Add(ptext.GetString());
+            data.Messages.Add(Functions.TrimNull(ptext.GetString()));
           }
           if (arr1.TryGetProperty("finish_reason", out var t3))
           {
-            data.FinishReasons.Add(t3.GetString());
+            data.FinishReasons.Add(Functions.TrimNull(t3.GetString()));
           }
         }
       }
@@ -1491,7 +1496,7 @@ public partial class ClientService : ServiceBase, IClientService
           var arr1 = arr.Current;
           if (arr1.TryGetProperty("url", out var c))
           {
-            data.Messages.Add(c.GetString());
+            data.Messages.Add(Functions.TrimNull(c.GetString()));
           }
         }
       }
