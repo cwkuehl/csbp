@@ -7,6 +7,8 @@ namespace CSBP.Services.NonService;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using CSBP.Base;
 
 /// <summary>
 /// Class for AI data.
@@ -25,6 +27,25 @@ public class AiData
 
   /// <summary>AI model constant for DALL E 2 (1024×1024 $0.020/image 512×512 $0.018/image 256×256 $0.016/image).</summary>
   public const string Dalle2 = "dall-e-2";
+
+  /// <summary>Local AI model constant for Llama 3.</summary>
+  public const string LocalLlama3 = "llama3_max";
+
+  /// <summary>List with all AI models.</summary>
+  private static readonly List<Tuple<string, string>> Ailist =
+  [
+    new Tuple<string, string>(Gpt35, "GPT-3.5"),
+    new Tuple<string, string>(Gpt4, "GPT-4"),
+    new Tuple<string, string>(Gpt35instruct, "GPT-3.5 instruct"),
+    new Tuple<string, string>(Dalle2, "DALL E 2"),
+    new Tuple<string, string>(LocalLlama3, "Local Llama 3"),
+  ];
+
+  /// <summary>Gets list with AI models.</summary>
+  public static List<Tuple<string, string>> GetAiList
+  {
+    get { return Ailist; }
+  }
 
   /// <summary>Gets or sets the AI model.</summary>
   public string Model { get; set; } = Gpt35;
@@ -98,5 +119,137 @@ public class AiData
       }
       return sb.ToString();
     }
+  }
+
+  /// <summary>
+  /// Parses the request and response string.
+  /// </summary>
+  /// <param name="req">Affected request string.</param>
+  /// <param name="resp">Affected response string.</param>
+  /// <param name="data">Affected ai data or null.</param>
+  /// <returns>Parsed data.</returns>
+  public static AiData ParseRequestResponse(string req, string resp, AiData data = null)
+  {
+    data ??= new AiData();
+    if (!string.IsNullOrEmpty(req))
+    {
+      using var doc = JsonDocument.Parse(req);
+      var root = doc.RootElement;
+      if (root.TryGetProperty("model", out var model))
+      {
+        data.Model = Functions.TrimNull(model.GetString());
+      }
+      if (root.TryGetProperty("prompt", out var prompt))
+      {
+        // gpt-3.5-turbo-instruct
+        data.Prompt = Functions.TrimNull(prompt.GetString());
+        data.AssistantPrompts.Add(Functions.TrimNull(prompt.GetString()));
+      }
+      if (root.TryGetProperty("temperature", out var temperature))
+      {
+        data.Temperature = temperature.GetDecimal();
+      }
+      if (root.TryGetProperty("max_tokens", out var mt))
+      {
+        data.MaxTokens = mt.GetInt32();
+      }
+      if (root.TryGetProperty("messages", out var messages))
+      {
+        var arr = messages.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (arr1.TryGetProperty("content", out var c) && arr1.TryGetProperty("role", out var role))
+          {
+            if (role.GetString() == "system")
+              data.SystemPrompt = Functions.TrimNull(c.GetString());
+            else if (role.GetString() == "user")
+            {
+              data.Prompt = Functions.TrimNull(c.GetString());
+              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+            }
+            else if (role.GetString() == "assistant")
+              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+          }
+        }
+      }
+    }
+    if (!string.IsNullOrEmpty(resp))
+    {
+      using var doc = JsonDocument.Parse(resp);
+      var root = doc.RootElement;
+      if (root.TryGetProperty("usage", out var usage))
+      {
+        if (usage.TryGetProperty("prompt_tokens", out var t1))
+        {
+          data.PromptTokens = t1.GetDecimal();
+        }
+        if (usage.TryGetProperty("completion_tokens", out var t2))
+        {
+          data.CompletionTokens = t2.GetDecimal();
+        }
+      }
+      if (root.TryGetProperty("choices", out var choices))
+      {
+        var arr = choices.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (arr1.TryGetProperty("message", out var message))
+          {
+            // gpt-3.5-turbo
+            if (message.TryGetProperty("content", out var c))
+            {
+              data.Messages.Add(Functions.TrimNull(c.GetString()));
+              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+            }
+            break;
+          }
+          else if (arr1.TryGetProperty("text", out var ptext))
+          {
+            // gpt-3.5-turbo-instruct
+            data.Messages.Add(Functions.TrimNull(ptext.GetString()));
+            data.AssistantPrompts.Add(Functions.TrimNull(ptext.GetString()));
+          }
+          if (arr1.TryGetProperty("finish_reason", out var t3))
+          {
+            data.FinishReasons.Add(Functions.TrimNull(t3.GetString()));
+          }
+        }
+      }
+      else if (root.TryGetProperty("message", out var message))
+      {
+        // Local Llama
+        // {"model":"llama3_max","created_at":"2024-04-28T20:23:37.556685488Z","message":{"role":"assistant","content":"Das ist ein Test, okay! Ich bin bereit, um meine Fähigkeiten zu zeigen. Los geht's! Was ist das nächste Problem?"},"done":true,"total_duration":169306417245,"load_duration":24180638401,"prompt_eval_count":58,"prompt_eval_duration":16433220000,"eval_count":33,"eval_duration":128422227000}
+        if (message.TryGetProperty("content", out var c))
+        {
+          data.Messages.Add(Functions.TrimNull(c.GetString()));
+          data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+        }
+        if (root.TryGetProperty("prompt_eval_count", out var t1))
+        {
+          data.PromptTokens = t1.GetDecimal();
+        }
+        if (root.TryGetProperty("eval_count", out var t2))
+        {
+          data.CompletionTokens = t2.GetDecimal();
+        }
+      }
+      else if (root.TryGetProperty("data", out var data1))
+      {
+        var arr = data1.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (arr1.TryGetProperty("url", out var c))
+          {
+            data.Messages.Add(Functions.TrimNull(c.GetString()));
+          }
+        }
+      }
+    }
+    if (data.AssistantPrompts.Count > 2)
+      data.ContinueDialog = true;
+    return data;
   }
 }

@@ -1142,13 +1142,7 @@ public partial class ClientService : ServiceBase, IClientService
   public ServiceErgebnis<List<MaParameter>> GetAiModelList(ServiceDaten daten)
   {
     Functions.MachNichts(daten);
-    var l = new List<MaParameter>
-    {
-      new MaParameter { Schluessel = AiData.Gpt35, Wert = AiData.Gpt35 },
-      new MaParameter { Schluessel = AiData.Gpt35instruct, Wert = AiData.Gpt35instruct },
-      new MaParameter { Schluessel = AiData.Gpt4, Wert = AiData.Gpt4 },
-      new MaParameter { Schluessel = AiData.Dalle2, Wert = AiData.Dalle2 },
-    };
+    var l = AiData.GetAiList.Select(x => new MaParameter { Schluessel = x.Item1, Wert = x.Item2 }).ToList();
     var r = new ServiceErgebnis<List<MaParameter>>(l);
     return r;
   }
@@ -1178,7 +1172,7 @@ public partial class ClientService : ServiceBase, IClientService
       aidata = new AiData();
     else
     {
-      aidata = ParseRequestResponse(dialog.Frage, dialog.Antwort);
+      aidata = AiData.ParseRequestResponse(dialog.Frage, dialog.Antwort);
       aidata.ContinueDialog = true;
     }
     aidata.Model = model;
@@ -1186,7 +1180,7 @@ public partial class ClientService : ServiceBase, IClientService
     aidata.Temperature = temperature;
     aidata.SystemPrompt = systemprompt;
     aidata.Prompt = prompt;
-    var d = OpenAiChatGpt(daten, aidata, "OPENAI");
+    var d = RequestAiServer(daten, aidata);
     if (dialog == null)
     {
       d.Uid = Functions.GetUid();
@@ -1214,12 +1208,12 @@ public partial class ClientService : ServiceBase, IClientService
   /// <returns>List with dialog entries.</returns>
   public ServiceErgebnis<List<AgDialog>> GetDialogList(ServiceDaten daten, string api = null, string uid = null, string search = null)
   {
-    if (string.IsNullOrEmpty(api))
-      api = "OPENAI";
+    // if (string.IsNullOrEmpty(api))
+    //  api = "OPENAI";
     var r = new ServiceErgebnis<List<AgDialog>>(AgDialogRep.GetList(daten, api, uid, search));
     foreach (var d in r.Ergebnis)
     {
-      d.Data = ParseRequestResponse(d.Frage, d.Antwort);
+      d.Data = AiData.ParseRequestResponse(d.Frage, d.Antwort);
     }
     return r;
   }
@@ -1253,67 +1247,109 @@ public partial class ClientService : ServiceBase, IClientService
     var ai = new AiData();
     if (dialog == null || string.IsNullOrEmpty(response))
       return r;
-    ParseRequestResponse(dialog.Frage, dialog.Antwort, ai);
+    AiData.ParseRequestResponse(dialog.Frage, dialog.Antwort, ai);
     ai.ContinueDialog = ai.ContinueDialog || continues;
     ai.Prompt = ai.ContinueDialog ? null : ai.Prompt;
     r.Ergebnis = ai;
     return r;
-
-    // ai.SystemPrompt = systemprompt;
-    // var re = new Regex(@"((?:\r?\n)?User|(?:\r?\n){2}Assistant)", RegexOptions.Singleline | RegexOptions.Compiled);
-    // var m = re.Match(response);
-    // // var matchCount = 0;
-    // // while (m.Success)
-    // // {
-    // //   Console.WriteLine("Match " + (++matchCount));
-    // //   for (int i = 1; i <= 2; i++)
-    // //   {
-    // //     Group g = m.Groups[i];
-    // //     Console.WriteLine("Group" + i + "='" + g + "'");
-    // //     CaptureCollection cc = g.Captures;
-    // //     for (int j = 0; j < cc.Count; j++)
-    // //     {
-    // //       Capture c = cc[j];
-    // //       Console.WriteLine("Capture" + j + "='" + c + "', Position=" + c.Index);
-    // //     }
-    // //   }
-    // //   m = m.NextMatch();
-    // // }
-    // if (m.Success)
-    // {
-    //   ai.Prompt = prompt;
-    //   ai.Messages.Add(response);
-    //   ai.ContinueDialog = false;
-    //   r.Ergebnis = ai;
-    // }
-    // else
-    // {
-    //   ai.Prompt = null;
-    //   ai.AssistantPrompts.Add(prompt);
-    //   ai.AssistantPrompts.Add(response);
-    //   ai.ContinueDialog = true;
-    //   r.Ergebnis = ai;
-    // }
-    // else
-    // {
-    //   ai.Prompt = prompt;
-    //   for (var i = 0; i < m.Count; i++)
-    //   {
-    //     var v = m[i].Value;
-    //     if (v.StartsWith("User:", StringComparison.Ordinal))
-    // }
   }
 
-  /// <summary>Request to OpenAi ChatGpt.</summary>
+  /// <summary>Request to AI Server depending on model.</summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="data">Affected input data.</param>
-  /// <param name="api">Affected api string.</param>
-  private static AgDialog OpenAiChatGpt(ServiceDaten daten, AiData data, string api)
+  private static AgDialog RequestAiServer(ServiceDaten daten, AiData data)
   {
-    var apikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
-    var url = data.Model == AiData.Dalle2 ? @$"https://api.openai.com/v1/images/generations"
-      : data.Model == AiData.Gpt35instruct ? @$"https://api.openai.com/v1/completions"
-      : @$"https://api.openai.com/v1/chat/completions";
+    var api = "LOCAL";
+    string url;
+    var timeout = 30000;
+    object jcontent;
+    switch (data.Model)
+    {
+      case AiData.Gpt4:
+      case AiData.Gpt35:
+      {
+        url = @$"https://api.openai.com/v1/chat/completions";
+        var mdic = new List<Dictionary<string, string>>
+        {
+          new() { { "role", "system" }, { "content", data.SystemPrompt } },
+        };
+        if (data.AssistantPrompts.Any())
+        {
+          var i = 0;
+          foreach (var ap in data.AssistantPrompts)
+          {
+            mdic.Add(new Dictionary<string, string> { { "role", i % 2 == 0 ? "user" : "assistant" }, { "content", ap } });
+            i++;
+          }
+        }
+        mdic.Add(new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt } });
+        jcontent = new
+        {
+          model = data.Model,
+          messages = mdic,
+          temperature = data.Temperature,
+          max_tokens = data.MaxTokens,
+        };
+        break;
+      }
+      case AiData.Gpt35instruct:
+      {
+        url = @$"https://api.openai.com/v1/completions";
+        jcontent = new
+        {
+          model = data.Model,
+          prompt = data.Prompt,
+          temperature = data.Temperature,
+          max_tokens = data.MaxTokens,
+        };
+        break;
+      }
+      case AiData.Dalle2:
+      {
+        url = @$"https://api.openai.com/v1/images/generations";
+        jcontent = new
+        {
+          prompt = data.Prompt,
+          n = 1,
+          size = "256x256", // 512x512 1024x1024
+          response_format = "url", // b64_json
+          quality = "standard",
+        };
+        break;
+      }
+      case AiData.LocalLlama3:
+      {
+        url = @$"http://localhost:11434/api/chat";
+        timeout = 300000;
+        var mdic = new List<Dictionary<string, string>>
+        {
+          new() { { "role", "system" }, { "content", data.SystemPrompt } },
+        };
+        if (data.AssistantPrompts.Any())
+        {
+          var i = 0;
+          foreach (var ap in data.AssistantPrompts)
+          {
+            mdic.Add(new Dictionary<string, string> { { "role", i % 2 == 0 ? "user" : "assistant" }, { "content", ap } });
+            i++;
+          }
+        }
+        mdic.Add(new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt } });
+        jcontent = new
+        {
+          model = data.Model,
+          messages = mdic,
+          stream = false,
+          options = new
+          {
+            temperature = data.Temperature,
+          },
+        };
+        break;
+      }
+      default:
+        throw new MessageException($"Model {data.Model} not supported.");
+    }
     var handler = new HttpClientHandler
     {
       ClientCertificateOptions = ClientCertificateOption.Manual,
@@ -1321,52 +1357,15 @@ public partial class ClientService : ServiceBase, IClientService
     };
     var httpsclient = new HttpClient(handler)
     {
-      Timeout = TimeSpan.FromMilliseconds(30000),
+      Timeout = TimeSpan.FromMilliseconds(timeout),
     };
-    httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
-    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
-    object jcontent;
-    if (data.Model == AiData.Dalle2)
-      jcontent = new
-      {
-        prompt = data.Prompt,
-        n = 1,
-        size = "256x256", // 512x512 1024x1024
-        response_format = "url", // b64_json
-        quality = "standard",
-      };
-    else if (data.Model == AiData.Gpt35instruct)
-      jcontent = new
-      {
-        model = data.Model,
-        prompt = data.Prompt,
-        temperature = data.Temperature,
-        max_tokens = data.MaxTokens,
-      };
-    else
+    if (url.Contains("api.openai.com"))
     {
-      var mdic = new List<Dictionary<string, string>>
-      {
-        new Dictionary<string, string> { { "role", "system" }, { "content", data.SystemPrompt } },
-      };
-      if (data.AssistantPrompts.Any())
-      {
-        var i = 0;
-        foreach (var ap in data.AssistantPrompts)
-        {
-          mdic.Add(new Dictionary<string, string> { { "role", i % 2 == 0 ? "user" : "assistant" }, { "content", ap } });
-          i++;
-        }
-      }
-      mdic.Add(new Dictionary<string, string> { { "role", "user" }, { "content", data.Prompt } });
-      jcontent = new
-      {
-        model = data.Model,
-        messages = mdic,
-        temperature = data.Temperature,
-        max_tokens = data.MaxTokens,
-      };
+      api = "OPENAI";
+      var openaikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
+      httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {openaikey}");
     }
+    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
     ////Debug.Print($"{content}");
     ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
     ////Debug.Print($"{json}");
@@ -1375,7 +1374,7 @@ public partial class ClientService : ServiceBase, IClientService
     var task2 = task.Result.Content.ReadAsStringAsync();
     task2.Wait();
     var s = task2.Result;
-    data = ParseRequestResponse(null, s, data);
+    data = AiData.ParseRequestResponse(null, s, data);
     var json = JsonSerializer.Serialize(jcontent, new JsonSerializerOptions { WriteIndented = true });
     var d = new AgDialog
     {
@@ -1395,119 +1394,6 @@ public partial class ClientService : ServiceBase, IClientService
       throw new Exception(s);
     System.Diagnostics.Debug.Print($"Answer: {cc}");
     return d;
-  }
-
-  /// <summary>
-  /// Parses the request and response string.
-  /// </summary>
-  /// <param name="req">Affected request string.</param>
-  /// <param name="resp">Affected response string.</param>
-  /// <returns>Parsed data.</returns>
-  private static AiData ParseRequestResponse(string req, string resp, AiData data = null)
-  {
-    data ??= new AiData();
-    if (!string.IsNullOrEmpty(req))
-    {
-      using var doc = JsonDocument.Parse(req);
-      var root = doc.RootElement;
-      if (root.TryGetProperty("model", out var model))
-      {
-        data.Model = Functions.TrimNull(model.GetString());
-      }
-      if (root.TryGetProperty("prompt", out var prompt))
-      {
-        // gpt-3.5-turbo-instruct
-        data.Prompt = Functions.TrimNull(prompt.GetString());
-        data.AssistantPrompts.Add(Functions.TrimNull(prompt.GetString()));
-      }
-      if (root.TryGetProperty("temperature", out var temperature))
-      {
-        data.Temperature = temperature.GetDecimal();
-      }
-      if (root.TryGetProperty("max_tokens", out var mt))
-      {
-        data.MaxTokens = mt.GetInt32();
-      }
-      if (root.TryGetProperty("messages", out var messages))
-      {
-        var arr = messages.EnumerateArray();
-        while (arr.MoveNext())
-        {
-          var arr1 = arr.Current;
-          if (arr1.TryGetProperty("content", out var c) && arr1.TryGetProperty("role", out var role))
-          {
-            if (role.GetString() == "system")
-              data.SystemPrompt = Functions.TrimNull(c.GetString());
-            else if (role.GetString() == "user")
-            {
-              data.Prompt = Functions.TrimNull(c.GetString());
-              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
-            }
-            else if (role.GetString() == "assistant")
-              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
-          }
-        }
-      }
-    }
-    if (!string.IsNullOrEmpty(resp))
-    {
-      using var doc = JsonDocument.Parse(resp);
-      var root = doc.RootElement;
-      if (root.TryGetProperty("usage", out var usage))
-      {
-        if (usage.TryGetProperty("prompt_tokens", out var t1))
-        {
-          data.PromptTokens = t1.GetDecimal();
-        }
-        if (usage.TryGetProperty("completion_tokens", out var t2))
-        {
-          data.CompletionTokens = t2.GetDecimal();
-        }
-      }
-      if (root.TryGetProperty("choices", out var choices))
-      {
-        var arr = choices.EnumerateArray();
-        while (arr.MoveNext())
-        {
-          var arr1 = arr.Current;
-          if (arr1.TryGetProperty("message", out var message))
-          {
-            // gpt-3.5-turbo
-            if (message.TryGetProperty("content", out var c))
-            {
-              data.Messages.Add(Functions.TrimNull(c.GetString()));
-              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
-            }
-            break;
-          }
-          else if (arr1.TryGetProperty("text", out var ptext))
-          {
-            // gpt-3.5-turbo-instruct
-            data.Messages.Add(Functions.TrimNull(ptext.GetString()));
-            data.AssistantPrompts.Add(Functions.TrimNull(ptext.GetString()));
-          }
-          if (arr1.TryGetProperty("finish_reason", out var t3))
-          {
-            data.FinishReasons.Add(Functions.TrimNull(t3.GetString()));
-          }
-        }
-      }
-      else if (root.TryGetProperty("data", out var data1))
-      {
-        var arr = data1.EnumerateArray();
-        while (arr.MoveNext())
-        {
-          var arr1 = arr.Current;
-          if (arr1.TryGetProperty("url", out var c))
-          {
-            data.Messages.Add(Functions.TrimNull(c.GetString()));
-          }
-        }
-      }
-    }
-    if (data.AssistantPrompts.Count > 2)
-      data.ContinueDialog = true;
-    return data;
   }
 
   /// <summary>
