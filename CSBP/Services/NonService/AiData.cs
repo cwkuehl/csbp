@@ -23,8 +23,8 @@ public class AiData
   /// <summary>AI model constant for GPT 3.5 instruct (Input $1.5/1M tokens Output $2.0/1M tokens).</summary>
   public const string Gpt35instruct = "gpt-3.5-turbo-instruct";
 
-  /// <summary>AI model constant for DALL E.</summary>
-  public const string Dalle = "dalle";
+  /// <summary>AI model constant for DALL E 2 (1024×1024 $0.020/image 512×512 $0.018/image 256×256 $0.016/image).</summary>
+  public const string Dalle2 = "dall-e-2";
 
   /// <summary>Gets or sets the AI model.</summary>
   public string Model { get; set; } = Gpt35;

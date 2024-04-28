@@ -1147,7 +1147,7 @@ public partial class ClientService : ServiceBase, IClientService
       new MaParameter { Schluessel = AiData.Gpt35, Wert = AiData.Gpt35 },
       new MaParameter { Schluessel = AiData.Gpt35instruct, Wert = AiData.Gpt35instruct },
       new MaParameter { Schluessel = AiData.Gpt4, Wert = AiData.Gpt4 },
-      new MaParameter { Schluessel = AiData.Dalle, Wert = AiData.Dalle },
+      new MaParameter { Schluessel = AiData.Dalle2, Wert = AiData.Dalle2 },
     };
     var r = new ServiceErgebnis<List<MaParameter>>(l);
     return r;
@@ -1311,7 +1311,7 @@ public partial class ClientService : ServiceBase, IClientService
   private static AgDialog OpenAiChatGpt(ServiceDaten daten, AiData data, string api)
   {
     var apikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
-    var url = data.Model == AiData.Dalle ? @$"https://api.openai.com/v1/images/generations"
+    var url = data.Model == AiData.Dalle2 ? @$"https://api.openai.com/v1/images/generations"
       : data.Model == AiData.Gpt35instruct ? @$"https://api.openai.com/v1/completions"
       : @$"https://api.openai.com/v1/chat/completions";
     var handler = new HttpClientHandler
@@ -1326,13 +1326,14 @@ public partial class ClientService : ServiceBase, IClientService
     httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
     object jcontent;
-    if (data.Model == AiData.Dalle)
+    if (data.Model == AiData.Dalle2)
       jcontent = new
       {
         prompt = data.Prompt,
         n = 1,
         size = "256x256", // 512x512 1024x1024
         response_format = "url", // b64_json
+        quality = "standard",
       };
     else if (data.Model == AiData.Gpt35instruct)
       jcontent = new
@@ -1415,7 +1416,9 @@ public partial class ClientService : ServiceBase, IClientService
       }
       if (root.TryGetProperty("prompt", out var prompt))
       {
+        // gpt-3.5-turbo-instruct
         data.Prompt = Functions.TrimNull(prompt.GetString());
+        data.AssistantPrompts.Add(Functions.TrimNull(prompt.GetString()));
       }
       if (root.TryGetProperty("temperature", out var temperature))
       {
@@ -1479,8 +1482,9 @@ public partial class ClientService : ServiceBase, IClientService
           }
           else if (arr1.TryGetProperty("text", out var ptext))
           {
-            // text-davinci-003
+            // gpt-3.5-turbo-instruct
             data.Messages.Add(Functions.TrimNull(ptext.GetString()));
+            data.AssistantPrompts.Add(Functions.TrimNull(ptext.GetString()));
           }
           if (arr1.TryGetProperty("finish_reason", out var t3))
           {
