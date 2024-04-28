@@ -1163,6 +1163,7 @@ public class StockService : ServiceBase, IStockService
         var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("C") ? "COMMODITY" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : type.StartsWith("P") ? "PRECIOUS_METAL" : type.StartsWith("S") ? "STOCK" : "CURRENCY";
         var type1 = type[1..];
         //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
+        //// var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/performance_values?&idNotation={shortcut}";
         var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to.AddDays(1))}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
         urls.Add((to, url));
       }
