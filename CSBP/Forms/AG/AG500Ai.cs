@@ -272,8 +272,13 @@ public partial class AG500Ai : CsbpBin
     var data = r.Ergebnis;
     if (r.Ok && data != null)
     {
-      SetData(data, true);
+      // SetData(data, true);
       refreshAction.Click();
+      SetText(dialogs, data.DialogUid);
+      Application.Invoke((sender, e) =>
+      {
+        OnDialogsRowActivated(null, null);
+      });
     }
   }
 

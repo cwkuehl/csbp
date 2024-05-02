@@ -1162,11 +1162,16 @@ public partial class ClientService : ServiceBase, IClientService
   {
     var r = new ServiceErgebnis<AiData>();
     if (string.IsNullOrEmpty(prompt))
-      throw new MessageException(AG004);
+    {
+      // throw new MessageException(AG004); // Debugger stürzt ab bei zu wenig Speicher (8GB), keine Fehlermeldung erscheint.
+      r.Errors.Add(Message.New(AG004));
+    }
     if (string.IsNullOrEmpty(model))
       model = AiData.Gpt35;
     if (maxtokens <= 16)
       maxtokens = 16;
+    if (!r.Ok)
+      return r;
     AiData aidata;
     if (dialog == null)
       aidata = new AiData();
@@ -1194,6 +1199,7 @@ public partial class ClientService : ServiceBase, IClientService
       d.Nr = dialog.Nr;
       AgDialogRep.Update(daten, d);
     }
+    aidata.DialogUid = d.Uid;
     r.Ergebnis = aidata;
     return r;
   }
@@ -1369,11 +1375,17 @@ public partial class ClientService : ServiceBase, IClientService
     ////Debug.Print($"{content}");
     ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
     ////Debug.Print($"{json}");
-    var task = httpsclient.PostAsJsonAsync(url, jcontent);
-    task.Wait();
-    var task2 = task.Result.Content.ReadAsStringAsync();
-    task2.Wait();
-    var s = task2.Result;
+    string s;
+    if (Functions.MachNichts() == 0)
+    {
+      var task = httpsclient.PostAsJsonAsync(url, jcontent);
+      task.Wait();
+      var task2 = task.Result.Content.ReadAsStringAsync();
+      task2.Wait();
+      s = task2.Result;
+    }
+    else
+      s = """{"model":"llama3_max","created_at":"2024-04-28T20:23:37.556685488Z","message":{"role":"assistant","content":"Das ist ein Test, okay! Ich bin bereit, um meine Fähigkeiten zu zeigen. Los geht's! Was ist das nächste Problem?"},"done":true,"total_duration":169306417245,"load_duration":24180638401,"prompt_eval_count":58,"prompt_eval_duration":16433220000,"eval_count":33,"eval_duration":128422227000}""";
     data = AiData.ParseRequestResponse(null, s, data);
     var json = JsonSerializer.Serialize(jcontent, new JsonSerializerOptions { WriteIndented = true });
     var d = new AgDialog

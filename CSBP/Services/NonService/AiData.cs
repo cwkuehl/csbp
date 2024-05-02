@@ -89,6 +89,9 @@ public class AiData
   /// <summary>Gets or sets a value indicating whether to continue as dialog.</summary>
   public bool ContinueDialog { get; set; }
 
+  /// <summary>Gets or sets the dialog uid.</summary>
+  public string DialogUid { get; set; }
+
   /// <summary>Gets the response messages as string.</summary>
   public string GetMessages
   {
