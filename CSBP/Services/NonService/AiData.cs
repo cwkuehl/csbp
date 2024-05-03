@@ -31,6 +31,9 @@ public class AiData
   /// <summary>Local AI model constant for Llama 3.</summary>
   public const string LocalLlama3 = "llama3_max";
 
+  /// <summary>Local AI model constant for CodeLlama 7B.</summary>
+  public const string LocalCodeLlama7B = "codellama_max";
+
   /// <summary>List with all AI models.</summary>
   private static readonly List<Tuple<string, string>> Ailist =
   [
@@ -39,6 +42,7 @@ public class AiData
     new Tuple<string, string>(Gpt35instruct, "GPT-3.5 instruct"),
     new Tuple<string, string>(Dalle2, "DALL E 2"),
     new Tuple<string, string>(LocalLlama3, "Local Llama 3"),
+    new Tuple<string, string>(LocalCodeLlama7B, "Local Code Llama 7B"),
   ];
 
   /// <summary>Gets list with AI models.</summary>
@@ -237,6 +241,9 @@ public class AiData
         {
           data.CompletionTokens = t2.GetDecimal();
         }
+        var duration = root.TryGetProperty("total_duration", out var t3) ? t3.GetDecimal() : 0;
+        if (duration > 0)
+          data.FinishReasons.Add($"{Functions.ToString(duration / 1e9m)} s");
       }
       else if (root.TryGetProperty("data", out var data1))
       {
