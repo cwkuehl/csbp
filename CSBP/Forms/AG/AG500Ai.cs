@@ -109,7 +109,7 @@ public partial class AG500Ai : CsbpBin
       EventsActive = false;
       SetText(search, "%%");
       InitLists();
-      SetText(model, AiData.Gpt35);
+      SetText(model, AiData.LocalCodeLlama7B);
       OnNewClicked(null, null);
       response.Editable = false;
       tokens.IsEditable = false;
@@ -175,12 +175,14 @@ public partial class AG500Ai : CsbpBin
   protected void OnNewClicked(object sender, EventArgs e)
   {
     selected = null;
+    SetText(dialogs, null);
     var spde = "Du bist einer der besten Programmierer. Du gibst präzise und korrekte Antworten. Du entwickelst Konzepte Schritt für Schritt.";
     var sp = "You are a first class programmer. Let's think step by step.";
     SetText(systemprompt, Functions.IsDe ? spde : sp);
     SetText(prompt, Functions.IsDe ? "Sag dies ist ein Test!" : "Say this is a test!");
     SetText(maxtokens, "1000");
     SetText(response, null);
+    SetText(tokens, null);
     var ea = EventsActive;
     EventsActive = false;
     continues.Active = false;

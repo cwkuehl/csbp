@@ -1275,10 +1275,9 @@ public partial class ClientService : ServiceBase, IClientService
       case AiData.Gpt35:
       {
         url = @$"https://api.openai.com/v1/chat/completions";
-        var mdic = new List<Dictionary<string, string>>
-        {
-          new() { { "role", "system" }, { "content", data.SystemPrompt } },
-        };
+        var mdic = new List<Dictionary<string, string>>();
+        if (!string.IsNullOrEmpty(data.SystemPrompt))
+          mdic.Add(new Dictionary<string, string> { { "role", "system" }, { "content", data.SystemPrompt } });
         if (data.AssistantPrompts.Any())
         {
           var i = 0;

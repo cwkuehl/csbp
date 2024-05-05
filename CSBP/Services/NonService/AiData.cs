@@ -34,7 +34,7 @@ public class AiData
   /// <summary>Local AI model constant for CodeLlama 7B.</summary>
   public const string LocalCodeLlama7B = "codellama_max";
 
-  /// <summary>List with all AI models.</summary>
+  /// <summary>List with all AI models, https://ollama.com/library.</summary>
   private static readonly List<Tuple<string, string>> Ailist =
   [
     new Tuple<string, string>(Gpt35, "GPT-3.5"),
