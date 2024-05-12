@@ -1324,6 +1324,7 @@ public partial class ClientService : ServiceBase, IClientService
       }
       case AiData.LocalLlama3:
       case AiData.LocalCodeLlama7B:
+      case AiData.LocalStarcoder27B:
       {
         url = @$"http://localhost:11434/api/chat";
         timeout = 300000;
