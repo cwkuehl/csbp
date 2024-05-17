@@ -82,11 +82,15 @@ public class Parameter
     };
     Params2 = new Dictionary<string, string>();
     AppConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".csbp.json");
+    var appconfig0 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".csbp0.json");
     if (File.Exists(AppConfig))
     {
+      var cont = true;
+      while (cont)
       try
       {
-        var file = File.OpenRead(AppConfig);
+        cont = false;
+        using var file = File.OpenRead(AppConfig);
         using var doc = JsonDocument.Parse(file);
         var root = doc.RootElement;
         var values = root.EnumerateObject();
@@ -97,11 +101,23 @@ public class Parameter
             Params2[v.Name] = v.Value.GetString();
         }
       }
-      catch (Exception)
+      catch (Exception ex)
       {
-        Functions.MachNichts();
-        throw;
+        if (ex is JsonException)
+        {
+          if (File.Exists(appconfig0))
+          {
+            // Restore backup
+            File.Copy(appconfig0, AppConfig, true);
+            cont = true;
+          }
+        }
+        if (!cont)
+          throw;
       }
+
+      // Save backup
+      File.Copy(AppConfig, appconfig0, true);
     }
     foreach (var p in Params)
     {
