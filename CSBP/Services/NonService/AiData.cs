@@ -37,6 +37,9 @@ public class AiData
   /// <summary>Local AI model constant for Starcoder2 7B.</summary>
   public const string LocalStarcoder27B = "starcoder2:7b";
 
+  /// <summary>Local AI model constant for Llava 7B.</summary>
+  public const string LocalLlava7B = "llava:7b";
+
   /// <summary>List with all AI models, https://ollama.com/library.</summary>
   private static readonly List<Tuple<string, string>> Ailist =
   [
@@ -47,6 +50,7 @@ public class AiData
     new Tuple<string, string>(LocalLlama3, "Local Llama 3"),
     new Tuple<string, string>(LocalCodeLlama7B, "Local Code Llama 7B"),
     new Tuple<string, string>(LocalStarcoder27B, "Local Starcoder2 7B"),
+    new Tuple<string, string>(LocalLlava7B, "Local Llava 7B"),
   ];
 
   /// <summary>Gets list with AI models.</summary>
@@ -78,6 +82,9 @@ public class AiData
 
   /// <summary>Gets or sets the input prompt string for AI.</summary>
   public string Prompt { get; set; }
+
+  /// <summary>Gets the image file names.</summary>
+  public List<string> Images { get; private set; } = new();
 
   /// <summary>Gets the finish reasons: stop, length.</summary>
   public List<string> FinishReasons { get; private set; } = new();
@@ -237,6 +244,23 @@ public class AiData
           data.Messages.Add(Functions.TrimNull(c.GetString()));
           data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
         }
+        if (root.TryGetProperty("prompt_eval_count", out var t1))
+        {
+          data.PromptTokens = t1.GetDecimal();
+        }
+        if (root.TryGetProperty("eval_count", out var t2))
+        {
+          data.CompletionTokens = t2.GetDecimal();
+        }
+        var duration = root.TryGetProperty("total_duration", out var t3) ? t3.GetDecimal() : 0;
+        if (duration > 0)
+          data.FinishReasons.Add($"{Functions.ToString(duration / 1e9m)} s");
+      }
+      else if (root.TryGetProperty("response", out var response))
+      {
+        // Local Llava
+        // {"model":"llava:7b","created_at":"2024-05-14T20:08:15.245784397Z","response":" The image appears to be a photograph of a printed document, possibly a business card or an informational card. The text on the card is in German, and it includes contact details such as a name, address, phone numbers, and email addresses. There are also some decorative elements at the top right corner that seem to be a small illustration or design. The style of the image suggests it could be from an informal business setting, given the casual presentation of the information. ","done":true,"context":[733,16289,28793,6685,456,3469,733,28748,16289,28793,415,3469,8045,298,347,264,9180,302,264,15180,3248,28725,8189,264,1955,4148,442,396,5227,1249,4148,28723,415,2245,356,272,4148,349,297,5567,28725,304,378,5532,3754,4162,1259,390,264,1141,28725,2962,28725,4126,5551,28725,304,4927,14501,28723,1387,460,835,741,8059,1197,5176,438,272,1830,1103,6581,369,1709,298,347,264,1741,8740,352,442,2621,28723,415,3238,302,272,3469,12308,378,829,347,477,396,5227,282,1955,5587,28725,2078,272,13316,14909,302,272,1871,28723,28705],"total_duration":140229829507,"load_duration":6722426299,"prompt_eval_count":1,"prompt_eval_duration":108026235000,"eval_count":99,"eval_duration":25426222000}
+        data.Messages.Add(Functions.TrimNull(response.GetString()));
         if (root.TryGetProperty("prompt_eval_count", out var t1))
         {
           data.PromptTokens = t1.GetDecimal();

@@ -1354,6 +1354,26 @@ public partial class ClientService : ServiceBase, IClientService
         };
         break;
       }
+      case AiData.LocalLlava7B:
+      {
+        url = @$"http://localhost:11434/api/generate";
+        timeout = 300000;
+        ////var images = new string[data.Images.Count];
+        data.Images.Add("/home/wolfgang/Bilder/danova3.png");
+        var images = data.Images.Select(i => Convert.ToBase64String(File.ReadAllBytes(i))).ToArray();
+        jcontent = new
+        {
+          model = data.Model,
+          prompt = data.Prompt,
+          stream = false,
+          images = images,
+          options = new
+          {
+            temperature = data.Temperature,
+          },
+        };
+        break;
+      }
       default:
         throw new MessageException($"Model {data.Model} not supported.");
     }
