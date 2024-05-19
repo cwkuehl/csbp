@@ -1327,7 +1327,7 @@ public partial class ClientService : ServiceBase, IClientService
       case AiData.LocalStarcoder27B:
       {
         url = @$"http://localhost:11434/api/chat";
-        timeout = 300000;
+        timeout = 3000000;
         var mdic = new List<Dictionary<string, string>>
         {
           new() { { "role", "system" }, { "content", data.SystemPrompt } },
@@ -1357,7 +1357,7 @@ public partial class ClientService : ServiceBase, IClientService
       case AiData.LocalLlava7B:
       {
         url = @$"http://localhost:11434/api/generate";
-        timeout = 300000;
+        timeout = 3000000;
         ////var images = new string[data.Images.Count];
         data.Images.Add("/home/wolfgang/Bilder/danova3.png");
         var images = data.Images.Select(i => Convert.ToBase64String(File.ReadAllBytes(i))).ToArray();

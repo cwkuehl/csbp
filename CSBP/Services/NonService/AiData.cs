@@ -48,7 +48,7 @@ public class AiData
     new Tuple<string, string>(Gpt35instruct, "GPT-3.5 instruct"),
     new Tuple<string, string>(Dalle2, "DALL E 2"),
     new Tuple<string, string>(LocalLlama3, "Local Llama 3"),
-    new Tuple<string, string>(LocalCodeLlama7B, "Local Code Llama 7B"),
+    //// new Tuple<string, string>(LocalCodeLlama7B, "Local Code Llama 7B"), // no good results
     new Tuple<string, string>(LocalStarcoder27B, "Local Starcoder2 7B"),
     new Tuple<string, string>(LocalLlava7B, "Local Llava 7B"),
   ];
@@ -189,6 +189,17 @@ public class AiData
             else if (role.GetString() == "assistant")
               data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
           }
+        }
+      }
+      if (root.TryGetProperty("images", out var images))
+      {
+        // llava
+        var arr = images.EnumerateArray();
+        while (arr.MoveNext())
+        {
+          var arr1 = arr.Current;
+          if (string.IsNullOrEmpty(data.SystemPrompt))
+            data.SystemPrompt = Functions.TrimNull(arr1.GetString());
         }
       }
     }

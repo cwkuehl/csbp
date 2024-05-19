@@ -109,7 +109,7 @@ public partial class AG500Ai : CsbpBin
       EventsActive = false;
       SetText(search, "%%");
       InitLists();
-      SetText(model, AiData.LocalCodeLlama7B);
+      SetText(model, AiData.LocalLlama3);
       OnNewClicked(null, null);
       response.Editable = false;
       tokens.IsEditable = false;
