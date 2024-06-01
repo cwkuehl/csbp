@@ -165,7 +165,7 @@ public partial class WP260Investment : CsbpBin
         if (p.Art == Constants.ARTK_ERTRAGSKONTO && (keind || p.Kz == Constants.KZK_DEPOT))
           re.AppendValues(p.Name, p.Uid);
       }
-      valuta.Value = daten.Heute;
+      valuta.Value = daten.Heute.AddDays(-1); // Yesterday.
       var neu = DialogType == DialogTypeEnum.New;
       var loeschen = DialogType == DialogTypeEnum.Delete;
       if (!neu && Parameter1 is string uid)
