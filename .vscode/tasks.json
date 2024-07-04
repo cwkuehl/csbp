@@ -8,6 +8,9 @@
       "args": [
         "build",
         "${workspaceFolder}/CSBP/CSBP.csproj",
+        "--framework", "net8.0",
+        "--configuration", "Debug",
+        "-r", "linux-x64",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
