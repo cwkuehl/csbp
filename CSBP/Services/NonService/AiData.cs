@@ -29,10 +29,10 @@ public class AiData
   public const string Dalle2 = "dall-e-2";
 
   /// <summary>Local AI model constant for Llama 3.</summary>
-  public const string LocalLlama3 = "llama3_max";
+  public const string LocalLlama3 = "llama3";
 
-  /// <summary>Local AI model constant for CodeLlama 7B.</summary>
-  public const string LocalCodeLlama7B = "codellama_max";
+  /// <summary>Local AI model constant for Llama 3 Max.</summary>
+  public const string LocalLlama3Max = "llama3_max";
 
   /// <summary>Local AI model constant for Starcoder2 7B.</summary>
   public const string LocalStarcoder27B = "starcoder2:7b";
@@ -47,8 +47,8 @@ public class AiData
     new Tuple<string, string>(Gpt4, "GPT-4"),
     new Tuple<string, string>(Gpt35instruct, "GPT-3.5 instruct"),
     new Tuple<string, string>(Dalle2, "DALL E 2"),
+    new Tuple<string, string>(LocalLlama3Max, "Local Llama 3 Max"),
     new Tuple<string, string>(LocalLlama3, "Local Llama 3"),
-    //// new Tuple<string, string>(LocalCodeLlama7B, "Local Code Llama 7B"), // no good results
     new Tuple<string, string>(LocalStarcoder27B, "Local Starcoder2 7B"),
     new Tuple<string, string>(LocalLlava7B, "Local Llava 7B"),
   ];

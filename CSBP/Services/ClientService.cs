@@ -1323,7 +1323,7 @@ public partial class ClientService : ServiceBase, IClientService
         break;
       }
       case AiData.LocalLlama3:
-      case AiData.LocalCodeLlama7B:
+      case AiData.LocalLlama3Max:
       case AiData.LocalStarcoder27B:
       {
         url = @$"http://localhost:11434/api/chat";
