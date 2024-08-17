@@ -547,7 +547,7 @@
         <property name="label">WP410.hhaendern</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="can_default">True</property>
+        <property name="can_default">False</property>
         <property name="receives_default">False</property>
         <property name="tooltip_text">WP410.hhaendern.tt</property>
         <property name="use_underline">True</property>
@@ -563,7 +563,7 @@
         <property name="label">WP410.hhstorno</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="can_default">True</property>
+        <property name="can_default">False</property>
         <property name="receives_default">False</property>
         <property name="tooltip_text">WP410.hhstorno.tt</property>
         <property name="use_underline">True</property>

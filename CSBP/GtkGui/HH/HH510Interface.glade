@@ -301,7 +301,7 @@
         <property name="label">HH510.dateiAuswahl</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="can_default">True</property>
+        <property name="can_default">False/property>
         <property name="receives_default">False</property>
         <property name="tooltip_text">HH510.dateiAuswahl.tt</property>
         <property name="use_underline">True</property>

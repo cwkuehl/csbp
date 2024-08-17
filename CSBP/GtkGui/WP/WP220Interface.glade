@@ -342,7 +342,7 @@
             <property name="label">WP220.export2</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="can_default">True</property>
+            <property name="can_default">False</property>
             <property name="tooltip_text">WP220.export2.tt</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="OnExport2Clicked" swapped="no" />
