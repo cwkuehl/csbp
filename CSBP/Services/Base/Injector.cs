@@ -41,7 +41,7 @@ public class Injector
     if (type != null)
     {
       instances.TryGetValue(type, out var obj);
-      value = obj.Item3 as TIf;
+      value = obj?.Item3 as TIf;
     }
     if (value == null)
     {
