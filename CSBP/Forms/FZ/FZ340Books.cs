@@ -55,7 +55,13 @@ public partial class FZ340Books : CsbpBin
   public FZ340Books(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, type ?? typeof(FZ340Books), dt, p1, p)
   {
-    ObservableEventThrottle(refreshAction, (sender, e) => { RefreshTreeView(buecher, 1); });
+    ObservableEventThrottle(refreshAction, (sender, e) =>
+    {
+      var uid = FZ350Book.Lastcopyuid;
+      FZ350Book.Lastcopyuid = null;
+      ////System.Diagnostics.Debug.Print($"Lastcopyuid FZ340 {FZ350Book.Lastcopyuid}");
+      RefreshTreeView(buecher, 1, uid);
+    });
     //// SetBold(client0);
     InitData(0);
     buecher.GrabFocus();

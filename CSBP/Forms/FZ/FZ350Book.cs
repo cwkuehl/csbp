@@ -150,6 +150,9 @@ public partial class FZ350Book : CsbpBin
     titel.GrabFocus();
   }
 
+  /// <summary>Gets or sets last copied uid.</summary>
+  public static string Lastcopyuid { get; set; }
+
   /// <summary>Creates non modal dialog.</summary>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
@@ -295,11 +298,15 @@ public partial class FZ350Book : CsbpBin
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
         || DialogType == DialogTypeEnum.Edit)
     {
-      r = FactoryService.PrivateService.SaveBook(ServiceDaten,
+      var rb = FactoryService.PrivateService.SaveBook(ServiceDaten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(autor), GetText(serie),
         Functions.ToInt32(seriennummer.Text), titel.Text, untertitel.Text, Functions.ToInt32(seiten.Text),
         Functions.ToInt32(GetText(sprache1)), besitz.Active, lesedatum.Value,
         hoerdatum.Value, notiz.Buffer.Text);
+      r = rb;
+      if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
+        Lastcopyuid = rb.Ergebnis.Uid;
+      ////Debug.Print($"Lastcopyuid FZ350 {Lastcopyuid}");
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {

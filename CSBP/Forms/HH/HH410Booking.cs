@@ -26,9 +26,6 @@ public partial class HH410Booking : CsbpBin
   /// <summary>Last receipt date.</summary>
   private static DateTime lastreceiptdate = DateTime.Today;
 
-  /// <summary>Last copied uid.</summary>
-  private static string lastcopyuid = null;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -164,7 +161,7 @@ public partial class HH410Booking : CsbpBin
   }
 
   /// <summary>Gets or sets last copied uid.</summary>
-  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
+  public static string Lastcopyuid { get; set; }
 
   /// <summary>Creates non modal dialog.</summary>
   /// <param name="p1">1. parameter for dialog.</param>
