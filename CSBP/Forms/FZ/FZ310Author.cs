@@ -68,7 +68,7 @@ public partial class FZ310Author : CsbpBin
   {
     SetBold(name0);
     InitData(0);
-    name.GrabFocus();
+    vorname.GrabFocus();
   }
 
   /// <summary>Creates non modal dialog.</summary>
