@@ -13,8 +13,6 @@ using System.Reflection;
 using System.Text.Json;
 using CSBP.Services.Resources;
 
-// TODO using CSBP.Forms;
-
 /// <summary>
 /// Manager of parameters which are stored in setting file or database.
 /// </summary>
@@ -447,7 +445,7 @@ public class Parameter
   /// <param name="type">Affected dialog type.</param>
   /// <param name="l">Affected dialog size as rectangle.</param>
   /// <param name="h">Affected CsbpBin.TitleHeight.</param>
-  public static void SetDialogSize(Type type, Rectangle l, int h = 0)
+  public static void SetDialogSize(Type type, Rectangle l, int h)
   {
     var th0 = h; // CsbpBin.TitleHeight; // Functions.IsLinux() ? 37 : 0;
     var th = l.X < 1920 ? h : 0; // CsbpBin.TitleHeight : 0; // Title height only on the left screen.

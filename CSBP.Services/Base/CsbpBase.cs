@@ -1,13 +1,13 @@
-// <copyright file="UiFunctions.cs" company="cwkuehl.de">
+// <copyright file="CsbpBase.cs" company="cwkuehl.de">
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Base;
+namespace CSBP.Services.Base;
 
 /// <summary>
 /// Static functions for user interface.
 /// </summary>
-public class UiFunctions
+public class CsbpBase
 {
   /// <summary>
   /// Is the shortcut to be ignored for stock calculation or not.

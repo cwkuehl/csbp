@@ -23,10 +23,9 @@ public class HttpServer
   /// <summary>
   /// Starts the http server on localhost with port 4201.
   /// </summary>
-  /// <param name="token">Affected token is not used.</param>
-  public static void Start(string token)
+  /// <param name="daten">Service data for database access.</param>
+  public static void Start(ServiceDaten daten)
   {
-    Functions.MachNichts(token);
     if (listener != null)
       return;
 
@@ -45,7 +44,7 @@ public class HttpServer
             break;
         }
         var context = listener.GetContext();
-        ThreadPool.QueueUserWorkItem(o => HandleRequest(context));
+        ThreadPool.QueueUserWorkItem(o => HandleRequest(context, new ServiceDaten(daten.MandantNr, daten.BenutzerId)));
       }
       catch (Exception ex)
       {
@@ -72,7 +71,8 @@ public class HttpServer
   /// Handles request.
   /// </summary>
   /// <param name="state">Affected HttpListenerContext.</param>
-  private static void HandleRequest(object state)
+  /// <param name="daten">Service data for database access.</param>
+  private static void HandleRequest(object state, ServiceDaten daten)
   {
     try
     {
@@ -89,7 +89,7 @@ public class HttpServer
       using (System.IO.Stream body = context.Request.InputStream)
       using (System.IO.StreamReader reader = new System.IO.StreamReader(body, context.Request.ContentEncoding))
         req.Body = reader.ReadToEnd();
-      var r = HttpsServer.Handle(req);
+      var r = HttpsServer.Handle(req, daten);
       var resp = context.Response;
       foreach (var h in r.Headers.Keys)
         resp.AddHeader(h, r.Headers[h]);

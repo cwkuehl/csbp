@@ -189,7 +189,7 @@ public partial class CsbpBin : Bin
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Gtk.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
         //// dialog.GetOrigin(out x, out y);
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} GetOrigin x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
-        Parameter.SetDialogSize(type, new Rectangle(x, y, w, h));
+        Parameter.SetDialogSize(type, new Rectangle(x, y, w, h), TitleHeight);
       }
     };
     dialog.DefaultResponse = ResponseType.Cancel;
@@ -1008,7 +1008,7 @@ public partial class CsbpBin : Bin
       dialog.Window.GetGeometry(out _, out _, out int w, out int h);
       dialog.Window.GetOrigin(out int x, out int y);
       //// dialog.Window.GetPosition(out int x, out int y);
-      Parameter.SetDialogSize(ClassType, new Rectangle(x, y, w, h));
+      Parameter.SetDialogSize(ClassType, new Rectangle(x, y, w, h), TitleHeight);
     }
     dialog.Dispose();
   }

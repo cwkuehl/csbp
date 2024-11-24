@@ -12,7 +12,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using CSBP.Base;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
@@ -533,15 +532,15 @@ public class StockService : ServiceBase, IStockService
     var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
     if (!inactive && list.Count != 1)
     {
-      // Calculate only active investments. No filtering with && !UiFunctions.IgnoreShortcut(a.StockShortcut) to use existing prices.
+      // Calculate only active investments. No filtering with && !CsbpBase.IgnoreShortcut(a.StockShortcut) to use existing prices.
       list = list.Where(a => a.State == 1).ToList();
     }
     var l = list.Count;
     state.Clear().Append(M0(WP053));
-    Gtk.Application.Invoke((sender, e) =>
-    {
-      MainClass.MainWindow.SetError(state.ToString());
-    });
+    // TODO Gtk.Application.Invoke((sender, e) =>
+    // {
+    //   MainClass.MainWindow.SetError(state.ToString());
+    // });
     for (var i = 0; i < l && cancel.Length <= 0; i++)
     {
       var inv = list[i];
@@ -570,10 +569,10 @@ public class StockService : ServiceBase, IStockService
         break;
       su.Task = ExecuteHttpsClient(su.Url);
       state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-      Gtk.Application.Invoke((sender, e) =>
-      {
-        MainClass.MainWindow.SetError(state.ToString());
-      });
+      // TODO Gtk.Application.Invoke((sender, e) =>
+      // {
+      //   MainClass.MainWindow.SetError(state.ToString());
+      // });
       if (i1 < l1)
       {
         // Verzögerung wegen onvista.de notwendig. 500 OK.
@@ -599,10 +598,10 @@ public class StockService : ServiceBase, IStockService
       // Kurse berechnen.
       var inv = list[i];
       state.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
-      Gtk.Application.Invoke((sender, e) =>
-      {
-        MainClass.MainWindow.SetError(state.ToString());
-      });
+      // TODO Gtk.Application.Invoke((sender, e) =>
+      // {
+      //   MainClass.MainWindow.SetError(state.ToString());
+      // });
       var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
       inv.MinDate = blist.FirstOrDefault()?.Datum;
       if (!dictlist.TryGetValue(inv.Wertpapier_Uid, out var klist))
@@ -1138,7 +1137,7 @@ public class StockService : ServiceBase, IStockService
       string source, string shortcut, string type)
   {
     var urls = new List<(DateTime, string)>();
-    if (string.IsNullOrEmpty(source) || UiFunctions.IgnoreShortcut(shortcut))
+    if (string.IsNullOrEmpty(source) || CsbpBase.IgnoreShortcut(shortcut))
       return urls;
     if (source == "yahoo")
     {
@@ -1192,7 +1191,7 @@ public class StockService : ServiceBase, IStockService
     var l = new List<SoKurse>();
     if (string.IsNullOrEmpty(source))
       return l;
-    if (UiFunctions.IgnoreShortcut(shortcut) && !string.IsNullOrEmpty(uid))
+    if (CsbpBase.IgnoreShortcut(shortcut) && !string.IsNullOrEmpty(uid))
     {
       var slist = WpStandRep.GetList(daten, daten.MandantNr, from, to, uid);
       foreach (var s in slist)
@@ -1493,10 +1492,13 @@ public class StockService : ServiceBase, IStockService
     var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
     if (!inactive && list.Count != 1)
       list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
-    list = list.Where(a => !UiFunctions.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
+    list = list.Where(a => !CsbpBase.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
     var l = list.Count;
     state.Clear().Append(M0(WP053));
-    Gtk.Application.Invoke((sender, e) => { MainClass.MainWindow.SetError(state.ToString()); });
+    // TODO Gtk.Application.Invoke((sender, e) =>
+    // {
+    //   MainClass.MainWindow.SetError(state.ToString());
+    // });
     for (var i = 0; i < l && cancel.Length <= 0; i++)
     {
       var st = list[i];
@@ -1525,10 +1527,10 @@ public class StockService : ServiceBase, IStockService
         break;
       su.Task = ExecuteHttpsClient(su.Url);
       state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-      Gtk.Application.Invoke((sender, e) =>
-      {
-        MainClass.MainWindow.SetError(state.ToString());
-      });
+      // TODO Gtk.Application.Invoke((sender, e) =>
+      // {
+      //   MainClass.MainWindow.SetError(state.ToString());
+      // });
       if (i1 < l1)
       {
         // Verzögerung wegen onvista.de notwendig. 500 OK.
@@ -1554,10 +1556,10 @@ public class StockService : ServiceBase, IStockService
       // Calculate stock.
       var st = list[i0];
       state.Clear().Append(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
-      Gtk.Application.Invoke((sender, e) =>
-      {
-        MainClass.MainWindow.SetError(state.ToString());
-      });
+      // TODO Gtk.Application.Invoke((sender, e) =>
+      // {
+      //   MainClass.MainWindow.SetError(state.ToString());
+      // });
       try
       {
         var liste = GetPriceListIntern(daten, from, date, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, st.CurrentPrice ?? 0, st.Uid, dictresponse);

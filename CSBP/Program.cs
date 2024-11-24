@@ -140,7 +140,7 @@ public class MainClass
       //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.Window.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
       MainWindow.GetPosition(out int x, out int y); // gets also values for x <= 37.
       //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
-      Parameter.SetDialogSize(typeof(MainWindow), new System.Drawing.Rectangle(x, y, w, h));
+      Parameter.SetDialogSize(typeof(MainWindow), new System.Drawing.Rectangle(x, y, w, h), CsbpBin.TitleHeight);
     }
     MainWindow.ClosePages();
     Parameter.Save();

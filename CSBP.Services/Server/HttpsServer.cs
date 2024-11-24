@@ -40,12 +40,12 @@ public partial class HttpsServer
   /// <summary>
   /// Starts the https server on localhost with port 4202.
   /// </summary>
-  /// <param name="token">Affected token.</param>
-  public static void Start(string token)
+  /// <param name="daten">Service data for database access.</param>
+  public static void Start(ServiceDaten daten)
   {
     if (listener != null)
       return;
-    HttpsServer.token = token;
+    HttpsServer.token = daten.BenutzerId;
     serverCertificate = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
     //// Create a TCP/IP (IPv4) socket and listen for incoming connections.
     listener = new TcpListener(IPAddress.Any, 4202);
@@ -61,7 +61,7 @@ public partial class HttpsServer
           if (listener.Pending())
           {
             var client = listener.AcceptTcpClient();
-            ThreadPool.QueueUserWorkItem(o => ProcessClient(client));
+            ThreadPool.QueueUserWorkItem(o => ProcessClient(client, new ServiceDaten(daten.MandantNr, daten.BenutzerId)));
           }
         }
         Thread.Sleep(100);
@@ -99,8 +99,9 @@ public partial class HttpsServer
   /// Handles http request.
   /// </summary>
   /// <param name="req">Affected http request.</param>
+  /// <param name="daten">Service data for database access.</param>
   /// <returns>Result as http response.</returns>
-  public static HttpResponse Handle(HttpRequest req)
+  public static HttpResponse Handle(HttpRequest req, ServiceDaten daten)
   {
     var resp = new HttpResponse();
     if (req == null)
@@ -108,7 +109,7 @@ public partial class HttpsServer
       resp.HeadersAndContent = Encoding.UTF8.GetBytes("Error");
       return resp;
     }
-    var daten = MainClass.ServiceDaten;
+    // var daten = MainClass.ServiceDaten;
     var r = new ServiceErgebnis();
     var rh = resp.Headers;
     var statuscode = "200 OK";
@@ -252,7 +253,8 @@ Cache-control: no-cache
   /// Processes a tcp client.
   /// </summary>
   /// <param name="client">Affected tcp client.</param>
-  private static void ProcessClient(TcpClient client)
+  /// <param name="daten">Service data for database access.</param>
+  private static void ProcessClient(TcpClient client, ServiceDaten daten)
   {
     // A client has connected. Create the SslStream using the client's network stream.
     var sslStream = new SslStream(client.GetStream(), false);
@@ -274,7 +276,7 @@ Cache-control: no-cache
       //// Console.WriteLine("Received: {0}", messageData);
 
       // Write a message to the client.
-      var rp = Handle(req);
+      var rp = Handle(req, daten);
       sslStream.Write(rp.HeadersAndContent);
     }
     catch (AuthenticationException ex)
