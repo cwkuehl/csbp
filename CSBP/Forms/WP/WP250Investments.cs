@@ -321,9 +321,7 @@ public partial class WP250Investments : CsbpBin
   {
     try
     {
-      // ShowStatus(state, cancel);
-      state.Clear();
-      cancel.Clear();
+      ShowStatus(state, cancel);
       var r = await Task.Run(() =>
       {
         var r0 = FactoryService.StockService.CalculateInvestments(ServiceDaten, null,

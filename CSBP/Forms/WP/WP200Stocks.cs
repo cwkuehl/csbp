@@ -320,8 +320,7 @@ public partial class WP200Stocks : CsbpBin
   {
     try
     {
-      state.Clear();
-      cancel.Clear();
+      ShowStatus(state, cancel);
       var r = await Task.Run(() =>
       {
         var r0 = FactoryService.StockService.CalculateStocks(ServiceDaten, null, muster.Text,

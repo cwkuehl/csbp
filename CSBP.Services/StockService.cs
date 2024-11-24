@@ -537,10 +537,6 @@ public class StockService : ServiceBase, IStockService
     }
     var l = list.Count;
     state.Clear().Append(M0(WP053));
-    // TODO Gtk.Application.Invoke((sender, e) =>
-    // {
-    //   MainClass.MainWindow.SetError(state.ToString());
-    // });
     for (var i = 0; i < l && cancel.Length <= 0; i++)
     {
       var inv = list[i];
@@ -569,10 +565,6 @@ public class StockService : ServiceBase, IStockService
         break;
       su.Task = ExecuteHttpsClient(su.Url);
       state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-      // TODO Gtk.Application.Invoke((sender, e) =>
-      // {
-      //   MainClass.MainWindow.SetError(state.ToString());
-      // });
       if (i1 < l1)
       {
         // Verzögerung wegen onvista.de notwendig. 500 OK.
@@ -598,10 +590,6 @@ public class StockService : ServiceBase, IStockService
       // Kurse berechnen.
       var inv = list[i];
       state.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
-      // TODO Gtk.Application.Invoke((sender, e) =>
-      // {
-      //   MainClass.MainWindow.SetError(state.ToString());
-      // });
       var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
       inv.MinDate = blist.FirstOrDefault()?.Datum;
       if (!dictlist.TryGetValue(inv.Wertpapier_Uid, out var klist))
@@ -1495,10 +1483,6 @@ public class StockService : ServiceBase, IStockService
     list = list.Where(a => !CsbpBase.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
     var l = list.Count;
     state.Clear().Append(M0(WP053));
-    // TODO Gtk.Application.Invoke((sender, e) =>
-    // {
-    //   MainClass.MainWindow.SetError(state.ToString());
-    // });
     for (var i = 0; i < l && cancel.Length <= 0; i++)
     {
       var st = list[i];
@@ -1527,10 +1511,6 @@ public class StockService : ServiceBase, IStockService
         break;
       su.Task = ExecuteHttpsClient(su.Url);
       state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-      // TODO Gtk.Application.Invoke((sender, e) =>
-      // {
-      //   MainClass.MainWindow.SetError(state.ToString());
-      // });
       if (i1 < l1)
       {
         // Verzögerung wegen onvista.de notwendig. 500 OK.
@@ -1556,10 +1536,6 @@ public class StockService : ServiceBase, IStockService
       // Calculate stock.
       var st = list[i0];
       state.Clear().Append(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
-      // TODO Gtk.Application.Invoke((sender, e) =>
-      // {
-      //   MainClass.MainWindow.SetError(state.ToString());
-      // });
       try
       {
         var liste = GetPriceListIntern(daten, from, date, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, st.CurrentPrice ?? 0, st.Uid, dictresponse);
