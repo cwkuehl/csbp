@@ -48,6 +48,7 @@ public partial class HttpsServer
     HttpsServer.token = daten.BenutzerId;
     serverCertificate = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
     //// Create a TCP/IP (IPv4) socket and listen for incoming connections.
+    //// Use with https://jshh.cwkuehl.de/#/diary
     listener = new TcpListener(IPAddress.Any, 4202);
     listener.Start();
     while (true)
@@ -109,7 +110,6 @@ public partial class HttpsServer
       resp.HeadersAndContent = Encoding.UTF8.GetBytes("Error");
       return resp;
     }
-    // var daten = MainClass.ServiceDaten;
     var r = new ServiceErgebnis();
     var rh = resp.Headers;
     var statuscode = "200 OK";
