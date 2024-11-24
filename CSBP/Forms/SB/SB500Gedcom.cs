@@ -5,7 +5,7 @@
 namespace CSBP.Forms.SB;
 
 using System;
-using CSBP.Apis.Enums;
+using CSBP.Services.Apis.Enums;
 using CSBP.Base;
 using CSBP.Services.Factory;
 using Gtk;

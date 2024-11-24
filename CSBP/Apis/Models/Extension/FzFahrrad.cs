@@ -4,9 +4,9 @@
 
 namespace CSBP.Apis.Models;
 
-using CSBP.Apis.Enums;
 using CSBP.Base;
 using CSBP.Resources;
+using CSBP.Services.Apis.Enums;
 
 /// <summary>
 /// Entity class for table FZ_Fahrrad.

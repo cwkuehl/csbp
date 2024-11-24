@@ -2,7 +2,7 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Enums;
+namespace CSBP.Services.Apis.Enums;
 
 /// <summary>Calling mode of dialog.</summary>
 public enum DialogTypeEnum

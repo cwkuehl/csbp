@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using CSBP.Apis.Enums;
+using CSBP.Services.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 using CSBP.Base;

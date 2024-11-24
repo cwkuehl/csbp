@@ -7,11 +7,11 @@ namespace CSBP;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using CSBP.Apis.Enums;
 using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Forms;
 using CSBP.Forms.AD;
+using CSBP.Services.Apis.Enums;
 using CSBP.Services.Factory;
 using CSBP.Services.Repositories.Base;
 using Gtk;
@@ -385,3 +385,11 @@ public class MainClass
     });
   }
 }
+
+/*
+
+Create separate project for Services without UI:
+dotnet new classlib -o CSBP.Services
+dotnet add ./CSBP/CSBP.csproj reference ./CSBP.Services/CSBP.Services.csproj
+
+*/

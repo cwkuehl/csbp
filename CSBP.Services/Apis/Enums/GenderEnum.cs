@@ -2,9 +2,9 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Enums;
-
 using System.Collections.Generic;
+
+namespace CSBP.Services.Apis.Enums;
 
 /// <summary>Enum for gender.</summary>
 public sealed class GenderEnum

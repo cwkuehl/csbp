@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using CSBP.Apis.Enums;
+using CSBP.Services.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 using CSBP.Base;

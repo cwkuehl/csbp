@@ -14,7 +14,7 @@ using CSBP.Forms;
 using CSBP.Resources;
 
 /// <summary>
-/// Manager of parameter which are stored in setting file or database.
+/// Manager of parameters which are stored in setting file or database.
 /// </summary>
 public class Parameter
 {

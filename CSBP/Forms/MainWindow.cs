@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
-using CSBP.Apis.Enums;
 using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Forms.AD;
@@ -23,6 +22,7 @@ using CSBP.Forms.SO;
 using CSBP.Forms.TB;
 using CSBP.Forms.WP;
 using CSBP.Resources;
+using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory; // Muss für build bleiben.
 using Gtk;

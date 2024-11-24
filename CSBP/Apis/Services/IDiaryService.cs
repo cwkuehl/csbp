@@ -6,8 +6,8 @@ namespace CSBP.Apis.Services;
 
 using System;
 using System.Collections.Generic;
-using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
+using CSBP.Services.Apis.Enums;
 using CSBP.Services.NonService;
 
 /// <summary>

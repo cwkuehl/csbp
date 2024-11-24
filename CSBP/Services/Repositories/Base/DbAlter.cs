@@ -6,7 +6,7 @@ namespace CSBP.Services.Repositories.Base;
 
 using System.Collections.Generic;
 using System.Text;
-using CSBP.Apis.Enums;
+using CSBP.Services.Apis.Enums;
 using CSBP.Base;
 
 /// <summary>

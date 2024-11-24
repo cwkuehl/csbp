@@ -6,9 +6,9 @@ namespace CSBP.Forms.AD;
 
 using System;
 using System.Collections.Generic;
-using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Base;
+using CSBP.Services.Apis.Enums;
 using CSBP.Services.Factory;
 using Gtk;
 using static CSBP.Resources.M;

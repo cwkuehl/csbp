@@ -7,7 +7,7 @@ namespace CSBP.Forms.WP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Apis.Enums;
+using CSBP.Services.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 using CSBP.Base;

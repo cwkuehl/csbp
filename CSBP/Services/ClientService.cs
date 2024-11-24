@@ -16,7 +16,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using CSBP.Apis.Enums;
+using CSBP.Services.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Models.Extension;
 using CSBP.Apis.Services;

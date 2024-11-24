@@ -5,11 +5,11 @@
 namespace CSBP.Forms.AD;
 
 using System;
-using CSBP.Apis.Enums;
 using CSBP.Apis.Models;
 using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Forms.Controls;
+using CSBP.Services.Apis.Enums;
 using CSBP.Services.Factory;
 using Gtk;
 using static CSBP.Resources.Messages;

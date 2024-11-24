@@ -24,7 +24,7 @@
     <PackageReference Include="System.Reflection.DispatchProxy" Version="4.*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj'"/>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj'" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="GtkGui/**/*.glade" />
@@ -36,5 +36,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources/Icons/WKHH.gif" />
     <EmbeddedResource Include="GtkGui/**/*.glade" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSBP.Services\CSBP.Services.csproj" />
   </ItemGroup>
 </Project>
