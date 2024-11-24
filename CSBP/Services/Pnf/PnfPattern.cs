@@ -7,7 +7,7 @@ namespace CSBP.Services.Pnf;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>Point and Figure pattern.
 /// siehe http://www.tradesignalonline.com/lexicon/view.aspx?id=Point+%26+Figure+Patternrecognition.</summary>

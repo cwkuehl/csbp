@@ -36,7 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSBP\CSBP.csproj" />
+    <!-- <ProjectReference Include="..\CSBP\CSBP.csproj" /> -->
+    <ProjectReference Include="..\CSBP.Services\CSBP.Services.csproj" />
   </ItemGroup>
 
 </Project>

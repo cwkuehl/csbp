@@ -8,9 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>

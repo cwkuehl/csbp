@@ -2,14 +2,11 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Services.Repositories
-{
-  using System;
+namespace CSBP.Services.Repositories;
 
-  /// <summary>
-  /// Repository class for table MA_Parameter.
-  /// </summary>
-  public partial class MaParameterRep
-  {
-  }
+/// <summary>
+/// Repository class for table MA_Parameter.
+/// </summary>
+public partial class MaParameterRep
+{
 }

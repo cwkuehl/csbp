@@ -5,7 +5,7 @@
 namespace CSBP.Services.Budget;
 
 using System;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>
 /// Entity class for an account row.

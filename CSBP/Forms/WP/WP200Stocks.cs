@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using CSBP.Services.Apis.Enums;
 using CSBP.Base;
 using CSBP.Forms.Controls;
+using CSBP.Services.Apis.Enums;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for WP200Stocks dialog.</summary>
 public partial class WP200Stocks : CsbpBin

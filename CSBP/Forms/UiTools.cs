@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 
 /// <summary>

@@ -7,14 +7,13 @@ namespace CSBP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Reports;
-using static CSBP.Base.Functions;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Base.Functions;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Implementation of address service.

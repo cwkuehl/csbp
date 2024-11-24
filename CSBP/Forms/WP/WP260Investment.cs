@@ -8,13 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for WP260Investment dialog.</summary>
 public partial class WP260Investment : CsbpBin

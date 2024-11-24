@@ -7,7 +7,7 @@ namespace CSBP.Services.Reports;
 using System.IO;
 using System.Text;
 using System.Xml;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>Base class for html reports.</summary>
 public partial class ReportBase

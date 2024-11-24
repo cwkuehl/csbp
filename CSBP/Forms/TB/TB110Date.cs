@@ -5,12 +5,12 @@
 namespace CSBP.Forms.TB;
 
 using System;
-using CSBP.Services.Apis.Enums;
-using CSBP.Base;
 using CSBP.Forms.Controls;
+using CSBP.Services.Apis.Enums;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for TB110Date dialog.</summary>
 public partial class TB110Date : CsbpBin

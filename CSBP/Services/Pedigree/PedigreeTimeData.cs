@@ -6,9 +6,9 @@ namespace CSBP.Services.Pedigree;
 
 using System;
 using System.Text.RegularExpressions;
-using CSBP.Apis.Models;
-using CSBP.Base;
-using static CSBP.Resources.M;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
+using static CSBP.Services.Resources.M;
 
 /// <summary>
 /// Time data class for pedigree.

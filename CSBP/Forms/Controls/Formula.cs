@@ -11,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using CSBP.Base;
+using CSBP.Services.Base;
 using Gtk;
 
 /// <summary>

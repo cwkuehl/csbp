@@ -12,16 +12,15 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
 using CSBP.Forms.Controls;
-using CSBP.Resources;
+using CSBP.Services.Apis.Enums;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
+using CSBP.Services.Resources;
 using Gtk;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Base class for dialogs.

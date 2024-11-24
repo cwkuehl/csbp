@@ -6,7 +6,7 @@ namespace CSBP.Services.Pnf;
 
 using System;
 using System.Text;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>
 /// Function for PnF column with date.

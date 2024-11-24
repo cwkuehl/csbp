@@ -2,9 +2,9 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-using System.Collections.Generic;
-
 namespace CSBP.Services.Apis.Enums;
+
+using System.Collections.Generic;
 
 /// <summary>Event type of GEDCOM.</summary>
 public sealed class GedcomEventEnum

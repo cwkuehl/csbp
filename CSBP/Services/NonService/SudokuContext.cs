@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
-using CSBP.Base;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using CSBP.Services.Base;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Class for sudoku handling.

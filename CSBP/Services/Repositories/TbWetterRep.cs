@@ -4,8 +4,6 @@
 
 namespace CSBP.Services.Repositories;
 
-using System;
-
 /// <summary>
 /// Repository class for table TB_Wetter.
 /// </summary>

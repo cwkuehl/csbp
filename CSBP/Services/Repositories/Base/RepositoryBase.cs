@@ -6,8 +6,7 @@ namespace CSBP.Services.Repositories.Base;
 
 using System;
 using System.Data.Common;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>

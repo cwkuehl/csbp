@@ -8,15 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for SB210Ancestor dialog.</summary>
 public partial class SB210Ancestor : CsbpBin

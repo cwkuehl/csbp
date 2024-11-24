@@ -6,11 +6,11 @@ namespace CSBP.Forms.SB;
 
 using System;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for SB500Gedcom dialog.</summary>
 public partial class SB500Gedcom : CsbpBin

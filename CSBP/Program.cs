@@ -7,15 +7,16 @@ namespace CSBP;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using CSBP.Apis.Services;
 using CSBP.Base;
 using CSBP.Forms;
 using CSBP.Forms.AD;
 using CSBP.Services.Apis.Enums;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using CSBP.Services.Repositories.Base;
+using CSBP.Services.Resources;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Hauptklasse des Projekts CSBP.
@@ -325,7 +326,7 @@ public class MainClass
       ////   var result = reader.ReadToEnd();
       //// }
     }
-    var rm = new System.Resources.ResourceManager("CSBP.Resources.Messages", assembly);
+    var rm = new System.Resources.ResourceManager("CSBP.Services.Resources.Messages", typeof(Messages).Assembly);
     _ = rm.GetString("Main.title");
     //// Task.Run(() =>
     //// {

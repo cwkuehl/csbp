@@ -6,9 +6,9 @@ namespace CSBP.Services.Reports;
 
 using System.Collections.Generic;
 using System.Text;
-using CSBP.Apis.Models;
-using CSBP.Base;
-using static CSBP.Base.Functions;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
+using static CSBP.Services.Base.Functions;
 
 /// <summary>Creates a html address report.</summary>
 public partial class AddressReport : ReportBase

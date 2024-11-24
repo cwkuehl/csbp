@@ -9,12 +9,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using CSBP.Services.Server;
 using Gtk;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for AG400Backups dialog.</summary>
 public partial class AG400Backups : CsbpBin

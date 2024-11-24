@@ -7,7 +7,7 @@ namespace CSBP.Services.Repositories.Base;
 using System.Collections.Generic;
 using System.Text;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>
 /// Changes the database structure.

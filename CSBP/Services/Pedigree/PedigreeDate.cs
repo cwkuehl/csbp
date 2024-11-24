@@ -7,7 +7,7 @@ namespace CSBP.Services.Pedigree;
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>
 /// Date class for genealogy.

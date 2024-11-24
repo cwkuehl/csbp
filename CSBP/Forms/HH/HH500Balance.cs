@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for HH500Balance dialog.</summary>
 public partial class HH500Balance : CsbpBin

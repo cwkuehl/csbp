@@ -4,7 +4,7 @@
 
 namespace CSBP.Services.Factory;
 
-using CSBP.Apis.Services;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 
 /// <summary>

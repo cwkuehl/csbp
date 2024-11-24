@@ -6,9 +6,9 @@ namespace CSBP.Forms.Controls;
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using CSBP.Base;
+using CSBP.Services.Base;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Date control.

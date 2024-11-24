@@ -13,7 +13,9 @@ using CSBP.Forms.HH;
 using CSBP.Forms.SB;
 using CSBP.Forms.TB;
 using CSBP.Forms.WP;
-using static CSBP.Resources.Messages;
+using CSBP.Services.Base;
+using static CSBP.Services.Base.Functions;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// List of start dialogs.

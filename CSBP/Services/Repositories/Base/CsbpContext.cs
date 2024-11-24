@@ -4,7 +4,7 @@
 
 namespace CSBP.Services.Repositories.Base;
 
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Undo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

@@ -6,7 +6,7 @@ namespace CSBP.Services.Base;
 
 using System;
 using System.Collections.Generic;
-using CSBP.Resources;
+using CSBP.Services.Resources;
 
 /// <summary>
 /// Creats instances and injects dependant instances.

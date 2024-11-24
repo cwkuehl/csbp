@@ -7,10 +7,10 @@ namespace CSBP.Forms.WP;
 using System;
 using System.Collections.Generic;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for WP300Configurations dialog.</summary>
 public partial class WP300Configurations : CsbpBin

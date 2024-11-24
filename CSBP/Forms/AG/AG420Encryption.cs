@@ -6,11 +6,10 @@ namespace CSBP.Forms.AG;
 
 using System;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for AG420Encryption dialog.</summary>
 public partial class AG420Encryption : CsbpBin

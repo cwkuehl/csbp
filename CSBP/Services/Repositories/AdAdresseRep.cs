@@ -6,7 +6,7 @@ namespace CSBP.Services.Repositories;
 
 using System;
 using System.Linq;
-using CSBP.Apis.Services;
+using CSBP.Services.Base;
 
 /// <summary>
 /// Repository class for table AD_Adresse.

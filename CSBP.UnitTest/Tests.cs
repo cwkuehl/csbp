@@ -14,8 +14,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using CSBP.Apis.Models.Extension;
-using CSBP.Base;
+using CSBP.Services.Apis.Models.Extension;
+using CSBP.Services.Base;
 using NUnit.Framework;
 
 /// <summary>
@@ -48,7 +48,7 @@ public class Tests
       t.GenerateResxDesigner();
     if (Functions.MachNichts() != 0)
       t.GenerierenReps();
-    if (Functions.MachNichts() != 0)
+    if (Functions.MachNichts() == 0)
       t.GenerierenModelCs();
     if (Functions.MachNichts() != 0)
       t.Tls();
@@ -58,7 +58,7 @@ public class Tests
       t.RapidapiMeteostatWeather();
     if (Functions.MachNichts() != 0)
       t.OpenAiChatGpt();
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
     {
       var t1 = new AntlrTest();
       t1.Setup();
@@ -108,7 +108,7 @@ public class Tests
   [Test]
   public void GenerierenModelCs()
   {
-    var g = XDocument.Load(Path.Combine(Pfad, "csbp/CSBP/Resources/Tables.xml"));
+    var g = XDocument.Load(Path.Combine(Pfad, "csbp/CSBP.Services/Resources/Tables.xml"));
     var tables = g.Descendants("table");
     var sets = new StringBuilder();
     var keys = new StringBuilder();
@@ -169,11 +169,11 @@ public class Tests
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Apis.Models;
+namespace CSBP.Services.Apis.Models;
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using CSBP.Base;
+using CSBP.Services.Base;
 
 /// <summary>
 /// Entity class for table {tabelle}.
@@ -191,7 +191,7 @@ public partial class {tab} : ModelBase
 {props}
 }}
 ";
-      File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP/Apis/Models", tab + ".cs"), model);
+      File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP.Services/Apis/Models", tab + ".cs"), model);
     }
     var context = $@"// <copyright file=""CsbpContext2.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
@@ -199,7 +199,7 @@ public partial class {tab} : ModelBase
 
 namespace CSBP.Services.Repositories.Base;
 
-using CSBP.Apis.Models;
+using CSBP.Services.Apis.Models;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -219,7 +219,7 @@ public partial class CsbpContext : DbContext
   }}
 }}
 ";
-    File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP/Services/Repositories/Base", "CsbpContext2.cs"), context);
+    File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP.Services/Repositories/Base", "CsbpContext2.cs"), context);
   }
 
   /// <summary>
@@ -228,7 +228,7 @@ public partial class CsbpContext : DbContext
   [Test]
   public void GenerierenReps()
   {
-    var g = XDocument.Load(Path.Combine(Pfad, "csbp/CSBP/Resources/Tables.xml"));
+    var g = XDocument.Load(Path.Combine(Pfad, "csbp/CSBP.Services/Resources/Tables.xml"));
     var tables = g.Descendants("table");
     var sets = new StringBuilder();
     var keys = new StringBuilder();
@@ -345,9 +345,9 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
+using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
 /// <summary>
@@ -467,7 +467,7 @@ public partial class {rep} : RepositoryBase
 #pragma warning restore CA1822
 }}
 ";
-      File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP/Services/Repositories/Gen", $"{rep}.cs"), s);
+      File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP.Services/Repositories/Gen", $"{rep}.cs"), s);
 
       s = $@"// <copyright file=""{rep}.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
@@ -487,7 +487,7 @@ public partial class {rep}
 #pragma warning restore CA1822
 }}
 ";
-      var datei = Path.Combine(Pfad, "csbp/CSBP/Services/Repositories", $"{rep}.cs");
+      var datei = Path.Combine(Pfad, "csbp/CSBP.Services/Repositories", $"{rep}.cs");
       if (!File.Exists(datei))
         File.WriteAllText(datei, s);
     }
@@ -558,14 +558,14 @@ namespace CSBP.Forms.{unit.ToUpper()}
 {{
   using System;
   using CSBP.Services.Apis.Enums;
-  using CSBP.Apis.Models;
-  using CSBP.Apis.Services;
-  using CSBP.Base;
+  using CSBP.Services.Apis.Models;
+  using CSBP.Services.Apis.Services;
+  using CSBP.Services.Base;
   using CSBP.Forms.Controls;
   using CSBP.Services.Factory;
   using Gtk;
-  using static CSBP.Resources.M;
-  using static CSBP.Resources.Messages;
+  using static CSBP.Services.Resources.M;
+  using static CSBP.Services.Resources.Messages;
 
   /// <summary>Controller for {filenew} dialog.</summary>
   public partial class {filenew} : CsbpBin
@@ -628,7 +628,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
   [Test]
   public void GenerateResxDesigner()
   {
-    var fn = "CSBP/Resources/Messages.resx";
+    var fn = "CSBP.Services/Resources/Messages.resx";
     var slnpfad = "/home/wolfgang/cs/csbp";
     var ns = Path.GetDirectoryName(fn).Replace('/', '.');
     var filename = Path.GetFileNameWithoutExtension(fn);
@@ -681,7 +681,7 @@ public partial class {filename}
   }}
 }}
 ";
-    var datei = Path.Combine(slnpfad, $"CSBP/Resources", $"{filename}.cs");
+    var datei = Path.Combine(slnpfad, $"CSBP.Services/Resources", $"{filename}.cs");
     File.WriteAllText(datei, s);
   }
 

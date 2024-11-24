@@ -7,11 +7,11 @@ namespace CSBP.Forms.FZ;
 using System;
 using System.Collections.Generic;
 using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for FZ200Bikes dialog.</summary>
 public partial class FZ200Bikes : CsbpBin

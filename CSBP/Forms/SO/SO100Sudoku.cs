@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
-using CSBP.Resources;
+using CSBP.Services.Base;
 using CSBP.Services.NonService;
+using CSBP.Services.Resources;
 using Gtk;
 
 /// <summary>Controller for SO100Sudoku dialog.</summary>

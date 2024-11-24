@@ -7,8 +7,8 @@ namespace CSBP.Services.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
 using CSBP.Services.Pedigree;
 
 /// <summary>

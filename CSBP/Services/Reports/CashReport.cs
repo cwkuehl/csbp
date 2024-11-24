@@ -7,10 +7,10 @@ namespace CSBP.Services.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Apis.Models;
-using CSBP.Base;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Base;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Creates a html cash report.</summary>
 public partial class CashReport : ReportBase

@@ -11,14 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Pedigree;
 using CSBP.Services.Reports;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Implementation of pedigree service.

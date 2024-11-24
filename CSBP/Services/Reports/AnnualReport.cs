@@ -6,9 +6,9 @@ namespace CSBP.Services.Reports;
 
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Budget;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Creates a html annual report.</summary>
 public partial class AnnualReport : ReportBase

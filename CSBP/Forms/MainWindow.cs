@@ -10,8 +10,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
-using CSBP.Apis.Services;
-using CSBP.Base;
 using CSBP.Forms.AD;
 using CSBP.Forms.AG;
 using CSBP.Forms.AM;
@@ -21,13 +19,13 @@ using CSBP.Forms.SB;
 using CSBP.Forms.SO;
 using CSBP.Forms.TB;
 using CSBP.Forms.WP;
-using CSBP.Resources;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory; // Muss für build bleiben.
+using CSBP.Services.Resources;
 using Gtk;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Main Window.</summary>
 public class MainWindow : Window

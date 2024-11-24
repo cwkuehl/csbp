@@ -7,10 +7,10 @@ namespace CSBP.Forms.AG;
 using System;
 using System.Collections.Generic;
 using CSBP.Services.Apis.Enums;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>Controller for AG100Clients dialog.</summary>
 public partial class AG100Clients : CsbpBin

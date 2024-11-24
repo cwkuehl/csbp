@@ -17,18 +17,17 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using CSBP.Services.Apis.Enums;
-using CSBP.Apis.Models;
-using CSBP.Apis.Models.Extension;
-using CSBP.Apis.Services;
-using CSBP.Base;
+using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Extension;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Client;
 using CSBP.Services.NonService;
 using CSBP.Services.Reports;
 using CSBP.Services.Repositories.Base;
 using CSBP.Services.Undo;
-using static CSBP.Resources.M;
-using static CSBP.Resources.Messages;
+using static CSBP.Services.Resources.M;
+using static CSBP.Services.Resources.Messages;
 
 /// <summary>
 /// Implementation of client service.

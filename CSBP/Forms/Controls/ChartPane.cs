@@ -6,7 +6,7 @@ namespace CSBP.Forms.Controls;
 
 using System;
 using Cairo;
-using CSBP.Base;
+using CSBP.Services.Base;
 using CSBP.Services.Pnf;
 
 /// <summary>

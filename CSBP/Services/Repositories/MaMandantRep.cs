@@ -5,7 +5,7 @@
 namespace CSBP.Services.Repositories;
 
 using System.Collections.Generic;
-using CSBP.Apis.Services;
+using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
