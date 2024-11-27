@@ -11,6 +11,9 @@ public static class Constants
 {
 #pragma warning disable SA1310
 
+  /// <summary>Liefert Zeilenumbruch (Windows).</summary>
+  public const string CrLf = "\r\n";
+
   /// <summary>Benutzer-ID für Initialisierung.</summary>
   public const string USER_ID = "Benutzer-ID";
 
