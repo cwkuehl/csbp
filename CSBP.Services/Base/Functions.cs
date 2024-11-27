@@ -117,6 +117,19 @@ public static partial class Functions
   }
 
   /// <summary>
+  /// Converts string to integer.
+  /// </summary>
+  /// <returns>Converted value.</returns>
+  /// <param name="s">Affected string.</param>
+  public static int? ToNullableInt32(string s)
+  {
+    var d = ToDecimal(s, 0);
+    if (d.HasValue && d.Value >= int.MinValue && d.Value <= int.MaxValue)
+      return (int)d.Value;
+    return null;
+  }
+
+  /// <summary>
   /// Converts string to long.
   /// </summary>
   /// <returns>Converted value.</returns>
