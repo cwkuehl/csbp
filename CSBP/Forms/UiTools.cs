@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using CSBP.Base;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
 
@@ -29,8 +30,7 @@ public class UiTools
   {
     if (bytes == null || string.IsNullOrEmpty(name))
       return;
-    var fn = Path.Combine(Parameter.TempPath,
-        Functions.GetDateiname(name, daterandom, daterandom, ext));
+    var fn = Path.Combine(ParameterGui.TempPath, Functions.GetDateiname(name, daterandom, daterandom, ext));
     File.WriteAllBytes(fn, bytes);
     FactoryService.ClientService.CommitFile(fn); // Put file into the undo stack.
     if (open)

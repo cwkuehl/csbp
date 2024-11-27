@@ -12,6 +12,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -140,7 +141,7 @@ public partial class CsbpBin : Bin
     var form = Activator.CreateInstance(type, builder, handle, dialog, type, dialogType, parameter1, csbpparent) as CsbpBin;
     ////form.ShowAll();
     dialog.ContentArea.PackStart(form, true, true, 0);
-    var size = Parameter.GetDialogSize(type);
+    var size = ParameterGui.GetDialogSize(type);
     //// dialog.SetSizeRequest(size.Width, size.Height); // Window doesn't get smaller than that.
     dialog.SetDefaultSize(size.Width, size.Height);
     if (size.X == -1 && size.Y == -1)
@@ -189,7 +190,7 @@ public partial class CsbpBin : Bin
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} Gtk.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
         //// dialog.GetOrigin(out x, out y);
         //// Services.Base.ServiceBase.Log.Warn($"{type.Name} GetOrigin x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
-        Parameter.SetDialogSize(type, new Rectangle(x, y, w, h), TitleHeight);
+        ParameterGui.SetDialogSize(type, new Rectangle(x, y, w, h), TitleHeight);
       }
     };
     dialog.DefaultResponse = ResponseType.Cancel;
@@ -963,7 +964,7 @@ public partial class CsbpBin : Bin
     }
     if (string.IsNullOrEmpty(path))
     {
-      path = Parameter.TempPath;
+      path = ParameterGui.TempPath;
     }
     //// file name incl. path
     if (!string.IsNullOrEmpty(file))
@@ -1008,7 +1009,7 @@ public partial class CsbpBin : Bin
       dialog.Window.GetGeometry(out _, out _, out int w, out int h);
       dialog.Window.GetOrigin(out int x, out int y);
       //// dialog.Window.GetPosition(out int x, out int y);
-      Parameter.SetDialogSize(ClassType, new Rectangle(x, y, w, h), TitleHeight);
+      ParameterGui.SetDialogSize(ClassType, new Rectangle(x, y, w, h), TitleHeight);
     }
     dialog.Dispose();
   }
@@ -1352,7 +1353,7 @@ public partial class CsbpBin : Bin
         while (store.IterNext(ref i));
       }
       //// var csv = string.Join(Constants.CRLF, lines);
-      UiTools.SaveFile(lines, Parameter.TempPath, M0(M1000), true, "csv");
+      UiTools.SaveFile(lines, ParameterGui.TempPath, M0(M1000), true, "csv");
     }
     else if (l == Menu_table_print)
     {

@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -79,7 +80,7 @@ public partial class WP400Bookings : CsbpBin
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
       var p1 = Parameter1 as string;
-      var invuid = string.IsNullOrEmpty(p1) ? Parameter.WP400Investment : p1;
+      var invuid = string.IsNullOrEmpty(p1) ? ParameterGui.WP400Investment : p1;
       SetText(anlage, invuid);
       EventsActive = true;
     }
@@ -195,7 +196,7 @@ public partial class WP400Bookings : CsbpBin
   {
     if (!EventsActive)
       return;
-    Parameter.WP400Investment = GetText(anlage);
+    ParameterGui.WP400Investment = GetText(anlage);
     refreshAction.Click();
   }
 

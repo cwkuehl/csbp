@@ -7,6 +7,7 @@ namespace CSBP.Forms.HH;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -96,8 +97,8 @@ public partial class HH100Periods : CsbpBin
       SetUserData(new[] { art1, art2 }, new[] { "0", "1" });
       anfang.IsEditable = false;
       ende.IsEditable = false;
-      SetText(laenge1, Parameter.HH100Length);
-      SetText(art2, Parameter.HH100When);
+      SetText(laenge1, ParameterGui.HH100Length);
+      SetText(art2, ParameterGui.HH100When);
       EventsActive = true;
     }
     if (step <= 1)
@@ -188,7 +189,7 @@ public partial class HH100Periods : CsbpBin
   protected void OnLengthChanged(object sender, EventArgs e)
   {
     if (EventsActive)
-      Parameter.HH100Length = GetText(laenge1);
+      ParameterGui.HH100Length = GetText(laenge1);
   }
 
   /// <summary>Handles when.</summary>
@@ -197,6 +198,6 @@ public partial class HH100Periods : CsbpBin
   protected void OnWhenChanged(object sender, EventArgs e)
   {
     if (EventsActive)
-      Parameter.HH100When = GetText(art1);
+      ParameterGui.HH100When = GetText(art1);
   }
 }

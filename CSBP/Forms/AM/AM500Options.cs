@@ -7,6 +7,7 @@ namespace CSBP.Forms.AM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -65,8 +66,7 @@ public partial class AM500Options : CsbpBin
     var daten = ServiceDaten;
     if (step <= 1)
     {
-      model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr,
-        Parameter.Params)) ?? new List<MaParameter>();
+      model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr, Parameter.Params)) ?? [];
       var values = new List<string[]>();
       foreach (var e in model)
       {
@@ -104,10 +104,9 @@ public partial class AM500Options : CsbpBin
       while (store.IterNext(ref i));
     }
     var daten = ServiceDaten;
-    if (Get(FactoryService.ClientService.SaveOptionList(daten, daten.MandantNr,
-        model, Parameter.Params)))
+    if (Get(FactoryService.ClientService.SaveOptionList(daten, daten.MandantNr, model, Parameter.Params)))
     {
-      Parameter.Save();
+      ParameterGui.Save();
       MainClass.MainWindow.RefreshTitle();
       CloseDialog();
     }

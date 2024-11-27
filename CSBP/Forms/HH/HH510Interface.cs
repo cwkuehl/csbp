@@ -5,6 +5,7 @@
 namespace CSBP.Forms.HH;
 
 using System;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -134,9 +135,9 @@ public partial class HH510Interface : CsbpBin
   {
     if (step <= 0)
     {
-      SetText(titel, Parameter.HH510Title);
-      kassenbericht.Active = Parameter.HH510Cashreport;
-      SetText(datei, Parameter.HH510File);
+      SetText(titel, ParameterGui.HH510Title);
+      kassenbericht.Active = ParameterGui.HH510Cashreport;
+      SetText(datei, ParameterGui.HH510File);
       if (Parameter1 is Tuple<string, DateTime, DateTime> p)
       {
         var kz = p.Item1;
@@ -191,8 +192,8 @@ public partial class HH510Interface : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
   {
-    Parameter.HH510Title = titel.Text;
-    Parameter.HH510Cashreport = kassenbericht.Active;
+    ParameterGui.HH510Title = titel.Text;
+    ParameterGui.HH510Cashreport = kassenbericht.Active;
     if (eb.Active || gv.Active || sb.Active)
     {
       var pdf = Get(
@@ -224,7 +225,7 @@ public partial class HH510Interface : CsbpBin
     if (!string.IsNullOrEmpty(file))
     {
       SetText(datei, file);
-      Parameter.HH510File = file;
+      ParameterGui.HH510File = file;
     }
   }
 

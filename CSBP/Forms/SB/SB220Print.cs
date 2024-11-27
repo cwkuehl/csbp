@@ -6,6 +6,7 @@ namespace CSBP.Forms.SB;
 
 using System;
 using System.Collections.Generic;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -91,8 +92,8 @@ public partial class SB220Print : CsbpBin
         fl.Add(new MaParameter { Schluessel = p.Uid, Wert = p.AncestorName });
       }
       AddColumns(person, fl, true);
-      SetText(person, Parameter.SB220Ancestor);
-      SetText(generation, Parameter.SB220Generation ?? "3");
+      SetText(person, ParameterGui.SB220Ancestor);
+      SetText(generation, ParameterGui.SB220Generation ?? "3");
       EventsActive = true;
     }
   }
@@ -104,7 +105,7 @@ public partial class SB220Print : CsbpBin
   {
     if (!EventsActive)
       return;
-    Parameter.SB220Ancestor = GetText(person);
+    ParameterGui.SB220Ancestor = GetText(person);
   }
 
   /// <summary>Handles Generation.</summary>
@@ -114,7 +115,7 @@ public partial class SB220Print : CsbpBin
   {
     if (!EventsActive || Functions.ToInt32(generation.Text) <= 0)
       return;
-    Parameter.SB220Generation = generation.Text;
+    ParameterGui.SB220Generation = generation.Text;
   }
 
   /// <summary>Handles Ok.</summary>

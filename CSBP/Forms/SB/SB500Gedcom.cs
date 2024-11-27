@@ -5,6 +5,7 @@
 namespace CSBP.Forms.SB;
 
 using System;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -67,9 +68,9 @@ public partial class SB500Gedcom : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      SetText(name, Parameter.SB500Name);
-      SetText(datei, string.IsNullOrEmpty(Parameter.SB500File) ? System.IO.Path.Combine(Parameter.TempPath, SB500_select_file) : Parameter.SB500File);
-      SetText(filter, Parameter.SB500Filter);
+      SetText(name, ParameterGui.SB500Name);
+      SetText(datei, string.IsNullOrEmpty(ParameterGui.SB500File) ? System.IO.Path.Combine(ParameterGui.TempPath, SB500_select_file) : ParameterGui.SB500File);
+      SetText(filter, ParameterGui.SB500Filter);
       EventsActive = true;
     }
   }
@@ -81,7 +82,7 @@ public partial class SB500Gedcom : CsbpBin
   {
     if (!EventsActive)
       return;
-    Parameter.SB500Name = name.Text;
+    ParameterGui.SB500Name = name.Text;
   }
 
   /// <summary>Handles Filter.</summary>
@@ -91,7 +92,7 @@ public partial class SB500Gedcom : CsbpBin
   {
     if (!EventsActive)
       return;
-    Parameter.SB500Filter = filter.Buffer.Text;
+    ParameterGui.SB500Filter = filter.Buffer.Text;
   }
 
   /// <summary>Handles Dateiauswahl.</summary>
@@ -103,7 +104,7 @@ public partial class SB500Gedcom : CsbpBin
     if (!string.IsNullOrEmpty(file))
     {
       SetText(datei, file);
-      Parameter.SB500File = file;
+      ParameterGui.SB500File = file;
     }
   }
 

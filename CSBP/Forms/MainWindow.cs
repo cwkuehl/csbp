@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
+using CSBP.Base;
 using CSBP.Forms.AD;
 using CSBP.Forms.AG;
 using CSBP.Forms.AM;
@@ -508,7 +509,7 @@ public class MainWindow : Window
     }
 
     SetupHandlers();
-    var size = Parameter.GetDialogSize(typeof(MainWindow));
+    var size = ParameterGui.GetDialogSize(typeof(MainWindow));
     SetSizeRequest(size.Width, size.Height);
     DefaultWidth = size.Width;
     DefaultHeight = size.Height;
@@ -576,7 +577,7 @@ public class MainWindow : Window
     MainClass.Login(new ServiceDaten(1, username.ToLower())); // Lower for Replication.
     //// MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
-    var daten = new ServiceDaten(Functions.ToInt32(Parameter.LoginClient), Environment.UserName);
+    var daten = new ServiceDaten(Functions.ToInt32(ParameterGui.LoginClient), Environment.UserName);
     var r = FactoryService.LoginService.IsWithoutPassword(daten);
     if (r?.Ergebnis ?? false)
       MainClass.Login(daten);
@@ -1012,7 +1013,7 @@ public class MainWindow : Window
   /// <param name="e">Affected event.</param>
   protected void OnMenuReset(object sender, EventArgs e)
   {
-    Parameter.ResetDialogSizes();
+    ParameterGui.ResetDialogSizes();
     popovermenu1.Visible = false;
   }
 

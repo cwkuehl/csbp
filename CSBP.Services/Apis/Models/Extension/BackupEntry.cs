@@ -59,7 +59,7 @@ public class BackupEntry : ModelBase
   {
     if (string.IsNullOrWhiteSpace(sources))
       return Array.Empty<string>();
-    return sources.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+    return sources.Split(";", StringSplitOptions.RemoveEmptyEntries);
   }
 
   /// <summary>
@@ -80,7 +80,7 @@ public class BackupEntry : ModelBase
       {
         Functions.MachNichts();
       }
-    l ??= new List<BackupEntry>();
+    l ??= [];
     return l;
   }
 

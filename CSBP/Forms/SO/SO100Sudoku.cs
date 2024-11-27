@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.NonService;
@@ -74,7 +75,7 @@ public partial class SO100Sudoku : CsbpBin
     if (step <= 0)
     {
       undolist = new Stack<SudokuContext>();
-      var json = Parameter.SO100Sudoku;
+      var json = ParameterGui.SO100Sudoku;
       try
       {
         context = JsonSerializer.Deserialize<SudokuContext>(json)!;
@@ -169,7 +170,7 @@ public partial class SO100Sudoku : CsbpBin
   {
     OnDiagonal(null, null);
     var json = JsonSerializer.Serialize<SudokuContext>(context);
-    Parameter.SO100Sudoku = json;
+    ParameterGui.SO100Sudoku = json;
   }
 
   /// <summary>Handles Delete.</summary>

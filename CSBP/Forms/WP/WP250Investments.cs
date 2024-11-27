@@ -118,7 +118,7 @@ public partial class WP250Investments : CsbpBin
       var rs = AddColumns(wertpapier, emptyentry: true);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
-      SetText(wertpapier, Parameter.WP250Stock);
+      SetText(wertpapier, ParameterGui.WP250Stock);
       EventsActive = true;
     }
     if (step <= 1)
@@ -228,7 +228,7 @@ public partial class WP250Investments : CsbpBin
       return;
     var uid = inv.Wertpapier_Uid;
     var desc = inv.StockDescription;
-    var kuid = Parameter.WP200Configuration;
+    var kuid = ParameterGui.WP200Configuration;
     var t = new Tuple<DateTime?, string, string>(bis.Value, uid, kuid);
     MainClass.MainWindow.AppendPage(WP100Chart.Create(t), desc);
   }
@@ -285,7 +285,7 @@ public partial class WP250Investments : CsbpBin
   {
     if (!EventsActive)
       return;
-    Parameter.WP250Stock = GetText(wertpapier);
+    ParameterGui.WP250Stock = GetText(wertpapier);
     refreshAction.Click();
   }
 

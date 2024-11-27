@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -406,7 +407,7 @@ public partial class TB100Diary : CsbpBin
     // Bericht erzeugen
     BearbeiteEintraege(true, false);
     var puid = GetText(position2);
-    var pfad = Parameter.TempPath;
+    var pfad = ParameterGui.TempPath;
     var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
     UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, GetSearchArray(),
       puid, from.Value, to.Value)), pfad, datei);

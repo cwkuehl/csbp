@@ -5,6 +5,7 @@
 namespace CSBP.Forms.AM;
 
 using System;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -77,8 +78,8 @@ public class AM000Login : CsbpBin
   {
     if (step == 0)
     {
-      SetText(client, Parameter.LoginClient);
-      SetText(user, Parameter.LoginUser);
+      SetText(client, ParameterGui.LoginClient);
+      SetText(user, ParameterGui.LoginUser);
       if (string.IsNullOrWhiteSpace(user.Text))
         SetText(user, Environment.UserName);
       if (string.IsNullOrWhiteSpace(client.Text))
@@ -108,9 +109,9 @@ public class AM000Login : CsbpBin
       Response = ResponseType.Ok;
       MainClass.Login(daten);
     }
-    Parameter.LoginClient = c;
-    Parameter.LoginUser = id;
-    Parameter.Save();
+    ParameterGui.LoginClient = c;
+    ParameterGui.LoginUser = id;
+    ParameterGui.Save();
   }
 
   /// <summary>Handles reset.</summary>

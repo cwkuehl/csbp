@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -100,7 +101,7 @@ public partial class WP500Prices : CsbpBin
       var rs = AddColumns(wertpapier, emptyentry: true);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
-      SetText(wertpapier, Parameter.WP500Stock);
+      SetText(wertpapier, ParameterGui.WP500Stock);
       EventsActive = true;
     }
     if (step <= 1)
@@ -211,7 +212,7 @@ public partial class WP500Prices : CsbpBin
   {
     if (!EventsActive)
       return;
-    Parameter.WP500Stock = GetText(wertpapier);
+    ParameterGui.WP500Stock = GetText(wertpapier);
     refreshAction.Click();
   }
 

@@ -60,8 +60,8 @@ public class MainClass
     Functions.SetCultureInfo(ci);
     try
     {
-      // Parameter lesen.
-      Functions.MachNichts(Parameter.Connect);
+      // Init GUI-Parameters.
+      ParameterGui.Init();
     }
     catch (Exception ex)
     {
@@ -101,7 +101,7 @@ public class MainClass
   /// <param name="form">Affected form name.</param>
   public static void Help(string form = null)
   {
-    var fn = Parameter.GetValue(Parameter.AG_HILFE_DATEI);
+    var fn = ParameterGui.HelpFile;
     if (!string.IsNullOrEmpty(fn))
     {
       var d = MainWindow.GetActiveDialog();
@@ -140,10 +140,10 @@ public class MainClass
       //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.Window.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
       MainWindow.GetPosition(out int x, out int y); // gets also values for x <= 37.
       //// Services.Base.ServiceBase.Log.Warn($"{typeof(MainWindow).Name} MainWindow.GetPosition x {x} y {y} {DateTime.Now:HH:mm:ss.fff}");
-      Parameter.SetDialogSize(typeof(MainWindow), new System.Drawing.Rectangle(x, y, w, h), CsbpBin.TitleHeight);
+      ParameterGui.SetDialogSize(typeof(MainWindow), new System.Drawing.Rectangle(x, y, w, h), CsbpBin.TitleHeight);
     }
     MainWindow.ClosePages();
-    Parameter.Save();
+    ParameterGui.Save();
     Application.Quit();
   }
 
@@ -195,7 +195,7 @@ public class MainClass
             MainWindow.AppendPage(dlg, sf.Title, focus);
           }
         }
-        if (Parameter.AD120Start)
+        if (ParameterGui.AD120Start)
         {
           // Show birthday list.
           CsbpBin.Start(typeof(AD120Birthdays), AD120_title, parameter1: true);
@@ -293,7 +293,7 @@ public class MainClass
   /// <summary>GTK-Thema anwenden.</summary>
   public static void ApplyTheme()
   {
-    var theme = Parameter.GetValue(Parameter.APP_THEME);
+    var theme = ParameterGui.AppTheme;
     if (string.IsNullOrEmpty(theme) || theme.Contains("xxx") || theme == "default")
       return;
     try

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -118,7 +119,7 @@ public partial class WP200Stocks : CsbpBin
       var rs = AddColumns(konfiguration, emptyentry: true);
       foreach (var p in kliste)
         rs.AppendValues(p.Bezeichnung, p.Uid);
-      SetText(konfiguration, Parameter.WP200Configuration);
+      SetText(konfiguration, ParameterGui.WP200Configuration);
       EventsActive = true;
     }
     if (step <= 1)
@@ -308,7 +309,7 @@ public partial class WP200Stocks : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnKonfigurationChanged(object sender, EventArgs e)
   {
-    Parameter.WP200Configuration = GetText(konfiguration);
+    ParameterGui.WP200Configuration = GetText(konfiguration);
     if (!EventsActive)
       return;
     refreshAction.Click();

@@ -5,6 +5,7 @@
 namespace CSBP.Forms.AD;
 
 using System;
+using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -62,7 +63,7 @@ public partial class AD200Interface : CsbpBin
   {
     if (step <= 0)
     {
-      SetText(datei, string.IsNullOrEmpty(Parameter.AD200File) ? System.IO.Path.Combine(Parameter.TempPath, AD200_select_file) : Parameter.AD200File);
+      SetText(datei, string.IsNullOrEmpty(ParameterGui.AD200File) ? System.IO.Path.Combine(ParameterGui.TempPath, AD200_select_file) : ParameterGui.AD200File);
     }
   }
 
@@ -75,7 +76,7 @@ public partial class AD200Interface : CsbpBin
     if (!string.IsNullOrEmpty(file))
     {
       SetText(datei, file);
-      Parameter.AD200File = file;
+      ParameterGui.AD200File = file;
     }
   }
 
@@ -121,7 +122,7 @@ public partial class AD200Interface : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    Parameter.AD200File = datei.Text;
+    ParameterGui.AD200File = datei.Text;
     CloseDialog();
   }
 }

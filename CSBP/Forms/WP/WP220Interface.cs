@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -181,8 +182,8 @@ public partial class WP220Interface : CsbpBin
         });
       }
       AddStringColumnsSort(konfiguration, WP220_konfiguration_columns, cvalues);
-      SetText(konfiguration, Parameter.WP220Configuration);
-      SetText(datei, Parameter.WP220File);
+      SetText(konfiguration, ParameterGui.WP220Configuration);
+      SetText(datei, ParameterGui.WP220File);
       var slist = Get(FactoryService.StockService.GetStockList(ServiceDaten, true));
       var svalues = new List<string[]>
         {
@@ -198,7 +199,7 @@ public partial class WP220Interface : CsbpBin
         });
       }
       AddStringColumnsSort(wertpapier, WP220_wertpapier_columns, svalues);
-      SetText(wertpapier, Parameter.WP220Stock);
+      SetText(wertpapier, ParameterGui.WP220Stock);
       datum20.Visible = false;
       datum20.NoShowAll = true;
       datum2.Visible = false;
@@ -213,7 +214,7 @@ public partial class WP220Interface : CsbpBin
       wertpapier0.NoShowAll = true;
       wertpapier.Visible = false;
       wertpapier.NoShowAll = true;
-      SetText(datei2, Parameter.WP220File2);
+      SetText(datei2, ParameterGui.WP220File2);
       datei20.Visible = false;
       datei20.NoShowAll = true;
       datei2.Visible = false;
@@ -250,7 +251,7 @@ public partial class WP220Interface : CsbpBin
     if (!string.IsNullOrEmpty(file))
     {
       SetText(datei, file);
-      Parameter.WP220File = file;
+      ParameterGui.WP220File = file;
     }
   }
 
@@ -299,7 +300,7 @@ public partial class WP220Interface : CsbpBin
     if (!string.IsNullOrEmpty(file))
     {
       SetText(datei2, file);
-      Parameter.WP220File2 = file;
+      ParameterGui.WP220File2 = file;
     }
   }
 

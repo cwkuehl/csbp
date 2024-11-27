@@ -6,6 +6,7 @@ namespace CSBP.Forms.AD;
 
 using System;
 using System.Collections.Generic;
+using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -88,8 +89,8 @@ public partial class AD120Birthdays : CsbpBin
     if (step <= 0)
     {
       datum.Value = daten.Heute;
-      SetText(tage, Functions.ToString(Parameter.AD120Days));
-      starten.Active = Parameter.AD120Start;
+      SetText(tage, Functions.ToString(ParameterGui.AD120Days));
+      starten.Active = ParameterGui.AD120Start;
       EventsActive = true;
     }
     if (step <= 1)
@@ -129,8 +130,8 @@ public partial class AD120Birthdays : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
   {
-    Parameter.AD120Days = Functions.ToInt32(tage.Text);
-    Parameter.AD120Start = starten.Active;
+    ParameterGui.AD120Days = Functions.ToInt32(tage.Text);
+    ParameterGui.AD120Start = starten.Active;
     CloseDialog();
   }
 }
