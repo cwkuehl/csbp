@@ -24,8 +24,8 @@ public interface ILoginService
   /// <param name="daten">Affected client number and user id.</param>
   /// <param name="kennwort">Affected password.</param>
   /// <param name="save">Save password or not.</param>
-  /// <returns>Possibly errors.</returns>
-  ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool save);
+  /// <returns>User data with roles and possibly errors.</returns>
+  ServiceErgebnis<UserDaten> Login(ServiceDaten daten, string kennwort, bool save);
 
   /// <summary>
   /// Changes the password of an user.

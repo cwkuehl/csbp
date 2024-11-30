@@ -42,8 +42,8 @@ public class LoginService : ServiceBase, ILoginService
   /// <param name="daten">Affected client number and user id.</param>
   /// <param name="kennwort">Affected password.</param>
   /// <param name="speichern">Save password or not.</param>
-  /// <returns>Possibly errors.</returns>
-  public ServiceErgebnis<string> Login(ServiceDaten daten, string kennwort, bool speichern)
+  /// <returns>User data with roles and possibly errors.</returns>
+  public ServiceErgebnis<UserDaten> Login(ServiceDaten daten, string kennwort, bool speichern)
   {
     if (daten.MandantNr < 0)
     {
@@ -56,13 +56,15 @@ public class LoginService : ServiceBase, ILoginService
       throw new MessageException(AM001);
     }
 
-    var r = new ServiceErgebnis<string>();
+    var r = new ServiceErgebnis<UserDaten>();
     var benutzer = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId);
     if (benutzer != null)
     {
       // User exists.
       var benutzerId = benutzer.Benutzer_ID;
-      r.Ergebnis = benutzerId;
+      var rollen = new List<string> { benutzer.Berechtigung == 2 ? UserDaten.RoleSuperadmin : benutzer.Berechtigung == 1 ? UserDaten.RoleAdmin : UserDaten.RoleUser };
+      var ud = new UserDaten(daten.MandantNr, benutzerId, rollen);
+      r.Ergebnis = ud;
       Log.Debug(AM003(daten.MandantNr, benutzerId));
 
       var wert = GetWithoutLogin(daten);
@@ -94,7 +96,9 @@ public class LoginService : ServiceBase, ILoginService
     if (liste.Count == 1 && liste[0].Benutzer_ID == Constants.USER_ID
       && !string.Equals(daten.BenutzerId, Constants.USER_ID, StringComparison.InvariantCultureIgnoreCase))
     {
-      r.Ergebnis = daten.BenutzerId;
+      var rollen = new List<string> { liste[0].Berechtigung == 2 ? UserDaten.RoleSuperadmin : liste[0].Berechtigung == 1 ? UserDaten.RoleAdmin : UserDaten.RoleUser };
+      var ud = new UserDaten(daten.MandantNr, daten.BenutzerId, rollen);
+      r.Ergebnis = ud;
       BenutzerRep.Save(daten, daten.MandantNr, daten.BenutzerId, kennwort, liste[0].Berechtigung, liste[0].Akt_Periode,
         liste[0].Person_Nr, liste[0].Geburt, liste[0].Angelegt_Von, liste[0].Angelegt_Am, daten.BenutzerId, daten.Jetzt);
       BenutzerRep.Delete(daten, liste[0]);

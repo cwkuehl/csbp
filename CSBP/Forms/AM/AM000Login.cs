@@ -101,9 +101,9 @@ public class AM000Login : CsbpBin
     var daten = new ServiceDaten(Functions.ToInt32(c), id);
     var r = FactoryService.LoginService.Login(daten, password.Text, save.Active);
     Get(r);
-    if (r.Ok)
+    if (r.Ok && r.Ergebnis != null)
     {
-      id = r.Ergebnis;
+      id = r.Ergebnis.BenutzerId;
       daten = new ServiceDaten(daten.MandantNr, id);
       CloseDialog();
       Response = ResponseType.Ok;
