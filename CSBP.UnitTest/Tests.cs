@@ -41,6 +41,8 @@ public class Tests
     var t = new Tests();
     t.Setup();
     if (Functions.MachNichts() != 0)
+      CuttingOptimizer.Test();
+    if (Functions.MachNichts() != 0)
       t.MachNichts();
     if (Functions.MachNichts() != 0)
       t.GenerateForm();
