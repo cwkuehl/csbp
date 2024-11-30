@@ -1094,6 +1094,30 @@ public static partial class Functions
     return xref.Replace(';', ':');
   }
 
+  /// <summary>
+  /// Get the string between two strings.
+  /// </summary>
+  /// <param name="str">Affected string.</param>
+  /// <param name="from">Affected from string.</param>
+  /// <param name="to">Affected to string.</param>
+  /// <returns>Affected string in between.</returns>
+  public static string Between(string str, string from, string to)
+  {
+    if (string.IsNullOrEmpty(str) || string.IsNullOrEmpty(from))
+      return null;
+    var anfang = str.IndexOf(from);
+    if (anfang >= 0)
+    {
+      var l = from.Length;
+      if (string.IsNullOrEmpty(to))
+        return str.Substring(anfang + l);
+      var ende = str.IndexOf(to, anfang + l);
+      if (ende > anfang + l)
+        return str.Substring(anfang + l, ende - anfang - l);
+    }
+    return null;
+  }
+
   /// <summary>Splits string into lines.</summary>
   /// <param name="s">Affected String.</param>
   /// <param name="split">Should be splitted or not.</param>
