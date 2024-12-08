@@ -269,7 +269,7 @@ public partial class CsbpBin : Bin
   /// </summary>
   /// <param name="r">Affected service result.</param>
   /// <param name="dialog">Shows as message dialog or not.</param>
-  /// <returns>Are there errors or not.</returns>
+  /// <returns>Is it OK or not.</returns>
   public static bool Get(ServiceErgebnis r, bool dialog = true)
   {
     return MainClass.Get(r, dialog);

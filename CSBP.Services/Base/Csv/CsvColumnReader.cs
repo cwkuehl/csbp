@@ -25,13 +25,10 @@ public class CsvColumnReader : CsvReader
     var header = ParseCsvLine(GetLine()).Select(a => a.ToLowerInvariant()).ToList();
     if (header.Count <= 0)
       throw new MessageException(Message.New("00002Datei ist leer."));
+    ColumnIndex = new int[header.Count];
+    for (var i = 0; i < header.Count; i++)
+      ColumnIndex[i] = i;
     var index = 0;
-    while (index < header.Count)
-    {
-      ColumnIndex.Add(index, index);
-      index++;
-    }
-    index = 0;
     foreach (var c in this.Columns)
     {
       var i = header.IndexOf(c);
@@ -40,7 +37,7 @@ public class CsvColumnReader : CsvReader
       var j = ColumnIndex[index];
       if (i != j)
       {
-        // Spaltenindices tauschen.
+        // Spaltenindizes tauschen.
         ColumnIndex[index] = i;
         ColumnIndex[i] = j;
       }
@@ -52,23 +49,31 @@ public class CsvColumnReader : CsvReader
   private List<string> Columns { get; set; }
 
   /// <summary>Gets or sets the list of columns.</summary>
-  private Dictionary<int, int> ColumnIndex { get; set; } = new();
+  private int[] ColumnIndex { get; set; } = [];
 
   /// <summary>
   /// Lesen der nächsten Zeile und Sortieren der Spalten.
   /// </summary>
   /// <returns>Werte der nächsten CSV-Zeile, sortiert nach Spalten.</returns>
-  public List<string> GetLineInColums()
+  public string[] GetLineInColums()
   {
     var line0 = GetLine();
     if (line0 == null)
       return null;
     var line = ParseCsvLine(line0);
-    if (line.Length != ColumnIndex.Count)
+    if (line.Length != ColumnIndex.Length)
       throw new MessageException(Message.New("00004Zeile zu kurz."));
-    var list = new List<string>();
-    foreach (var i in ColumnIndex.Values)
-      list.Add(line[i]);
-    return list;
+    for (var i = 0; i < ColumnIndex.Length - 1; i++)
+    {
+      var j = ColumnIndex[i];
+      if (i != j)
+      {
+        // Vertauschen der Spalteninhalte.
+        var t = line[i];
+        line[i] = line[j];
+        line[j] = t;
+      }
+    }
+    return line;
   }
 }

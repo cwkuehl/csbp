@@ -88,6 +88,19 @@ public class Message
   }
 
   /// <summary>
+  /// Initializes a new instance of the <see cref="Message"/> class.
+  /// </summary>
+  /// <param name="ex">Affected exception.</param>
+  /// <returns>New instance of the <see cref="Message"/> class.</returns>
+  public static Message Exception(Exception ex)
+  {
+    if (ex is MessageException me)
+      return me.GetMessage();
+    var m = new Message($"EXCEP{ex?.Message ?? "Unbekannte Exception."}", null);
+    return m;
+  }
+
+  /// <summary>
   /// Extends the message text with a postfix.
   /// </summary>
   /// <param name="postfix">Affected extension.</param>
