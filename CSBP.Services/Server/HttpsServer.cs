@@ -62,7 +62,7 @@ public partial class HttpsServer
           if (listener.Pending())
           {
             var client = listener.AcceptTcpClient();
-            ThreadPool.QueueUserWorkItem(o => ProcessClient(client, new ServiceDaten(daten.MandantNr, daten.BenutzerId)));
+            ThreadPool.QueueUserWorkItem(o => ProcessClient(client, new ServiceDaten(daten.Daten)));
           }
         }
         Thread.Sleep(100);

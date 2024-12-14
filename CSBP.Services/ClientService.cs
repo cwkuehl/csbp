@@ -43,8 +43,8 @@ public partial class ClientService : ServiceBase, IClientService
   /// <summary>
   /// Initializes the database.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>Possibly errors.</returns>
   public ServiceErgebnis InitDb(ServiceDaten daten)
   {
     var p = MaParameterRep.Get(daten, 0, Constants.EINST_DB_VERSION);
@@ -303,24 +303,25 @@ public partial class ClientService : ServiceBase, IClientService
   /// <summary>
   /// Gets list with clients.
   /// </summary>
-  /// <returns>List with clients.</returns>
   /// <param name="daten">Service data for database access.</param>
-  public ServiceErgebnis<List<MaMandant>> GetClientList(ServiceDaten daten)
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>List with clients.</returns>
+  public ServiceErgebnis<List<MaMandant>> GetClientList(ServiceDaten daten, TableReadModel rm)
   {
-    var l = MaMandantRep.GetList(daten);
-    var user = BenutzerRep.GetList(daten, -1, null).FirstOrDefault();
-    var per = user == null ? (int)PermissionEnum.Without : user.Berechtigung;
-    if (per <= (int)PermissionEnum.Admin)
-      l = l.Where(a => a.Nr == daten.MandantNr).ToList();
+    var l = MaMandantRep.GetList(daten, rm);
+    //// var user = BenutzerRep.GetList(daten, null, -1, null).FirstOrDefault();
+    //// var per = user == null ? (int)PermissionEnum.Without : user.Berechtigung;
+    //// if (per <= (int)PermissionEnum.Admin)
+    ////   l = l.Where(a => a.Nr == daten.MandantNr).ToList();
     return new ServiceErgebnis<List<MaMandant>>(l);
   }
 
   /// <summary>
   /// Gets client by number.
   /// </summary>
-  /// <returns>The client.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="nr">Affected client number.</param>
+  /// <returns>Affected client or null.</returns>
   public ServiceErgebnis<MaMandant> GetClient(ServiceDaten daten, int nr)
   {
     var e = MaMandantRep.Get(daten, nr);
@@ -401,7 +402,7 @@ public partial class ClientService : ServiceBase, IClientService
   {
     var b = GetBerechtigung(daten, daten.MandantNr, daten.BenutzerId);
     var id = b >= 1 ? null : b == 0 ? daten.BenutzerId : "###";
-    var liste = BenutzerRep.GetList(daten, 0, id);
+    var liste = BenutzerRep.GetList(daten, null, 0, id);
     var r = new ServiceErgebnis<List<Benutzer>>(liste);
     return r;
   }
@@ -414,7 +415,7 @@ public partial class ClientService : ServiceBase, IClientService
   /// <param name="nr">Affected user number.</param>
   public ServiceErgebnis<Benutzer> GetUser(ServiceDaten daten, int nr)
   {
-    var e = BenutzerRep.GetList(daten, nr, null).FirstOrDefault();
+    var e = BenutzerRep.GetList(daten, null, nr, null).FirstOrDefault();
     return new ServiceErgebnis<Benutzer>(e);
   }
 
@@ -441,7 +442,7 @@ public partial class ClientService : ServiceBase, IClientService
     }
     var e = BenutzerRep.Get(daten, daten.MandantNr, id);
     var enr = nr;
-    var liste = BenutzerRep.GetList(daten, 0, id, enr);
+    var liste = BenutzerRep.GetList(daten, null, 0, id, enr);
     if (liste.Count > 0)
     {
       throw new MessageException(AM011);
@@ -449,7 +450,7 @@ public partial class ClientService : ServiceBase, IClientService
     if (enr <= 0)
     {
       enr = 1;
-      liste = BenutzerRep.GetList(daten, 0, null);
+      liste = BenutzerRep.GetList(daten, null, 0, null);
       foreach (var b in liste)
       {
         if (b.Person_Nr >= enr)

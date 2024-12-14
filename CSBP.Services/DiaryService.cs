@@ -663,7 +663,7 @@ public class DiaryService : ServiceBase, IDiaryService
       throw new MessageException(TB001);
     for (var i = 0; i < Columns * Rows; i++)
     {
-      if (!Functions.IsLike(search[i]))
+      if (!CsbpBase.IsLike(search[i]))
         search[i] = "";
     }
     //// Packs search pattern

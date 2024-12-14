@@ -44,7 +44,7 @@ public class HttpServer
             break;
         }
         var context = listener.GetContext();
-        ThreadPool.QueueUserWorkItem(o => HandleRequest(context, new ServiceDaten(daten.MandantNr, daten.BenutzerId)));
+        ThreadPool.QueueUserWorkItem(o => HandleRequest(context, new ServiceDaten(daten.Daten)));
       }
       catch (Exception ex)
       {

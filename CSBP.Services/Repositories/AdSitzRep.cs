@@ -44,9 +44,9 @@ public partial class AdSitzRep
     var pl = db.AD_Person.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(puid))
       pl = pl.Where(a => a.Uid == puid);
-    if (Functions.IsLike(name))
+    if (CsbpBase.IsLike(name))
       pl = pl.Where(a => EF.Functions.Like(a.Name1, name) || EF.Functions.Like(a.Name2, name));
-    if (Functions.IsLike(firstname))
+    if (CsbpBase.IsLike(firstname))
       pl = pl.Where(a => EF.Functions.Like(a.Vorname, firstname));
     if (actual)
       pl = pl.Where(a => a.Person_Status == 0);
@@ -87,7 +87,7 @@ public partial class AdSitzRep
           return site;
         }).ToList();
     }
-    if (Functions.IsLike(search))
+    if (CsbpBase.IsLike(search))
     {
       // l = l.Where(a => Like(a.Person.Name1, search) || Like(a.Person.Name2, search)
       //   || Like(a.Person.Praedikat, search) || Like(a.Person.Vorname, search)

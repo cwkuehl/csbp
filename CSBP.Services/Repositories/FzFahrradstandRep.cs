@@ -37,7 +37,7 @@ public partial class FzFahrradstandRep
   {
     var db = GetDb(daten);
     var wl = db.FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, text));
     if (!string.IsNullOrEmpty(buid))
       wl = wl.Where(a => a.Fahrrad_Uid == buid);

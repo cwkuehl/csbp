@@ -26,7 +26,7 @@ public class MainClass
 #pragma warning restore SA1649
 {
   /// <summary>Initial service data.</summary>
-  private static readonly ServiceDaten ServiceDaten0 = new(0, Constants.USER_ID);
+  private static readonly ServiceDaten ServiceDaten0 = new(0, Constants.USER_ID, null);
 
   /// <summary>Actual service data.</summary>
   private static ServiceDaten intServiceData = ServiceDaten0;
@@ -40,7 +40,7 @@ public class MainClass
   /// <summary>Gets new copy of service data.</summary>
   public static ServiceDaten ServiceDaten
   {
-    get { return new ServiceDaten(intServiceData.MandantNr, intServiceData.BenutzerId); }
+    get { return new ServiceDaten(intServiceData.Daten); }
     private set { intServiceData = value; }
   }
 

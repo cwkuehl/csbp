@@ -61,17 +61,17 @@ public partial class AG100Clients : CsbpBin
   {
     if (step <= 1)
     {
-      var l = Get(FactoryService.ClientService.GetClientList(ServiceDaten));
+      var l = Get(FactoryService.ClientService.GetClientList(ServiceDaten, null));
       var values = new List<string[]>();
       foreach (var e in l)
       {
         // No.;No.;Description;Changed at;Changed by;Created at;Created by
-        values.Add(new string[]
-        {
+        values.Add(
+        [
           e.Nr.ToString(), e.Nr.ToString(), e.Beschreibung,
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
-        });
+        ]);
       }
       AddStringColumnsSort(mandanten, AG100_mandanten_columns, values);
     }

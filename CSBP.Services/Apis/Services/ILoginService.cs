@@ -15,8 +15,8 @@ public interface ILoginService
   /// Checks if the login without password.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <returns>Is login without password or not.</returns>
-  ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten);
+  /// <returns>User data with roles if login is without password or null.</returns>
+  ServiceErgebnis<UserDaten> IsWithoutPassword(ServiceDaten daten);
 
   /// <summary>
   /// Do login with all checks.

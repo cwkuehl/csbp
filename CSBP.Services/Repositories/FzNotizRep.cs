@@ -27,7 +27,7 @@ public partial class FzNotizRep
   {
     var db = GetDb(daten);
     var l = db.FZ_Notiz.Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       l = l.Where(a => EF.Functions.Like(a.Thema, text) || EF.Functions.Like(a.Notiz, text));
     return l.ToList();
   }

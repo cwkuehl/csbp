@@ -18,17 +18,26 @@ using static CSBP.Services.Resources.Messages;
 public class LoginService : ServiceBase, ILoginService
 {
   /// <summary>
-  /// Checks whether login is wihtout password or not.
+  /// Checks whether login is without password or not.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <returns>Is login wihtout password or not.</returns>
-  public ServiceErgebnis<bool> IsWithoutPassword(ServiceDaten daten)
+  /// <returns>User data with roles if login is without password or null.</returns>
+  public ServiceErgebnis<UserDaten> IsWithoutPassword(ServiceDaten daten)
   {
-    var r = new ServiceErgebnis<bool>(false);
+    var r = new ServiceErgebnis<UserDaten>();
     var wert = GetWithoutLogin(daten);
-    if (!string.IsNullOrEmpty(wert) && !string.IsNullOrEmpty(daten.BenutzerId))
+    if (!string.IsNullOrEmpty(wert) && !string.IsNullOrEmpty(daten.BenutzerId) && string.Compare(wert, daten.BenutzerId, true) == 0)
     {
-      r.Ergebnis = string.Compare(wert, daten.BenutzerId, true) == 0;
+      var benutzer = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId);
+      if (benutzer != null)
+      {
+        // User exists.
+        var benutzerId = benutzer.Benutzer_ID;
+        var rollen = new List<string> { benutzer.Berechtigung == 2 ? UserDaten.RoleSuperadmin : benutzer.Berechtigung == 1 ? UserDaten.RoleAdmin : UserDaten.RoleUser };
+        var ud = new UserDaten(daten.MandantNr, benutzerId, rollen);
+        r.Ergebnis = ud;
+        Log.Debug(AM003(daten.MandantNr, benutzerId));
+      }
       //// if (r.ergebnis) {
       ////   initMandant(daten)
       //// }

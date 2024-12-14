@@ -17,14 +17,33 @@ public class ServiceDaten
   /// </summary>
   /// <param name="mandantNr">Betroffene Mandantennummer.</param>
   /// <param name="benutzerId">Betroffener Benutzer.</param>
-  public ServiceDaten(int mandantNr, string benutzerId)
+  /// <param name="rollen">Betroffene Rollen.</param>
+  public ServiceDaten(int mandantNr, string benutzerId, List<string> rollen)
   {
+    Daten = new UserDaten(mandantNr, benutzerId, rollen);
     MandantNr = mandantNr;
     BenutzerId = benutzerId;
     Heute = DateTime.Today;
     Jetzt = DateTime.Now;
     Jetzt = Jetzt.AddTicks(-Jetzt.Ticks % 10000000); // nur sekundengenau
   }
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ServiceDaten"/> class.
+  /// </summary>
+  /// <param name="daten">Betroffene Benutzerdaten.</param>
+  public ServiceDaten(UserDaten daten)
+  {
+    Daten = daten;
+    MandantNr = daten.MandantNr;
+    BenutzerId = daten.BenutzerId;
+    Heute = DateTime.Today;
+    Jetzt = DateTime.Now;
+    Jetzt = Jetzt.AddTicks(-Jetzt.Ticks % 10000000); // nur sekundengenau
+  }
+
+  /// <summary>Gets the client number.</summary>
+  public UserDaten Daten { get; private set; }
 
   /// <summary>Gets the client number.</summary>
   public int MandantNr { get; }

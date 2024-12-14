@@ -20,23 +20,24 @@ public interface IClientService
   /// <summary>
   /// Initializes the database.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <returns>Possibly errors.</returns>
   ServiceErgebnis InitDb(ServiceDaten daten);
 
   /// <summary>
   /// Gets list with clients.
   /// </summary>
-  /// <returns>List with clients.</returns>
   /// <param name="daten">Service data for database access.</param>
-  ServiceErgebnis<List<MaMandant>> GetClientList(ServiceDaten daten);
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>List with clients.</returns>
+  ServiceErgebnis<List<MaMandant>> GetClientList(ServiceDaten daten, TableReadModel rm);
 
   /// <summary>
   /// Gets client by number.
   /// </summary>
-  /// <returns>The client.</returns>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="nr">Affected client number.</param>
+  /// <returns>Affected client or null.</returns>
   ServiceErgebnis<MaMandant> GetClient(ServiceDaten daten, int nr);
 
   /// <summary>

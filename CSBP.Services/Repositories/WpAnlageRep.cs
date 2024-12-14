@@ -32,7 +32,7 @@ public partial class WpAnlageRep
   {
     var db = GetDb(daten);
     var wl = db.WP_Anlage.Where(a => a.Mandant_Nr == mandantnr);
-    if (Functions.IsLike(desc))
+    if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));
     if (!string.IsNullOrEmpty(uid))
       wl = wl.Where(a => a.Uid == uid);
@@ -52,7 +52,7 @@ public partial class WpAnlageRep
           return a.investment;
         })
         ;
-    if (Functions.IsLike(search))
+    if (CsbpBase.IsLike(search))
     {
       // l = l.ToList().Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text)
       //   || EF.Functions.Like(a.StockDescription, text) || EF.Functions.Like(a.StockProvider, text)

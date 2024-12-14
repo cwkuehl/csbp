@@ -41,7 +41,7 @@ public partial class FzBuchRep
       wl = wl.Where(a => a.Autor_Uid == auuid);
     if (!string.IsNullOrEmpty(seuid))
       wl = wl.Where(a => a.Serie_Uid == seuid);
-    if (Functions.IsLike(name))
+    if (CsbpBase.IsLike(name))
       wl = wl.Where(a => EF.Functions.Like(a.Titel, name) || EF.Functions.Like(a.Untertitel, name));
     if (no > 0)
       wl = wl.Where(a => a.Seriennummer == no);

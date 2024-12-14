@@ -529,7 +529,7 @@ public class PrivateService : ServiceBase, IPrivateService
       string seuid, string bouid, string name)
   {
     var max = string.IsNullOrWhiteSpace(auuid) && string.IsNullOrWhiteSpace(seuid)
-      && string.IsNullOrEmpty(bouid) && !Functions.IsLike(name) ? 100 : 0;
+      && string.IsNullOrEmpty(bouid) && !CsbpBase.IsLike(name) ? 100 : 0;
     var l = FzBuchRep.GetList(daten, auuid, seuid, bouid, name, max: max);
     return new ServiceErgebnis<List<FzBuch>>(l);
   }

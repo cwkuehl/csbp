@@ -319,16 +319,6 @@ public static partial class Functions
   }
 
   /// <summary>
-  /// Checks if it is a filtering like expression. Empty, % and %% are not.
-  /// </summary>
-  /// <param name="t">Affected like expression.</param>
-  /// <returns>It is a filtering like expression or not.</returns>
-  public static bool IsLike(string t)
-  {
-    return !(string.IsNullOrEmpty(t) || t == "%" || t == "%%");
-  }
-
-  /// <summary>
   /// Compares two strings:
   /// 0, if s1 = s2 and
   /// 1, if s1 != s2.

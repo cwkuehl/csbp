@@ -37,7 +37,7 @@ public partial class AgDialogRep
       l = l.Where(a => a.Uid == uid);
     if (!string.IsNullOrEmpty(api))
       l = l.Where(a => a.Api == api);
-    if (Functions.IsLike(search))
+    if (CsbpBase.IsLike(search))
       l = l.Where(a => EF.Functions.Like(a.Frage, search) || EF.Functions.Like(a.Antwort, search));
     if (d.HasValue)
       l = l.Where(a => a.Datum == d.Value);

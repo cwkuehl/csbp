@@ -27,7 +27,7 @@ public partial class FzBuchserieRep
   {
     var db = GetDb(daten);
     var l = db.FZ_Buchserie.Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (Functions.IsLike(name))
+    if (CsbpBase.IsLike(name))
       l = l.Where(a => EF.Functions.Like(a.Name, name));
     return l.OrderBy(a => a.Name).ToList();
   }

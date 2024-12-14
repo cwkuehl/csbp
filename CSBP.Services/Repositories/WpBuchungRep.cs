@@ -36,7 +36,7 @@ public partial class WpBuchungRep
   {
     var db = GetDb(daten);
     var wl = db.WP_Buchung.Where(a => a.Mandant_Nr == mandantnr);
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       wl = wl.Where(a => EF.Functions.Like(a.BText, text));
     if (!string.IsNullOrEmpty(uid))
       wl = wl.Where(a => a.Uid == uid);

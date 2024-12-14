@@ -31,7 +31,7 @@ public partial class TbOrtRep
   {
     var db = GetDb(daten);
     var wl = db.TB_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text));
     if (!string.IsNullOrEmpty(puid))
       wl = wl.Where(a => a.Uid == puid);

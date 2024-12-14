@@ -570,19 +570,19 @@ public class MainWindow : Window
   public void Start(Gtk.Window p)
   {
     Notebook.RemovePage(0);
-    MainClass.InitDb(new ServiceDaten(0, "Admin"));
+    MainClass.InitDb(new ServiceDaten(0, "Admin", null));
 #if DEBUG
     var username = Environment.UserName;
     //// Automatic login with current user.
-    MainClass.Login(new ServiceDaten(1, username.ToLower())); // Lower for Replication.
+    MainClass.Login(new ServiceDaten(1, username.ToLower(), [UserDaten.RoleAdmin] )); // Lower for Replication.
     //// MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
-    var daten = new ServiceDaten(Functions.ToInt32(ParameterGui.LoginClient), Environment.UserName);
+    var daten = new ServiceDaten(Functions.ToInt32(ParameterGui.LoginClient), Environment.UserName, null);
     var r = FactoryService.LoginService.IsWithoutPassword(daten);
-    if (r?.Ergebnis ?? false)
-      MainClass.Login(daten);
-    else
+    if (r?.Ergebnis == null)
       CsbpBin.Start(typeof(AM000Login), AM000_title, p: p, modal: true);
+    else
+      MainClass.Login(new ServiceDaten(r.Ergebnis));
 #endif
 
     // MenuClients.Activate();
@@ -1269,6 +1269,7 @@ public class MainWindow : Window
     var daten = MainClass.ServiceDaten;
     var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.1";
     var db = Parameter.Connect;
+    var roles = string.Join(", ", daten.Daten.Rollen);
     using var about = new AboutDialog
     {
       Title = "", // Titel geht nicht.
@@ -1277,7 +1278,7 @@ public class MainWindow : Window
       Copyright = "(c) 2019-2024 Wolfgang Kuehl",
       Comments = $@"CSBP is a simple budget program.
 Database: {db}
-Client: {daten.MandantNr} User: {daten.BenutzerId}",
+Client: {daten.MandantNr} User: {daten.BenutzerId} Roles: {roles}",
       Website = "https://cwkuehl.de",
       Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif"),
     };

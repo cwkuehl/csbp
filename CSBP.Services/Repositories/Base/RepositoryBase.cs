@@ -105,7 +105,7 @@ public class RepositoryBase
     // The 'Like' method is not supported because the query has switched to client-evaluation.
     // This usually happens when the arguments to the method cannot be translated to server.
     // Rewrite the query to avoid client evaluation of arguments so that method can be translated to server.
-    if (!Functions.IsLike(exp))
+    if (!CsbpBase.IsLike(exp))
       return true;
     if (string.IsNullOrEmpty(s))
       return false;
@@ -126,5 +126,24 @@ public class RepositoryBase
     // return EF.Functions.Like(s, exp);
     // 'The 'Like' method is not supported because the query has switched to client-evaluation. This usually happens when the arguments to the
     // method cannot be translated to server. Rewrite the query to avoid client evaluation of arguments so that method can be translated to server.'
+  }
+
+  /// <summary>
+  /// Sortieren eines IQueryable.
+  /// </summary>
+  /// <typeparam name="T">Betroffener Query-Typ.</typeparam>
+  /// <param name="l">Betroffenes IQueryable.</param>
+  /// <param name="sortColumn">Spalte zur Sortierung.</param>
+  /// <returns>Sortiertes IQueryable.</returns>
+  protected static IOrderedQueryable<T> SortList<T>(IQueryable<T> l, string sortColumn)
+    where T : new()
+  {
+    // if (!string.IsNullOrEmpty(sortColumn))
+    // {
+    var desc = sortColumn.EndsWith("-");
+    var sort = sortColumn.TrimEnd(['-', '+']).TrimEnd('#');
+    var l1 = l.AsQueryable().OrderBy(sort ?? "", desc);
+    return l1;
+    //// }
   }
 }

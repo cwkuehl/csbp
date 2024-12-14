@@ -36,7 +36,7 @@ public partial class WpWertpapierRep
   {
     var db = GetDb(daten);
     var wl = db.WP_Wertpapier.Where(a => a.Mandant_Nr == mandantnr);
-    if (Functions.IsLike(desc))
+    if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));
     if (!string.IsNullOrEmpty(uid))
       wl = wl.Where(a => a.Uid == uid);
@@ -58,8 +58,8 @@ public partial class WpWertpapierRep
         }
         return a.stock;
       });
-    var ls = Functions.IsLike(search);
-    var lp = Functions.IsLike(pattern);
+    var ls = CsbpBase.IsLike(search);
+    var lp = CsbpBase.IsLike(pattern);
     if (ls || lp || onlyactive)
     {
       // l = l.ToList().Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text)

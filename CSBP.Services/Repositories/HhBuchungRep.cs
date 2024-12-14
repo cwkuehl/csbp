@@ -72,7 +72,7 @@ public partial class HhBuchungRep
       else
         l = l.Where(a => a.Angelegt_Am <= to || a.Geaendert_Am <= to);
     }
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       l = l.Where(a => EF.Functions.Like(a.BText, text));
     if (!string.IsNullOrEmpty(value))
     {

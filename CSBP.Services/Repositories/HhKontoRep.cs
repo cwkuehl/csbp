@@ -47,7 +47,7 @@ public partial class HhKontoRep
       l = l.Where(a => a.Gueltig_Von == null || a.Gueltig_Von <= dle.Value);
     if (dge.HasValue)
       l = l.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= dge.Value);
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       l = l.Where(a => EF.Functions.Like(a.Uid, text) || EF.Functions.Like(a.Name, text)
         || EF.Functions.Like(a.Art, text) || EF.Functions.Like(a.Kz, text));
     return l.OrderBy(a => a.Mandant_Nr).ThenBy(a => a.Name).ThenBy(a => a.Uid).ToList();

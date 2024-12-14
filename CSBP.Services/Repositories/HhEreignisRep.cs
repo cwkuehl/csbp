@@ -46,7 +46,7 @@ public partial class HhEreignisRep
       sl = sl.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= to);
       hl = hl.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= to);
     }
-    if (Functions.IsLike(text))
+    if (CsbpBase.IsLike(text))
       l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.EText, text)
         || EF.Functions.Like(a.Kz, text));
     var l2 = l.Join(sl, a => a.Soll_Konto_Uid, b => b.Uid, (a, b) => new { ev = a, debit = b });

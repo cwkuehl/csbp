@@ -42,9 +42,9 @@ public partial class SbPersonRep
     var wl = string.IsNullOrEmpty(fuid) ? db.SB_Person.Where(a => a.Mandant_Nr == mandantnr)
       : db.SB_Kind.Where(a => a.Mandant_Nr == mandantnr && a.Familie_Uid == fuid)
         .Join(db.SB_Person.Where(a => a.Mandant_Nr == mandantnr), a => new { Uid = a.Kind_Uid }, b => new { b.Uid }, (a, b) => b);
-    if (Functions.IsLike(name))
+    if (CsbpBase.IsLike(name))
       wl = wl.Where(a => EF.Functions.Like(a.Name, name) || EF.Functions.Like(a.Geburtsname, name));
-    if (Functions.IsLike(firstname))
+    if (CsbpBase.IsLike(firstname))
       wl = wl.Where(a => EF.Functions.Like(a.Vorname, firstname));
     if (!string.IsNullOrEmpty(uid))
       wl = wl.Where(a => a.Uid == uid);
@@ -151,9 +151,9 @@ public partial class SbPersonRep
           || string.Compare(a.Geburtsname, p0.Geburtsname) > 0);
       }
     }
-    if (Functions.IsLike(name))
+    if (CsbpBase.IsLike(name))
       l = l.Where(a => EF.Functions.Like(a.Name, name) || EF.Functions.Like(a.Geburtsname, name));
-    if (Functions.IsLike(firstname))
+    if (CsbpBase.IsLike(firstname))
       l = l.Where(a => EF.Functions.Like(a.Vorname, firstname));
     var ol = l.OrderBy(a => a.Geburtsname).ThenBy(a => a.Name).ThenBy(a => a.Vorname).ThenBy(a => a.Uid);
     return ol.FirstOrDefault();

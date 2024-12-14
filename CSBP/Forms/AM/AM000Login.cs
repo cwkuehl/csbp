@@ -98,13 +98,13 @@ public class AM000Login : CsbpBin
   {
     var c = client.Text;
     var id = user.Text;
-    var daten = new ServiceDaten(Functions.ToInt32(c), id);
+    var daten = new ServiceDaten(Functions.ToInt32(c), id, null);
     var r = FactoryService.LoginService.Login(daten, password.Text, save.Active);
     Get(r);
     if (r.Ok && r.Ergebnis != null)
     {
       id = r.Ergebnis.BenutzerId;
-      daten = new ServiceDaten(daten.MandantNr, id);
+      daten = new ServiceDaten(r.Ergebnis);
       CloseDialog();
       Response = ResponseType.Ok;
       MainClass.Login(daten);

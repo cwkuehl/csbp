@@ -27,7 +27,7 @@ public partial class FzBuchautorRep
   {
     var db = GetDb(daten);
     var l = db.FZ_Buchautor.Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (Functions.IsLike(name))
+    if (CsbpBase.IsLike(name))
       l = l.Where(a => EF.Functions.Like(a.Name, name) || EF.Functions.Like(a.Vorname, name));
     return l.OrderBy(a => a.Name).ThenBy(a => a.Vorname).ToList();
   }

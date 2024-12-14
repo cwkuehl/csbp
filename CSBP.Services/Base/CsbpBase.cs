@@ -34,4 +34,29 @@ public class CsbpBase
       _ => "I",
     };
   }
+
+  /// <summary>
+  /// Liefert den Suchtext für eine Like-Suche: aus * wird % und falls kein %, wird % angehängt.
+  /// </summary>
+  /// <param name="s">Betroffener Suchstring.</param>
+  /// <returns>Suchtext für eine Like-Suche.</returns>
+  public static string GetSuche(string s)
+  {
+    if (string.IsNullOrEmpty(s))
+      return "";
+    var st = s.Replace("*", "%");
+    if (!st.Contains("%"))
+      st += "%";
+    return st;
+  }
+
+  /// <summary>
+  /// Checks if it is a filtering like expression. Empty, % and %% are not.
+  /// </summary>
+  /// <param name="t">Affected like expression.</param>
+  /// <returns>It is a filtering like expression or not.</returns>
+  public static bool IsLike(string t)
+  {
+    return !(string.IsNullOrEmpty(t) || t == "%" || t == "%%");
+  }
 }
