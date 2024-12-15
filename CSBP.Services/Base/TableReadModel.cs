@@ -24,4 +24,7 @@ public class TableReadModel
 
   /// <summary>Gets or sets die Sucheingabe.</summary>
   public string Search { get; set; } = default;
+
+  /// <summary>Gets or sets a value indicating whether to page for CSV export.</summary>
+  public bool NoPaging { get; set; } = false;
 }

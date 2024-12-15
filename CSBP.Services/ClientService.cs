@@ -21,6 +21,7 @@ using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Models.Extension;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
+using CSBP.Services.Base.Csv;
 using CSBP.Services.Client;
 using CSBP.Services.NonService;
 using CSBP.Services.Reports;
@@ -298,6 +299,32 @@ public partial class ClientService : ServiceBase, IClientService
         weiter = false;
     }
     return new ServiceErgebnis();
+  }
+
+  /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "AG100".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
+  {
+    var r = new ServiceErgebnis<string>();
+    if (!(page == "AG100") || rm == null)
+      return r;
+    rm.NoPaging = true;
+    var cs = new CsvWriter();
+    if (page == "AG100")
+    {
+      var l = MaMandantRep.GetList(daten, rm);
+      cs.AddCsvLine(["Nr", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    return new ServiceErgebnis<string>(cs.GetContent());
   }
 
   /// <summary>
