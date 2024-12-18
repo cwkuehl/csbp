@@ -94,6 +94,7 @@
     <column name="Akt_Periode" type="INTEGER" nullable="false" />
     <column name="Person_Nr" type="INTEGER" nullable="false" />
     <column name="Geburt" type="DATE" nullable="true" />
+    <column name="Parameter" type="VARCHAR" length="-1" nullable="true" extension="true" />
     <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
     <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
     <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />

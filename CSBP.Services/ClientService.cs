@@ -289,6 +289,28 @@ public partial class ClientService : ServiceBase, IClientService
         MaMandantRep.Execute(daten, mout);
         version = 60;
       }
+      else if (version <= 60)
+      {
+        var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+        var mout = new List<string>();
+        var tab = "Benutzer";
+        dba.AddTab0();
+        dba.AddTab1("Mandant_Nr", "D_INTEGER", false);
+        dba.AddTab1("Benutzer_ID", "D_STRING_20", false);
+        dba.AddTab1("Passwort", "D_STRING_50", true);
+        dba.AddTab1("Berechtigung", "D_INTEGER", false);
+        dba.AddTab1("Akt_Periode", "D_INTEGER", false);
+        dba.AddTab1("Person_Nr", "D_INTEGER", false);
+        dba.AddTab1("Geburt", "D_DATE", true);
+        dba.AddTab1a("Parameter", "D_MEMO", true, "NULL");
+        dba.AddTab1("Angelegt_Von", "D_STRING_20", true);
+        dba.AddTab1("Angelegt_Am", "D_DATETIME", true);
+        dba.AddTab1("Geaendert_Von", "D_STRING_20", true);
+        dba.AddTab1("Geaendert_Am", "D_DATETIME", true);
+        dba.AddTab2(mout, tab, "Mandant_Nr, Benutzer_ID", "Mandant_Nr, Benutzer_ID");
+        MaMandantRep.Execute(daten, mout);
+        version = 61;
+      }
       if (versionalt < version)
       {
         p.Wert = Functions.ToString(version);

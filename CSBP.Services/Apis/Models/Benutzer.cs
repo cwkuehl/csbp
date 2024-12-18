@@ -42,6 +42,13 @@ public partial class Benutzer : ModelBase
   /// <summary>Gets or sets the value of column Geburt.</summary>
   public DateTime? Geburt { get; set; }
 
+  /// <summary>Gets or sets the value of column Parameter.</summary>
+  public string Parameter
+  {
+    get { return GetExtension(); }
+    set { SetExtension(value); }
+  }
+
   /// <summary>Gets or sets the value of column Angelegt_Von.</summary>
   public string Angelegt_Von { get; set; }
 
