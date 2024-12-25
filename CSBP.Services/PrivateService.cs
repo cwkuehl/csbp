@@ -106,29 +106,36 @@ public class PrivateService : ServiceBase, IPrivateService
   /// <param name="date">Affected date.</param>
   /// <param name="years">Affected years.</param>
   /// <returns>List of mileages.</returns>
-  public ServiceErgebnis<List<FzFahrradstand>> GetMileages(ServiceDaten daten, DateTime date, int years = 10)
+  public ServiceErgebnis<List<FzFahrradstand>> GetMileages(ServiceDaten daten, DateTime date, int years = 100)
   {
     var v = new List<FzFahrradstand>();
     var r = new ServiceErgebnis<List<FzFahrradstand>>(v);
-    if (BikeYearFixed)
-      date = Functions.Sunday(date);
-    var von = date.AddYears(-years);
-    if (BikeYearFixed)
-      von = von.AddDays(1 - date.DayOfYear); // separated commands because of leap year
+    var month = date.Month;
+    var day = month == 2 && date.Day == 29 ? 28 : date.Day; // Ignore leap year.
+    ////if (BikeYearFixed)
+    ////  date = Functions.Sunday(date);
+    ////var von = date.AddYears(-years);
+    ////if (BikeYearFixed)
+    ////von = von.AddDays(1 - date.DayOfYear); // separated commands because of leap year
+    var von = new DateTime(date.Year - years, month, day);
     var min = FzFahrradstandRep.GetList(daten, null, desc: false, max: 1).FirstOrDefault();
     if (min != null)
-      von = min.Datum;
+    {
+      var dmin = new DateTime(min.Datum.DayOfYear < date.DayOfYear ? min.Datum.Year - 1 : min.Datum.Year, month, day);
+      von = dmin > von ? dmin : von; // Math.Max(dmin, von);
+    }
     var schnitt = 0m;
     var summe = 0m;
     var d = von;
-    while (d.Year < date.Year || (BikeYearFixed && d.Year == date.Year))
+    //// while (d.Year < date.Year || (BikeYearFixed && d.Year == date.Year))
+    while (d.Year < date.Year)
     {
-      var dbis = d.Year < date.Year ? d.AddYears(1) : date;
-      if (BikeYearFixed && d.Year < date.Year)
-        dbis = dbis.AddDays(-d.DayOfYear);
-      var kmJahr = FzFahrradstandRep.Count(daten, null, d, dbis);
+      var bis = d.Year < date.Year ? d.AddYears(1) : date;
+      //// if (BikeYearFixed && d.Year < date.Year)
+      ////  bis = bis.AddDays(-d.DayOfYear);
+      var kmJahr = FzFahrradstandRep.Count(daten, null, d, bis);
       summe += kmJahr;
-      int tage = ((dbis.Year - von.Year) * 365) + dbis.DayOfYear - von.DayOfYear;
+      int tage = ((bis.Year - von.Year) * 365) + bis.DayOfYear - von.DayOfYear;
       if (tage != 0)
         schnitt = summe * 365 / tage;
       var s = new FzFahrradstand
@@ -138,11 +145,12 @@ public class PrivateService : ServiceBase, IPrivateService
         Zaehler_km = schnitt,
       };
       v.Add(s);
-      d = d.AddYears(1);
-      if (BikeYearFixed)
-        d = d.AddDays(1 - d.DayOfYear);
-      else
-        d = d.AddDays(date.DayOfYear - d.DayOfYear);
+      d = new DateTime(d.Year + 1, month, day);
+      ////d = d.AddYears(1);
+      ////if (BikeYearFixed)
+      ////  d = d.AddDays(1 - d.DayOfYear);
+      ////else
+      ////d = d.AddDays(date.DayOfYear - d.DayOfYear);
     }
     return r;
   }

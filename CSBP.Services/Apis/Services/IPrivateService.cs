@@ -63,7 +63,7 @@ public interface IPrivateService
   /// <param name="date">Affected date.</param>
   /// <param name="years">Affected years.</param>
   /// <returns>List of mileages.</returns>
-  ServiceErgebnis<List<FzFahrradstand>> GetMileages(ServiceDaten daten, DateTime date, int years = 10);
+  ServiceErgebnis<List<FzFahrradstand>> GetMileages(ServiceDaten daten, DateTime date, int years = 100);
 
   /// <summary>
   /// Gets a mileage.
