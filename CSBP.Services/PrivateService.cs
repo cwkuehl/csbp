@@ -807,17 +807,20 @@ public class PrivateService : ServiceBase, IPrivateService
       var anzahlTageMax = 0;
       const decimal jahresTage = 365.25M;
       var sb = new StringBuilder();
-      var aktJahr = date;
-      if (BikeYearFixed)
-        aktJahr = aktJahr.AddDays(1 - date.DayOfYear); // 01.01.
-      else
-        aktJahr = aktJahr.AddYears(-1);
+      ////var aktJahr = date;
+      var month = date.Month;
+      var day = month == 2 && date.Day == 29 ? 28 : date.Day; // Ignore leap year.
+      ////if (BikeYearFixed)
+      ////  aktJahr = aktJahr.AddDays(1 - date.DayOfYear); // 01.01.
+      ////else
+      ////  aktJahr = aktJahr.AddYears(-1);
+      var aktJahr = new DateTime(date.Year - 1, month, day);
       var fliste = FzFahrradRep.GetList(daten, daten.MandantNr).OrderBy(a => a.Bezeichnung).ToList();
       foreach (var vo in fliste)
       {
         var jetzt1 = date;
-        if (vo.Typ == (int)BikeTypeEnum.Weekly)
-          jetzt1 = Functions.Sunday(jetzt1);
+        ////if (vo.Typ == (int)BikeTypeEnum.Weekly)
+        ////  jetzt1 = Functions.Sunday(jetzt1);
         var km = FzFahrradstandRep.Count(daten, vo.Uid, null, jetzt1);
         var kmJahr = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr, jetzt1);
         var kmyear1 = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr.AddYears(-1), aktJahr.AddDays(-1));
