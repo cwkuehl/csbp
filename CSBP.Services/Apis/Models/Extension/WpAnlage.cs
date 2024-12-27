@@ -114,6 +114,10 @@ public partial class WpAnlage : ModelBase
   [NotMapped]
   public string IncomeAccountUid { get; set; }
 
+  /// <summary>Gets or sets the last booking date.</summary>
+  [NotMapped]
+  public DateTime? MaxDate { get; set; }
+
   /// <summary>
   /// Gets all extended values as string.
   /// </summary>
@@ -139,6 +143,7 @@ public partial class WpAnlage : ModelBase
     sb.Append(ToString(PortfolioAccountUid)).Append(';');
     sb.Append(ToString(SettlementAccountUid)).Append(';');
     sb.Append(ToString(IncomeAccountUid)).Append(';');
+    sb.Append(ToString(MaxDate)).Append(';');
     return sb.ToString();
   }
 
@@ -167,5 +172,6 @@ public partial class WpAnlage : ModelBase
     PortfolioAccountUid = arr.Length > 15 ? arr[15] ?? "" : "";
     SettlementAccountUid = arr.Length > 16 ? arr[16] ?? "" : "";
     IncomeAccountUid = arr.Length > 17 ? arr[17] ?? "" : "";
+    MaxDate = arr.Length > 18 ? ToDateTime(arr[18]) : null;
   }
 }

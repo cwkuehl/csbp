@@ -208,7 +208,7 @@ public class M : Messages
 
   public static string WP050(string f, string f2, bool cut = false) => string.Format(M0(WP050_, cut), f, f2);
 
-  public static string WP051(DateTime d, bool cut = true) => string.Format(M0(WP051_, cut), d);
+  public static string WP051(DateTime d, DateTime? d2, bool cut = true) => string.Format(M0(WP051_, cut), d, d2);
 
   public static string WP054(string c, string e, bool cut = true) => string.Format(M0(WP054_, cut), c, e);
 

@@ -7,6 +7,7 @@ namespace CSBP.UnitTest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using NUnit.Framework;
@@ -35,7 +36,8 @@ public class ServiceTest
   [Test]
   public void TestAll()
   {
-    GetMileages();
+    // GetMileages();
+    CalculateInvestments();
   }
 
   /// <summary>
@@ -44,7 +46,8 @@ public class ServiceTest
   [Test]
   public void GetMileages()
   {
-    var dates = new List<DateTime> { new(2024, 12, 30), new(2024, 12, 31), new(2025, 1, 1) };
+    // var dates = new List<DateTime> { new(2024, 12, 30), new(2024, 12, 31), new(2025, 1, 1) };
+    var dates = new List<DateTime> { new(2024, 6, 26) };
     foreach (var date in dates)
     {
       var r = FactoryService.PrivateService.GetMileages(daten, date, 100);
@@ -56,5 +59,19 @@ public class ServiceTest
       }
       Debug.WriteLine("");
     }
+  }
+
+  /// <summary>
+  /// Test of function StockService.CalculateInvestments.
+  /// </summary>
+  [Test]
+  public void CalculateInvestments()
+  {
+    var date = new DateTime(2024, 12, 27);
+    //// var search = "pmp amundi e%";
+    //// var search = "DB Allianz Global Water Funds";
+    var search = "PMP Broadcom Inc";
+    var r = FactoryService.StockService.CalculateInvestments(daten, null, null, null, date, true, search, new StringBuilder(), new StringBuilder());
+    r.ThrowAllErrors("CalculateInvestments");
   }
 }

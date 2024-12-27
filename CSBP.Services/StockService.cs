@@ -403,7 +403,10 @@ public class StockService : ServiceBase, IStockService
   {
     var l = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
     if (!inactive)
+    {
       l = l.Where(a => a.State != 0).ToList();
+      //// l = l.Where(a => a.Shares != 0 || CsbpBase.IgnoreShortcut(a.StockShortcut)).ToList();
+    }
     var r = new ServiceErgebnis<List<WpAnlage>>(l);
     return r;
   }
@@ -421,7 +424,7 @@ public class StockService : ServiceBase, IStockService
     if (e != null)
     {
       var p0 = e.PriceDate.HasValue ? WP026(e.PriceDate.Value) : null;
-      var pm = e.MinDate.HasValue ? WP051(e.MinDate.Value) : null;
+      var pm = e.MinDate.HasValue ? WP051(e.MinDate.Value, e.MaxDate) : null;
       var p1 = string.IsNullOrEmpty(e.Currency) ? p0 : WP025(e.Currency, e.CurrencyPrice, p0);
       var p2 = WP024(e.Price, p1, e.Value, e.Profit, e.ProfitPercent);
       var p3 = e.PriceDate2.HasValue ? WP028(e.Value2, e.Value - e.Value2, e.PriceDate2.Value) : null;
@@ -565,20 +568,35 @@ public class StockService : ServiceBase, IStockService
         break;
       su.Task = ExecuteHttpsClient(su.Url);
       state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
-      if (i1 < l1)
-      {
-        // Verzögerung wegen onvista.de notwendig. 500 OK.
-        Thread.Sleep(HttpDelay);
-      }
+      //// if (i1 < l1)
+      //// {
+      ////   // Verzögerung wegen onvista.de notwendig. 500 OK.
+      ////   Thread.Sleep(HttpDelay);
+      //// }
       i1++;
     }
     if (cancel.Length <= 0)
     {
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
-      Task.WaitAll(tasks, HttpTimeout);
+      //// var responses = await Task.WhenAll(tasks).Result;
+      try
+      {
+        Task.WaitAll(tasks, HttpTimeout);
+      }
+      catch (AggregateException ae)
+      {
+        // Ignore status code 400.
+        ae.Handle(ex =>
+        {
+          return ex.Message == "Response status code does not indicate success: 400.";
+        });
+      }
       foreach (var su in dictresponse.Values)
       {
-        su.Response = su.Task.Result;
+        if (su.Task.IsCompletedSuccessfully)
+          su.Response = su.Task.Result;
+        else
+          su.Response = "Error";
         su.Task.Dispose();
         su.Task = null;
       }
@@ -592,14 +610,24 @@ public class StockService : ServiceBase, IStockService
       state.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
       var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
       inv.MinDate = blist.FirstOrDefault()?.Datum;
+      var max = blist.LastOrDefault()?.Datum;
+      if (!inv.MaxDate.HasValue || (max.HasValue && (max.Value > inv.MaxDate.Value || max.Value < date)))
+        inv.MaxDate = max;
       if (!dictlist.TryGetValue(inv.Wertpapier_Uid, out var klist))
       {
         string response = null;
         if (dictresponse.TryGetValue(StockUrl.GetKey(inv.Wertpapier_Uid, date), out var resp))
           response = resp.Response;
-        var pl = GetPriceListIntern(daten, from, date, inv.StockProvider, inv.StockShortcut, inv.StockType,
-          inv.StockCurrency, inv.Price, inv.Wertpapier_Uid, dictresponse);
-        klist = pl.Skip(Math.Max(0, pl.Count - 2)).ToList(); // Max. die letzten beiden Kurse.
+        if (response == "Error")
+        {
+          klist = null;
+        }
+        else
+        {
+          var pl = GetPriceListIntern(daten, from, date, inv.StockProvider, inv.StockShortcut, inv.StockType,
+            inv.StockCurrency, inv.Price, inv.Wertpapier_Uid, dictresponse);
+          klist = pl.Skip(Math.Max(0, pl.Count - 2)).ToList(); // Max. die letzten beiden Kurse.
+        }
         dictlist.Add(inv.Wertpapier_Uid, klist);
       }
       SoKurse k = null;
@@ -1106,10 +1134,19 @@ public class StockService : ServiceBase, IStockService
     return v;
   }
 
-  /// <summary>HTTPS-Abfrage mit HttpClient ausführen.</summary>
+  /// <summary>HTTPS-Abfrage mit HttpsClient ausführen.</summary>
   private static Task<string> ExecuteHttpsClient(string url)
   {
-    return Httpsclient.GetStringAsync(url);
+    // TODO https://josef.codes/you-are-probably-still-using-httpclient-wrong-and-it-is-destabilizing-your-software/
+    // https://stackoverflow.com/questions/52622586/can-i-use-httpclientfactory-in-a-net-core-app-which-is-not-asp-net-core
+    try
+    {
+      return Httpsclient.GetStringAsync(url);
+    }
+    catch (Exception ex)
+    {
+      return Task.FromResult(ex.Message);
+    }
   }
 
   /// <summary>
@@ -1424,9 +1461,10 @@ public class StockService : ServiceBase, IStockService
           k.Close = Functions.Round4(k.Close * curPrice.Close) ?? 0;
           k.Price = curPrice.Close;
         }
-        while (price != 0 && k.Close / price > 5)
+        while (price != 0 && k.Close / price > 500)
         {
-          // Skales right: WATL.L with factor 100.
+          // TODO Scale factor removed. Is it necessary?
+          // Scales right: WATL.L with factor 100.
           k.Open /= 10;
           k.High /= 10;
           k.Low /= 10;

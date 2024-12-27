@@ -802,7 +802,7 @@
         <value>WP050Falsches Format {0} statt {1}</value>
     </data>
     <data name="WP051_" xml:space="preserve">
-        <value>WP051 (ab {0:yyyy-MM-dd})</value>
+        <value>WP051 ({0:yyyy-MM-dd} - {1:yyyy-MM-dd})</value>
     </data>
     <data name="WP052" xml:space="preserve">
         <value>WP052Der Betrag muss positiv sein.</value>
