@@ -52,7 +52,7 @@ public class Tests
       t.GenerierenReps();
     if (Functions.MachNichts() != 0)
       t.GenerierenModelCs();
-    if (Functions.MachNichts() != 0)
+    if (Functions.MachNichts() == 0)
       t.Tls();
     if (Functions.MachNichts() != 0)
       t.OpenWeatherMap();
@@ -66,7 +66,7 @@ public class Tests
       t1.Setup();
       t1.TestParser();
     }
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
     {
       var t1 = new ServiceTest();
       t1.Setup();
@@ -705,8 +705,12 @@ public partial class {filename}
     //// var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
     var url = $"http://data.fixer.io/api/2020-10-01?symbols=USD&access_key={accesskey}";
     //// var url = "https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation=295567847&datetimeTzStartRange=24.09.2020&timeSpan=7D&codeResolution=1D";
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
+    var handler = new System.Net.Http.HttpClientHandler
+    {
+      ClientCertificateOptions = System.Net.Http.ClientCertificateOption.Manual,
+      SslProtocols = System.Security.Authentication.SslProtocols.Tls12, // SslProtocols.Tls13
+    };
+    var httpsclient = new System.Net.Http.HttpClient(handler)
     {
       Timeout = TimeSpan.FromMilliseconds(5000),
     };

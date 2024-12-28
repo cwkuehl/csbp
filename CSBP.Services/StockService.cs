@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
+using CSBP.Services.NonService;
 using CSBP.Services.Pnf;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
@@ -1141,7 +1142,8 @@ public class StockService : ServiceBase, IStockService
     // https://stackoverflow.com/questions/52622586/can-i-use-httpclientfactory-in-a-net-core-app-which-is-not-asp-net-core
     try
     {
-      return Httpsclient.GetStringAsync(url);
+      // return Httpsclient.GetStringAsync(url);
+      return HttpClientFactory.CreateClient().GetStringAsync(url);
     }
     catch (Exception ex)
     {

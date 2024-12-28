@@ -32,11 +32,11 @@ using NLog;
 /// </summary>
 public class ServiceBase
 {
+  /// <summary>Milliseconds for http request timeout (10000 for fixer.io instead of 5000).</summary>
+  public const int HttpTimeout = 10000;
+
   /// <summary>Logger instance of NLog.</summary>
   public static readonly ILogger Log = LogManager.GetCurrentClassLogger();
-
-  /// <summary>Milliseconds for http request timeout (10000 for fixer.io instead of 5000).</summary>
-  protected const int HttpTimeout = 10000;
 
   /// <summary>Milliseconds between http requests.</summary>
   protected const int HttpDelay = 1; // 500
@@ -143,8 +143,8 @@ public class ServiceBase
   /// <summary>Repository for table WP_Wertpapier.</summary>
   protected static readonly WpWertpapierRep WpWertpapierRep = new();
 
-  /// <summary>Https client.</summary>
-  protected static readonly HttpClient Httpsclient = new();
+  // /// <summary>Https client.</summary>
+  // protected static readonly HttpClient Httpsclient = new();
 
   /// <summary>Undo stack.</summary>
   private static readonly Stack<UndoList> UndoStack = new();
@@ -177,11 +177,11 @@ public class ServiceBase
   static ServiceBase()
   {
     // Accepts all certificates, TLS 1.3 as default protokoll
-    ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
-    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13; // | SecurityProtocolType.Tls12;
+    // ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
+    // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13; // | SecurityProtocolType.Tls12;
     //// 20.05.2020 TLS 1.2 removed because of error with yahoo and fixer.io (or router problem).
-    Httpsclient.Timeout = TimeSpan.FromMilliseconds(HttpTimeout);
-    Httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
+    // Httpsclient.Timeout = TimeSpan.FromMilliseconds(HttpTimeout);
+    // Httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0");
     //// EnableMultipleHttp2Connections = true;
   }
 
