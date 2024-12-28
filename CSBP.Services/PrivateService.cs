@@ -819,8 +819,8 @@ public class PrivateService : ServiceBase, IPrivateService
       foreach (var vo in fliste)
       {
         var jetzt1 = date;
-        ////if (vo.Typ == (int)BikeTypeEnum.Weekly)
-        ////  jetzt1 = Functions.Sunday(jetzt1);
+        if (vo.Typ == (int)BikeTypeEnum.Weekly)
+          jetzt1 = Functions.Sunday(jetzt1);
         var km = FzFahrradstandRep.Count(daten, vo.Uid, null, jetzt1);
         var kmJahr = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr, jetzt1);
         var kmyear1 = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr.AddYears(-1), aktJahr.AddDays(-1));
