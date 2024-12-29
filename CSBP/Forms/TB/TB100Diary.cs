@@ -848,16 +848,16 @@ public partial class TB100Diary : CsbpBin
   private void ShowWeather()
   {
     var puid = GetText(positions, false, 0, true);
-    templist = new List<KeyValuePair<string, decimal>>();
-    preslist = new List<KeyValuePair<string, decimal>>();
-    rhumlist = new List<KeyValuePair<string, decimal>>();
-    prcplist = new List<KeyValuePair<string, decimal>>();
-    wspdlist = new List<KeyValuePair<string, decimal>>();
-    wdirlist = new List<KeyValuePair<string, decimal>>();
+    templist = [];
+    preslist = [];
+    rhumlist = [];
+    prcplist = [];
+    wspdlist = [];
+    wdirlist = [];
     if (string.IsNullOrEmpty(puid))
       return;
     var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
-    foreach (var w in r)
+    foreach (var w in r ?? [])
     {
       templist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Temp));
       preslist.Add(new KeyValuePair<string, decimal>(w.Time.ToString("HH"), w.Pres));

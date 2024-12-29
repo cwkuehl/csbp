@@ -7,6 +7,7 @@ namespace CSBP.UnitTest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -37,7 +38,8 @@ public class ServiceTest
   public void TestAll()
   {
     // GetMileages();
-    CalculateInvestments();
+    // CalculateInvestments();
+    GetWeatherList();
   }
 
   /// <summary>
@@ -73,5 +75,19 @@ public class ServiceTest
     var search = "PMP Broadcom Inc";
     var r = FactoryService.StockService.CalculateInvestments(daten, null, null, null, date, true, search, new StringBuilder(), new StringBuilder());
     r.ThrowAllErrors("CalculateInvestments");
+  }
+
+  /// <summary>
+  /// Test of function DiaryService.GetWeatherList.
+  /// </summary>
+  [Test]
+  public void GetWeatherList()
+  {
+    var date = new DateTime(2024, 12, 28);
+    var r0 = FactoryService.DiaryService.GetPositionList(daten, null, "%IM4%");
+    r0.ThrowAllErrors("GetPositionList");
+    var puid = r0?.Ergebnis.FirstOrDefault()?.Uid;
+    var r = FactoryService.DiaryService.GetWeatherList(daten, date, puid);
+    r.ThrowAllErrors("GetWeatherList");
   }
 }

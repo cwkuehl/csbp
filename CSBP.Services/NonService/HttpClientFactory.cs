@@ -5,6 +5,7 @@
 namespace CSBP.Services.NonService;
 
 using System.Net.Http;
+using System.Security.Authentication;
 using CSBP.Services.Base;
 using Microsoft.Extensions.Http.Resilience;
 using Polly;
@@ -15,8 +16,9 @@ public static class HttpClientFactory
   /// <summary>HttpClient factory can be null.</summary>
   private static IHttpClientFactory factory;
 
-  /// <summary>Static resiiant HttpClient is used if factory is null.</summary>
-  private static HttpClient httpsclient;
+  /// <summary>Static resiliant HttpClient is used if factory is null.
+  /// For name HttpClientWithSSLUntrusted.</summary>
+  private static HttpClient httpsclient0;
 
   /// <summary>Initializes a new instance of the <see cref="HttpClientFactory"/> class with dependency injection.</summary>
   /// <param name="f">The HTTP client factory.</param>
@@ -25,30 +27,41 @@ public static class HttpClientFactory
       factory = f;
   }
 
-  /// <summary>Create a new HTTP client.</summary>
-  /// <returns>The HTTP client.</returns>
-  public static HttpClient CreateClient()
-  {
-    if (factory == null)
-      return GetClient();
-    return factory.CreateClient();
-  }
+  // /// <summary>Create a new HTTP client.</summary>
+  // /// <returns>The HTTP client.</returns>
+  // public static HttpClient CreateClient()
+  // {
+  //   if (factory == null)
+  //     return GetClient();
+  //   return factory.CreateClient();
+  // }
 
   /// <summary> Create a new HTTP client.</summary>
   /// <param name="name">The name of the client.</param>
+  /// <param name="timeout">The timeout in milliseconds or -1 for standard timeout.</param>
   /// <returns>The HTTP client.</returns>
-  public static HttpClient CreateClient(string name)
+  public static HttpClient CreateClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1)
   {
-    if (factory == null)
-      return GetClient();
-    return factory.CreateClient(name);
+    HttpClient client;
+    if (factory == null || timeout >= 0)
+      client = GetClient(name, timeout);
+    else
+      client = factory.CreateClient(name);
+    return client;
   }
 
   /// <summary>Get a HTTP client.</summary>
+  /// <param name="name">The name of the client.</param>
+  /// <param name="timeout">The timeout in milliseconds or -1 for standard timeout.</param>
   /// <returns>The HTTP client.</returns>
-  private static HttpClient GetClient()
+  private static HttpClient GetClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1)
   {
-    if (httpsclient == null)
+    HttpClient client = null;
+    if (httpsclient0 != null && timeout < 0)
+    {
+      client = httpsclient0;
+    }
+    if (client == null)
     {
       // https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#resilience-policies-with-static-clients
       var retryPipeline = new ResiliencePipelineBuilder<HttpResponseMessage>()
@@ -64,7 +77,8 @@ public static class HttpClientFactory
         SslOptions = new System.Net.Security.SslClientAuthenticationOptions
         {
           // ClientCertificates = null,
-          EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls13,
+          // EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13,
+          EnabledSslProtocols = SslProtocols.Tls13,
           RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true,
         },
       };
@@ -74,12 +88,20 @@ public static class HttpClientFactory
       {
         InnerHandler = socketHandler,
       };
-      httpsclient = new HttpClient(resilienceHandler)
+      client = new HttpClient(resilienceHandler)
       {
         Timeout = TimeSpan.FromMilliseconds(ServiceBase.HttpTimeout),
       };
-      httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0");
+      if (timeout >= 0)
+      {
+        client.Timeout = TimeSpan.FromMilliseconds(timeout);
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0");
+      }
     }
-    return httpsclient;
+    if (httpsclient0 == null && timeout < 0)
+    {
+      httpsclient0 = client;
+    }
+    return client;
   }
 }
