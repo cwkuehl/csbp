@@ -53,7 +53,7 @@ public class Tests
       t.GenerierenReps();
     if (Functions.MachNichts() != 0)
       t.GenerierenModelCs();
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
       t.Tls();
     if (Functions.MachNichts() != 0)
       t.OpenWeatherMap();

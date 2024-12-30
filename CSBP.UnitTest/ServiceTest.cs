@@ -83,7 +83,7 @@ public class ServiceTest
   [Test]
   public void GetWeatherList()
   {
-    var date = new DateTime(2024, 12, 28);
+    var date = new DateTime(2024, 12, 30);
     var r0 = FactoryService.DiaryService.GetPositionList(daten, null, "%IM4%");
     r0.ThrowAllErrors("GetPositionList");
     var puid = r0?.Ergebnis.FirstOrDefault()?.Uid;

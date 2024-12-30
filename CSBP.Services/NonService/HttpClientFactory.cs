@@ -5,6 +5,7 @@
 namespace CSBP.Services.NonService;
 
 using System.Net.Http;
+using System.Net.Security;
 using System.Security.Authentication;
 using CSBP.Services.Base;
 using Microsoft.Extensions.Http.Resilience;
@@ -39,12 +40,13 @@ public static class HttpClientFactory
   /// <summary> Create a new HTTP client.</summary>
   /// <param name="name">The name of the client.</param>
   /// <param name="timeout">The timeout in milliseconds or -1 for standard timeout.</param>
+  /// <param name="tls12">Use TLS 1.2.</param>
   /// <returns>The HTTP client.</returns>
-  public static HttpClient CreateClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1)
+  public static HttpClient CreateClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1, bool tls12 = false)
   {
     HttpClient client;
-    if (factory == null || (timeout >= 0 && timeout != ServiceBase.HttpTimeout))
-      client = GetClient(name, timeout);
+    if (factory == null || (timeout >= 0 && timeout != ServiceBase.HttpTimeout) || tls12)
+      client = GetClient(name, timeout, tls12);
     else
       client = factory.CreateClient(name);
     return client;
@@ -53,11 +55,13 @@ public static class HttpClientFactory
   /// <summary>Get a HTTP client.</summary>
   /// <param name="name">The name of the client.</param>
   /// <param name="timeout">The timeout in milliseconds or -1 for standard timeout.</param>
+  /// <param name="tls12">Use TLS 1.2.</param>
   /// <returns>The HTTP client.</returns>
-  private static HttpClient GetClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1)
+  private static HttpClient GetClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1, bool tls12 = false)
   {
     HttpClient client = null;
-    if (httpsclient0 != null && timeout < 0)
+    var special = (timeout >= 0 && timeout != ServiceBase.HttpTimeout) || tls12;
+    if (httpsclient0 != null && !special)
     {
       client = httpsclient0;
     }
@@ -87,12 +91,11 @@ public static class HttpClientFactory
         .Build();
       var socketHandler = new SocketsHttpHandler
       {
-        PooledConnectionLifetime = TimeSpan.FromMinutes(15),
-        SslOptions = new System.Net.Security.SslClientAuthenticationOptions
+        PooledConnectionLifetime = TimeSpan.FromMinutes(2),
+        SslOptions = new SslClientAuthenticationOptions
         {
-          // ClientCertificates = null,
-          // EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13,
-          EnabledSslProtocols = SslProtocols.Tls13,
+          ClientCertificates = null,
+          EnabledSslProtocols = tls12 ? SslProtocols.Tls12 | SslProtocols.Tls13 : SslProtocols.Tls13,
           RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true,
         },
       };
@@ -106,13 +109,13 @@ public static class HttpClientFactory
       {
         Timeout = TimeSpan.FromMilliseconds(ServiceBase.HttpTimeout),
       };
-      if (timeout >= 0)
+      if (special)
       {
         client.Timeout = TimeSpan.FromMilliseconds(timeout);
         client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0");
       }
     }
-    if (httpsclient0 == null && timeout < 0)
+    if (httpsclient0 == null && !special)
     {
       httpsclient0 = client;
     }

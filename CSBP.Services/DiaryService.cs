@@ -707,7 +707,7 @@ public class DiaryService : ServiceBase, IDiaryService
     if (!string.IsNullOrEmpty(tz))
       sb.Append(@$"&tz={System.Web.HttpUtility.UrlEncode(tz)}");
     var url = sb.ToString();
-    var httpsclient = HttpClientFactory.CreateClient(timeout: 5000);
+    var httpsclient = HttpClientFactory.CreateClient(timeout: 5000, tls12: true);
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Key", apikey);
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
     var task = httpsclient.GetStringAsync(url);
