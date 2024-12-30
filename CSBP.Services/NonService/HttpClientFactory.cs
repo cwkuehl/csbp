@@ -43,7 +43,7 @@ public static class HttpClientFactory
   public static HttpClient CreateClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1)
   {
     HttpClient client;
-    if (factory == null || timeout >= 0)
+    if (factory == null || (timeout >= 0 && timeout != ServiceBase.HttpTimeout))
       client = GetClient(name, timeout);
     else
       client = factory.CreateClient(name);
@@ -64,6 +64,20 @@ public static class HttpClientFactory
     if (client == null)
     {
       // https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#resilience-policies-with-static-clients
+      // var handler = new HttpClientHandler
+      // {
+      //   ClientCertificateOptions = ClientCertificateOption.Manual,
+      //   SslProtocols = SslProtocols.Tls13,
+      //   ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) =>
+      //   {
+      //     return true;
+      //   },
+      // };
+      // var httpsclient = new HttpClient(handler)
+      // {
+      //   Timeout = TimeSpan.FromMilliseconds(timeout),
+      // };
+      // httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
       var retryPipeline = new ResiliencePipelineBuilder<HttpResponseMessage>()
         .AddRetry(new HttpRetryStrategyOptions
         {

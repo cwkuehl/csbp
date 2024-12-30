@@ -1426,16 +1426,6 @@ public partial class ClientService : ServiceBase, IClientService
       default:
         throw new MessageException($"Model {data.Model} not supported.");
     }
-
-    // var handler = new HttpClientHandler
-    // {
-    //   ClientCertificateOptions = ClientCertificateOption.Manual,
-    //   SslProtocols = SslProtocols.Tls12, // SslProtocols.Tls13
-    // };
-    // var httpsclient = new HttpClient(handler)
-    // {
-    //   Timeout = TimeSpan.FromMilliseconds(timeout),
-    // };
     var httpsclient = HttpClientFactory.CreateClient(timeout: timeout);
     if (url.Contains("api.openai.com"))
     {

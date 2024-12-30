@@ -708,15 +708,6 @@ public class DiaryService : ServiceBase, IDiaryService
       sb.Append(@$"&tz={System.Web.HttpUtility.UrlEncode(tz)}");
     var url = sb.ToString();
     var httpsclient = HttpClientFactory.CreateClient(timeout: 5000);
-    //// var handler = new HttpClientHandler
-    //// {
-    ////   ClientCertificateOptions = ClientCertificateOption.Manual,
-    ////   SslProtocols = SslProtocols.Tls12, // SslProtocols.Tls13
-    //// };
-    //// var httpsclient = new HttpClient(handler)
-    //// {
-    ////   Timeout = TimeSpan.FromMilliseconds(5000),
-    //// };
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Key", apikey);
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
     var task = httpsclient.GetStringAsync(url);
@@ -745,20 +736,6 @@ public class DiaryService : ServiceBase, IDiaryService
       sb.Append($"diary/listlocal/{date:yyyy-MM-dd}");
     var url = sb.ToString();
     var httpsclient = HttpClientFactory.CreateClient(timeout: 5000);
-    //// var handler = new HttpClientHandler
-    //// {
-    ////   ClientCertificateOptions = ClientCertificateOption.Manual,
-    ////   SslProtocols = SslProtocols.Tls13,
-    ////   ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) =>
-    ////   {
-    ////     return true;
-    ////   },
-    //// };
-    //// var httpsclient = new HttpClient(handler)
-    //// {
-    ////   Timeout = TimeSpan.FromMilliseconds(5000),
-    //// };
-    //// httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
     var s = "";
     if (delete)
     {
