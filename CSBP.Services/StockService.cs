@@ -1138,7 +1138,7 @@ public class StockService : ServiceBase, IStockService
   /// <summary>HTTPS-Abfrage mit HttpsClient ausführen.</summary>
   private static Task<string> ExecuteHttpsClient(string url)
   {
-    // TODO https://josef.codes/you-are-probably-still-using-httpclient-wrong-and-it-is-destabilizing-your-software/
+    // https://josef.codes/you-are-probably-still-using-httpclient-wrong-and-it-is-destabilizing-your-software/
     // https://stackoverflow.com/questions/52622586/can-i-use-httpclientfactory-in-a-net-core-app-which-is-not-asp-net-core
     try
     {
