@@ -1421,7 +1421,7 @@ public partial class CsbpBin : Bin
     else if (args.Event.Button == 3)
     {
       tv.GetPathAtPos((int)args.Event.X, (int)args.Event.Y, out var path, out var column, out var cx, out var cy);
-      var cnr = (int)column.Data["cnr"];
+      var cnr = (int)(column.Data?["cnr"] ?? 0);
       var rnr = path.Indices[0];
       var r = tv.GetCellArea(path, column);
       var rtv = tv.Window.GetOrigin(out var xtv, out var ytv);
