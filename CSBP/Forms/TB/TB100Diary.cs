@@ -361,7 +361,7 @@ public partial class TB100Diary : CsbpBin
       return;
     Application.Invoke((sender, e) =>
     {
-      ShowWeather();
+      ShowWeather(true);
     });
   }
 
@@ -845,7 +845,8 @@ public partial class TB100Diary : CsbpBin
   }
 
   /// <summary>Show weather data.</summary>
-  private void ShowWeather()
+  /// <param name="init">Initial call or not.</param>
+  private void ShowWeather(bool init = false)
   {
     var puid = GetText(positions, false, 0, true);
     templist = [];
@@ -855,7 +856,11 @@ public partial class TB100Diary : CsbpBin
     wspdlist = [];
     wdirlist = [];
     if (string.IsNullOrEmpty(puid))
+    {
+      if (init)
+        ShowInfo("Für Wetterdaten muss eine Position zugeordnet werden."); // TODO Translate messages.
       return;
+    }
     var r = Get(FactoryService.DiaryService.GetWeatherList(ServiceDaten, date.ValueNn, puid));
     foreach (var w in r ?? [])
     {
