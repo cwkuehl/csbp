@@ -70,8 +70,9 @@ public interface IClientService
   /// Gets a list of users.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <returns>List of users.</returns>
-  ServiceErgebnis<List<Benutzer>> GetUserList(ServiceDaten daten);
+  ServiceErgebnis<List<Benutzer>> GetUserList(ServiceDaten daten, TableReadModel rm = null);
 
   /// <summary>
   /// Gets user by number.

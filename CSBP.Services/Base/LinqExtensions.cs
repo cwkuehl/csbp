@@ -26,7 +26,9 @@ public static class LinqExtensions
     var param = Expression.Parameter(typeof(TSource), "r");
     var exp = Expression.Property(param, field);
     var lambda = Expression.Lambda(exp, param); // r => r.AlgumaCoisa
-    var type = typeof(TSource).GetProperty(field).PropertyType;
+    var type = typeof(TSource).GetProperty(field)?.PropertyType;
+    if (type == null)
+      throw new ArgumentException($"Property {field} in Type {typeof(TSource).FullName} nicht gefunden.");
     var name = desc ? "OrderByDescending" : "OrderBy";
     var method = typeof(Queryable).GetMethods().First(m => m.Name == name && m.GetParameters().Length == 2);
     var methodog = method.MakeGenericMethod([typeof(TSource), type]);

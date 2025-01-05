@@ -446,12 +446,14 @@ public partial class ClientService : ServiceBase, IClientService
   /// Gets a list of users.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <returns>List of users.</returns>
-  public ServiceErgebnis<List<Benutzer>> GetUserList(ServiceDaten daten)
+  public ServiceErgebnis<List<Benutzer>> GetUserList(ServiceDaten daten, TableReadModel rm = null)
   {
-    var b = GetBerechtigung(daten, daten.MandantNr, daten.BenutzerId);
+    // var b = GetBerechtigung(daten, daten.MandantNr, daten.BenutzerId);
+    var b = daten.Daten.Rollen.Contains(UserDaten.RoleSuperadmin) ? 2 : daten.Daten.Rollen.Contains(UserDaten.RoleSuperadmin) ? 1 : 0;
     var id = b >= 1 ? null : b == 0 ? daten.BenutzerId : "###";
-    var liste = BenutzerRep.GetList(daten, null, 0, id);
+    var liste = BenutzerRep.GetList(daten, rm, 0, id);
     var r = new ServiceErgebnis<List<Benutzer>>(liste);
     return r;
   }
