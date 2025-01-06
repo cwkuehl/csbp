@@ -451,7 +451,7 @@ public partial class ClientService : ServiceBase, IClientService
   public ServiceErgebnis<List<Benutzer>> GetUserList(ServiceDaten daten, TableReadModel rm = null)
   {
     // var b = GetBerechtigung(daten, daten.MandantNr, daten.BenutzerId);
-    var b = daten.Daten.Rollen.Contains(UserDaten.RoleSuperadmin) ? 2 : daten.Daten.Rollen.Contains(UserDaten.RoleSuperadmin) ? 1 : 0;
+    var b = GetRole(daten.Daten.Rollen);
     var id = b >= 1 ? null : b == 0 ? daten.BenutzerId : "###";
     var liste = BenutzerRep.GetList(daten, rm, 0, id);
     var r = new ServiceErgebnis<List<Benutzer>>(liste);
@@ -487,11 +487,15 @@ public partial class ClientService : ServiceBase, IClientService
     {
       throw new MessageException(AM009);
     }
-    if (GetBerechtigung(daten, daten.MandantNr, daten.BenutzerId) < permission)
+    //// if (GetBerechtigung(daten, daten.MandantNr, daten.BenutzerId) < permission)
+    var ber = GetRole(daten.Daten.Rollen);
+    if (ber < permission)
     {
       throw new MessageException(AM010);
     }
     var e = BenutzerRep.Get(daten, daten.MandantNr, id);
+    if (e != null && string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(e.Passwort))
+      password = e.Passwort;
     var enr = nr;
     var liste = BenutzerRep.GetList(daten, null, 0, id, enr);
     if (liste.Count > 0)
@@ -1483,6 +1487,19 @@ public partial class ClientService : ServiceBase, IClientService
   {
     var b = BenutzerRep.Get(daten, mandantNr, benutzerId);
     return b == null ? -1 : b.Berechtigung;
+  }
+
+  /// <summary>
+  /// Gets permission from role.
+  /// </summary>
+  /// <param name="roles">Affected list of roles.</param>
+  /// <returns>User permission.</returns>
+  private static int GetRole(List<string> roles)
+  {
+    if (roles == null)
+      return -1;
+    var b = roles.Contains(UserDaten.RoleSuperadmin) ? 2 : roles.Contains(UserDaten.RoleSuperadmin) ? 1 : 0;
+    return b;
   }
 
   /// <summary>
