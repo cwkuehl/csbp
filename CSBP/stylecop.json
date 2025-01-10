@@ -17,7 +17,7 @@
   "namingRules": {},
   "orderingRules": {
     "systemUsingDirectivesFirst": false,
-    "usingDirectivesPlacement": "outsideNamespace",
+    "usingDirectivesPlacement": "insideNamespace",
     "elementOrder": [
       "kind",
       "constant",

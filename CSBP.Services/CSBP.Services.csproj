@@ -22,6 +22,9 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj'" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="../CSBP/stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="Resources/Messages.*" />
   </ItemGroup>
 
