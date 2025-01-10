@@ -7,21 +7,21 @@ namespace CSBP.Services.Apis.Enums;
 /// <summary>Arten von Datenbanken.</summary>
 public enum DatabaseTypeEnum
 {
-  /// <summary>Keine Art.<summary>
+  /// <summary>Keine Art.</summary>
   None = 0,
 
-  /// <summary>Jet-Engine.<summary>
+  /// <summary>Jet-Engine.</summary>
   Jet = 1,
 
-  /// <summary>SQL Server ab 7.0.<summary>
+  /// <summary>SQL Server ab 7.0.</summary>
   SqlServer = 2,
 
-  /// <summary>MySql.<summary>
+  /// <summary>MySql.</summary>
   MySql = 3,
 
-  /// <summary>HSQLDB.<summary>
+  /// <summary>HSQLDB.</summary>
   HsqlDb = 4,
 
-  /// <summary>SQLite.<summary>
+  /// <summary>SQLite.</summary>
   SqLite = 5,
 }

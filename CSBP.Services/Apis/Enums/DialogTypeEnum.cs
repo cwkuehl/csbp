@@ -7,24 +7,24 @@ namespace CSBP.Services.Apis.Enums;
 /// <summary>Calling mode of dialog.</summary>
 public enum DialogTypeEnum
 {
-  /// <summary>Without mode.<summary>
+  /// <summary>Without mode.</summary>
   Without,
 
-  /// <summary>New mode.<summary>
+  /// <summary>New mode.</summary>
   New,
 
-  /// <summary>Copy mode.<summary>
+  /// <summary>Copy mode.</summary>
   Copy,
 
-  /// <summary>Copy2 mode.<summary>
+  /// <summary>Copy2 mode.</summary>
   Copy2,
 
-  /// <summary>Edit mode.<summary>
+  /// <summary>Edit mode.</summary>
   Edit,
 
-  /// <summary>Delete mode.<summary>
+  /// <summary>Delete mode.</summary>
   Delete,
 
-  /// <summary>Reverse mode.<summary>
+  /// <summary>Reverse mode.</summary>
   Reverse,
 }

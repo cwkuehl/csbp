@@ -527,7 +527,8 @@ public partial class ClientService : ServiceBase, IClientService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis DeleteUser(ServiceDaten daten, Benutzer e)
   {
-    if (daten.MandantNr == e.Mandant_Nr && daten.BenutzerId == e.Benutzer_ID)
+    var l = BenutzerRep.GetList(daten, null, 0, null);
+    if (e == null || l.Count <= 1 || (daten.MandantNr == e.Mandant_Nr && daten.BenutzerId == e.Benutzer_ID))
     {
       throw new MessageException(AM012);
     }
