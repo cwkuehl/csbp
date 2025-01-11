@@ -56,6 +56,7 @@ public class Parameter
   /// </summary>
   static Parameter()
   {
+    // TODO Values dependant from client number.
     Params = new Dictionary<string, Parameter>
     {
       // Storage in setting file

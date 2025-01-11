@@ -1,4 +1,4 @@
-// <copyright file="CsvColumnReader.cs" company="LDI">
+// <copyright file="CsvColumnReader.cs" company="cwkuehl.de">
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 

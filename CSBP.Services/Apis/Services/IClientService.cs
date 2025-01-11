@@ -109,8 +109,9 @@ public interface IClientService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="client">Affected client number.</param>
   /// <param name="plist">Affected parameter list.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <returns>List of options.</returns>
-  ServiceErgebnis<List<MaParameter>> GetOptionList(ServiceDaten daten, int client, Dictionary<string, Parameter> plist);
+  ServiceErgebnis<List<MaParameter>> GetOptionList(ServiceDaten daten, int client, Dictionary<string, Parameter> plist, TableReadModel rm);
 
   /// <summary>
   /// Saves an option.

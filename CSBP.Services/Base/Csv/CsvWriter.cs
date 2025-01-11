@@ -1,4 +1,4 @@
-﻿// <copyright file="CsvWriter.cs" company="LDI">
+﻿// <copyright file="CsvWriter.cs" company="cwkuehl.de">
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 

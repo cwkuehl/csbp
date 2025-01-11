@@ -66,7 +66,7 @@ public partial class AM500Options : CsbpBin
     var daten = ServiceDaten;
     if (step <= 1)
     {
-      model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr, Parameter.Params)) ?? [];
+      model = Get(FactoryService.ClientService.GetOptionList(daten, daten.MandantNr, Parameter.Params, null)) ?? [];
       var values = new List<string[]>();
       foreach (var e in model)
       {

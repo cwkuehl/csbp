@@ -1,4 +1,4 @@
-// <copyright file="CuttingOptimizer.cs" company="LDI">
+// <copyright file="CuttingOptimizer.cs" company="cwkuehl.de">
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 // <summary>

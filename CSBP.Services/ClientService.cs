@@ -9,9 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -542,9 +540,10 @@ public partial class ClientService : ServiceBase, IClientService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="client">Affected client number.</param>
   /// <param name="parameter">Affected parameter list.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <returns>List of options.</returns>
   public ServiceErgebnis<List<MaParameter>> GetOptionList(ServiceDaten daten, int client,
-      Dictionary<string, Parameter> parameter)
+    Dictionary<string, Parameter> parameter, TableReadModel rm)
   {
     var l = MaParameterRep.GetList(daten, client);
     l = l.Where(a => !a.Schluessel.StartsWith("HP_", StringComparison.Ordinal)
@@ -579,7 +578,13 @@ public partial class ClientService : ServiceBase, IClientService
         mp.Default = p.Value.Default;
       }
     }
-    l = l.OrderBy(a => a.Schluessel).ToList();
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      l = l.Where(a => a.NotDatabase == false && !string.IsNullOrEmpty(a.Comment)).ToList();
+      l = MaParameterRep.SortFilterList(l.AsQueryable(), rm);
+    }
+    else
+      l = l.OrderBy(a => a.Schluessel).ToList();
     var r = new ServiceErgebnis<List<MaParameter>>(l);
     return r;
   }
