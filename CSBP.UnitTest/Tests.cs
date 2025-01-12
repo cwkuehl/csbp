@@ -371,7 +371,7 @@ public partial class {rep} : RepositoryBase
   /// </summary>
   /// <param name=""daten"">Service data for database access.</param>
   /// <param name=""e"">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public {tab} Get(ServiceDaten daten, {tab} e)
   {{
     var db = GetDb(daten);
@@ -384,7 +384,7 @@ public partial class {rep} : RepositoryBase
   /// </summary>
   /// <param name=""daten"">Service data for database access.</param>{kdoc}
   /// <param name=""detached"">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public {tab} Get(ServiceDaten daten{kparam}, bool detached = false)
   {{
     var db = GetDb(daten);

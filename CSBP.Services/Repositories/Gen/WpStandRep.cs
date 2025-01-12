@@ -23,7 +23,7 @@ public partial class WpStandRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public WpStand Get(ServiceDaten daten, WpStand e)
   {
     var db = GetDb(daten);
@@ -39,7 +39,7 @@ public partial class WpStandRep : RepositoryBase
   /// <param name="wertpapieruid">Value of column Wertpapier_Uid.</param>
   /// <param name="datum">Value of column Datum.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public WpStand Get(ServiceDaten daten, int mandantnr, string wertpapieruid, DateTime datum, bool detached = false)
   {
     var db = GetDb(daten);

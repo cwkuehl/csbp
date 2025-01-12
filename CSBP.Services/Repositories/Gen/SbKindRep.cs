@@ -23,7 +23,7 @@ public partial class SbKindRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public SbKind Get(ServiceDaten daten, SbKind e)
   {
     var db = GetDb(daten);
@@ -39,7 +39,7 @@ public partial class SbKindRep : RepositoryBase
   /// <param name="familieuid">Value of column Familie_Uid.</param>
   /// <param name="kinduid">Value of column Kind_Uid.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public SbKind Get(ServiceDaten daten, int mandantnr, string familieuid, string kinduid, bool detached = false)
   {
     var db = GetDb(daten);

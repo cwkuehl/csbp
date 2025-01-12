@@ -23,7 +23,7 @@ public partial class FzFahrradstandRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public FzFahrradstand Get(ServiceDaten daten, FzFahrradstand e)
   {
     var db = GetDb(daten);
@@ -40,7 +40,7 @@ public partial class FzFahrradstandRep : RepositoryBase
   /// <param name="datum">Value of column Datum.</param>
   /// <param name="nr">Value of column Nr.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public FzFahrradstand Get(ServiceDaten daten, int mandantnr, string fahrraduid, DateTime datum, int nr, bool detached = false)
   {
     var db = GetDb(daten);

@@ -23,7 +23,7 @@ public partial class SbEreignisRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public SbEreignis Get(ServiceDaten daten, SbEreignis e)
   {
     var db = GetDb(daten);
@@ -40,7 +40,7 @@ public partial class SbEreignisRep : RepositoryBase
   /// <param name="familieuid">Value of column Familie_Uid.</param>
   /// <param name="typ">Value of column Typ.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public SbEreignis Get(ServiceDaten daten, int mandantnr, string personuid, string familieuid, string typ, bool detached = false)
   {
     var db = GetDb(daten);

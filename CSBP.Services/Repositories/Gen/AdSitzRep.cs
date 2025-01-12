@@ -23,7 +23,7 @@ public partial class AdSitzRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public AdSitz Get(ServiceDaten daten, AdSitz e)
   {
     var db = GetDb(daten);
@@ -40,7 +40,7 @@ public partial class AdSitzRep : RepositoryBase
   /// <param name="reihenfolge">Value of column Reihenfolge.</param>
   /// <param name="uid">Value of column Uid.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public AdSitz Get(ServiceDaten daten, int mandantnr, string personuid, int reihenfolge, string uid, bool detached = false)
   {
     var db = GetDb(daten);

@@ -23,7 +23,7 @@ public partial class HhBilanzRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public HhBilanz Get(ServiceDaten daten, HhBilanz e)
   {
     var db = GetDb(daten);
@@ -40,7 +40,7 @@ public partial class HhBilanzRep : RepositoryBase
   /// <param name="kz">Value of column Kz.</param>
   /// <param name="kontouid">Value of column Konto_Uid.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public HhBilanz Get(ServiceDaten daten, int mandantnr, int periode, string kz, string kontouid, bool detached = false)
   {
     var db = GetDb(daten);

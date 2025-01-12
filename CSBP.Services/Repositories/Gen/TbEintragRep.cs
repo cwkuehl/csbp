@@ -23,7 +23,7 @@ public partial class TbEintragRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public TbEintrag Get(ServiceDaten daten, TbEintrag e)
   {
     var db = GetDb(daten);
@@ -38,7 +38,7 @@ public partial class TbEintragRep : RepositoryBase
   /// <param name="mandantnr">Value of column Mandant_Nr.</param>
   /// <param name="datum">Value of column Datum.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public TbEintrag Get(ServiceDaten daten, int mandantnr, DateTime datum, bool detached = false)
   {
     var db = GetDb(daten);

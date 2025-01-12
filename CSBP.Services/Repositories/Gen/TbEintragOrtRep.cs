@@ -23,7 +23,7 @@ public partial class TbEintragOrtRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public TbEintragOrt Get(ServiceDaten daten, TbEintragOrt e)
   {
     var db = GetDb(daten);
@@ -40,7 +40,7 @@ public partial class TbEintragOrtRep : RepositoryBase
   /// <param name="datumvon">Value of column Datum_Von.</param>
   /// <param name="datumbis">Value of column Datum_Bis.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public TbEintragOrt Get(ServiceDaten daten, int mandantnr, string ortuid, DateTime datumvon, DateTime datumbis, bool detached = false)
   {
     var db = GetDb(daten);

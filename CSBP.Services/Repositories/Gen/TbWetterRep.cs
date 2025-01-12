@@ -23,7 +23,7 @@ public partial class TbWetterRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public TbWetter Get(ServiceDaten daten, TbWetter e)
   {
     var db = GetDb(daten);
@@ -40,7 +40,7 @@ public partial class TbWetterRep : RepositoryBase
   /// <param name="ortuid">Value of column Ort_Uid.</param>
   /// <param name="api">Value of column Api.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public TbWetter Get(ServiceDaten daten, int mandantnr, DateTime datum, string ortuid, string api, bool detached = false)
   {
     var db = GetDb(daten);

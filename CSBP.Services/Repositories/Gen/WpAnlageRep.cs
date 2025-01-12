@@ -23,7 +23,7 @@ public partial class WpAnlageRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public WpAnlage Get(ServiceDaten daten, WpAnlage e)
   {
     var db = GetDb(daten);
@@ -38,7 +38,7 @@ public partial class WpAnlageRep : RepositoryBase
   /// <param name="mandantnr">Value of column Mandant_Nr.</param>
   /// <param name="uid">Value of column Uid.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public WpAnlage Get(ServiceDaten daten, int mandantnr, string uid, bool detached = false)
   {
     var db = GetDb(daten);

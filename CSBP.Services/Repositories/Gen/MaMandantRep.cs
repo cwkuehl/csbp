@@ -23,7 +23,7 @@ public partial class MaMandantRep : RepositoryBase
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="e">Entity with primary key.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public MaMandant Get(ServiceDaten daten, MaMandant e)
   {
     var db = GetDb(daten);
@@ -37,7 +37,7 @@ public partial class MaMandantRep : RepositoryBase
   /// <param name="daten">Service data for database access.</param>
   /// <param name="nr">Value of column Nr.</param>
   /// <param name="detached">Detaches entity after read or not.</param>
-  /// <returns>Entity of null.</returns>
+  /// <returns>Entity or null.</returns>
   public MaMandant Get(ServiceDaten daten, int nr, bool detached = false)
   {
     var db = GetDb(daten);
