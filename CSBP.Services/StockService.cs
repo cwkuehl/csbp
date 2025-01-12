@@ -1813,7 +1813,7 @@ public class StockService : ServiceBase, IStockService
     List<string> v;
     try
     {
-      var accesskey = Parameter.GetValue(Parameter.WP_FIXER_IO_ACCESS_KEY);
+      var accesskey = MaParameterRep.GetValue(daten, daten.MandantNr, Parameter.WP_FIXER_IO_ACCESS_KEY);
       if (string.IsNullOrEmpty(accesskey))
         throw new MessageException(WP049);
       var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";

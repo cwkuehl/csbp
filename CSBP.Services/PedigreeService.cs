@@ -1643,7 +1643,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
     Functions.MachNichts(daten);
     if (version.CompareTo("5.5") >= 0)
     {
-      var p = Parameter.GetValue(Parameter.SB_SUBMITTER);
+      var p = MaParameterRep.GetValue(daten, daten.MandantNr, Parameter.SB_SUBMITTER);
       if (!string.IsNullOrEmpty(p))
       {
         var arr = p.Split(';');

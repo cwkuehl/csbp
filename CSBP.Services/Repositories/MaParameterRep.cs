@@ -13,6 +13,20 @@ using Microsoft.EntityFrameworkCore;
 /// </summary>
 public partial class MaParameterRep
 {
+  /// <summary>
+  /// Gets option value by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="mandantnr">Value of column Mandant_Nr.</param>
+  /// <param name="schluessel">Value of column Schluessel.</param>
+  /// <returns>Value or null.</returns>
+  public string GetValue(ServiceDaten daten, int mandantnr, string schluessel)
+  {
+    var db = GetDb(daten);
+    var b = db.MA_Parameter.FirstOrDefault(a => a.Mandant_Nr == mandantnr && a.Schluessel == schluessel);
+    return b?.Wert;
+  }
+
   /// <summary>Sorts the list.</summary>
   /// <param name="l">List of MaParameter.</param>
   /// <param name="rm">Affected table read model.</param>

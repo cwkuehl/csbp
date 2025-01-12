@@ -535,6 +535,19 @@ public partial class ClientService : ServiceBase, IClientService
   }
 
   /// <summary>
+  /// Gets option value by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="client">Value of column Mandant_Nr.</param>
+  /// <param name="key">Value of column Schluessel.</param>
+  /// <returns>Value or null.</returns>
+  public ServiceErgebnis<string> GetValue(ServiceDaten daten, int client, string key)
+  {
+    var p = new ServiceErgebnis<string>(MaParameterRep.GetValue(daten, client, key));
+    return p;
+  }
+
+  /// <summary>
   /// Gets a list of options.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -1442,7 +1455,7 @@ public partial class ClientService : ServiceBase, IClientService
     if (url.Contains("api.openai.com"))
     {
       api = "OPENAI";
-      var openaikey = Parameter.GetValue(Parameter.AG_OPENAI_COM_ACCESS_KEY);
+      var openaikey = MaParameterRep.GetValue(daten, daten.MandantNr, Parameter.AG_OPENAI_COM_ACCESS_KEY);
       httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {openaikey}");
     }
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");

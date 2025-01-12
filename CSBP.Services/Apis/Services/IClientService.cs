@@ -104,6 +104,15 @@ public interface IClientService
   ServiceErgebnis DeleteUser(ServiceDaten daten, Benutzer e);
 
   /// <summary>
+  /// Gets option value by primary key.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="client">Value of column Mandant_Nr.</param>
+  /// <param name="key">Value of column Schluessel.</param>
+  /// <returns>Value or null.</returns>
+  ServiceErgebnis<string> GetValue(ServiceDaten daten, int client, string key);
+
+  /// <summary>
   /// Gets a list of options.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

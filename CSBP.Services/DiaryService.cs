@@ -490,7 +490,7 @@ public class DiaryService : ServiceBase, IDiaryService
   {
     var l = new List<Weather>();
     var r = new ServiceErgebnis<List<Weather>>(l);
-    var apikey = Parameter.GetValue(Parameter.TB_METEOSTAT_COM_ACCESS_KEY);
+    var apikey = MaParameterRep.GetValue(daten, daten.MandantNr, Parameter.TB_METEOSTAT_COM_ACCESS_KEY);
     if (string.IsNullOrEmpty(apikey))
       r.Errors.Add(Message.New(TB015));
     var p = string.IsNullOrEmpty(puid) ? null : TbOrtRep.Get(daten, daten.MandantNr, puid);

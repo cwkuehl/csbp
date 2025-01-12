@@ -72,8 +72,8 @@ public partial class AM510Dialogs : CsbpBin
     {
       dialoge.Selection.Mode = SelectionMode.Multiple;
       zudialoge.Selection.Mode = SelectionMode.Multiple;
-
-      var sd = Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "";
+      var daten = ServiceDaten;
+      var sd = Get(FactoryService.ClientService.GetValue(daten, daten.MandantNr, Parameter.AG_STARTDIALOGE)) ?? "";
       var arr = sd.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
       model.AddRange(arr);
       FillLists();

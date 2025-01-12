@@ -217,7 +217,7 @@ public static partial class Functions
   }
 
   /// <summary>
-  /// Optionally trims a string and returns null if it is emptly.
+  /// Optionally trims a string and returns null if it is empty.
   /// </summary>
   /// <param name="s">Affected string.</param>
   /// <param name="trim">Trim value or not.</param>
