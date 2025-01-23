@@ -237,10 +237,11 @@ public partial class HH400Bookings : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnSaveClicked(object sender, EventArgs e)
   {
+    var daten = ServiceDaten;
     var file = SelectFile(HH400_select_file);
-    var lines = Get(FactoryService.BudgetService.ExportBookingList(ServiceDaten,
+    var lines = Get(FactoryService.BudgetService.ExportBookingList(daten,
       GetText(kennzeichen1) == "1", von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text));
-    UiTools.SaveFile(lines, file);
+    UiTools.SaveFile(daten, lines, file);
   }
 
   /// <summary>Handles Buchungen.</summary>

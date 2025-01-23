@@ -123,9 +123,10 @@ public partial class SB220Print : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
   {
-    var pdf = Get(FactoryService.PedigreeService.GetAncestorReport(ServiceDaten, GetText(person), Functions.ToInt32(generation.Text),
+    var daten = ServiceDaten;
+    var pdf = Get(FactoryService.PedigreeService.GetAncestorReport(daten, GetText(person), Functions.ToInt32(generation.Text),
       geschwister.Active, nachfahren.Active, vorfahren.Active));
-    UiTools.SaveFile(pdf, M0(SB030));
+    UiTools.SaveFile(daten, pdf, M0(SB030));
   }
 
   /// <summary>Handles Abbrechen.</summary>

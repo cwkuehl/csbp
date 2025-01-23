@@ -87,8 +87,9 @@ public partial class AD200Interface : CsbpBin
   {
     if (string.IsNullOrEmpty(datei.Text))
       throw new MessageException(M1012);
-    var lines = Get(FactoryService.AddressService.ExportAddressList(ServiceDaten));
-    UiTools.SaveFile(lines, datei.Text, open: true);
+    var daten = ServiceDaten;
+    var lines = Get(FactoryService.AddressService.ExportAddressList(daten));
+    UiTools.SaveFile(daten, lines, datei.Text, open: true);
   }
 
   /// <summary>Handles Importieren.</summary>

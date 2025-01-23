@@ -550,7 +550,7 @@ public class MainWindow : Window
       }
       else if (e.Event.Key == Gdk.Key.Escape)
       {
-        if (!ServiceBase.IsUndoRedo() || CsbpBin.ShowYesNoQuestion(M0(AG003)))
+        if (!ServiceBase.IsUndoRedo(UiTools.SessionId) || CsbpBin.ShowYesNoQuestion(M0(AG003)))
           MainClass.Quit();
       }
     };
@@ -570,14 +570,14 @@ public class MainWindow : Window
   public void Start(Gtk.Window p)
   {
     Notebook.RemovePage(0);
-    MainClass.InitDb(new ServiceDaten(0, "Admin", null));
+    MainClass.InitDb(new ServiceDaten(UiTools.SessionId, 0, "Admin", null));
 #if DEBUG
     var username = Environment.UserName;
     //// Automatic login with current user.
-    MainClass.Login(new ServiceDaten(1, username.ToLower(), [UserDaten.RoleAdmin] )); // Lower for Replication.
+    MainClass.Login(new ServiceDaten(UiTools.SessionId, 1, username.ToLower(), [UserDaten.RoleAdmin] )); // Lower for Replication.
     //// MainClass.Login(new ServiceDaten(3, "Wolfgang"));
 #else
-    var daten = new ServiceDaten(Functions.ToInt32(ParameterGui.LoginClient), Environment.UserName, null);
+    var daten = new ServiceDaten(UiTools.SessionId, Functions.ToInt32(ParameterGui.LoginClient), Environment.UserName, null);
     var r = FactoryService.LoginService.IsWithoutPassword(daten);
     if (r?.Ergebnis == null)
       CsbpBin.Start(typeof(AM000Login), AM000_title, p: p, modal: true);

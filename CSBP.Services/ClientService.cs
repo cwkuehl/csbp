@@ -1189,9 +1189,10 @@ public partial class ClientService : ServiceBase, IClientService
   /// <summary>
   /// Commit a new file to the undo stack.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="name">Affected file name with path.</param>
-  public ServiceErgebnis CommitFile(string name)
+  /// <returns>Possibly errors.</returns>
+  public ServiceErgebnis CommitFile(ServiceDaten daten, string name)
   {
     var r = new ServiceErgebnis();
     if (string.IsNullOrWhiteSpace(name))
@@ -1204,7 +1205,7 @@ public partial class ClientService : ServiceBase, IClientService
     };
     var ul = new UndoList();
     ul.Insert(e);
-    Commit(ul);
+    Commit(ul, daten.Daten.SessionId);
     return r;
   }
 

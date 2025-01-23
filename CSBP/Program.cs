@@ -26,7 +26,7 @@ public class MainClass
 #pragma warning restore SA1649
 {
   /// <summary>Initial service data.</summary>
-  private static readonly ServiceDaten ServiceDaten0 = new(0, Constants.USER_ID, null);
+  private static readonly ServiceDaten ServiceDaten0 = new(UiTools.SessionId, 0, Constants.USER_ID, null);
 
   /// <summary>Actual service data.</summary>
   private static ServiceDaten intServiceData = ServiceDaten0;

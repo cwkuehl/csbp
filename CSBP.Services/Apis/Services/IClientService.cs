@@ -213,9 +213,10 @@ public interface IClientService
   /// <summary>
   /// Commit a new file to the undo stack.
   /// </summary>
-  /// <returns>Possibly errors.</returns>
+  /// <param name="daten">Service data for database access.</param>
   /// <param name="name">Affected file name with path.</param>
-  ServiceErgebnis CommitFile(string name);
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis CommitFile(ServiceDaten daten, string name);
 
   /// <summary>
   /// Gets a list of AI models.

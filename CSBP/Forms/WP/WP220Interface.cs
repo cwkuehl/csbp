@@ -340,7 +340,7 @@ public partial class WP220Interface : CsbpBin
       });
       r.ThrowAllErrors();
       if (cancel.Length <= 0)
-        UiTools.SaveFile(r.Ergebnis, datei.Text);
+        UiTools.SaveFile(ServiceDaten, r.Ergebnis, datei.Text);
       //// Application.Invoke((sender, e) => { refreshAction.Click(); });
     }
     catch (Exception ex)

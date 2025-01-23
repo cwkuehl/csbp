@@ -34,7 +34,7 @@ public class LoginService : ServiceBase, ILoginService
         // User exists.
         var benutzerId = benutzer.Benutzer_ID;
         var rollen = new List<string> { benutzer.Berechtigung == 2 ? UserDaten.RoleSuperadmin : benutzer.Berechtigung == 1 ? UserDaten.RoleAdmin : UserDaten.RoleUser };
-        var ud = new UserDaten(daten.MandantNr, benutzerId, rollen);
+        var ud = new UserDaten(daten.Daten.SessionId, daten.MandantNr, benutzerId, rollen);
         r.Ergebnis = ud;
         Log.Debug(AM003(daten.MandantNr, benutzerId));
       }
@@ -72,7 +72,7 @@ public class LoginService : ServiceBase, ILoginService
       // User exists.
       var benutzerId = benutzer.Benutzer_ID;
       var rollen = new List<string> { benutzer.Berechtigung == 2 ? UserDaten.RoleSuperadmin : benutzer.Berechtigung == 1 ? UserDaten.RoleAdmin : UserDaten.RoleUser };
-      var ud = new UserDaten(daten.MandantNr, benutzerId, rollen);
+      var ud = new UserDaten(daten.Daten.SessionId, daten.MandantNr, benutzerId, rollen);
       r.Ergebnis = ud;
       Log.Debug(AM003(daten.MandantNr, benutzerId));
 
@@ -106,7 +106,7 @@ public class LoginService : ServiceBase, ILoginService
       && !string.Equals(daten.BenutzerId, Constants.USER_ID, StringComparison.InvariantCultureIgnoreCase))
     {
       var rollen = new List<string> { liste[0].Berechtigung == 2 ? UserDaten.RoleSuperadmin : liste[0].Berechtigung == 1 ? UserDaten.RoleAdmin : UserDaten.RoleUser };
-      var ud = new UserDaten(daten.MandantNr, daten.BenutzerId, rollen);
+      var ud = new UserDaten(daten.Daten.SessionId, daten.MandantNr, daten.BenutzerId, rollen);
       r.Ergebnis = ud;
       BenutzerRep.Save(daten, daten.MandantNr, daten.BenutzerId, kennwort, liste[0].Berechtigung, liste[0].Akt_Periode,
         liste[0].Person_Nr, liste[0].Geburt, liste[0].Angelegt_Von, liste[0].Angelegt_Am, daten.BenutzerId, daten.Jetzt);

@@ -409,7 +409,8 @@ public partial class TB100Diary : CsbpBin
     var puid = GetText(position2);
     var pfad = ParameterGui.TempPath;
     var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
-    UiTools.SaveFile(Get(FactoryService.DiaryService.GetDiaryReport(ServiceDaten, GetSearchArray(),
+    var daten = ServiceDaten;
+    UiTools.SaveFile(daten, Get(FactoryService.DiaryService.GetDiaryReport(daten, GetSearchArray(),
       puid, from.Value, to.Value)), pfad, datei);
   }
 

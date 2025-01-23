@@ -192,19 +192,20 @@ public partial class HH510Interface : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnOkClicked(object sender, EventArgs e)
   {
+    var daten = ServiceDaten;
     ParameterGui.HH510Title = titel.Text;
     ParameterGui.HH510Cashreport = kassenbericht.Active;
     if (eb.Active || gv.Active || sb.Active)
     {
       var pdf = Get(
-       FactoryService.BudgetService.GetAnnualReport(ServiceDaten, von.ValueNn, bis.ValueNn, titel.Text,
+       FactoryService.BudgetService.GetAnnualReport(daten, von.ValueNn, bis.ValueNn, titel.Text,
          eb.Active, gv.Active, sb.Active));
-      UiTools.SaveFile(pdf, M0(HH048));
+      UiTools.SaveFile(daten, pdf, M0(HH048));
     }
     if (kassenbericht.Active)
     {
-      var pdf = Get(FactoryService.BudgetService.GetCashReport(ServiceDaten, von.ValueNn, bis.ValueNn, titel.Text));
-      UiTools.SaveFile(pdf, M0(HH049));
+      var pdf = Get(FactoryService.BudgetService.GetCashReport(daten, von.ValueNn, bis.ValueNn, titel.Text));
+      UiTools.SaveFile(daten, pdf, M0(HH049));
     }
   }
 

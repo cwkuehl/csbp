@@ -21,16 +21,21 @@ public class UserDaten
   /// <summary>
   /// Initializes a new instance of the <see cref="UserDaten"/> class.
   /// </summary>
+  /// <param name="sessionId">Affected session id.</param>
   /// <param name="mandantNr">Affected client number.</param>
   /// <param name="benutzerId">Affected user id.</param>
   /// <param name="rollen">Affected user roles.</param>
-  public UserDaten(int mandantNr, string benutzerId, List<string> rollen)
+  public UserDaten(string sessionId, int mandantNr, string benutzerId, List<string> rollen)
   {
+    SessionId = sessionId;
     MandantNr = mandantNr;
     BenutzerId = benutzerId;
     if (rollen != null)
       Rollen.AddRange(rollen);
   }
+
+  /// <summary>Gets the session id.</summary>
+  public string SessionId { get; }
 
   /// <summary>Gets the client number.</summary>
   public int MandantNr { get; }

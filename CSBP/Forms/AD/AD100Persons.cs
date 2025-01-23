@@ -181,8 +181,9 @@ public partial class AD100Persons : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPrintClicked(object sender, EventArgs e)
   {
-    var r = Get(FactoryService.AddressService.GetAddressReport(ServiceDaten));
-    UiTools.SaveFile(r, M0(AD012));
+    var daten = ServiceDaten;
+    var r = Get(FactoryService.AddressService.GetAddressReport(daten));
+    UiTools.SaveFile(daten, r, M0(AD012));
   }
 
   /// <summary>Handles Floppy.</summary>

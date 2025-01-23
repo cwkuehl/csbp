@@ -1353,7 +1353,7 @@ public partial class CsbpBin : Bin
         while (store.IterNext(ref i));
       }
       //// var csv = string.Join(Constants.CRLF, lines);
-      UiTools.SaveFile(lines, ParameterGui.TempPath, M0(M1000), true, "csv");
+      UiTools.SaveFile(ServiceDaten, lines, ParameterGui.TempPath, M0(M1000), true, "csv");
     }
     else if (l == Menu_table_print)
     {
@@ -1375,8 +1375,9 @@ public partial class CsbpBin : Bin
           lines.Add(cells);
         }
         while (store.IterNext(ref i));
-        var r = Get(FactoryService.ClientService.GetTableReport(ServiceDaten, "", lines));
-        UiTools.SaveFile(r, M0(M1000));
+        var daten = ServiceDaten;
+        var r = Get(FactoryService.ClientService.GetTableReport(daten, "", lines));
+        UiTools.SaveFile(daten, r, M0(M1000));
       }
     }
     if (znummern)

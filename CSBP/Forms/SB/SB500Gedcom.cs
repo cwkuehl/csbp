@@ -115,8 +115,9 @@ public partial class SB500Gedcom : CsbpBin
   {
     if (string.IsNullOrEmpty(datei.Text))
       throw new MessageException(M1012);
-    var lines = Get(FactoryService.PedigreeService.ExportAncestorList(ServiceDaten, datei.Text, name.Text, filter.Buffer.Text));
-    UiTools.SaveFile(lines, datei.Text);
+    var daten = ServiceDaten;
+    var lines = Get(FactoryService.PedigreeService.ExportAncestorList(daten, datei.Text, name.Text, filter.Buffer.Text));
+    UiTools.SaveFile(daten, lines, datei.Text);
   }
 
   /// <summary>Handles Importieren.</summary>

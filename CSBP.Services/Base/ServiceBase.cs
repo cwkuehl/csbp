@@ -10,16 +10,12 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Serialization;
 using CSBP.Services.Apis.Models;
-using CSBP.Services.Apis.Services;
-using CSBP.Services.Base;
 using CSBP.Services.Repositories;
 using CSBP.Services.Repositories.Base;
 using CSBP.Services.Undo;
@@ -147,10 +143,10 @@ public class ServiceBase
   // protected static readonly HttpClient Httpsclient = new();
 
   /// <summary>Undo stack.</summary>
-  private static readonly Stack<UndoList> UndoStack = new();
+  private static readonly Dictionary<string, Stack<UndoList>> UndoStack0 = new();
 
   /// <summary>Redo stack.</summary>
-  private static readonly Stack<UndoList> RedoStack = new();
+  private static readonly Dictionary<string, Stack<UndoList>> RedoStack0 = new();
 
   //// protected static readonly HttpClient httpsclient = new HttpClient(new SocketsHttpHandler()
   //// {
@@ -188,10 +184,11 @@ public class ServiceBase
   /// <summary>
   /// Checks if there are undo or redo actions.
   /// </summary>
+  /// <param name="key">Affected key.</param>
   /// <returns>Are there undo or redo actions or not.</returns>
-  public static bool IsUndoRedo()
+  public static bool IsUndoRedo(string key)
   {
-    return UndoStack.Any() || RedoStack.Any();
+    return GetUndoStack(key).Any() || GetRedoStack(key).Any();
   }
 
   /// <summary>
@@ -238,7 +235,7 @@ public class ServiceBase
         ul.List.AddRange(db.PreUndoList.List);
         db.PreUndoList.List.Clear();
       }
-      Commit(ul);
+      Commit(ul, daten.Daten.SessionId);
     }
   }
 
@@ -300,14 +297,15 @@ public class ServiceBase
   /// Commit a new undo list.
   /// </summary>
   /// <param name="ul">Affected undo list.</param>
-  internal static void Commit(UndoList ul)
+  /// <param name="key">Affected key.</param>
+  internal static void Commit(UndoList ul, string key)
   {
     if (ul == null)
       return;
     if (ul.List.Count > 0)
     {
-      UndoStack.Push(ul);
-      RedoStack.Clear(); // All redos are invalid by the new commit.
+      GetUndoStack(key).Push(ul);
+      GetRedoStack(key).Clear(); // All redos are invalid by the new commit.
     }
   }
 
@@ -318,9 +316,10 @@ public class ServiceBase
   /// <returns>Is anything changed or not.</returns>
   protected static bool Undo0(ServiceDaten daten)
   {
-    if (UndoStack.Count <= 0)
+    var undostack = GetUndoStack(daten.Daten.SessionId);
+    if (undostack.Count <= 0)
       return false;
-    var ul = UndoStack.Peek();
+    var ul = undostack.Peek();
     var db = daten.Context as DbContext;
     var con = db.Database.GetDbConnection();
     foreach (var e in ul.List)
@@ -347,8 +346,8 @@ public class ServiceBase
       }
     }
     db.SaveChanges();
-    UndoStack.Pop();
-    RedoStack.Push(ul);
+    undostack.Pop();
+    GetRedoStack(daten.Daten.SessionId).Push(ul);
     return ul.List.Any();
   }
 
@@ -359,9 +358,10 @@ public class ServiceBase
   /// <returns>Is anything changed or not.</returns>
   protected static bool Redo0(ServiceDaten daten)
   {
-    if (RedoStack.Count <= 0)
+    var redostack = GetRedoStack(daten.Daten.SessionId);
+    if (redostack.Count <= 0)
       return false;
-    var ul = RedoStack.Peek();
+    var ul = redostack.Peek();
     var db = daten.Context as DbContext;
     var con = db.Database.GetDbConnection();
     foreach (var e in ul.List)
@@ -397,8 +397,8 @@ public class ServiceBase
       //// db.SaveChanges(); // langsamer bei großen Listen
     }
     db.SaveChanges();
-    RedoStack.Pop();
-    UndoStack.Push(ul);
+    redostack.Pop();
+    GetUndoStack(daten.Daten.SessionId).Push(ul);
     return ul.List.Any();
   }
 
@@ -536,6 +536,42 @@ Lokal: {es.Eintrag}";
           es.Angelegt_Von, es.Angelegt_Am, es.Geaendert_Von, es.Geaendert_Am);
       }
     }
+  }
+
+  /// <summary>Gets undo stack for key.</summary>
+  /// <param name="key">Affected key.</param>
+  /// <returns>Affected undo stack.</returns>
+  private static Stack<UndoList> GetUndoStack(string key)
+  {
+    if (!UndoStack0.ContainsKey(key))
+      UndoStack0[key] = new Stack<UndoList>();
+    return UndoStack0[key];
+  }
+
+  /// <summary>Removes undo stack for key.</summary>
+  /// <param name="key">Affected key.</param>
+  private static void RemoveUndoStack(string key)
+  {
+    if (UndoStack0.ContainsKey(key))
+      UndoStack0.Remove(key);
+  }
+
+  /// <summary>Gets redo stack for key.</summary>
+  /// <param name="key">Affected key.</param>
+  /// <returns>Affected redo stack.</returns>
+  private static Stack<UndoList> GetRedoStack(string key)
+  {
+    if (!RedoStack0.ContainsKey(key))
+      RedoStack0[key] = new Stack<UndoList>();
+    return RedoStack0[key];
+  }
+
+  /// <summary>Removes redo stack for key.</summary>
+  /// <param name="key">Affected key.</param>
+  private static void RemoveRedoStack(string key)
+  {
+    if (RedoStack0.ContainsKey(key))
+      RedoStack0.Remove(key);
   }
 
   /// <summary>

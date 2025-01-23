@@ -15,12 +15,13 @@ public class ServiceDaten
   /// <summary>
   /// Initializes a new instance of the <see cref="ServiceDaten"/> class.
   /// </summary>
+  /// <param name="sessionId">Betroffene Sitzung.</param>
   /// <param name="mandantNr">Betroffene Mandantennummer.</param>
   /// <param name="benutzerId">Betroffener Benutzer.</param>
   /// <param name="rollen">Betroffene Rollen.</param>
-  public ServiceDaten(int mandantNr, string benutzerId, List<string> rollen)
+  public ServiceDaten(string sessionId, int mandantNr, string benutzerId, List<string> rollen)
   {
-    Daten = new UserDaten(mandantNr, benutzerId, rollen);
+    Daten = new UserDaten(sessionId, mandantNr, benutzerId, rollen);
     MandantNr = mandantNr;
     BenutzerId = benutzerId;
     Heute = DateTime.Today;
