@@ -98,4 +98,28 @@ public class UiTools
       process.StartInfo.Arguments = args;
     process.Start();
   }
+
+  /// <summary>
+  /// Update undo/redo size in the tooltip text.
+  /// </summary>
+  /// <param name="undoAction">Affected undo button.</param>
+  /// <param name="redoAction">Affected redo button.</param>
+  public static void UpdateUndoRedoSize(Gtk.Button undoAction, Gtk.Button redoAction)
+  {
+    var c = ServiceBase.GetUndoRedoSize(SessionId);
+    if (undoAction != null)
+    {
+      var tt = undoAction.TooltipText ?? "";
+      tt = Functions.Between(tt, null, " (") ?? tt;
+      tt = $"{tt} ({c.Item1})";
+      undoAction.TooltipText = tt;
+    }
+    if (redoAction != null)
+    {
+      var tt = redoAction.TooltipText ?? "";
+      tt = Functions.Between(tt, null, " (") ?? tt;
+      tt = $"{tt} ({c.Item2})";
+      redoAction.TooltipText = tt;
+    }
+  }
 }

@@ -24,7 +24,7 @@ public class ServiceTest
   {
     var connect = "Data Source=/home/wolfgang/hsqldb/csbp.db";
     Parameter.Connect = connect;
-    daten = new ServiceDaten(1, "Administrator", null);
+    daten = new ServiceDaten("0", 1, "Administrator", null);
     var r1 = FactoryService.ClientService.InitDb(daten);
     r1.ThrowAllErrors("InitDb");
     var r2 = FactoryService.ClientService.GetOptionList(daten, daten.MandantNr, Parameter.Params, null);

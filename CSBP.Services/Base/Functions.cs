@@ -1093,12 +1093,12 @@ public static partial class Functions
   /// <returns>Affected string in between.</returns>
   public static string Between(string str, string from, string to)
   {
-    if (string.IsNullOrEmpty(str) || string.IsNullOrEmpty(from))
+    if (string.IsNullOrEmpty(str))
       return null;
-    var anfang = str.IndexOf(from);
+    var anfang = string.IsNullOrEmpty(from) ? 0 : str.IndexOf(from);
     if (anfang >= 0)
     {
-      var l = from.Length;
+      var l = from?.Length ?? 0;
       if (string.IsNullOrEmpty(to))
         return str.Substring(anfang + l);
       var ende = str.IndexOf(to, anfang + l);

@@ -73,6 +73,7 @@ public class Tests
       t1.Setup();
       t1.TestAll();
     }
+    Functions.Between("Rückgängig", null, "(");
   }
 
   /// <summary>

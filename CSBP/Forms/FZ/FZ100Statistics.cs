@@ -24,6 +24,14 @@ public partial class FZ100Statistics : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>Paned splitpane.</summary>
   [Builder.Object]
   private readonly Paned splitpane;
@@ -100,6 +108,7 @@ public partial class FZ100Statistics : CsbpBin
       EventsActive = false;
       datum.Value = ServiceDaten.Heute;
       EventsActive = true;
+      UiTools.UpdateUndoRedoSize(undoAction, redoAction);
     }
     if (step <= 1)
     {
@@ -143,6 +152,7 @@ public partial class FZ100Statistics : CsbpBin
   {
     if (MainClass.Undo())
       refreshAction.Click();
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>
@@ -152,6 +162,7 @@ public partial class FZ100Statistics : CsbpBin
   {
     if (MainClass.Redo())
       refreshAction.Click();
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles datum.</summary>

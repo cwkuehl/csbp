@@ -23,6 +23,14 @@ public partial class TB100Diary : CsbpBin
 {
 #pragma warning disable CS0649
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>Label before10.</summary>
   [Builder.Object]
   private readonly Label before10;
@@ -293,6 +301,7 @@ public partial class TB100Diary : CsbpBin
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
       EventsActive = true;
+      UiTools.UpdateUndoRedoSize(undoAction, redoAction);
     }
   }
 
@@ -329,6 +338,7 @@ public partial class TB100Diary : CsbpBin
       InitLists();
       BearbeiteEintraege(false);
     }
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>
@@ -341,6 +351,7 @@ public partial class TB100Diary : CsbpBin
       InitLists();
       BearbeiteEintraege(false);
     }
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Weather.</summary>
@@ -775,6 +786,7 @@ public partial class TB100Diary : CsbpBin
         var pos = positionList.Select(a => new Tuple<string, DateTime, DateTime>(a.Ort_Uid, a.Datum_Von, a.Datum_Bis)).ToList();
         r.Get(FactoryService.DiaryService.SaveEntry(daten, EntryOld.Datum, entry.Buffer.Text, pos));
       }
+      UiTools.UpdateUndoRedoSize(undoAction, redoAction);
     }
     if (laden)
     {
