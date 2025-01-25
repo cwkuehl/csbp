@@ -45,4 +45,11 @@ public class UserDaten
 
   /// <summary>Gets the user roles.</summary>
   public List<string> Rollen { get; } = [];
+
+  /// <summary>Gets a new session id.</summary>
+  /// <returns>New session id.</returns>
+  public static string GetNewSessionId()
+  {
+    return Guid.NewGuid().ToString();
+  }
 }

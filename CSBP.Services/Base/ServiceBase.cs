@@ -272,6 +272,16 @@ public class ServiceBase
     }
   }
 
+  /// <summary>Removes undo and redo stack for key.</summary>
+  /// <param name="key">Affected key.</param>
+  public static void RemoveUndoRedoStack(string key)
+  {
+    if (UndoStack0.ContainsKey(key))
+      UndoStack0.Remove(key);
+    if (RedoStack0.ContainsKey(key))
+      RedoStack0.Remove(key);
+  }
+
   /// <summary>
   /// Creates undo entries.
   /// </summary>
@@ -548,14 +558,6 @@ Lokal: {es.Eintrag}";
     return UndoStack0[key];
   }
 
-  /// <summary>Removes undo stack for key.</summary>
-  /// <param name="key">Affected key.</param>
-  private static void RemoveUndoStack(string key)
-  {
-    if (UndoStack0.ContainsKey(key))
-      UndoStack0.Remove(key);
-  }
-
   /// <summary>Gets redo stack for key.</summary>
   /// <param name="key">Affected key.</param>
   /// <returns>Affected redo stack.</returns>
@@ -564,14 +566,6 @@ Lokal: {es.Eintrag}";
     if (!RedoStack0.ContainsKey(key))
       RedoStack0[key] = new Stack<UndoList>();
     return RedoStack0[key];
-  }
-
-  /// <summary>Removes redo stack for key.</summary>
-  /// <param name="key">Affected key.</param>
-  private static void RemoveRedoStack(string key)
-  {
-    if (RedoStack0.ContainsKey(key))
-      RedoStack0.Remove(key);
   }
 
   /// <summary>
