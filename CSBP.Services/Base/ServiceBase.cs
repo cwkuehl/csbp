@@ -282,6 +282,14 @@ public class ServiceBase
       RedoStack0.Remove(key);
   }
 
+  /// <summary>Gets size of undo and redo stack for key.</summary>
+  /// <param name="key">Affected key.</param>
+  /// <returns>Size of undo and redo stack.</returns>
+  public static Tuple<int, int> GetUndoRedoSize(string key)
+  {
+    return new(UndoStack0.ContainsKey(key) ? UndoStack0[key].Count : 0, RedoStack0.ContainsKey(key) ? RedoStack0[key].Count : 0);
+  }
+
   /// <summary>
   /// Creates undo entries.
   /// </summary>
