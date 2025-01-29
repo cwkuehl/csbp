@@ -22,6 +22,14 @@ public partial class FZ320Series : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>TreeView serien.</summary>
   [Builder.Object]
   private readonly TreeView serien;
@@ -46,6 +54,8 @@ public partial class FZ320Series : CsbpBin
     ObservableEventThrottle(refreshAction, (sender, e) => { RefreshTreeView(serien, 1); });
     //// SetBold(client0);
     InitData(0);
+    undoAction.EnterNotifyEvent += OnUndoRedoEnter;
+    redoAction.EnterNotifyEvent += OnUndoRedoEnter;
     serien.GrabFocus();
   }
 
@@ -108,6 +118,14 @@ public partial class FZ320Series : CsbpBin
   {
     if (MainClass.Undo())
       refreshAction.Click();
+  }
+
+  /// <summary>Handles Undo Redo Enter.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnUndoRedoEnter(object sender, EnterNotifyEventArgs e)
+  {
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>

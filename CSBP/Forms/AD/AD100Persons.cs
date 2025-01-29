@@ -23,6 +23,14 @@ public partial class AD100Persons : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>Button EditAction.</summary>
   [Builder.Object]
   private readonly Button editAction;
@@ -59,6 +67,8 @@ public partial class AD100Persons : CsbpBin
     ObservableEventThrottle(refreshAction, (sender, e) => { RefreshTreeView(personen, 1); });
     //// SetBold(client0);
     InitData(0);
+    undoAction.EnterNotifyEvent += OnUndoRedoEnter;
+    redoAction.EnterNotifyEvent += OnUndoRedoEnter;
     personen.GrabFocus();
   }
 
@@ -133,6 +143,14 @@ public partial class AD100Persons : CsbpBin
   {
     if (MainClass.Undo())
       refreshAction.Click();
+  }
+
+  /// <summary>Handles Undo Redo Enter.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnUndoRedoEnter(object sender, EnterNotifyEventArgs e)
+  {
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>

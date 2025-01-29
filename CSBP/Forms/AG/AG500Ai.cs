@@ -24,6 +24,14 @@ public partial class AG500Ai : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>Label systemprompt0.</summary>
   [Builder.Object]
   private readonly Label systemprompt0;
@@ -88,6 +96,8 @@ public partial class AG500Ai : CsbpBin
     SetBold(systemprompt0);
     SetBold(prompt0);
     InitData(0);
+    undoAction.EnterNotifyEvent += OnUndoRedoEnter;
+    redoAction.EnterNotifyEvent += OnUndoRedoEnter;
     prompt.GrabFocus();
   }
 
@@ -156,6 +166,14 @@ public partial class AG500Ai : CsbpBin
     {
       refreshAction.Click();
     }
+  }
+
+  /// <summary>Handles Undo Redo Enter.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnUndoRedoEnter(object sender, EnterNotifyEventArgs e)
+  {
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>

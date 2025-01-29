@@ -24,6 +24,14 @@ public partial class WP100Chart : CsbpBin
   [Builder.Object]
   private readonly Button refreshAction;
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>TreeView data.</summary>
   [Builder.Object]
   private readonly TreeView data;
@@ -107,6 +115,8 @@ public partial class WP100Chart : CsbpBin
     SetBold(wertpapier0);
     SetBold(methode0);
     InitData(0);
+    undoAction.EnterNotifyEvent += OnUndoRedoEnter;
+    redoAction.EnterNotifyEvent += OnUndoRedoEnter;
     data.GrabFocus();
   }
 
@@ -192,6 +202,14 @@ public partial class WP100Chart : CsbpBin
   {
     if (MainClass.Undo())
       refreshAction.Click();
+  }
+
+  /// <summary>Handles Undo Redo Enter.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnUndoRedoEnter(object sender, EnterNotifyEventArgs e)
+  {
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>

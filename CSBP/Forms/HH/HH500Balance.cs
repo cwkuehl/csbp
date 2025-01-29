@@ -22,6 +22,14 @@ public partial class HH500Balance : CsbpBin
 {
 #pragma warning disable CS0649
 
+  /// <summary>Button UndoAction.</summary>
+  [Builder.Object]
+  private readonly Button undoAction;
+
+  /// <summary>Button RedoAction.</summary>
+  [Builder.Object]
+  private readonly Button redoAction;
+
   /// <summary>Label soll0.</summary>
   [Builder.Object]
   private readonly Label soll0;
@@ -111,6 +119,8 @@ public partial class HH500Balance : CsbpBin
     bis.Show();
     //// SetBold(client0);
     InitData(0);
+    undoAction.EnterNotifyEvent += OnUndoRedoEnter;
+    redoAction.EnterNotifyEvent += OnUndoRedoEnter;
     soll.GrabFocus();
   }
 
@@ -270,6 +280,14 @@ public partial class HH500Balance : CsbpBin
   {
     if (MainClass.Undo())
       OnRefresh();
+  }
+
+  /// <summary>Handles Undo Redo Enter.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnUndoRedoEnter(object sender, EnterNotifyEventArgs e)
+  {
+    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles Redo.</summary>

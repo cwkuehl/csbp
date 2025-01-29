@@ -86,6 +86,8 @@ public partial class FZ100Statistics : CsbpBin
 #pragma warning restore CS0612
     //// SetBold(client0);
     InitData(0);
+    undoAction.EnterNotifyEvent += OnUndoRedoEnter;
+    redoAction.EnterNotifyEvent += OnUndoRedoEnter;
     bilanz.GrabFocus();
   }
 
@@ -108,7 +110,6 @@ public partial class FZ100Statistics : CsbpBin
       EventsActive = false;
       datum.Value = ServiceDaten.Heute;
       EventsActive = true;
-      UiTools.UpdateUndoRedoSize(undoAction, redoAction);
     }
     if (step <= 1)
     {
@@ -152,6 +153,13 @@ public partial class FZ100Statistics : CsbpBin
   {
     if (MainClass.Undo())
       refreshAction.Click();
+  }
+
+  /// <summary>Handles Undo Redo Enter.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnUndoRedoEnter(object sender, EnterNotifyEventArgs e)
+  {
     UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
@@ -162,7 +170,6 @@ public partial class FZ100Statistics : CsbpBin
   {
     if (MainClass.Redo())
       refreshAction.Click();
-    UiTools.UpdateUndoRedoSize(undoAction, redoAction);
   }
 
   /// <summary>Handles datum.</summary>
