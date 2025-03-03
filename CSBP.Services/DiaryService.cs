@@ -236,7 +236,9 @@ public class DiaryService : ServiceBase, IDiaryService
       if (datum.HasValue && stelle == SearchDirectionEnum.Last
         && search[0] == "%" && search[3] == "" && search[6] == "" && string.IsNullOrEmpty(puid))
       {
-        datum = datum.Value.AddDays(1);
+        var e = TbEintragRep.Get(daten, daten.MandantNr, datum.Value);
+        if (e != null && !string.IsNullOrEmpty(e.Eintrag) && e.Eintrag.EndsWith("."))
+          datum = datum.Value.AddDays(1);
       }
       r.Ergebnis = datum;
     }
