@@ -205,15 +205,18 @@ public static partial class Functions
   }
 
   /// <summary>
-  /// Converts first character to upper, the to lower case.
+  /// Converts first character to upper, the rest to lower case.
   /// </summary>
   /// <param name="s">Affected string.</param>
+  /// <param name="lower">True if rest of string is converted to lower.</param>
   /// <returns>Converted string.</returns>
-  public static string ToFirstUpper(this string s)
+  public static string ToFirstUpper(this string s, bool lower = false)
   {
     if (string.IsNullOrEmpty(s))
       return string.Empty;
-    return char.ToUpper(s[0]) + s[1..].ToLower();
+    if (lower)
+      return char.ToUpper(s[0]) + s[1..].ToLower();
+    return char.ToUpper(s[0]) + s[1..];
   }
 
   /// <summary>
@@ -315,7 +318,7 @@ public static partial class Functions
   public static string TabName(string t)
   {
     var arr = t.Split('_');
-    return string.Join(string.Empty, arr.Select(a => a.ToFirstUpper()));
+    return string.Join(string.Empty, arr.Select(a => a.ToFirstUpper(true)));
   }
 
   /// <summary>

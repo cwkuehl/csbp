@@ -1111,7 +1111,7 @@ public partial class {filename}
         new XElement("property", new XAttribute("name", "has_entry"), new XText("True")),
         //// new XElement("property", new XAttribute("name", "Items"), new XAttribute("translatable", "yes")),
         //// new XElement("property", new XAttribute("name", "IsTextCombo"), new XText("True")),
-        new XElement("signal", new XAttribute("name", "changed"), new XAttribute("handler", $"On{id.ToFirstUpper()}Changed")),
+        new XElement("signal", new XAttribute("name", "changed"), new XAttribute("handler", $"On{id.ToFirstUpper(true)}Changed")),
         new XElement("child", new XAttribute("internal-child", "entry"),
           new XElement("object", new XAttribute("class", "GtkEntry"),
             new XElement("property", new XAttribute("name", "visible"), new XText("True")),
@@ -1131,10 +1131,10 @@ public partial class {filename}
     private ComboBox {id};");
       gc.Events.Append($@"
 
-    /// <summary>Handles {id.ToFirstUpper()}.</summary>
+    /// <summary>Handles {id.ToFirstUpper(true)}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
-    protected void On{id.ToFirstUpper()}Changed(object sender, EventArgs e)
+    protected void On{id.ToFirstUpper(true)}Changed(object sender, EventArgs e)
     {{
     }}");
     }
@@ -1195,14 +1195,14 @@ public partial class {filename}
         new XElement("property", new XAttribute("name", "can_default"), new XText(df ? "True" : "False")),
         new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{text}.tt")),
         new XElement("property", new XAttribute("name", "use_underline"), new XText("True")),
-        new XElement("signal", new XAttribute("name", "clicked"), new XAttribute("handler", $"On{id.ToFirstUpper()}Clicked"), new XAttribute("swapped", "no"))
+        new XElement("signal", new XAttribute("name", "clicked"), new XAttribute("handler", $"On{id.ToFirstUpper(true)}Clicked"), new XAttribute("swapped", "no"))
       );
       gc.Events.Append($@"
 
-    /// <summary>Handles {id.ToFirstUpper()}.</summary>
+    /// <summary>Handles {id.ToFirstUpper(true)}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
-    protected void On{id.ToFirstUpper()}Clicked(object sender, EventArgs e)
+    protected void On{id.ToFirstUpper(true)}Clicked(object sender, EventArgs e)
     {{
     }}");
     }
@@ -1299,7 +1299,7 @@ public partial class {filename}
           new XElement("property", new XAttribute("name", "visible"), new XText("True")),
           new XElement("property", new XAttribute("name", "can_focus"), new XText("True")),
           new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"{gc.Fileshort}.{id}.tt")),
-          new XElement("signal", new XAttribute("name", "row-activated"), new XAttribute("handler", $"On{id.ToFirstUpper()}RowActivated"), new XAttribute("swapped", "no"))
+          new XElement("signal", new XAttribute("name", "row-activated"), new XAttribute("handler", $"On{id.ToFirstUpper(true)}RowActivated"), new XAttribute("swapped", "no"))
         ))
       );
       gc.Member.Append($@"
@@ -1309,10 +1309,10 @@ public partial class {filename}
     private TreeView {id};");
       gc.Events.Append($@"
 
-    /// <summary>Handles {id.ToFirstUpper()}.</summary>
+    /// <summary>Handles {id.ToFirstUpper(true)}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
-    protected void On{id.ToFirstUpper()}RowActivated(object sender, RowActivatedArgs e)
+    protected void On{id.ToFirstUpper(true)}RowActivated(object sender, RowActivatedArgs e)
     {{
     }}");
     }
@@ -1342,7 +1342,7 @@ public partial class {filename}
               new XElement("property", new XAttribute("name", "tooltip_text"), new XText($"Action.{name}")),
               new XElement("property", new XAttribute("name", "image"), new XText($"{name}Image")),
               new XElement("property", new XAttribute("name", "always_show_image"), new XText("True")),
-              new XElement("signal", new XAttribute("name", "clicked"), new XAttribute("handler", $"On{name.ToFirstUpper()}Clicked"), new XAttribute("swapped", "no"))
+              new XElement("signal", new XAttribute("name", "clicked"), new XAttribute("handler", $"On{name.ToFirstUpper(true)}Clicked"), new XAttribute("swapped", "no"))
             ),
             new XElement("packing",
               new XElement("property", new XAttribute("name", "position"), new XText(nr.ToString()))
@@ -1350,15 +1350,15 @@ public partial class {filename}
           ));
           gc.Member.Append($@"
 
-    /// <summary>Button {name.ToFirstUpper()}Action.</summary>
+    /// <summary>Button {name.ToFirstUpper(true)}Action.</summary>
     [Builder.Object]
     private Button {name}Action;");
           gc.Events.Append($@"
 
-    /// <summary>Handles {name.ToFirstUpper()}.</summary>
+    /// <summary>Handles {name.ToFirstUpper(true)}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
-    protected void On{name.ToFirstUpper()}Clicked(object sender, EventArgs e)
+    protected void On{name.ToFirstUpper(true)}Clicked(object sender, EventArgs e)
     {{
     }}");
         }
@@ -1404,19 +1404,19 @@ public partial class {filename}
         IsWithCalendar = true,
         IsCalendarOpen = false
       }};
-      {id}.DateChanged += On{id.ToFirstUpper()}DateChanged;
+      {id}.DateChanged += On{id.ToFirstUpper(true)}DateChanged;
       {id}.Show();");
       gc.Events.Append($@"
 
     /// <summary>Handles {id}.</summary>
     /// <param name=""sender"">Betroffener Sender.</param>
     /// <param name=""e"">Betroffenes Ereignis.</param>
-    protected void On{id.ToFirstUpper()}DateChanged(object sender, DateChangedEventArgs e)
+    protected void On{id.ToFirstUpper(true)}DateChanged(object sender, DateChangedEventArgs e)
     {{
     }}");
       gc.Member.Append($@"
 
-    /// <summary>Date {id.ToFirstUpper()}.</summary>
+    /// <summary>Date {id.ToFirstUpper(true)}.</summary>
     //[Builder.Object]
     private Date {id};");
     }
@@ -1442,10 +1442,10 @@ public partial class {filename}
         ////new XElement("property", new XAttribute("name", "BottomAttach"), new XText((r + rs).ToString())),
         ////new XElement("property", new XAttribute("name", "RightAttach"), new XText((c + cs).ToString())),
         ////new XElement("property", new XAttribute("name", "AutoSize"), new XText("False")),
-        ////new XElement("property", new XAttribute("name", "XExpand"), new XText(xexpand.ToString().ToFirstUpper())),
-        ////new XElement("property", new XAttribute("name", "XFill"), new XText(true.ToString().ToFirstUpper())),
-        ////new XElement("property", new XAttribute("name", "YExpand"), new XText(yexpand.ToString().ToFirstUpper())),
-        ////new XElement("property", new XAttribute("name", "YFill"), new XText(true.ToString().ToFirstUpper()))
+        ////new XElement("property", new XAttribute("name", "XExpand"), new XText(xexpand.ToString().ToFirstUpper(true))),
+        ////new XElement("property", new XAttribute("name", "XFill"), new XText(true.ToString().ToFirstUpper(true))),
+        ////new XElement("property", new XAttribute("name", "YExpand"), new XText(yexpand.ToString().ToFirstUpper(true))),
+        ////new XElement("property", new XAttribute("name", "YFill"), new XText(true.ToString().ToFirstUpper(true)))
         );
         if (!string.IsNullOrEmpty(columnSpan))
           p.Add(new XElement("property", new XAttribute("name", "width"), new XText(columnSpan)));
