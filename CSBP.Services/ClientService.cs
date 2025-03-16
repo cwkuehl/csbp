@@ -1399,7 +1399,7 @@ public partial class ClientService : ServiceBase, IClientService
       }
       case AiData.LocalLlama3:
       case AiData.LocalLlama3Max:
-      case AiData.LocalStarcoder27B:
+      //// case AiData.LocalStarcoder27B:
       {
         url = @$"http://localhost:11434/api/chat";
         timeout = 3000000;
@@ -1429,26 +1429,26 @@ public partial class ClientService : ServiceBase, IClientService
         };
         break;
       }
-      case AiData.LocalLlava7B:
-      {
-        url = @$"http://localhost:11434/api/generate";
-        timeout = 3000000;
-        ////var images = new string[data.Images.Count];
-        data.Images.Add("/home/wolfgang/Bilder/danova3.png");
-        var images = data.Images.Select(i => Convert.ToBase64String(File.ReadAllBytes(i))).ToArray();
-        jcontent = new
-        {
-          model = data.Model,
-          prompt = data.Prompt,
-          stream = false,
-          images = images,
-          options = new
-          {
-            temperature = data.Temperature,
-          },
-        };
-        break;
-      }
+      //// case AiData.LocalLlava7B:
+      //// {
+      ////   url = @$"http://localhost:11434/api/generate";
+      ////   timeout = 3000000;
+      ////   ////var images = new string[data.Images.Count];
+      ////   data.Images.Add("/home/wolfgang/Bilder/danova3.png");
+      ////   var images = data.Images.Select(i => Convert.ToBase64String(File.ReadAllBytes(i))).ToArray();
+      ////   jcontent = new
+      ////   {
+      ////     model = data.Model,
+      ////     prompt = data.Prompt,
+      ////     stream = false,
+      ////     images = images,
+      ////     options = new
+      ////     {
+      ////       temperature = data.Temperature,
+      ////     },
+      ////   };
+      ////   break;
+      //// }
       default:
         throw new MessageException($"Model {data.Model} not supported.");
     }

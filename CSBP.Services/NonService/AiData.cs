@@ -35,10 +35,10 @@ public class AiData
   public const string LocalLlama3Max = "llama3_max";
 
   /// <summary>Local AI model constant for Starcoder2 7B.</summary>
-  public const string LocalStarcoder27B = "starcoder2:7b";
+  // public const string LocalStarcoder27B = "starcoder2:7b";
 
   /// <summary>Local AI model constant for Llava 7B.</summary>
-  public const string LocalLlava7B = "llava:7b";
+  // public const string LocalLlava7B = "llava:7b";
 
   /// <summary>List with all AI models, https://ollama.com/library.</summary>
   private static readonly List<Tuple<string, string>> Ailist =
@@ -49,8 +49,8 @@ public class AiData
     new Tuple<string, string>(Dalle2, "DALL E 2"),
     new Tuple<string, string>(LocalLlama3Max, "Local Llama 3 Max"),
     new Tuple<string, string>(LocalLlama3, "Local Llama 3"),
-    new Tuple<string, string>(LocalStarcoder27B, "Local Starcoder2 7B"),
-    new Tuple<string, string>(LocalLlava7B, "Local Llava 7B"),
+    //// new Tuple<string, string>(LocalStarcoder27B, "Local Starcoder2 7B"),
+    //// new Tuple<string, string>(LocalLlava7B, "Local Llava 7B"),
   ];
 
   /// <summary>Gets list with AI models.</summary>
