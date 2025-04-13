@@ -56,11 +56,13 @@ public class Parameter
   /// </summary>
   static Parameter()
   {
+    var userpath = Functions.IsLinux() ? $"/home/{Environment.UserName}/hsqldb/" : "";
+
     // Values dependant from client number are directly read by function MaParameterRep.GetValue.
     Params = new Dictionary<string, Parameter>
     {
       // Storage in setting file
-      { DB_DRIVER_CONNECT, new Parameter(DB_DRIVER_CONNECT, "Data Source=csbp.db", setting: "ConnectionString") },
+      { DB_DRIVER_CONNECT, new Parameter(DB_DRIVER_CONNECT, $"Data Source={userpath}csbp.db", setting: "ConnectionString") },
 
       // Storage in database
       { AG_ANWENDUNGS_TITEL, new Parameter(AG_ANWENDUNGS_TITEL, setting: "Title", database: true, client: true) },
