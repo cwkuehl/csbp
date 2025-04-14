@@ -16,7 +16,7 @@ function download {
 }
 
 CURRENTDATE=`date +"%Y-%m-%d %T"`
-echo "$CURRENTDATE Installation and update for program CSBP (c) 2024 cwkuehl.de" >> ./Log.txt
+echo "$CURRENTDATE Installation and update for program CSBP (c) 2025 cwkuehl.de" >> ./Log.txt
 
 if [[ ! -d temp ]]; then
   mkdir temp
@@ -40,7 +40,7 @@ fi
 
 # Generate start script and start CSBP
 echo "#! /bin/bash" > ./#Csbp0.sh
-echo "# Start program CSBP (c) 2024 cwkuehl.de" >> ./#Csbp0.sh
+echo "# Start program CSBP (c) 2025 cwkuehl.de" >> ./#Csbp0.sh
 echo "cd $PWD/publish" >> ./#Csbp0.sh
 echo "export GDK_BACKEND=x11" >> ./#Csbp0.sh
 if [[ -z "$DBNAME" ]]; then

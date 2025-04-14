@@ -1,4 +1,4 @@
-:: Installation and update for program CSBP (c) 2024 cwkuehl.de
+:: Installation and update for program CSBP (c) 2025 cwkuehl.de
 @echo off
 if not "%~n0"=="#InstallUpdateCsbp" goto start
 copy #InstallUpdateCsbp.cmd _.cmd
@@ -24,7 +24,7 @@ goto :eof
 
 :start
 for /F "tokens=1" %%i in ('date /t') do set mydate=%%i
-echo %mydate% %time% Installation and update for program CSBP (c) 2024 cwkuehl.de >> Log.txt
+echo %mydate% %time% Installation and update for program CSBP (c) 2025 cwkuehl.de >> Log.txt
 
 if not exist Temp md Temp
 call :Download
@@ -47,7 +47,7 @@ del EmptyCsbp.db
 
 :Script
 :: Generate start script and start CSBP
-echo :: Start program CSBP (c) 2024 cwkuehl.de > #Csbp0.cmd
+echo :: Start program CSBP (c) 2025 cwkuehl.de > #Csbp0.cmd
 echo cd %~dp0\publish >> #Csbp0.cmd
 if "%DBNAME%"=="" (
   echo start CSBP.exe >> #Csbp0.cmd

@@ -5,34 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": ".NET 7 Launch Linux",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CSBP/bin/Debug/net7.0/CSBP.dll",
-      "args": [
-        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/csbp/csbp.db",
-        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
-      ],
-      "cwd": "${workspaceFolder}/CSBP",
-      // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-      "console": "internalConsole",
-      "stopAtEntry": false
-    },
-    {
-      "name": ".NET 7 UnitTest Linux",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build.unittest",
-      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net7.0/CSBP.UnitTest.dll",
-      "args": [
-        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
-      ],
-      "cwd": "${workspaceFolder}/CSBP.UnitTest",
-      "console": "internalConsole",
-      "stopAtEntry": false
-    },
-    {
       "name": ".NET 8 Launch Linux",
       "type": "coreclr",
       "request": "launch",
@@ -86,6 +58,35 @@
       "cwd": "${workspaceFolder}/CSBP",
       "console": "internalConsole",
       "stopAtEntry": false
+    },
+    {
+      "name": ".NET 9 Launch Linux",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/CSBP/bin/Debug/net9.0/CSBP.dll",
+      "args": [
+        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
+      ],
+      "cwd": "${workspaceFolder}/CSBP",
+      // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "requireExactSource": false
+    },
+    {
+      "name": ".NET 9 UnitTest Linux",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build.unittest",
+      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net9.0/CSBP.UnitTest.dll",
+      "args": [
+        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
+      ],
+      "cwd": "${workspaceFolder}/CSBP.UnitTest",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "requireExactSource": true
     },
     {
       "name": ".NET Core Attach",

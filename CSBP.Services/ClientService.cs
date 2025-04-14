@@ -1628,7 +1628,7 @@ public partial class ClientService : ServiceBase, IClientService
     var passwordBytes = Encoding.UTF8.GetBytes(password);
     var salt = new byte[32];
     var fsCrypt = new FileStream(inputFile, FileMode.Open);
-    fsCrypt.Read(salt, 0, salt.Length);
+    fsCrypt.ReadExactly(salt);
 
     var aes = Aes.Create();
     aes.KeySize = 256;

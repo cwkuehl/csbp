@@ -1275,7 +1275,7 @@ public class MainWindow : Window
       Title = "", // Titel geht nicht.
       ProgramName = "CSharp Budget Program",
       Version = ver + ", Runtime " + GetNetCoreVersion(),
-      Copyright = "(c) 2019-2024 Wolfgang Kuehl",
+      Copyright = "(c) 2019-2025 Wolfgang Kuehl",
       Comments = $@"CSBP is a simple budget program.
 Database: {db}
 Client: {daten.MandantNr} User: {daten.BenutzerId} Roles: {roles}",
