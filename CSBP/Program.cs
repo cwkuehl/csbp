@@ -188,7 +188,7 @@ public class MainClass
         {
           if (StartDialog.Dialoge.TryGetValue(d[1..], out var sf))
           {
-            var parr = d[1..].Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            var parr = d[1..].Split([";"], StringSplitOptions.RemoveEmptyEntries);
             var parm = parr.Length > 1 ? parr[1] : null;
             var create = sf.Type.GetMethod("Create");
             var dlg = create.Invoke(null, new object[] { parm, null }) as CsbpBin;
