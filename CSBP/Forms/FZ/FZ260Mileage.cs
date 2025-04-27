@@ -185,7 +185,10 @@ public partial class FZ260Mileage : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnZaehlerKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
-    SetText(km, "");
+    // System.Diagnostics.Debug.WriteLine($"OnZaehlerKeyReleaseEvent {e.Event.Key}");
+    var k = e.Event.Key;
+    if ((k >= Gdk.Key.Key_0 && k <= Gdk.Key.Key_9) || (k >= Gdk.Key.KP_0 && k <= Gdk.Key.KP_9))
+      SetText(km, "");
   }
 
   /// <summary>Handles Km.</summary>
@@ -193,7 +196,10 @@ public partial class FZ260Mileage : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnKmKeyReleaseEvent(object sender, KeyReleaseEventArgs e)
   {
-    SetText(zaehler, "");
+    // System.Diagnostics.Debug.WriteLine($"OnKmKeyReleaseEvent {e.Event.Key}");
+    var k = e.Event.Key;
+    if ((k >= Gdk.Key.Key_0 && k <= Gdk.Key.Key_9) || (k >= Gdk.Key.KP_0 && k <= Gdk.Key.KP_9))
+      SetText(zaehler, "");
   }
 
   /// <summary>Handles Ok.</summary>

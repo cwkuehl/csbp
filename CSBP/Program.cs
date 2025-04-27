@@ -177,7 +177,7 @@ public class MainClass
         // Start-Dialoge starten
 #if DEBUG
         var sd = daten.MandantNr == 1 ? Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "" : "";
-        sd = "#AG500"; // "#AG500|#WP500|#TB100";
+        sd = "#FZ250"; // "#AG500|#WP500|#TB100";
         var focus = true;
 #else
         var sd = Parameter.GetValue(Parameter.AG_STARTDIALOGE) ?? "";
