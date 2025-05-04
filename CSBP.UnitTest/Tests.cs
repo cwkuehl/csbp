@@ -746,12 +746,7 @@ public partial class {filename}
     var url = @$"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&APPID={apikey}";
     ////var url = @$"http://api.openweathermap.org/data/2.5/weather?q=bodenheim,de&APPID={apikey}"; // OK
     ////var url = @$"http://history.openweathermap.org/data/2.5/history/city?lat={lat}&lon={lon}&type=hour&start={start}&cnt=24&APPID={apikey}"; // 401 unauthorized
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
-    {
-      Timeout = TimeSpan.FromMilliseconds(5000),
-    };
-    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
+    var httpsclient = HttpClientFactory.CreateClient(timeout: 5000, tls12: false);
     var task = httpsclient.GetStringAsync(url);
     task.Wait();
     var s = task.Result;
@@ -770,14 +765,9 @@ public partial class {filename}
     var tz = System.Web.HttpUtility.UrlEncode("Europe/Berlin"); // https://en.wikipedia.org/wiki/List_of_tz_database_time_zones UTC
     var start = Functions.ToString(new DateTime(2023, 2, 5));
     var url = @$"https://meteostat.p.rapidapi.com/point/hourly?lat={lat}&lon={lon}&start={start}&end={start}&alt={alt}&tz={tz}";
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
-    {
-      Timeout = TimeSpan.FromMilliseconds(5000),
-    };
+    var httpsclient = HttpClientFactory.CreateClient(timeout: 5000, tls12: true);
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Key", apikey);
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Host", "meteostat.p.rapidapi.com'");
-    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
     var task = httpsclient.GetStringAsync(url);
     task.Wait();
     var s = task.Result;
@@ -808,13 +798,8 @@ public partial class {filename}
     var url = model == dalle ? @$"https://api.openai.com/v1/images/generations"
       : model == davinci ? @$"https://api.openai.com/v1/completions"
       : @$"https://api.openai.com/v1/chat/completions";
-    System.Net.ServicePointManager.SecurityProtocol = /*System.Net.SecurityProtocolType.Tls13 |*/ System.Net.SecurityProtocolType.Tls12;
-    var httpsclient = new System.Net.Http.HttpClient
-    {
-      Timeout = TimeSpan.FromMilliseconds(50000),
-    };
+    var httpsclient = HttpClientFactory.CreateClient(timeout: 5000, tls12: false);
     httpsclient.DefaultRequestHeaders.Add("Authorization", $@"Bearer {apikey}");
-    //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
     object jcontent;
     if (model == dalle)
       jcontent = new
