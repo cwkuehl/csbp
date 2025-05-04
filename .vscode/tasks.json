@@ -10,7 +10,7 @@
         "${workspaceFolder}/CSBP/CSBP.csproj",
         "--framework", "net9.0",
         "--configuration", "Debug",
-        "-r", "linux-x64",
+        "-r", "linux-arm64",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],

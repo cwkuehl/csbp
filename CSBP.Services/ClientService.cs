@@ -804,16 +804,26 @@ public partial class ClientService : ServiceBase, IClientService
           break;
         case BackupType.CopyFile:
           state.Clear().Append($"({i}/{l}) Datei {b.Path} kopieren.");
-          if (e.Encrypted)
+          try
           {
-            if (restore)
-              FileDecrypt(b.Path, b.Path2, password);
+            if (e.Encrypted)
+            {
+              if (restore)
+                FileDecrypt(b.Path, b.Path2, password);
+              else
+                FileEncrypt(b.Path, b.Path2, password);
+            }
             else
-              FileEncrypt(b.Path, b.Path2, password);
+            {
+              File.Copy(b.Path, b.Path2, true);
+            }
+            File.SetLastWriteTimeUtc(b.Path2, b.Modified);
           }
-          else
-            File.Copy(b.Path, b.Path2, true);
-          File.SetLastWriteTimeUtc(b.Path2, b.Modified);
+          catch (Exception)
+          {
+            if (!b.Path.EndsWith("lock"))
+              throw;
+          }
           break;
         case BackupType.DeleteFile:
           state.Clear().Append($"({i}/{l}) Datei {b.Path} löschen.");

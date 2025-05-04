@@ -21,14 +21,16 @@
 # ==> OK
 # ab .net8 RID linux-x64
 
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net9.0 -r linux-x64 --self-contained false
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net9.0 -r linux-arm64 --self-contained false
+#dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net9.0 -r linux-x64 --self-contained false
 #dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net8.0 -r linux-x64 --self-contained false
 #thirdlicense --project ./CSBP/CSBP.csproj
 #cd Asciidoc
 #./asciidoc-csbp.sh
 #cd ..
 
-cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net9.0/linux-x64/publish/ /opt/Haushalt/CSBP/
+cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net9.0/linux-arm64/publish/ /opt/Haushalt/CSBP/
+#cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net9.0/linux-x64/publish/ /opt/Haushalt/CSBP/
 #cp -rf /home/wolfgang/cs/csbp/CSBP/bin/Release/net8.0/linux-x64/publish/ /opt/Haushalt/CSBP/
 #cp -rf /home/wolfgang/cs/csbp/CSBP/Resources/ /opt/Haushalt/CSBP/publish
 #rm /opt/Haushalt/CSBP/publish/Resources/T*
