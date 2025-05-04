@@ -699,8 +699,7 @@ public partial class {filename}
   [Test]
   public void Tls()
   {
-    // var cert = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "", X509KeyStorageFlags.MachineKeySet);
-    _ = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
+    _ = X509CertificateLoader.LoadPkcs12FromFile("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
     //// var date = DateTime.Today;
     //// var shortcut = "USD";
     var accesskey = GetAppKey("fixer.io");

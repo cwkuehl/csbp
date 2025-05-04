@@ -46,7 +46,9 @@ public partial class HttpsServer
     if (listener != null)
       return;
     HttpsServer.token = daten.BenutzerId;
-    serverCertificate = X509CertificateLoader.LoadCertificateFromFile("/opt/Haushalt/CSBP/cert/cert_key.pfx");
+    //// serverCertificate = new X509Certificate2("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
+    //// serverCertificate = X509CertificateLoader.LoadCertificateFromFile("/opt/Haushalt/CSBP/cert/cert_key.pfx");
+    serverCertificate = X509CertificateLoader.LoadPkcs12FromFile("/opt/Haushalt/CSBP/cert/cert_key.pfx", "");
     //// Create a TCP/IP (IPv4) socket and listen for incoming connections.
     //// Use with https://jshh.cwkuehl.de/#/diary
     listener = new TcpListener(IPAddress.Any, 4202);
