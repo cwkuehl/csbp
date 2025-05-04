@@ -514,7 +514,10 @@ public class MainWindow : Window
     DefaultWidth = size.Width;
     DefaultHeight = size.Height;
     Resizable = true;
-    if (size.X == -1 && size.Y == -1)
+    var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
+    if (architecture.ToString() == "Arm64")
+      SetPosition(WindowPosition.None);
+    else if (size.X == -1 && size.Y == -1)
       SetPosition(WindowPosition.Center);
     else
       Window.Move(size.X, size.Y);
