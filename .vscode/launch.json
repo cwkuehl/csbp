@@ -24,7 +24,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build.unittest",
-      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net9.0/linux-arm64/CSBP.UnitTest.dll",
+      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net9.0/CSBP.UnitTest.dll",
       "args": [
         "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
       ],
