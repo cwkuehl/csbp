@@ -85,7 +85,7 @@ public partial class FZ700Memos : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.PrivateService.GetMemoList(daten, text.Text)) ?? new List<FzNotiz>();
+      var l = Get(FactoryService.PrivateService.GetMemoList(daten, null, text.Text)) ?? new List<FzNotiz>();
       var values = new List<string[]>();
       foreach (var e in l)
       {

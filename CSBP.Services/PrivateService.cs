@@ -652,11 +652,12 @@ public class PrivateService : ServiceBase, IPrivateService
   /// Gets a list of memos.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="text">Affected text.</param>
   /// <returns>List of memos.</returns>
-  public ServiceErgebnis<List<FzNotiz>> GetMemoList(ServiceDaten daten, string text = null)
+  public ServiceErgebnis<List<FzNotiz>> GetMemoList(ServiceDaten daten, TableReadModel rm = null, string text = null)
   {
-    var l = FzNotizRep.GetList(daten, text);
+    var l = FzNotizRep.GetList(daten, rm, text);
     return new ServiceErgebnis<List<FzNotiz>>(l);
   }
 

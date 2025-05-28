@@ -232,9 +232,10 @@ public interface IPrivateService
   /// Gets a list of memos.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="text">Affected text.</param>
   /// <returns>List of memos.</returns>
-  ServiceErgebnis<List<FzNotiz>> GetMemoList(ServiceDaten daten, string text = null);
+  ServiceErgebnis<List<FzNotiz>> GetMemoList(ServiceDaten daten, TableReadModel rm = null, string text = null);
 
   /// <summary>
   /// Gets a memo.
