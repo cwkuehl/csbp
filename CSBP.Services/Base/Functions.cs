@@ -1262,6 +1262,32 @@ public static partial class Functions
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Encode string to Base64.
+  /// </summary>
+  /// <param name="plainText">Affected string.</param>
+  /// <returns>Encoded Base64 string.</returns>
+  public static string Base64Encode(string plainText)
+  {
+    if (string.IsNullOrEmpty(plainText))
+      return "";
+    var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+    return Convert.ToBase64String(plainTextBytes);
+  }
+
+  /// <summary>
+  /// Decode Base64 string.
+  /// </summary>
+  /// <param name="base64EncodedData">Encoded Base64 string.</param>
+  /// <returns>Decoded Base64 string.</returns>
+  public static string Base64Decode(string base64EncodedData)
+  {
+    if (string.IsNullOrEmpty(base64EncodedData))
+      return "";
+    var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+    return Encoding.UTF8.GetString(base64EncodedBytes);
+  }
+
   /// <summary>Regex for splitting lines.</summary>
   [GeneratedRegex("\r\n|\r|\n")]
   public static partial Regex SplitLinesRegex();
