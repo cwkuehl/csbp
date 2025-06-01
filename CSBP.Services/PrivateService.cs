@@ -12,6 +12,7 @@ using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
+using CSBP.Services.Base.Csv;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -25,6 +26,32 @@ public class PrivateService : ServiceBase, IPrivateService
 
   /// <summary>Sets budget service.</summary>
   public IBudgetService BudgetService { private get; set; }
+
+  /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "AG100".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
+  {
+    var r = new ServiceErgebnis<string>();
+    if (!(page == "FZ700") || rm == null)
+      return r;
+    rm.NoPaging = true;
+    var cs = new CsvWriter();
+    if (page == "FZ700")
+    {
+      var l = FzNotizRep.GetList(daten, rm);
+      cs.AddCsvLine(["Mandant_Nr", "Thema", "Notiz", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Thema, o.Notiz, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    return new ServiceErgebnis<string>(cs.GetContent());
+  }
 
   /// <summary>
   /// Gets a list of bikes.
