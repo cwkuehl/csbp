@@ -57,10 +57,11 @@ public class PrivateService : ServiceBase, IPrivateService
   /// Gets a list of bikes.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <returns>List of bikes.</returns>
-  public ServiceErgebnis<List<FzFahrrad>> GetBikeList(ServiceDaten daten)
+  public ServiceErgebnis<List<FzFahrrad>> GetBikeList(ServiceDaten daten, TableReadModel rm = null)
   {
-    var l = FzFahrradRep.GetList(daten, daten.MandantNr).OrderBy(a => a.Bezeichnung).ToList();
+    var l = FzFahrradRep.GetList(daten, rm);
     return new ServiceErgebnis<List<FzFahrrad>>(l);
   }
 

@@ -27,8 +27,9 @@ public interface IPrivateService
   /// Gets a list of bikes.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <returns>List of bikes.</returns>
-  ServiceErgebnis<List<FzFahrrad>> GetBikeList(ServiceDaten daten);
+  ServiceErgebnis<List<FzFahrrad>> GetBikeList(ServiceDaten daten, TableReadModel rm = null);
 
   /// <summary>
   /// Gets a bike.
