@@ -61,10 +61,11 @@ public interface IPrivateService
   /// Gets a list of mileages.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="buid">Affected bike ID.</param>
   /// <param name="text">Affected text.</param>
   /// <returns>List of mileages.</returns>
-  ServiceErgebnis<List<FzFahrradstand>> GetMileageList(ServiceDaten daten, string buid, string text);
+  ServiceErgebnis<List<FzFahrradstand>> GetMileageList(ServiceDaten daten, TableReadModel rm = null, string buid = null, string text = null);
 
   /// <summary>
   /// Gets a list of mileages for statistics.

@@ -117,7 +117,7 @@ public class PrivateService : ServiceBase, IPrivateService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis DeleteBike(ServiceDaten daten, FzFahrrad e)
   {
-    var liste = FzFahrradstandRep.GetList(daten, e.Uid);
+    var liste = FzFahrradstandRep.GetList(daten, null, e.Uid);
     foreach (var m in liste)
     {
       FzFahrradstandRep.Delete(daten, m);
@@ -130,12 +130,13 @@ public class PrivateService : ServiceBase, IPrivateService
   /// Gets a list of mileages.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="buid">Affected bike ID.</param>
   /// <param name="text">Affected text.</param>
   /// <returns>List of mileages.</returns>
-  public ServiceErgebnis<List<FzFahrradstand>> GetMileageList(ServiceDaten daten, string buid, string text)
+  public ServiceErgebnis<List<FzFahrradstand>> GetMileageList(ServiceDaten daten, TableReadModel rm = null, string buid = null, string text = null)
   {
-    var l = FzFahrradstandRep.GetList(daten, buid, text: text, desc: true);
+    var l = FzFahrradstandRep.GetList(daten, rm, buid, text: text, desc: true);
     return new ServiceErgebnis<List<FzFahrradstand>>(l);
   }
 
@@ -158,7 +159,7 @@ public class PrivateService : ServiceBase, IPrivateService
     ////if (BikeYearFixed)
     ////von = von.AddDays(1 - date.DayOfYear); // separated commands because of leap year
     var von = new DateTime(date.Year - years, month, day);
-    var min = FzFahrradstandRep.GetList(daten, null, desc: false, max: 1).FirstOrDefault();
+    var min = FzFahrradstandRep.GetList(daten, null, null, desc: false, max: 1).FirstOrDefault();
     if (min != null)
     {
       var dmin = new DateTime(min.Datum.DayOfYear < date.DayOfYear ? min.Datum.Year - 1 : min.Datum.Year, month, day);
@@ -205,7 +206,7 @@ public class PrivateService : ServiceBase, IPrivateService
   /// <returns>Mileage or null.</returns>
   public ServiceErgebnis<FzFahrradstand> GetMileage(ServiceDaten daten, string buid, DateTime date, int nr)
   {
-    var e = FzFahrradstandRep.GetList(daten, buid, date, nr).FirstOrDefault();
+    var e = FzFahrradstandRep.GetList(daten, null, buid, date, nr).FirstOrDefault();
     return new ServiceErgebnis<FzFahrradstand>(e);
   }
 
@@ -269,7 +270,7 @@ public class PrivateService : ServiceBase, IPrivateService
     {
       // Inserts new mileage.
       // Reads possibly existing mileage in same week.
-      var l = FzFahrradstandRep.GetList(daten, buid, datege: dAktuell, max: protag);
+      var l = FzFahrradstandRep.GetList(daten, null, buid, datege: dAktuell, max: protag);
       if (l.Any())
       {
         insert = false;
@@ -281,7 +282,7 @@ public class PrivateService : ServiceBase, IPrivateService
       }
     }
     //// getMaxVorher
-    var liste = FzFahrradstandRep.GetList(daten, buid, datele: dAktuell, desc: true, max: protag);
+    var liste = FzFahrradstandRep.GetList(daten, null, buid, datele: dAktuell, desc: true, max: protag);
     if (liste.Any())
     {
       var i = 0;
@@ -295,7 +296,7 @@ public class PrivateService : ServiceBase, IPrivateService
       while (voVorher == null && i < liste.Count);
     }
     //// getMinNachher
-    liste = FzFahrradstandRep.GetList(daten, buid, datege: dAktuell, max: protag);
+    liste = FzFahrradstandRep.GetList(daten, null, buid, datege: dAktuell, max: protag);
     if (liste.Any())
     {
       var i = 0;
@@ -379,7 +380,7 @@ public class PrivateService : ServiceBase, IPrivateService
       // Gets next value.
       if (nr > 0 && neueNr)
         throw new MessageException(FZ029(nr));
-      var l = FzFahrradstandRep.GetList(daten, buid, datege: dAktuell, datele: dAktuell, desc: true, max: 1);
+      var l = FzFahrradstandRep.GetList(daten, null, buid, datege: dAktuell, datele: dAktuell, desc: true, max: 1);
       nr = 0;
       if (l.Any())
         nr = l.First().Nr + 1;
@@ -410,7 +411,7 @@ public class PrivateService : ServiceBase, IPrivateService
     foreach (var bike in bikes)
     {
       var z = 0m;
-      var l = FzFahrradstandRep.GetList(daten, bike.Uid);
+      var l = FzFahrradstandRep.GetList(daten, null, bike.Uid);
       foreach (var s in l)
       {
         if (z + s.Periode_km != s.Zaehler_km)
@@ -435,7 +436,7 @@ public class PrivateService : ServiceBase, IPrivateService
   {
     if (e == null)
       throw new MessageException(FZ029(0));
-    var l = FzFahrradstandRep.GetList(daten, e.Fahrrad_Uid, datege: e.Datum, max: 10);
+    var l = FzFahrradstandRep.GetList(daten, null, e.Fahrrad_Uid, datege: e.Datum, max: 10);
     foreach (var m in l)
     {
       if (m.Datum > e.Datum || m.Nr > e.Nr)
@@ -866,7 +867,7 @@ public class PrivateService : ServiceBase, IPrivateService
         var kmJahr = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr, jetzt1);
         var kmyear1 = FzFahrradstandRep.Count(daten, vo.Uid, aktJahr.AddYears(-1), aktJahr.AddDays(-1));
         var anzahlTage = 0;
-        var liste = FzFahrradstandRep.GetList(daten, vo.Uid, datele: jetzt1, desc: false, max: 1);
+        var liste = FzFahrradstandRep.GetList(daten, null, vo.Uid, datele: jetzt1, desc: false, max: 1);
         DateTime? anfang = null;
         if (liste.Any())
         {
