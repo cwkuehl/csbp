@@ -1270,18 +1270,23 @@ public class MainWindow : Window
   {
     popovermenu1.Visible = false;
     var daten = MainClass.ServiceDaten;
-    var ver = Assembly.GetEntryAssembly()?.GetName().Version.ToString() ?? "1.1";
+    var assembly = Assembly.GetEntryAssembly();
+    var ver = assembly?.GetName().Version.ToString() ?? "1.1";
+    var loc = assembly?.Location;
+    var date = string.IsNullOrEmpty(loc) ? "" : Functions.ToString(System.IO.File.GetCreationTime(loc), true);
     var db = Parameter.Connect;
     var roles = string.Join(", ", daten.Daten.Rollen);
     using var about = new AboutDialog
     {
       Title = "", // Titel geht nicht.
       ProgramName = "CSharp Budget Program",
-      Version = ver + ", Runtime " + GetNetCoreVersion(),
+      Version = $"{ver} ({date}), Runtime {GetNetCoreVersion()}",
       Copyright = "(c) 2019-2025 Wolfgang Kuehl",
-      Comments = $@"CSBP is a simple budget program.
-Database: {db}
-Client: {daten.MandantNr} User: {daten.BenutzerId} Roles: {roles}",
+      Comments = $"""
+      CSBP is a simple budget program.
+      Database: {db}
+      Client: {daten.MandantNr} User: {daten.BenutzerId} Roles: {roles}
+      """,
       Website = "https://cwkuehl.de",
       Logo = Gdk.Pixbuf.LoadFromResource("CSBP.Resources.Icons.WKHH.gif"),
     };
