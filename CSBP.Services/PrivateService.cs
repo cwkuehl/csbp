@@ -37,11 +37,22 @@ public class PrivateService : ServiceBase, IPrivateService
   public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
   {
     var r = new ServiceErgebnis<string>();
-    if (!(page == "FZ700") || rm == null)
+    if (!(page == "FZ200" || page == "FZ700") || rm == null)
+    {
       return r;
+    }
     rm.NoPaging = true;
     var cs = new CsvWriter();
-    if (page == "FZ700")
+    if (page == "FZ200")
+    {
+      var l = FzFahrradRep.GetList(daten, rm);
+      cs.AddCsvLine(["Mandant_Nr", "Bezeichnung", "Typ", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, o.TypBezeichnung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    else if (page == "FZ700")
     {
       var l = FzNotizRep.GetList(daten, rm);
       cs.AddCsvLine(["Mandant_Nr", "Thema", "Notiz", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
@@ -50,7 +61,8 @@ public class PrivateService : ServiceBase, IPrivateService
         cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Thema, o.Notiz, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
-    return new ServiceErgebnis<string>(cs.GetContent());
+    r.Ergebnis = cs.GetContent();
+    return r;
   }
 
   /// <summary>
