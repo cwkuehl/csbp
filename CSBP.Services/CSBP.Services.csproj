@@ -12,7 +12,7 @@
   <ItemGroup Condition="'$(TargetFramework)'!='net5.0'">
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.*" />
     <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.6" /> <!-- 06.07.2025 Conflict between 9.0.5 and 9.0.6 in blazorBp. -->
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.*" />
     <PackageReference Include="NLog" Version="5.*" />
     <PackageReference Include="System.Reactive" Version="6.*" />
