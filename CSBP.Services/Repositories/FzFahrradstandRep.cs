@@ -7,7 +7,7 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Views;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,15 +32,14 @@ public partial class FzFahrradstandRep
   /// <param name="desc">Sorting order descending or not.</param>
   /// <param name="max">Maximal amount of records.</param>
   /// <returns>List of mileages.</returns>
-  public List<FzFahrradstand> GetList(ServiceDaten daten, TableReadModel rm = null, string buid = null, DateTime? date = null,
+  public List<VFzFahrradstand> GetList(ServiceDaten daten, TableReadModel rm = null, string buid = null, DateTime? date = null,
     int no = -1, string text = null, DateTime? datege = null, DateTime? datele = null,
     bool desc = false, int max = 0)
   {
     var db = GetDb(daten);
-    //// var vl = db.V_FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr).ToList();
-    var wl = db.FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+    var wl = db.V_FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (CsbpBase.IsLike(text))
-      wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, text));
+      wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, text) || EF.Functions.Like(a.Bezeichnung, text));
     if (!string.IsNullOrEmpty(buid))
       wl = wl.Where(a => a.Fahrrad_Uid == buid);
     if (date.HasValue)
@@ -55,7 +54,7 @@ public partial class FzFahrradstandRep
     {
       if (CsbpBase.IsLike(rm.Search))
       {
-        wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, rm.Search));
+        wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, rm.Search) || EF.Functions.Like(a.Bezeichnung, rm.Search));
       }
       if (!rm.NoPaging)
       {
@@ -64,31 +63,12 @@ public partial class FzFahrradstandRep
         var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
         var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
         var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
-        if (l2.Any())
-        {
-          // Join mit FZ_Fahrrad.
-          var bdict = db.FZ_Fahrrad.Where(a => a.Mandant_Nr == daten.MandantNr).ToDictionary(a => a.Uid, a => a.Bezeichnung);
-          foreach (var p in l2)
-          {
-            if (bdict.TryGetValue(p.Fahrrad_Uid, out var d))
-              p.BikeDescription = d;
-          }
-        }
         return l2;
       }
     }
     {
-      var l = wl.Join(db.FZ_Fahrrad.Where(a => a.Mandant_Nr == daten.MandantNr),
-              a => a.Fahrrad_Uid, b => b.Uid, (a, b) => new { mileage = a, bike = b });
-      var l2 = desc ? l.OrderByDescending(a => a.mileage.Datum).ThenByDescending(a => a.mileage.Nr)
-          : l.OrderBy(a => a.mileage.Datum).ThenBy(a => a.mileage.Nr);
-      var l3 = l2.Take(max <= 0 ? int.MaxValue : max).ToList()
-          .Select(a =>
-          {
-            a.mileage.BikeDescription = a.bike.Bezeichnung;
-            return a.mileage;
-          });
-      return l3.ToList();
+      var l2 = desc ? wl.OrderByDescending(a => a.Datum).ThenByDescending(a => a.Nr) : wl.OrderBy(a => a.Datum).ThenBy(a => a.Nr);
+      return l2.ToList();
     }
   }
 

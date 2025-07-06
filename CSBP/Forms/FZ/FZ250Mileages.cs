@@ -7,7 +7,7 @@ namespace CSBP.Forms.FZ;
 using System;
 using System.Collections.Generic;
 using CSBP.Services.Apis.Enums;
-using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Views;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
@@ -95,14 +95,14 @@ public partial class FZ250Mileages : CsbpBin
     if (step <= 1)
     {
       var l = Get(FactoryService.PrivateService.GetMileageList(ServiceDaten, null, GetText(fahrrad), text.Text))
-        ?? new List<FzFahrradstand>();
+        ?? new List<VFzFahrradstand>();
       var values = new List<string[]>();
       foreach (var e in l)
       {
         // No.;Bike;Date;No.;Odometer_r;Km_r;Average_r;Description;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Fahrrad_Uid, e.BikeDescription, Functions.ToString(e.Datum),
+          e.Fahrrad_Uid, e.Bezeichnung, Functions.ToString(e.Datum),
           Functions.ToString(e.Nr), Functions.ToString(e.Zaehler_km, 0),
           Functions.ToString(e.Periode_km, 0), Functions.ToString(e.Periode_Schnitt, 2),
           e.Beschreibung, Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,

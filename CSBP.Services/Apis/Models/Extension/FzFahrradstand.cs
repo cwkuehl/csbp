@@ -13,6 +13,6 @@ using CSBP.Services.Base;
 public partial class FzFahrradstand : ModelBase
 {
   /// <summary>Gets or sets the bike description.</summary>
-  [NotMapped]
-  public string BikeDescription { get; set; }
+  // [NotMapped]
+  // public string BikeDescription { get; set; }
 }

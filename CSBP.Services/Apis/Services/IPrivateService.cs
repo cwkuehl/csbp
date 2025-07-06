@@ -7,6 +7,7 @@ namespace CSBP.Services.Apis.Services;
 using System;
 using System.Collections.Generic;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Views;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -65,7 +66,7 @@ public interface IPrivateService
   /// <param name="buid">Affected bike ID.</param>
   /// <param name="text">Affected text.</param>
   /// <returns>List of mileages.</returns>
-  ServiceErgebnis<List<FzFahrradstand>> GetMileageList(ServiceDaten daten, TableReadModel rm = null, string buid = null, string text = null);
+  ServiceErgebnis<List<VFzFahrradstand>> GetMileageList(ServiceDaten daten, TableReadModel rm = null, string buid = null, string text = null);
 
   /// <summary>
   /// Gets a list of mileages for statistics.

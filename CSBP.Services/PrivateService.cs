@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Views;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Base.Csv;
@@ -134,10 +135,10 @@ public class PrivateService : ServiceBase, IPrivateService
   /// <param name="buid">Affected bike ID.</param>
   /// <param name="text">Affected text.</param>
   /// <returns>List of mileages.</returns>
-  public ServiceErgebnis<List<FzFahrradstand>> GetMileageList(ServiceDaten daten, TableReadModel rm = null, string buid = null, string text = null)
+  public ServiceErgebnis<List<VFzFahrradstand>> GetMileageList(ServiceDaten daten, TableReadModel rm = null, string buid = null, string text = null)
   {
     var l = FzFahrradstandRep.GetList(daten, rm, buid, text: text, desc: true);
-    return new ServiceErgebnis<List<FzFahrradstand>>(l);
+    return new ServiceErgebnis<List<VFzFahrradstand>>(l);
   }
 
   /// <summary>
