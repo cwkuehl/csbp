@@ -221,6 +221,13 @@
       <keycolumn name="Datum" />
       <keycolumn name="Nr" />
     </primarykey>
+    <view name="V_FZ_Fahrradstand" alias="a">
+      <join name="FZ_Fahrrad" alias="b">
+        <viewcolumn name="Bezeichnung"/>
+        <viewcolumn name="Typ"/>
+        <on condition="a.Mandant_Nr=b.Mandant_Nr AND a.Fahrrad_Uid=b.Uid"/>
+      </join>
+    </view>
   </table>
   <table name="FZ_Notiz">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
@@ -583,7 +590,7 @@
     <column name="Datum_Typ" type="VARCHAR" length="4" nullable="false" />
     <column name="Ort" type="VARCHAR" length="120" nullable="true" />
     <column name="Bemerkung" type="VARCHAR" length="-1" nullable="true" />
-    <column name="Quelle_Uid" type="VARCHAR" length="12" nullable="true" />
+    <column name="Quelle_Uid" type="VARCHAR" length="35" nullable="true" />
     <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
     <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
     <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />

@@ -5,6 +5,7 @@
 namespace CSBP.Services.Repositories.Base;
 
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Views;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -47,6 +48,9 @@ public partial class CsbpContext : DbContext
 
   /// <summary>Gets or sets the set of rows of table FZ_Fahrradstand.</summary>
   public DbSet<FzFahrradstand> FZ_Fahrradstand { get; set; }
+
+  /// <summary>Gets or sets the set of rows of view V_FZ_Fahrradstand.</summary>
+  public DbSet<VFzFahrradstand> V_FZ_Fahrradstand { get; set; }
 
   /// <summary>Gets or sets the set of rows of table FZ_Notiz.</summary>
   public DbSet<FzNotiz> FZ_Notiz { get; set; }

@@ -309,6 +309,14 @@ public partial class ClientService : ServiceBase, IClientService
         MaMandantRep.Execute(daten, mout);
         version = 61;
       }
+      else if (version <= 62)
+      {
+        var mout = new List<string>();
+        mout.Add($"DROP VIEW IF EXISTS V_FZ_Fahrradstand;");
+        mout.Add($"CREATE VIEW IF NOT EXISTS V_FZ_Fahrradstand AS SELECT a.*, b.Bezeichnung, b.Typ FROM FZ_Fahrradstand a JOIN FZ_Fahrrad b ON a.Mandant_Nr=b.Mandant_Nr AND a.Fahrrad_Uid=b.Uid;");
+        MaMandantRep.Execute(daten, mout);
+        version = 63;
+      }
       if (versionalt < version)
       {
         p.Wert = Functions.ToString(version);

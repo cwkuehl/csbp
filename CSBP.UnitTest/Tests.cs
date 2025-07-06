@@ -14,9 +14,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models.Extension;
 using CSBP.Services.Base;
 using CSBP.Services.NonService;
+using CSBP.Services.Repositories.Base;
 using NUnit.Framework;
 
 /// <summary>
@@ -52,6 +54,8 @@ public class Tests
     if (Functions.MachNichts() != 0)
       t.GenerierenReps();
     if (Functions.MachNichts() != 0)
+      t.GenerierenSqlSkript();
+    if (Functions.MachNichts() == 0)
       t.GenerierenModelCs();
     if (Functions.MachNichts() != 0)
       t.Tls();
@@ -67,7 +71,7 @@ public class Tests
       t1.Setup();
       t1.TestParser();
     }
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
     {
       var t1 = new ServiceTest();
       t1.Setup();
@@ -113,31 +117,112 @@ public class Tests
   }
 
   /// <summary>
+  /// Generieren aller Tabellen und Views als SQL-Skript.
+  /// </summary>
+  [Test]
+  public void GenerierenSqlSkript()
+  {
+    var tables = GetXmlTables();
+    var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+    var mout = new List<string>();
+    foreach (var t in tables)
+    {
+      var tabelle = t.Attribute("name").Value;
+      var tab = tabelle; // Functions.TabName(tabelle);
+      var keycolumns = t.Descendants("keycolumn");
+      var pk = string.Join(", ", keycolumns.Select(a => a.Attribute("name").Value));
+      dba.CreateTab0();
+      var columns = t.Descendants("column");
+      foreach (var c in columns)
+      {
+        var name = c.Attribute("name").Value;
+        var type = c.Attribute("type").Value;
+        var length = Functions.ToInt32(c.Attribute("length")?.Value);
+        var nullable = bool.Parse(c.Attribute("nullable").Value);
+        var typ = "";
+        if (type == "DATE")
+          typ = "D_DATE";
+        else if (type == "TIMESTAMP")
+          typ = "D_DATETIME";
+        else if (type == "DECIMAL(21,4)")
+          typ = "D_GELDBETRAG";
+        else if (type == "DECIMAL(21,6)")
+          typ = "D_GELDBETRAG2";
+        else if (type == "INTEGER")
+          typ = "D_INTEGER";
+        else if (type == "BIGINT")
+          typ = "D_LONG";
+        else if (type == "VARCHAR")
+        {
+          if (length < 0)
+            typ = "D_MEMO";
+          else
+            typ = $"D_STRING_{length:00}";
+        }
+        else if (type == "BLOB")
+          typ = "D_BLOB";
+        else if (type == "BOOLEAN")
+          typ = "D_SWITCH";
+        dba.CreateTab1(name, typ, nullable);
+      }
+      dba.CreateTab2(mout, tab, pk);
+      var views = t.Descendants("view");
+      foreach (var v in views)
+      {
+        var vname = v.Attribute("name").Value;
+        var aliasa = v.Attribute("alias").Value;
+        var vselects = "";
+        var froms = $" FROM {tabelle} {aliasa}";
+        var joins = t.Descendants("join");
+        foreach (var j in joins)
+        {
+          var jname = j.Attribute("name").Value;
+          var aliasb = j.Attribute("alias").Value;
+          var vcolumns = j.Descendants("viewcolumn");
+          if (vcolumns.Any())
+            vselects = ", " + string.Join(", ", vcolumns.Select(a => $"{aliasb}." + a.Attribute("name").Value));
+          var jon = j.Descendants("on").First().Attribute("condition").Value;
+          froms += $" JOIN {jname} {aliasb} ON {jon}";
+        }
+        var dv = $"DROP VIEW IF EXISTS {vname};";
+        Console.WriteLine(dv);
+        var cv = $"CREATE VIEW IF NOT EXISTS {vname} AS SELECT {aliasa}.*{vselects}{froms};";
+        Console.WriteLine(cv);
+        ////            CREATE VIEW V_FZ_Fahrradstand AS SELECT a.*, b.Bezeichnung, b.Typ FROM FZ_Fahrradstand a JOIN FZ_Fahrrad ON a.Mandant_Nr=b.Mandant_Nr AND a.Fahrrad_Uid=b.Uid
+        //// mout.Add($"CREATE VIEW V_FZ_Fahrradstand AS SELECT a.*, b.Bezeichnung, b.Typ FROM FZ_Fahrradstand a JOIN FZ_Fahrrad b ON a.Mandant_Nr=b.Mandant_Nr AND a.Fahrrad_Uid=b.Uid;");
+      }
+    }
+    ////foreach (var s in mout)
+    ////  Console.WriteLine(s);
+  }
+
+  /// <summary>
   /// Generieren der Entity-Klassen und der CsbpContext-Klasse.
   /// </summary>
   [Test]
   public void GenerierenModelCs()
   {
-    var g = XDocument.Load(Path.Combine(Pfad, "csbp/CSBP.Services/Resources/Tables.xml"));
-    var tables = g.Descendants("table");
+    var tables = GetXmlTables();
     var sets = new StringBuilder();
     var keys = new StringBuilder();
     foreach (var t in tables)
     {
       var tabelle = t.Attribute("name").Value;
-      if (tabelle.StartsWith("HP_", StringComparison.CurrentCulture)
-          || tabelle.StartsWith("MO_", StringComparison.CurrentCulture)
-          ////|| tabelle.StartsWith("SO_", StringComparison.CurrentCulture)
-          || tabelle.StartsWith("VM_", StringComparison.CurrentCulture))
-        continue;
       var tab = Functions.TabName(tabelle);
-
       if (!tabelle.StartsWith("SO_", StringComparison.CurrentCulture))
       {
         if (sets.Length > 0)
           sets.Append(Environment.NewLine).Append(Environment.NewLine);
         sets.Append($@"  /// <summary>Gets or sets the set of rows of table {tabelle}.</summary>
   public DbSet<{tab}> {tabelle} {{ get; set; }}");
+      }
+      foreach (var v in t.Descendants("view"))
+      {
+        var view = v.Attribute("name").Value;
+        var vw = Functions.TabName(view);
+        sets.Append(Environment.NewLine).Append(Environment.NewLine);
+        sets.Append($@"  /// <summary>Gets or sets the set of rows of view {view}.</summary>
+  public DbSet<{vw}> {view} {{ get; set; }}");
       }
 
       var props = new StringBuilder();
@@ -202,6 +287,54 @@ public partial class {tab} : ModelBase
 }}
 ";
       File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP.Services/Apis/Models", tab + ".cs"), model);
+      foreach (var v in t.Descendants("view"))
+      {
+        var view = v.Attribute("name").Value;
+        var vw = Functions.TabName(view);
+        props = new StringBuilder();
+        var joins = v.Descendants("join");
+        foreach (var j in joins)
+        {
+          var jname = j.Attribute("name").Value;
+          var vt = tables.First(a => a.Attribute("name").Value == jname);
+          var vcolumns = j.Descendants("viewcolumn");
+          var vtcolumns = vt.Descendants("column");
+          foreach (var vc in vcolumns)
+          {
+            var name = vc.Attribute("name").Value;
+            var vtc = vtcolumns.First(a => a.Attribute("name").Value == name);
+            var type = vtc.Attribute("type").Value;
+            //// var length = vtc.Attribute("length")?.Value;
+            var nullable = bool.Parse(vtc.Attribute("nullable").Value);
+            if (props.Length > 0)
+              props.Append(Environment.NewLine).Append(Environment.NewLine);
+            var comm = GetCsType(type, nullable).StartsWith("bool") ? $@"Gets or sets a value indicating whether column {name} is true." : $@"Gets or sets the value of column {name}.";
+            props.Append($@"  /// <summary>{comm}</summary>
+    public {GetCsType(type, nullable)} {name} {{ get; set; }}");
+          }
+        }
+        model = $@"// <copyright file=""{vw}.cs"" company=""cwkuehl.de"">
+// Copyright (c) cwkuehl.de. All rights reserved.
+// </copyright>
+
+namespace CSBP.Services.Apis.Models.Views;
+
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using CSBP.Services.Apis.Models;
+
+/// <summary>
+/// Entity class for view {view}.
+/// </summary>
+[Serializable]
+[Table(""{view}"")]
+public partial class {vw} : {tab}
+{{
+{props}
+}}
+";
+        File.WriteAllText(Path.Combine(Pfad, "csbp/CSBP.Services/Apis/Models/Views", vw + ".cs"), model);
+      }
     }
     var context = $@"// <copyright file=""CsbpContext2.cs"" company=""cwkuehl.de"">
 // Copyright (c) cwkuehl.de. All rights reserved.
@@ -210,6 +343,7 @@ public partial class {tab} : ModelBase
 namespace CSBP.Services.Repositories.Base;
 
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Models.Views;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -1484,6 +1618,24 @@ public partial class {filename}
       a.Value == "imExport" ? "floppy" :
       null;
     return name;
+  }
+
+  /// <summary>
+  /// Gets list of tables.
+  /// </summary>
+  /// <returns>List of Tables.</returns>
+  private List<XElement> GetXmlTables()
+  {
+    var g = XDocument.Load(Path.Combine(Pfad, "csbp/CSBP.Services/Resources/Tables.xml"));
+    var tables = g.Descendants("table");
+    return tables.Where(a =>
+    {
+      var t = a.Attribute("name").Value;
+      return !(t.StartsWith("HP_", StringComparison.CurrentCulture)
+          || t.StartsWith("MO_", StringComparison.CurrentCulture)
+          ////|| t.StartsWith("SO_", StringComparison.CurrentCulture)
+          || t.StartsWith("VM_", StringComparison.CurrentCulture));
+    }).ToList();
   }
 
   /// <summary>Kontext zum Generieren eines Formulars.</summary>

@@ -576,7 +576,7 @@ public partial class DbAlter
         db = DatabaseTypeEnum.SqLite + "#";
         mhtTyp.Add(db + "D_DATE", "DATE");
         mhtTyp.Add(db + "D_DATETIME", "TIMESTAMP DEFAULT NULL");
-        mhtTyp.Add(db + "D_GELDBETRAG", "DECIMAL(21,4) ");
+        mhtTyp.Add(db + "D_GELDBETRAG", "DECIMAL(21,4)");
         mhtTyp.Add(db + "D_GELDBETRAG2", "DECIMAL(21,6)");
         mhtTyp.Add(db + "D_INTEGER", "INTEGER");
         mhtTyp.Add(db + "D_LONG", "BIGINT");
@@ -591,6 +591,7 @@ public partial class DbAlter
         mhtTyp.Add(db + "D_STRING_10", "VARCHAR(10) COLLATE NOCASE");
         mhtTyp.Add(db + "D_STRING_20", "VARCHAR(20) COLLATE NOCASE");
         mhtTyp.Add(db + "D_STRING_35", "VARCHAR(35) COLLATE NOCASE");
+        mhtTyp.Add(db + "D_STRING_36", "VARCHAR(36) COLLATE NOCASE");
         mhtTyp.Add(db + "D_STRING_40", "VARCHAR(40) COLLATE NOCASE");
         mhtTyp.Add(db + "D_STRING_50", "VARCHAR(50) COLLATE NOCASE");
         mhtTyp.Add(db + "D_STRING_100", "VARCHAR(100) COLLATE NOCASE");

@@ -56,6 +56,7 @@ public class Parameter
   /// </summary>
   static Parameter()
   {
+    // var userpath = Functions.IsLinux() ? $"/home/vscodeuser/hsqldb/" : ""; // Für Docker-Versuche
     var userpath = Functions.IsLinux() ? $"/home/{Environment.UserName}/hsqldb/" : "";
 
     // Values dependant from client number are directly read by function MaParameterRep.GetValue.
