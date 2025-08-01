@@ -115,6 +115,26 @@ public partial class FzFahrradstandRep : RepositoryBase
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, fahrraduid, datum, nr);
     var e = a ?? new FzFahrradstand();
+    if (a != null && a.TableName != "FZ_Fahrradstand")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new FzFahrradstand
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Fahrrad_Uid = a.Fahrrad_Uid,
+        Datum = a.Datum,
+        Nr = a.Nr,
+        Zaehler_km = a.Zaehler_km,
+        Periode_km = a.Periode_km,
+        Periode_Schnitt = a.Periode_Schnitt,
+        Beschreibung = a.Beschreibung,
+        Angelegt_Am = a.Angelegt_Am,
+        Angelegt_Von = a.Angelegt_Von,
+        Geaendert_Am = a.Geaendert_Am,
+        Geaendert_Von = a.Geaendert_Von,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Fahrrad_Uid = fahrraduid;
     e.Datum = datum;
