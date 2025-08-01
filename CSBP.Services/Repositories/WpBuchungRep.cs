@@ -27,12 +27,13 @@ public partial class WpBuchungRep
   /// <param name="uid">Affected uid.</param>
   /// <param name="stuid">Affected stock uid.</param>
   /// <param name="inuid">Affected investment uid.</param>
+  /// <param name="buid">Affected booking uid.</param>
   /// <param name="from">Affected from date.</param>
   /// <param name="to">Affected to date.</param>
   /// <param name="desc">Descending by date or not.</param>
   /// <returns>List of bookings.</returns>
   public List<WpBuchung> GetList(ServiceDaten daten, int mandantnr, string text, string uid = null,
-      string stuid = null, string inuid = null, DateTime? from = null, DateTime? to = null, bool desc = false)
+      string stuid = null, string inuid = null, string buid = null, DateTime? from = null, DateTime? to = null, bool desc = false)
   {
     var db = GetDb(daten);
     var wl = db.WP_Buchung.Where(a => a.Mandant_Nr == mandantnr);
@@ -44,6 +45,8 @@ public partial class WpBuchungRep
       wl = wl.Where(a => a.Wertpapier_Uid == stuid);
     if (!string.IsNullOrEmpty(inuid))
       wl = wl.Where(a => a.Anlage_Uid == inuid);
+    if (!string.IsNullOrEmpty(buid))
+      wl = wl.Where(a => EF.Functions.Like(a.Notiz, buid));
     if (from.HasValue)
       wl = wl.Where(a => a.Datum >= from.Value);
     if (to.HasValue)

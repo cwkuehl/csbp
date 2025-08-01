@@ -1094,6 +1094,34 @@ public class BudgetService : ServiceBase, IBudgetService
         dValt = vd;
       SetzePassendeBerPeriode(daten, dValt);
     }
+    if (insert)
+    {
+      // Keep input order per valuta by uid.
+      SaveChanges(daten);
+      var blist = HhBuchungRep.GetList(daten, null, null, valuta: true, from: buchung.Soll_Valuta, to: buchung.Soll_Valuta);
+      var last = blist.LastOrDefault();
+      if (last != null && last.Uid != buchung.Uid)
+      {
+        // TODO In separate transaction for undo.
+        // Find new uid before (descend) last uid.
+        var luid = last.Uid;
+        var i = 999999; // Prevent endless loop.
+        string newuid = null;
+        do
+        {
+          newuid = Functions.GetUid();
+          i--;
+        }
+        while (i >= 0 && string.CompareOrdinal(newuid, luid) >= 0);
+        if (i >= 0)
+        {
+          HhBuchungRep.Delete(daten, buchung);
+          SaveChanges(daten);
+          buchung.Uid = newuid;
+          HhBuchungRep.Insert(daten, buchung);
+        }
+      }
+    }
     return buchung;
   }
 

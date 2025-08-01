@@ -484,7 +484,7 @@ public class StockService : ServiceBase, IStockService
     {
       SaveChanges(daten);
       var i = r.Ergebnis;
-      var ilist = WpBuchungRep.GetList(daten, daten.MandantNr, null, null, null, i.Uid, null, valuta.Value);
+      var ilist = WpBuchungRep.GetList(daten, daten.MandantNr, null, inuid: i.Uid, to: valuta.Value);
       var shares = ilist.Sum(a => a.Anteile);
       if (shares > 0)
       {
