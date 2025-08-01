@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -117,6 +118,30 @@ public partial class HhBuchungRep : RepositoryBase
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new HhBuchung();
+    if (a != null && a.TableName != "HH_Buchung")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new HhBuchung
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Uid = a.Uid,
+        Soll_Valuta = a.Soll_Valuta,
+        Haben_Valuta = a.Haben_Valuta,
+        Kz = a.Kz,
+        Betrag = a.Betrag,
+        EBetrag = a.EBetrag,
+        Soll_Konto_Uid = a.Soll_Konto_Uid,
+        Haben_Konto_Uid = a.Haben_Konto_Uid,
+        BText = a.BText,
+        Beleg_Nr = a.Beleg_Nr,
+        Beleg_Datum = a.Beleg_Datum,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Soll_Valuta = sollvaluta;

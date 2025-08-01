@@ -51,11 +51,11 @@ public class Tests
       t.GenerateForm();
     if (Functions.MachNichts() != 0)
       t.GenerateResxDesigner();
-    if (Functions.MachNichts() != 0)
+    if (Functions.MachNichts() == 0)
       t.GenerierenReps();
     if (Functions.MachNichts() != 0)
       t.GenerierenSqlSkript();
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
       t.GenerierenModelCs();
     if (Functions.MachNichts() != 0)
       t.Tls();
@@ -457,6 +457,20 @@ public partial class CsbpContext : DbContext
           ? $@"var a = string.IsNullOrEmpty(uid) ? null : Get(daten{kparam2});
 " : $@"var a = Get(daten{kparam2});
 ").Append($@"    var e = a ?? new {tab}();
+").Append($@"    if (a != null && a.TableName != ""{tabelle}"")
+    {{
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new {tab}
+      {{
+");
+      foreach (var p in ps)
+      {
+        getvalue.Append($@"        {p.name} = a.{p.name},
+");
+      }
+      getvalue.Append($@"      }};
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }}
 ");
       foreach (var p in ps)
       {

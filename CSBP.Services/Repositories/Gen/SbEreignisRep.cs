@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -121,6 +122,33 @@ public partial class SbEreignisRep : RepositoryBase
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, personuid, familieuid, typ);
     var e = a ?? new SbEreignis();
+    if (a != null && a.TableName != "SB_Ereignis")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new SbEreignis
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Person_Uid = a.Person_Uid,
+        Familie_Uid = a.Familie_Uid,
+        Typ = a.Typ,
+        Tag1 = a.Tag1,
+        Monat1 = a.Monat1,
+        Jahr1 = a.Jahr1,
+        Tag2 = a.Tag2,
+        Monat2 = a.Monat2,
+        Jahr2 = a.Jahr2,
+        Datum_Typ = a.Datum_Typ,
+        Ort = a.Ort,
+        Bemerkung = a.Bemerkung,
+        Quelle_Uid = a.Quelle_Uid,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+        Replikation_Uid = a.Replikation_Uid,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Person_Uid = personuid;
     e.Familie_Uid = familieuid;

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -109,6 +110,23 @@ public partial class HhPeriodeRep : RepositoryBase
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, nr);
     var e = a ?? new HhPeriode();
+    if (a != null && a.TableName != "HH_Periode")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new HhPeriode
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Nr = a.Nr,
+        Datum_Von = a.Datum_Von,
+        Datum_Bis = a.Datum_Bis,
+        Art = a.Art,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Nr = nr;
     e.Datum_Von = datumvon;

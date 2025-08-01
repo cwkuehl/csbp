@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -114,6 +115,26 @@ public partial class HhBilanzRep : RepositoryBase
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, periode, kz, kontouid);
     var e = a ?? new HhBilanz();
+    if (a != null && a.TableName != "HH_Bilanz")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new HhBilanz
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Periode = a.Periode,
+        Kz = a.Kz,
+        Konto_Uid = a.Konto_Uid,
+        SH = a.SH,
+        Betrag = a.Betrag,
+        ESH = a.ESH,
+        EBetrag = a.EBetrag,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Periode = periode;
     e.Kz = kz;

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -122,6 +123,33 @@ public partial class AdSitzRep : RepositoryBase
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, personuid, reihenfolge, uid);
     var e = a ?? new AdSitz();
+    if (a != null && a.TableName != "AD_Sitz")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new AdSitz
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Person_Uid = a.Person_Uid,
+        Reihenfolge = a.Reihenfolge,
+        Uid = a.Uid,
+        Typ = a.Typ,
+        Name = a.Name,
+        Adresse_Uid = a.Adresse_Uid,
+        Telefon = a.Telefon,
+        Fax = a.Fax,
+        Mobil = a.Mobil,
+        Email = a.Email,
+        Homepage = a.Homepage,
+        Postfach = a.Postfach,
+        Bemerkung = a.Bemerkung,
+        Sitz_Status = a.Sitz_Status,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Person_Uid = personuid;
     e.Reihenfolge = reihenfolge;

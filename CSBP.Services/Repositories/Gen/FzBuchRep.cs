@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -115,6 +116,28 @@ public partial class FzBuchRep : RepositoryBase
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new FzBuch();
+    if (a != null && a.TableName != "FZ_Buch")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new FzBuch
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Uid = a.Uid,
+        Autor_Uid = a.Autor_Uid,
+        Serie_Uid = a.Serie_Uid,
+        Seriennummer = a.Seriennummer,
+        Titel = a.Titel,
+        Untertitel = a.Untertitel,
+        Seiten = a.Seiten,
+        Sprache_Nr = a.Sprache_Nr,
+        Notiz = a.Notiz,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Autor_Uid = autoruid;

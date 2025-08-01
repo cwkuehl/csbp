@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -101,16 +102,37 @@ public partial class BenutzerRep : RepositoryBase
   /// <param name="aktperiode">Value of column Akt_Periode.</param>
   /// <param name="personnr">Value of column Person_Nr.</param>
   /// <param name="geburt">Value of column Geburt.</param>
+  /// <param name="parameter">Value of column Parameter.</param>
   /// <param name="angelegtvon">Value of column Angelegt_Von.</param>
   /// <param name="angelegtam">Value of column Angelegt_Am.</param>
   /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
   /// <param name="geaendertam">Value of column Geaendert_Am.</param>
   /// <returns>Saved entity.</returns>
-  public Benutzer Save(ServiceDaten daten, int mandantnr, string benutzerid, string passwort, int berechtigung, int aktperiode, int personnr, DateTime? geburt, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+  public Benutzer Save(ServiceDaten daten, int mandantnr, string benutzerid, string passwort, int berechtigung, int aktperiode, int personnr, DateTime? geburt, string parameter, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, benutzerid);
     var e = a ?? new Benutzer();
+    if (a != null && a.TableName != "Benutzer")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new Benutzer
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Benutzer_ID = a.Benutzer_ID,
+        Passwort = a.Passwort,
+        Berechtigung = a.Berechtigung,
+        Akt_Periode = a.Akt_Periode,
+        Person_Nr = a.Person_Nr,
+        Geburt = a.Geburt,
+        Parameter = a.Parameter,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Benutzer_ID = benutzerid;
     e.Passwort = passwort;
@@ -118,6 +140,7 @@ public partial class BenutzerRep : RepositoryBase
     e.Akt_Periode = aktperiode;
     e.Person_Nr = personnr;
     e.Geburt = geburt;
+    e.Parameter = parameter;
     if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);

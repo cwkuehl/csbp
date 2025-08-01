@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -109,6 +110,22 @@ public partial class SbKindRep : RepositoryBase
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, familieuid, kinduid);
     var e = a ?? new SbKind();
+    if (a != null && a.TableName != "SB_Kind")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new SbKind
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Familie_Uid = a.Familie_Uid,
+        Kind_Uid = a.Kind_Uid,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+        Replikation_Uid = a.Replikation_Uid,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Familie_Uid = familieuid;
     e.Kind_Uid = kinduid;

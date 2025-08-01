@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -114,6 +115,27 @@ public partial class SbQuelleRep : RepositoryBase
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new SbQuelle();
+    if (a != null && a.TableName != "SB_Quelle")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new SbQuelle
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Uid = a.Uid,
+        Beschreibung = a.Beschreibung,
+        Zitat = a.Zitat,
+        Bemerkung = a.Bemerkung,
+        Autor = a.Autor,
+        Status1 = a.Status1,
+        Status2 = a.Status2,
+        Status3 = a.Status3,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Beschreibung = beschreibung;

@@ -521,7 +521,7 @@ public partial class ClientService : ServiceBase, IClientService
       }
     }
     e = BenutzerRep.Save(daten, daten.MandantNr, id, password, permission,
-        e == null ? 0 : e.Akt_Periode, enr, birthday);
+        e == null ? 0 : e.Akt_Periode, enr, birthday, e?.Parameter);
     return new ServiceErgebnis<Benutzer>(e);
   }
 

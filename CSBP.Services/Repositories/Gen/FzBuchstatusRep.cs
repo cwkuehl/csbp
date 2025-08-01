@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -110,6 +111,24 @@ public partial class FzBuchstatusRep : RepositoryBase
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, buchuid);
     var e = a ?? new FzBuchstatus();
+    if (a != null && a.TableName != "FZ_Buchstatus")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new FzBuchstatus
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Buch_Uid = a.Buch_Uid,
+        Ist_Besitz = a.Ist_Besitz,
+        Lesedatum = a.Lesedatum,
+        Hoerdatum = a.Hoerdatum,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+        Replikation_Uid = a.Replikation_Uid,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Buch_Uid = buchuid;
     e.Ist_Besitz = istbesitz;

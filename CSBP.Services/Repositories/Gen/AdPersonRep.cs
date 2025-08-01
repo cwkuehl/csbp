@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -119,6 +120,32 @@ public partial class AdPersonRep : RepositoryBase
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new AdPerson();
+    if (a != null && a.TableName != "AD_Person")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new AdPerson
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Uid = a.Uid,
+        Typ = a.Typ,
+        Geschlecht = a.Geschlecht,
+        Geburt = a.Geburt,
+        GeburtK = a.GeburtK,
+        Anrede = a.Anrede,
+        FAnrede = a.FAnrede,
+        Name1 = a.Name1,
+        Name2 = a.Name2,
+        Praedikat = a.Praedikat,
+        Vorname = a.Vorname,
+        Titel = a.Titel,
+        Person_Status = a.Person_Status,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Typ = typ;

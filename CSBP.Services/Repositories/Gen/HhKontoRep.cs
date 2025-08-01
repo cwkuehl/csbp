@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -117,6 +118,30 @@ public partial class HhKontoRep : RepositoryBase
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new HhKonto();
+    if (a != null && a.TableName != "HH_Konto")
+    {
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      e = new HhKonto
+      {
+        Mandant_Nr = a.Mandant_Nr,
+        Uid = a.Uid,
+        Sortierung = a.Sortierung,
+        Art = a.Art,
+        Kz = a.Kz,
+        Name = a.Name,
+        Gueltig_Von = a.Gueltig_Von,
+        Gueltig_Bis = a.Gueltig_Bis,
+        Periode_Von = a.Periode_Von,
+        Periode_Bis = a.Periode_Bis,
+        Betrag = a.Betrag,
+        EBetrag = a.EBetrag,
+        Angelegt_Von = a.Angelegt_Von,
+        Angelegt_Am = a.Angelegt_Am,
+        Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+      };
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+    }
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Sortierung = sortierung;

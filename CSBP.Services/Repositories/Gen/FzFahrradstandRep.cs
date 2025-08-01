@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSBP.Services.Apis.Models;
+using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -128,10 +129,11 @@ public partial class FzFahrradstandRep : RepositoryBase
         Periode_km = a.Periode_km,
         Periode_Schnitt = a.Periode_Schnitt,
         Beschreibung = a.Beschreibung,
-        Angelegt_Am = a.Angelegt_Am,
         Angelegt_Von = a.Angelegt_Von,
-        Geaendert_Am = a.Geaendert_Am,
+        Angelegt_Am = a.Angelegt_Am,
         Geaendert_Von = a.Geaendert_Von,
+        Geaendert_Am = a.Geaendert_Am,
+        Replikation_Uid = a.Replikation_Uid,
       };
       db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
     }

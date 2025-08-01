@@ -109,7 +109,7 @@ public class LoginService : ServiceBase, ILoginService
       var ud = new UserDaten(daten.Daten.SessionId, daten.MandantNr, daten.BenutzerId, rollen);
       r.Ergebnis = ud;
       BenutzerRep.Save(daten, daten.MandantNr, daten.BenutzerId, kennwort, liste[0].Berechtigung, liste[0].Akt_Periode,
-        liste[0].Person_Nr, liste[0].Geburt, liste[0].Angelegt_Von, liste[0].Angelegt_Am, daten.BenutzerId, daten.Jetzt);
+        liste[0].Person_Nr, liste[0].Geburt, liste[0].Parameter, liste[0].Angelegt_Von, liste[0].Angelegt_Am, daten.BenutzerId, daten.Jetzt);
       BenutzerRep.Delete(daten, liste[0]);
       Speichern(daten, daten.MandantNr, daten.BenutzerId, speichern);
       return r;
@@ -202,7 +202,7 @@ public class LoginService : ServiceBase, ILoginService
   {
     var r = new ServiceErgebnis();
     var id = "Test";
-    var b = BenutzerRep.Save(daten, daten.MandantNr, id, null, 0, 0, 0, null);
+    var b = BenutzerRep.Save(daten, daten.MandantNr, id, null, 0, 0, 0, null, null);
     b = BenutzerRep.GetList(daten, daten.MandantNr).FirstOrDefault(a => a.Benutzer_ID == id);
     if (b == null)
       throw new Exception("Datensatz nicht eingetragen.");
@@ -218,7 +218,7 @@ public class LoginService : ServiceBase, ILoginService
     b = BenutzerRep.GetList(daten, daten.MandantNr).FirstOrDefault(a => a.Benutzer_ID == id);
     if (b != null)
       throw new Exception("Datensatz immer noch nicht gelöscht.");
-    b = BenutzerRep.Save(daten, daten.MandantNr, id, null, 0, 0, 0, null);
+    b = BenutzerRep.Save(daten, daten.MandantNr, id, null, 0, 0, 0, null, null);
     //// b = BenutzerRep.GetList(daten, daten.MandantNr).FirstOrDefault(a => a.Benutzer_ID == id);
     //// if (b == null)
     ////    throw new Exception("Datensatz nicht wieder eingetragen.");
