@@ -117,26 +117,7 @@ public partial class FzFahrradstandRep : RepositoryBase
     var a = Get(daten, mandantnr, fahrraduid, datum, nr);
     var e = a ?? new FzFahrradstand();
     if (a != null && a.TableName != "FZ_Fahrradstand")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new FzFahrradstand
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Fahrrad_Uid = a.Fahrrad_Uid,
-        Datum = a.Datum,
-        Nr = a.Nr,
-        Zaehler_km = a.Zaehler_km,
-        Periode_km = a.Periode_km,
-        Periode_Schnitt = a.Periode_Schnitt,
-        Beschreibung = a.Beschreibung,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-        Replikation_Uid = a.Replikation_Uid,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Fahrrad_Uid = fahrraduid;
     e.Datum = datum;
@@ -172,9 +153,43 @@ public partial class FzFahrradstandRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
-      db.FZ_Fahrradstand.Remove(a);
+        db.FZ_Fahrradstand.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public FzFahrradstand Clone(ServiceDaten daten, FzFahrradstand e)
+  {
+    if (e != null && e.TableName != "FZ_Fahrradstand")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new FzFahrradstand
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Fahrrad_Uid = e.Fahrrad_Uid,
+        Datum = e.Datum,
+        Nr = e.Nr,
+        Zaehler_km = e.Zaehler_km,
+        Periode_km = e.Periode_km,
+        Periode_Schnitt = e.Periode_Schnitt,
+        Beschreibung = e.Beschreibung,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+        Replikation_Uid = e.Replikation_Uid,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }
