@@ -116,25 +116,7 @@ public partial class HhBilanzRep : RepositoryBase
     var a = Get(daten, mandantnr, periode, kz, kontouid);
     var e = a ?? new HhBilanz();
     if (a != null && a.TableName != "HH_Bilanz")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new HhBilanz
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Periode = a.Periode,
-        Kz = a.Kz,
-        Konto_Uid = a.Konto_Uid,
-        SH = a.SH,
-        Betrag = a.Betrag,
-        ESH = a.ESH,
-        EBetrag = a.EBetrag,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Periode = periode;
     e.Kz = kz;
@@ -169,9 +151,42 @@ public partial class HhBilanzRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.HH_Bilanz.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public HhBilanz Clone(ServiceDaten daten, HhBilanz e)
+  {
+    if (e != null && e.TableName != "HH_Bilanz")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new HhBilanz
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Periode = e.Periode,
+        Kz = e.Kz,
+        Konto_Uid = e.Konto_Uid,
+        SH = e.SH,
+        Betrag = e.Betrag,
+        ESH = e.ESH,
+        EBetrag = e.EBetrag,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

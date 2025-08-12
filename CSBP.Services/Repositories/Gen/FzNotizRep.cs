@@ -111,21 +111,7 @@ public partial class FzNotizRep : RepositoryBase
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new FzNotiz();
     if (a != null && a.TableName != "FZ_Notiz")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new FzNotiz
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Uid = a.Uid,
-        Thema = a.Thema,
-        Notiz = a.Notiz,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Thema = thema;
@@ -156,9 +142,38 @@ public partial class FzNotizRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.FZ_Notiz.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public FzNotiz Clone(ServiceDaten daten, FzNotiz e)
+  {
+    if (e != null && e.TableName != "FZ_Notiz")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new FzNotiz
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Uid = e.Uid,
+        Thema = e.Thema,
+        Notiz = e.Notiz,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

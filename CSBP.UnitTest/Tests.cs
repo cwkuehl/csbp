@@ -400,6 +400,7 @@ public partial class CsbpContext : DbContext
       var lwhere = new StringBuilder(); // Linq where for list
       var ldoc = new StringBuilder(); // Key documentation for list
       var getvalue = new StringBuilder();
+      var clone = new StringBuilder();
       var keycolumns = t.Descendants("keycolumn");
       var columns = t.Descendants("column");
       var ps = columns.Select(a => new
@@ -457,20 +458,8 @@ public partial class CsbpContext : DbContext
           ? $@"var a = string.IsNullOrEmpty(uid) ? null : Get(daten{kparam2});
 " : $@"var a = Get(daten{kparam2});
 ").Append($@"    var e = a ?? new {tab}();
-").Append($@"    if (a != null && a.TableName != ""{tabelle}"")
-    {{
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new {tab}
-      {{
-");
-      foreach (var p in ps)
-      {
-        getvalue.Append($@"        {p.name} = a.{p.name},
-");
-      }
-      getvalue.Append($@"      }};
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }}
+    if (a != null && a.TableName != ""{tabelle}"")
+      e = Clone(daten, a);
 ");
       foreach (var p in ps)
       {
@@ -492,6 +481,33 @@ public partial class CsbpContext : DbContext
 ");
         }
       }
+      clone.Append($@"
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name=""daten"">Service data for database access.</param>
+  /// <param name=""e"">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public {tab} Clone(ServiceDaten daten, {tab} e)
+  {{
+    if (e != null && e.TableName != ""{tabelle}"")
+    {{
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new {tab}
+      {{
+");
+      foreach (var p in ps)
+      {
+        clone.Append($@"        {p.name} = e.{p.name},
+");
+      }
+      clone.Append($@"      }};
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }}
+    return e;
+  }}");
 
       var rep = $"{tab}Rep";
       var s = $@"// <copyright file=""{rep}.cs"" company=""cwkuehl.de"">
@@ -618,10 +634,11 @@ public partial class {rep} : RepositoryBase
   {{
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.{tabelle}.Remove(a);
   }}
-
+{clone}
 #pragma warning restore CA1822
 }}
 ";

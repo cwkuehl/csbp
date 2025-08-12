@@ -124,32 +124,7 @@ public partial class AdSitzRep : RepositoryBase
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, personuid, reihenfolge, uid);
     var e = a ?? new AdSitz();
     if (a != null && a.TableName != "AD_Sitz")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new AdSitz
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Person_Uid = a.Person_Uid,
-        Reihenfolge = a.Reihenfolge,
-        Uid = a.Uid,
-        Typ = a.Typ,
-        Name = a.Name,
-        Adresse_Uid = a.Adresse_Uid,
-        Telefon = a.Telefon,
-        Fax = a.Fax,
-        Mobil = a.Mobil,
-        Email = a.Email,
-        Homepage = a.Homepage,
-        Postfach = a.Postfach,
-        Bemerkung = a.Bemerkung,
-        Sitz_Status = a.Sitz_Status,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Person_Uid = personuid;
     e.Reihenfolge = reihenfolge;
@@ -191,9 +166,49 @@ public partial class AdSitzRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.AD_Sitz.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public AdSitz Clone(ServiceDaten daten, AdSitz e)
+  {
+    if (e != null && e.TableName != "AD_Sitz")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new AdSitz
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Person_Uid = e.Person_Uid,
+        Reihenfolge = e.Reihenfolge,
+        Uid = e.Uid,
+        Typ = e.Typ,
+        Name = e.Name,
+        Adresse_Uid = e.Adresse_Uid,
+        Telefon = e.Telefon,
+        Fax = e.Fax,
+        Mobil = e.Mobil,
+        Email = e.Email,
+        Homepage = e.Homepage,
+        Postfach = e.Postfach,
+        Bemerkung = e.Bemerkung,
+        Sitz_Status = e.Sitz_Status,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

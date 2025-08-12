@@ -112,21 +112,7 @@ public partial class TbEintragOrtRep : RepositoryBase
     var a = Get(daten, mandantnr, ortuid, datumvon, datumbis);
     var e = a ?? new TbEintragOrt();
     if (a != null && a.TableName != "TB_Eintrag_Ort")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new TbEintragOrt
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Ort_Uid = a.Ort_Uid,
-        Datum_Von = a.Datum_Von,
-        Datum_Bis = a.Datum_Bis,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Ort_Uid = ortuid;
     e.Datum_Von = datumvon;
@@ -157,9 +143,38 @@ public partial class TbEintragOrtRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.TB_Eintrag_Ort.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public TbEintragOrt Clone(ServiceDaten daten, TbEintragOrt e)
+  {
+    if (e != null && e.TableName != "TB_Eintrag_Ort")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new TbEintragOrt
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Ort_Uid = e.Ort_Uid,
+        Datum_Von = e.Datum_Von,
+        Datum_Bis = e.Datum_Bis,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

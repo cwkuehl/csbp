@@ -155,7 +155,7 @@ public partial class FzFahrradstandRep : RepositoryBase
     var a = Get(daten, e);
     a = Clone(daten, a);
     if (a != null)
-        db.FZ_Fahrradstand.Remove(a);
+      db.FZ_Fahrradstand.Remove(a);
   }
 
   /// <summary>

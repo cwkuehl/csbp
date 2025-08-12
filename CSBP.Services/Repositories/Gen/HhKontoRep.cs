@@ -119,29 +119,7 @@ public partial class HhKontoRep : RepositoryBase
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new HhKonto();
     if (a != null && a.TableName != "HH_Konto")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new HhKonto
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Uid = a.Uid,
-        Sortierung = a.Sortierung,
-        Art = a.Art,
-        Kz = a.Kz,
-        Name = a.Name,
-        Gueltig_Von = a.Gueltig_Von,
-        Gueltig_Bis = a.Gueltig_Bis,
-        Periode_Von = a.Periode_Von,
-        Periode_Bis = a.Periode_Bis,
-        Betrag = a.Betrag,
-        EBetrag = a.EBetrag,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Sortierung = sortierung;
@@ -180,9 +158,46 @@ public partial class HhKontoRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.HH_Konto.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public HhKonto Clone(ServiceDaten daten, HhKonto e)
+  {
+    if (e != null && e.TableName != "HH_Konto")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new HhKonto
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Uid = e.Uid,
+        Sortierung = e.Sortierung,
+        Art = e.Art,
+        Kz = e.Kz,
+        Name = e.Name,
+        Gueltig_Von = e.Gueltig_Von,
+        Gueltig_Bis = e.Gueltig_Bis,
+        Periode_Von = e.Periode_Von,
+        Periode_Bis = e.Periode_Bis,
+        Betrag = e.Betrag,
+        EBetrag = e.EBetrag,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

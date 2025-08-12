@@ -111,21 +111,7 @@ public partial class SbKindRep : RepositoryBase
     var a = Get(daten, mandantnr, familieuid, kinduid);
     var e = a ?? new SbKind();
     if (a != null && a.TableName != "SB_Kind")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new SbKind
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Familie_Uid = a.Familie_Uid,
-        Kind_Uid = a.Kind_Uid,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-        Replikation_Uid = a.Replikation_Uid,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Familie_Uid = familieuid;
     e.Kind_Uid = kinduid;
@@ -156,9 +142,38 @@ public partial class SbKindRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.SB_Kind.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public SbKind Clone(ServiceDaten daten, SbKind e)
+  {
+    if (e != null && e.TableName != "SB_Kind")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new SbKind
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Familie_Uid = e.Familie_Uid,
+        Kind_Uid = e.Kind_Uid,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+        Replikation_Uid = e.Replikation_Uid,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

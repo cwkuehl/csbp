@@ -106,19 +106,7 @@ public partial class MaMandantRep : RepositoryBase
     var a = Get(daten, nr);
     var e = a ?? new MaMandant();
     if (a != null && a.TableName != "MA_Mandant")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new MaMandant
-      {
-        Nr = a.Nr,
-        Beschreibung = a.Beschreibung,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Nr = nr;
     e.Beschreibung = beschreibung;
     if (a == null)
@@ -147,9 +135,36 @@ public partial class MaMandantRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.MA_Mandant.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public MaMandant Clone(ServiceDaten daten, MaMandant e)
+  {
+    if (e != null && e.TableName != "MA_Mandant")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new MaMandant
+      {
+        Nr = e.Nr,
+        Beschreibung = e.Beschreibung,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

@@ -114,25 +114,7 @@ public partial class BenutzerRep : RepositoryBase
     var a = Get(daten, mandantnr, benutzerid);
     var e = a ?? new Benutzer();
     if (a != null && a.TableName != "Benutzer")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new Benutzer
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Benutzer_ID = a.Benutzer_ID,
-        Passwort = a.Passwort,
-        Berechtigung = a.Berechtigung,
-        Akt_Periode = a.Akt_Periode,
-        Person_Nr = a.Person_Nr,
-        Geburt = a.Geburt,
-        Parameter = a.Parameter,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Benutzer_ID = benutzerid;
     e.Passwort = passwort;
@@ -167,9 +149,42 @@ public partial class BenutzerRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.Benutzer.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public Benutzer Clone(ServiceDaten daten, Benutzer e)
+  {
+    if (e != null && e.TableName != "Benutzer")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new Benutzer
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Benutzer_ID = e.Benutzer_ID,
+        Passwort = e.Passwort,
+        Berechtigung = e.Berechtigung,
+        Akt_Periode = e.Akt_Periode,
+        Person_Nr = e.Person_Nr,
+        Geburt = e.Geburt,
+        Parameter = e.Parameter,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

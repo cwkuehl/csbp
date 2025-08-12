@@ -112,23 +112,7 @@ public partial class FzBuchstatusRep : RepositoryBase
     var a = Get(daten, mandantnr, buchuid);
     var e = a ?? new FzBuchstatus();
     if (a != null && a.TableName != "FZ_Buchstatus")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new FzBuchstatus
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Buch_Uid = a.Buch_Uid,
-        Ist_Besitz = a.Ist_Besitz,
-        Lesedatum = a.Lesedatum,
-        Hoerdatum = a.Hoerdatum,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-        Replikation_Uid = a.Replikation_Uid,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Buch_Uid = buchuid;
     e.Ist_Besitz = istbesitz;
@@ -161,9 +145,40 @@ public partial class FzBuchstatusRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.FZ_Buchstatus.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public FzBuchstatus Clone(ServiceDaten daten, FzBuchstatus e)
+  {
+    if (e != null && e.TableName != "FZ_Buchstatus")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new FzBuchstatus
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Buch_Uid = e.Buch_Uid,
+        Ist_Besitz = e.Ist_Besitz,
+        Lesedatum = e.Lesedatum,
+        Hoerdatum = e.Hoerdatum,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+        Replikation_Uid = e.Replikation_Uid,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

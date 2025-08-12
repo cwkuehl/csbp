@@ -116,26 +116,7 @@ public partial class SbQuelleRep : RepositoryBase
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new SbQuelle();
     if (a != null && a.TableName != "SB_Quelle")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new SbQuelle
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Uid = a.Uid,
-        Beschreibung = a.Beschreibung,
-        Zitat = a.Zitat,
-        Bemerkung = a.Bemerkung,
-        Autor = a.Autor,
-        Status1 = a.Status1,
-        Status2 = a.Status2,
-        Status3 = a.Status3,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Beschreibung = beschreibung;
@@ -171,9 +152,43 @@ public partial class SbQuelleRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.SB_Quelle.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public SbQuelle Clone(ServiceDaten daten, SbQuelle e)
+  {
+    if (e != null && e.TableName != "SB_Quelle")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new SbQuelle
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Uid = e.Uid,
+        Beschreibung = e.Beschreibung,
+        Zitat = e.Zitat,
+        Bemerkung = e.Bemerkung,
+        Autor = e.Autor,
+        Status1 = e.Status1,
+        Status2 = e.Status2,
+        Status3 = e.Status3,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

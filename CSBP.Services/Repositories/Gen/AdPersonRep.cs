@@ -121,31 +121,7 @@ public partial class AdPersonRep : RepositoryBase
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
     var e = a ?? new AdPerson();
     if (a != null && a.TableName != "AD_Person")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new AdPerson
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Uid = a.Uid,
-        Typ = a.Typ,
-        Geschlecht = a.Geschlecht,
-        Geburt = a.Geburt,
-        GeburtK = a.GeburtK,
-        Anrede = a.Anrede,
-        FAnrede = a.FAnrede,
-        Name1 = a.Name1,
-        Name2 = a.Name2,
-        Praedikat = a.Praedikat,
-        Vorname = a.Vorname,
-        Titel = a.Titel,
-        Person_Status = a.Person_Status,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Typ = typ;
@@ -186,9 +162,48 @@ public partial class AdPersonRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.AD_Person.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public AdPerson Clone(ServiceDaten daten, AdPerson e)
+  {
+    if (e != null && e.TableName != "AD_Person")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new AdPerson
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Uid = e.Uid,
+        Typ = e.Typ,
+        Geschlecht = e.Geschlecht,
+        Geburt = e.Geburt,
+        GeburtK = e.GeburtK,
+        Anrede = e.Anrede,
+        FAnrede = e.FAnrede,
+        Name1 = e.Name1,
+        Name2 = e.Name2,
+        Praedikat = e.Praedikat,
+        Vorname = e.Vorname,
+        Titel = e.Titel,
+        Person_Status = e.Person_Status,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

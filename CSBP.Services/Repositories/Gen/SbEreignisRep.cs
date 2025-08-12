@@ -123,32 +123,7 @@ public partial class SbEreignisRep : RepositoryBase
     var a = Get(daten, mandantnr, personuid, familieuid, typ);
     var e = a ?? new SbEreignis();
     if (a != null && a.TableName != "SB_Ereignis")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new SbEreignis
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Person_Uid = a.Person_Uid,
-        Familie_Uid = a.Familie_Uid,
-        Typ = a.Typ,
-        Tag1 = a.Tag1,
-        Monat1 = a.Monat1,
-        Jahr1 = a.Jahr1,
-        Tag2 = a.Tag2,
-        Monat2 = a.Monat2,
-        Jahr2 = a.Jahr2,
-        Datum_Typ = a.Datum_Typ,
-        Ort = a.Ort,
-        Bemerkung = a.Bemerkung,
-        Quelle_Uid = a.Quelle_Uid,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-        Replikation_Uid = a.Replikation_Uid,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Person_Uid = personuid;
     e.Familie_Uid = familieuid;
@@ -190,9 +165,49 @@ public partial class SbEreignisRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.SB_Ereignis.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public SbEreignis Clone(ServiceDaten daten, SbEreignis e)
+  {
+    if (e != null && e.TableName != "SB_Ereignis")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new SbEreignis
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Person_Uid = e.Person_Uid,
+        Familie_Uid = e.Familie_Uid,
+        Typ = e.Typ,
+        Tag1 = e.Tag1,
+        Monat1 = e.Monat1,
+        Jahr1 = e.Jahr1,
+        Tag2 = e.Tag2,
+        Monat2 = e.Monat2,
+        Jahr2 = e.Jahr2,
+        Datum_Typ = e.Datum_Typ,
+        Ort = e.Ort,
+        Bemerkung = e.Bemerkung,
+        Quelle_Uid = e.Quelle_Uid,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+        Replikation_Uid = e.Replikation_Uid,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

@@ -111,21 +111,7 @@ public partial class WpStandRep : RepositoryBase
     var a = Get(daten, mandantnr, wertpapieruid, datum);
     var e = a ?? new WpStand();
     if (a != null && a.TableName != "WP_Stand")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new WpStand
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Wertpapier_Uid = a.Wertpapier_Uid,
-        Datum = a.Datum,
-        Stueckpreis = a.Stueckpreis,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Wertpapier_Uid = wertpapieruid;
     e.Datum = datum;
@@ -156,9 +142,38 @@ public partial class WpStandRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.WP_Stand.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public WpStand Clone(ServiceDaten daten, WpStand e)
+  {
+    if (e != null && e.TableName != "WP_Stand")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new WpStand
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Wertpapier_Uid = e.Wertpapier_Uid,
+        Datum = e.Datum,
+        Stueckpreis = e.Stueckpreis,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }

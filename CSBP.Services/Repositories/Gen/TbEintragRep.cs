@@ -110,21 +110,7 @@ public partial class TbEintragRep : RepositoryBase
     var a = Get(daten, mandantnr, datum);
     var e = a ?? new TbEintrag();
     if (a != null && a.TableName != "TB_Eintrag")
-    {
-      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-      e = new TbEintrag
-      {
-        Mandant_Nr = a.Mandant_Nr,
-        Datum = a.Datum,
-        Eintrag = a.Eintrag,
-        Angelegt_Von = a.Angelegt_Von,
-        Angelegt_Am = a.Angelegt_Am,
-        Geaendert_Von = a.Geaendert_Von,
-        Geaendert_Am = a.Geaendert_Am,
-        Replikation_Uid = a.Replikation_Uid,
-      };
-      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
-    }
+      e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Datum = datum;
     e.Eintrag = eintrag;
@@ -155,9 +141,38 @@ public partial class TbEintragRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     if (a != null)
       db.TB_Eintrag.Remove(a);
   }
 
+  /// <summary>
+  /// Detaches, Clones and Attaches an entity if it is a view entity.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="e">Affected entity.</param>
+  /// <returns>Possibly cloned entity.</returns>
+  public TbEintrag Clone(ServiceDaten daten, TbEintrag e)
+  {
+    if (e != null && e.TableName != "TB_Eintrag")
+    {
+      var db = GetDb(daten);
+      db.Entry(e).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+      var a = new TbEintrag
+      {
+        Mandant_Nr = e.Mandant_Nr,
+        Datum = e.Datum,
+        Eintrag = e.Eintrag,
+        Angelegt_Von = e.Angelegt_Von,
+        Angelegt_Am = e.Angelegt_Am,
+        Geaendert_Von = e.Geaendert_Von,
+        Geaendert_Am = e.Geaendert_Am,
+        Replikation_Uid = e.Replikation_Uid,
+      };
+      db.Entry(a).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+      return a;
+    }
+    return e;
+  }
 #pragma warning restore CA1822
 }
