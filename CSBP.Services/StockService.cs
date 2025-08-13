@@ -1110,6 +1110,8 @@ public class StockService : ServiceBase, IStockService
     //// Interests without taxes.
     inv.Interest = blist.Sum(a => a.Zinsen + (a.Zinsen == 0 ? 0 : a.Rabattbetrag));
     inv.Price = k == null ? 0 : k.Close;
+    if (inv.Price == 0)
+      inv.Price = inv.ShareValue; // No Value available.
     inv.PriceDate = k?.Datum;
     if (inv.Shares <= 0 && blist.Any())
     {
