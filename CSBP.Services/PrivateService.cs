@@ -38,7 +38,7 @@ public class PrivateService : ServiceBase, IPrivateService
   public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
   {
     var r = new ServiceErgebnis<string>();
-    if (!(page == "FZ200" || page == "FZ700") || rm == null)
+    if (!(page == "FZ200" || page == "FZ250" || page == "FZ700") || rm == null)
     {
       return r;
     }
@@ -51,6 +51,15 @@ public class PrivateService : ServiceBase, IPrivateService
       foreach (var o in l)
       {
         cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, o.TypBezeichnung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    else if (page == "FZ250")
+    {
+      var l = FzFahrradstandRep.GetList(daten, rm);
+      cs.AddCsvLine(["Mandant_Nr", "Fahrrad", "Datum", "Nr", "Zähler", "Km", "Schnitt", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, Functions.ToString(o.Datum), Functions.ToString(o.Nr), Functions.ToString(o.Zaehler_km, 0), Functions.ToString(o.Periode_km, 0), Functions.ToString(o.Periode_Schnitt, 2), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "FZ700")

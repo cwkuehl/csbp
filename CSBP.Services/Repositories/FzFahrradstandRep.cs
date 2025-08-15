@@ -56,7 +56,12 @@ public partial class FzFahrradstandRep
       {
         wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, rm.Search) || EF.Functions.Like(a.Bezeichnung, rm.Search));
       }
-      if (!rm.NoPaging)
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(wl, rm.SortColumn);
+        return l1.ToList();
+      }
+      else
       {
         rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(wl.Count() / (decimal)(rm.RowsPerPage ?? 0));
         var l1 = SortList(wl, rm.SortColumn);

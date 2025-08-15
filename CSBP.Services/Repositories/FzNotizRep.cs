@@ -36,7 +36,12 @@ public partial class FzNotizRep
       {
         l = l.Where(a => EF.Functions.Like(a.Thema, rm.Search) || EF.Functions.Like(a.Notiz, rm.Search));
       }
-      if (!rm.NoPaging)
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l, rm.SortColumn);
+        return l1.ToList();
+      }
+      else
       {
         rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
         var l1 = SortList(l, rm.SortColumn);

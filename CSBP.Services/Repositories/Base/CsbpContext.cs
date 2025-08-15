@@ -4,6 +4,7 @@
 
 namespace CSBP.Services.Repositories.Base;
 
+using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using CSBP.Services.Undo;
 using Microsoft.EntityFrameworkCore;
@@ -72,5 +73,10 @@ public partial class CsbpContext : DbContext
     //   v => v.ToString("yyyy-MM-dd HH:mm:ss.f"),
     //   v => Functions.ToDateTime(v) ?? new DateTime());
     // modelBuilder.Entity<FzFahrradstand>().Property(a => a.Datum).HasConversion(converter);
+
+    // Error: SQLite does not support expressions of type 'decimal' in ORDER BY clauses.
+    modelBuilder.Entity<FzFahrradstand>().Property(e => e.Zaehler_km).HasConversion<int>();
+    modelBuilder.Entity<FzFahrradstand>().Property(e => e.Periode_km).HasConversion<int>();
+    modelBuilder.Entity<FzFahrradstand>().Property(e => e.Periode_Schnitt).HasConversion<double>();
   }
 }

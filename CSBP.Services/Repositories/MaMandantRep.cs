@@ -61,7 +61,12 @@ public partial class MaMandantRep
       {
         l = l.Where(a => EF.Functions.Like(a.Beschreibung, rm.Search));
       }
-      if (!rm.NoPaging)
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l, rm.SortColumn);
+        return l1.ToList();
+      }
+      else
       {
         rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
         var l1 = SortList(l, rm.SortColumn);
