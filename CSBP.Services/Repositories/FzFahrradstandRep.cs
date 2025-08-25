@@ -73,7 +73,8 @@ public partial class FzFahrradstandRep
     }
     {
       var l2 = desc ? wl.OrderByDescending(a => a.Datum).ThenByDescending(a => a.Nr) : wl.OrderBy(a => a.Datum).ThenBy(a => a.Nr);
-      return l2.ToList();
+      var l3 = l2.Take(max <= 0 ? int.MaxValue : max).ToList();
+      return l3;
     }
   }
 
