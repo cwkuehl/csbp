@@ -7362,6 +7362,16 @@ public partial class Messages
     get { return rm.GetString("WP410.bText.tt"); }
   }
 
+  public static string WP410_fixtext
+  {
+    get { return rm.GetString("WP410.fixtext"); }
+  }
+
+  public static string WP410_fixtext_tt
+  {
+    get { return rm.GetString("WP410.fixtext.tt"); }
+  }
+
   public static string WP410_buchung
   {
     get { return rm.GetString("WP410.buchung"); }

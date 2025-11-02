@@ -4519,6 +4519,12 @@
     <data name="WP410.bText.tt" xml:space="preserve">
         <value>Buchungstext</value>
     </data>
+    <data name="WP410.fixtext" xml:space="preserve">
+        <value>fixieren</value>
+    </data>
+    <data name="WP410.fixtext.tt" xml:space="preserve">
+        <value>Soll der Buchungstext fixiert und nicht durch das Ereignis überschrieben werden?</value>
+    </data>
     <data name="WP410.buchung" xml:space="preserve">
         <value>Letzte Buchung</value>
     </data>

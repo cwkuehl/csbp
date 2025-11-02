@@ -4519,6 +4519,12 @@
     <data name="WP410.bText.tt" xml:space="preserve">
         <value>Posting text</value>
     </data>
+    <data name="WP410.fixtext" xml:space="preserve">
+        <value>fix</value>
+    </data>
+    <data name="WP410.fixtext.tt" xml:space="preserve">
+        <value>Should the text be fixed and not changed by event?</value>
+    </data>
     <data name="WP410.buchung" xml:space="preserve">
         <value>Last Booking</value>
     </data>

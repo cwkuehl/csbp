@@ -80,6 +80,10 @@ public partial class WP410Booking : CsbpBin
   [Builder.Object]
   private readonly Entry bText;
 
+  /// <summary>CheckButton fixtext.</summary>
+  [Builder.Object]
+  private readonly CheckButton fixtext;
+
   /// <summary>Entry angelegt.</summary>
   [Builder.Object]
   private readonly Entry angelegt;
@@ -162,6 +166,8 @@ public partial class WP410Booking : CsbpBin
     //// hhvaluta.DateChanged += OnValutaDateChanged;
     hhvaluta.Show();
     InitData(0);
+    if (DialogType == DialogTypeEnum.Copy)
+      fixtext.Active = true;
     betrag.GrabFocus();
   }
 
@@ -340,7 +346,8 @@ public partial class WP410Booking : CsbpBin
       var text = ev?.Bezeichnung;
       if (!string.IsNullOrEmpty(text))
       {
-        SetText(bText, text);
+        if (!fixtext.Active)
+          SetText(bText, text);
         if (ev?.EText == "1")
         {
           // Shares without interests.
