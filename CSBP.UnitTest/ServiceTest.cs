@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using CSBP.Services.Base;
+using CSBP.Services.Base.Csv;
 using CSBP.Services.Factory;
 using NUnit.Framework;
 
@@ -39,7 +40,8 @@ public class ServiceTest
   {
     // GetMileages();
     // CalculateInvestments();
-    GetWeatherList();
+    // GetWeatherList();
+    GetAverageTemperatureList();
   }
 
   /// <summary>
@@ -90,5 +92,34 @@ public class ServiceTest
     var puid = r0?.Ergebnis.FirstOrDefault()?.Uid;
     var r = FactoryService.DiaryService.GetWeatherList(daten, date, puid);
     r.ThrowAllErrors("GetWeatherList");
+  }
+
+  /// <summary>
+  /// Calculate average temperatures.
+  /// </summary>
+  [Test]
+  public void GetAverageTemperatureList()
+  {
+    var date = new DateTime(2025, 11, 8);
+    var today = DateTime.Today;
+    var r0 = FactoryService.DiaryService.GetPositionList(daten, null, "%IM4%");
+    r0.ThrowAllErrors("GetPositionList");
+    var puid = r0?.Ergebnis.FirstOrDefault()?.Uid;
+    var cs = new CsvWriter();
+    cs.AddCsvLine(["Datum", "Temperatur 6-22 Uhr (°C)"]);
+    while (date <= today)
+    {
+      var r = FactoryService.DiaryService.GetWeatherList(daten, date, puid);
+      if (r.Ok && r.Ergebnis != null)
+      {
+        var avg = r?.Ergebnis.Where(a => a.Time.Hour >= 6 && a.Time.Hour <= 22).Average(a => a.Temp);
+        //// Debug.WriteLine($"Average temperature for {date:yyyy-MM-dd} is {avg: 0.00} °C");
+        cs.AddCsvLine([Functions.ToString(date), Functions.ToString(avg)]);
+        date = date.AddDays(1);
+      }
+      r.ThrowAllErrors("GetAverageTemperatureList");
+    }
+    var filename = $"/home/wolfgang/Downloads/AverageTemperature.csv";
+    cs.WriteFile(filename);
   }
 }
