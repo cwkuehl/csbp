@@ -1187,8 +1187,8 @@ public class StockService : ServiceBase, IStockService
     {
       if (!string.IsNullOrWhiteSpace(type) && (type.StartsWith("B") || type.StartsWith("C") || type.StartsWith("D") || type.StartsWith("F") || type.StartsWith("P") || type.StartsWith("S") || type.StartsWith("Y")))
       {
-        // type B... BOND, C... COMMODITY, D... DERIVATIVE, F... FUND, P... PRECIOUS_METAL, S... STOCK, Y... CURRENCY
-        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("C") ? "COMMODITY" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : type.StartsWith("P") ? "PRECIOUS_METAL" : type.StartsWith("S") ? "STOCK" : "CURRENCY";
+        // type B... BOND, C... COMMODITY, D... DERIVATIVE, F... FUND, K... CRYPTO, P... PRECIOUS_METAL, S... STOCK, Y... CURRENCY
+        var type0 = type.StartsWith("B") ? "BOND" : type.StartsWith("C") ? "COMMODITY" : type.StartsWith("D") ? "DERIVATIVE" : type.StartsWith("F") ? "FUND" : type.StartsWith("K") ? "CRYPTO" : type.StartsWith("P") ? "PRECIOUS_METAL" : type.StartsWith("S") ? "STOCK" : "CURRENCY";
         var type1 = type[1..];
         //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
         //// var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/performance_values?&idNotation={shortcut}";
