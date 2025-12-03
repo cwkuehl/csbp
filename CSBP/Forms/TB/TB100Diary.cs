@@ -623,7 +623,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagramb1Draw(object sender, DrawnArgs e)
   {
-    var avg = templist.Where(a => Functions.ToInt32(a.Key) >= 6 && Functions.ToInt32(a.Key) <= 22).Average(a => a.Value);
+    var avg = templist?.Where(a => Functions.ToInt32(a.Key) >= 6 && Functions.ToInt32(a.Key) <= 22).Average(a => a.Value) ?? 0m;
     OnDiagramaDraw(sender, e, TB100_before1w, templist, $"Ø {avg:0.000} °C (6-22 Uhr)");
   }
 
