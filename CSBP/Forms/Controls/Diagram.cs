@@ -31,7 +31,9 @@ public class Diagram
   /// <param name="h0">Affected diagram height.</param>
   /// <param name="ww">Affected window width.</param>
   /// <param name="wh">Affected window height.</param>
-  public static void Draw(string name1, List<KeyValuePair<string, decimal>> c1, Cairo.Context pc, int w0, int h0, int ww, int wh)
+  /// <param name="name2">Optinal additional information.</param>
+  public static void Draw(string name1, List<KeyValuePair<string, decimal>> c1, Cairo.Context pc,
+   int w0, int h0, int ww, int wh, string name2 = null)
   {
     // pc.SetSourceRGBA(1, 0, 0, 1);
     // pc.LineWidth = 2;
@@ -126,6 +128,14 @@ public class Diagram
       yl = yl2;
     }
     DrawString(pc, w0 + (xoffset * 2), h0 + yoffset + ylegende, name1, fontx, red);
+    if (!string.IsNullOrEmpty(name2))
+    {
+      pc.SelectFontFace("TimesRoman", FontSlant.Normal, FontWeight.Normal); // monospace
+      pc.SetFontSize((int)(ygroesse * 2));
+      var fontx2 = pc.GetContextFontFace();
+      DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 10) + ylegende, name2, fontx2, darkviolet);
+      fontx2.Dispose();
+    }
 
     // Warnungen verhindern: Cairo.FontFace is leaking, programmer is missing a call to Dispose
     fontx.Dispose();

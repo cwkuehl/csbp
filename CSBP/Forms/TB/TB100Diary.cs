@@ -623,7 +623,8 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagramb1Draw(object sender, DrawnArgs e)
   {
-    OnDiagramaDraw(sender, e, TB100_before1w, templist);
+    var avg = templist.Where(a => Functions.ToInt32(a.Key) >= 6 && Functions.ToInt32(a.Key) <= 22).Average(a => a.Value);
+    OnDiagramaDraw(sender, e, TB100_before1w, templist, $"Ø {avg:0.000} °C (6-22 Uhr)");
   }
 
   /// <summary>Handles Diagramb2.</summary>
@@ -669,7 +670,10 @@ public partial class TB100Diary : CsbpBin
   /// <summary>Handles Diagrama3.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  private void OnDiagramaDraw(object sender, DrawnArgs e, string label, List<KeyValuePair<string, decimal>> list)
+  /// <param name="label">Affected label.</param>
+  /// <param name="list">Affected list.</param>
+  /// <param name="label2">Affected second label.</param>
+  private void OnDiagramaDraw(object sender, DrawnArgs e, string label, List<KeyValuePair<string, decimal>> list, string label2 = null)
   {
     if (before1.Visible && list == null)
       return;
@@ -677,7 +681,7 @@ public partial class TB100Diary : CsbpBin
     var c = e.Cr;
     var w = da.Window.Width;
     var h = da.Window.Height;
-    Diagram.Draw(label, list, c, 0, 0, w, h);
+    Diagram.Draw(label, list, c, 0, 0, w, h, label2);
   }
 
   /// <summary>Initialises the lists.</summary>

@@ -100,7 +100,7 @@ public class ServiceTest
   [Test]
   public void GetAverageTemperatureList()
   {
-    var date = new DateTime(2025, 11, 8);
+    var date = new DateTime(2025, 11, 21);
     var today = DateTime.Today;
     var r0 = FactoryService.DiaryService.GetPositionList(daten, null, "%IM4%");
     r0.ThrowAllErrors("GetPositionList");
