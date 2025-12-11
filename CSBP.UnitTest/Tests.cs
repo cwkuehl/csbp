@@ -905,7 +905,7 @@ public partial class {filename}
   [Test]
   public void OpenWeatherMap()
   {
-    var apikey = GetAppKey("openweatherap.org");
+    var apikey = GetAppKey("openweathermap.org");
     var lat = "49.9353";
     var lon = "8.3184";
     ////var start = Functions.ToEpochSecond(new DateTime(2023, 2, 5));
