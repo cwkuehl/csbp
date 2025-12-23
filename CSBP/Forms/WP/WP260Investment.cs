@@ -237,12 +237,13 @@ public partial class WP260Investment : CsbpBin
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
       || DialogType == DialogTypeEnum.Edit)
     {
+      var v = Functions.TrimNull(stand.Text);
       var rb = FactoryService.StockService.SaveInvestment(daten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(wertpapier), bezeichnung.Text,
         notiz.Buffer.Text, Functions.ToInt32(GetText(status)), GetText(depot), GetText(abrechnung), GetText(ertrag),
-        valuta.Value, Functions.ToDecimal(stand.Text, 2) ?? 0);
+        valuta.Value, Functions.ToDecimal(v, 2) ?? 0);
       r = rb;
-      if (rb.Ok && !string.IsNullOrEmpty(stand.Text) && rb.Ergebnis != null)
+      if (rb.Ok && !string.IsNullOrEmpty(v) && rb.Ergebnis != null)
       {
         Get(FactoryService.StockService.CalculateInvestments(daten, null, rb.Ergebnis.Uid, null, valuta.ValueNn, false, null, new System.Text.StringBuilder(), new System.Text.StringBuilder()));
       }
