@@ -623,9 +623,13 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDiagramb1Draw(object sender, DrawnArgs e)
   {
-    var list = templist?.Where(a => Functions.ToInt32(a.Key) >= 6 && Functions.ToInt32(a.Key) <= 22).ToList();
+    var list = templist;
     var avg = list == null || !list.Any() ? 0m : list.Average(a => a.Value);
-    OnDiagramaDraw(sender, e, TB100_before1w, templist, $"Ø {avg:0.000} °C (6-22 Uhr)");
+    var tf = 6;
+    var tt = 22;
+    var list2 = templist?.Where(a => Functions.ToInt32(a.Key) >= tf && Functions.ToInt32(a.Key) <= tt).ToList();
+    var avg2 = list2 == null || !list2.Any() ? 0m : list2.Average(a => a.Value);
+    OnDiagramaDraw(sender, e, TB100_before1w, templist, $"Ø {avg:0.000} °C", $"Ø {avg2:0.000} °C ({tf}-{tt} Uhr)");
   }
 
   /// <summary>Handles Diagramb2.</summary>
@@ -674,7 +678,8 @@ public partial class TB100Diary : CsbpBin
   /// <param name="label">Affected label.</param>
   /// <param name="list">Affected list.</param>
   /// <param name="label2">Affected second label.</param>
-  private void OnDiagramaDraw(object sender, DrawnArgs e, string label, List<KeyValuePair<string, decimal>> list, string label2 = null)
+  /// <param name="label3">Affected third label.</param>
+  private void OnDiagramaDraw(object sender, DrawnArgs e, string label, List<KeyValuePair<string, decimal>> list, string label2 = null, string label3 = null)
   {
     if (before1.Visible && list == null)
       return;
@@ -682,7 +687,7 @@ public partial class TB100Diary : CsbpBin
     var c = e.Cr;
     var w = da.Window.Width;
     var h = da.Window.Height;
-    Diagram.Draw(label, list, c, 0, 0, w, h, label2);
+    Diagram.Draw(label, list, c, 0, 0, w, h, label2, label3);
   }
 
   /// <summary>Initialises the lists.</summary>

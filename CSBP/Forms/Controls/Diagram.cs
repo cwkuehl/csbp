@@ -32,8 +32,9 @@ public class Diagram
   /// <param name="ww">Affected window width.</param>
   /// <param name="wh">Affected window height.</param>
   /// <param name="name2">Optinal additional information.</param>
+  /// <param name="name3">Optinal additional second information.</param> 
   public static void Draw(string name1, List<KeyValuePair<string, decimal>> c1, Cairo.Context pc,
-   int w0, int h0, int ww, int wh, string name2 = null)
+   int w0, int h0, int ww, int wh, string name2 = null, string name3 = null)
   {
     // pc.SetSourceRGBA(1, 0, 0, 1);
     // pc.LineWidth = 2;
@@ -128,12 +129,15 @@ public class Diagram
       yl = yl2;
     }
     DrawString(pc, w0 + (xoffset * 2), h0 + yoffset + ylegende, name1, fontx, red);
-    if (!string.IsNullOrEmpty(name2))
+    if (!string.IsNullOrEmpty(name2) || !string.IsNullOrEmpty(name3))
     {
       pc.SelectFontFace("TimesRoman", FontSlant.Normal, FontWeight.Normal); // monospace
       pc.SetFontSize((int)(ygroesse * 2));
       var fontx2 = pc.GetContextFontFace();
-      DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 10) + ylegende, name2, fontx2, darkviolet);
+      if (!string.IsNullOrEmpty(name2))
+        DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 10) + ylegende, name2, fontx2, darkviolet);
+      if (!string.IsNullOrEmpty(name3))
+        DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 19) + ylegende, name3, fontx2, darkviolet);  
       fontx2.Dispose();
     }
 
