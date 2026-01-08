@@ -32,7 +32,7 @@ public class Diagram
   /// <param name="ww">Affected window width.</param>
   /// <param name="wh">Affected window height.</param>
   /// <param name="name2">Optinal additional information.</param>
-  /// <param name="name3">Optinal additional second information.</param> 
+  /// <param name="name3">Optinal additional second information.</param>
   public static void Draw(string name1, List<KeyValuePair<string, decimal>> c1, Cairo.Context pc,
    int w0, int h0, int ww, int wh, string name2 = null, string name3 = null)
   {
@@ -60,7 +60,7 @@ public class Diagram
     diff = ymax - ymin;
     decimal xgroesse = (ww + wh) / 50; // Box size
     decimal ygroesse = (ww + wh) / 50;
-    decimal xlegende = xgroesse * (decimal)Math.Log10((double)ymax) / 1.5m; // Legende waagerecht rechts
+    decimal xlegende = xgroesse * (decimal)Math.Log10((double)diff) / 1.5m; // Legende waagerecht rechts
     decimal ylegende = ygroesse; // Legende waagerecht unten
     var xoffset = xgroesse * 0.5m;
     var yoffset = ygroesse * 0.2m;
@@ -137,7 +137,7 @@ public class Diagram
       if (!string.IsNullOrEmpty(name2))
         DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 10) + ylegende, name2, fontx2, darkviolet);
       if (!string.IsNullOrEmpty(name3))
-        DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 19) + ylegende, name3, fontx2, darkviolet);  
+        DrawString(pc, w0 + (xoffset * 2), h0 + (yoffset * 19) + ylegende, name3, fontx2, darkviolet);
       fontx2.Dispose();
     }
 
