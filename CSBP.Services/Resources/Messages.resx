@@ -4280,6 +4280,12 @@
     <data name="WP250.auchinaktiv.tt" xml:space="preserve">
         <value>Show also inactive investments?</value>
     </data>
+    <data name="WP250.cancel" xml:space="preserve">
+        <value>_Cancel</value>
+    </data>
+    <data name="WP250.cancel.tt" xml:space="preserve">
+        <value>Cancel calculation</value>
+    </data>
 
     <data name="WP260.title" xml:space="preserve">
         <value>Investment</value>

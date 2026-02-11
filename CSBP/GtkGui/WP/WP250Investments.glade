@@ -446,11 +446,11 @@
         </child>
         <child>
           <object class="GtkButton" id="abbrechen">
-            <property name="label">Forms.cancel</property>
+            <property name="label">WP250.cancel</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text">Forms.cancel.tt</property>
+            <property name="tooltip_text">WP250.cancel.tt</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="OnAbbrechenClicked" swapped="no"/>
           </object>
