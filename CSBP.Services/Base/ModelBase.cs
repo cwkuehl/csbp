@@ -44,6 +44,7 @@ public class ModelBase
   /// Gets all columns properties.
   /// </summary>
   [NotMapped]
+  [System.Text.Json.Serialization.JsonIgnore]
   [System.Xml.Serialization.XmlIgnore]
   public List<PropertyInfo> ColumnProperties
   {
