@@ -397,10 +397,13 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="puid">Affected position ID.</param>
   /// <param name="text">Affected text.</param>
+  /// <param name="ext">Extended list with additional entry.</param>
   /// <returns>List of positions.</returns>
-  public ServiceErgebnis<List<TbOrt>> GetPositionList(ServiceDaten daten, string puid, string text)
+  public ServiceErgebnis<List<TbOrt>> GetPositionList(ServiceDaten daten, string puid, string text, bool ext = false)
   {
     var l = TbOrtRep.GetList(daten, puid, text: text, desc: true);
+    if (ext)
+      l.Insert(0, new TbOrt { Uid = "0", Bezeichnung = M0(TB012) });
     return new ServiceErgebnis<List<TbOrt>>(l);
   }
 

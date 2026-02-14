@@ -700,10 +700,10 @@ public partial class TB100Diary : CsbpBin
     foreach (var p in rl)
       rs.AppendValues(p.Bezeichnung, p.Uid);
     SetText(position, uid);
+    var rl2 = Get(FactoryService.DiaryService.GetPositionList(daten, ext: true));
     var uid2 = GetText(position2);
     var rs2 = AddColumns(position2, emptyentry: true);
-    rl.Insert(0, new TbOrt { Uid = "0", Bezeichnung = M0(TB012) });
-    foreach (var p in rl)
+    foreach (var p in rl2)
       rs2.AppendValues(p.Bezeichnung, p.Uid);
     SetText(position2, uid2);
   }

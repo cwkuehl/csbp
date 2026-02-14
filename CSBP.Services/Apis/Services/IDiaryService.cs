@@ -83,8 +83,9 @@ public interface IDiaryService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="puid">Affected position ID.</param>
   /// <param name="text">Affected text.</param>
+  /// <param name="ext">Extended list with additional entry.</param>
   /// <returns>List of positions.</returns>
-  ServiceErgebnis<List<TbOrt>> GetPositionList(ServiceDaten daten, string puid = null, string text = null);
+  ServiceErgebnis<List<TbOrt>> GetPositionList(ServiceDaten daten, string puid = null, string text = null, bool ext = false);
 
   /// <summary>
   /// Saves the position.
