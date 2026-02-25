@@ -22,25 +22,49 @@ public partial class TbOrtRep
   /// Gets a list of positions.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="puid">Affected position uid.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="desc">Sorting order descending or not.</param>
   /// <param name="max">Maximal amount of records.</param>
   /// <returns>List of positions.</returns>
-  public List<TbOrt> GetList(ServiceDaten daten, string puid, string text = null, bool desc = false, int max = 0)
+  public List<TbOrt> GetList(ServiceDaten daten, TableReadModel rm = null, string puid = null, string text = null, bool desc = false, int max = 0)
   {
     var db = GetDb(daten);
-    var wl = db.TB_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+    var l = db.TB_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (CsbpBase.IsLike(text))
-      wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text));
+      l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text));
     if (!string.IsNullOrEmpty(puid))
-      wl = wl.Where(a => a.Uid == puid);
-    var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
-    var gj = wl.ToList().GroupJoin(eo, a => new { a.Mandant_Nr, a.Uid }, b => new { b.Mandant_Nr, Uid = b.Ort_Uid }, (a, b) => new { ort = a, anzahl = b.Sum(a => (a.Datum_Bis - a.Datum_Von).TotalDays + 1) });
-    var l2 = desc ? gj.OrderByDescending(a => a.anzahl).ThenByDescending(a => a.ort.Bezeichnung)
-        : gj.OrderBy(a => a.anzahl).ThenBy(a => a.ort.Bezeichnung);
-    var l3 = l2.Take(max <= 0 ? int.MaxValue : max).Select(a => a.ort);
-    return l3.ToList();
+      l = l.Where(a => a.Uid == puid);
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      if (CsbpBase.IsLike(rm.Search))
+      {
+        l = l.Where(a => EF.Functions.Like(a.Bezeichnung, rm.Search) || EF.Functions.Like(a.Notiz, rm.Search));
+      }
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l, rm.SortColumn);
+        return l1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        var l1 = SortList(l, rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return l2;
+      }
+    }
+    {
+      var eo = db.TB_Eintrag_Ort.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+      var gj = l.ToList().GroupJoin(eo, a => new { a.Mandant_Nr, a.Uid }, b => new { b.Mandant_Nr, Uid = b.Ort_Uid }, (a, b) => new { ort = a, anzahl = b.Sum(a => (a.Datum_Bis - a.Datum_Von).TotalDays + 1) });
+      var l2 = desc ? gj.OrderByDescending(a => a.anzahl).ThenByDescending(a => a.ort.Bezeichnung)
+          : gj.OrderBy(a => a.anzahl).ThenBy(a => a.ort.Bezeichnung);
+      var l3 = l2.Take(max <= 0 ? int.MaxValue : max).Select(a => a.ort);
+      return l3.ToList();
+    }
   }
 
   /// <summary>

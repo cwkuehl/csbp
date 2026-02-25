@@ -80,7 +80,7 @@ public partial class TB200Positions : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.DiaryService.GetPositionList(ServiceDaten, null, search.Text))
+      var l = Get(FactoryService.DiaryService.GetPositionList(ServiceDaten, text: search.Text))
         ?? new List<TbOrt>();
       var values = new List<string[]>();
       foreach (var e in l)

@@ -87,7 +87,7 @@ public class ServiceTest
   {
     // var date = new DateTime(2024, 12, 30);
     var date = DateTime.Today;
-    var r0 = FactoryService.DiaryService.GetPositionList(daten, null, "%IM4%");
+    var r0 = FactoryService.DiaryService.GetPositionList(daten, text: "%IM4%");
     r0.ThrowAllErrors("GetPositionList");
     var puid = r0?.Ergebnis.FirstOrDefault()?.Uid;
     var r = FactoryService.DiaryService.GetWeatherList(daten, date, puid);
@@ -102,7 +102,7 @@ public class ServiceTest
   {
     var date = new DateTime(2026, 01, 7);
     var today = DateTime.Today;
-    var r0 = FactoryService.DiaryService.GetPositionList(daten, null, "%IM4%");
+    var r0 = FactoryService.DiaryService.GetPositionList(daten, text: "%IM4%");
     r0.ThrowAllErrors("GetPositionList");
     var puid = r0?.Ergebnis.FirstOrDefault()?.Uid;
     var cs = new CsvWriter();

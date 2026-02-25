@@ -672,7 +672,7 @@ public partial class TB100Diary : CsbpBin
     OnDiagramaDraw(sender, e, TB100_after3w, wdirlist);
   }
 
-  /// <summary>Handles Diagrama3.</summary>
+  /// <summary>Handles Diagram.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
   /// <param name="label">Affected label.</param>

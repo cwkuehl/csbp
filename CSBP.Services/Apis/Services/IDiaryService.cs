@@ -81,11 +81,12 @@ public interface IDiaryService
   /// Gets a list of positions.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="puid">Affected position ID.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="ext">Extended list with additional entry.</param>
   /// <returns>List of positions.</returns>
-  ServiceErgebnis<List<TbOrt>> GetPositionList(ServiceDaten daten, string puid = null, string text = null, bool ext = false);
+  ServiceErgebnis<List<TbOrt>> GetPositionList(ServiceDaten daten, TableReadModel rm = null, string puid = null, string text = null, bool ext = false);
 
   /// <summary>
   /// Saves the position.
