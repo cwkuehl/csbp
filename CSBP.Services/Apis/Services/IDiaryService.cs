@@ -17,6 +17,15 @@ using CSBP.Services.NonService;
 public interface IDiaryService
 {
   /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "AG100".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm);
+
+  /// <summary>
   /// Gets the diary entry of a date.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

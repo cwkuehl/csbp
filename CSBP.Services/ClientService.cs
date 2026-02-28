@@ -339,7 +339,7 @@ public partial class ClientService : ServiceBase, IClientService
   public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
   {
     var r = new ServiceErgebnis<string>();
-    if (!(page == "AG100") || rm == null)
+    if (!(page == "AG100" || page == "AG200" || page == "AM500") || rm == null)
       return r;
     rm.NoPaging = true;
     var cs = new CsvWriter();
@@ -350,6 +350,24 @@ public partial class ClientService : ServiceBase, IClientService
       foreach (var o in l)
       {
         cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    else if (page == "AG200")
+    {
+      var l = BenutzerRep.GetList(daten, rm, 0, null);
+      cs.AddCsvLine(["Benutzer_ID", "Passwort", "Berechtigung", "Akt_Periode", "Person_Nr", "Geburt", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([o.Benutzer_ID, "xxx", Functions.ToString(o.Berechtigung), Functions.ToString(o.Akt_Periode), Functions.ToString(o.Person_Nr), Functions.ToString(o.Geburt), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    else if (page == "AM500")
+    {
+      var l = GetOptionList(daten, daten.MandantNr, Parameter.Params, rm).Ergebnis;
+      cs.AddCsvLine(["Schluessel", "Wert", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([o.Schluessel, o.Wert, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     return new ServiceErgebnis<string>(cs.GetContent());

@@ -7,9 +7,6 @@ namespace CSBP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -17,6 +14,7 @@ using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
+using CSBP.Services.Base.Csv;
 using CSBP.Services.NonService;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
@@ -28,6 +26,32 @@ using static CSBP.Services.Resources.Messages;
 /// </summary>
 public class DiaryService : ServiceBase, IDiaryService
 {
+  /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "AG100".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
+  {
+    var r = new ServiceErgebnis<string>();
+    if (!(page == "TB200") || rm == null)
+      return r;
+    rm.NoPaging = true;
+    var cs = new CsvWriter();
+    if (page == "TB200")
+    {
+      var l = TbOrtRep.GetList(daten, rm);
+      cs.AddCsvLine(["Uid", "Bezeichnung", "Breite", "Laenge", "Hoehe", "Zeitzone", "Notiz", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([o.Uid, o.Bezeichnung, Functions.ToString(o.Breite, 5), Functions.ToString(o.Laenge, 5), Functions.ToString(o.Hoehe, 2), o.Zeitzone, o.Notiz, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    return new ServiceErgebnis<string>(cs.GetContent());
+  }
+
   /// <summary>
   /// Gets the diary entry of a date.
   /// </summary>
