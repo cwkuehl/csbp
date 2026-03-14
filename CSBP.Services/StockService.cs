@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
+using CSBP.Services.Base.Csv;
 using CSBP.Services.NonService;
 using CSBP.Services.Pnf;
 using static CSBP.Services.Resources.M;
@@ -32,19 +33,47 @@ public class StockService : ServiceBase, IStockService
   public IBudgetService BudgetService { private get; set; }
 
   /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "AG100".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
+  {
+    var r = new ServiceErgebnis<string>();
+    if (!(page == "WP200") || rm == null)
+      return r;
+    rm.NoPaging = true;
+    var cs = new CsvWriter();
+    if (page == "WP200")
+    {
+      // TODO anpassen.
+      var l = MaMandantRep.GetList(daten, rm);
+      cs.AddCsvLine(["Nr", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    return new ServiceErgebnis<string>(cs.GetContent());
+  }
+
+  /// <summary>
   /// Gets a list of stocks.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="inactive">Gets also inactive investments or not.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="pattern">Affected Pattern.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="search">Affected text search.</param>
   /// <returns>List of stocks.</returns>
-  public ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool inactive,
-      string desc = null, string pattern = null, string uid = null, string search = null)
+  public ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, TableReadModel rm = null, bool inactive = false,
+    string desc = null, string pattern = null, string uid = null, string search = null)
   {
-    var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, null, uid, !inactive, search);
+    var l = WpWertpapierRep.GetList(daten, rm, daten.MandantNr, desc, pattern, null, uid, !inactive, search);
     foreach (var w in l)
     {
       w.Description = w.Bezeichnung;
@@ -60,7 +89,7 @@ public class StockService : ServiceBase, IStockService
   /// <returns>Stock or null.</returns>
   public ServiceErgebnis<WpWertpapier> GetStock(ServiceDaten daten, string uid)
   {
-    var l = WpWertpapierRep.GetList(daten, daten.MandantNr, null, null, uid);
+    var l = WpWertpapierRep.GetList(daten, null, daten.MandantNr, null, null, uid);
     var e = l.FirstOrDefault();
     return new ServiceErgebnis<WpWertpapier>(e);
   }
@@ -154,7 +183,7 @@ public class StockService : ServiceBase, IStockService
   public ServiceErgebnis DeleteStock(ServiceDaten daten, WpWertpapier e)
   {
     var r = new ServiceErgebnis();
-    var slist = WpWertpapierRep.GetList(daten, daten.MandantNr, null, reuid: e.Uid);
+    var slist = WpWertpapierRep.GetList(daten, null, daten.MandantNr, null, reuid: e.Uid);
     if (slist.Any())
       r.Errors.Add(Message.New(WP015));
     var ilist = WpAnlageRep.GetList(daten, daten.MandantNr, null, stuid: e.Uid);
@@ -977,7 +1006,7 @@ public class StockService : ServiceBase, IStockService
   public ServiceErgebnis ThinPrices(ServiceDaten daten, DateTime date, string stuid)
   {
     var r = new ServiceErgebnis();
-    var stocks = WpWertpapierRep.GetList(daten, daten.MandantNr, null, null, stuid);
+    var stocks = WpWertpapierRep.GetList(daten, null, daten.MandantNr, null, null, stuid);
     date = Functions.Sunday(date); // Next sunday.
     foreach (var st in stocks)
     {
@@ -1519,7 +1548,7 @@ public class StockService : ServiceBase, IStockService
     var from = date.AddDays(-k.Duration);
     var dictlist = new Dictionary<string, List<SoKurse>>();
     var dictresponse = new Dictionary<string, StockUrl>();
-    var list = WpWertpapierRep.GetList(daten, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
+    var list = WpWertpapierRep.GetList(daten, null, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
     if (!inactive && list.Count != 1)
       list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
     list = list.Where(a => !CsbpBase.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
@@ -1786,7 +1815,7 @@ public class StockService : ServiceBase, IStockService
     Wkurse.TryGetValue(key, out var wert);
     if (wert != null)
       return wert;
-    var wp = WpWertpapierRep.GetList(daten, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
+    var wp = WpWertpapierRep.GetList(daten, null, daten.MandantNr, $"EUR-{shortcut}").FirstOrDefault();
     if (wp != null)
     {
       var to = date.AddDays(0); // 1
@@ -1906,7 +1935,7 @@ public class StockService : ServiceBase, IStockService
         Bewertung = shortcut,
       };
     var desc = $"EUR-{shortcut}";
-    var l = WpWertpapierRep.GetList(daten, daten.MandantNr, desc);
+    var l = WpWertpapierRep.GetList(daten, null, daten.MandantNr, desc);
     var wp = l.FirstOrDefault();
     if (wp == null)
     {

@@ -144,7 +144,7 @@ public partial class WP260Investment : CsbpBin
     var daten = ServiceDaten;
     if (step <= 0)
     {
-      var rl = Get(FactoryService.StockService.GetStockList(daten, true)) ?? new List<WpWertpapier>();
+      var rl = Get(FactoryService.StockService.GetStockList(daten, null, true)) ?? new List<WpWertpapier>();
       var rs = AddColumns(wertpapier);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);

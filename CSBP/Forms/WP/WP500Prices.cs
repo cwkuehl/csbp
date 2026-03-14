@@ -107,7 +107,7 @@ public partial class WP500Prices : CsbpBin
       EventsActive = false;
       von.Value = null;
       bis.Value = null;
-      var rl = Get(FactoryService.StockService.GetStockList(daten, true)) ?? new List<WpWertpapier>();
+      var rl = Get(FactoryService.StockService.GetStockList(daten, null, true)) ?? new List<WpWertpapier>();
       var rs = AddColumns(wertpapier, emptyentry: true);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);

@@ -207,7 +207,7 @@ public partial class WP210Stock : CsbpBin
       anlage.Sensitive = !loeschen;
       if (loeschen)
         ok.Label = Forms_delete;
-      var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, true, null, null, copy ? null : model?.Uid));
+      var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, null, true, null, null, copy ? null : model?.Uid));
       var rs = AddColumns(relation);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);

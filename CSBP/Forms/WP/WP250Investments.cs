@@ -124,7 +124,7 @@ public partial class WP250Investments : CsbpBin
       EventsActive = false;
       bis.Value = daten.Heute;
       SetText(bezeichnung, "%%");
-      var rl = Get(FactoryService.StockService.GetStockList(daten, true));
+      var rl = Get(FactoryService.StockService.GetStockList(daten, null, true));
       var rs = AddColumns(wertpapier, emptyentry: true);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);

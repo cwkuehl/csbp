@@ -184,7 +184,7 @@ public partial class WP220Interface : CsbpBin
       AddStringColumnsSort(konfiguration, WP220_konfiguration_columns, cvalues);
       SetText(konfiguration, ParameterGui.WP220Configuration);
       SetText(datei, ParameterGui.WP220File);
-      var slist = Get(FactoryService.StockService.GetStockList(ServiceDaten, true));
+      var slist = Get(FactoryService.StockService.GetStockList(ServiceDaten, null, true));
       var svalues = new List<string[]>
         {
           // No.;Description;St.;Changed at;Changed by;Created at;Created by

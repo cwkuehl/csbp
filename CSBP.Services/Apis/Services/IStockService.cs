@@ -16,16 +16,26 @@ using CSBP.Services.Base;
 public interface IStockService
 {
   /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "AG100".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm);
+
+  /// <summary>
   /// Gets a list of stocks.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="inactive">Gets also inactive investments or not.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="pattern">Affected Pattern.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="search">Affected text search.</param>
   /// <returns>List of stocks.</returns>
-  ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, bool inactive,
+  ServiceErgebnis<List<WpWertpapier>> GetStockList(ServiceDaten daten, TableReadModel rm = null, bool inactive = false,
     string desc = null, string pattern = null, string uid = null, string search = null);
 
   /// <summary>

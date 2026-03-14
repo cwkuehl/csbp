@@ -21,6 +21,7 @@ public partial class WpWertpapierRep
   /// Gets a list of stocks.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="mandantnr">Affected client.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="pattern">Affected Pattern.</param>
@@ -30,11 +31,12 @@ public partial class WpWertpapierRep
   /// <param name="search">Affected text search.</param>
   /// <param name="reuid">Affected related stock ID.</param>
   /// <returns>List of stocks.</returns>
-  public List<WpWertpapier> GetList(ServiceDaten daten, int mandantnr, string desc,
+  public List<WpWertpapier> GetList(ServiceDaten daten, TableReadModel rm, int mandantnr, string desc,
     string pattern = null, string uid = null, string neuid = null,
     bool onlyactive = false, string search = null, string reuid = null)
   {
     var db = GetDb(daten);
+    search = Functions.TrimNull(search) ?? rm?.Search;
     var wl = db.WP_Wertpapier.Where(a => a.Mandant_Nr == mandantnr);
     if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));
@@ -69,14 +71,36 @@ public partial class WpWertpapierRep
       var ll = new List<WpWertpapier>();
       foreach (var a in l)
       {
-        if ((!ls || (Like(a.Bezeichnung, search) || Like(a.Notiz, search)
+        if ((!ls || Like(a.Bezeichnung, search) || Like(a.Notiz, search)
           || Like(a.Datenquelle, search) || Like(a.Kuerzel, search)
-          || Like(a.Type, search) || Like(a.Currency, search) || Like(a.Sorting, search)))
+          || Like(a.Type, search) || Like(a.Currency, search) || Like(a.Sorting, search))
           && (!lp || Like(a.Pattern, pattern))
           && (!onlyactive || a.Status != "0"))
           ll.Add(a);
       }
       l = ll;
+    }
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      // Gesucht wurde schon oben.
+      // if (CsbpBase.IsLike(rm.Search))
+      // {
+      //   l = l.Where(a => EF.Functions.Like(a.Benutzer_ID, rm.Search));
+      // }
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        return l1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return l2;
+      }
     }
     return l.OrderBy(a => a.Bezeichnung).ToList();
   }

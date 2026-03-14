@@ -134,7 +134,7 @@ public partial class WP200Stocks : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
+      var l = Get(FactoryService.StockService.GetStockList(ServiceDaten, null, auchinaktiv.Active, null, muster.Text, null, bezeichnung.Text));
       //// No.;Description;St.;Provider;Shortcut;Relation;Rating;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Date;Signal;200;Changed at;Changed by;Created at;Created by
       var anz = l.Count;
       var values = new List<string[]>();
