@@ -18,6 +18,7 @@ using CSBP.Services.Base;
 using CSBP.Services.Base.Csv;
 using CSBP.Services.NonService;
 using CSBP.Services.Pnf;
+using CSBP.Services.Resources;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -48,15 +49,35 @@ public class StockService : ServiceBase, IStockService
     var cs = new CsvWriter();
     if (page == "WP200")
     {
-      // TODO anpassen.
-      var l = MaMandantRep.GetList(daten, rm);
-      cs.AddCsvLine(["Nr", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
-      foreach (var o in l)
+      if (Functions.MachNichts() == 0)
       {
-        cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        var l = WpWertpapierRep.GetList(daten, rm, daten.MandantNr, null);
+        cs.AddCsvLine(["Mandant_Nr", "Nr", "Sortierung", "Bezeichnung",
+          "Status", "Provider", "Kürzel", "Typ", "Akt. Kurs", "Muster", "Währung",
+          "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+        foreach (var o in l)
+        {
+          cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Sorting, o.Bezeichnung,
+            CsbpBase.GetStockState(o.Status, o.Kuerzel), o.Datenquelle, o.Kuerzel, o.Type,
+            Functions.ToString(o.CurrentPrice), o.Pattern, o.Currency,
+            Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        }
+      }
+      else
+      {
+        var kl = WpKonfigurationRep.GetList(daten, daten.MandantNr);
+        var k = kl.FirstOrDefault(a => a.Bezeichnung.Contains("Standard"))
+          ?? kl.FirstOrDefault();
+        var r1 = ExportStocks(daten, rm.Search, null, null, null, false, k?.Uid, daten.Heute, 5, new StringBuilder(), new StringBuilder());
+        if (r1.Ok && r1.Ergebnis != null)
+        {
+          r.Ergebnis = string.Join(Constants.CrLf, r1.Ergebnis);
+          return r;
+        }
       }
     }
-    return new ServiceErgebnis<string>(cs.GetContent());
+    r.Ergebnis = cs.GetContent();
+    return r;
   }
 
   /// <summary>
@@ -89,9 +110,11 @@ public class StockService : ServiceBase, IStockService
   /// <returns>Stock or null.</returns>
   public ServiceErgebnis<WpWertpapier> GetStock(ServiceDaten daten, string uid)
   {
+    var r = new ServiceErgebnis<WpWertpapier>();
     var l = WpWertpapierRep.GetList(daten, null, daten.MandantNr, null, null, uid);
-    var e = l.FirstOrDefault();
-    return new ServiceErgebnis<WpWertpapier>(e);
+    r.Ergebnis = l.FirstOrDefault();
+    //// r.Errors.Add(Message.New(WP017, uid));
+    return r;
   }
 
   /// <summary>
@@ -237,6 +260,7 @@ public class StockService : ServiceBase, IStockService
       new MaParameter { Schluessel = "2", Wert = Enum_state_nocalc },
     };
     var r = new ServiceErgebnis<List<MaParameter>>(l);
+    //// r.Errors.Add(Message.New(WP017));
     return r;
   }
 
@@ -1551,7 +1575,7 @@ public class StockService : ServiceBase, IStockService
     var list = WpWertpapierRep.GetList(daten, null, daten.MandantNr, desc, pattern, uid, null, !inactive, search);
     if (!inactive && list.Count != 1)
       list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
-    list = list.Where(a => !CsbpBase.IgnoreShortcut(a.Kuerzel) && string.IsNullOrWhiteSpace(a.Type)).ToList();
+    list = list.Where(a => !CsbpBase.IgnoreShortcut(a.Kuerzel) && !string.IsNullOrWhiteSpace(a.Type)).ToList();
     var l = list.Count;
     state.Clear().Append(M0(WP053));
     for (var i = 0; i < l && cancel.Length <= 0; i++)
