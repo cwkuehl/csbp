@@ -205,6 +205,16 @@ public static partial class Functions
   }
 
   /// <summary>
+  /// Converts string to upper case.
+  /// </summary>
+  /// <param name="value">Affected string.</param>
+  /// <returns>Converted string.</returns>
+  public static string ToUpper(this string value)
+  {
+    return value == null ? string.Empty : value.ToUpper();
+  }
+
+  /// <summary>
   /// Converts first character to upper, the rest to lower case.
   /// </summary>
   /// <param name="s">Affected string.</param>
@@ -249,6 +259,21 @@ public static partial class Functions
       return "";
     }
     return s[..Math.Min(l, s.Length)];
+  }
+
+  /// <summary>
+  /// Returns the right part of a string with the given length.
+  /// If the string is too short, it is returned unchanged.
+  /// If the string is null, the empty string is returned.
+  /// </summary>
+  /// <param name="value">Affected string.</param>
+  /// <param name="length">The number of characters to return.</param>
+  /// <returns>A shorter, the same or the empty string.</returns>
+  public static string Right(this string value, int length)
+  {
+    return value == null
+      ? string.Empty
+      : (length > value.Length ? value : value.Substring(value.Length - length, length));
   }
 
   /// <summary>Appends conditionally to a StringBuilder. The string obj2 is always appended.
