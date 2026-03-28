@@ -352,7 +352,7 @@ public partial class WP220Interface : CsbpBin
     }
     finally
     {
-      state?.SetAbbruch();
+      state?.Beenden();
     }
   }
 }

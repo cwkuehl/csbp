@@ -360,7 +360,7 @@ public partial class WP200Stocks : CsbpBin
     }
     finally
     {
-      state?.SetAbbruch();
+      state?.Beenden();
     }
   }
 
