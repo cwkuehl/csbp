@@ -426,7 +426,7 @@ public partial class TB100Diary : CsbpBin
     BearbeiteEintraege(true, false);
     var puid = GetText(position2);
     var pfad = ParameterGui.TempPath;
-    var datei = Functions.GetDateiname(M0(TB005), true, true, "txt");
+    var datei = Functions.GetDateiname(M0(TB005), true, false, true, "txt");
     var daten = ServiceDaten;
     UiTools.SaveFile(daten, Get(FactoryService.DiaryService.GetDiaryReport(daten, GetSearchArray(),
       puid, from.Value, to.Value)), pfad, datei);

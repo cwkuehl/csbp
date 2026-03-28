@@ -68,7 +68,15 @@ public class StockService : ServiceBase, IStockService
         var kl = WpKonfigurationRep.GetList(daten, daten.MandantNr);
         var k = kl.FirstOrDefault(a => a.Bezeichnung.Contains("Standard"))
           ?? kl.FirstOrDefault();
-        var r1 = ExportStocks(daten, rm.Search, null, null, null, false, k?.Uid, daten.Heute, 5, new StringBuilder(), new StringBuilder());
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "ExportStocks");
+        if (!rs.Ok || rs.Ergebnis == null)
+        {
+          r.AddMeldungen(rs);
+          return r;
+        }
+        var state = rs.Ergebnis;
+        var r1 = ExportStocks(daten, rm.Search, null, null, null, false, k?.Uid, daten.Heute, 5, state);
+        state.Beenden(r: r1);
         if (r1.Ok && r1.Ergebnis != null)
         {
           r.Ergebnis = string.Join(Constants.CrLf, r1.Ergebnis);
@@ -234,14 +242,13 @@ public class StockService : ServiceBase, IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="cuid">Affected configuration ID.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   public ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string stuid,
-    DateTime date, bool inactive, string search, string cuid, StringBuilder state, StringBuilder cancel)
+    DateTime date, bool inactive, string search, string cuid, StatusTask state)
   {
-    if (state == null || cancel == null)
+    if (state == null)
       throw new ArgumentException(null, nameof(state));
-    CalculateStocksIntern(daten, desc, pattern, stuid, date, inactive, search, cuid, state, cancel);
+    CalculateStocksIntern(daten, desc, pattern, stuid, date, inactive, search, cuid, state);
     var r = new ServiceErgebnis();
     return r;
   }
@@ -1075,12 +1082,11 @@ public class StockService : ServiceBase, IStockService
   /// <param name="cuid">Affected configuration IDs, separated by semikolon.</param>
   /// <param name="date">Affected date.</param>
   /// <param name="days">Affected konfiguration ID.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   public ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
-    string cuid, DateTime date, int days, StringBuilder state, StringBuilder cancel)
+    string cuid, DateTime date, int days, StatusTask state)
   {
-    if (state == null || cancel == null)
+    if (state == null)
       throw new ArgumentException(null, nameof(state));
     var r = new ServiceErgebnis<List<string>>();
     var clist = (cuid ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries);
@@ -1106,7 +1112,7 @@ public class StockService : ServiceBase, IStockService
     {
       foreach (var c in clist)
       {
-        var slist = CalculateStocksIntern(daten, desc, pattern, stuid, d, inactive, search, c, state, cancel);
+        var slist = CalculateStocksIntern(daten, desc, pattern, stuid, d, inactive, search, c, state);
         foreach (var s in slist)
         {
           var l = new List<string>
@@ -1545,12 +1551,11 @@ public class StockService : ServiceBase, IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="kuid">Affected konfiguration ID.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   private List<WpWertpapier> CalculateStocksIntern(ServiceDaten daten, string desc, string pattern, string uid,
-    DateTime date, bool inactive, string search, string kuid, StringBuilder state, StringBuilder cancel)
+    DateTime date, bool inactive, string search, string kuid, StatusTask state)
   {
-    if (state == null || cancel == null)
+    if (state == null)
       throw new ArgumentException(null, nameof(state));
     WpKonfiguration k = null;
     if (!string.IsNullOrEmpty(kuid))
@@ -1577,8 +1582,8 @@ public class StockService : ServiceBase, IStockService
       list = list.Where(a => a.Status == "1").ToList(); // Calculate only active stock.
     list = list.Where(a => !CsbpBase.IgnoreShortcut(a.Kuerzel) && !string.IsNullOrWhiteSpace(a.Type)).ToList();
     var l = list.Count;
-    state.Clear().Append(M0(WP053));
-    for (var i = 0; i < l && cancel.Length <= 0; i++)
+    state.SetMeldung(M0(WP053));
+    for (var i = 0; i < l && !state.IstAbbruch(); i++)
     {
       var st = list[i];
       var ulist = GetPriceUrlsIntern(from, date, st.Datenquelle, st.Kuerzel, st.Type);
@@ -1602,10 +1607,10 @@ public class StockService : ServiceBase, IStockService
     var i1 = 1;
     foreach (var su in dictresponse.Values)
     {
-      if (cancel.Length > 0)
+      if (state.IstAbbruch())
         break;
       su.Task = ExecuteHttpsClient(su.Url);
-      state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
+      state.SetMeldung(WP008(i1, l1, su.Description, su.Date, null));
       if (i1 < l1)
       {
         // Verzögerung wegen onvista.de notwendig. 500 OK.
@@ -1613,7 +1618,7 @@ public class StockService : ServiceBase, IStockService
       }
       i1++;
     }
-    if (cancel.Length <= 0)
+    if (!state.IstAbbruch())
     {
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
       Task.WaitAll(tasks, HttpTimeout);
@@ -1626,11 +1631,11 @@ public class StockService : ServiceBase, IStockService
     }
     Debug.Print($"{DateTime.Now} End.");
 
-    for (var i0 = 0; i0 < l && cancel.Length <= 0; i0++)
+    for (var i0 = 0; i0 < l && !state.IstAbbruch(); i0++)
     {
       // Calculate stock.
       var st = list[i0];
-      state.Clear().Append(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
+      state.SetMeldung(WP009(i0 + 1, l, st.Bezeichnung, date, k?.Bezeichnung));
       try
       {
         var liste = GetPriceListIntern(daten, from, date, st.Datenquelle, st.Kuerzel, st.Type, st.Currency, st.CurrentPrice ?? 0, st.Uid, dictresponse);
@@ -1812,7 +1817,7 @@ public class StockService : ServiceBase, IStockService
       }
     }
     SaveChanges(daten);
-    state.Clear();
+    state.SetMeldung(null);
     return list;
   }
 

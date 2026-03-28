@@ -86,11 +86,10 @@ public interface IStockService
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <param name="kuid">Affected konfiguration ID.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   /// <returns>Possibly errors.</returns>
   ServiceErgebnis CalculateStocks(ServiceDaten daten, string desc, string pattern, string uid,
-    DateTime date, bool inactive, string search, string kuid, StringBuilder state, StringBuilder cancel);
+    DateTime date, bool inactive, string search, string kuid, StatusTask state);
 
   /// <summary>
   /// Gets a list of states.
@@ -363,9 +362,8 @@ public interface IStockService
   /// <param name="cuid">Affected configuration ID.</param>
   /// <param name="date">Affected date.</param>
   /// <param name="days">Affected konfiguration ID.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   /// <returns>Csv file as lines array or errors.</returns>
   ServiceErgebnis<List<string>> ExportStocks(ServiceDaten daten, string search, string desc, string pattern, string stuid, bool inactive,
-    string cuid, DateTime date, int days, StringBuilder state, StringBuilder cancel);
+    string cuid, DateTime date, int days, StatusTask state);
 }

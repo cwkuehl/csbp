@@ -107,11 +107,10 @@ public class ServiceErgebnis
   /// Copies messages and errors from another instance. Identical messages and errors are ignored.
   /// </summary>
   /// <param name="result">Affected result.</param>
-  protected void AddMeldungen(ServiceErgebnis result)
+  /// <returns>The instance with added messages and errors.</returns>
+  public ServiceErgebnis AddMeldungen(ServiceErgebnis result)
   {
-    if (result == null)
-      return;
-    if (result.Errors != null)
+    if (result?.Errors != null)
     {
       foreach (var f in result.Errors)
       {
@@ -120,7 +119,7 @@ public class ServiceErgebnis
           Errors.Add(f);
       }
     }
-    if (result.Messages != null)
+    if (result?.Messages != null)
     {
       foreach (var f in result.Messages)
       {
@@ -129,6 +128,7 @@ public class ServiceErgebnis
           Messages.Add(f);
       }
     }
+    return this;
   }
 }
 
@@ -142,6 +142,7 @@ public class ServiceErgebnis<T> : ServiceErgebnis
   /// <summary>
   /// Initializes a new instance of the <see cref="ServiceErgebnis{T}"/> class.
   /// </summary>
+  /// <typeparam name="T">Result type of result.</typeparam>
   public ServiceErgebnis()
   {
   }
@@ -169,5 +170,28 @@ public class ServiceErgebnis<T> : ServiceErgebnis
       return default;
     AddMeldungen(result);
     return result.Ergebnis;
+  }
+
+  /// <summary>
+  /// Copies messages and errors from another instance. Identical messages and errors are ignored.
+  /// </summary>
+  /// <returns>New Result without result.</returns>
+  public ServiceErgebnis GetErgebnis()
+  {
+    var r = new ServiceErgebnis();
+    r.AddMeldungen(this);
+    return r;
+  }
+
+  /// <summary>
+  /// Copies messages and errors from another instance. Identical messages and errors are ignored.
+  /// </summary>
+  /// <typeparam name="T2">Result type of new result.</typeparam>
+  /// <returns>New Result without result.</returns>
+  public ServiceErgebnis<T2> GetErgebnis<T2>()
+  {
+    var r = new ServiceErgebnis<T2>();
+    r.AddMeldungen(this);
+    return r;
   }
 }

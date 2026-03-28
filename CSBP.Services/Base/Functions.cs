@@ -397,28 +397,28 @@ public static partial class Functions
   /// </summary>
   /// <param name="name">Name am Anfang.</param>
   /// <param name="datum">With current date or not.</param>
-  /// <param name="zufall">With rondom number or not.</param>
+  /// <param name="zeit">With current time or not.</param>
+  /// <param name="zufall">With random number or not.</param>
   /// <param name="endung">Dateiendung ohne Punkt.</param>
   /// <returns>File name.</returns>
-  public static string GetDateiname(string name, bool datum, bool zufall, string endung)
+  public static string GetDateiname(string name, bool datum, bool zeit, bool zufall, string endung)
   {
     var sb = new StringBuilder();
     if (!string.IsNullOrEmpty(name))
-    {
       sb.Append(name);
-    }
     if (datum)
     {
-      sb.Append('_').Append(DateTime.Today.ToString("yyyyMMdd"));
+      if (zeit)
+        sb.Append('_').Append(DateTime.Now.ToString("yyyyMMddHHmmss"));
+      else
+        sb.Append('_').Append(DateTime.Today.ToString("yyyyMMdd"));
     }
+    else if (zeit)
+      sb.Append('_').Append(DateTime.Now.ToString("HHmmss"));
     if (zufall)
-    {
       sb.Append('_').Append(NextRandom(1000, 10000));
-    }
     if (!string.IsNullOrEmpty(endung))
-    {
       sb.Append('.').Append(endung);
-    }
     return sb.ToString();
   }
 

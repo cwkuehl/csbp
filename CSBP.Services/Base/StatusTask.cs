@@ -6,6 +6,7 @@
 
 namespace CSBP.Services.Base;
 
+using System.Net;
 using System.Text;
 
 /// <summary>
@@ -14,6 +15,22 @@ using System.Text;
 public class StatusTask
 {
   /// <summary>
+  /// Interne Daten.
+  /// </summary>
+  private static readonly List<StatusTask> Daten = new();
+
+  /// <summary>
+  /// Betroffener Server-Name.
+  /// </summary>
+  private static readonly string Servername = CsbpBase.Servername;
+
+  /// <summary>
+  /// Pfad für Dateien.
+  /// TODO Verzeichnis anlegen, das für alle Server-Instanzen gleich ist, damit die Statusseite auch von anderen Servern gelesen werden kann.
+  /// </summary>
+  private static readonly string Pfad = CsbpBase.SharedPath;
+
+  /// <summary>
   /// Internal data.
   /// </summary>
   private readonly Dictionary<string, string?> daten = new();
@@ -21,30 +38,22 @@ public class StatusTask
   /// <summary>
   /// Initializes a new instance of the <see cref="StatusTask"/> class.
   /// </summary>
-  /// <param name="server">Affected server.</param>
   /// <param name="mandant">Affected tenant.</param>
   /// <param name="funktion">Affected function.</param>
   /// <param name="dateiname">Affected filename.</param>
-  public StatusTask(string server, string mandant, string funktion, string dateiname)
+  public StatusTask(int mandant, string funktion, string? dateiname)
   {
-    Server = server;
-    Mandant = mandant;
+    Mandant = mandant < 0 ? null : Functions.ToString(mandant);
     Mandant2 = null;
     Funktion = funktion;
     Dateiname = dateiname;
-    Startzeit = DateTime.Now;
-    LetzteAenderung = Startzeit;
+    StartTask();
   }
-
-  /// <summary>
-  /// Gets the server.
-  /// </summary>
-  public string Server { get; private set; }
 
   /// <summary>
   /// Gets the tenant.
   /// </summary>
-  public string Mandant { get; private set; }
+  public string? Mandant { get; private set; }
 
   /// <summary>
   /// Gets the tenant that can be set later.
@@ -59,7 +68,7 @@ public class StatusTask
   /// <summary>
   /// Gets the filename.
   /// </summary>
-  public string Dateiname { get; private set; }
+  public string? Dateiname { get; private set; }
 
   /// <summary>
   /// Gets the start time.
@@ -80,6 +89,139 @@ public class StatusTask
   /// Gets the end time.
   /// </summary>
   public DateTime? Endzeit { get; private set; }
+
+  /// <summary>
+  /// Liefert zurück, ob eine Funktion noch am Laufen ist.
+  /// </summary>
+  /// <param name="mandant">Betroffener Mandant kann null.</param>
+  /// <param name="funktionen">Betroffene Funktionen können null sein.</param>
+  /// <returns>True, wenn Funktion noch läuft.</returns>
+  public static bool IsTAmLaufen(int mandant = -1, string[]? funktionen = null)
+  {
+    foreach (var f in Daten)
+    {
+      if ((mandant == -1 || f.Mandant == Functions.ToString(mandant))
+        && (funktionen == null || Array.Exists(funktionen, a => a == f.Funktion)))
+        if (f.IsTAmLaufen())
+          return true;
+    }
+    return false;
+  }
+
+  /// <summary>
+  /// Räumt die Funktionen auf, die zuletzt vor 3 Stunden geändert wurden.
+  /// </summary>
+  public static void Aufraeumen()
+  {
+    lock (Daten)
+    {
+      var aktDate = DateTime.Now;
+      var deleteDate = aktDate.AddMinutes(-180);
+      var dliste = new List<StatusTask>();
+      foreach (var f in Daten)
+      {
+        if (deleteDate > f.LetzteAenderung)
+        {
+          dliste.Add(f);
+        }
+      }
+      foreach (var f in dliste)
+      {
+        // Löschen durchführen.
+        Daten.Remove(f);
+      }
+
+      // Auch alle älteren Dateien löschen.
+      var files = Directory.GetFiles(Pfad, "ST_*.txt");
+      foreach (var file in files)
+      {
+        var fi = new FileInfo(file);
+        if (fi.LastWriteTime < deleteDate)
+        {
+          try
+          {
+              File.Delete(file);
+          }
+          catch (Exception)
+          {
+            Functions.MachNichts();
+          }
+        }
+      }
+
+      // Abbrüche von anderen Application Servern anwenden.
+      files = Directory.GetFiles(Pfad, "ST_Abbruch_*.txt");
+      foreach (var file in files)
+      {
+        var inhalt = File.ReadAllText(file) ?? "";
+        if (!inhalt.Contains(Servername))
+        {
+          // Betroffene laufende Funktionen abbrechen.
+          var arr = file.Split(["_"], StringSplitOptions.RemoveEmptyEntries);
+          var m = (arr.Length < 2 ? null : arr[2]) ?? "###";
+          var fkt = (arr.Length < 3 ? null : arr[3]) ?? "###";
+          if (m == "M###")
+            m = null;
+          if (fkt == "F###")
+            fkt = null;
+          foreach (var f in Daten)
+          {
+            if ((m == null || f.Mandant == m) && (fkt == null || f.Funktion == fkt))
+              f.SetAbbruch();
+          }
+          try
+          {
+            // Eigenen Server eintragen, damit die nicht mehr verarbeitet wird.
+            File.WriteAllText(file, $"{inhalt} {Servername}");
+          }
+          catch (Exception)
+          {
+            Functions.MachNichts();
+          }
+        }
+      }
+    }
+  }
+
+  /// <summary>
+  /// Erzeugt einen neuen StatusTask.
+  /// </summary>
+  /// <param name="mandant">Betroffener Mandant oder -1.</param>
+  /// <param name="funktion">Betroffene Funktion.</param>
+  /// <param name="temporaer">True, wenn die betroffene Funktion nicht gemerkt und der Status nicht in eine Datei geschrieben werden soll.</param>
+  /// <param name="funktionen">Für die betroffenen Prüffunktionen dürfen keinen Funktionen laufen.</param>
+  /// <returns>Neue StatusTask oder null, wenn andere Funktion schon läuft.</returns>
+  public static ServiceErgebnis<StatusTask?> HinzufuegenFunktion(int mandant, string funktion, bool temporaer = false, string[]? funktionen = null)
+  {
+    var r = new ServiceErgebnis<StatusTask?>();
+    var dateiname = temporaer ? null
+      : Path.Combine(Pfad, Functions.GetDateiname($"ST_{mandant}_{funktion}_{Servername}", true, true, true, "txt"));
+    var f = new StatusTask(mandant, funktion, dateiname);
+    r.Ergebnis = f;
+    if (!temporaer)
+    {
+      lock (Daten)
+      {
+        if (IsTAmLaufen(mandant, funktionen ?? [funktion]))
+        {
+          r.Errors.Add(new Message($"Während der Verarbeitung von {funktion} wurde versucht, die Verarbeitung noch einmal"
+            + " (für den gleichen Mandanten) zu starten. Nur die Daten der ursprünglichen Anforderung werden verarbeitet.", true));
+          f.Beenden(null, "Sofortige Beendigung", r);
+          return r;
+        }
+        Daten.Add(f);
+      }
+    }
+    return r;
+  }
+
+  /// <summary>Sets the start time.</summary>
+  public void StartTask()
+  {
+    Startzeit = DateTime.Now;
+    LetzteAenderung = Startzeit;
+    Aendern();
+  }
 
   /// <summary>Sets the visible tenant.</summary>
   /// <param name="s">Affected string.</param>
@@ -328,59 +470,73 @@ public class StatusTask
   /// <summary>
   /// Returns the status as a string.
   /// </summary>
+  /// <param name="kurz">Indicates whether to return a short version.</param>
   /// <returns>Status as a string.</returns>
-  public string GetStatus()
+  public string GetStatus(bool kurz = false)
   {
     var sb = new StringBuilder();
-    sb.Append("Status");
-    var m = Mandant2 ?? Mandant;
-    if (!string.IsNullOrEmpty(m))
-      sb.Append(" of tenant ").Append(m);
-    sb.Append(" on server ").Append(Functions.Right(Server, 4)); // Server name incomplete.
-    if (daten.TryGetValue("Datenbank", out var v) && v != null)
-      sb.Append(" on database ").Append(Functions.ToUpper(v));
-    sb.Append(": ");
-    sb.Append(Constants.CrLf).Append("Function: ").Append(Funktion);
-    if (daten.TryGetValue("Name", out v) && v != null)
-      sb.Append(" ").Append(v);
-    sb.Append(Constants.CrLf).Append("Processing started: ").Append(Functions.ToString(Startzeit));
-    sb.Append(Constants.CrLf).Append("Last change: ").Append(Functions.ToString(LetzteAenderung));
-    if (daten.TryGetValue("Benutzer", out v) && v != null)
-      sb.Append(Constants.CrLf).Append("User: ").Append(v);
-    if (daten.TryGetValue("Meldung", out v) && v != null)
-      sb.Append(Constants.CrLf).Append(v);
-    if (daten.TryGetValue("Meldung1", out v) && v != null)
-      sb.Append(Constants.CrLf).Append(v);
-    if (daten.TryGetValue("Meldung2", out v) && v != null)
-      sb.Append(Constants.CrLf).Append(v);
-    if (daten.TryGetValue("Meldung3", out v) && v != null)
-      sb.Append(Constants.CrLf).Append(v);
-    if (daten.TryGetValue("Meldung4", out v) && v != null)
-      sb.Append(Constants.CrLf).Append(v);
-    if (daten.TryGetValue("Bust", out v) && v != null)
-      sb.Append(Constants.CrLf).Append("Current posting position: ").Append(v);
-    if (daten.TryGetValue("Tabelle", out v) && v != null)
-      sb.Append(Constants.CrLf).Append("Current table: ").Append(v);
-    if (daten.TryGetValue("Nr", out v) && v != null)
+    var tr = Constants.CrLf;
+    string? v;
+    if (kurz)
     {
-      if (!daten.TryGetValue("Bust", out _) && !daten.TryGetValue("Tabelle", out _))
-        sb.Append(Constants.CrLf);
-      else
-        sb.Append(" ");
-      sb.Append("Record: ").Append(v);
+      tr = " ";
+      sb.Append(Funktion).Append(": ");
     }
-    if (daten.TryGetValue("Anzahl", out v) && v != null)
-      sb.Append(" of ").Append(v);
-    if (daten.TryGetValue("AnzahlGesamt", out v) && v != null)
-      sb.Append(Constants.CrLf).Append("Records so far: ").Append(v);
-    if (daten.TryGetValue("Fehler", out v) && v != null)
-      sb.Append(Constants.CrLf).Append("Error: ").Append(v);
-    if (daten.TryGetValue("Ergebnis", out v) & v != null)
-      sb.Append(Constants.CrLf).Append("Result: ").Append(v);
-    if (daten.TryGetValue("Abbruch", out v) & v != null)
-      sb.Append(Constants.CrLf).Append("Abort: requested");
-    if (Endzeit.HasValue)
-      sb.Append(Constants.CrLf).Append("Processing finished: ").Append(Functions.ToString(Endzeit.Value));
+    else
+    {
+      sb.Append("Status");
+      var m = Mandant2 ?? Functions.ToString(Mandant);
+      if (!string.IsNullOrEmpty(m))
+        sb.Append(" von Mandant ").Append(m);
+      sb.Append(" auf Server ").Append(Functions.Right(Servername, 4)); // Server name incomplete.
+      if (daten.TryGetValue("Datenbank", out v) && v != null)
+        sb.Append(" auf Datenbank ").Append(Functions.ToUpper(v));
+      sb.Append(": ");
+      sb.Append(tr).Append("Funktion: ").Append(Funktion);
+      if (daten.TryGetValue("Name", out v) && v != null)
+        sb.Append(" ").Append(v);
+      sb.Append(tr).Append("Verarbeitung gestartet: ").Append(Functions.ToString(Startzeit, true));
+      sb.Append(tr).Append("Letzte Änderung: ").Append(Functions.ToString(LetzteAenderung, true));
+      if (daten.TryGetValue("Benutzer", out v) && v != null)
+        sb.Append(tr).Append("User: ").Append(v);
+    }
+    if (daten.TryGetValue("Meldung", out v) && v != null)
+      sb.Append(tr).Append(v);
+    if (daten.TryGetValue("Meldung1", out v) && v != null)
+      sb.Append(tr).Append(v);
+    if (daten.TryGetValue("Meldung2", out v) && v != null)
+      sb.Append(tr).Append(v);
+    if (daten.TryGetValue("Meldung3", out v) && v != null)
+      sb.Append(tr).Append(v);
+    if (daten.TryGetValue("Meldung4", out v) && v != null)
+      sb.Append(tr).Append(v);
+    if (!kurz)
+    {
+      if (daten.TryGetValue("Bust", out v) && v != null)
+        sb.Append(tr).Append("Aktuelle Buchungsstelle: ").Append(v);
+      if (daten.TryGetValue("Tabelle", out v) && v != null)
+        sb.Append(tr).Append("Aktuelle Tabelle: ").Append(v);
+      if (daten.TryGetValue("Nr", out v) && v != null)
+      {
+        if (!daten.TryGetValue("Bust", out _) && !daten.TryGetValue("Tabelle", out _))
+          sb.Append(tr);
+        else
+          sb.Append(" ");
+        sb.Append("Datensatz: ").Append(v);
+      }
+      if (daten.TryGetValue("Anzahl", out v) && v != null)
+        sb.Append(" von ").Append(v);
+      if (daten.TryGetValue("AnzahlGesamt", out v) && v != null)
+        sb.Append(tr).Append("Datensätze bisher: ").Append(v);
+      if (daten.TryGetValue("Fehler", out v) && v != null)
+        sb.Append(tr).Append("Fehler: ").Append(v);
+      if (daten.TryGetValue("Ergebnis", out v) & v != null)
+        sb.Append(tr).Append("Ergebnis: ").Append(v);
+      if (daten.TryGetValue("Abbruch", out v) & v != null)
+        sb.Append(tr).Append("Abbruch: angefordert");
+      if (Endzeit.HasValue)
+        sb.Append(tr).Append("Verarbeitung beendet: ").Append(Functions.ToString(Endzeit.Value));
+    }
     return sb.ToString();
   }
 
@@ -414,7 +570,8 @@ public class StatusTask
   {
     try
     {
-      File.Delete(Dateiname);
+      if (Dateiname != null && File.Exists(Dateiname))
+        File.Delete(Dateiname);
     }
     catch (Exception)
     {
@@ -480,13 +637,81 @@ public class StatusTask
     if (sbe.Length <= 0 && !string.IsNullOrEmpty(f))
       sbe.Append(f);
     if (sbe.Length <= 0)
-      sbe.Append("No result."); // for safety
+      sbe.Append("Ohne Ergebnis."); // zur Sicherheit
     daten["Fehler"] = sbf.Length <= 0 ? null : sbf.ToString();
     var s = sbe.ToString();
     daten["Ergebnis"] = s;
     Endzeit = DateTime.Now;
     LetzteAenderung = Endzeit.Value;
     Schreiben(true);
+    //// SetAbbruch();
     return s;
+  }
+
+  /// <summary>
+  /// Ends the function.
+  /// </summary>
+  /// <param name="fehler">Affected error can be null, is also noted as a result if result is null.</param>
+  /// <param name="ergebnis">Affected result can be null.</param>
+  /// <param name="r">Affected ServiceResult can be null. Messages and error messages are transferred to the result.</param>
+  /// <returns>True if the function was successful, false otherwise.</returns>
+  public bool Beenden(string? fehler = null, string? ergebnis = null, ServiceErgebnis? r = null)
+  {
+    var sbf = new StringBuilder();
+    var sbe = new StringBuilder();
+    var f = Functions.TrimNull(fehler);
+    var e = Functions.TrimNull(ergebnis);
+    if (daten.TryGetValue("Fehler", out var v) && v != null)
+    {
+      if (r == null)
+        sbf.Append(v);
+      else
+        r.Errors.Add(new Message(v, true));
+    }
+    if (daten.TryGetValue("Ergebnis", out v) && v != null)
+    {
+      if (r == null)
+        sbe.Append(v);
+      else
+        r.Messages.Add(new Message(v, true));
+    }
+    if (!string.IsNullOrEmpty(f))
+    {
+      if (sbf.Length > 0)
+        sbf.Append(Constants.CrLf);
+      sbf.Append(f);
+    }
+    if (!string.IsNullOrEmpty(e))
+    {
+        if (sbe.Length > 0)
+          sbe.Append(Constants.CrLf);
+        sbe.Append(e);
+    }
+    if (r != null)
+    {
+      foreach (var m in r.Messages)
+      {
+        if (sbe.Length > 0)
+          sbe.Append(Constants.CrLf);
+        sbe.Append(m.MessageText);
+      }
+      foreach (var m in r.Errors)
+      {
+        if (sbf.Length > 0)
+          sbf.Append(Constants.CrLf);
+        sbf.Append(m.MessageText);
+      }
+    }
+    if (sbe.Length <= 0 && !string.IsNullOrEmpty(f))
+      sbe.Append(f);
+    if (sbe.Length <= 0)
+      sbe.Append("Ohne Ergebnis."); // zur Sicherheit
+    daten["Fehler"] = sbf.Length <= 0 ? null : sbf.ToString();
+    var s = sbe.ToString();
+    daten["Ergebnis"] = s;
+    Endzeit = DateTime.Now;
+    LetzteAenderung = Endzeit.Value;
+    Schreiben(true);
+    return sbf.Length <= 0;
   }
 }

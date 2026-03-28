@@ -466,6 +466,39 @@ public partial class CsbpBin : Bin
     });
   }
 
+  /// <summary>Updates the state.</summary>
+  /// <param name="state">State of calculation is always updated.</param>
+  protected static void ShowStatus(StatusTask state)
+  {
+    if (state == null)
+    {
+      ShowError("Implementationsfehler: Der StatusTask ist null.");
+      return;
+    }
+    ShowError(null);
+    Task.Run(() =>
+    {
+      try
+      {
+        while (true)
+        {
+          Application.Invoke((sender, e) =>
+          {
+            MainClass.MainWindow.SetError(state.GetStatus(true));
+          });
+          if (state.IstAbbruch() || !state.IsTAmLaufen())
+            break;
+          Thread.Sleep(200);
+        }
+      }
+      catch (Exception ex)
+      {
+        Functions.MachNichts(ex);
+      }
+      return 0;
+    });
+  }
+
   /// <summary>
   /// Sets the value of a Label.
   /// </summary>

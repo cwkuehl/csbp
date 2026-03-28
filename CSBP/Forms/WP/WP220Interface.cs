@@ -6,7 +6,6 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using CSBP.Base;
 using CSBP.Forms.Controls;
@@ -92,10 +91,9 @@ public partial class WP220Interface : CsbpBin
 #pragma warning restore CS0649
 
   /// <summary>State of calculation.</summary>
-  private readonly StringBuilder state = new();
-
-  /// <summary>Cancel of calculation.</summary>
-  private readonly StringBuilder cancel = new();
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+  private StatusTask? state = null;
+#pragma warning restore CS8632
 
   /// <summary>Initializes a new instance of the <see cref="WP220Interface"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -316,10 +314,10 @@ public partial class WP220Interface : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    if (cancel.Length <= 0)
-      cancel.Append("cancel");
-    else
+    if ((state?.IstAbbruch() ?? true) || !(state?.IsTAmLaufen() ?? false))
       CloseDialog();
+    else
+      state?.SetAbbruch();
   }
 
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
@@ -330,16 +328,21 @@ public partial class WP220Interface : CsbpBin
       throw new MessageException(Message.New(M1012));
     try
     {
-      state.Clear();
-      cancel.Clear();
+      var daten = ServiceDaten;
       var r = await Task.Run(() =>
       {
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "ExportStocks");
+        if (!rs.Ok || rs.Ergebnis == null)
+          return rs.GetErgebnis<List<string>>();
+        state = rs.Ergebnis;
+        ShowStatus(state);
         var r0 = FactoryService.StockService.ExportStocks(ServiceDaten, bezeichnung.Text, null,
-          null, null, false, GetText(konfiguration), datum.ValueNn, Functions.ToInt32(anzahl.Text), state, cancel);
+          null, null, false, GetText(konfiguration), datum.ValueNn, Functions.ToInt32(anzahl.Text), state);
+        state.Beenden(r: r0);
         return r0;
       });
       r.ThrowAllErrors();
-      if (cancel.Length <= 0)
+      if (!state.IstAbbruch())
         UiTools.SaveFile(ServiceDaten, r.Ergebnis, datei.Text);
       //// Application.Invoke((sender, e) => { refreshAction.Click(); });
     }
@@ -349,7 +352,7 @@ public partial class WP220Interface : CsbpBin
     }
     finally
     {
-      cancel.Append("End");
+      state?.SetAbbruch();
     }
   }
 }
