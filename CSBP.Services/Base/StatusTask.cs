@@ -582,7 +582,9 @@ public class StatusTask
     if (kurz)
     {
       if (Endzeit.HasValue)
-        sb.Append(tr).Append("Beendet");
+      {
+        sb.Append(tr).Append("Beendet (").Append(Endzeit.Value.Subtract(Startzeit).TotalMilliseconds.ToString("0")).Append(" ms)");
+      }
     }
     else
     {
@@ -621,7 +623,7 @@ public class StatusTask
   public void Schreiben(bool ja = false)
   {
     var j = DateTime.Now;
-    if (Dateiname == null || !(ja || !Schreibzeit.HasValue || Schreibzeit.Value < j.AddSeconds(-10)))
+    if (Dateiname == null || !(ja || !Schreibzeit.HasValue || Schreibzeit.Value < j.AddMilliseconds(Kurz ? -500 : -10000)))
       return;
     try
     {
