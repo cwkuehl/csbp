@@ -120,6 +120,22 @@ public class LoginService : ServiceBase, ILoginService
   }
 
   /// <summary>
+  /// Get Form Data of user.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Form data as string.</returns>
+  public ServiceErgebnis<string> GetFormData(ServiceDaten daten)
+  {
+    var r = new ServiceErgebnis<string>();
+    var benutzer = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId);
+    if (benutzer != null)
+    {
+      r.Ergebnis = benutzer.FormData;
+    }
+    return r;
+  }
+
+  /// <summary>
   /// Changes the password of an user.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -166,10 +182,16 @@ public class LoginService : ServiceBase, ILoginService
   /// Does the logout.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="formdata">Form data for saving to database.</param>
   /// <returns>Possibly errors.</returns>
-  public ServiceErgebnis Logout(ServiceDaten daten)
+  public ServiceErgebnis Logout(ServiceDaten daten, string formdata = null)
   {
-    BenutzerRep.Get(daten, 0, null);
+    var b = BenutzerRep.Get(daten, daten.MandantNr, daten.BenutzerId);
+    if (b != null)
+    {
+      b.FormData = formdata;
+      BenutzerRep.Update(daten, b);
+    }
     return new ServiceErgebnis();
   }
 

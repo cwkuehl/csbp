@@ -28,6 +28,13 @@ public interface ILoginService
   ServiceErgebnis<UserDaten> Login(ServiceDaten daten, string kennwort, bool save);
 
   /// <summary>
+  /// Get Form Data of user.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>Form data as string.</returns>
+  ServiceErgebnis<string> GetFormData(ServiceDaten daten);
+
+  /// <summary>
   /// Changes the password of an user.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -44,8 +51,9 @@ public interface ILoginService
   /// Does the logout.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="formdata">Form data for saving to database.</param>
   /// <returns>Possibly errors.</returns>
-  ServiceErgebnis Logout(ServiceDaten daten);
+  ServiceErgebnis Logout(ServiceDaten daten, string formdata = null);
 
   /// <summary>
   /// Undo last transaction.

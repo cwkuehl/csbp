@@ -32,7 +32,7 @@ public partial class Benutzer : ModelBase
   protected override string GetExtension()
   {
     var sb = new StringBuilder();
-    sb.Append(ToString(FormData)).Append(';');
+    sb.Append(ToString(FormData)); // .Append(';');
     return sb.ToString();
   }
 
@@ -42,7 +42,8 @@ public partial class Benutzer : ModelBase
   /// <param name="v">Extended values as string.</param>
   protected override void SetExtension(string v)
   {
-    var arr = (v ?? "").Split(';');
-    FormData = arr.Length > 0 ? arr[0] ?? "" : null;
+    // var arr = (v ?? "").Split(';');
+    // FormData = arr.Length > 0 ? arr[0] ?? "" : null;
+    FormData = v;
   }
 }
