@@ -4,6 +4,8 @@
 
 namespace CSBP.Services.Base;
 
+using static CSBP.Services.Resources.Messages;
+
 /// <summary>
 /// Static functions for user interface.
 /// </summary>
@@ -65,6 +67,38 @@ public class CsbpBase
       "1" => IgnoreShortcut(shortcut) ? "N" : "A",
       "2" => "N",
       _ => "I",
+    };
+  }
+
+  /// <summary>
+  /// Gets scale description.
+  /// </summary>
+  /// <param name="scale">Affected scale.</param>
+  /// <returns>Scale description.</returns>
+  public static string GetScale(int scale)
+  {
+    return scale switch
+    {
+      0 => Enum_scale_fix,
+      1 => Enum_scale_pc,
+      _ => Enum_scale_dyn,
+    };
+  }
+
+  /// <summary>
+  /// Gets method description.
+  /// </summary>
+  /// <param name="method">Affected method.</param>
+  /// <returns>Method description.</returns>
+  public static string GetMethod(int method)
+  {
+    return method switch
+    {
+      1 => Enum_method_c,
+      2 => Enum_method_hl,
+      3 => Enum_method_hlr,
+      4 => Enum_method_ohlc,
+      _ => Enum_method_tp,
     };
   }
 

@@ -43,7 +43,7 @@ public class StockService : ServiceBase, IStockService
   public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
   {
     var r = new ServiceErgebnis<string>();
-    if (!(page == "WP200") || rm == null)
+    if (!(page == "WP200" || page == "WP300") || rm == null)
       return r;
     rm.NoPaging = true;
     var cs = new CsvWriter();
@@ -82,6 +82,19 @@ public class StockService : ServiceBase, IStockService
           r.Ergebnis = string.Join(Constants.CrLf, r1.Ergebnis);
           return r;
         }
+      }
+    }
+    else if (page == "WP300")
+    {
+      var l = WpKonfigurationRep.GetList(daten, rm, null);
+      cs.AddCsvLine(["Mandant_Nr", "Nr", "Bezeichnung", "Status", "Box", "Skala", "Umkehr", "Methode", "Dauer", "Relativ", "Notiz",
+        "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Bezeichnung, CsbpBase.GetStockState(o.Status, "1"),
+          Functions.ToString(o.Box), CsbpBase.GetScale(o.Scale), Functions.ToString(o.Reversal), CsbpBase.GetMethod(o.Method),
+          Functions.ToString(o.Duration), Functions.ToString(o.Relative), o.Notiz, Functions.ToString(o.Angelegt_Am),
+          o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     r.Ergebnis = cs.GetContent();
