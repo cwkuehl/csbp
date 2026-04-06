@@ -72,7 +72,7 @@ public partial class WP300Configurations : CsbpBin
   {
     if (step <= 1)
     {
-      var l = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, false, null));
+      var l = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, null, null));
       var values = new List<string[]>();
       foreach (var e in l)
       {

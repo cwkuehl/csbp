@@ -124,7 +124,7 @@ public partial class WP200Stocks : CsbpBin
       bis.Value = DateTime.Today;
       SetText(bezeichnung, "%%");
       SetText(muster, "%%");
-      var kliste = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, true, "1"));
+      var kliste = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, null, "1"));
       var rs = AddColumns(konfiguration, emptyentry: true);
       foreach (var p in kliste)
         rs.AppendValues(p.Bezeichnung, p.Uid);

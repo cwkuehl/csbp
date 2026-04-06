@@ -326,12 +326,12 @@ public class StockService : ServiceBase, IStockService
   /// Gets a list of configurations.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="extended">Gets more data or not.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="state">Affected configuration state.</param>
   /// <returns>List of configurations.</returns>
-  public ServiceErgebnis<List<WpKonfiguration>> GetConfigurationList(ServiceDaten daten, bool extended, string state)
+  public ServiceErgebnis<List<WpKonfiguration>> GetConfigurationList(ServiceDaten daten, TableReadModel rm, string state)
   {
-    var l = WpKonfigurationRep.GetList(daten, daten.MandantNr);
+    var l = WpKonfigurationRep.GetList(daten, rm, state);
     return new ServiceErgebnis<List<WpKonfiguration>>(l);
   }
 

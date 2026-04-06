@@ -109,10 +109,10 @@ public interface IStockService
   /// Gets a list of configurations.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
-  /// <param name="extended">Gets more data or not.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="state">Affected configuration state.</param>
   /// <returns>List of configurations.</returns>
-  ServiceErgebnis<List<WpKonfiguration>> GetConfigurationList(ServiceDaten daten, bool extended, string state);
+  ServiceErgebnis<List<WpKonfiguration>> GetConfigurationList(ServiceDaten daten, TableReadModel rm, string state);
 
   /// <summary>
   /// Gets a configuration.

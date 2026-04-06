@@ -165,7 +165,7 @@ public partial class WP220Interface : CsbpBin
       datum2.Value = Functions.Workday(new DateTime(today.Year - 1, 1, 1));
       datum3.Value = Functions.Workday(new DateTime(today.Year, 1, 1));
       datum4.Value = Functions.Workday(today);
-      var clist = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, true, "1"));
+      var clist = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, null, "1"));
       var cvalues = new List<string[]>
       {
         // No.;Description;St.;Changed at;Changed by;Created at;Created by
