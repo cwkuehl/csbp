@@ -862,6 +862,9 @@
     <data name="M1038_" xml:space="preserve">
         <value>M1038The path {0} is not a folder.</value>
     </data>
+    <data name="M1040_" xml:space="preserve">
+        <value>M1040Records: {0}.</value>
+    </data>
     <data name="M1057" xml:space="preserve">
         <value>M1057Binding for interface {0} is missing.</value>
     </data>

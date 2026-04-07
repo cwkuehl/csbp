@@ -27,4 +27,7 @@ public class TableReadModel
 
   /// <summary>Gets or sets a value indicating whether to page for CSV export.</summary>
   public bool NoPaging { get; set; } = false;
+
+  /// <summary>Gets or sets the essence of the data.</summary>
+  public string Essence { get; set; } = default;
 }

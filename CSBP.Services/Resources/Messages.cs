@@ -1422,6 +1422,11 @@ public partial class Messages
     get { return rm.GetString("M1038_"); }
   }
 
+  public static string M1040_
+  {
+    get { return rm.GetString("M1040_"); }
+  }
+
   public static string M1057
   {
     get { return rm.GetString("M1057"); }

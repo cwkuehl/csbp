@@ -95,6 +95,7 @@ public partial class WpWertpapierRep
       else
       {
         rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        rm.Essence = Resources.M.M1040(l.Count());
         var l1 = SortList(l.AsQueryable(), rm.SortColumn);
         var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
         var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);

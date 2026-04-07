@@ -229,6 +229,8 @@ public class M : Messages
   public static string M1035(string folder, bool cut = false) => string.Format(M0(M1035_, cut), folder);
 
   public static string M1038(string folder, bool cut = false) => string.Format(M0(M1038_, cut), folder);
+
+  public static string M1040(int count, bool cut = true) => string.Format(M0(M1040_, cut), count);
 #pragma warning disable SA1600
 
   /// <summary>

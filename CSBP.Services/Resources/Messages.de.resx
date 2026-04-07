@@ -862,6 +862,9 @@
     <data name="M1038_" xml:space="preserve">
         <value>M1038Der Pfad {0} ist kein Verzeichnis.</value>
     </data>
+    <data name="M1040_" xml:space="preserve">
+        <value>M1040Datensätze: {0}.</value>
+    </data>
     <data name="M1057" xml:space="preserve">
         <value>M1057Bindung für Interface {0} nicht definiert.</value>
     </data>

@@ -37,34 +37,35 @@ public partial class FzFahrradstandRep
     bool desc = false, int max = 0)
   {
     var db = GetDb(daten);
-    var wl = db.V_FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+    var l = db.V_FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (CsbpBase.IsLike(text))
-      wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, text) || EF.Functions.Like(a.Bezeichnung, text));
+      l = l.Where(a => EF.Functions.Like(a.Beschreibung, text) || EF.Functions.Like(a.Bezeichnung, text));
     if (!string.IsNullOrEmpty(buid))
-      wl = wl.Where(a => a.Fahrrad_Uid == buid);
+      l = l.Where(a => a.Fahrrad_Uid == buid);
     if (date.HasValue)
-      wl = wl.Where(a => a.Datum >= date.Value && a.Datum < date.Value.AddSeconds(1));
+      l = l.Where(a => a.Datum >= date.Value && a.Datum < date.Value.AddSeconds(1));
     if (datege.HasValue)
-      wl = wl.Where(a => a.Datum >= datege.Value);
+      l = l.Where(a => a.Datum >= datege.Value);
     if (datele.HasValue)
-      wl = wl.Where(a => a.Datum <= datele.Value);
+      l = l.Where(a => a.Datum <= datele.Value);
     if (no >= 0)
-      wl = wl.Where(a => a.Nr == no);
+      l = l.Where(a => a.Nr == no);
     if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
     {
       if (CsbpBase.IsLike(rm.Search))
       {
-        wl = wl.Where(a => EF.Functions.Like(a.Beschreibung, rm.Search) || EF.Functions.Like(a.Bezeichnung, rm.Search));
+        l = l.Where(a => EF.Functions.Like(a.Beschreibung, rm.Search) || EF.Functions.Like(a.Bezeichnung, rm.Search));
       }
       if (rm.NoPaging)
       {
-        var l1 = SortList(wl, rm.SortColumn);
+        var l1 = SortList(l, rm.SortColumn);
         return l1.ToList();
       }
       else
       {
-        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(wl.Count() / (decimal)(rm.RowsPerPage ?? 0));
-        var l1 = SortList(wl, rm.SortColumn);
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        rm.Essence = Resources.M.M1040(l.Count());
+        var l1 = SortList(l, rm.SortColumn);
         var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
         var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
         var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
@@ -72,7 +73,7 @@ public partial class FzFahrradstandRep
       }
     }
     {
-      var l2 = desc ? wl.OrderByDescending(a => a.Datum).ThenByDescending(a => a.Nr) : wl.OrderBy(a => a.Datum).ThenBy(a => a.Nr);
+      var l2 = desc ? l.OrderByDescending(a => a.Datum).ThenByDescending(a => a.Nr) : l.OrderBy(a => a.Datum).ThenBy(a => a.Nr);
       var l3 = l2.Take(max <= 0 ? int.MaxValue : max).ToList();
       return l3;
     }
