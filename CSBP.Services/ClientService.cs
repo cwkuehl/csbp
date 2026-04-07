@@ -317,6 +317,37 @@ public partial class ClientService : ServiceBase, IClientService
         MaMandantRep.Execute(daten, mout);
         version = 63;
       }
+      else if (version <= 63)
+      {
+        var dba = new DbAlter(DatabaseTypeEnum.SqLite);
+        var mout = new List<string>();
+        var tab = "EN_Abfrage";
+        dba.CreateTab0();
+        dba.CreateTab1("Mandant_Nr", "D_INTEGER", false);
+        dba.CreateTab1("Uid", "D_REPL_ID", false);
+        dba.CreateTab1("Lfd_Nr", "D_INTEGER", false);
+        dba.CreateTab1("Art", "D_STRING_10", false);
+        dba.CreateTab1("Beschreibung", "D_STRING_255", false);
+        dba.CreateTab1("Host_Url", "D_STRING_255", false);
+        dba.CreateTab1("Datentyp", "D_STRING_50", false);
+        dba.CreateTab1("Einheit", "D_STRING_50", true);
+        dba.CreateTab1("Param1", "D_STRING_50", true);
+        dba.CreateTab1("Param2", "D_STRING_50", true);
+        dba.CreateTab1("Param3", "D_STRING_50", true);
+        dba.CreateTab1("Param4", "D_STRING_50", true);
+        dba.CreateTab1("Param5", "D_STRING_50", true);
+        dba.CreateTab1("Status", "D_STRING_10", true);
+        dba.CreateTab1("Notiz", "D_MEMO", true);
+        dba.CreateTab1("Parameter", "D_MEMO", true);
+        dba.CreateTab1("Angelegt_Von", "D_STRING_20", true);
+        dba.CreateTab1("Angelegt_Am", "D_DATETIME", true);
+        dba.CreateTab1("Geaendert_Von", "D_STRING_20", true);
+        dba.CreateTab1("Geaendert_Am", "D_DATETIME", true);
+        dba.CreateTab2(mout, tab, "Mandant_Nr, Uid");
+        dba.CreateTab3(mout, tab, "SK_EN_Abfrage", true, "Mandant_Nr, Lfd_Nr, Art, Uid");
+        MaMandantRep.Execute(daten, mout);
+        version = 64;
+      }
       if (versionalt < version)
       {
         p.Wert = Functions.ToString(version);

@@ -83,6 +83,7 @@ public partial class BenutzerRep : RepositoryBase
   {
     var db = GetDb(daten);
     var a = Get(daten, e);
+    a = Clone(daten, a);
     db.Entry(a).CurrentValues.SetValues(e);
     if (db.Entry(a).State == Microsoft.EntityFrameworkCore.EntityState.Modified)
     {

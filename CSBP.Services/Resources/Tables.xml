@@ -122,6 +122,32 @@
       <keycolumn name="Lfd_Nr" />
     </primarykey>
   </table>
+  <table name="EN_Abfrage">
+    <column name="Mandant_Nr" type="INTEGER" nullable="false" />
+    <column name="Uid" type="VARCHAR" length="35" nullable="false" />
+    <column name="Lfd_Nr" type="INTEGER" nullable="false" /><!-- Gruppierung der Abfragen -->
+    <column name="Art" type="VARCHAR" length="10" nullable="false" /><!-- MODBUS-TCP, JSON -->
+    <column name="Beschreibung" type="VARCHAR" length="255" nullable="false" />
+    <column name="Host_Url" type="VARCHAR" length="255" nullable="false" /><!-- Host:Port oder URL -->
+    <column name="Datentyp" type="VARCHAR" length="50" nullable="false" /><!-- int16, uint16, int32, float32, float64, enum -->
+    <column name="Einheit" type="VARCHAR" length="50" nullable="true" /><!-- z.B. V, A, W, °C -->
+    <column name="Param1" type="VARCHAR" length="50" nullable="true" /><!-- UnitID bei Modbus, z.B. 1; Start-Muster bei JSON. -->
+    <column name="Param2" type="VARCHAR" length="50" nullable="true" /><!-- Registeradresse bei Modbus, z.B. 1004; Ende-Muster bei JSON. -->
+    <column name="Param3" type="VARCHAR" length="50" nullable="true" /><!-- Anzahl bei Modbus -->
+    <column name="Param4" type="VARCHAR" length="50" nullable="true" /><!-- frei -->
+    <column name="Param5" type="VARCHAR" length="50" nullable="true" /><!-- frei -->
+    <column name="Status" type="VARCHAR" length="10" nullable="true" />
+    <column name="Notiz" type="VARCHAR" length="-1" nullable="true" />
+    <column name="Parameter" type="VARCHAR" length="-1" nullable="true" extension="true" />
+    <column name="Angelegt_Von" type="VARCHAR" length="20" nullable="true" />
+    <column name="Angelegt_Am" type="TIMESTAMP" nullable="true" />
+    <column name="Geaendert_Von" type="VARCHAR" length="20" nullable="true" />
+    <column name="Geaendert_Am" type="TIMESTAMP" nullable="true" />
+    <primarykey>
+      <keycolumn name="Mandant_Nr" />
+      <keycolumn name="Uid" />
+    </primarykey>
+  </table>
   <table name="FZ_Buch">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />

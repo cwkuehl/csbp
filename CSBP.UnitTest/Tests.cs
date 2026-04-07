@@ -52,11 +52,12 @@ public class Tests
     if (Functions.MachNichts() != 0)
       t.GenerateResxDesigner();
     if (Functions.MachNichts() != 0)
+    {
+      t.GenerierenModelCs();
       t.GenerierenReps();
+    }
     if (Functions.MachNichts() != 0)
       t.GenerierenSqlSkript();
-    if (Functions.MachNichts() != 0)
-      t.GenerierenModelCs();
     if (Functions.MachNichts() != 0)
       t.Tls();
     if (Functions.MachNichts() != 0)

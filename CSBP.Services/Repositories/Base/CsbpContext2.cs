@@ -31,6 +31,9 @@ public partial class CsbpContext : DbContext
   /// <summary>Gets or sets the set of rows of table Byte_Daten.</summary>
   public DbSet<ByteDaten> Byte_Daten { get; set; }
 
+  /// <summary>Gets or sets the set of rows of table EN_Abfrage.</summary>
+  public DbSet<EnAbfrage> EN_Abfrage { get; set; }
+
   /// <summary>Gets or sets the set of rows of table FZ_Buch.</summary>
   public DbSet<FzBuch> FZ_Buch { get; set; }
 
@@ -130,6 +133,7 @@ public partial class CsbpContext : DbContext
     modelBuilder.Entity<AgDialog>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<Benutzer>().HasKey(a => new { a.Mandant_Nr, a.Benutzer_ID });
     modelBuilder.Entity<ByteDaten>().HasKey(a => new { a.Mandant_Nr, a.Typ, a.Uid, a.Lfd_Nr });
+    modelBuilder.Entity<EnAbfrage>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<FzBuch>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<FzBuchautor>().HasKey(a => new { a.Mandant_Nr, a.Uid });
     modelBuilder.Entity<FzBuchserie>().HasKey(a => new { a.Mandant_Nr, a.Uid });
