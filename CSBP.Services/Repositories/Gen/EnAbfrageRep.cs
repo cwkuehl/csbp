@@ -99,11 +99,12 @@ public partial class EnAbfrageRep : RepositoryBase
   /// <param name="daten">Service data for database access.</param>
   /// <param name="mandantnr">Value of column Mandant_Nr.</param>
   /// <param name="uid">Value of column Uid.</param>
-  /// <param name="lfdnr">Value of column Lfd_Nr.</param>
+  /// <param name="sortierung">Value of column Sortierung.</param>
   /// <param name="art">Value of column Art.</param>
   /// <param name="beschreibung">Value of column Beschreibung.</param>
   /// <param name="hosturl">Value of column Host_Url.</param>
   /// <param name="datentyp">Value of column Datentyp.</param>
+  /// <param name="schreibbarkeit">Value of column Schreibbarkeit.</param>
   /// <param name="einheit">Value of column Einheit.</param>
   /// <param name="param1">Value of column Param1.</param>
   /// <param name="param2">Value of column Param2.</param>
@@ -118,7 +119,7 @@ public partial class EnAbfrageRep : RepositoryBase
   /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
   /// <param name="geaendertam">Value of column Geaendert_Am.</param>
   /// <returns>Saved entity.</returns>
-  public EnAbfrage Save(ServiceDaten daten, int mandantnr, string uid, int lfdnr, string art, string beschreibung, string hosturl, string datentyp, string einheit, string param1, string param2, string param3, string param4, string param5, string status, string notiz, string parameter, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+  public EnAbfrage Save(ServiceDaten daten, int mandantnr, string uid, string sortierung, string art, string beschreibung, string hosturl, string datentyp, string schreibbarkeit, string einheit, string param1, string param2, string param3, string param4, string param5, string status, string notiz, string parameter, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
@@ -127,11 +128,12 @@ public partial class EnAbfrageRep : RepositoryBase
       e = Clone(daten, a);
     e.Mandant_Nr = mandantnr;
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
-    e.Lfd_Nr = lfdnr;
+    e.Sortierung = sortierung;
     e.Art = art;
     e.Beschreibung = beschreibung;
     e.Host_Url = hosturl;
     e.Datentyp = datentyp;
+    e.Schreibbarkeit = schreibbarkeit;
     e.Einheit = einheit;
     e.Param1 = param1;
     e.Param2 = param2;
@@ -188,11 +190,12 @@ public partial class EnAbfrageRep : RepositoryBase
       {
         Mandant_Nr = e.Mandant_Nr,
         Uid = e.Uid,
-        Lfd_Nr = e.Lfd_Nr,
+        Sortierung = e.Sortierung,
         Art = e.Art,
         Beschreibung = e.Beschreibung,
         Host_Url = e.Host_Url,
         Datentyp = e.Datentyp,
+        Schreibbarkeit = e.Schreibbarkeit,
         Einheit = e.Einheit,
         Param1 = e.Param1,
         Param2 = e.Param2,

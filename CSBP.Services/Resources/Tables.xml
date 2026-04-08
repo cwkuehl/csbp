@@ -125,11 +125,12 @@
   <table name="EN_Abfrage">
     <column name="Mandant_Nr" type="INTEGER" nullable="false" />
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />
-    <column name="Lfd_Nr" type="INTEGER" nullable="false" /><!-- Gruppierung der Abfragen -->
+    <column name="Sortierung" type="VARCHAR" length="10" nullable="false" /><!-- Gruppierung der Abfragen -->
     <column name="Art" type="VARCHAR" length="10" nullable="false" /><!-- MODBUS-TCP, JSON -->
     <column name="Beschreibung" type="VARCHAR" length="255" nullable="false" />
     <column name="Host_Url" type="VARCHAR" length="255" nullable="false" /><!-- Host:Port oder URL -->
-    <column name="Datentyp" type="VARCHAR" length="50" nullable="false" /><!-- int16, uint16, int32, float32, float64, enum -->
+    <column name="Datentyp" type="VARCHAR" length="255" nullable="false" /><!-- int16, uint16, int32, float32, float64, enum -->
+    <column name="Schreibbarkeit" type="VARCHAR" length="10" nullable="true" /><!-- z.B. R, W, RW -->
     <column name="Einheit" type="VARCHAR" length="50" nullable="true" /><!-- z.B. V, A, W, °C -->
     <column name="Param1" type="VARCHAR" length="50" nullable="true" /><!-- UnitID bei Modbus, z.B. 1; Start-Muster bei JSON. -->
     <column name="Param2" type="VARCHAR" length="50" nullable="true" /><!-- Registeradresse bei Modbus, z.B. 1004; Ende-Muster bei JSON. -->

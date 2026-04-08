@@ -325,11 +325,12 @@ public partial class ClientService : ServiceBase, IClientService
         dba.CreateTab0();
         dba.CreateTab1("Mandant_Nr", "D_INTEGER", false);
         dba.CreateTab1("Uid", "D_REPL_ID", false);
-        dba.CreateTab1("Lfd_Nr", "D_INTEGER", false);
+        dba.CreateTab1("Sortierung", "D_STRING_10", false);
         dba.CreateTab1("Art", "D_STRING_10", false);
         dba.CreateTab1("Beschreibung", "D_STRING_255", false);
         dba.CreateTab1("Host_Url", "D_STRING_255", false);
-        dba.CreateTab1("Datentyp", "D_STRING_50", false);
+        dba.CreateTab1("Datentyp", "D_STRING_255", false);
+        dba.CreateTab1("Schreibbarkeit", "D_STRING_10", true);
         dba.CreateTab1("Einheit", "D_STRING_50", true);
         dba.CreateTab1("Param1", "D_STRING_50", true);
         dba.CreateTab1("Param2", "D_STRING_50", true);
@@ -344,7 +345,7 @@ public partial class ClientService : ServiceBase, IClientService
         dba.CreateTab1("Geaendert_Von", "D_STRING_20", true);
         dba.CreateTab1("Geaendert_Am", "D_DATETIME", true);
         dba.CreateTab2(mout, tab, "Mandant_Nr, Uid");
-        dba.CreateTab3(mout, tab, "SK_EN_Abfrage", true, "Mandant_Nr, Lfd_Nr, Art, Uid");
+        dba.CreateTab3(mout, tab, "SK_EN_Abfrage", true, "Mandant_Nr, Sortierung, Art, Uid");
         MaMandantRep.Execute(daten, mout);
         version = 64;
       }

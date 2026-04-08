@@ -27,8 +27,8 @@ public partial class EnAbfrage : ModelBase
   /// <summary>Gets or sets the value of column Uid.</summary>
   public string Uid { get; set; }
 
-  /// <summary>Gets or sets the value of column Lfd_Nr.</summary>
-  public int Lfd_Nr { get; set; }
+  /// <summary>Gets or sets the value of column Sortierung.</summary>
+  public string Sortierung { get; set; }
 
   /// <summary>Gets or sets the value of column Art.</summary>
   public string Art { get; set; }
@@ -41,6 +41,9 @@ public partial class EnAbfrage : ModelBase
 
   /// <summary>Gets or sets the value of column Datentyp.</summary>
   public string Datentyp { get; set; }
+
+  /// <summary>Gets or sets the value of column Schreibbarkeit.</summary>
+  public string Schreibbarkeit { get; set; }
 
   /// <summary>Gets or sets the value of column Einheit.</summary>
   public string Einheit { get; set; }
