@@ -327,7 +327,7 @@ public partial class ClientService : ServiceBase, IClientService
         dba.CreateTab1("Uid", "D_REPL_ID", false);
         dba.CreateTab1("Sortierung", "D_STRING_10", false);
         dba.CreateTab1("Art", "D_STRING_10", false);
-        dba.CreateTab1("Beschreibung", "D_STRING_255", false);
+        dba.CreateTab1("Bezeichnung", "D_STRING_255", false);
         dba.CreateTab1("Host_Url", "D_STRING_255", false);
         dba.CreateTab1("Datentyp", "D_STRING_255", false);
         dba.CreateTab1("Schreibbarkeit", "D_STRING_10", true);

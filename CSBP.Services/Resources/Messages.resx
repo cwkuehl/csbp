@@ -139,6 +139,13 @@
         <value>AM012You must not delete yourselves.</value>
     </data>
 
+    <data name="EN001" xml:space="preserve">
+        <value>EN001Type in a description.</value>
+    </data>
+    <data name="EN002" xml:space="preserve">
+        <value>EN002Select a state.</value>
+    </data>
+
     <data name="FZ001_" xml:space="preserve">
         <value>FZ001{0} ({1:yyyy-MM-dd}): {2:#,##0.00}</value>
     </data>

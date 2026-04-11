@@ -183,7 +183,7 @@ public class StockService : ServiceBase, IStockService
     if (!r.Ok)
       return r;
     var wp = (string.IsNullOrEmpty(uid) ? null
-        : WpWertpapierRep.Get(daten, daten.MandantNr, uid, true)) ?? new WpWertpapier();
+      : WpWertpapierRep.Get(daten, daten.MandantNr, uid, true)) ?? new WpWertpapier();
     wp.SignalPrice1 = signal1;
     wp.Sorting = sort;
     wp.Type = type;

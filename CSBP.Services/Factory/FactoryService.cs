@@ -27,6 +27,9 @@ public class FactoryService
   /// <summary>Gets instance of diary service.</summary>
   public static IDiaryService DiaryService => Injector.GetInstance<IDiaryService>();
 
+  /// <summary>Gets instance of query service.</summary>
+  public static IEnergyService EnergyService => Injector.GetInstance<IEnergyService>();
+
   /// <summary>Gets instance of login service.</summary>
   public static ILoginService LoginService => Injector.GetInstance<ILoginService>();
 

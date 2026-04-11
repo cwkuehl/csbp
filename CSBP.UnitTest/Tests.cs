@@ -51,7 +51,7 @@ public class Tests
       t.GenerateForm();
     if (Functions.MachNichts() != 0)
       t.GenerateResxDesigner();
-    if (Functions.MachNichts() != 0)
+    if (Functions.MachNichts() == 0)
     {
       t.GenerierenModelCs();
       t.GenerierenReps();
@@ -72,7 +72,7 @@ public class Tests
       t1.Setup();
       t1.TestParser();
     }
-    if (Functions.MachNichts() == 0)
+    if (Functions.MachNichts() != 0)
     {
       var t1 = new ServiceTest();
       t1.Setup();

@@ -55,6 +55,9 @@ public class ServiceBase
   /// <summary>Repository for table Byte_Daten.</summary>
   protected static readonly ByteDatenRep ByteDatenRep = new();
 
+  /// <summary>Repository for table EN_Abfrage.</summary>
+  protected static readonly EnAbfrageRep EnAbfrageRep = new();
+
   /// <summary>Repository for table FZ_Buch.</summary>
   protected static readonly FzBuchRep FzBuchRep = new();
 

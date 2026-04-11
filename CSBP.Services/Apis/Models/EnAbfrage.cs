@@ -33,8 +33,8 @@ public partial class EnAbfrage : ModelBase
   /// <summary>Gets or sets the value of column Art.</summary>
   public string Art { get; set; }
 
-  /// <summary>Gets or sets the value of column Beschreibung.</summary>
-  public string Beschreibung { get; set; }
+  /// <summary>Gets or sets the value of column Bezeichnung.</summary>
+  public string Bezeichnung { get; set; }
 
   /// <summary>Gets or sets the value of column Host_Url.</summary>
   public string Host_Url { get; set; }

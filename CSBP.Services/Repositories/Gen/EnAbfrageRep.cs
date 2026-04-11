@@ -101,7 +101,7 @@ public partial class EnAbfrageRep : RepositoryBase
   /// <param name="uid">Value of column Uid.</param>
   /// <param name="sortierung">Value of column Sortierung.</param>
   /// <param name="art">Value of column Art.</param>
-  /// <param name="beschreibung">Value of column Beschreibung.</param>
+  /// <param name="bezeichnung">Value of column Bezeichnung.</param>
   /// <param name="hosturl">Value of column Host_Url.</param>
   /// <param name="datentyp">Value of column Datentyp.</param>
   /// <param name="schreibbarkeit">Value of column Schreibbarkeit.</param>
@@ -119,7 +119,7 @@ public partial class EnAbfrageRep : RepositoryBase
   /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
   /// <param name="geaendertam">Value of column Geaendert_Am.</param>
   /// <returns>Saved entity.</returns>
-  public EnAbfrage Save(ServiceDaten daten, int mandantnr, string uid, string sortierung, string art, string beschreibung, string hosturl, string datentyp, string schreibbarkeit, string einheit, string param1, string param2, string param3, string param4, string param5, string status, string notiz, string parameter, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+  public EnAbfrage Save(ServiceDaten daten, int mandantnr, string uid, string sortierung, string art, string bezeichnung, string hosturl, string datentyp, string schreibbarkeit, string einheit, string param1, string param2, string param3, string param4, string param5, string status, string notiz, string parameter, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
   {
     var db = GetDb(daten);
     var a = string.IsNullOrEmpty(uid) ? null : Get(daten, mandantnr, uid);
@@ -130,7 +130,7 @@ public partial class EnAbfrageRep : RepositoryBase
     e.Uid = string.IsNullOrEmpty(uid) ? Functions.GetUid() : uid;
     e.Sortierung = sortierung;
     e.Art = art;
-    e.Beschreibung = beschreibung;
+    e.Bezeichnung = bezeichnung;
     e.Host_Url = hosturl;
     e.Datentyp = datentyp;
     e.Schreibbarkeit = schreibbarkeit;
@@ -192,7 +192,7 @@ public partial class EnAbfrageRep : RepositoryBase
         Uid = e.Uid,
         Sortierung = e.Sortierung,
         Art = e.Art,
-        Beschreibung = e.Beschreibung,
+        Bezeichnung = e.Bezeichnung,
         Host_Url = e.Host_Url,
         Datentyp = e.Datentyp,
         Schreibbarkeit = e.Schreibbarkeit,

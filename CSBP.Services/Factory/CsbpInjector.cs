@@ -22,6 +22,7 @@ public class CsbpInjector : AbstractModule
     Bind<IBudgetService, BudgetService>();
     Bind<IClientService, ClientService>();
     Bind<IDiaryService, DiaryService>();
+    Bind<IEnergyService, EnergyService>();
     Bind<ILoginService, LoginService>();
     Bind<IPedigreeService, PedigreeService>();
     Bind<IPrivateService, PrivateService>();

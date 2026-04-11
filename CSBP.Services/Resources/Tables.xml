@@ -127,7 +127,7 @@
     <column name="Uid" type="VARCHAR" length="35" nullable="false" />
     <column name="Sortierung" type="VARCHAR" length="10" nullable="false" /><!-- Gruppierung der Abfragen -->
     <column name="Art" type="VARCHAR" length="10" nullable="false" /><!-- MODBUS-TCP, JSON -->
-    <column name="Beschreibung" type="VARCHAR" length="255" nullable="false" />
+    <column name="Bezeichnung" type="VARCHAR" length="255" nullable="false" />
     <column name="Host_Url" type="VARCHAR" length="255" nullable="false" /><!-- Host:Port oder URL -->
     <column name="Datentyp" type="VARCHAR" length="255" nullable="false" /><!-- int16, uint16, int32, float32, float64, enum -->
     <column name="Schreibbarkeit" type="VARCHAR" length="10" nullable="true" /><!-- z.B. R, W, RW -->

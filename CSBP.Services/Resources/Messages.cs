@@ -227,6 +227,16 @@ public partial class Messages
     get { return rm.GetString("AM012"); }
   }
 
+  public static string EN001
+  {
+    get { return rm.GetString("EN001"); }
+  }
+
+  public static string EN002
+  {
+    get { return rm.GetString("EN002"); }
+  }
+
   public static string FZ001_
   {
     get { return rm.GetString("FZ001_"); }
