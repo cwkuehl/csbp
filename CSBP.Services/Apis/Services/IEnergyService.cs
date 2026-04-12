@@ -86,4 +86,18 @@ public interface IEnergyService
   /// <param name="daten">Service data for database access.</param>
   /// <returns>List of states.</returns>
   ServiceErgebnis<List<MaParameter>> GetStateList(ServiceDaten daten);
+
+  /// <summary>
+  /// Gets a list of kinds.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of kinds.</returns>
+  ServiceErgebnis<List<MaParameter>> GetKindList(ServiceDaten daten);
+
+  /// <summary>
+  /// Gets a list of datatypes.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of datatypes.</returns>
+  ServiceErgebnis<List<MaParameter>> GetDatatypeList(ServiceDaten daten);
 }

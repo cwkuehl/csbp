@@ -83,7 +83,8 @@ public class EnergyService : ServiceBase, IEnergyService
   /// <returns>Query or null.</returns>
   public ServiceErgebnis<EnAbfrage> GetQuery(ServiceDaten daten, string uid)
   {
-    return null;
+    var r = new ServiceErgebnis<EnAbfrage>(EnAbfrageRep.Get(daten, daten.MandantNr, uid));
+    return r;
   }
 
   /// <summary>
@@ -151,7 +152,9 @@ public class EnergyService : ServiceBase, IEnergyService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis DeleteQuery(ServiceDaten daten, EnAbfrage e)
   {
-    return null;
+    var r = new ServiceErgebnis();
+    EnAbfrageRep.Delete(daten, e);
+    return r;
   }
 
   /// <summary>
@@ -176,9 +179,42 @@ public class EnergyService : ServiceBase, IEnergyService
   {
     var l = new List<MaParameter>
     {
-      new MaParameter { Schluessel = "1", Wert = Enum_state_active },
-      new MaParameter { Schluessel = "0", Wert = Enum_state_inactive },
-      new MaParameter { Schluessel = "2", Wert = Enum_state_nocalc },
+      new() { Schluessel = "1", Wert = Enum_state_active },
+      new() { Schluessel = "0", Wert = Enum_state_inactive },
+      new() { Schluessel = "2", Wert = Enum_state_nocalc },
+    };
+    var r = new ServiceErgebnis<List<MaParameter>>(l);
+    return r;
+  }
+
+  /// <summary>
+  /// Gets a list of kinds.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of kinds.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetKindList(ServiceDaten daten)
+  {
+    var l = new List<MaParameter>
+    {
+      new() { Schluessel = "MODBUS-TCP", Wert = "Modbus-TCP" },
+      new() { Schluessel = "JSON", Wert = "HTTP(S)-JSON" },
+    };
+    var r = new ServiceErgebnis<List<MaParameter>>(l);
+    return r;
+  }
+
+  /// <summary>
+  /// Gets a list of datatypes.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of datatypes.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetDatatypeList(ServiceDaten daten)
+  {
+    var l = new List<MaParameter>
+    {
+      new() { Schluessel = "int16", Wert = "int16, Integer 16" },
+      new() { Schluessel = "int32", Wert = "int32, Integer 32" },
+      new() { Schluessel = "uint16", Wert = "uint16, Unsigned Integer 16" },
     };
     var r = new ServiceErgebnis<List<MaParameter>>(l);
     return r;
