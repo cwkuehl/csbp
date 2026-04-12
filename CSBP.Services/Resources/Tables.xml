@@ -134,9 +134,9 @@
     <column name="Einheit" type="VARCHAR" length="50" nullable="true" /><!-- z.B. V, A, W, °C -->
     <column name="Param1" type="VARCHAR" length="50" nullable="true" /><!-- UnitID bei Modbus, z.B. 1; Start-Muster bei JSON. -->
     <column name="Param2" type="VARCHAR" length="50" nullable="true" /><!-- Registeradresse bei Modbus, z.B. 1004; Ende-Muster bei JSON. -->
-    <column name="Param3" type="VARCHAR" length="50" nullable="true" /><!-- Anzahl bei Modbus -->
-    <column name="Param4" type="VARCHAR" length="50" nullable="true" /><!-- frei -->
-    <column name="Param5" type="VARCHAR" length="50" nullable="true" /><!-- frei -->
+    <column name="Param3" type="VARCHAR" length="50" nullable="true" /><!-- Anzahl bei Modbus, meist 1 für 2 Bytes; unbenutzt bei JSON. -->
+    <column name="Param4" type="VARCHAR" length="50" nullable="true" /><!-- Faktor für Werte bei Modbus, z.B. 0,1 für 1/10; unbenutzt bei JSON. -->
+    <column name="Param5" type="VARCHAR" length="50" nullable="true" /><!-- Format zur Darstellung der Werte, z.B. N1 für eine Dezimalstelle. -->
     <column name="Status" type="VARCHAR" length="10" nullable="true" />
     <column name="Notiz" type="VARCHAR" length="-1" nullable="true" />
     <column name="Parameter" type="VARCHAR" length="-1" nullable="true" extension="true" />

@@ -215,6 +215,8 @@ public class EnergyService : ServiceBase, IEnergyService
       new() { Schluessel = "int16", Wert = "int16, Integer 16" },
       new() { Schluessel = "int32", Wert = "int32, Integer 32" },
       new() { Schluessel = "uint16", Wert = "uint16, Unsigned Integer 16" },
+      new() { Schluessel = "decimal", Wert = "decimal, Dezimalzahl" },
+      new() { Schluessel = "string", Wert = "string, Zeichenkette" },
     };
     var r = new ServiceErgebnis<List<MaParameter>>(l);
     return r;
