@@ -70,8 +70,7 @@ public class EnergyService : ServiceBase, IEnergyService
   /// <returns>List of queries.</returns>
   public ServiceErgebnis<List<EnAbfrage>> GetQueryList(ServiceDaten daten, TableReadModel rm = null, bool inactive = false, string search = null)
   {
-    // var r = new ServiceErgebnis<List<EnAbfrage>>(EnAbfrageRep.GetList(daten, rm, daten.MandantNr, inactive, search));
-    var r = new ServiceErgebnis<List<EnAbfrage>>(EnAbfrageRep.GetList(daten, daten.MandantNr));
+    var r = new ServiceErgebnis<List<EnAbfrage>>(EnAbfrageRep.GetList(daten, rm, !inactive, search));
     return r;
   }
 
