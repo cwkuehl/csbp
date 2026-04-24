@@ -256,13 +256,14 @@ public class StatusTask
   /// <param name="funktion">Betroffene Funktion.</param>
   /// <param name="temporaer">True, wenn die betroffene Funktion nicht gemerkt und der Status nicht in eine Datei geschrieben werden soll.</param>
   /// <param name="funktionen">Für die betroffenen Prüffunktionen dürfen keinen Funktionen laufen.</param>
+  /// <param name="kurz">A value indicating whether the message should be short.</param>
   /// <returns>Neue StatusTask oder null, wenn andere Funktion schon läuft.</returns>
-  public static ServiceErgebnis<StatusTask?> HinzufuegenFunktion(int mandant, string funktion, bool temporaer = false, string[]? funktionen = null)
+  public static ServiceErgebnis<StatusTask?> HinzufuegenFunktion(int mandant, string funktion, bool temporaer = false, string[]? funktionen = null, bool kurz = true)
   {
     var r = new ServiceErgebnis<StatusTask?>();
     var dateiname = temporaer ? null
       : Path.Combine(Pfad, Functions.GetDateiname($"ST_{mandant}_{funktion}_{Servername}", true, true, true, "txt"));
-    var f = new StatusTask(mandant, funktion, dateiname, true);
+    var f = new StatusTask(mandant, funktion, dateiname, kurz);
     r.Ergebnis = f;
     if (!temporaer)
     {
@@ -403,7 +404,8 @@ public class StatusTask
   /// <summary>Sets a message.</summary>
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
-  public void SetMeldung(string s, bool anhaengen = false)
+  /// <param name="trenner">Separator to be used.</param>
+  public void SetMeldung(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
   {
     s = Functions.TrimNull(s);
     if (anhaengen && daten.TryGetValue("Meldung", out var v) && !string.IsNullOrEmpty(v))
@@ -411,7 +413,7 @@ public class StatusTask
       if (s == null)
         s = v;
       else
-        s = $"{s}{Constants.CrLf}{v}";
+        s = $"{v}{trenner}{s}";
     }
     daten["Meldung"] = s;
     Aendern();
@@ -420,7 +422,8 @@ public class StatusTask
   /// <summary>Sets a second message.</summary>
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
-  public void SetMeldung1(string s, bool anhaengen = false)
+  /// <param name="trenner">Separator to be used.</param>
+  public void SetMeldung1(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
   {
     s = Functions.TrimNull(s);
     if (anhaengen && daten.TryGetValue("Meldung1", out var v) && !string.IsNullOrEmpty(v))
@@ -428,7 +431,7 @@ public class StatusTask
       if (s == null)
         s = v;
       else
-        s = $"{s}{Constants.CrLf}{v}";
+        s = $"{v}{trenner}{s}";
     }
     daten["Meldung1"] = s;
     Aendern();
@@ -437,7 +440,8 @@ public class StatusTask
   /// <summary>Sets a third message.</summary>
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
-  public void SetMeldung2(string s, bool anhaengen = false)
+  /// <param name="trenner">Separator to be used.</param>
+  public void SetMeldung2(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
   {
     s = Functions.TrimNull(s);
     if (anhaengen && daten.TryGetValue("Meldung2", out var v) && !string.IsNullOrEmpty(v))
@@ -445,7 +449,7 @@ public class StatusTask
       if (s == null)
         s = v;
       else
-        s = $"{s}{Constants.CrLf}{v}";
+        s = $"{v}{trenner}{s}";
     }
     daten["Meldung2"] = s;
     Aendern();
@@ -454,7 +458,8 @@ public class StatusTask
   /// <summary>Sets a fourth message.</summary>
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
-  public void SetMeldung3(string s, bool anhaengen = false)
+  /// <param name="trenner">Separator to be used.</param>
+  public void SetMeldung3(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
   {
     s = Functions.TrimNull(s);
     if (anhaengen && daten.TryGetValue("Meldung3", out var v) && !string.IsNullOrEmpty(v))
@@ -462,7 +467,7 @@ public class StatusTask
       if (s == null)
         s = v;
       else
-        s = $"{s}{Constants.CrLf}{v}";
+        s = $"{v}{trenner}{s}";
     }
     daten["Meldung3"] = s;
     Aendern();
@@ -611,7 +616,8 @@ public class StatusTask
       if (daten.TryGetValue("Abbruch", out v) & v != null)
         sb.Append(tr).Append("Abbruch: angefordert");
       if (Endzeit.HasValue)
-        sb.Append(tr).Append("Verarbeitung beendet: ").Append(Functions.ToString(Endzeit.Value));
+        sb.Append(tr).Append("Verarbeitung beendet: ").Append(Functions.ToString(Endzeit.Value, true))
+        .Append(" (Dauer: ").Append(Endzeit.Value.Subtract(Startzeit).TotalMilliseconds.ToString("0")).Append(" ms)");
     }
     return sb.ToString();
   }

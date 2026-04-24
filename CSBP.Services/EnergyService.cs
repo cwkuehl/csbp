@@ -12,6 +12,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using AMWD.Protocols.Modbus.Common;
+using AMWD.Protocols.Modbus.Tcp;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
@@ -166,7 +168,90 @@ public class EnergyService : ServiceBase, IEnergyService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis QueryQueries(ServiceDaten daten, bool inactive, string search, StatusTask state)
   {
-    return null;
+    var r = new ServiceErgebnis();
+    var l = EnAbfrageRep.GetList(daten, null, !inactive, search);
+    var m1 = true;
+    foreach (var q in l)
+    {
+      if (state.IstAbbruch())
+        break;
+      if (q.Art == "MODBUS-TCP")
+      {
+        var arr = q.Host_Url.Split(':');
+        var host = arr[0];
+        var port = arr.Length > 1 ? Functions.ToInt32(arr[1]) : 502;
+        using var client = new ModbusTcpClient(host, port);
+        byte unitId = q.Param1 != null ? (byte)Functions.ToInt32(q.Param1) : (byte)1;
+        ushort address = q.Param2 != null ? (ushort)Functions.ToInt32(q.Param2) : (ushort)1;
+        ushort count = q.Param3 != null ? (ushort)Functions.ToInt32(q.Param3) : (ushort)1;
+        var registers = client.ReadHoldingRegistersAsync(unitId, address, count).GetAwaiter().GetResult(); // .Select(r => r.Value).ToArray();
+        var wert = GetDatentypValue(q, registers);
+        var einheit = string.IsNullOrWhiteSpace(q.Einheit) ? "" : $" {q.Einheit}";
+        ////state.SetMeldung($"Modbus-TCP: {q.Bezeichnung}, {host}:{port}, UnitId={unitId}, Address={address}, Count={count}, Registers={string.Join(", ", registers)}");
+        // var v = switch (q.Datentyp)
+        // {
+        //   default:
+        //     return "TODO EN004: Datentyp {0} nicht unterstützt.".FormatWith(q.Datentyp);
+        // }
+        state.SetMeldung($"{Functions.Iif(m1, "", "  ")}{q.Bezeichnung}: {wert}{einheit}", true, "  ");
+        m1 = false;
+      }
+    }
+    return r;
+  }
+
+  private static string GetDatentypValue(EnAbfrage q, IReadOnlyList<HoldingRegister> registers)
+  {
+    var arr = q.Datentyp.Split('|');
+    var dt = arr[0];
+    var az = arr.Length > 1 ? arr[1] : null; // Enum, Aufzählung
+    var faktor = Functions.ToDecimal(q.Param4) ?? 0m;
+    var d = 0m;
+    if (dt == "uint16")
+    {
+      d = registers[0].GetUInt16();
+    }
+    else if (dt == "int16")
+    {
+      d = registers[0].GetInt16();
+    }
+    else if (dt == "int32")
+    {
+      d = registers.GetInt32();
+    }
+    else if (dt == "decimal")
+    {
+      d = (decimal)registers.GetDouble();
+    }
+    else if (dt == "string")
+    {
+      // var l = registers.Count;
+      // var s = registers.GetString(l, reverseByteOrderPerRegister: true);
+      var sb = new StringBuilder();
+      foreach (var r in registers)
+        sb.Append((char)r.Value);
+      var s2 = sb.ToString().TrimEnd('\0');
+      return s2;
+    }
+    else
+      return $"Datentyp {q.Datentyp} nicht unterstützt.";
+
+    if (faktor != 0)
+      d *= faktor;
+    string sw;
+    if (!string.IsNullOrWhiteSpace(q.Param5))
+      sw = d.ToString(q.Param5);
+    else
+      sw = Functions.ToString(d, 0);
+    if (az != null)
+    {
+      var wen = Functions.Between(az, $"{sw}=", ";");
+      if (wen == null)
+        wen = Functions.Between(az, "_=", ";");
+      if (wen != null)
+        sw = wen;
+    }
+    return sw;
   }
 
   /// <summary>

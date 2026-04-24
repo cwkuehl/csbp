@@ -28,19 +28,17 @@ public partial class EnAbfrageRep
     var l = db.EN_Abfrage.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!onlyactive)
       l = l.Where(a => a.Status == "0");
+    if (CsbpBase.IsLike(rm?.Search))
+      text = rm?.Search;
     if (CsbpBase.IsLike(text))
-      l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text));
+      l = l.Where(a => EF.Functions.Like(a.Sortierung, text) || EF.Functions.Like(a.Art, text)
+        || EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Host_Url, text)
+        || EF.Functions.Like(a.Datentyp, text) || EF.Functions.Like(a.Einheit, text)
+        || EF.Functions.Like(a.Param1, text) || EF.Functions.Like(a.Param2, text)
+        || EF.Functions.Like(a.Param3, text) || EF.Functions.Like(a.Param4, text)
+        || EF.Functions.Like(a.Param5, text) || EF.Functions.Like(a.Notiz, text));
     if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
     {
-      if (CsbpBase.IsLike(rm.Search))
-      {
-        l = l.Where(a => EF.Functions.Like(a.Sortierung, rm.Search) || EF.Functions.Like(a.Art, rm.Search)
-          || EF.Functions.Like(a.Bezeichnung, rm.Search) || EF.Functions.Like(a.Host_Url, rm.Search)
-          || EF.Functions.Like(a.Datentyp, rm.Search) || EF.Functions.Like(a.Einheit, rm.Search)
-          || EF.Functions.Like(a.Param1, rm.Search) || EF.Functions.Like(a.Param2, rm.Search)
-          || EF.Functions.Like(a.Param3, rm.Search) || EF.Functions.Like(a.Param4, rm.Search)
-          || EF.Functions.Like(a.Param5, rm.Search) || EF.Functions.Like(a.Notiz, rm.Search));
-      }
       if (rm.NoPaging)
       {
         var l1 = SortList(l, rm.SortColumn);
@@ -57,6 +55,6 @@ public partial class EnAbfrageRep
         return l2;
       }
     }
-    return l.OrderBy(a => a.Bezeichnung).ToList();
+    return l.OrderBy(a => a.Sortierung).ToList();
   }
 }
