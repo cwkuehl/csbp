@@ -171,6 +171,8 @@ public class EnergyService : ServiceBase, IEnergyService
     var r = new ServiceErgebnis();
     var l = EnAbfrageRep.GetList(daten, null, !inactive, search);
     var m1 = true;
+    var json = "";
+    var jsonurl = "";
     foreach (var q in l)
     {
       if (state.IstAbbruch())
@@ -185,7 +187,7 @@ public class EnergyService : ServiceBase, IEnergyService
         ushort address = q.Param2 != null ? (ushort)Functions.ToInt32(q.Param2) : (ushort)1;
         ushort count = q.Param3 != null ? (ushort)Functions.ToInt32(q.Param3) : (ushort)1;
         var registers = client.ReadHoldingRegistersAsync(unitId, address, count).GetAwaiter().GetResult(); // .Select(r => r.Value).ToArray();
-        var wert = GetDatentypValue(q, registers);
+        var wert = GetDatentypModbusValue(q, registers);
         var einheit = string.IsNullOrWhiteSpace(q.Einheit) ? "" : $" {q.Einheit}";
         ////state.SetMeldung($"Modbus-TCP: {q.Bezeichnung}, {host}:{port}, UnitId={unitId}, Address={address}, Count={count}, Registers={string.Join(", ", registers)}");
         // var v = switch (q.Datentyp)
@@ -196,11 +198,87 @@ public class EnergyService : ServiceBase, IEnergyService
         state.SetMeldung($"{Functions.Iif(m1, "", "  ")}{q.Bezeichnung}: {wert}{einheit}", true, "  ");
         m1 = false;
       }
+      else if (q.Art == "JSON")
+      {
+        if (q.Host_Url != jsonurl)
+        {
+          try
+          {
+            var client = new HttpClient
+            {
+              Timeout = TimeSpan.FromSeconds(5),
+            };
+            json = client.GetStringAsync(q.Host_Url).GetAwaiter().GetResult();
+          }
+          catch (Exception ex)
+          {
+            state.SetFehler($"Fehler bei Abfrage {q.Bezeichnung} von {q.Host_Url}: {ex.Message}");
+          }
+        }
+        var wert = "nicht gefunden";
+        if (!string.IsNullOrWhiteSpace(json))
+        {
+          jsonurl = q.Host_Url;
+          wert = GetDatentypJsonValue(q, json);
+        }
+        var einheit = string.IsNullOrWhiteSpace(q.Einheit) ? "" : $" {q.Einheit}";
+        state.SetMeldung($"{Functions.Iif(m1, "", "  ")}{q.Bezeichnung}: {wert}{einheit}", true, "  ");
+        m1 = false;
+      }
     }
     return r;
   }
 
-  private static string GetDatentypValue(EnAbfrage q, IReadOnlyList<HoldingRegister> registers)
+  private static string GetDatentypJsonValue(EnAbfrage q, string json)
+  {
+    var wert = Functions.Between(json, q.Param1, q.Param2);
+    var arr = q.Datentyp.Split('|');
+    var dt = arr[0];
+    var az = arr.Length > 1 ? arr[1] : null; // Enum, Aufzählung
+    var faktor = Functions.ToDecimal(q.Param4) ?? 0m;
+    var d = 0m;
+    if (dt == "uint16")
+    {
+      d = Functions.ToInt32(wert);
+    }
+    else if (dt == "int16")
+    {
+      d = Functions.ToInt32(wert);
+    }
+    else if (dt == "int32")
+    {
+      d = Functions.ToInt32(wert);
+    }
+    else if (dt == "decimal")
+    {
+      d = Functions.ToDecimal(wert, -1, true) ?? 0m;
+    }
+    else if (dt == "string")
+    {
+      return wert;
+    }
+    else
+      return $"JSON-Datentyp {q.Datentyp} nicht unterstützt.";
+
+    if (faktor != 0)
+      d *= faktor;
+    string sw;
+    if (!string.IsNullOrWhiteSpace(q.Param5))
+      sw = d.ToString(q.Param5);
+    else
+      sw = Functions.ToString(d, 0);
+    if (az != null)
+    {
+      var wen = Functions.Between(az, $"{sw}=", ";");
+      if (wen == null)
+        wen = Functions.Between(az, "_=", ";");
+      if (wen != null)
+        sw = wen;
+    }
+    return sw;
+  }
+
+  private static string GetDatentypModbusValue(EnAbfrage q, IReadOnlyList<HoldingRegister> registers)
   {
     var arr = q.Datentyp.Split('|');
     var dt = arr[0];
