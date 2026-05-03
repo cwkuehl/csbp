@@ -1040,6 +1040,10 @@
         <value>_Wertpapier-Chart</value>
     </data>
 
+    <data name="Menu.queries" xml:space="preserve">
+        <value>_Abfrage-Parameter</value>
+    </data>
+
     <data name="Menu.help" xml:space="preserve">
         <value>_Hilfe</value>
     </data>
@@ -2041,6 +2045,152 @@
     </data>
     <data name="AM510.unten.tt" xml:space="preserve">
         <value>Ausgewähltes Formular nach unten</value>
+    </data>
+
+    <data name="EN100.title" xml:space="preserve">
+        <value>Abfrage-Parameter</value>
+    </data>
+    <data name="EN100.wertpapiere" xml:space="preserve">
+        <value>_Abfrage-Parameter</value>
+    </data>
+    <data name="EN100.wertpapiere.tt" xml:space="preserve">
+        <value>Abfrage-Parameter</value>
+    </data>
+    <data name="EN100.wertpapiere.columns" xml:space="preserve">
+        <value>Nr.;Sort.;Bezeichnung;St.;Host-URL;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+    </data>
+    <data name="EN100.status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="EN100.bis" xml:space="preserve">
+        <value>B_is</value>
+    </data>
+    <data name="EN100.bis.tt" xml:space="preserve">
+        <value>End-Datum für die Bewertung festlegen.</value>
+    </data>
+    <data name="EN100.alle" xml:space="preserve">
+        <value>A_lle</value>
+    </data>
+    <data name="EN100.alle.tt" xml:space="preserve">
+        <value>Selektionskriterien zurücksetzen</value>
+    </data>
+    <data name="EN100.berechnen" xml:space="preserve">
+        <value>Bewertungen berechnen</value>
+    </data>
+    <data name="EN100.berechnen.tt" xml:space="preserve">
+        <value>Soll die Bewertung für jedes aktive Wertpapier berechnet werden?</value>
+    </data>
+    <data name="EN100.bezeichnung" xml:space="preserve">
+        <value>_Suche</value>
+    </data>
+    <data name="EN100.bezeichnung.tt" xml:space="preserve">
+        <value>Suche in allen Textfeldern</value>
+    </data>
+    <data name="EN100.auchinaktiv" xml:space="preserve">
+        <value>auch inaktive</value>
+    </data>
+    <data name="EN100.auchinaktiv.tt" xml:space="preserve">
+        <value>Sollen auch inaktive Wertpapiere angezeigt werden?</value>
+    </data>
+    <data name="EN100.konfiguration" xml:space="preserve">
+        <value>_Konfiguration</value>
+    </data>
+    <data name="EN100.konfiguration.tt" xml:space="preserve">
+        <value>Konfiguration für Bewertung festlegen</value>
+    </data>
+
+    <data name="EN110.title" xml:space="preserve">
+        <value>Wertpapier</value>
+    </data>
+    <data name="EN110.nr" xml:space="preserve">
+        <value>Nr.</value>
+    </data>
+    <data name="EN110.nr.tt" xml:space="preserve">
+        <value>Wertpapier-Nr.</value>
+    </data>
+    <data name="EN110.bezeichnung" xml:space="preserve">
+        <value>_Bezeichnung</value>
+    </data>
+    <data name="EN110.bezeichnung.tt" xml:space="preserve">
+        <value>Bezeichnung</value>
+    </data>
+    <data name="EN110.provider" xml:space="preserve">
+        <value>_Provider</value>
+    </data>
+    <data name="EN110.provider.tt" xml:space="preserve">
+        <value>Provider für Kursabfrage</value>
+    </data>
+    <data name="EN110.kuerzel" xml:space="preserve">
+        <value>_Kürzel</value>
+    </data>
+    <data name="EN110.kuerzel.tt" xml:space="preserve">
+        <value>Kürzel für Kursabfrage beim Provider</value>
+    </data>
+    <data name="EN110.status" xml:space="preserve">
+        <value>_Status</value>
+    </data>
+    <data name="EN110.status.tt" xml:space="preserve">
+        <value>Status für Berechnung</value>
+    </data>
+    <data name="EN110.aktKurs" xml:space="preserve">
+        <value>Aktueller Kurs</value>
+    </data>
+    <data name="EN110.aktKurs.tt" xml:space="preserve">
+        <value>Aktueller Kurs aus letzter Bewertung</value>
+    </data>
+    <data name="EN110.stopKurs" xml:space="preserve">
+        <value>Stop-Kurs</value>
+    </data>
+    <data name="EN110.stopKurs.tt" xml:space="preserve">
+        <value>Stop-Kurs aus letzter Bewertung</value>
+    </data>
+    <data name="EN110.signalKurs1" xml:space="preserve">
+        <value>Kurs_ziel</value>
+    </data>
+    <data name="EN110.signalKurs1.tt" xml:space="preserve">
+        <value>Manuelles Kursziel</value>
+    </data>
+    <data name="EN110.muster" xml:space="preserve">
+        <value>Letztes Muster</value>
+    </data>
+    <data name="EN110.muster.tt" xml:space="preserve">
+        <value>Letztes Signalmuster aus letzter Bewertung</value>
+    </data>
+    <data name="EN110.typ" xml:space="preserve">
+        <value>_Typ</value>
+    </data>
+    <data name="EN110.typ.tt" xml:space="preserve">
+        <value>Aktie (wenn leer) oder Anleihe</value>
+    </data>
+    <data name="EN110.waehrung" xml:space="preserve">
+        <value>_Währung</value>
+    </data>
+    <data name="EN110.waehrung.tt" xml:space="preserve">
+        <value>Währungskürzel für Kursabfrage; EUR, GBP, USD, ...</value>
+    </data>
+    <data name="EN110.sortierung" xml:space="preserve">
+        <value>Sortierun_g</value>
+    </data>
+    <data name="EN110.sortierung.tt" xml:space="preserve">
+        <value>Zeichenkette für Sortierung</value>
+    </data>
+    <data name="EN110.relation" xml:space="preserve">
+        <value>_Relation</value>
+    </data>
+    <data name="EN110.relation.tt" xml:space="preserve">
+        <value>Relation zu anderem Wertpapier, z.B. Index</value>
+    </data>
+    <data name="EN110.notiz" xml:space="preserve">
+        <value>Notiz</value>
+    </data>
+    <data name="EN110.notiz.tt" xml:space="preserve">
+        <value>Notizen</value>
+    </data>
+    <data name="EN110.anlage" xml:space="preserve">
+        <value>Anlage erstellen</value>
+    </data>
+    <data name="EN110.anlage.tt" xml:space="preserve">
+        <value>Soll für das Wertpapier auch eine Anlage erstellt werden?</value>
     </data>
 
     <data name="FZ100.title" xml:space="preserve">

@@ -1702,6 +1702,11 @@ public partial class Messages
     get { return rm.GetString("Menu.chart"); }
   }
 
+  public static string Menu_queries
+  {
+    get { return rm.GetString("Menu.queries"); }
+  }
+
   public static string Menu_help
   {
     get { return rm.GetString("Menu.help"); }
@@ -3305,6 +3310,246 @@ public partial class Messages
   public static string AM510_unten_tt
   {
     get { return rm.GetString("AM510.unten.tt"); }
+  }
+
+  public static string EN100_title
+  {
+    get { return rm.GetString("EN100.title"); }
+  }
+
+  public static string EN100_wertpapiere
+  {
+    get { return rm.GetString("EN100.wertpapiere"); }
+  }
+
+  public static string EN100_wertpapiere_tt
+  {
+    get { return rm.GetString("EN100.wertpapiere.tt"); }
+  }
+
+  public static string EN100_wertpapiere_columns
+  {
+    get { return rm.GetString("EN100.wertpapiere.columns"); }
+  }
+
+  public static string EN100_status
+  {
+    get { return rm.GetString("EN100.status"); }
+  }
+
+  public static string EN100_bis
+  {
+    get { return rm.GetString("EN100.bis"); }
+  }
+
+  public static string EN100_bis_tt
+  {
+    get { return rm.GetString("EN100.bis.tt"); }
+  }
+
+  public static string EN100_alle
+  {
+    get { return rm.GetString("EN100.alle"); }
+  }
+
+  public static string EN100_alle_tt
+  {
+    get { return rm.GetString("EN100.alle.tt"); }
+  }
+
+  public static string EN100_berechnen
+  {
+    get { return rm.GetString("EN100.berechnen"); }
+  }
+
+  public static string EN100_berechnen_tt
+  {
+    get { return rm.GetString("EN100.berechnen.tt"); }
+  }
+
+  public static string EN100_bezeichnung
+  {
+    get { return rm.GetString("EN100.bezeichnung"); }
+  }
+
+  public static string EN100_bezeichnung_tt
+  {
+    get { return rm.GetString("EN100.bezeichnung.tt"); }
+  }
+
+  public static string EN100_auchinaktiv
+  {
+    get { return rm.GetString("EN100.auchinaktiv"); }
+  }
+
+  public static string EN100_auchinaktiv_tt
+  {
+    get { return rm.GetString("EN100.auchinaktiv.tt"); }
+  }
+
+  public static string EN100_konfiguration
+  {
+    get { return rm.GetString("EN100.konfiguration"); }
+  }
+
+  public static string EN100_konfiguration_tt
+  {
+    get { return rm.GetString("EN100.konfiguration.tt"); }
+  }
+
+  public static string EN110_title
+  {
+    get { return rm.GetString("EN110.title"); }
+  }
+
+  public static string EN110_nr
+  {
+    get { return rm.GetString("EN110.nr"); }
+  }
+
+  public static string EN110_nr_tt
+  {
+    get { return rm.GetString("EN110.nr.tt"); }
+  }
+
+  public static string EN110_bezeichnung
+  {
+    get { return rm.GetString("EN110.bezeichnung"); }
+  }
+
+  public static string EN110_bezeichnung_tt
+  {
+    get { return rm.GetString("EN110.bezeichnung.tt"); }
+  }
+
+  public static string EN110_provider
+  {
+    get { return rm.GetString("EN110.provider"); }
+  }
+
+  public static string EN110_provider_tt
+  {
+    get { return rm.GetString("EN110.provider.tt"); }
+  }
+
+  public static string EN110_kuerzel
+  {
+    get { return rm.GetString("EN110.kuerzel"); }
+  }
+
+  public static string EN110_kuerzel_tt
+  {
+    get { return rm.GetString("EN110.kuerzel.tt"); }
+  }
+
+  public static string EN110_status
+  {
+    get { return rm.GetString("EN110.status"); }
+  }
+
+  public static string EN110_status_tt
+  {
+    get { return rm.GetString("EN110.status.tt"); }
+  }
+
+  public static string EN110_aktKurs
+  {
+    get { return rm.GetString("EN110.aktKurs"); }
+  }
+
+  public static string EN110_aktKurs_tt
+  {
+    get { return rm.GetString("EN110.aktKurs.tt"); }
+  }
+
+  public static string EN110_stopKurs
+  {
+    get { return rm.GetString("EN110.stopKurs"); }
+  }
+
+  public static string EN110_stopKurs_tt
+  {
+    get { return rm.GetString("EN110.stopKurs.tt"); }
+  }
+
+  public static string EN110_signalKurs1
+  {
+    get { return rm.GetString("EN110.signalKurs1"); }
+  }
+
+  public static string EN110_signalKurs1_tt
+  {
+    get { return rm.GetString("EN110.signalKurs1.tt"); }
+  }
+
+  public static string EN110_muster
+  {
+    get { return rm.GetString("EN110.muster"); }
+  }
+
+  public static string EN110_muster_tt
+  {
+    get { return rm.GetString("EN110.muster.tt"); }
+  }
+
+  public static string EN110_typ
+  {
+    get { return rm.GetString("EN110.typ"); }
+  }
+
+  public static string EN110_typ_tt
+  {
+    get { return rm.GetString("EN110.typ.tt"); }
+  }
+
+  public static string EN110_waehrung
+  {
+    get { return rm.GetString("EN110.waehrung"); }
+  }
+
+  public static string EN110_waehrung_tt
+  {
+    get { return rm.GetString("EN110.waehrung.tt"); }
+  }
+
+  public static string EN110_sortierung
+  {
+    get { return rm.GetString("EN110.sortierung"); }
+  }
+
+  public static string EN110_sortierung_tt
+  {
+    get { return rm.GetString("EN110.sortierung.tt"); }
+  }
+
+  public static string EN110_relation
+  {
+    get { return rm.GetString("EN110.relation"); }
+  }
+
+  public static string EN110_relation_tt
+  {
+    get { return rm.GetString("EN110.relation.tt"); }
+  }
+
+  public static string EN110_notiz
+  {
+    get { return rm.GetString("EN110.notiz"); }
+  }
+
+  public static string EN110_notiz_tt
+  {
+    get { return rm.GetString("EN110.notiz.tt"); }
+  }
+
+  public static string EN110_anlage
+  {
+    get { return rm.GetString("EN110.anlage"); }
+  }
+
+  public static string EN110_anlage_tt
+  {
+    get { return rm.GetString("EN110.anlage.tt"); }
   }
 
   public static string FZ100_title

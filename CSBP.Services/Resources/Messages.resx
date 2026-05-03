@@ -1040,6 +1040,10 @@
         <value>  _Stock chart</value>
     </data>
 
+    <data name="Menu.queries" xml:space="preserve">
+        <value>_Query Parameters</value>
+    </data>
+
     <data name="Menu.help" xml:space="preserve">
         <value>_Help</value>
     </data>
@@ -2041,6 +2045,152 @@
     </data>
     <data name="AM510.unten.tt" xml:space="preserve">
         <value>Selected starting dialog down</value>
+    </data>
+
+    <data name="EN100.title" xml:space="preserve">
+        <value>EN100.title</value>
+    </data>
+    <data name="EN100.wertpapiere" xml:space="preserve">
+        <value>EN100.wertpapiere</value>
+    </data>
+    <data name="EN100.wertpapiere.tt" xml:space="preserve">
+        <value>EN100.wertpapiere.tt</value>
+    </data>
+    <data name="EN100.wertpapiere.columns" xml:space="preserve">
+        <value>No.;Sort.;Description;St.;Host-URL;Changed at;Changed by;Created at;Created by</value>
+    </data>
+    <data name="EN100.status" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="EN100.bis" xml:space="preserve">
+        <value>EN100.bis</value>
+    </data>
+    <data name="EN100.bis.tt" xml:space="preserve">
+        <value>EN100.bis.tt</value>
+    </data>
+    <data name="EN100.alle" xml:space="preserve">
+        <value>A_ll</value>
+    </data>
+    <data name="EN100.alle.tt" xml:space="preserve">
+        <value>Clear selection criteria</value>
+    </data>
+    <data name="EN100.berechnen" xml:space="preserve">
+        <value>Calculate rating</value>
+    </data>
+    <data name="EN100.berechnen.tt" xml:space="preserve">
+        <value>Calculate rating for all active stocks?</value>
+    </data>
+    <data name="EN100.bezeichnung" xml:space="preserve">
+        <value>_Search</value>
+    </data>
+    <data name="EN100.bezeichnung.tt" xml:space="preserve">
+        <value>Search for text</value>
+    </data>
+    <data name="EN100.auchinaktiv" xml:space="preserve">
+        <value>also inactive</value>
+    </data>
+    <data name="EN100.auchinaktiv.tt" xml:space="preserve">
+        <value>Show also inactive stocks?</value>
+    </data>
+    <data name="EN100.konfiguration" xml:space="preserve">
+        <value>_Configuration</value>
+    </data>
+    <data name="EN100.konfiguration.tt" xml:space="preserve">
+        <value>Configuration for rating</value>
+    </data>
+
+    <data name="EN110.title" xml:space="preserve">
+        <value>Stock</value>
+    </data>
+    <data name="EN110.nr" xml:space="preserve">
+        <value>No.</value>
+    </data>
+    <data name="EN110.nr.tt" xml:space="preserve">
+        <value>Stock number</value>
+    </data>
+    <data name="EN110.bezeichnung" xml:space="preserve">
+        <value>_Description</value>
+    </data>
+    <data name="EN110.bezeichnung.tt" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="EN110.provider" xml:space="preserve">
+        <value>_Provider</value>
+    </data>
+    <data name="EN110.provider.tt" xml:space="preserve">
+        <value>Provider for prices</value>
+    </data>
+    <data name="EN110.kuerzel" xml:space="preserve">
+        <value>_Shortcut</value>
+    </data>
+    <data name="EN110.kuerzel.tt" xml:space="preserve">
+        <value>Shortcut for provider</value>
+    </data>
+    <data name="EN110.status" xml:space="preserve">
+        <value>_State</value>
+    </data>
+    <data name="EN110.status.tt" xml:space="preserve">
+        <value>State for calculating</value>
+    </data>
+    <data name="EN110.aktKurs" xml:space="preserve">
+        <value>Current price</value>
+    </data>
+    <data name="EN110.aktKurs.tt" xml:space="preserve">
+        <value>Current price of last calculation</value>
+    </data>
+    <data name="EN110.stopKurs" xml:space="preserve">
+        <value>Stop order</value>
+    </data>
+    <data name="EN110.stopKurs.tt" xml:space="preserve">
+        <value>Stop order of last calculation</value>
+    </data>
+    <data name="EN110.signalKurs1" xml:space="preserve">
+        <value>Price _target</value>
+    </data>
+    <data name="EN110.signalKurs1.tt" xml:space="preserve">
+        <value>Manual price target</value>
+    </data>
+    <data name="EN110.muster" xml:space="preserve">
+        <value>Last pattern</value>
+    </data>
+    <data name="EN110.muster.tt" xml:space="preserve">
+        <value>Last pattern of last calculation</value>
+    </data>
+    <data name="EN110.typ" xml:space="preserve">
+        <value>_Type</value>
+    </data>
+    <data name="EN110.typ.tt" xml:space="preserve">
+        <value>Share (if empty) or bond</value>
+    </data>
+    <data name="EN110.waehrung" xml:space="preserve">
+        <value>C_urrency</value>
+    </data>
+    <data name="EN110.waehrung.tt" xml:space="preserve">
+        <value>Currency for price provider; EUR, GBP, USD, ...</value>
+    </data>
+    <data name="EN110.sortierung" xml:space="preserve">
+        <value>Sortin_g</value>
+    </data>
+    <data name="EN110.sortierung.tt" xml:space="preserve">
+        <value>String for sorting</value>
+    </data>
+    <data name="EN110.relation" xml:space="preserve">
+        <value>_Relation</value>
+    </data>
+    <data name="EN110.relation.tt" xml:space="preserve">
+        <value>Relation to another stock or index</value>
+    </data>
+    <data name="EN110.notiz" xml:space="preserve">
+        <value>Memo</value>
+    </data>
+    <data name="EN110.notiz.tt" xml:space="preserve">
+        <value>Memos</value>
+    </data>
+    <data name="EN110.anlage" xml:space="preserve">
+        <value>Create investment</value>
+    </data>
+    <data name="EN110.anlage.tt" xml:space="preserve">
+        <value>Create investment for stock?</value>
     </data>
 
     <data name="FZ100.title" xml:space="preserve">

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkImage" id="closeImage">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">process-stop</property>
-  </object>
-  <object class="GtkImage" id="logoutImage">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">system-log-out</property>
   </object>
   <object class="GtkImage" id="helpImage">
     <property name="visible">True</property>
@@ -21,6 +16,11 @@
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">dialog-information</property>
+  </object>
+  <object class="GtkImage" id="logoutImage">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">system-log-out</property>
   </object>
   <object class="GtkImage" id="menuImage">
     <property name="visible">True</property>
@@ -536,6 +536,21 @@
                         <signal name="activate" handler="OnMenuPrices" swapped="no"/>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="MenuQueries">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Menu.queries</property>
+                        <property name="use-underline">True</property>
+                        <signal name="activate" handler="OnMenuQueries" swapped="no"/>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -751,11 +766,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuclients">
+                <property name="label">Menu.clients</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.clients</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -767,11 +782,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuusers">
+                <property name="label">Menu.users</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.users</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -783,11 +798,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menubackups">
+                <property name="label">Menu.backups</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.backups</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -799,11 +814,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuai">
+                <property name="label">Menu.ai</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.ai</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -880,11 +895,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menulogin">
+                <property name="label">Menu.login</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.login</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -914,11 +929,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menupwchange">
+                <property name="label">Menu.pwchange</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.pwchange</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -941,11 +956,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuoptions">
+                <property name="label">Menu.options</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.options</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -957,11 +972,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menudialogs">
+                <property name="label">Menu.dialogs</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.dialogs</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -973,11 +988,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menureset">
+                <property name="label">Menu.reset</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.reset</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1025,11 +1040,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menudiary">
+                <property name="label">Menu.diary</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.diary</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1041,11 +1056,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menupositions">
+                <property name="label">Menu.positions</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.positions</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1057,11 +1072,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menunotes">
+                <property name="label">Menu.notes</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.notes</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1073,11 +1088,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menupersons">
+                <property name="label">Menu.persons</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.persons</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1100,11 +1115,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menumileages">
+                <property name="label">Menu.mileages</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.mileages</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1116,11 +1131,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menubikes">
+                <property name="label">Menu.bikes</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.bikes</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1143,11 +1158,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menubooks">
+                <property name="label">Menu.books</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.books</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1159,11 +1174,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuauthors">
+                <property name="label">Menu.authors</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.authors</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1175,11 +1190,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuseries">
+                <property name="label">Menu.series</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.series</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1202,11 +1217,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menustatistics">
+                <property name="label">Menu.statistics</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.statistics</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1218,11 +1233,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menusudoku">
+                <property name="label">Menu.sudoku</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.sudoku</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1270,11 +1285,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menubookings">
+                <property name="label">Menu.bookings</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.bookings</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1286,11 +1301,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuevents">
+                <property name="label">Menu.events</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.events</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1302,11 +1317,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuaccounts">
+                <property name="label">Menu.accounts</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.accounts</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1318,11 +1333,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuperiods">
+                <property name="label">Menu.periods</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.periods</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1345,11 +1360,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menufinalbalance">
+                <property name="label">Menu.finalbalance</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.finalbalance</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1361,11 +1376,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuplbalance">
+                <property name="label">Menu.plbalance</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.plbalance</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1377,11 +1392,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuopeningbalance">
+                <property name="label">Menu.openingbalance</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.openingbalance</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1429,11 +1444,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuancestors">
+                <property name="label">Menu.ancestors</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.ancestors</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1445,11 +1460,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menufamilies">
+                <property name="label">Menu.families</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.families</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1461,11 +1476,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menusources">
+                <property name="label">Menu.sources</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.sources</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1513,11 +1528,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menustocks">
+                <property name="label">Menu.stocks</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.stocks</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1529,11 +1544,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuconfigurations">
+                <property name="label">Menu.configurations</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.configurations</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1545,11 +1560,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuchart">
+                <property name="label">Menu.chart</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.chart</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1572,11 +1587,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuinvestments">
+                <property name="label">Menu.investments</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.investments</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1588,11 +1603,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menubookings3">
+                <property name="label">Menu.bookings3</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.bookings3</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1604,11 +1619,11 @@
             </child>
             <child>
               <object class="GtkButton" id="menuprices">
+                <property name="label">Menu.prices</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
                 <property name="halign">start</property>
-                <property name="label">Menu.prices</property>
                 <property name="relief">none</property>
                 <property name="use-underline">True</property>
               </object>
@@ -1616,6 +1631,33 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">9</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="menuqueries">
+                <property name="label">Menu.queries</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">start</property>
+                <property name="relief">none</property>
+                <property name="use-underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">10</property>
               </packing>
             </child>
           </object>

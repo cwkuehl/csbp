@@ -345,6 +345,14 @@ public class MainWindow : Window
   [Builder.Object]
   private readonly Button menuprices;
 
+  /// <summary>Menu Queries.</summary>
+  [Builder.Object]
+  private readonly MenuItem MenuQueries;
+
+  /// <summary>Menu Queries.</summary>
+  [Builder.Object]
+  private readonly Button menuqueries;
+
 #pragma warning restore CS0649, SA1306
 
   /// <summary>Initializes a new instance of the <see cref="MainWindow"/> class.</summary>
@@ -469,6 +477,8 @@ public class MainWindow : Window
           b.Clicked += OnMenuBookings3;
         else if (b.Label == "Menu.prices")
           b.Clicked += OnMenuPrices;
+        else if (b.Label == "Menu.queries")
+          b.Clicked += OnMenuQueries;
         else if (b.Label == "Menu.about")
           b.Clicked += OnMenuAbout;
         else if (b.Label == "Menu.help2")
@@ -621,6 +631,7 @@ public class MainWindow : Window
     // MenuInvestments.Activate();
     // MenuBookings3.Activate();
     // MenuPrices.Activate();
+    MenuQueries.Activate();
     if (Functions.MachNichts() != 0)
     {
       var alist = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.GetName().Name).ToList();
@@ -725,6 +736,7 @@ public class MainWindow : Window
     MenuInvestments.Visible = menuinvestments.Visible = b;
     MenuBookings3.Visible = menubookings3.Visible = b;
     MenuPrices.Visible = menuprices.Visible = b;
+    MenuQueries.Visible = menuqueries.Visible = b;
   }
 
   /// <summary>
@@ -1260,6 +1272,15 @@ public class MainWindow : Window
   protected void OnMenuPrices(object sender, EventArgs e)
   {
     AppendPage(WP500Prices.Create(), WP500_title);
+    popovermenu1.Visible = false;
+  }
+
+  /// <summary>Menu Abfragen.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnMenuQueries(object sender, EventArgs e)
+  {
+    AppendPage(EN100Queries.Create(), EN100_title);
     popovermenu1.Visible = false;
   }
 

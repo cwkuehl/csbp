@@ -26,8 +26,8 @@ public partial class EnAbfrageRep
   {
     var db = GetDb(daten);
     var l = db.EN_Abfrage.Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (!onlyactive)
-      l = l.Where(a => a.Status == "0");
+    if (onlyactive)
+      l = l.Where(a => a.Status == "1");
     if (CsbpBase.IsLike(rm?.Search))
       text = rm?.Search;
     if (CsbpBase.IsLike(text))
