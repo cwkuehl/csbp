@@ -2059,14 +2059,8 @@
     <data name="EN100.wertpapiere.columns" xml:space="preserve">
         <value>No.;Sort.;Description;St.;Host-URL;Changed at;Changed by;Created at;Created by</value>
     </data>
-    <data name="EN100.status" xml:space="preserve">
+    <data name="EN100.tabstatus" xml:space="preserve">
         <value>State</value>
-    </data>
-    <data name="EN100.bis" xml:space="preserve">
-        <value>EN100.bis</value>
-    </data>
-    <data name="EN100.bis.tt" xml:space="preserve">
-        <value>EN100.bis.tt</value>
     </data>
     <data name="EN100.alle" xml:space="preserve">
         <value>A_ll</value>
@@ -2075,10 +2069,10 @@
         <value>Clear selection criteria</value>
     </data>
     <data name="EN100.berechnen" xml:space="preserve">
-        <value>Calculate rating</value>
+        <value>Query parameters</value>
     </data>
     <data name="EN100.berechnen.tt" xml:space="preserve">
-        <value>Calculate rating for all active stocks?</value>
+        <value>Query all parameters?</value>
     </data>
     <data name="EN100.bezeichnung" xml:space="preserve">
         <value>_Search</value>
@@ -2092,11 +2086,11 @@
     <data name="EN100.auchinaktiv.tt" xml:space="preserve">
         <value>Show also inactive stocks?</value>
     </data>
-    <data name="EN100.konfiguration" xml:space="preserve">
-        <value>_Configuration</value>
+    <data name="EN100.status" xml:space="preserve">
+        <value>State</value>
     </data>
-    <data name="EN100.konfiguration.tt" xml:space="preserve">
-        <value>Configuration for rating</value>
+    <data name="EN100.status.tt" xml:space="preserve">
+        <value>State of the calculation is displayed.</value>
     </data>
 
     <data name="EN110.title" xml:space="preserve">
@@ -4135,13 +4129,13 @@
     </data>
 
     <data name="WP200.title" xml:space="preserve">
-        <value>WP200.title</value>
+        <value>Stocks</value>
     </data>
     <data name="WP200.wertpapiere" xml:space="preserve">
-        <value>WP200.wertpapiere</value>
+        <value>_Stocks</value>
     </data>
     <data name="WP200.wertpapiere.tt" xml:space="preserve">
-        <value>WP200.wertpapiere.tt</value>
+        <value>Stocks</value>
     </data>
     <data name="WP200.wertpapiere.columns" xml:space="preserve">
         <value>No.;Description;St.;Provider;Shortcut;Relation;Rating;Trend;Box 0.5;T;1;T;2;T;3;T;5;T;XO;Bew.;Date;Signal;200;Changed at;Changed by;Created at;Created by</value>
@@ -4150,10 +4144,10 @@
         <value>State</value>
     </data>
     <data name="WP200.bis" xml:space="preserve">
-        <value>WP200.bis</value>
+        <value>To</value>
     </data>
     <data name="WP200.bis.tt" xml:space="preserve">
-        <value>WP200.bis.tt</value>
+        <value>Last date of calculation</value>
     </data>
     <data name="WP200.alle" xml:space="preserve">
         <value>A_ll</value>

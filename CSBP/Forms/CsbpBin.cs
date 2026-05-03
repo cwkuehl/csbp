@@ -468,7 +468,8 @@ public partial class CsbpBin : Bin
 
   /// <summary>Updates the state.</summary>
   /// <param name="state">State of calculation is always updated.</param>
-  protected static void ShowStatus(StatusTask state)
+  /// <param name="status">Affected TextView for status.</param>
+  protected static void ShowStatus(StatusTask state, TextView status = null)
   {
     if (state == null)
     {
@@ -476,6 +477,7 @@ public partial class CsbpBin : Bin
       return;
     }
     ShowError(null);
+    var sleep = status == null ? 200 : 1000;
     Task.Run(() =>
     {
       try
@@ -484,11 +486,14 @@ public partial class CsbpBin : Bin
         {
           Application.Invoke((sender, e) =>
           {
-            MainClass.MainWindow.SetError(state.GetStatus(true));
+            if (status == null)
+              MainClass.MainWindow.SetError(state.GetStatus(true));
+            else
+              SetText(status, state.GetStatus(false));
           });
           if (state.IstAbbruch() || !state.IsTAmLaufen())
             break;
-          Thread.Sleep(200);
+          Thread.Sleep(sleep);
         }
       }
       catch (Exception ex)

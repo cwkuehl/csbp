@@ -229,6 +229,64 @@ public class EnergyService : ServiceBase, IEnergyService
     return r;
   }
 
+  /// <summary>
+  /// Gets a list of states.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of states.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetStateList(ServiceDaten daten)
+  {
+    var l = new List<MaParameter>
+    {
+      new() { Schluessel = "1", Wert = Enum_state_active },
+      new() { Schluessel = "0", Wert = Enum_state_inactive },
+      new() { Schluessel = "2", Wert = Enum_state_nocalc },
+    };
+    var r = new ServiceErgebnis<List<MaParameter>>(l);
+    return r;
+  }
+
+  /// <summary>
+  /// Gets a list of kinds.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of kinds.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetKindList(ServiceDaten daten)
+  {
+    var l = new List<MaParameter>
+    {
+      new() { Schluessel = "MODBUS-TCP", Wert = "Modbus-TCP" },
+      new() { Schluessel = "JSON", Wert = "HTTP(S)-JSON" },
+    };
+    var r = new ServiceErgebnis<List<MaParameter>>(l);
+    return r;
+  }
+
+  /// <summary>
+  /// Gets a list of datatypes.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <returns>List of datatypes.</returns>
+  public ServiceErgebnis<List<MaParameter>> GetDatatypeList(ServiceDaten daten)
+  {
+    var l = new List<MaParameter>
+    {
+      new() { Schluessel = "int16", Wert = "int16, Integer 16" },
+      new() { Schluessel = "int32", Wert = "int32, Integer 32" },
+      new() { Schluessel = "uint16", Wert = "uint16, Unsigned Integer 16" },
+      new() { Schluessel = "decimal", Wert = "decimal, Dezimalzahl" },
+      new() { Schluessel = "string", Wert = "string, Zeichenkette" },
+    };
+    var r = new ServiceErgebnis<List<MaParameter>>(l);
+    return r;
+  }
+
+  /// <summary>
+  /// Gets a value from JSON according to the query definition.
+  /// </summary>
+  /// <param name="q">Affected query.</param>
+  /// <param name="json">JSON string.</param>
+  /// <returns>Value from JSON.</returns>
   private static string GetDatentypJsonValue(EnAbfrage q, string json)
   {
     var wert = Functions.Between(json, q.Param1, q.Param2);
@@ -278,6 +336,12 @@ public class EnergyService : ServiceBase, IEnergyService
     return sw;
   }
 
+  /// <summary>
+  /// Gets a value from Modbus registers according to the query definition.
+  /// </summary>
+  /// <param name="q">Affected query.</param>
+  /// <param name="registers">List of Modbus registers.</param>
+  /// <returns>Value from Modbus registers.</returns>
   private static string GetDatentypModbusValue(EnAbfrage q, IReadOnlyList<HoldingRegister> registers)
   {
     var arr = q.Datentyp.Split('|');
@@ -330,57 +394,5 @@ public class EnergyService : ServiceBase, IEnergyService
         sw = wen;
     }
     return sw;
-  }
-
-  /// <summary>
-  /// Gets a list of states.
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <returns>List of states.</returns>
-  public ServiceErgebnis<List<MaParameter>> GetStateList(ServiceDaten daten)
-  {
-    var l = new List<MaParameter>
-    {
-      new() { Schluessel = "1", Wert = Enum_state_active },
-      new() { Schluessel = "0", Wert = Enum_state_inactive },
-      new() { Schluessel = "2", Wert = Enum_state_nocalc },
-    };
-    var r = new ServiceErgebnis<List<MaParameter>>(l);
-    return r;
-  }
-
-  /// <summary>
-  /// Gets a list of kinds.
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <returns>List of kinds.</returns>
-  public ServiceErgebnis<List<MaParameter>> GetKindList(ServiceDaten daten)
-  {
-    var l = new List<MaParameter>
-    {
-      new() { Schluessel = "MODBUS-TCP", Wert = "Modbus-TCP" },
-      new() { Schluessel = "JSON", Wert = "HTTP(S)-JSON" },
-    };
-    var r = new ServiceErgebnis<List<MaParameter>>(l);
-    return r;
-  }
-
-  /// <summary>
-  /// Gets a list of datatypes.
-  /// </summary>
-  /// <param name="daten">Service data for database access.</param>
-  /// <returns>List of datatypes.</returns>
-  public ServiceErgebnis<List<MaParameter>> GetDatatypeList(ServiceDaten daten)
-  {
-    var l = new List<MaParameter>
-    {
-      new() { Schluessel = "int16", Wert = "int16, Integer 16" },
-      new() { Schluessel = "int32", Wert = "int32, Integer 32" },
-      new() { Schluessel = "uint16", Wert = "uint16, Unsigned Integer 16" },
-      new() { Schluessel = "decimal", Wert = "decimal, Dezimalzahl" },
-      new() { Schluessel = "string", Wert = "string, Zeichenkette" },
-    };
-    var r = new ServiceErgebnis<List<MaParameter>>(l);
-    return r;
   }
 }

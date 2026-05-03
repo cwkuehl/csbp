@@ -2059,14 +2059,8 @@
     <data name="EN100.wertpapiere.columns" xml:space="preserve">
         <value>Nr.;Sort.;Bezeichnung;St.;Host-URL;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
-    <data name="EN100.status" xml:space="preserve">
+    <data name="EN100.tabstatus" xml:space="preserve">
         <value>Status</value>
-    </data>
-    <data name="EN100.bis" xml:space="preserve">
-        <value>B_is</value>
-    </data>
-    <data name="EN100.bis.tt" xml:space="preserve">
-        <value>End-Datum für die Bewertung festlegen.</value>
     </data>
     <data name="EN100.alle" xml:space="preserve">
         <value>A_lle</value>
@@ -2075,10 +2069,10 @@
         <value>Selektionskriterien zurücksetzen</value>
     </data>
     <data name="EN100.berechnen" xml:space="preserve">
-        <value>Bewertungen berechnen</value>
+        <value>Parameter abfragen</value>
     </data>
     <data name="EN100.berechnen.tt" xml:space="preserve">
-        <value>Soll die Bewertung für jedes aktive Wertpapier berechnet werden?</value>
+        <value>Soll die Abfrage von allen ausgewählten Parametern gestartet werden?</value>
     </data>
     <data name="EN100.bezeichnung" xml:space="preserve">
         <value>_Suche</value>
@@ -2092,11 +2086,11 @@
     <data name="EN100.auchinaktiv.tt" xml:space="preserve">
         <value>Sollen auch inaktive Wertpapiere angezeigt werden?</value>
     </data>
-    <data name="EN100.konfiguration" xml:space="preserve">
-        <value>_Konfiguration</value>
+    <data name="EN100.status" xml:space="preserve">
+        <value>Status</value>
     </data>
-    <data name="EN100.konfiguration.tt" xml:space="preserve">
-        <value>Konfiguration für Bewertung festlegen</value>
+    <data name="EN100.status.tt" xml:space="preserve">
+        <value>Status der Berechnung wird angezeigt.</value>
     </data>
 
     <data name="EN110.title" xml:space="preserve">

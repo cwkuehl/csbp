@@ -3332,19 +3332,9 @@ public partial class Messages
     get { return rm.GetString("EN100.wertpapiere.columns"); }
   }
 
-  public static string EN100_status
+  public static string EN100_tabstatus
   {
-    get { return rm.GetString("EN100.status"); }
-  }
-
-  public static string EN100_bis
-  {
-    get { return rm.GetString("EN100.bis"); }
-  }
-
-  public static string EN100_bis_tt
-  {
-    get { return rm.GetString("EN100.bis.tt"); }
+    get { return rm.GetString("EN100.tabstatus"); }
   }
 
   public static string EN100_alle
@@ -3387,14 +3377,14 @@ public partial class Messages
     get { return rm.GetString("EN100.auchinaktiv.tt"); }
   }
 
-  public static string EN100_konfiguration
+  public static string EN100_status
   {
-    get { return rm.GetString("EN100.konfiguration"); }
+    get { return rm.GetString("EN100.status"); }
   }
 
-  public static string EN100_konfiguration_tt
+  public static string EN100_status_tt
   {
-    get { return rm.GetString("EN100.konfiguration.tt"); }
+    get { return rm.GetString("EN100.status.tt"); }
   }
 
   public static string EN110_title

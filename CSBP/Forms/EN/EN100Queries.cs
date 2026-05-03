@@ -6,9 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -42,13 +40,9 @@ public partial class EN100Queries : CsbpBin
   [Builder.Object]
   private readonly TreeView wertpapiere;
 
-  /// <summary>Label status.</summary>
+  /// <summary>Label tabstatus.</summary>
   [Builder.Object]
-  private readonly Label status;
-
-  /// <summary>Date Bis.</summary>
-  //// [Builder.Object]
-  private readonly Date bis;
+  private readonly Label tabstatus;
 
   /// <summary>Entry bezeichnung.</summary>
   [Builder.Object]
@@ -58,9 +52,9 @@ public partial class EN100Queries : CsbpBin
   [Builder.Object]
   private readonly CheckButton auchinaktiv;
 
-  /// <summary>ComboBox konfiguration.</summary>
+  /// <summary>TextView status.</summary>
   [Builder.Object]
-  private readonly ComboBox konfiguration;
+  private readonly TextView status;
 
 #pragma warning restore CS0649
 
@@ -80,14 +74,6 @@ public partial class EN100Queries : CsbpBin
   public EN100Queries(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, type ?? typeof(EN100Queries), dt, p1, p)
   {
-    bis = new Date(Builder.GetObject("bis").Handle)
-    {
-      IsNullable = false,
-      IsWithCalendar = true,
-      IsCalendarOpen = false,
-    };
-    bis.DateChanged += OnBisDateChanged;
-    bis.Show();
     ObservableEventThrottle(refreshAction, (sender, e) =>
     {
       var uid = WP210Stock.Lastcopyuid;
@@ -117,13 +103,8 @@ public partial class EN100Queries : CsbpBin
     if (step <= 0)
     {
       EventsActive = false;
-      bis.Value = DateTime.Today;
       SetText(bezeichnung, "%%");
-      var kliste = Get(FactoryService.StockService.GetConfigurationList(ServiceDaten, null, "1"));
-      var rs = AddColumns(konfiguration, emptyentry: true);
-      foreach (var p in kliste)
-        rs.AppendValues(p.Bezeichnung, p.Uid);
-      SetText(konfiguration, ParameterGui.WP200Configuration);
+      SetText(status, "");
       EventsActive = true;
     }
     if (step <= 1)
@@ -141,7 +122,7 @@ public partial class EN100Queries : CsbpBin
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         ]);
       }
-      SetText(status, M1040(anz));
+      SetText(tabstatus, M1040(anz));
       AddStringColumnsSort(wertpapiere, EN100_wertpapiere_columns, values);
     }
   }
@@ -281,17 +262,6 @@ public partial class EN100Queries : CsbpBin
     refreshAction.Click();
   }
 
-  /// <summary>Handles Konfiguration.</summary>
-  /// <param name="sender">Affected sender.</param>
-  /// <param name="e">Affected event.</param>
-  protected void OnKonfigurationChanged(object sender, EventArgs e)
-  {
-    ParameterGui.WP200Configuration = GetText(konfiguration);
-    if (!EventsActive)
-      return;
-    refreshAction.Click();
-  }
-
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
   private async void CalculateStocks()
 #pragma warning restore RECS0165
@@ -301,13 +271,12 @@ public partial class EN100Queries : CsbpBin
       var r = await Task.Run(() =>
       {
         var daten = ServiceDaten;
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateStocks");
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "QueryQueries", kurz: false);
         if (!rs.Ok || rs.Ergebnis == null)
           return rs.GetErgebnis();
         state = rs.Ergebnis;
-        ShowStatus(state);
-        var r0 = FactoryService.StockService.CalculateStocks(daten, null, "",
-          null, bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, GetText(konfiguration), state);
+        ShowStatus(state, status);
+        var r0 = FactoryService.EnergyService.QueryQueries(daten, auchinaktiv.Active, bezeichnung.Text, state);
         state.Beenden(r: r0);
         return r0;
       });

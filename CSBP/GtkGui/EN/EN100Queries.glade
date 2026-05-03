@@ -38,7 +38,7 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-undo</property>
   </object>
-  <!-- n-columns=3 n-rows=6 -->
+  <!-- n-columns=3 n-rows=7 -->
   <object class="GtkGrid" id="EN100Queries">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -301,97 +301,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="bis0">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="valign">center</property>
-            <property name="label">EN100.bis</property>
-            <property name="use-underline">True</property>
-            <property name="mnemonic-widget">bis</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <!-- n-columns=3 n-rows=3 -->
-          <object class="GtkGrid" id="bis">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="konfiguration0">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="valign">center</property>
-            <property name="label">EN100.konfiguration</property>
-            <property name="use-underline">True</property>
-            <property name="mnemonic-widget">konfiguration</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="konfiguration">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="tooltip-text">EN100.konfiguration.tt</property>
-            <property name="has-entry">True</property>
-            <signal name="changed" handler="OnKonfigurationChanged" swapped="no"/>
-            <child internal-child="entry">
-              <object class="GtkEntry">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkButton" id="abbrechen">
             <property name="label">Forms.cancel</property>
             <property name="visible">True</property>
@@ -404,7 +313,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
@@ -414,17 +323,74 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="status">
+      <object class="GtkLabel" id="tabstatus">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label" translatable="yes">EN100.status</property>
+        <property name="label" translatable="yes">EN100.tabstatus</property>
       </object>
       <packing>
         <property name="left-attach">0</property>
         <property name="top-attach">3</property>
       </packing>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="vexpand">True</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkLabel" id="status0">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <property name="label">EN100.status</property>
+            <property name="use-underline">True</property>
+            <property name="mnemonic-widget">status</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="statussw">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="tooltip-text">EN100.status.tt</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">False</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="status">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hscroll-policy">natural</property>
+                <property name="wrap-mode">word</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
     </child>
     <child>
       <placeholder/>
