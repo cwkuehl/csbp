@@ -631,7 +631,7 @@ public class MainWindow : Window
     // MenuInvestments.Activate();
     // MenuBookings3.Activate();
     // MenuPrices.Activate();
-    MenuQueries.Activate();
+    // MenuQueries.Activate();
     if (Functions.MachNichts() != 0)
     {
       var alist = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.GetName().Name).ToList();

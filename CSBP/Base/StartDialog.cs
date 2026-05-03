@@ -35,6 +35,7 @@ public class StartDialog
       { nameof(AG500Ai).Left(5), new StartDialog { Type = typeof(AG500Ai), Title = AG500_title } },
       { nameof(AM500Options).Left(5), new StartDialog { Type = typeof(AM500Options), Title = AM500_title } },
       { nameof(AM510Dialogs).Left(5), new StartDialog { Type = typeof(AM510Dialogs), Title = AM510_title } },
+      { nameof(EN100Queries).Left(5), new StartDialog { Type = typeof(EN100Queries), Title = EN100_title } },
       { nameof(FZ100Statistics).Left(5), new StartDialog { Type = typeof(FZ100Statistics), Title = FZ100_title } },
       { nameof(FZ200Bikes).Left(5), new StartDialog { Type = typeof(FZ200Bikes), Title = FZ200_title } },
       { nameof(FZ250Mileages).Left(5), new StartDialog { Type = typeof(FZ250Mileages), Title = FZ250_title } },
