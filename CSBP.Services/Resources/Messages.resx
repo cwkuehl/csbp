@@ -2048,15 +2048,15 @@
     </data>
 
     <data name="EN100.title" xml:space="preserve">
-        <value>EN100.title</value>
+        <value>Query Parameters</value>
     </data>
-    <data name="EN100.wertpapiere" xml:space="preserve">
-        <value>EN100.wertpapiere</value>
+    <data name="EN100.abfragen" xml:space="preserve">
+        <value>_Query Parameters</value>
     </data>
-    <data name="EN100.wertpapiere.tt" xml:space="preserve">
-        <value>EN100.wertpapiere.tt</value>
+    <data name="EN100.abfragen.tt" xml:space="preserve">
+        <value>Query Parameters</value>
     </data>
-    <data name="EN100.wertpapiere.columns" xml:space="preserve">
+    <data name="EN100.abfragen.columns" xml:space="preserve">
         <value>No.;Sort.;Description;St.;Host-URL;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="EN100.tabstatus" xml:space="preserve">
