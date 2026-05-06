@@ -3317,19 +3317,19 @@ public partial class Messages
     get { return rm.GetString("EN100.title"); }
   }
 
-  public static string EN100_wertpapiere
+  public static string EN100_abfragen
   {
-    get { return rm.GetString("EN100.wertpapiere"); }
+    get { return rm.GetString("EN100.abfragen"); }
   }
 
-  public static string EN100_wertpapiere_tt
+  public static string EN100_abfragen_tt
   {
-    get { return rm.GetString("EN100.wertpapiere.tt"); }
+    get { return rm.GetString("EN100.abfragen.tt"); }
   }
 
-  public static string EN100_wertpapiere_columns
+  public static string EN100_abfragen_columns
   {
-    get { return rm.GetString("EN100.wertpapiere.columns"); }
+    get { return rm.GetString("EN100.abfragen.columns"); }
   }
 
   public static string EN100_tabstatus

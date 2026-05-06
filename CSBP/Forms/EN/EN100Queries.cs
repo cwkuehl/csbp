@@ -36,9 +36,9 @@ public partial class EN100Queries : CsbpBin
   [Builder.Object]
   private readonly Button editAction;
 
-  /// <summary>TreeView wertpapiere.</summary>
+  /// <summary>TreeView abfragen.</summary>
   [Builder.Object]
-  private readonly TreeView wertpapiere;
+  private readonly TreeView abfragen;
 
   /// <summary>Label tabstatus.</summary>
   [Builder.Object]
@@ -78,13 +78,13 @@ public partial class EN100Queries : CsbpBin
     {
       var uid = WP210Stock.Lastcopyuid;
       WP210Stock.Lastcopyuid = null;
-      RefreshTreeView(wertpapiere, 1, uid);
+      RefreshTreeView(abfragen, 1, uid);
     });
     //// SetBold(client0);
     InitData(0);
     undoAction.EnterNotifyEvent += OnUndoRedoEnter;
     redoAction.EnterNotifyEvent += OnUndoRedoEnter;
-    wertpapiere.GrabFocus();
+    abfragen.GrabFocus();
   }
 
   /// <summary>Creates non modal dialog.</summary>
@@ -123,7 +123,7 @@ public partial class EN100Queries : CsbpBin
         ]);
       }
       SetText(tabstatus, M1040(anz));
-      AddStringColumnsSort(wertpapiere, EN100_wertpapiere_columns, values);
+      AddStringColumnsSort(abfragen, EN100_abfragen_columns, values);
     }
   }
 
@@ -138,7 +138,7 @@ public partial class EN100Queries : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnRefreshClicked(object sender, EventArgs e)
   {
-    // RefreshTreeView(wertpapiere, 1);
+    // RefreshTreeView(abfragen, 1);
   }
 
   /// <summary>Handles Undo.</summary>
@@ -199,10 +199,10 @@ public partial class EN100Queries : CsbpBin
     StartDialog(DialogTypeEnum.Delete);
   }
 
-  /// <summary>Handles Wertpapiere.</summary>
+  /// <summary>Handles Abfragen.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnWertpapiereRowActivated(object sender, RowActivatedArgs e)
+  protected void OnAbfragenRowActivated(object sender, RowActivatedArgs e)
   {
     editAction.Activate();
   }
@@ -222,7 +222,7 @@ public partial class EN100Queries : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAlleClicked(object sender, EventArgs e)
   {
-    RefreshTreeView(wertpapiere, 0);
+    RefreshTreeView(abfragen, 0);
     bezeichnung.GrabFocus();
   }
 
@@ -297,7 +297,7 @@ public partial class EN100Queries : CsbpBin
   /// <param name="dt">Affected dialog type.</param>
   private void StartDialog(DialogTypeEnum dt)
   {
-    var uid = GetValue<string>(wertpapiere, dt != DialogTypeEnum.New);
-    Start(typeof(WP210Stock), WP210_title, dt, uid, csbpparent: this);
+    var uid = GetValue<string>(abfragen, dt != DialogTypeEnum.New);
+    Start(typeof(EN110Query), EN110_title, dt, uid, csbpparent: this);
   }
 }

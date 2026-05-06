@@ -160,14 +160,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="wertpapiere0">
+      <object class="GtkLabel" id="abfragen0">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">EN100.wertpapiere</property>
+        <property name="label">EN100.abfragen</property>
         <property name="use-underline">True</property>
-        <property name="mnemonic-widget">wertpapiere</property>
+        <property name="mnemonic-widget">abfragen</property>
       </object>
       <packing>
         <property name="left-attach">0</property>
@@ -175,18 +175,18 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="wertpapieresw">
+      <object class="GtkScrolledWindow" id="abfragensw">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="shadow-type">in</property>
         <child>
-          <object class="GtkTreeView" id="wertpapiere">
+          <object class="GtkTreeView" id="abfragen">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="tooltip-text">EN100.wertpapiere.tt</property>
-            <signal name="row-activated" handler="OnWertpapiereRowActivated" swapped="no"/>
+            <property name="tooltip-text">EN100.abfragen.tt</property>
+            <signal name="row-activated" handler="OnAbfragenRowActivated" swapped="no"/>
             <child internal-child="selection">
               <object class="GtkTreeSelection"/>
             </child>

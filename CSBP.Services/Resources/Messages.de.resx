@@ -2050,13 +2050,13 @@
     <data name="EN100.title" xml:space="preserve">
         <value>Abfrage-Parameter</value>
     </data>
-    <data name="EN100.wertpapiere" xml:space="preserve">
+    <data name="EN100.abfragen" xml:space="preserve">
         <value>_Abfrage-Parameter</value>
     </data>
-    <data name="EN100.wertpapiere.tt" xml:space="preserve">
+    <data name="EN100.abfragen.tt" xml:space="preserve">
         <value>Abfrage-Parameter</value>
     </data>
-    <data name="EN100.wertpapiere.columns" xml:space="preserve">
+    <data name="EN100.abfragen.columns" xml:space="preserve">
         <value>Nr.;Sort.;Bezeichnung;St.;Host-URL;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="EN100.tabstatus" xml:space="preserve">
