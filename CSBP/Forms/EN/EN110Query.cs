@@ -2,7 +2,7 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Forms.WP;
+namespace CSBP.Forms.EN;
 
 using System;
 using System.Linq;
@@ -33,21 +33,21 @@ public partial class EN110Query : CsbpBin
   [Builder.Object]
   private readonly Entry bezeichnung;
 
-  /// <summary>Label provider0.</summary>
+  /// <summary>Label sortierung0.</summary>
   [Builder.Object]
-  private readonly Label provider0;
+  private readonly Label sortierung0;
 
-  /// <summary>ComboBox provider.</summary>
+  /// <summary>Entry sortierung.</summary>
   [Builder.Object]
-  private readonly ComboBox provider;
+  private readonly Entry sortierung;
 
-  /// <summary>Label kuerzel0.</summary>
+  /// <summary>Label art0.</summary>
   [Builder.Object]
-  private readonly Label kuerzel0;
+  private readonly Label art0;
 
-  /// <summary>Entry kuerzel.</summary>
+  /// <summary>ComboBox art.</summary>
   [Builder.Object]
-  private readonly Entry kuerzel;
+  private readonly ComboBox art;
 
   /// <summary>Label status0.</summary>
   [Builder.Object]
@@ -81,9 +81,9 @@ public partial class EN110Query : CsbpBin
   [Builder.Object]
   private readonly Entry waehrung;
 
-  /// <summary>Entry sortierung.</summary>
+  /// <summary>Entry param1.</summary>
   [Builder.Object]
-  private readonly Entry sortierung;
+  private readonly Entry param1;
 
   /// <summary>ComboBox relation.</summary>
   [Builder.Object]
@@ -112,7 +112,7 @@ public partial class EN110Query : CsbpBin
 #pragma warning restore CS0649
 
   /// <summary>Dialog model.</summary>
-  private WpWertpapier model;
+  private EnAbfrage model;
 
   /// <summary>Initializes a new instance of the <see cref="EN110Query"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -126,8 +126,8 @@ public partial class EN110Query : CsbpBin
       : base(b, h, d, type ?? typeof(EN110Query), dt, p1, p)
   {
     SetBold(bezeichnung0);
-    SetBold(provider0);
-    SetBold(kuerzel0);
+    SetBold(sortierung0);
+    SetBold(art0);
     SetBold(status0);
     InitData(0);
     bezeichnung.GrabFocus();
@@ -151,18 +151,19 @@ public partial class EN110Query : CsbpBin
   {
     if (step <= 0)
     {
-      var pl = Get(FactoryService.StockService.GetProviderList(ServiceDaten));
-      AddColumns(provider, pl);
-      AddColumns(status, Get(FactoryService.StockService.GetStateList(ServiceDaten)));
+      var daten = ServiceDaten;
+      var pl = Get(FactoryService.EnergyService.GetKindList(daten));
+      AddColumns(art, pl);
+      AddColumns(status, Get(FactoryService.EnergyService.GetStateList(daten)));
       if (pl != null && pl.Any())
-        SetText(provider, pl.First().Schluessel);
+        SetText(art, pl.First().Schluessel);
       SetText(status, "1");
       var neu = DialogType == DialogTypeEnum.New;
       var loeschen = DialogType == DialogTypeEnum.Delete;
       var copy = DialogType == DialogTypeEnum.Copy;
       if (!neu && Parameter1 is string uid)
       {
-        var k = Get(FactoryService.StockService.GetStock(ServiceDaten, uid));
+        var k = Get(FactoryService.EnergyService.GetQuery(daten, uid));
         if (k == null)
         {
           Application.Invoke((sender, e) => { CloseDialog(); });
@@ -171,17 +172,17 @@ public partial class EN110Query : CsbpBin
         model = k;
         SetText(nr, k.Uid);
         SetText(bezeichnung, k.Bezeichnung);
-        SetText(provider, k.Datenquelle);
-        SetText(kuerzel, k.Kuerzel);
+        SetText(sortierung, k.Sortierung);
+        SetText(art, k.Art);
         SetText(status, k.Status);
-        SetText(aktKurs, Functions.ToString(k.CurrentPrice));
-        SetText(stopKurs, Functions.ToString(k.StopPrice));
-        SetText(signalKurs1, Functions.ToString(k.SignalPrice1));
-        SetText(muster, k.Pattern);
-        SetText(typ, k.Type);
-        SetText(waehrung, k.Currency);
-        SetText(sortierung, k.Sorting);
-        SetText(relation, k.Relation_Uid);
+        //SetText(aktKurs, Functions.ToString(k.CurrentPrice));
+        //SetText(stopKurs, Functions.ToString(k.StopPrice));
+        //SetText(signalKurs1, Functions.ToString(k.SignalPrice1));
+        //SetText(muster, k.Pattern);
+        //SetText(typ, k.Type);
+        //SetText(waehrung, k.Currency);
+        SetText(param1, k.Param1);
+        //SetText(relation, k.Relation_Uid);
         SetText(notiz, k.Notiz);
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
@@ -190,8 +191,8 @@ public partial class EN110Query : CsbpBin
         anlage.Active = true;
       nr.IsEditable = false;
       bezeichnung.IsEditable = !loeschen;
-      provider.Sensitive = !loeschen;
-      kuerzel.IsEditable = !loeschen;
+      sortierung.IsEditable = !loeschen;
+      art.Sensitive = !loeschen;
       status.Sensitive = !loeschen;
       aktKurs.IsEditable = false;
       stopKurs.IsEditable = false;
@@ -211,8 +212,8 @@ public partial class EN110Query : CsbpBin
       var rs = AddColumns(relation);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);
-      if (!neu && model != null)
-        SetText(relation, model.Relation_Uid);
+      //if (!neu && model != null)
+      //  SetText(relation, model.Relation_Uid);
     }
   }
 
@@ -246,18 +247,18 @@ public partial class EN110Query : CsbpBin
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
       || DialogType == DialogTypeEnum.Edit)
     {
-      var rb = FactoryService.StockService.SaveStock(ServiceDaten,
-        DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, kuerzel.Text,
-        Functions.ToDecimal(signalKurs1.Text, 4), sortierung.Text,
-        GetText(provider), GetText(status), GetText(relation), notiz.Buffer.Text,
-        typ.Text, waehrung.Text, anlage.Active);
-      r = rb;
-      if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
-        Lastcopyuid = rb.Ergebnis.Uid;
+      // var rb = FactoryService.EnergyService.SaveQuery(ServiceDaten,
+      //   DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, kuerzel.Text,
+      //   Functions.ToDecimal(signalKurs1.Text, 4), sortierung.Text,
+      //   GetText(provider), GetText(status), GetText(relation), notiz.Buffer.Text,
+      //   typ.Text, waehrung.Text, anlage.Active);
+      // r = rb;
+      // if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
+      //   Lastcopyuid = rb.Ergebnis.Uid;
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {
-      r = FactoryService.StockService.DeleteStock(ServiceDaten, model);
+      r = FactoryService.EnergyService.DeleteQuery(ServiceDaten, model);
     }
     if (r != null)
     {

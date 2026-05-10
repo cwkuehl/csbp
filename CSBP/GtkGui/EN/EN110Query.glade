@@ -1,540 +1,541 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.2 -->
+<!-- Generated with glade 3.40.0 -->
 <!-- Created with unit test GenerateForm -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <!-- n-columns=4 n-rows=14 -->
   <object class="GtkGrid" id="EN110Query">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_left">5</property>
-    <property name="margin_right">5</property>
-    <property name="margin_top">5</property>
-    <property name="margin_bottom">5</property>
+    <property name="can-focus">False</property>
+    <property name="margin-left">5</property>
+    <property name="margin-right">5</property>
+    <property name="margin-top">5</property>
+    <property name="margin-bottom">5</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <property name="row_spacing">5</property>
-    <property name="column_spacing">5</property>
+    <property name="row-spacing">5</property>
+    <property name="column-spacing">5</property>
     <child>
       <object class="GtkLabel" id="nr0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.nr</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">nr</property>
+        <property name="label">EN110.nr</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">nr</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">0</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="nr">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.nr.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.nr.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.nr.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.nr.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">0</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">0</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="bezeichnung0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.bezeichnung</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">bezeichnung</property>
+        <property name="label">EN110.bezeichnung</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">bezeichnung</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">1</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="bezeichnung">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.bezeichnung.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.bezeichnung.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.bezeichnung.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.bezeichnung.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">1</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">1</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="provider0">
+      <object class="GtkLabel" id="art0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.provider</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">provider</property>
+        <property name="label">EN110.art</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">art</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
+        <property name="left-attach">2</property>
+        <property name="top-attach">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkComboBoxText" id="provider">
+      <object class="GtkComboBoxText" id="art">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text">WP210.provider.tt</property>
-        <property name="has_entry">True</property>
+        <property name="can-focus">False</property>
+        <property name="tooltip-text">EN110.art.tt</property>
+        <property name="has-entry">True</property>
         <signal name="changed" handler="OnProviderChanged" swapped="no"/>
         <child internal-child="entry">
           <object class="GtkEntry">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can-focus">True</property>
           </object>
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
+        <property name="left-attach">3</property>
+        <property name="top-attach">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="kuerzel0">
+      <object class="GtkLabel" id="sortierung0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.kuerzel</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">kuerzel</property>
+        <property name="label">EN110.sortierung</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">sortierung</property>
       </object>
       <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">2</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">2</property>
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="kuerzel">
+      <object class="GtkEntry" id="sortierung">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.kuerzel.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.sortierung.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.kuerzel.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.sortierung.tt</property>
       </object>
       <packing>
-        <property name="left_attach">3</property>
-        <property name="top_attach">2</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">2</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="status0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.status</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">status</property>
+        <property name="label">EN110.status</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">status</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">9</property>
       </packing>
     </child>
     <child>
       <object class="GtkComboBoxText" id="status">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text">WP210.status.tt</property>
-        <property name="has_entry">True</property>
+        <property name="can-focus">False</property>
+        <property name="tooltip-text">EN110.status.tt</property>
+        <property name="has-entry">True</property>
         <signal name="changed" handler="OnStatusChanged" swapped="no"/>
         <child internal-child="entry">
           <object class="GtkEntry">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can-focus">True</property>
           </object>
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">9</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="aktKurs0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.aktKurs</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">aktKurs</property>
+        <property name="label">EN110.aktKurs</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">aktKurs</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="aktKurs">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.aktKurs.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.aktKurs.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.aktKurs.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.aktKurs.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="stopKurs0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.stopKurs</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">stopKurs</property>
+        <property name="label">EN110.stopKurs</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">stopKurs</property>
       </object>
       <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">2</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="stopKurs">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.stopKurs.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.stopKurs.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.stopKurs.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.stopKurs.tt</property>
       </object>
       <packing>
-        <property name="left_attach">3</property>
-        <property name="top_attach">4</property>
+        <property name="left-attach">3</property>
+        <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="signalKurs10">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.signalKurs1</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">signalKurs1</property>
+        <property name="label">EN110.signalKurs1</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">signalKurs1</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="signalKurs1">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.signalKurs1.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.signalKurs1.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.signalKurs1.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.signalKurs1.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">5</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="muster0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.muster</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">muster</property>
+        <property name="label">EN110.muster</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">muster</property>
       </object>
       <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">5</property>
+        <property name="left-attach">2</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="muster">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.muster.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.muster.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.muster.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.muster.tt</property>
       </object>
       <packing>
-        <property name="left_attach">3</property>
-        <property name="top_attach">5</property>
+        <property name="left-attach">3</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="typ0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.typ</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">typ</property>
+        <property name="label">EN110.typ</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">typ</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">6</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="typ">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.typ.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.typ.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.typ.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.typ.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">6</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">6</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="waehrung0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.waehrung</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">waehrung</property>
+        <property name="label">EN110.waehrung</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">waehrung</property>
       </object>
       <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">6</property>
+        <property name="left-attach">2</property>
+        <property name="top-attach">6</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="waehrung">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.waehrung.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.waehrung.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.waehrung.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.waehrung.tt</property>
       </object>
       <packing>
-        <property name="left_attach">3</property>
-        <property name="top_attach">6</property>
+        <property name="left-attach">3</property>
+        <property name="top-attach">6</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="sortierung0">
+      <object class="GtkLabel" id="param10">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.sortierung</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">sortierung</property>
+        <property name="label">EN110.param1</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">param1</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">7</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">7</property>
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="sortierung">
+      <object class="GtkEntry" id="param1">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.sortierung.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.param1.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">WP210.sortierung.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.param1.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">7</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="relation0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.relation</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">relation</property>
+        <property name="label">EN110.relation</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">relation</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">8</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">8</property>
       </packing>
     </child>
     <child>
       <object class="GtkComboBoxText" id="relation">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text">WP210.relation.tt</property>
-        <property name="has_entry">True</property>
+        <property name="can-focus">False</property>
+        <property name="tooltip-text">EN110.relation.tt</property>
+        <property name="has-entry">True</property>
         <signal name="changed" handler="OnRelationChanged" swapped="no"/>
         <child internal-child="entry">
           <object class="GtkEntry">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can-focus">True</property>
           </object>
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">8</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">8</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="notiz0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">WP210.notiz</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">notiz</property>
+        <property name="label">EN110.notiz</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">notiz</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">9</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">10</property>
       </packing>
     </child>
     <child>
       <object class="GtkScrolledWindow" id="notizsw">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">WP210.notiz.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.notiz.tt</property>
         <property name="vexpand">True</property>
-        <property name="shadow_type">in</property>
+        <property name="shadow-type">in</property>
         <child>
           <object class="GtkTextView" id="notiz">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscroll_policy">natural</property>
-            <property name="wrap_mode">word</property>
+            <property name="can-focus">True</property>
+            <property name="hscroll-policy">natural</property>
+            <property name="wrap-mode">word</property>
           </object>
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">9</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">10</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="angelegt0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
         <property name="label">Forms.created</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">angelegt</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">angelegt</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">10</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">11</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="angelegt">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">Forms.created.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">Forms.created.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">Forms.created.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">Forms.created.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">10</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">11</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkLabel" id="geaendert0">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
         <property name="label">Forms.changed</property>
-        <property name="use_underline">True</property>
-        <property name="mnemonic_widget">geaendert</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">geaendert</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">11</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">12</property>
       </packing>
     </child>
     <child>
       <object class="GtkEntry" id="geaendert">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="tooltip_text">Forms.changed.tt</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">Forms.changed.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
-        <property name="activates_default">True</property>
-        <property name="placeholder_text">Forms.changed.tt</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">Forms.changed.tt</property>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">11</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">12</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkBox" id="id19">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="hexpand">False</property>
         <property name="spacing">5</property>
         <child>
           <object class="GtkButton" id="ok">
             <property name="label">Forms.ok</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text">Forms.ok.tt</property>
-            <property name="use_underline">True</property>
+            <property name="can-focus">True</property>
+            <property name="can-default">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text">Forms.ok.tt</property>
+            <property name="use-underline">True</property>
             <signal name="clicked" handler="OnOkClicked" swapped="no"/>
           </object>
           <packing>
@@ -547,10 +548,10 @@
           <object class="GtkButton" id="abbrechen">
             <property name="label">Forms.cancel</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text">Forms.cancel.tt</property>
-            <property name="use_underline">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text">Forms.cancel.tt</property>
+            <property name="use-underline">True</property>
             <signal name="clicked" handler="OnAbbrechenClicked" swapped="no"/>
           </object>
           <packing>
@@ -561,26 +562,38 @@
         </child>
       </object>
       <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">12</property>
+        <property name="left-attach">1</property>
+        <property name="top-attach">13</property>
         <property name="width">3</property>
       </packing>
     </child>
     <child>
       <object class="GtkCheckButton" id="anlage">
-            <property name="label">WP210.anlage</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text">WP210.anlage.tt</property>
-            <property name="valign">start</property>
-            <property name="use_underline">True</property>
-            <property name="draw_indicator">True</property>
+        <property name="label">EN110.anlage</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="tooltip-text">EN110.anlage.tt</property>
+        <property name="valign">start</property>
+        <property name="use-underline">True</property>
+        <property name="draw-indicator">True</property>
       </object>
       <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">12</property>
+        <property name="left-attach">0</property>
+        <property name="top-attach">13</property>
       </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
 </interface>

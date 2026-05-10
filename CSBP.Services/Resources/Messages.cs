@@ -3412,24 +3412,24 @@ public partial class Messages
     get { return rm.GetString("EN110.bezeichnung.tt"); }
   }
 
-  public static string EN110_provider
+  public static string EN110_sortierung
   {
-    get { return rm.GetString("EN110.provider"); }
+    get { return rm.GetString("EN110.sortierung"); }
   }
 
-  public static string EN110_provider_tt
+  public static string EN110_sortierung_tt
   {
-    get { return rm.GetString("EN110.provider.tt"); }
+    get { return rm.GetString("EN110.sortierung.tt"); }
   }
 
-  public static string EN110_kuerzel
+  public static string EN110_art
   {
-    get { return rm.GetString("EN110.kuerzel"); }
+    get { return rm.GetString("EN110.art"); }
   }
 
-  public static string EN110_kuerzel_tt
+  public static string EN110_art_tt
   {
-    get { return rm.GetString("EN110.kuerzel.tt"); }
+    get { return rm.GetString("EN110.art.tt"); }
   }
 
   public static string EN110_status
@@ -3502,14 +3502,14 @@ public partial class Messages
     get { return rm.GetString("EN110.waehrung.tt"); }
   }
 
-  public static string EN110_sortierung
+  public static string EN110_param1
   {
-    get { return rm.GetString("EN110.sortierung"); }
+    get { return rm.GetString("EN110.param1"); }
   }
 
-  public static string EN110_sortierung_tt
+  public static string EN110_param1_tt
   {
-    get { return rm.GetString("EN110.sortierung.tt"); }
+    get { return rm.GetString("EN110.param1.tt"); }
   }
 
   public static string EN110_relation

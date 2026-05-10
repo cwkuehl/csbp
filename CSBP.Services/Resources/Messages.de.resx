@@ -2108,17 +2108,17 @@
     <data name="EN110.bezeichnung.tt" xml:space="preserve">
         <value>Bezeichnung</value>
     </data>
-    <data name="EN110.provider" xml:space="preserve">
-        <value>_Provider</value>
+    <data name="EN110.sortierung" xml:space="preserve">
+        <value>_Sortierung</value>
     </data>
-    <data name="EN110.provider.tt" xml:space="preserve">
-        <value>Provider für Kursabfrage</value>
+    <data name="EN110.sortierung.tt" xml:space="preserve">
+        <value>Sortierung</value>
     </data>
-    <data name="EN110.kuerzel" xml:space="preserve">
-        <value>_Kürzel</value>
+    <data name="EN110.art" xml:space="preserve">
+        <value>_Art</value>
     </data>
-    <data name="EN110.kuerzel.tt" xml:space="preserve">
-        <value>Kürzel für Kursabfrage beim Provider</value>
+    <data name="EN110.art.tt" xml:space="preserve">
+        <value>Art der Abfrage, z.B. Modbus-TCP oder JSON.</value>
     </data>
     <data name="EN110.status" xml:space="preserve">
         <value>_Status</value>
@@ -2162,11 +2162,11 @@
     <data name="EN110.waehrung.tt" xml:space="preserve">
         <value>Währungskürzel für Kursabfrage; EUR, GBP, USD, ...</value>
     </data>
-    <data name="EN110.sortierung" xml:space="preserve">
-        <value>Sortierun_g</value>
+    <data name="EN110.param1" xml:space="preserve">
+        <value>Param_1</value>
     </data>
-    <data name="EN110.sortierung.tt" xml:space="preserve">
-        <value>Zeichenkette für Sortierung</value>
+    <data name="EN110.param1.tt" xml:space="preserve">
+        <value>UnitID bei Modbus, z.B. 1; Start-Muster bei JSON.</value>
     </data>
     <data name="EN110.relation" xml:space="preserve">
         <value>_Relation</value>

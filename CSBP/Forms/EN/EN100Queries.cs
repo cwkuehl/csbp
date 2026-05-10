@@ -2,7 +2,7 @@
 // Copyright (c) cwkuehl.de. All rights reserved.
 // </copyright>
 
-namespace CSBP.Forms.WP;
+namespace CSBP.Forms.EN;
 
 using System;
 using System.Collections.Generic;
@@ -74,12 +74,12 @@ public partial class EN100Queries : CsbpBin
   public EN100Queries(Builder b, IntPtr h, Dialog d = null, Type type = null, DialogTypeEnum dt = DialogTypeEnum.Without, object p1 = null, CsbpBin p = null)
       : base(b, h, d, type ?? typeof(EN100Queries), dt, p1, p)
   {
-    ObservableEventThrottle(refreshAction, (sender, e) =>
-    {
-      var uid = WP210Stock.Lastcopyuid;
-      WP210Stock.Lastcopyuid = null;
-      RefreshTreeView(abfragen, 1, uid);
-    });
+    // ObservableEventThrottle(refreshAction, (sender, e) =>
+    // {
+    //   var uid = WP210Stock.Lastcopyuid;
+    //   WP210Stock.Lastcopyuid = null;
+    //   RefreshTreeView(abfragen, 1, uid);
+    // });
     //// SetBold(client0);
     InitData(0);
     undoAction.EnterNotifyEvent += OnUndoRedoEnter;
