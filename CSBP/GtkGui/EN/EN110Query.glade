@@ -98,7 +98,7 @@
         <property name="can-focus">False</property>
         <property name="tooltip-text">EN110.art.tt</property>
         <property name="has-entry">True</property>
-        <signal name="changed" handler="OnProviderChanged" swapped="no"/>
+        <signal name="changed" handler="OnArtChanged" swapped="no"/>
         <child internal-child="entry">
           <object class="GtkEntry">
             <property name="visible">True</property>
@@ -177,33 +177,33 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="aktKurs0">
+      <object class="GtkLabel" id="hosturl0">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">EN110.aktKurs</property>
+        <property name="label">EN110.hosturl</property>
         <property name="use-underline">True</property>
-        <property name="mnemonic-widget">aktKurs</property>
+        <property name="mnemonic-widget">hosturl</property>
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">4</property>
+        <property name="top-attach">3</property>
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="aktKurs">
+      <object class="GtkEntry" id="hosturl">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">EN110.aktKurs.tt</property>
+        <property name="tooltip-text">EN110.hosturl.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates-default">True</property>
-        <property name="placeholder-text">EN110.aktKurs.tt</property>
+        <property name="placeholder-text">EN110.hosturl.tt</property>
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">4</property>
+        <property name="top-attach">3</property>
       </packing>
     </child>
     <child>
@@ -388,41 +388,6 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="relation0">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">center</property>
-        <property name="label">EN110.relation</property>
-        <property name="use-underline">True</property>
-        <property name="mnemonic-widget">relation</property>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">8</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBoxText" id="relation">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="tooltip-text">EN110.relation.tt</property>
-        <property name="has-entry">True</property>
-        <signal name="changed" handler="OnRelationChanged" swapped="no"/>
-        <child internal-child="entry">
-          <object class="GtkEntry">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">8</property>
-        <property name="width">3</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkLabel" id="notiz0">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -582,6 +547,39 @@
         <property name="left-attach">0</property>
         <property name="top-attach">13</property>
       </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="datentyp0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">EN110.datentyp</property>
+        <property name="use-underline">True</property>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBoxText" id="datentyp">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="tooltip-text">EN110.datentyp.tt</property>
+        <property name="has-entry">True</property>
+        <signal name="changed" handler="OnDatentypChanged" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left-attach">3</property>
+        <property name="top-attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
     </child>
     <child>
       <placeholder/>

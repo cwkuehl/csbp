@@ -2126,11 +2126,11 @@
     <data name="EN110.status.tt" xml:space="preserve">
         <value>Status für Berechnung</value>
     </data>
-    <data name="EN110.aktKurs" xml:space="preserve">
-        <value>Aktueller Kurs</value>
+    <data name="EN110.hosturl" xml:space="preserve">
+        <value>Host-URL</value>
     </data>
-    <data name="EN110.aktKurs.tt" xml:space="preserve">
-        <value>Aktueller Kurs aus letzter Bewertung</value>
+    <data name="EN110.hosturl.tt" xml:space="preserve">
+        <value>Host:Port für Modbus-TCP oder URL für JSON.</value>
     </data>
     <data name="EN110.stopKurs" xml:space="preserve">
         <value>Stop-Kurs</value>
@@ -2168,11 +2168,11 @@
     <data name="EN110.param1.tt" xml:space="preserve">
         <value>UnitID bei Modbus, z.B. 1; Start-Muster bei JSON.</value>
     </data>
-    <data name="EN110.relation" xml:space="preserve">
-        <value>_Relation</value>
+    <data name="EN110.datentyp" xml:space="preserve">
+        <value>_Datentyp</value>
     </data>
-    <data name="EN110.relation.tt" xml:space="preserve">
-        <value>Relation zu anderem Wertpapier, z.B. Index</value>
+    <data name="EN110.datentyp.tt" xml:space="preserve">
+        <value>Datentyp der Abfrage.</value>
     </data>
     <data name="EN110.notiz" xml:space="preserve">
         <value>Notiz</value>

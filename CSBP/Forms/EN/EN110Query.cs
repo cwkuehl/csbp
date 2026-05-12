@@ -49,17 +49,21 @@ public partial class EN110Query : CsbpBin
   [Builder.Object]
   private readonly ComboBox art;
 
-  /// <summary>Label status0.</summary>
+  /// <summary>Label hosturl0.</summary>
   [Builder.Object]
-  private readonly Label status0;
+  private readonly Label hosturl0;
 
-  /// <summary>ComboBox status.</summary>
+  /// <summary>Entry hosturl.</summary>
   [Builder.Object]
-  private readonly ComboBox status;
+  private readonly Entry hosturl;
 
-  /// <summary>Entry aktKurs.</summary>
+  /// <summary>Label datentyp0.</summary>
   [Builder.Object]
-  private readonly Entry aktKurs;
+  private readonly Label datentyp0;
+
+  /// <summary>ComboBox datentyp.</summary>
+  [Builder.Object]
+  private readonly ComboBox datentyp;
 
   /// <summary>Entry stopKurs.</summary>
   [Builder.Object]
@@ -81,13 +85,21 @@ public partial class EN110Query : CsbpBin
   [Builder.Object]
   private readonly Entry waehrung;
 
+  /// <summary>Label param10.</summary>
+  [Builder.Object]
+  private readonly Label param10;
+
   /// <summary>Entry param1.</summary>
   [Builder.Object]
   private readonly Entry param1;
 
-  /// <summary>ComboBox relation.</summary>
+  /// <summary>Label status0.</summary>
   [Builder.Object]
-  private readonly ComboBox relation;
+  private readonly Label status0;
+
+  /// <summary>ComboBox status.</summary>
+  [Builder.Object]
+  private readonly ComboBox status;
 
   /// <summary>TextView notiz.</summary>
   [Builder.Object]
@@ -128,6 +140,9 @@ public partial class EN110Query : CsbpBin
     SetBold(bezeichnung0);
     SetBold(sortierung0);
     SetBold(art0);
+    SetBold(hosturl0);
+    SetBold(datentyp0);
+    SetBold(param10);
     SetBold(status0);
     InitData(0);
     bezeichnung.GrabFocus();
@@ -154,9 +169,13 @@ public partial class EN110Query : CsbpBin
       var daten = ServiceDaten;
       var pl = Get(FactoryService.EnergyService.GetKindList(daten));
       AddColumns(art, pl);
+      var dl = Get(FactoryService.EnergyService.GetDatatypeList(daten));
+      AddColumns(datentyp, dl);
       AddColumns(status, Get(FactoryService.EnergyService.GetStateList(daten)));
       if (pl != null && pl.Any())
         SetText(art, pl.First().Schluessel);
+      if (dl != null && dl.Any())
+        SetText(datentyp, dl.First().Schluessel);
       SetText(status, "1");
       var neu = DialogType == DialogTypeEnum.New;
       var loeschen = DialogType == DialogTypeEnum.Delete;
@@ -174,15 +193,15 @@ public partial class EN110Query : CsbpBin
         SetText(bezeichnung, k.Bezeichnung);
         SetText(sortierung, k.Sortierung);
         SetText(art, k.Art);
-        SetText(status, k.Status);
-        //SetText(aktKurs, Functions.ToString(k.CurrentPrice));
+        SetText(hosturl, k.Host_Url);
+        SetText(datentyp, k.Datentyp);
         //SetText(stopKurs, Functions.ToString(k.StopPrice));
         //SetText(signalKurs1, Functions.ToString(k.SignalPrice1));
         //SetText(muster, k.Pattern);
         //SetText(typ, k.Type);
         //SetText(waehrung, k.Currency);
         SetText(param1, k.Param1);
-        //SetText(relation, k.Relation_Uid);
+        SetText(status, k.Status);
         SetText(notiz, k.Notiz);
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
@@ -193,15 +212,15 @@ public partial class EN110Query : CsbpBin
       bezeichnung.IsEditable = !loeschen;
       sortierung.IsEditable = !loeschen;
       art.Sensitive = !loeschen;
+      hosturl.IsEditable = !loeschen;
+      datentyp.Sensitive = !loeschen;
+      //stopKurs.IsEditable = false;
+      //signalKurs1.IsEditable = !loeschen;
+      //muster.IsEditable = false;
+      //typ.IsEditable = !loeschen;
+      //waehrung.IsEditable = !loeschen;
+      param1.IsEditable = !loeschen;
       status.Sensitive = !loeschen;
-      aktKurs.IsEditable = false;
-      stopKurs.IsEditable = false;
-      signalKurs1.IsEditable = !loeschen;
-      muster.IsEditable = false;
-      typ.IsEditable = !loeschen;
-      waehrung.IsEditable = !loeschen;
-      sortierung.IsEditable = !loeschen;
-      relation.Sensitive = !loeschen;
       notiz.Editable = !loeschen;
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
@@ -209,18 +228,13 @@ public partial class EN110Query : CsbpBin
       if (loeschen)
         ok.Label = Forms_delete;
       var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, null, true, null, null, copy ? null : model?.Uid));
-      var rs = AddColumns(relation);
-      foreach (var p in rl)
-        rs.AppendValues(p.Bezeichnung, p.Uid);
-      //if (!neu && model != null)
-      //  SetText(relation, model.Relation_Uid);
     }
   }
 
-  /// <summary>Handles Provider.</summary>
+  /// <summary>Handles Art.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnProviderChanged(object sender, EventArgs e)
+  protected void OnArtChanged(object sender, EventArgs e)
   {
   }
 
@@ -231,10 +245,10 @@ public partial class EN110Query : CsbpBin
   {
   }
 
-  /// <summary>Handles Relation.</summary>
+  /// <summary>Handles Datentyp.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
-  protected void OnRelationChanged(object sender, EventArgs e)
+  protected void OnDatentypChanged(object sender, EventArgs e)
   {
   }
 

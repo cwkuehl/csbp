@@ -3442,14 +3442,14 @@ public partial class Messages
     get { return rm.GetString("EN110.status.tt"); }
   }
 
-  public static string EN110_aktKurs
+  public static string EN110_hosturl
   {
-    get { return rm.GetString("EN110.aktKurs"); }
+    get { return rm.GetString("EN110.hosturl"); }
   }
 
-  public static string EN110_aktKurs_tt
+  public static string EN110_hosturl_tt
   {
-    get { return rm.GetString("EN110.aktKurs.tt"); }
+    get { return rm.GetString("EN110.hosturl.tt"); }
   }
 
   public static string EN110_stopKurs
@@ -3512,14 +3512,14 @@ public partial class Messages
     get { return rm.GetString("EN110.param1.tt"); }
   }
 
-  public static string EN110_relation
+  public static string EN110_datentyp
   {
-    get { return rm.GetString("EN110.relation"); }
+    get { return rm.GetString("EN110.datentyp"); }
   }
 
-  public static string EN110_relation_tt
+  public static string EN110_datentyp_tt
   {
-    get { return rm.GetString("EN110.relation.tt"); }
+    get { return rm.GetString("EN110.datentyp.tt"); }
   }
 
   public static string EN110_notiz
