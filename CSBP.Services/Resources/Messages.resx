@@ -2132,35 +2132,23 @@
     <data name="EN110.hosturl.tt" xml:space="preserve">
         <value>Host:Port for Modbus-TCP or URL for JSON.</value>
     </data>
-    <data name="EN110.stopKurs" xml:space="preserve">
-        <value>Stop order</value>
+    <data name="EN110.datentyp" xml:space="preserve">
+        <value>_Data type</value>
     </data>
-    <data name="EN110.stopKurs.tt" xml:space="preserve">
-        <value>Stop order of last calculation</value>
+    <data name="EN110.datentyp.tt" xml:space="preserve">
+        <value>Data type of the query.</value>
     </data>
-    <data name="EN110.signalKurs1" xml:space="preserve">
-        <value>Price _target</value>
+    <data name="EN110.einheit" xml:space="preserve">
+        <value>_Unit</value>
     </data>
-    <data name="EN110.signalKurs1.tt" xml:space="preserve">
-        <value>Manual price target</value>
+    <data name="EN110.einheit.tt" xml:space="preserve">
+        <value>Unit of the value.</value>
     </data>
-    <data name="EN110.muster" xml:space="preserve">
-        <value>Last pattern</value>
+    <data name="EN110.aufzaehlung" xml:space="preserve">
+        <value>_Enumeration</value>
     </data>
-    <data name="EN110.muster.tt" xml:space="preserve">
-        <value>Last pattern of last calculation</value>
-    </data>
-    <data name="EN110.typ" xml:space="preserve">
-        <value>_Type</value>
-    </data>
-    <data name="EN110.typ.tt" xml:space="preserve">
-        <value>Share (if empty) or bond</value>
-    </data>
-    <data name="EN110.waehrung" xml:space="preserve">
-        <value>C_urrency</value>
-    </data>
-    <data name="EN110.waehrung.tt" xml:space="preserve">
-        <value>Currency for price provider; EUR, GBP, USD, ...</value>
+    <data name="EN110.aufzaehlung.tt" xml:space="preserve">
+        <value>Enumeration of possible values as text in the format '1=Text1;2=Text2;3=Text3'.</value>
     </data>
     <data name="EN110.param1" xml:space="preserve">
         <value>Param_1</value>
@@ -2168,23 +2156,41 @@
     <data name="EN110.param1.tt" xml:space="preserve">
         <value>UnitID for Modbus, e.g. 1; Start-pattern for JSON.</value>
     </data>
-    <data name="EN110.datentyp" xml:space="preserve">
-        <value>_Data type</value>
+    <data name="EN110.param2" xml:space="preserve">
+        <value>Param_2</value>
     </data>
-    <data name="EN110.datentyp.tt" xml:space="preserve">
-        <value>Data type of the query.</value>
+    <data name="EN110.param2.tt" xml:space="preserve">
+        <value>Register address for Modbus, e.g. 1004; End-pattern for JSON.</value>
+    </data>
+    <data name="EN110.param3" xml:space="preserve">
+        <value>Param_3</value>
+    </data>
+    <data name="EN110.param3.tt" xml:space="preserve">
+        <value>Count for Modbus, usually 1 Word for 2 Bytes; unused for JSON.</value>
+    </data>
+    <data name="EN110.param4" xml:space="preserve">
+        <value>Factor</value>
+    </data>
+    <data name="EN110.param4.tt" xml:space="preserve">
+        <value>Factor for values, e.g. 0.1 for 1/10.</value>
+    </data>
+    <data name="EN110.param5" xml:space="preserve">
+        <value>Format</value>
+    </data>
+    <data name="EN110.param5.tt" xml:space="preserve">
+        <value>Format for values, e.g. N, N1, N2.</value>
+    </data>
+    <data name="EN110.schreibbarkeit" xml:space="preserve">
+        <value>Writeability</value>
+    </data>
+    <data name="EN110.schreibbarkeit.tt" xml:space="preserve">
+        <value>Writeability of the value.</value>
     </data>
     <data name="EN110.notiz" xml:space="preserve">
         <value>Memo</value>
     </data>
     <data name="EN110.notiz.tt" xml:space="preserve">
         <value>Memos</value>
-    </data>
-    <data name="EN110.anlage" xml:space="preserve">
-        <value>Create investment</value>
-    </data>
-    <data name="EN110.anlage.tt" xml:space="preserve">
-        <value>Create investment for stock?</value>
     </data>
 
     <data name="FZ100.title" xml:space="preserve">

@@ -207,29 +207,29 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="stopKurs0">
+      <object class="GtkEntry" id="einheit">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">center</property>
-        <property name="label">EN110.stopKurs</property>
-        <property name="use-underline">True</property>
-        <property name="mnemonic-widget">stopKurs</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.einheit.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.einheit.tt</property>
       </object>
       <packing>
-        <property name="left-attach">2</property>
+        <property name="left-attach">1</property>
         <property name="top-attach">4</property>
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="stopKurs">
+      <object class="GtkEntry" id="aufzaehlung">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">EN110.stopKurs.tt</property>
+        <property name="tooltip-text">EN110.aufzaehlung.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates-default">True</property>
-        <property name="placeholder-text">EN110.stopKurs.tt</property>
+        <property name="placeholder-text">EN110.aufzaehlung.tt</property>
       </object>
       <packing>
         <property name="left-attach">3</property>
@@ -237,44 +237,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="signalKurs10">
+      <object class="GtkLabel" id="param20">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">EN110.signalKurs1</property>
+        <property name="label">EN110.param2</property>
         <property name="use-underline">True</property>
-        <property name="mnemonic-widget">signalKurs1</property>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">5</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkEntry" id="signalKurs1">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text">EN110.signalKurs1.tt</property>
-        <property name="valign">start</property>
-        <property name="hexpand">True</property>
-        <property name="activates-default">True</property>
-        <property name="placeholder-text">EN110.signalKurs1.tt</property>
-      </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">5</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="muster0">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">center</property>
-        <property name="label">EN110.muster</property>
-        <property name="use-underline">True</property>
-        <property name="mnemonic-widget">muster</property>
+        <property name="mnemonic-widget">param2</property>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -282,14 +252,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="muster">
+      <object class="GtkEntry" id="param2">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">EN110.muster.tt</property>
+        <property name="tooltip-text">EN110.param2.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates-default">True</property>
-        <property name="placeholder-text">EN110.muster.tt</property>
+        <property name="placeholder-text">EN110.param2.tt</property>
       </object>
       <packing>
         <property name="left-attach">3</property>
@@ -297,14 +267,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="typ0">
+      <object class="GtkLabel" id="param30">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">EN110.typ</property>
+        <property name="label">EN110.param3</property>
         <property name="use-underline">True</property>
-        <property name="mnemonic-widget">typ</property>
+        <property name="mnemonic-widget">param3</property>
       </object>
       <packing>
         <property name="left-attach">0</property>
@@ -312,14 +282,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="typ">
+      <object class="GtkEntry" id="param3">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">EN110.typ.tt</property>
+        <property name="tooltip-text">EN110.param3.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates-default">True</property>
-        <property name="placeholder-text">EN110.typ.tt</property>
+        <property name="placeholder-text">EN110.param3.tt</property>
       </object>
       <packing>
         <property name="left-attach">1</property>
@@ -327,14 +297,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="waehrung0">
+      <object class="GtkLabel" id="param40">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="valign">center</property>
-        <property name="label">EN110.waehrung</property>
+        <property name="label">EN110.param4</property>
         <property name="use-underline">True</property>
-        <property name="mnemonic-widget">waehrung</property>
+        <property name="mnemonic-widget">param4</property>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -342,14 +312,14 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="waehrung">
+      <object class="GtkEntry" id="param4">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="tooltip-text">EN110.waehrung.tt</property>
+        <property name="tooltip-text">EN110.param4.tt</property>
         <property name="valign">start</property>
         <property name="hexpand">True</property>
         <property name="activates-default">True</property>
-        <property name="placeholder-text">EN110.waehrung.tt</property>
+        <property name="placeholder-text">EN110.param4.tt</property>
       </object>
       <packing>
         <property name="left-attach">3</property>
@@ -368,7 +338,7 @@
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">7</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
@@ -383,8 +353,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">7</property>
-        <property name="width">3</property>
+        <property name="top-attach">5</property>
       </packing>
     </child>
     <child>
@@ -533,19 +502,19 @@
       </packing>
     </child>
     <child>
-      <object class="GtkCheckButton" id="anlage">
-        <property name="label">EN110.anlage</property>
+      <object class="GtkCheckButton" id="schreibbarkeit">
+        <property name="label">EN110.schreibbarkeit</property>
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="receives-default">False</property>
-        <property name="tooltip-text">EN110.anlage.tt</property>
+        <property name="tooltip-text">EN110.schreibbarkeit.tt</property>
         <property name="valign">start</property>
         <property name="use-underline">True</property>
         <property name="draw-indicator">True</property>
       </object>
       <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">13</property>
+        <property name="left-attach">2</property>
+        <property name="top-attach">7</property>
       </packing>
     </child>
     <child>
@@ -569,10 +538,75 @@
         <property name="tooltip-text">EN110.datentyp.tt</property>
         <property name="has-entry">True</property>
         <signal name="changed" handler="OnDatentypChanged" swapped="no"/>
+        <child internal-child="entry">
+          <object class="GtkEntry">
+            <property name="can-focus">False</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="left-attach">3</property>
         <property name="top-attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="einheit0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">EN110.einheit</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">einheit</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="aufzaehlung0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">EN110.aufzaehlung</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">aufzaehlung</property>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="param50">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">EN110.param5</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">param5</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry" id="param5">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.param5.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.param5.tt</property>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">7</property>
       </packing>
     </child>
     <child>

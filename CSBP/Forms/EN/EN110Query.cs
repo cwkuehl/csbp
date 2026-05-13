@@ -65,25 +65,13 @@ public partial class EN110Query : CsbpBin
   [Builder.Object]
   private readonly ComboBox datentyp;
 
-  /// <summary>Entry stopKurs.</summary>
+  /// <summary>Entry einheit.</summary>
   [Builder.Object]
-  private readonly Entry stopKurs;
+  private readonly Entry einheit;
 
-  /// <summary>Entry signalKurs1.</summary>
+  /// <summary>Entry aufzaehlung.</summary>
   [Builder.Object]
-  private readonly Entry signalKurs1;
-
-  /// <summary>Entry muster.</summary>
-  [Builder.Object]
-  private readonly Entry muster;
-
-  /// <summary>Entry typ.</summary>
-  [Builder.Object]
-  private readonly Entry typ;
-
-  /// <summary>Entry waehrung.</summary>
-  [Builder.Object]
-  private readonly Entry waehrung;
+  private readonly Entry aufzaehlung;
 
   /// <summary>Label param10.</summary>
   [Builder.Object]
@@ -92,6 +80,30 @@ public partial class EN110Query : CsbpBin
   /// <summary>Entry param1.</summary>
   [Builder.Object]
   private readonly Entry param1;
+
+  /// <summary>Label param20.</summary>
+  [Builder.Object]
+  private readonly Label param20;
+
+  /// <summary>Entry param2.</summary>
+  [Builder.Object]
+  private readonly Entry param2;
+
+  /// <summary>Entry param3.</summary>
+  [Builder.Object]
+  private readonly Entry param3;
+
+  /// <summary>Entry param4.</summary>
+  [Builder.Object]
+  private readonly Entry param4;
+
+  /// <summary>Entry param5.</summary>
+  [Builder.Object]
+  private readonly Entry param5;
+
+  /// <summary>CheckButton schreibbarkeit.</summary>
+  [Builder.Object]
+  private readonly CheckButton schreibbarkeit;
 
   /// <summary>Label status0.</summary>
   [Builder.Object]
@@ -112,10 +124,6 @@ public partial class EN110Query : CsbpBin
   /// <summary>Entry geaendert.</summary>
   [Builder.Object]
   private readonly Entry geaendert;
-
-  /// <summary>CheckButton anlage.</summary>
-  [Builder.Object]
-  private readonly CheckButton anlage;
 
   /// <summary>Button ok.</summary>
   [Builder.Object]
@@ -143,6 +151,7 @@ public partial class EN110Query : CsbpBin
     SetBold(hosturl0);
     SetBold(datentyp0);
     SetBold(param10);
+    SetBold(param20);
     SetBold(status0);
     InitData(0);
     bezeichnung.GrabFocus();
@@ -189,42 +198,44 @@ public partial class EN110Query : CsbpBin
           return;
         }
         model = k;
+        var parts = k.SplitDatatype;
         SetText(nr, k.Uid);
         SetText(bezeichnung, k.Bezeichnung);
         SetText(sortierung, k.Sortierung);
         SetText(art, k.Art);
         SetText(hosturl, k.Host_Url);
-        SetText(datentyp, k.Datentyp);
-        //SetText(stopKurs, Functions.ToString(k.StopPrice));
-        //SetText(signalKurs1, Functions.ToString(k.SignalPrice1));
-        //SetText(muster, k.Pattern);
-        //SetText(typ, k.Type);
-        //SetText(waehrung, k.Currency);
+        SetText(datentyp, parts.Datatype);
+        SetText(einheit, k.Einheit);
+        SetText(aufzaehlung, parts.Enum);
         SetText(param1, k.Param1);
+        SetText(param2, k.Param2);
+        SetText(param3, k.Param3);
+        SetText(param4, k.Param4);
+        SetText(param5, k.Param5);
+        schreibbarkeit.Active = k.Schreibbarkeit != null && k.Schreibbarkeit.Contains("W");
         SetText(status, k.Status);
         SetText(notiz, k.Notiz);
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }
-      if (neu || copy)
-        anlage.Active = true;
       nr.IsEditable = false;
       bezeichnung.IsEditable = !loeschen;
       sortierung.IsEditable = !loeschen;
       art.Sensitive = !loeschen;
       hosturl.IsEditable = !loeschen;
       datentyp.Sensitive = !loeschen;
-      //stopKurs.IsEditable = false;
-      //signalKurs1.IsEditable = !loeschen;
-      //muster.IsEditable = false;
-      //typ.IsEditable = !loeschen;
-      //waehrung.IsEditable = !loeschen;
+      einheit.IsEditable = !loeschen;
+      aufzaehlung.IsEditable = !loeschen;
       param1.IsEditable = !loeschen;
+      param2.IsEditable = !loeschen;
+      param3.IsEditable = !loeschen;
+      param4.IsEditable = !loeschen;
+      param5.IsEditable = !loeschen;
+      schreibbarkeit.Sensitive = !loeschen;
       status.Sensitive = !loeschen;
       notiz.Editable = !loeschen;
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
-      anlage.Sensitive = !loeschen;
       if (loeschen)
         ok.Label = Forms_delete;
       var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, null, true, null, null, copy ? null : model?.Uid));
@@ -263,7 +274,7 @@ public partial class EN110Query : CsbpBin
     {
       // var rb = FactoryService.EnergyService.SaveQuery(ServiceDaten,
       //   DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, kuerzel.Text,
-      //   Functions.ToDecimal(signalKurs1.Text, 4), sortierung.Text,
+      //   Functions.ToDecimal(aufzaehlung.Text, 4), sortierung.Text,
       //   GetText(provider), GetText(status), GetText(relation), notiz.Buffer.Text,
       //   typ.Text, waehrung.Text, anlage.Active);
       // r = rb;

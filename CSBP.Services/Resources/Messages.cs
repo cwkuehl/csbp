@@ -3452,54 +3452,34 @@ public partial class Messages
     get { return rm.GetString("EN110.hosturl.tt"); }
   }
 
-  public static string EN110_stopKurs
+  public static string EN110_datentyp
   {
-    get { return rm.GetString("EN110.stopKurs"); }
+    get { return rm.GetString("EN110.datentyp"); }
   }
 
-  public static string EN110_stopKurs_tt
+  public static string EN110_datentyp_tt
   {
-    get { return rm.GetString("EN110.stopKurs.tt"); }
+    get { return rm.GetString("EN110.datentyp.tt"); }
   }
 
-  public static string EN110_signalKurs1
+  public static string EN110_einheit
   {
-    get { return rm.GetString("EN110.signalKurs1"); }
+    get { return rm.GetString("EN110.einheit"); }
   }
 
-  public static string EN110_signalKurs1_tt
+  public static string EN110_einheit_tt
   {
-    get { return rm.GetString("EN110.signalKurs1.tt"); }
+    get { return rm.GetString("EN110.einheit.tt"); }
   }
 
-  public static string EN110_muster
+  public static string EN110_aufzaehlung
   {
-    get { return rm.GetString("EN110.muster"); }
+    get { return rm.GetString("EN110.aufzaehlung"); }
   }
 
-  public static string EN110_muster_tt
+  public static string EN110_aufzaehlung_tt
   {
-    get { return rm.GetString("EN110.muster.tt"); }
-  }
-
-  public static string EN110_typ
-  {
-    get { return rm.GetString("EN110.typ"); }
-  }
-
-  public static string EN110_typ_tt
-  {
-    get { return rm.GetString("EN110.typ.tt"); }
-  }
-
-  public static string EN110_waehrung
-  {
-    get { return rm.GetString("EN110.waehrung"); }
-  }
-
-  public static string EN110_waehrung_tt
-  {
-    get { return rm.GetString("EN110.waehrung.tt"); }
+    get { return rm.GetString("EN110.aufzaehlung.tt"); }
   }
 
   public static string EN110_param1
@@ -3512,14 +3492,54 @@ public partial class Messages
     get { return rm.GetString("EN110.param1.tt"); }
   }
 
-  public static string EN110_datentyp
+  public static string EN110_param2
   {
-    get { return rm.GetString("EN110.datentyp"); }
+    get { return rm.GetString("EN110.param2"); }
   }
 
-  public static string EN110_datentyp_tt
+  public static string EN110_param2_tt
   {
-    get { return rm.GetString("EN110.datentyp.tt"); }
+    get { return rm.GetString("EN110.param2.tt"); }
+  }
+
+  public static string EN110_param3
+  {
+    get { return rm.GetString("EN110.param3"); }
+  }
+
+  public static string EN110_param3_tt
+  {
+    get { return rm.GetString("EN110.param3.tt"); }
+  }
+
+  public static string EN110_param4
+  {
+    get { return rm.GetString("EN110.param4"); }
+  }
+
+  public static string EN110_param4_tt
+  {
+    get { return rm.GetString("EN110.param4.tt"); }
+  }
+
+  public static string EN110_param5
+  {
+    get { return rm.GetString("EN110.param5"); }
+  }
+
+  public static string EN110_param5_tt
+  {
+    get { return rm.GetString("EN110.param5.tt"); }
+  }
+
+  public static string EN110_schreibbarkeit
+  {
+    get { return rm.GetString("EN110.schreibbarkeit"); }
+  }
+
+  public static string EN110_schreibbarkeit_tt
+  {
+    get { return rm.GetString("EN110.schreibbarkeit.tt"); }
   }
 
   public static string EN110_notiz
@@ -3530,16 +3550,6 @@ public partial class Messages
   public static string EN110_notiz_tt
   {
     get { return rm.GetString("EN110.notiz.tt"); }
-  }
-
-  public static string EN110_anlage
-  {
-    get { return rm.GetString("EN110.anlage"); }
-  }
-
-  public static string EN110_anlage_tt
-  {
-    get { return rm.GetString("EN110.anlage.tt"); }
   }
 
   public static string FZ100_title

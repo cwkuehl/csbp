@@ -48,7 +48,7 @@ public class EnergyService : ServiceBase, IEnergyService
       // TODO EN100
       var l = WpWertpapierRep.GetList(daten, rm, daten.MandantNr, null);
       cs.AddCsvLine(["Mandant_Nr", "Nr", "Sortierung", "Bezeichnung",
-        "Status", "Provider", "Kürzel", "Typ", "Akt. Kurs", "Muster", "Währung",
+        "Status", "Provider", "Kürzel", "Typ", "Akt. Kurs", "Param2", "Währung",
         "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
