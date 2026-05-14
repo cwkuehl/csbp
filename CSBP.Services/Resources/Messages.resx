@@ -2210,6 +2210,21 @@
     <data name="EN110.notiz.tt" xml:space="preserve">
         <value>Memos</value>
     </data>
+    <data name="EN110.wert.tt" xml:space="preserve">
+        <value>Read and formatted value.</value>
+    </data>
+    <data name="EN110.lesen" xml:space="preserve">
+        <value>Read</value>
+    </data>
+    <data name="EN110.lesen.tt" xml:space="preserve">
+        <value>Read value.</value>
+    </data>
+    <data name="EN110.schreiben" xml:space="preserve">
+        <value>Write</value>
+    </data>
+    <data name="EN110.schreiben.tt" xml:space="preserve">
+        <value>Write value.</value>
+    </data>
 
     <data name="FZ100.title" xml:space="preserve">
         <value>Statistics</value>

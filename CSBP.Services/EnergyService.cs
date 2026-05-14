@@ -6,22 +6,13 @@ namespace CSBP.Services;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using AMWD.Protocols.Modbus.Common;
 using AMWD.Protocols.Modbus.Tcp;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Base.Csv;
-using CSBP.Services.NonService;
-using CSBP.Services.Pnf;
-using CSBP.Services.Resources;
-using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
 /// <summary>
@@ -163,6 +154,20 @@ public class EnergyService : ServiceBase, IEnergyService
   }
 
   /// <summary>
+  /// Queries a query.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="q">Affected query.</param>
+  /// <returns>Queried value and possibly errors.</returns>
+  public ServiceErgebnis<string> QueryQuery(ServiceDaten daten, EnAbfrage q)
+  {
+    var jsonurl = "";
+    var json = "";
+    var r = new ServiceErgebnis<string>(QueryQueryIntern(daten, q, ref jsonurl, ref json));
+    return r;
+  }
+
+  /// <summary>
   /// Queries all queries.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -181,50 +186,9 @@ public class EnergyService : ServiceBase, IEnergyService
     {
       if (state.IstAbbruch())
         break;
-      if (q.Art == "MODBUS-TCP")
+      var wert = QueryQueryIntern(daten, q, ref jsonurl, ref json);
+      if (!string.IsNullOrWhiteSpace(wert))
       {
-        var arr = q.Host_Url.Split(':');
-        var host = arr[0];
-        var port = arr.Length > 1 ? Functions.ToInt32(arr[1]) : 502;
-        using var client = new ModbusTcpClient(host, port);
-        byte unitId = q.Param1 != null ? (byte)Functions.ToInt32(q.Param1) : (byte)1;
-        ushort address = q.Param2 != null ? (ushort)Functions.ToInt32(q.Param2) : (ushort)1;
-        ushort count = q.Param3 != null ? (ushort)Functions.ToInt32(q.Param3) : (ushort)1;
-        var registers = client.ReadHoldingRegistersAsync(unitId, address, count).GetAwaiter().GetResult(); // .Select(r => r.Value).ToArray();
-        var wert = GetDatentypModbusValue(q, registers);
-        var einheit = string.IsNullOrWhiteSpace(q.Einheit) ? "" : $" {q.Einheit}";
-        ////state.SetMeldung($"Modbus-TCP: {q.Bezeichnung}, {host}:{port}, UnitId={unitId}, Address={address}, Count={count}, Registers={string.Join(", ", registers)}");
-        // var v = switch (q.Datentyp)
-        // {
-        //   default:
-        //     return "TODO EN004: Datentyp {0} nicht unterstützt.".FormatWith(q.Datentyp);
-        // }
-        state.SetMeldung($"{Functions.Iif(m1, "", "  ")}{q.Bezeichnung}: {wert}{einheit}", true, "  ");
-        m1 = false;
-      }
-      else if (q.Art == "JSON")
-      {
-        if (q.Host_Url != jsonurl)
-        {
-          try
-          {
-            var client = new HttpClient
-            {
-              Timeout = TimeSpan.FromSeconds(5),
-            };
-            json = client.GetStringAsync(q.Host_Url).GetAwaiter().GetResult();
-          }
-          catch (Exception ex)
-          {
-            state.SetFehler($"Fehler bei Abfrage {q.Bezeichnung} von {q.Host_Url}: {ex.Message}");
-          }
-        }
-        var wert = "nicht gefunden";
-        if (!string.IsNullOrWhiteSpace(json))
-        {
-          jsonurl = q.Host_Url;
-          wert = GetDatentypJsonValue(q, json);
-        }
         var einheit = string.IsNullOrWhiteSpace(q.Einheit) ? "" : $" {q.Einheit}";
         state.SetMeldung($"{Functions.Iif(m1, "", "  ")}{q.Bezeichnung}: {wert}{einheit}", true, "  ");
         m1 = false;
@@ -398,5 +362,52 @@ public class EnergyService : ServiceBase, IEnergyService
         sw = wen;
     }
     return sw;
+  }
+
+  /// <summary>
+  /// Queries a query.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="q">Affected query.</param>
+  /// <returns>Queried value and possibly errors.</returns>
+  private static string QueryQueryIntern(ServiceDaten daten, EnAbfrage q, ref string jsonurl, ref string json)
+  {
+    var wert = (string)null;
+    if (q.Art == "MODBUS-TCP")
+    {
+      var arr = q.Host_Url.Split(':');
+      var host = arr[0];
+      var port = arr.Length > 1 ? Functions.ToInt32(arr[1]) : 502;
+      using var client = new ModbusTcpClient(host, port);
+      byte unitId = q.Param1 != null ? (byte)Functions.ToInt32(q.Param1) : (byte)1;
+      ushort address = q.Param2 != null ? (ushort)Functions.ToInt32(q.Param2) : (ushort)1;
+      ushort count = q.Param3 != null ? (ushort)Functions.ToInt32(q.Param3) : (ushort)1;
+      var registers = client.ReadHoldingRegistersAsync(unitId, address, count).GetAwaiter().GetResult(); // .Select(r => r.Value).ToArray();
+      wert = GetDatentypModbusValue(q, registers);
+    }
+    else if (q.Art == "JSON")
+    {
+      if (q.Host_Url != jsonurl)
+      {
+        try
+        {
+          var client = new HttpClient
+          {
+            Timeout = TimeSpan.FromSeconds(5),
+          };
+          json = client.GetStringAsync(q.Host_Url).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+          throw new Exception($"Fehler bei Abfrage {q.Bezeichnung} von {q.Host_Url}: {ex.Message}");
+        }
+      }
+      if (!string.IsNullOrWhiteSpace(json))
+      {
+        jsonurl = q.Host_Url;
+        wert = GetDatentypJsonValue(q, json);
+      }
+    }
+    return wert;
   }
 }

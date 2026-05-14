@@ -142,21 +142,6 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="status0">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="halign">start</property>
-        <property name="valign">center</property>
-        <property name="label">EN110.status</property>
-        <property name="use-underline">True</property>
-        <property name="mnemonic-widget">status</property>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">9</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkComboBoxText" id="status">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -172,7 +157,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">9</property>
+        <property name="top-attach">8</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -368,7 +353,7 @@
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">10</property>
+        <property name="top-attach">9</property>
       </packing>
     </child>
     <child>
@@ -389,7 +374,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">10</property>
+        <property name="top-attach">9</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -405,7 +390,7 @@
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">11</property>
+        <property name="top-attach">10</property>
       </packing>
     </child>
     <child>
@@ -420,7 +405,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">11</property>
+        <property name="top-attach">10</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -436,7 +421,7 @@
       </object>
       <packing>
         <property name="left-attach">0</property>
-        <property name="top-attach">12</property>
+        <property name="top-attach">11</property>
       </packing>
     </child>
     <child>
@@ -451,7 +436,7 @@
       </object>
       <packing>
         <property name="left-attach">1</property>
-        <property name="top-attach">12</property>
+        <property name="top-attach">11</property>
         <property name="width">3</property>
       </packing>
     </child>
@@ -511,6 +496,7 @@
         <property name="valign">start</property>
         <property name="use-underline">True</property>
         <property name="draw-indicator">True</property>
+        <signal name="toggled" handler="OnSchreibbarkeitToggled" swapped="no"/>
       </object>
       <packing>
         <property name="left-attach">2</property>
@@ -610,16 +596,80 @@
       </packing>
     </child>
     <child>
-      <placeholder/>
+      <object class="GtkLabel" id="status0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">EN110.status</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">status</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">8</property>
+      </packing>
     </child>
     <child>
-      <placeholder/>
+      <object class="GtkLabel" id="wert0">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="halign">start</property>
+        <property name="valign">center</property>
+        <property name="label">EN110.wert</property>
+        <property name="use-underline">True</property>
+        <property name="mnemonic-widget">wert</property>
+      </object>
+      <packing>
+        <property name="left-attach">0</property>
+        <property name="top-attach">12</property>
+      </packing>
     </child>
     <child>
-      <placeholder/>
+      <object class="GtkEntry" id="wert">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text">EN110.wert.tt</property>
+        <property name="valign">start</property>
+        <property name="hexpand">True</property>
+        <property name="activates-default">True</property>
+        <property name="placeholder-text">EN110.wert.tt</property>
+      </object>
+      <packing>
+        <property name="left-attach">1</property>
+        <property name="top-attach">12</property>
+      </packing>
     </child>
     <child>
-      <placeholder/>
+      <object class="GtkButton" id="lesen">
+        <property name="label">EN110.lesen</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="can-default">True</property>
+        <property name="receives-default">False</property>
+        <property name="tooltip-text">EN110.lesen.tt</property>
+        <property name="use-underline">True</property>
+        <signal name="clicked" handler="OnLesenClicked" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left-attach">2</property>
+        <property name="top-attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="schreiben">
+        <property name="label">EN110.schreiben</property>
+        <property name="can-focus">True</property>
+        <property name="can-default">True</property>
+        <property name="receives-default">False</property>
+        <property name="tooltip-text">EN110.schreiben.tt</property>
+        <property name="use-underline">True</property>
+        <signal name="clicked" handler="OnSchreibenClicked" swapped="no"/>
+      </object>
+      <packing>
+        <property name="left-attach">3</property>
+        <property name="top-attach">12</property>
+      </packing>
     </child>
     <child>
       <placeholder/>

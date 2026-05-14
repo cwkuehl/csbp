@@ -122,9 +122,17 @@ public partial class EN110Query : CsbpBin
   [Builder.Object]
   private readonly Entry geaendert;
 
+  /// <summary>Entry wert.</summary>
+  [Builder.Object]
+  private readonly Entry wert;
+
   /// <summary>Button ok.</summary>
   [Builder.Object]
   private readonly Button ok;
+
+  /// <summary>Button schreiben.</summary>
+  [Builder.Object]
+  private readonly Button schreiben;
 
 #pragma warning restore CS0649
 
@@ -230,9 +238,12 @@ public partial class EN110Query : CsbpBin
       notiz.Editable = !loeschen;
       angelegt.IsEditable = false;
       geaendert.IsEditable = false;
+      Application.Invoke((sender, e) =>
+      {
+        OnSchreibbarkeitToggled(schreibbarkeit, EventArgs.Empty);
+      });
       if (loeschen)
         ok.Label = Forms_delete;
-      var rl = Get(FactoryService.StockService.GetStockList(ServiceDaten, null, true, null, null, copy ? null : model?.Uid));
     }
   }
 
@@ -241,6 +252,14 @@ public partial class EN110Query : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnArtChanged(object sender, EventArgs e)
   {
+  }
+
+  /// <summary>Handles schreibbarkeit.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnSchreibbarkeitToggled(object sender, EventArgs e)
+  {
+    schreiben.Visible = schreibbarkeit.Active && GetText(art) != "JSON";
   }
 
   /// <summary>Handles state.</summary>
@@ -257,6 +276,25 @@ public partial class EN110Query : CsbpBin
   {
   }
 
+  /// <summary>Handles Lesen.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnLesenClicked(object sender, EventArgs e)
+  {
+    var q = GetModel();
+    var r = FactoryService.EnergyService.QueryQuery(ServiceDaten, q);
+    Get(r);
+    if (r.Ok)
+      SetText(wert, r.Ergebnis ?? "");
+  }
+
+  /// <summary>Handles Schreiben.</summary>
+  /// <param name="sender">Affected sender.</param>
+  /// <param name="e">Affected event.</param>
+  protected void OnSchreibenClicked(object sender, EventArgs e)
+  {
+  }
+
   /// <summary>Handles Ok.</summary>
   /// <param name="sender">Affected sender.</param>
   /// <param name="e">Affected event.</param>
@@ -266,11 +304,8 @@ public partial class EN110Query : CsbpBin
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
       || DialogType == DialogTypeEnum.Edit)
     {
-      var parts = new EnAbfrage { SplitDatatype = (GetText(datentyp), aufzaehlung.Text) };
-      var rb = FactoryService.EnergyService.SaveQuery(ServiceDaten,
-        DialogType == DialogTypeEnum.Edit ? nr.Text : null, sortierung.Text, GetText(art), bezeichnung.Text,
-        hosturl.Text, parts.Datentyp, schreibbarkeit.Active ? "RW" : "R", einheit.Text, param1.Text,
-        param2.Text, param3.Text, param4.Text, param5.Text, GetText(status), notiz.Buffer.Text);
+      var m = GetModel();
+      var rb = FactoryService.EnergyService.SaveQuery(ServiceDaten, m.Uid, m.Sortierung, m.Art, m.Bezeichnung, m.Host_Url, m.Datentyp, m.Schreibbarkeit, m.Einheit, m.Param1, m.Param2, m.Param3, m.Param4, m.Param5, m.Status, m.Notiz);
       r = rb;
     }
     else if (DialogType == DialogTypeEnum.Delete)
@@ -294,5 +329,32 @@ public partial class EN110Query : CsbpBin
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
     CloseDialog();
+  }
+
+  /// <summary>
+  /// Gets the model from dialog input.
+  /// </summary>
+  /// <returns>A new instance of EnAbfrage.</returns>
+  private EnAbfrage GetModel()
+  {
+    return new EnAbfrage
+    {
+      Uid = DialogType == DialogTypeEnum.Edit ? nr.Text : null,
+      Sortierung = sortierung.Text,
+      Art = GetText(art),
+      Bezeichnung = bezeichnung.Text,
+      Host_Url = hosturl.Text,
+      //// Datentyp = parts.Datentyp,
+      SplitDatatype = (GetText(datentyp), aufzaehlung.Text),
+      Einheit = einheit.Text,
+      Param1 = param1.Text,
+      Param2 = param2.Text,
+      Param3 = param3.Text,
+      Param4 = param4.Text,
+      Param5 = param5.Text,
+      Schreibbarkeit = schreibbarkeit.Active ? "RW" : "R",
+      Status = GetText(status),
+      Notiz = notiz.Buffer.Text,
+    };
   }
 }

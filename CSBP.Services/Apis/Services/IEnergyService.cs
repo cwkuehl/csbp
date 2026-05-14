@@ -71,6 +71,14 @@ public interface IEnergyService
   ServiceErgebnis DeleteQuery(ServiceDaten daten, EnAbfrage e);
 
   /// <summary>
+  /// Queries a query.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="q">Affected query.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis<string> QueryQuery(ServiceDaten daten, EnAbfrage q);
+
+  /// <summary>
   /// Queries all queries.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

@@ -3582,6 +3582,36 @@ public partial class Messages
     get { return rm.GetString("EN110.notiz.tt"); }
   }
 
+  public static string EN110_wert
+  {
+    get { return rm.GetString("EN110.wert"); }
+  }
+
+  public static string EN110_wert_tt
+  {
+    get { return rm.GetString("EN110.wert.tt"); }
+  }
+
+  public static string EN110_lesen
+  {
+    get { return rm.GetString("EN110.lesen"); }
+  }
+
+  public static string EN110_lesen_tt
+  {
+    get { return rm.GetString("EN110.lesen.tt"); }
+  }
+
+  public static string EN110_schreiben
+  {
+    get { return rm.GetString("EN110.schreiben"); }
+  }
+
+  public static string EN110_schreiben_tt
+  {
+    get { return rm.GetString("EN110.schreiben.tt"); }
+  }
+
   public static string FZ100_title
   {
     get { return rm.GetString("FZ100.title"); }
