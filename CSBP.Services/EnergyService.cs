@@ -126,15 +126,19 @@ public class EnergyService : ServiceBase, IEnergyService
     notiz = notiz.TrimNull();
     var r = new ServiceErgebnis<EnAbfrage>();
     if (string.IsNullOrWhiteSpace(sortierung))
-      r.Errors.Add(Message.New(EN001)); // TODO EN003: Sortierung ist erforderlich.
+      r.Errors.Add(Message.New(EN003));
     if (string.IsNullOrWhiteSpace(art))
-      r.Errors.Add(Message.New(EN001));
+      r.Errors.Add(Message.New(EN004));
     if (string.IsNullOrWhiteSpace(bezeichnung))
       r.Errors.Add(Message.New(EN001));
     if (string.IsNullOrWhiteSpace(hosturl))
-      r.Errors.Add(Message.New(EN001));
+      r.Errors.Add(Message.New(EN005));
     if (string.IsNullOrWhiteSpace(datentyp))
-      r.Errors.Add(Message.New(EN001));
+      r.Errors.Add(Message.New(EN006));
+    if (string.IsNullOrWhiteSpace(param1))
+      r.Errors.Add(Message.New(EN007));
+    if (string.IsNullOrWhiteSpace(param2))
+      r.Errors.Add(Message.New(EN008));
     if (string.IsNullOrWhiteSpace(status))
       r.Errors.Add(Message.New(EN002));
     if (!r.Ok)

@@ -16,9 +16,6 @@ using static CSBP.Services.Resources.Messages;
 /// <summary>Controller for EN110Query dialog.</summary>
 public partial class EN110Query : CsbpBin
 {
-  /// <summary>Last copied ID.</summary>
-  private static string lastcopyuid = null;
-
 #pragma warning disable CS0649
 
   /// <summary>Entry nr.</summary>
@@ -157,9 +154,6 @@ public partial class EN110Query : CsbpBin
     bezeichnung.GrabFocus();
   }
 
-  /// <summary>Gets or sets last copied ID.</summary>
-  public static string Lastcopyuid { get => lastcopyuid; set => lastcopyuid = value; }
-
   /// <summary>Creates non modal dialog.</summary>
   /// <param name="p1">1. parameter for dialog.</param>
   /// <param name="p">Affected parent dialog.</param>
@@ -272,14 +266,12 @@ public partial class EN110Query : CsbpBin
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
       || DialogType == DialogTypeEnum.Edit)
     {
-      // var rb = FactoryService.EnergyService.SaveQuery(ServiceDaten,
-      //   DialogType == DialogTypeEnum.Edit ? nr.Text : null, bezeichnung.Text, kuerzel.Text,
-      //   Functions.ToDecimal(aufzaehlung.Text, 4), sortierung.Text,
-      //   GetText(provider), GetText(status), GetText(relation), notiz.Buffer.Text,
-      //   typ.Text, waehrung.Text, anlage.Active);
-      // r = rb;
-      // if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
-      //   Lastcopyuid = rb.Ergebnis.Uid;
+      var parts = new EnAbfrage { SplitDatatype = (GetText(datentyp), aufzaehlung.Text) };
+      var rb = FactoryService.EnergyService.SaveQuery(ServiceDaten,
+        DialogType == DialogTypeEnum.Edit ? nr.Text : null, sortierung.Text, GetText(art), bezeichnung.Text,
+        hosturl.Text, parts.Datentyp, schreibbarkeit.Active ? "RW" : "R", einheit.Text, param1.Text,
+        param2.Text, param3.Text, param4.Text, param5.Text, GetText(status), notiz.Buffer.Text);
+      r = rb;
     }
     else if (DialogType == DialogTypeEnum.Delete)
     {

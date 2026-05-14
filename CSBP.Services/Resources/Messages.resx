@@ -145,6 +145,24 @@
     <data name="EN002" xml:space="preserve">
         <value>EN002Select a state.</value>
     </data>
+    <data name="EN003" xml:space="preserve">
+        <value>EN003The sorting must not be empty.</value>
+    </data>
+    <data name="EN004" xml:space="preserve">
+        <value>EN004The type must not be empty.</value>
+    </data>
+    <data name="EN005" xml:space="preserve">
+        <value>EN005The host URL must not be empty.</value>
+    </data>
+    <data name="EN006" xml:space="preserve">
+        <value>EN006The data type must not be empty.</value>
+    </data>
+    <data name="EN007" xml:space="preserve">
+        <value>EN007The parameter 1 must not be empty.</value>
+    </data>
+    <data name="EN008" xml:space="preserve">
+        <value>EN008The parameter 2 must not be empty.</value>
+    </data>
 
     <data name="FZ001_" xml:space="preserve">
         <value>FZ001{0} ({1:yyyy-MM-dd}): {2:#,##0.00}</value>
@@ -2094,13 +2112,13 @@
     </data>
 
     <data name="EN110.title" xml:space="preserve">
-        <value>Stock</value>
+        <value>Query Parameter</value>
     </data>
     <data name="EN110.nr" xml:space="preserve">
         <value>No.</value>
     </data>
     <data name="EN110.nr.tt" xml:space="preserve">
-        <value>Stock number</value>
+        <value>Query parameter number</value>
     </data>
     <data name="EN110.bezeichnung" xml:space="preserve">
         <value>_Description</value>
