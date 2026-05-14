@@ -293,6 +293,9 @@ public partial class EN110Query : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnSchreibenClicked(object sender, EventArgs e)
   {
+    var q = GetModel();
+    var r = FactoryService.EnergyService.WriteQuery(ServiceDaten, q, wert.Text);
+    Get(r);
   }
 
   /// <summary>Handles Ok.</summary>

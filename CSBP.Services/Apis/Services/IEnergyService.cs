@@ -89,6 +89,15 @@ public interface IEnergyService
   ServiceErgebnis QueryQueries(ServiceDaten daten, bool inactive, string search, StatusTask state);
 
   /// <summary>
+  /// Writes a value to a query.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="q">Affected query.</param>
+  /// <param name="value">Value to write.</param>
+  /// <returns>Possibly errors.</returns>
+  ServiceErgebnis WriteQuery(ServiceDaten daten, EnAbfrage q, string value);
+
+  /// <summary>
   /// Gets a list of states.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>

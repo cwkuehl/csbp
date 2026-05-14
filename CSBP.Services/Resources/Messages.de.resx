@@ -163,6 +163,9 @@
     <data name="EN008" xml:space="preserve">
         <value>EN008Der Parameter 2 darf nicht leer sein.</value>
     </data>
+    <data name="EN009" xml:space="preserve">
+        <value>EN009Die Werte sind ungültig.</value>
+    </data>
 
     <data name="FZ001_" xml:space="preserve">
         <value>FZ001{0} ({1:yyyy-MM-dd}): {2:#,##0.00}</value>

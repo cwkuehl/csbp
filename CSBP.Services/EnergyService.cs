@@ -198,6 +198,70 @@ public class EnergyService : ServiceBase, IEnergyService
   }
 
   /// <summary>
+  /// Writes a value to a query.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="q">Affected query.</param>
+  /// <param name="value">Value to write.</param>
+  /// <returns>Possibly errors.</returns>
+  public ServiceErgebnis WriteQuery(ServiceDaten daten, EnAbfrage q, string value)
+  {
+    var r = new ServiceErgebnis();
+    if (q == null || q.Art != "MODBUS-TCP" || string.IsNullOrWhiteSpace(q.Uid) || string.IsNullOrWhiteSpace(q.Art)
+      || string.IsNullOrWhiteSpace(q.Host_Url) || string.IsNullOrWhiteSpace(q.Datentyp) || string.IsNullOrWhiteSpace(q.Param1)
+      || string.IsNullOrWhiteSpace(q.Param2) || string.IsNullOrWhiteSpace(value))
+    {
+      r.Errors.Add(Message.New(EN009));
+      return r;
+    }
+    var arr = q.Host_Url.Split(':');
+    var host = arr[0];
+    var port = arr.Length > 1 ? Functions.ToInt32(arr[1]) : 502;
+    using var client = new ModbusTcpClient(host, port);
+    byte unitId = q.Param1 != null ? (byte)Functions.ToInt32(q.Param1) : (byte)1;
+    ushort address = q.Param2 != null ? (ushort)Functions.ToInt32(q.Param2) : (ushort)1;
+    ushort count = q.Param3 != null ? (ushort)Functions.ToInt32(q.Param3) : (ushort)1;
+    decimal factor = Functions.ToDecimal(q.Param4) ?? 0m;
+    var dt = q.Datentyp.Split('|')[0];
+    factor = factor != 0 ? 1 / factor : 1m;
+    var d = 0m;
+    ushort us = 0;
+    if (dt == "uint16")
+    {
+      d = (Functions.ToDecimal(value) ?? 0m) * factor;
+      us = (ushort)Functions.ToInt32(Functions.ToString(d));
+    }
+    else if (dt == "int16")
+    {
+      d = (Functions.ToDecimal(value) ?? 0m) * factor;
+      us = (ushort)Functions.ToInt32(Functions.ToString(d));
+    }
+    //// else if (dt == "int32") // TODO int32, int64, uint32, uint64
+    //// {
+    ////   d = Functions.ToInt32(value) * factor;
+    //// }
+    //// else if (dt == "decimal")
+    //// {
+    ////   d = (Functions.ToDecimal(value, -1, true) ?? 0m) * factor;
+    //// }
+    else
+    {
+      r.Errors.Add(Message.New(EN009));
+      return r;
+    }
+    //// else if (dt == "string")
+    //// {
+    ////   return wert;
+    //// }
+    //// else
+    ////   return $"JSON-Datentyp {q.Datentyp} nicht unterstützt.";
+    var regs = new List<HoldingRegister>();
+    regs.Add(new HoldingRegister { Address = address, Value = us });
+    client.WriteMultipleHoldingRegistersAsync(unitId, regs).GetAwaiter().GetResult();
+    return r;
+  }
+
+  /// <summary>
   /// Gets a list of states.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
