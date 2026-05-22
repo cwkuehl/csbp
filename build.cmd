@@ -9,9 +9,9 @@ set src=%~dp0
 echo %src%
 set tgt=C:\Eigen\Haushalt\CSBP1\publish\
 echo %tgt%
-dotnet publish %src%CSBP\CSBP.csproj --configuration Release --framework net9.0 -p:Version=9.0.0.0
+dotnet publish %src%CSBP\CSBP.csproj --configuration Release --framework net10.0 -p:Version=10.0.0.0
 
-xcopy %src%CSBP\bin\Release\net9.0\publish\ %tgt% /s /e /c /i /r /y /q
+xcopy %src%CSBP\bin\Release\net10.0\publish\ %tgt% /s /e /c /i /r /y /q
 :: xcopy %src%CSBP\Resources\ %tgt%Resources /s /e /c /i /r /y /q
 :: del %tgt%Resources\T*.*
 :: del %tgt%Resources\M*.*

@@ -454,3 +454,6 @@ CSBP.Generator/*
 *.tokens
 
 ConvertHtml.txt
+
+# C# Dev Kit
+*.lscache

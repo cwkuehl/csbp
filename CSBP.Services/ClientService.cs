@@ -1651,9 +1651,9 @@ public partial class ClientService : ServiceBase, IClientService
 
     // http://stackoverflow.com/questions/2659214/why-do-i-need-to-use-the-rfc2898derivebytes-class-in-net-instead-of-directly
     // "What it does is repeatedly hash the user password along with the salt." High iteration counts.
-    var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000, HashAlgorithmName.SHA1);
-    aes.Key = key.GetBytes(aes.KeySize / 8);
-    aes.IV = key.GetBytes(aes.BlockSize / 8);
+    var keyBytes = Rfc2898DeriveBytes.Pbkdf2(passwordBytes, salt, 50000, HashAlgorithmName.SHA1, (aes.KeySize / 8) + (aes.BlockSize / 8));
+    aes.Key = keyBytes[..(aes.KeySize / 8)];
+    aes.IV = keyBytes[(aes.KeySize / 8)..];
 
     // Cipher modes: http://security.stackexchange.com/questions/52665/which-is-the-best-cipher-mode-and-padding-mode-for-aes-encryption
     aes.Mode = CipherMode.CFB; // CBC
@@ -1701,9 +1701,9 @@ public partial class ClientService : ServiceBase, IClientService
     var aes = Aes.Create();
     aes.KeySize = 256;
     aes.BlockSize = 128;
-    var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000, HashAlgorithmName.SHA1);
-    aes.Key = key.GetBytes(aes.KeySize / 8);
-    aes.IV = key.GetBytes(aes.BlockSize / 8);
+    var keyBytes = Rfc2898DeriveBytes.Pbkdf2(passwordBytes, salt, 50000, HashAlgorithmName.SHA1, (aes.KeySize / 8) + (aes.BlockSize / 8));
+    aes.Key = keyBytes[..(aes.KeySize / 8)];
+    aes.IV = keyBytes[(aes.KeySize / 8)..];
     aes.Padding = PaddingMode.PKCS7;
     aes.Mode = CipherMode.CFB; // CBC
 
