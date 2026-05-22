@@ -29,10 +29,10 @@ cd ../Install
 cp -a ../Asciidoc/Csbp-Hilfe.html /opt/Haushalt/CSBP
 # ab .net8 RID linux-x64
 
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net9.0 -r linux-arm64 --self-contained true
-build "net9.0/linux-arm64" "csbp-net9-linux-arm64-runtime.zip"
-dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net9.0 -r win-x64 --self-contained true
-build "net9.0/win-x64" "csbp-net9-win-x64-runtime.zip"
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net10.0 -r linux-arm64 --self-contained true
+build "net10.0/linux-arm64" "csbp-net10-linux-arm64-runtime.zip"
+dotnet publish ~/cs/csbp/CSBP/CSBP.csproj -c Release -f net10.0 -r win-x64 --self-contained true
+build "net10.0/win-x64" "csbp-net10-win-x64-runtime.zip"
 
 #cp -a linux/#InstallUpdateCsbp.sh ./InstallUpdateCsbp.sh_.txt
 #cp -a windows/#InstallUpdateCsbp.cmd ./InstallUpdateCsbp.cmd_.txt
@@ -42,8 +42,8 @@ build "net9.0/win-x64" "csbp-net9-win-x64-runtime.zip"
 #put InstallUpdateCsbp.sh_.txt
 #put InstallUpdateCsbp.cmd_.txt
 #put Csbp-Hilfe.html
-#put csbp-net9-linux-arm64-runtime.zip
-#put csbp-net9-win-x64-runtime.zip
+#put csbp-net10-linux-arm64-runtime.zip
+#put csbp-net10-win-x64-runtime.zip
 #EOT
 
 # Upload via sftp
