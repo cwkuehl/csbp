@@ -198,7 +198,7 @@ public class StockService : ServiceBase, IStockService
       string parameter = null;
       if (!string.IsNullOrEmpty(st.Sorting))
       {
-        var ilist = WpAnlageRep.GetList(daten, daten.MandantNr, st.Sorting.ToUpper() + " %");
+        var ilist = WpAnlageRep.GetList(daten, null, daten.MandantNr, st.Sorting.ToUpper() + " %");
         var i = ilist.FirstOrDefault(a => !string.IsNullOrEmpty(a.PortfolioAccountUid) && a.State == 1);
         if (i != null)
         {
@@ -230,7 +230,7 @@ public class StockService : ServiceBase, IStockService
     var slist = WpWertpapierRep.GetList(daten, null, daten.MandantNr, null, reuid: e.Uid);
     if (slist.Any())
       r.Errors.Add(Message.New(WP015));
-    var ilist = WpAnlageRep.GetList(daten, daten.MandantNr, null, stuid: e.Uid);
+    var ilist = WpAnlageRep.GetList(daten, null, daten.MandantNr, null, stuid: e.Uid);
     if (ilist.Any())
       r.Errors.Add(Message.New(WP016));
     if (!r.Ok)
@@ -466,21 +466,17 @@ public class StockService : ServiceBase, IStockService
   /// Gets a list of investments.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="inactive">Gets also inactive investments or not.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="stuid">Affected stock ID.</param>
   /// <param name="search">Affected text search.</param>
   /// <returns>List of investments.</returns>
-  public ServiceErgebnis<List<WpAnlage>> GetInvestmentList(ServiceDaten daten, bool inactive,
+  public ServiceErgebnis<List<WpAnlage>> GetInvestmentList(ServiceDaten daten, TableReadModel rm, bool inactive,
       string desc = null, string uid = null, string stuid = null, string search = null)
   {
-    var l = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
-    if (!inactive)
-    {
-      l = l.Where(a => a.State != 0).ToList();
-      //// l = l.Where(a => a.Shares != 0 || CsbpBase.IgnoreShortcut(a.StockShortcut)).ToList();
-    }
+    var l = WpAnlageRep.GetList(daten, rm, daten.MandantNr, desc, uid, stuid, !inactive, search);
     var r = new ServiceErgebnis<List<WpAnlage>>(l);
     return r;
   }
@@ -493,7 +489,7 @@ public class StockService : ServiceBase, IStockService
   /// <returns>Investment or null.</returns>
   public ServiceErgebnis<WpAnlage> GetInvestment(ServiceDaten daten, string uid)
   {
-    var l = WpAnlageRep.GetList(daten, daten.MandantNr, null, uid);
+    var l = WpAnlageRep.GetList(daten, null, daten.MandantNr, null, uid);
     var e = l.FirstOrDefault();
     if (e != null)
     {
@@ -606,7 +602,7 @@ public class StockService : ServiceBase, IStockService
     var from = date.AddDays(-7);
     var dictlist = new Dictionary<string, List<SoKurse>>();
     var dictresponse = new Dictionary<string, StockUrl>();
-    var list = WpAnlageRep.GetList(daten, daten.MandantNr, desc, uid, stuid, search);
+    var list = WpAnlageRep.GetList(daten, null, daten.MandantNr, desc, uid, stuid, false, search);
     if (!inactive && list.Count != 1)
     {
       // Calculate only active investments. No filtering with && !CsbpBase.IgnoreShortcut(a.StockShortcut) to use existing prices.

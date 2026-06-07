@@ -21,16 +21,19 @@ public partial class WpAnlageRep
   /// Gets a list of investments.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="mandantnr">Affected client.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="stuid">Affected stock ID.</param>
+  /// <param name="onlyactive">Only active investments or not.</param>
   /// <param name="search">Affected text search.</param>
   /// <returns>List of investments.</returns>
-  public List<WpAnlage> GetList(ServiceDaten daten, int mandantnr, string desc,
-      string uid = null, string stuid = null, string search = null)
+  public List<WpAnlage> GetList(ServiceDaten daten, TableReadModel rm, int mandantnr, string desc,
+      string uid = null, string stuid = null, bool onlyactive = false, string search = null)
   {
     var db = GetDb(daten);
+    search = Functions.TrimNull(search) ?? rm?.Search;
     var wl = db.WP_Anlage.Where(a => a.Mandant_Nr == mandantnr);
     if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));
@@ -52,7 +55,8 @@ public partial class WpAnlageRep
           return a.investment;
         })
         ;
-    if (CsbpBase.IsLike(search))
+    var ls = CsbpBase.IsLike(search);
+    if (ls || onlyactive)
     {
       // l = l.ToList().Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.Notiz, text)
       //   || EF.Functions.Like(a.StockDescription, text) || EF.Functions.Like(a.StockProvider, text)
@@ -61,13 +65,33 @@ public partial class WpAnlageRep
       var ll = new List<WpAnlage>();
       foreach (var a in l)
       {
-        if (Like(a.Bezeichnung, search) || Like(a.Notiz, search)
+        if ((!ls || Like(a.Bezeichnung, search) || Like(a.Notiz, search)
         || Like(a.StockDescription, search) || Like(a.StockProvider, search)
         || Like(a.StockShortcut, search) || Like(a.StockType, search)
         || Like(a.StockCurrency, search) || Like(a.StockMemo, search))
+        && (!onlyactive || a.State != 0))
           ll.Add(a);
       }
       l = ll;
+    }
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      // Gesucht wurde schon oben.
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        return l1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        rm.Essence = Resources.M.M1040(l.Count());
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return l2;
+      }
     }
     return l.OrderBy(a => a.Bezeichnung).ToList();
   }

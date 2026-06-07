@@ -193,7 +193,7 @@ public partial class WP410Booking : CsbpBin
       EventsActive = false;
       valuta.Value = lastvaluta;
       hhvaluta.Value = lastvaluta;
-      var rl = Get(FactoryService.StockService.GetInvestmentList(daten, true)) ?? new List<WpAnlage>();
+      var rl = Get(FactoryService.StockService.GetInvestmentList(daten, null, true)) ?? new List<WpAnlage>();
       var rs = AddColumns(anlage);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);

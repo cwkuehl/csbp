@@ -180,13 +180,14 @@ public interface IStockService
   /// Gets a list of investments.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="inactive">Gets also inactive investments or not.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="stuid">Affected stock ID.</param>
   /// <param name="search">Affected text search.</param>
   /// <returns>List of investments.</returns>
-  ServiceErgebnis<List<WpAnlage>> GetInvestmentList(ServiceDaten daten, bool inactive,
+  ServiceErgebnis<List<WpAnlage>> GetInvestmentList(ServiceDaten daten, TableReadModel rm, bool inactive,
     string desc = null, string uid = null, string stuid = null, string search = null);
 
   /// <summary>

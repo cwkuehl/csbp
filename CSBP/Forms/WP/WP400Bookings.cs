@@ -85,7 +85,7 @@ public partial class WP400Bookings : CsbpBin
     {
       EventsActive = false;
       SetText(bezeichnung, "%%");
-      var rl = Get(FactoryService.StockService.GetInvestmentList(daten, true)) ?? new List<WpAnlage>();
+      var rl = Get(FactoryService.StockService.GetInvestmentList(daten, null, true)) ?? new List<WpAnlage>();
       var rs = AddColumns(anlage, emptyentry: true);
       foreach (var p in rl)
         rs.AppendValues(p.Bezeichnung, p.Uid);

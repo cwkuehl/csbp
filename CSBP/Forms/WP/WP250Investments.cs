@@ -133,7 +133,7 @@ public partial class WP250Investments : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.StockService.GetInvestmentList(ServiceDaten, auchinaktiv.Active,
+      var l = Get(FactoryService.StockService.GetInvestmentList(ServiceDaten, null, auchinaktiv.Active,
         null, null, GetText(wertpapier), bezeichnung.Text)) ?? new List<WpAnlage>();
       var values = new List<string[]>();
       var anz = l.Count;
