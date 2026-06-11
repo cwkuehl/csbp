@@ -245,7 +245,14 @@ public partial class WP260Investment : CsbpBin
       r = rb;
       if (rb.Ok && !string.IsNullOrEmpty(v) && rb.Ergebnis != null)
       {
-        Get(FactoryService.StockService.CalculateInvestments(daten, null, rb.Ergebnis.Uid, null, valuta.ValueNn, false, null, new System.Text.StringBuilder(), new System.Text.StringBuilder()));
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments");
+        r.AddMeldungen(rs);
+        if (rs.Ok && rs.Ergebnis != null)
+        {
+          var state = rs.Ergebnis;
+          Get(FactoryService.StockService.CalculateInvestments(daten, null, rb.Ergebnis.Uid, null, valuta.ValueNn, false, null, state));
+          state.Beenden();
+        }
       }
       if (rb.Ok && rb.Ergebnis != null && DialogType == DialogTypeEnum.Copy)
         Lastcopyuid = rb.Ergebnis.Uid;

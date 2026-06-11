@@ -235,11 +235,10 @@ public interface IStockService
   /// <param name="date">Affected date.</param>
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   /// <returns>Possibly errors.</returns>
   ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
-    DateTime date, bool inactive, string search, StringBuilder state, StringBuilder cancel);
+    DateTime date, bool inactive, string search, StatusTask state);
 
   /// <summary>
   /// Gets a list of bookings.

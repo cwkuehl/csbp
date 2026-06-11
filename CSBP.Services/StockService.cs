@@ -592,13 +592,12 @@ public class StockService : ServiceBase, IStockService
   /// <param name="date">Affected date.</param>
   /// <param name="inactive">Also inactive investmenst or not.</param>
   /// <param name="search">Affected text search.</param>
-  /// <param name="state">State of calculation is always updated.</param>
-  /// <param name="cancel">Cancel calculation if not empty.</param>
+  /// <param name="state">State of calculation is always updated, cancelling is possible.</param>
   public ServiceErgebnis CalculateInvestments(ServiceDaten daten, string desc, string uid, string stuid,
-      DateTime date, bool inactive, string search, StringBuilder state, StringBuilder cancel)
+      DateTime date, bool inactive, string search, StatusTask state)
   {
-    if (state == null || cancel == null)
-      throw new ArgumentException("status, cancel");
+    if (state == null)
+      throw new ArgumentException(null, nameof(state));
     var from = date.AddDays(-7);
     var dictlist = new Dictionary<string, List<SoKurse>>();
     var dictresponse = new Dictionary<string, StockUrl>();
@@ -609,8 +608,8 @@ public class StockService : ServiceBase, IStockService
       list = list.Where(a => a.State == 1).ToList();
     }
     var l = list.Count;
-    state.Clear().Append(M0(WP053));
-    for (var i = 0; i < l && cancel.Length <= 0; i++)
+    state.SetMeldung(M0(WP053));
+    for (var i = 0; i < l && !state.IstAbbruch(); i++)
     {
       var inv = list[i];
       var ulist = GetPriceUrlsIntern(from, date, inv.StockProvider, inv.StockShortcut, inv.StockType);
@@ -634,10 +633,10 @@ public class StockService : ServiceBase, IStockService
     var i1 = 1;
     foreach (var su in dictresponse.Values)
     {
-      if (cancel.Length > 0)
+      if (state.IstAbbruch())
         break;
       su.Task = ExecuteHttpsClient(su.Url);
-      state.Clear().Append(WP008(i1, l1, su.Description, su.Date, null));
+      state.SetMeldung(WP008(i1, l1, su.Description, su.Date, null));
       //// if (i1 < l1)
       //// {
       ////   // Verzögerung wegen onvista.de notwendig. 500 OK.
@@ -645,7 +644,7 @@ public class StockService : ServiceBase, IStockService
       //// }
       i1++;
     }
-    if (cancel.Length <= 0)
+    if (!state.IstAbbruch())
     {
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
       //// var responses = await Task.WhenAll(tasks).Result;
@@ -673,11 +672,11 @@ public class StockService : ServiceBase, IStockService
     }
     Debug.Print($"{DateTime.Now} End.");
 
-    for (var i = 0; i < l && cancel.Length <= 0; i++)
+    for (var i = 0; i < l && !state.IstAbbruch(); i++)
     {
       // Kurse berechnen.
       var inv = list[i];
-      state.Clear().Append(WP009(i + 1, l, inv.Bezeichnung, date, null));
+      state.SetMeldung(WP009(i + 1, l, inv.Bezeichnung, date, null));
       var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
       inv.MinDate = blist.FirstOrDefault()?.Datum;
       var max = blist.LastOrDefault()?.Datum;
@@ -749,7 +748,7 @@ public class StockService : ServiceBase, IStockService
         SaveChanges(daten);
       }
     }
-    state.Clear();
+    state.SetMeldung(null);
     var r = new ServiceErgebnis();
     return r;
   }

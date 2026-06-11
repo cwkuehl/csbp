@@ -67,10 +67,9 @@ public partial class WP250Investments : CsbpBin
 #pragma warning restore CS0649
 
   /// <summary>State of calculation.</summary>
-  private readonly StringBuilder state = new();
-
-  /// <summary>Cancel of calculation.</summary>
-  private readonly StringBuilder cancel = new();
+#nullable enable
+  private StatusTask? state = null;
+#nullable disable
 
   /// <summary>Initializes a new instance of the <see cref="WP250Investments"/> class.</summary>
   /// <param name="b">Affected Builder.</param>
@@ -330,7 +329,7 @@ public partial class WP250Investments : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
-    cancel.Append("cancel");
+    state?.SetAbbruch();
   }
 
 #pragma warning disable RECS0165 // Asynchrone Methoden sollten eine Aufgabe anstatt 'void' zurückgeben.
@@ -339,11 +338,17 @@ public partial class WP250Investments : CsbpBin
   {
     try
     {
-      ShowStatus(state, cancel);
       var r = await Task.Run(() =>
       {
+        var daten = ServiceDaten;
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments");
+        if (!rs.Ok || rs.Ergebnis == null)
+          return rs.GetErgebnis();
+        state = rs.Ergebnis;
+        ShowStatus(state);
         var r0 = FactoryService.StockService.CalculateInvestments(ServiceDaten, null,
-          null, GetText(wertpapier), bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, state, cancel);
+          null, GetText(wertpapier), bis.ValueNn, auchinaktiv.Active, bezeichnung.Text, state);
+        state.Beenden(r: r0);
         return r0;
       });
       r.ThrowAllErrors();
@@ -361,7 +366,7 @@ public partial class WP250Investments : CsbpBin
     }
     finally
     {
-      cancel.Append("End");
+      state?.Beenden();
     }
   }
 
