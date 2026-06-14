@@ -68,7 +68,7 @@ public class StockService : ServiceBase, IStockService
         var kl = WpKonfigurationRep.GetList(daten, daten.MandantNr);
         var k = kl.FirstOrDefault(a => a.Bezeichnung.Contains("Standard"))
           ?? kl.FirstOrDefault();
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "ExportStocks");
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "ExportStocks", "0");
         if (!rs.Ok || rs.Ergebnis == null)
         {
           r.AddMeldungen(rs);
@@ -497,7 +497,7 @@ public class StockService : ServiceBase, IStockService
       var pm = e.MinDate.HasValue ? WP051(e.MinDate.Value, e.MaxDate) : null;
       var p1 = string.IsNullOrEmpty(e.Currency) ? p0 : WP025(e.Currency, e.CurrencyPrice, p0);
       var p2 = WP024(e.Price, p1, e.Value, e.Profit, e.ProfitPercent);
-      var p3 = e.PriceDate2.HasValue ? WP028(e.Value2, e.Value - e.Value2, e.PriceDate2.Value) : null;
+      var p3 = e.PriceDate2.HasValue ? WP028(e.Value2, e.ValueDiff, e.PriceDate2.Value) : null;
       e.Data = WP023(e.Payment, pm, e.Shares, e.ShareValue, e.Interest, p2, p3);
     }
     return new ServiceErgebnis<WpAnlage>(e);
@@ -1161,7 +1161,7 @@ public class StockService : ServiceBase, IStockService
   }
 
   /// <summary>
-  /// Calculates a investment.
+  /// Calculates an investment.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="inv">Affected investment.</param>

@@ -118,6 +118,13 @@ public partial class WpAnlage : ModelBase
   [NotMapped]
   public DateTime? MaxDate { get; set; }
 
+  /// <summary>Gets the differenz of value to previous date.</summary>
+  [NotMapped]
+  public decimal ValueDiff
+  {
+    get { return Value2 == 0 ? 0 : Value - Value2; }
+  }
+
   /// <summary>
   /// Gets all extended values as string.
   /// </summary>

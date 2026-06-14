@@ -329,6 +329,8 @@ public partial class WP250Investments : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAbbrechenClicked(object sender, EventArgs e)
   {
+    // var daten = ServiceDaten;
+    // StatusTask.Abbrechen($"{daten.MandantNr}", new[] { "CalculateInvestments" }, "0");
     state?.SetAbbruch();
   }
 
@@ -341,7 +343,7 @@ public partial class WP250Investments : CsbpBin
       var r = await Task.Run(() =>
       {
         var daten = ServiceDaten;
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments");
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments", "0");
         if (!rs.Ok || rs.Ergebnis == null)
           return rs.GetErgebnis();
         state = rs.Ergebnis;

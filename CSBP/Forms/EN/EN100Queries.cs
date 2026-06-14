@@ -269,7 +269,7 @@ public partial class EN100Queries : CsbpBin
       var r = await Task.Run(() =>
       {
         var daten = ServiceDaten;
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "QueryQueries", kurz: false);
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "QueryQueries", "0", kurz: false);
         if (!rs.Ok || rs.Ergebnis == null)
           return rs.GetErgebnis();
         state = rs.Ergebnis;

@@ -245,7 +245,7 @@ public partial class WP260Investment : CsbpBin
       r = rb;
       if (rb.Ok && !string.IsNullOrEmpty(v) && rb.Ergebnis != null)
       {
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments");
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments", "0");
         r.AddMeldungen(rs);
         if (rs.Ok && rs.Ergebnis != null)
         {

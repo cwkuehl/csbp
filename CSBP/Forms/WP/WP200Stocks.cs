@@ -341,7 +341,7 @@ public partial class WP200Stocks : CsbpBin
       var r = await Task.Run(() =>
       {
         var daten = ServiceDaten;
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateStocks");
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateStocks", "0");
         if (!rs.Ok || rs.Ergebnis == null)
           return rs.GetErgebnis();
         state = rs.Ergebnis;

@@ -331,7 +331,7 @@ public partial class WP220Interface : CsbpBin
       var daten = ServiceDaten;
       var r = await Task.Run(() =>
       {
-        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "ExportStocks");
+        var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "ExportStocks", "0");
         if (!rs.Ok || rs.Ergebnis == null)
           return rs.GetErgebnis<List<string>>();
         state = rs.Ergebnis;

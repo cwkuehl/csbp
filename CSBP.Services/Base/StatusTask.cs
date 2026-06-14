@@ -6,7 +6,6 @@
 
 namespace CSBP.Services.Base;
 
-using System.Net;
 using System.Text;
 
 /// <summary>
@@ -40,13 +39,15 @@ public class StatusTask
   /// </summary>
   /// <param name="mandant">Affected tenant.</param>
   /// <param name="funktion">Affected function.</param>
+  /// <param name="id">Affected ID.</param>
   /// <param name="dateiname">Affected filename.</param>
   /// <param name="kurz">A value indicating whether the message should be short.</param>
-  public StatusTask(int mandant, string funktion, string? dateiname, bool kurz = false)
+  public StatusTask(int mandant, string funktion, string id, string? dateiname, bool kurz = false)
   {
     Mandant = mandant < 0 ? null : Functions.ToString(mandant);
     Mandant2 = null;
     Funktion = funktion;
+    Id = id;
     Dateiname = dateiname;
     Kurz = kurz;
     StartTask();
@@ -68,6 +69,11 @@ public class StatusTask
   public string Funktion { get; private set; }
 
   /// <summary>
+  /// Gets the Id.
+  /// </summary>
+  public string Id { get; private set; }
+
+  /// <summary>
   /// Gets the filename.
   /// </summary>
   public string? Dateiname { get; private set; }
@@ -81,6 +87,11 @@ public class StatusTask
   /// Gets the time of the last change.
   /// </summary>
   public DateTime LetzteAenderung { get; private set; }
+
+  /// <summary>
+  /// Gets the time of the cancel check.
+  /// </summary>
+  public DateTime? LetzterAbbruch { get; private set; }
 
   /// <summary>
   /// Gets the time of the last write.
@@ -148,21 +159,23 @@ public class StatusTask
   /// </summary>
   /// <param name="mandant">Betroffener Mandant kann null.</param>
   /// <param name="funktionen">Betroffene Funktionen können null sein.</param>
-  public static void Abbrechen(string? mandant = null, string[]? funktionen = null)
+  /// <param name="id">Affected ID.</param>
+  public static void Abbrechen(string? mandant = null, string[]? funktionen = null, string? id = null)
   {
     foreach (var f in Daten)
     {
-      if ((mandant == null || f.Mandant == mandant) && (funktionen == null || Array.Exists(funktionen, a => a == f.Funktion)))
+      if ((mandant == null || f.Mandant == mandant) && (funktionen == null || Array.Exists(funktionen, a => a == f.Funktion)) && (id == null || f.Id == id))
         if (f.IsTAmLaufen())
           f.SetAbbruch();
     }
     var m = string.IsNullOrEmpty(mandant) ? "M###" : mandant;
-    var fliste = funktionen == null ? new List<string>() : funktionen.Where(a => !string.IsNullOrEmpty(a)).ToList();
+    var i = string.IsNullOrEmpty(id) ? "ID###" : id;
+    var fliste = funktionen == null ? [] : funktionen.Where(a => !string.IsNullOrEmpty(a)).ToList();
     if (!fliste.Any())
       fliste.Add("F###");
     foreach (var f in fliste)
     {
-      var dateiname = Path.Combine(Pfad, Functions.GetDateiname($"ST_Abbruch_{m}_{f}_{Servername}", true, true, true, "txt"));
+      var dateiname = Path.Combine(Pfad, Functions.GetDateiname($"ST_Abbruch_{m}_{f}_{i}_{Servername}", true, true, true, "txt"));
       try
       {
         File.WriteAllText(dateiname, Servername);
@@ -254,16 +267,17 @@ public class StatusTask
   /// </summary>
   /// <param name="mandant">Betroffener Mandant oder -1.</param>
   /// <param name="funktion">Betroffene Funktion.</param>
+  /// <param name="id">Betroffene ID.</param>
   /// <param name="temporaer">True, wenn die betroffene Funktion nicht gemerkt und der Status nicht in eine Datei geschrieben werden soll.</param>
   /// <param name="funktionen">Für die betroffenen Prüffunktionen dürfen keinen Funktionen laufen.</param>
   /// <param name="kurz">A value indicating whether the message should be short.</param>
   /// <returns>Neue StatusTask oder null, wenn andere Funktion schon läuft.</returns>
-  public static ServiceErgebnis<StatusTask?> HinzufuegenFunktion(int mandant, string funktion, bool temporaer = false, string[]? funktionen = null, bool kurz = true)
+  public static ServiceErgebnis<StatusTask?> HinzufuegenFunktion(int mandant, string funktion, string id, bool temporaer = false, string[]? funktionen = null, bool kurz = true)
   {
     var r = new ServiceErgebnis<StatusTask?>();
     var dateiname = temporaer ? null
       : Path.Combine(Pfad, Functions.GetDateiname($"ST_{mandant}_{funktion}_{Servername}", true, true, true, "txt"));
-    var f = new StatusTask(mandant, funktion, dateiname, kurz);
+    var f = new StatusTask(mandant, funktion, id, dateiname, kurz);
     r.Ergebnis = f;
     if (!temporaer)
     {
@@ -492,6 +506,32 @@ public class StatusTask
   /// <returns>True if the function was aborted.</returns>
   public bool IstAbbruch()
   {
+    // Abbruch-Dateien für gleiches Formular von anderen Application Servern berücksichtigen.
+    var j = DateTime.Now;
+    if (!LetzterAbbruch.HasValue || LetzterAbbruch.Value >= j.AddMilliseconds(Kurz ? -500 : -1000))
+    {
+      LetzterAbbruch = j;
+      var m = string.IsNullOrEmpty(Mandant) ? "M###" : Mandant;
+      var f = string.IsNullOrEmpty(Funktion) ? "F###" : Funktion;
+      var i = string.IsNullOrEmpty(Id) ? "ID###" : Id;
+      var fn = $"ST_Abbruch_{m}_{f}_{i}_*.txt";
+      var files = Directory.GetFiles(Pfad, fn);
+      if (files.Length > 0)
+      {
+        SetAbbruch();
+        foreach (var file in files)
+        {
+          try
+          {
+            File.Delete(file);
+          }
+          catch (Exception)
+          {
+            Functions.MachNichts();
+          }
+        }
+      }
+    }
     return daten.TryGetValue("Abbruch", out var v) && v != null;
   }
 
