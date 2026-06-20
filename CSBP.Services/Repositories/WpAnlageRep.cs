@@ -85,7 +85,13 @@ public partial class WpAnlageRep
       else
       {
         rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
-        rm.Essence = Resources.M.M1040(l.Count());
+        var anz = l.Count();
+        var summe = anz <= 0m ? 0m : l.Sum(e => e.Payment);
+        var wert = anz <= 0m ? 0m : l.Sum(e => e.Value);
+        var gewinn = anz <= 0m ? 0m : l.Sum(e => e.Profit);
+        var diff = anz <= 0m ? 0m : l.Sum(e => e.ValueDiff);
+        var pgewinn = (wert == 0 || summe == 0) ? 0 : (gewinn < 0) ? gewinn / wert * 100 : gewinn / summe * 100;
+        rm.Essence = Resources.M.WP029(anz, summe, wert, gewinn, pgewinn, diff);
         var l1 = SortList(l.AsQueryable(), rm.SortColumn);
         var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
         var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);

@@ -148,14 +148,14 @@ public partial class WP250Investments : CsbpBin
           e.Uid, e.Bezeichnung, CsbpBase.GetStockState(e.State.ToString(), e.StockShortcut),
           e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
           Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
-          Functions.ToString(e.Value2 == 0 ? 0 : e.Value - e.Value2, 2),
+          Functions.ToString(e.ValueDiff, 2),
           Functions.ToString(e.PriceDate), e.Currency, Functions.ToString(e.Geaendert_Am, true),
           e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
         summe += e.Payment;
         wert += e.Value;
         gewinn += e.Profit;
-        diff += e.Value2 == 0 ? 0 : e.Value - e.Value2;
+        diff += e.ValueDiff;
       }
       var pgewinn = (wert == 0 || summe == 0) ? 0 : (gewinn < 0) ? gewinn / wert * 100 : gewinn / summe * 100;
       SetText(anlagenStatus, WP029(anz, summe, wert, gewinn, pgewinn, diff));
