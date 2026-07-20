@@ -81,7 +81,7 @@ public partial class SB400Sources : CsbpBin
         // No.;Author;Description;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Autor, e.Beschreibung,
+          e.Uid, Functions.Left2(e.Autor), Functions.Left2(e.Beschreibung),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

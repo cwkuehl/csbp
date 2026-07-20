@@ -255,10 +255,24 @@ public static partial class Functions
   public static string Left(this string s, int l = 1)
   {
     if (string.IsNullOrEmpty(s) || l <= 0)
-    {
       return "";
-    }
     return s[..Math.Min(l, s.Length)];
+  }
+
+  /// <summary>
+  /// Returns a left substring of a string with max. l characters and never null.
+  /// The string is cut and "..." is appended if it is too long.
+  /// </summary>
+  /// <param name="s">Affected string.</param>
+  /// <param name="l">Max. string length.</param>
+  /// <returns>Left substring.</returns>
+  public static string Left2(this string s, int l = Constants.MAX_TEXT_LIST)
+  {
+    if (string.IsNullOrEmpty(s) || l <= 0)
+      return "";
+    if (s.Length > l - 3)
+      return s.Substring(0, l - 3) + "...";
+    return s;
   }
 
   /// <summary>

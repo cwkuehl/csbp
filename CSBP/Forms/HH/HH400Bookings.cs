@@ -168,7 +168,8 @@ public partial class HH400Bookings : CsbpBin
         values.Add(new string[]
         {
           e.Uid, Functions.ToString(e.Soll_Valuta), e.Kz,
-          Functions.ToString(e.EBetrag, 2), e.BText, e.DebitName, e.CreditName, e.Beleg_Nr,
+          Functions.ToString(e.EBetrag, 2), Functions.Left2(e.BText),
+          e.DebitName, e.CreditName, e.Beleg_Nr,
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

@@ -141,7 +141,7 @@ public partial class WP200Stocks : CsbpBin
       {
         values.Add(new string[]
         {
-          e.Uid, e.Sorting, e.Bezeichnung, CsbpBase.GetStockState(e.Status, e.Kuerzel),
+          e.Uid, e.Sorting, Functions.Left2(e.Bezeichnung), CsbpBase.GetStockState(e.Status, e.Kuerzel),
           e.Datenquelle, e.Kuerzel, e.RelationDescription, e.Assessment, e.Trend,
           e.Assessment1, e.Trend1, e.Assessment2, e.Trend2, e.Assessment3, e.Trend3,
           e.Assessment4, e.Trend4, e.Assessment5, e.Trend5, e.Xo, e.SignalAssessment,

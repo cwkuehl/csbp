@@ -104,8 +104,8 @@ public partial class WP400Bookings : CsbpBin
         // No.;Stock;Description;Date;Posting text;Payment_r;Discount_r;Shares_r;Interest_r;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.StockDescription, e.InvestmentDescription, Functions.ToString(e.Datum),
-          e.BText, Functions.ToString(e.Zahlungsbetrag, 2), Functions.ToString(e.Rabattbetrag, 2),
+          e.Uid, Functions.Left2(e.StockDescription), Functions.Left2(e.InvestmentDescription), Functions.ToString(e.Datum),
+          Functions.Left2(e.BText), Functions.ToString(e.Zahlungsbetrag, 2), Functions.ToString(e.Rabattbetrag, 2),
           Functions.ToString(e.Anteile, 5), Functions.ToString(e.Zinsen, 2),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,

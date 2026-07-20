@@ -102,7 +102,7 @@ public partial class FZ250Mileages : CsbpBin
         // No.;Bike;Date;No.;Odometer_r;Km_r;Average_r;Description;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Fahrrad_Uid, e.Bezeichnung, Functions.ToString(e.Datum),
+          e.Fahrrad_Uid, Functions.Left2(e.Bezeichnung), Functions.ToString(e.Datum),
           Functions.ToString(e.Nr), Functions.ToString(e.Zaehler_km, 0),
           Functions.ToString(e.Periode_km, 0), Functions.ToString(e.Periode_Schnitt, 2),
           e.Beschreibung, Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,

@@ -115,7 +115,7 @@ public partial class EN100Queries : CsbpBin
       {
         values.Add(
         [
-          e.Uid, e.Sortierung, e.Bezeichnung, CsbpBase.GetStockState(e.Status, "1"),
+          e.Uid, e.Sortierung, Functions.Left2(e.Bezeichnung), CsbpBase.GetStockState(e.Status, "1"),
           e.Host_Url, Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         ]);

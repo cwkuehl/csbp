@@ -92,7 +92,7 @@ public partial class FZ700Memos : CsbpBin
         // No.;Topic;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Thema,
+          e.Uid, Functions.Left2(e.Thema),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

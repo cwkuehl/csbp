@@ -91,7 +91,7 @@ public partial class HH200Accounts : CsbpBin
         // No.;Type;Attr.;Description;Valid from;Valid to;Value_r;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Art, e.Kz, e.Name,
+          e.Uid, e.Art, e.Kz, Functions.Left2(e.Name),
           Functions.ToString(e.Gueltig_Von), Functions.ToString(e.Gueltig_Bis), Functions.ToString(e.EBetrag, 2),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,

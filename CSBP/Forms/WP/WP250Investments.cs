@@ -145,7 +145,7 @@ public partial class WP250Investments : CsbpBin
         // No.;Description;St.;Provider;Shortcut;Payment_r;Shares_r;Value_r;Gain_r;+/-_r;Date;Currency;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Bezeichnung, CsbpBase.GetStockState(e.State.ToString(), e.StockShortcut),
+          e.Uid, Functions.Left2(e.Bezeichnung), CsbpBase.GetStockState(e.State.ToString(), e.StockShortcut),
           e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
           Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
           Functions.ToString(e.ValueDiff, 2),

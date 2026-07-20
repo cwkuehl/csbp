@@ -88,7 +88,7 @@ public partial class FZ320Series : CsbpBin
         // No.;Name;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Name,
+          e.Uid, Functions.Left2(e.Name),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

@@ -110,5 +110,8 @@ public static class Constants
   /// <summary>Soll-Haben-Kennzeichen in Bilanz: Passiv, rechte Seite.</summary>
   public const string KZSH_P = "P";
 
+  /// <summary>Maximal length of text in a list.</summary>
+  public const int MAX_TEXT_LIST = 45;
+
 #pragma warning disable SA1310
 }

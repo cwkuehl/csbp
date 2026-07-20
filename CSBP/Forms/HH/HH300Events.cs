@@ -91,8 +91,8 @@ public partial class HH300Events : CsbpBin
         // No.;Description;Posting text;Debit account;Credit account;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Bezeichnung, e.EText, e.DebitName,
-          e.CreditName, Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          e.Uid, Functions.Left2(e.Bezeichnung), Functions.Left2(e.EText), Functions.Left2(e.DebitName),
+          Functions.Left2(e.CreditName), Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
