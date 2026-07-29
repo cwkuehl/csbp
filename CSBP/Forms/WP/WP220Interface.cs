@@ -175,7 +175,7 @@ public partial class WP220Interface : CsbpBin
       {
         cvalues.Add(new string[]
         {
-          c.Uid, c.Bezeichnung, Functions.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
+          c.Uid, Functions.Left2(c.Bezeichnung), Functions.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
           Functions.ToString(c.Angelegt_Am, true), c.Angelegt_Von,
         });
       }

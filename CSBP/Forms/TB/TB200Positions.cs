@@ -88,7 +88,7 @@ public partial class TB200Positions : CsbpBin
         // No.;Description;Latitude_r;Longitude_r;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Bezeichnung, Functions.ToString(e.Breite, 5), Functions.ToString(e.Laenge, 5),
+          e.Uid, Functions.Left2(e.Bezeichnung), Functions.ToString(e.Breite, 5), Functions.ToString(e.Laenge, 5),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

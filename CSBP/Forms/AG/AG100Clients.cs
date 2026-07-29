@@ -79,7 +79,7 @@ public partial class AG100Clients : CsbpBin
         // No.;No.;Description;Changed at;Changed by;Created at;Created by
         values.Add(
         [
-          e.Nr.ToString(), e.Nr.ToString(), e.Beschreibung,
+          e.Nr.ToString(), e.Nr.ToString(), Functions.Left2(e.Beschreibung),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         ]);

@@ -79,7 +79,7 @@ public partial class WP300Configurations : CsbpBin
         // No.;Description;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Bezeichnung, Functions.ToString(e.Geaendert_Am, true),
+          e.Uid, Functions.Left2(e.Bezeichnung), Functions.ToString(e.Geaendert_Am, true),
           e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
