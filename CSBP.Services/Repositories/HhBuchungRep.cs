@@ -76,11 +76,22 @@ public partial class HhBuchungRep
       l = l.Where(a => EF.Functions.Like(a.BText, text));
     if (!string.IsNullOrEmpty(value))
     {
-      var v = Functions.ToDecimal(value);
-      if (euro)
-        l = l.Where(a => a.EBetrag == v);
+      var v = Functions.ToDecimal(value) ?? 0;
+      var whole = decimal.GetBits(v)[3] == 0; // v == Math.Round(v, 0);
+      if (whole)
+      {
+        if (euro)
+          l = l.Where(a => a.EBetrag >= v && a.EBetrag < v + 1);
+        else
+          l = l.Where(a => a.Betrag >= v && a.Betrag < v + 1);
+      }
       else
-        l = l.Where(a => a.Betrag == v);
+      {
+        if (euro)
+          l = l.Where(a => a.EBetrag == v);
+        else
+          l = l.Where(a => a.Betrag == v);
+      }
     }
     var sl = db.HH_Konto.Where(a => a.Mandant_Nr == daten.MandantNr);
     var hl = db.HH_Konto.Where(a => a.Mandant_Nr == daten.MandantNr);
