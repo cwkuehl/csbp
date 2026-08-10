@@ -38,13 +38,14 @@ public partial class WpStandRep
   /// Gets list of prices.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="mandantnr">Affected client number.</param>
   /// <param name="from">Affected from date.</param>
   /// <param name="to">Affected to date.</param>
   /// <param name="uid">Affected stock id.</param>
   /// <param name="max">Maximum of count of entry, 0 means all.</param>
   /// <returns>List of prices.</returns>
-  public List<WpStand> GetList(ServiceDaten daten, int mandantnr, DateTime? from, DateTime? to = null,
+  public List<WpStand> GetList(ServiceDaten daten, TableReadModel rm, int mandantnr, DateTime? from, DateTime? to = null,
     string uid = null, int max = 0)
   {
     var db = GetDb(daten);
@@ -68,6 +69,26 @@ public partial class WpStandRep
         }
         return a.price;
       });
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      // Gesucht wurde schon oben.
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        return l1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        var anz = l.Count();
+        rm.Essence = Resources.M.M1040(anz);
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return l2;
+      }
+    }
     return l.ToList();
   }
 

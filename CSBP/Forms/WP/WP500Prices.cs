@@ -116,7 +116,7 @@ public partial class WP500Prices : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.StockService.GetPriceList(ServiceDaten, GetText(wertpapier),
+      var l = Get(FactoryService.StockService.GetPriceList(ServiceDaten, null, GetText(wertpapier),
         von.Value, bis.Value)) ?? new List<WpStand>();
       var values = new List<string[]>();
       foreach (var e in l)

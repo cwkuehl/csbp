@@ -235,7 +235,7 @@ public class StockService : ServiceBase, IStockService
       r.Errors.Add(Message.New(WP016));
     if (!r.Ok)
       return r;
-    var plist = WpStandRep.GetList(daten, daten.MandantNr, null, null, e.Uid);
+    var plist = WpStandRep.GetList(daten, null, daten.MandantNr, null, null, e.Uid);
     //// Deletes prices.
     foreach (var p in plist)
       WpStandRep.Delete(daten, p);
@@ -975,16 +975,17 @@ public class StockService : ServiceBase, IStockService
   /// Gets a list of prices.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="uid">Affected stock ID.</param>
   /// <param name="from">Beginning of the period.</param>
   /// <param name="to">End of the period.</param>
   /// <returns>List of prices.</returns>
-  public ServiceErgebnis<List<WpStand>> GetPriceList(ServiceDaten daten, string uid = null,
-      DateTime? from = null, DateTime? to = null)
+  public ServiceErgebnis<List<WpStand>> GetPriceList(ServiceDaten daten, TableReadModel rm, string uid = null,
+    DateTime? from = null, DateTime? to = null)
   {
     var r = new ServiceErgebnis<List<WpStand>>();
     var max = string.IsNullOrWhiteSpace(uid) && !from.HasValue && !to.HasValue ? 100 : 0;
-    r.Ergebnis = WpStandRep.GetList(daten, daten.MandantNr, from, to, uid, max);
+    r.Ergebnis = WpStandRep.GetList(daten, rm, daten.MandantNr, from, to, uid, max);
     return r;
   }
 
@@ -1050,7 +1051,7 @@ public class StockService : ServiceBase, IStockService
     foreach (var st in stocks)
     {
       // Descending dates.
-      var prices = WpStandRep.GetList(daten, daten.MandantNr, null, date, st.Uid, 0);
+      var prices = WpStandRep.GetList(daten, null, daten.MandantNr, null, date, st.Uid, 0);
       var d = 0d; // Days after date
       var lw = 0; // Last week number with a price.
       var lm = 0; // Last month number with a price.
@@ -1289,7 +1290,7 @@ public class StockService : ServiceBase, IStockService
       return l;
     if (CsbpBase.IgnoreShortcut(shortcut) && !string.IsNullOrEmpty(uid))
     {
-      var slist = WpStandRep.GetList(daten, daten.MandantNr, from, to, uid);
+      var slist = WpStandRep.GetList(daten, null, daten.MandantNr, from, to, uid);
       foreach (var s in slist)
       {
         l.Add(new SoKurse

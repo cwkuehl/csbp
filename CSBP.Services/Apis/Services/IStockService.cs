@@ -306,11 +306,12 @@ public interface IStockService
   /// Gets a list of prices.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="uid">Affected stock ID.</param>
   /// <param name="from">Beginning of the period.</param>
   /// <param name="to">End of the period.</param>
   /// <returns>List of prices.</returns>
-  ServiceErgebnis<List<WpStand>> GetPriceList(ServiceDaten daten, string uid = null,
+  ServiceErgebnis<List<WpStand>> GetPriceList(ServiceDaten daten, TableReadModel rm, string uid = null,
     DateTime? from = null, DateTime? to = null);
 
   /// <summary>

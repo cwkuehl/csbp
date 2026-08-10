@@ -42,19 +42,18 @@ public partial class WpAnlageRep
     if (!string.IsNullOrEmpty(stuid))
       wl = wl.Where(a => a.Wertpapier_Uid == stuid);
     var l = wl.Join(db.WP_Wertpapier.Where(a => a.Mandant_Nr == mandantnr),
-            a => a.Wertpapier_Uid, b => b.Uid, (a, b) => new { investment = a, stock = b })
-        .ToList()
-        .Select(a =>
-        {
-          a.investment.StockDescription = a.stock.Bezeichnung;
-          a.investment.StockProvider = a.stock.Datenquelle;
-          a.investment.StockShortcut = a.stock.Kuerzel;
-          a.investment.StockType = a.stock.Type;
-          a.investment.StockCurrency = a.stock.Currency;
-          a.investment.StockMemo = a.stock.Notiz;
-          return a.investment;
-        })
-        ;
+        a => a.Wertpapier_Uid, b => b.Uid, (a, b) => new { investment = a, stock = b })
+      .ToList()
+      .Select(a =>
+      {
+        a.investment.StockDescription = a.stock.Bezeichnung;
+        a.investment.StockProvider = a.stock.Datenquelle;
+        a.investment.StockShortcut = a.stock.Kuerzel;
+        a.investment.StockType = a.stock.Type;
+        a.investment.StockCurrency = a.stock.Currency;
+        a.investment.StockMemo = a.stock.Notiz;
+        return a.investment;
+      });
     var ls = CsbpBase.IsLike(search);
     if (ls || onlyactive)
     {
