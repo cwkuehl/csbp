@@ -12,6 +12,7 @@
   <ItemGroup Condition="'$(TargetFramework)'!='net5.0'">
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.*" />
     <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.11.0" /> <!-- 11.08.2026 Conflict between 10.0.10.0 and 10.0.11.0 in blazorBp. -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.*" /> <!--06.07.2025 Conflict between 9.0.5 and 9.0.6 in blazorBp. -->
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" /> <!-- 16.07.2026 2.1.11 weist eine bekannte hoch Schweregrad-Sicherheitsanfälligkeit -->
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.*" />
