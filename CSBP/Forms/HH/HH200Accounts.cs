@@ -84,7 +84,7 @@ public partial class HH200Accounts : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, text.Text)) ?? new List<HhKonto>();
+      var l = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, null, text.Text)) ?? new List<HhKonto>();
       var values = new List<string[]>();
       foreach (var e in l)
       {

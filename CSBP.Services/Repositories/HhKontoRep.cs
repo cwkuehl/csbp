@@ -22,18 +22,20 @@ public partial class HhKontoRep
   /// Gets list of accounts.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="nrle">Affected minimum period number.</param>
   /// <param name="nrge">Affected maximum period number.</param>
   /// <param name="art1">Affected first account type.</param>
   /// <param name="art2">Affected second account type.</param>
   /// <param name="dle">Affected minimum period date.</param>
   /// <param name="dge">Affected maximum period date.</param>
-  /// <param name="text">Affected text.</param>
+  /// <param name="search">Affected text search.</param>
   /// <returns>List of accounts.</returns>
-  public List<HhKonto> GetList(ServiceDaten daten, int nrle, int nrge, string art1 = null, string art2 = null,
-      DateTime? dle = null, DateTime? dge = null, string text = null)
+  public List<HhKonto> GetList(ServiceDaten daten, TableReadModel rm, int nrle, int nrge, string art1 = null, string art2 = null,
+      DateTime? dle = null, DateTime? dge = null, string search = null)
   {
     var db = GetDb(daten);
+    search = Functions.TrimNull(search) ?? rm?.Search;
     var l = db.HH_Konto.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (nrle >= 0)
       l = l.Where(a => a.Periode_Von <= nrle);
@@ -47,9 +49,27 @@ public partial class HhKontoRep
       l = l.Where(a => a.Gueltig_Von == null || a.Gueltig_Von <= dle.Value);
     if (dge.HasValue)
       l = l.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= dge.Value);
-    if (CsbpBase.IsLike(text))
-      l = l.Where(a => EF.Functions.Like(a.Uid, text) || EF.Functions.Like(a.Name, text)
-        || EF.Functions.Like(a.Art, text) || EF.Functions.Like(a.Kz, text));
+    if (CsbpBase.IsLike(search))
+      l = l.Where(a => EF.Functions.Like(a.Uid, search) || EF.Functions.Like(a.Name, search)
+        || EF.Functions.Like(a.Art, search) || EF.Functions.Like(a.Kz, search));
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l, rm.SortColumn);
+        return l1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        rm.Essence = Resources.M.M1040(l.Count());
+        var l1 = SortList(l, rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return l2;
+      }
+    }
     return l.OrderBy(a => a.Mandant_Nr).ThenBy(a => a.Name).ThenBy(a => a.Uid).ToList();
   }
 

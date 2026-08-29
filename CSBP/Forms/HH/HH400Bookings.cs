@@ -134,7 +134,7 @@ public partial class HH400Bookings : CsbpBin
     {
       EventsActive = false;
       SetUserData(new[] { kennzeichen1, kennzeichen2 }, new[] { "1", "0" });
-      var kl = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, null, von.Value, bis.Value));
+      var kl = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, null, null, von.Value, bis.Value));
       var rs = AddColumns(konto, emptyentry: true);
       foreach (var p in kl)
         rs.AppendValues(p.Name, p.Uid);

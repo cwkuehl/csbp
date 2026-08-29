@@ -1114,7 +1114,7 @@ public partial class ClientService : ServiceBase, IClientService
     }
     else if (table == "HH_Konto")
     {
-      var l = HhKontoRep.GetList(daten, -1, -1, dle: daten.Heute.AddDays(-days));
+      var l = HhKontoRep.GetList(daten, null, -1, -1, dle: daten.Heute.AddDays(-days));
       foreach (var e in l)
       {
         var j = new Dictionary<string, string>

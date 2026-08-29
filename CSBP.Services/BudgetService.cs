@@ -160,13 +160,14 @@ public class BudgetService : ServiceBase, IBudgetService
   /// Gets list of accounts.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
   /// <returns>List of accounts.</returns>
-  public ServiceErgebnis<List<HhKonto>> GetAccountList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null)
+  public ServiceErgebnis<List<HhKonto>> GetAccountList(ServiceDaten daten, TableReadModel rm, string text = null, DateTime? from = null, DateTime? to = null)
   {
-    var l = HhKontoRep.GetList(daten, -1, -1, null, null, from, to, text);
+    var l = HhKontoRep.GetList(daten, rm, -1, -1, null, null, from, to, text);
     return new ServiceErgebnis<List<HhKonto>>(l);
   }
 
@@ -886,8 +887,8 @@ public class BudgetService : ServiceBase, IBudgetService
       b.AccountEsum = db;
     }
     var dbS = dbV + dbE - dbA;
-    var kListe = HhKontoRep.GetList(daten, -1, -1, Constants.ARTK_AKTIVKONTO, null, to, from);
-    var kpListe = HhKontoRep.GetList(daten, -1, -1, Constants.ARTK_PASSIVKONTO, null, to, from);
+    var kListe = HhKontoRep.GetList(daten, null, -1, -1, Constants.ARTK_AKTIVKONTO, null, to, from);
+    var kpListe = HhKontoRep.GetList(daten, null, -1, -1, Constants.ARTK_PASSIVKONTO, null, to, from);
     foreach (var k in kpListe)
     {
       if (k.Uid != ek)
@@ -1314,7 +1315,7 @@ public class BudgetService : ServiceBase, IBudgetService
       art1 = Constants.ARTK_AUFWANDSKONTO;
       art2 = Constants.ARTK_ERTRAGSKONTO;
     }
-    var liste = HhKontoRep.GetList(daten, pnr, pnr, art1, art2, null, null);
+    var liste = HhKontoRep.GetList(daten, null, pnr, pnr, art1, art2, null, null);
     foreach (var k in liste)
     {
       var strSh = HoleBilanzSH(k.Art);
@@ -1796,7 +1797,7 @@ public class BudgetService : ServiceBase, IBudgetService
     var vListe = new List<string>();
 
     // Bilanz-Einträge für eine Periode und ein oder alle Konten erstellen
-    var hhKontos = HhKontoRep.GetList(daten, pnr, pnr);
+    var hhKontos = HhKontoRep.GetList(daten, null, pnr, pnr);
     foreach (var hhKonto in hhKontos)
     {
       if (IstAktivPassivKontoIntern(hhKonto.Art))

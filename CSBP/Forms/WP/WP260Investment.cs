@@ -150,7 +150,7 @@ public partial class WP260Investment : CsbpBin
         rs.AppendValues(p.Bezeichnung, p.Uid);
       AddColumns(status, Get(FactoryService.StockService.GetStateList(ServiceDaten)));
       SetText(status, "1");
-      var kl = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, null, daten.Heute, daten.Heute));
+      var kl = Get(FactoryService.BudgetService.GetAccountList(ServiceDaten, null, null, daten.Heute, daten.Heute));
       var keind = !kl.Any(a => a.Kz == Constants.KZK_DEPOT);
       var rd = AddColumns(depot, emptyentry: true);
       var ra = AddColumns(abrechnung, emptyentry: true);

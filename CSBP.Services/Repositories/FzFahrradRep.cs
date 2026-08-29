@@ -18,20 +18,17 @@ public partial class FzFahrradRep
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="rm">Affected read model for filtering and sorting.</param>
-  /// <param name="text">Affected posting text.</param>
+  /// <param name="search">Affected text search.</param>
   /// <returns>List of bikes.</returns>
-  public List<FzFahrrad> GetList(ServiceDaten daten, TableReadModel rm = null, string text = null)
+  public List<FzFahrrad> GetList(ServiceDaten daten, TableReadModel rm = null, string search = null)
   {
     var db = GetDb(daten);
+    search = Functions.TrimNull(search) ?? rm?.Search;
     var l = db.FZ_Fahrrad.Where(a => a.Mandant_Nr == daten.MandantNr);
-    if (CsbpBase.IsLike(text))
-      l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text));
+    if (CsbpBase.IsLike(search))
+      l = l.Where(a => EF.Functions.Like(a.Bezeichnung, search));
     if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
     {
-      if (CsbpBase.IsLike(rm.Search))
-      {
-        l = l.Where(a => EF.Functions.Like(a.Bezeichnung, rm.Search));
-      }
       if (rm.NoPaging)
       {
         var l1 = SortList(l, rm.SortColumn);
