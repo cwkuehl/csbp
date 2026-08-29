@@ -290,6 +290,52 @@ public static partial class Functions
       : (length > value.Length ? value : value.Substring(value.Length - length, length));
   }
 
+  /// <summary>
+  /// Ändert die Länge einer Zeichenkette durch Abschneiden oder Auffüllen am Ende.
+  /// </summary>
+  /// <param name="value">Eine Zeichenkette.</param>
+  /// <param name="length">Eine Länge.</param>
+  /// <param name="paddingChar">Ein Zeichen zum Auffüllen (Standard: ' ').</param>
+  /// <returns>Eine andere Zeichenkette.</returns>
+  public static string CutOrPadRight(this string value, int length, char paddingChar = ' ')
+  {
+    return value == null
+      ? Repeat(paddingChar, length)
+      : (length < value.Length ? value.Substring(0, length) : value.PadRight(length, paddingChar));
+  }
+
+  /// <summary>
+  /// Wiederholt ein Zeichen.
+  /// </summary>
+  /// <param name="value">Ein Zeichen.</param>
+  /// <param name="count">Die Anzahl an Wiederholungen.</param>
+  /// <returns>Eine Zeichenkette.</returns>
+  public static string Repeat(this char value, int count)
+  {
+    var sb = new StringBuilder(count);
+    for (int i = 0; i < count; i++)
+    {
+      sb.Append(value);
+    }
+    return sb.ToString();
+  }
+
+  /// <summary>
+  /// Wiederholt eine Zeichenkette.
+  /// </summary>
+  /// <param name="value">Eine Zeichenkette.</param>
+  /// <param name="count">Die Anzahl an Wiederholungen.</param>
+  /// <returns>Eine andere Zeichenkette.</returns>
+  public static string Repeat(this string value, int count)
+  {
+    if (value == null)
+      return string.Empty;
+    var sb = new StringBuilder(value.Length * count);
+    for (int i = 0; i < count; i++)
+      sb.Append(value);
+    return sb.ToString();
+  }
+
   /// <summary>Appends conditionally to a StringBuilder. The string obj2 is always appended.
   /// The filler strings are append before and after the obj2, if both StringBuilder and obj2 are not empty.
   /// <b>Examples</b>:
