@@ -84,7 +84,7 @@ public partial class HH300Events : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.BudgetService.GetEventList(ServiceDaten, text.Text)) ?? new List<HhEreignis>();
+      var l = Get(FactoryService.BudgetService.GetEventList(ServiceDaten, null, text.Text)) ?? new List<HhEreignis>();
       var values = new List<string[]>();
       foreach (var e in l)
       {

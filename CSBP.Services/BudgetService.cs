@@ -406,7 +406,7 @@ public class BudgetService : ServiceBase, IBudgetService
     {
       HhBuchungRep.Delete(daten, b);
     }
-    var erliste = HhEreignisRep.GetList(daten, e.Uid);
+    var erliste = HhEreignisRep.GetList(daten, null, e.Uid);
     foreach (var b in erliste)
     {
       HhEreignisRep.Delete(daten, b);
@@ -440,13 +440,14 @@ public class BudgetService : ServiceBase, IBudgetService
   /// Gets list of events.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
   /// <returns>List of events.</returns>
-  public ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null)
+  public ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, TableReadModel rm, string text = null, DateTime? from = null, DateTime? to = null)
   {
-    var l = HhEreignisRep.GetList(daten, null, from, to, text);
+    var l = HhEreignisRep.GetList(daten, rm, null, from, to, text);
     return new ServiceErgebnis<List<HhEreignis>>(l);
   }
 

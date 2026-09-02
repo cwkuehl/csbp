@@ -23,14 +23,16 @@ public partial class HhEreignisRep
   /// </summary>
   /// <returns>List of events.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="auid">Affected account ID.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
-  /// <param name="text">Affected text.</param>
-  public List<HhEreignis> GetList(ServiceDaten daten, string auid, DateTime? from = null,
-      DateTime? to = null, string text = null)
+  /// <param name="search">Affected text search.</param>
+  public List<HhEreignis> GetList(ServiceDaten daten, TableReadModel rm, string auid, DateTime? from = null,
+      DateTime? to = null, string search = null)
   {
     var db = GetDb(daten);
+    search = Functions.TrimNull(search) ?? rm?.Search;
     var l = db.HH_Ereignis.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(auid))
       l = l.Where(a => a.Soll_Konto_Uid == auid || a.Haben_Konto_Uid == auid);
@@ -46,9 +48,9 @@ public partial class HhEreignisRep
       sl = sl.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= to);
       hl = hl.Where(a => a.Gueltig_Bis == null || a.Gueltig_Bis >= to);
     }
-    if (CsbpBase.IsLike(text))
-      l = l.Where(a => EF.Functions.Like(a.Bezeichnung, text) || EF.Functions.Like(a.EText, text)
-        || EF.Functions.Like(a.Kz, text));
+    if (CsbpBase.IsLike(search))
+      l = l.Where(a => EF.Functions.Like(a.Bezeichnung, search) || EF.Functions.Like(a.EText, search)
+        || EF.Functions.Like(a.Kz, search));
     var l2 = l.Join(sl, a => a.Soll_Konto_Uid, b => b.Uid, (a, b) => new { ev = a, debit = b });
     var l3 = l2.Join(hl, a => a.ev.Haben_Konto_Uid, b => b.Uid, (a, b) => new { a.ev, a.debit, credit = b });
     var l4 = l3.OrderBy(a => a.ev.Mandant_Nr).ThenBy(a => a.ev.Bezeichnung).ThenBy(a => a.ev.Uid).ToList()
@@ -63,6 +65,24 @@ public partial class HhEreignisRep
         e.CreditTo = a.credit.Gueltig_Bis;
         return e;
       });
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      if (rm.NoPaging)
+      {
+        var lx1 = SortList(l, rm.SortColumn);
+        return lx1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        rm.Essence = Resources.M.M1040(l.Count());
+        var lx1 = SortList(l, rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var lx2 = lx1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return lx2;
+      }
+    }
     return l4.ToList();
   }
 

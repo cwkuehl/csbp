@@ -94,11 +94,12 @@ public interface IBudgetService
   /// Gets list of events.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="text">Affected text.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
   /// <returns>List of events.</returns>
-  ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, string text = null, DateTime? from = null, DateTime? to = null);
+  ServiceErgebnis<List<HhEreignis>> GetEventList(ServiceDaten daten, TableReadModel rm, string text = null, DateTime? from = null, DateTime? to = null);
 
   /// <summary>
   /// Gets an event.
