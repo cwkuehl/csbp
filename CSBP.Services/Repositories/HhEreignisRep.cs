@@ -65,6 +65,7 @@ public partial class HhEreignisRep
         e.CreditTo = a.credit.Gueltig_Bis;
         return e;
       });
+    l = l4.AsQueryable();
     if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
     {
       if (rm.NoPaging)
@@ -83,7 +84,7 @@ public partial class HhEreignisRep
         return lx2;
       }
     }
-    return l4.ToList();
+    return l.ToList();
   }
 
 #pragma warning restore CA1822
