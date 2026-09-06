@@ -133,6 +133,7 @@ public interface IBudgetService
   /// Gets list of bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="valuta">Search for value date.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
@@ -140,7 +141,7 @@ public interface IBudgetService
   /// <param name="auid">Affected account ID.</param>
   /// <param name="value">Affected value.</param>
   /// <returns>List of bookings.</returns>
-  ServiceErgebnis<List<HhBuchung>> GetBookingList(ServiceDaten daten, bool valuta,
+  ServiceErgebnis<List<HhBuchung>> GetBookingList(ServiceDaten daten, TableReadModel rm, bool valuta,
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null);
 

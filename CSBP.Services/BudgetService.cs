@@ -240,7 +240,7 @@ public class BudgetService : ServiceBase, IBudgetService
       sort = hhKonto.Sortierung;
       if (from.HasValue)
       {
-        if (HhBuchungRep.GetList(daten, uid, null, to: from.Value.AddDays(-1)).Any())
+        if (HhBuchungRep.GetList(daten, null, uid, null, to: from.Value.AddDays(-1)).Any())
           throw new MessageException(HH014);
       }
     }
@@ -251,7 +251,7 @@ public class BudgetService : ServiceBase, IBudgetService
       lBis = GetMaxMinNr(daten, true, to);
       if (lBis <= 0)
         lBis = Constants.MAX_PERIODE;
-      if (!insert && HhBuchungRep.GetList(daten, uid, null, from: to.Value.AddDays(1)).Any())
+      if (!insert && HhBuchungRep.GetList(daten, null, uid, null, from: to.Value.AddDays(1)).Any())
         throw new MessageException(HH016);
     }
     if (string.IsNullOrEmpty(sort))
@@ -392,7 +392,7 @@ public class BudgetService : ServiceBase, IBudgetService
   public ServiceErgebnis DeleteAccount(ServiceDaten daten, HhKonto e)
   {
     var hhKonto = GetKontoIntern(daten, e.Uid);
-    var buliste = HhBuchungRep.GetList(daten, e.Uid, null, null, tracking: true);
+    var buliste = HhBuchungRep.GetList(daten, null, e.Uid, null, null, tracking: true);
     if (buliste.Any())
       throw new MessageException(HH020);
     if (IstSpezialKontokennzeichen(hhKonto.Kz))
@@ -426,10 +426,10 @@ public class BudgetService : ServiceBase, IBudgetService
   public ServiceErgebnis<string> GetBookingSpan(ServiceDaten daten, string uid)
   {
     var r = new ServiceErgebnis<string>(M0(HH022));
-    var min = HhBuchungRep.GetList(daten, uid, null, desc: false, max: 1).FirstOrDefault();
+    var min = HhBuchungRep.GetList(daten, null, uid, null, desc: false, max: 1).FirstOrDefault();
     if (min != null)
     {
-      var max = HhBuchungRep.GetList(daten, uid, null, desc: true, max: 1).FirstOrDefault();
+      var max = HhBuchungRep.GetList(daten, null, uid, null, desc: true, max: 1).FirstOrDefault();
       if (max != null)
         r.Ergebnis = HH023(min.Soll_Valuta, max.Soll_Valuta);
     }
@@ -531,6 +531,7 @@ public class BudgetService : ServiceBase, IBudgetService
   /// Gets list of bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="valuta">Search for value date.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
@@ -538,11 +539,11 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <param name="auid">Affected account ID.</param>
   /// <param name="value">Affected value.</param>
   /// <returns>List of bookings.</returns>
-  public ServiceErgebnis<List<HhBuchung>> GetBookingList(ServiceDaten daten, bool valuta,
+  public ServiceErgebnis<List<HhBuchung>> GetBookingList(ServiceDaten daten, TableReadModel rm, bool valuta,
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null)
   {
-    var r = new ServiceErgebnis<List<HhBuchung>>(HhBuchungRep.GetList(daten, auid, null, null, valuta, from, to, text, value, true));
+    var r = new ServiceErgebnis<List<HhBuchung>>(HhBuchungRep.GetList(daten, rm, auid, null, null, valuta, from, to, text, value, true));
     return r;
   }
 
@@ -561,7 +562,7 @@ public class BudgetService : ServiceBase, IBudgetService
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null)
   {
-    var l = HhBuchungRep.GetList(daten, auid, null, null, valuta, from, to, text, value, true);
+    var l = HhBuchungRep.GetList(daten, null, auid, null, null, valuta, from, to, text, value, true);
     var list = FillBookingList(l);
     var r = new ServiceErgebnis<List<string>>(list);
     return r;
@@ -900,7 +901,7 @@ public class BudgetService : ServiceBase, IBudgetService
       k.Betrag = -GetKontoStandIntern(daten, k.Uid, from);
       k.EBetrag = -GetKontoStandIntern(daten, k.Uid, to);
     }
-    var bListe = HhBuchungRep.GetList(daten, null, null, Constants.KZB_AKTIV, true, from, to, null, null, false, euro, tracking: false);
+    var bListe = HhBuchungRep.GetList(daten, null, null, null, Constants.KZB_AKTIV, true, from, to, null, null, false, euro, tracking: false);
     var bn = 0;
     foreach (var b in bListe)
     {
@@ -1100,7 +1101,7 @@ public class BudgetService : ServiceBase, IBudgetService
     {
       // Keep input order per valuta by uid.
       SaveChanges(daten);
-      var blist = HhBuchungRep.GetList(daten, null, null, valuta: true, from: buchung.Soll_Valuta, to: buchung.Soll_Valuta);
+      var blist = HhBuchungRep.GetList(daten, null, null, null, valuta: true, from: buchung.Soll_Valuta, to: buchung.Soll_Valuta);
       var last = blist.LastOrDefault();
       if (last != null && last.Uid != buchung.Uid)
       {

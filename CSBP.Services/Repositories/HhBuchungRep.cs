@@ -24,23 +24,25 @@ public partial class HhBuchungRep
   /// </summary>
   /// <returns>List of bookings.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="auid">Affected account ID.</param>
   /// <param name="debit">Affected account for debit. null: debit and credit, true: debit, false: credit.</param>
   /// <param name="attr">Affected attribute.</param>
   /// <param name="valuta">Search for value date.</param>
   /// <param name="from">Affected minimum date.</param>
   /// <param name="to">Affected maximum date.</param>
-  /// <param name="text">Affected posting text.</param>
+  /// <param name="search">Affected search term.</param>
   /// <param name="value">Affected value.</param>
   /// <param name="desc">Is the order descending or not.</param>
   /// <param name="euro">Compares euro value or not.</param>
   /// <param name="max">How many rows? 0 means all.</param>
   /// <param name="tracking">With tracking or AsNoTracking.</param>
-  public List<HhBuchung> GetList(ServiceDaten daten, string auid, bool? debit, string attr = Constants.KZB_AKTIV,
-    bool valuta = true, DateTime? from = null, DateTime? to = null, string text = null, string value = null,
+  public List<HhBuchung> GetList(ServiceDaten daten, TableReadModel rm, string auid, bool? debit, string attr = Constants.KZB_AKTIV,
+    bool valuta = true, DateTime? from = null, DateTime? to = null, string search = null, string value = null,
     bool desc = true, bool euro = true, int max = 0, bool tracking = false)
   {
     var db = GetDb(daten);
+    search = Functions.TrimNull(search) ?? rm?.Search;
     var l = db.HH_Buchung.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!tracking)
       l = l.AsNoTracking();
@@ -72,8 +74,8 @@ public partial class HhBuchungRep
       else
         l = l.Where(a => a.Angelegt_Am <= to || a.Geaendert_Am <= to);
     }
-    if (CsbpBase.IsLike(text))
-      l = l.Where(a => EF.Functions.Like(a.BText, text));
+    if (CsbpBase.IsLike(search))
+      l = l.Where(a => EF.Functions.Like(a.BText, search));
     if (!string.IsNullOrEmpty(value))
     {
       var v = Functions.ToDecimal(value) ?? 0;
@@ -115,6 +117,27 @@ public partial class HhBuchungRep
         e.CreditType = a.credit.Art;
         return e;
       });
+    l = l5.AsQueryable();
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      if (rm.NoPaging)
+      {
+        var lx1 = SortList(l, rm.SortColumn);
+        return lx1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        var anz = l.Count();
+        var summe = anz <= 0m ? 0m : l.Sum(e => e.EBetrag);
+        rm.Essence = Resources.M.HH054(anz, summe);
+        var lx1 = SortList(l, rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var lx2 = lx1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return lx2;
+      }
+    }
     if (max <= 0)
       return l5.ToList();
     else

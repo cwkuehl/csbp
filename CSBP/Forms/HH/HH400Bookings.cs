@@ -156,7 +156,7 @@ public partial class HH400Bookings : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.BudgetService.GetBookingList(ServiceDaten, GetText(kennzeichen1) == "1",
+      var l = Get(FactoryService.BudgetService.GetBookingList(ServiceDaten, null, GetText(kennzeichen1) == "1",
           von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text)) ?? new List<HhBuchung>();
       var anz = l.Count;
       var summe = 0m;
