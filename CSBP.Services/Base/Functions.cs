@@ -522,12 +522,16 @@ public static partial class Functions
   /// <param name="d">Affected value.</param>
   /// <param name="digits">Number of digits to print.</param>
   /// <param name="ci">Affected culture info.</param>
+  /// <param name="withoutkomma">True, if the decimal separator is removed.</param>
   /// <returns>Converted value.</returns>
-  public static string ToString(decimal? d, int digits = -1, CultureInfo ci = null)
+  public static string ToString(decimal? d, int digits = -1, CultureInfo ci = null, bool withoutkomma = false)
   {
     if (!d.HasValue)
       return string.Empty;
-    return d.Value.ToString(digits < 0 ? "N" : $"N{digits}", ci ?? CultureInfoCu);
+    var v = d.Value.ToString(digits < 0 ? "N" : $"N{digits}", ci ?? CultureInfoCu);
+    if (withoutkomma)
+      v = v.Replace(",", "");
+    return v;
   }
 
   /// <summary>
