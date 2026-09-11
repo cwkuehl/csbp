@@ -299,9 +299,31 @@ public static partial class Functions
   /// <returns>Eine andere Zeichenkette.</returns>
   public static string CutOrPadRight(this string value, int length, char paddingChar = ' ')
   {
-    return value == null
-      ? Repeat(paddingChar, length)
-      : (length < value.Length ? value.Substring(0, length) : value.PadRight(length, paddingChar));
+    if (value == null)
+      return Repeat(paddingChar, length);
+    var v = value;
+    if (length < value.Length)
+      v = v.Substring(0, length);
+    v = v.TrimEnd().PadRight(length, paddingChar);
+    return v;
+  }
+
+  /// <summary>
+  /// Ändert die Länge einer Zeichenkette durch Abschneiden oder Auffüllen am Anfang.
+  /// </summary>
+  /// <param name="value">Eine Zeichenkette.</param>
+  /// <param name="length">Eine Länge.</param>
+  /// <param name="paddingChar">Ein Zeichen zum Auffüllen (Standard: ' ').</param>
+  /// <returns>Eine andere Zeichenkette.</returns>
+  public static string CutOrPadLeft(this string value, int length, char paddingChar = ' ')
+  {
+    if (value == null)
+      return Repeat(paddingChar, length);
+    var v = value;
+    if (length < value.Length)
+      v = v.Substring(value.Length - length, length);
+    v = v.TrimStart().PadLeft(length, paddingChar);
+    return v;
   }
 
   /// <summary>
