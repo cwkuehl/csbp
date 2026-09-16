@@ -11,6 +11,7 @@ using System.Text;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
+using CSBP.Services.Base.Csv;
 using CSBP.Services.Budget;
 using CSBP.Services.Reports;
 using static CSBP.Services.Base.Functions;
@@ -22,6 +23,36 @@ using static CSBP.Services.Resources.Messages;
 /// </summary>
 public class BudgetService : ServiceBase, IBudgetService
 {
+  /// <summary>
+  /// Returns a CSV file with all data of a form.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="page">Affected page, e.g. "HH200".</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <returns>CSV file as string.</returns>
+  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
+  {
+    var r = new ServiceErgebnis<string>();
+    if (!(page == "HH200" || page == "HH300" || page == "HH400") || rm == null)
+    {
+      return r;
+    }
+    rm.NoPaging = true;
+    var cs = new CsvWriter();
+    //// TODO HH300, HH400
+    if (page == "HH200")
+    {
+      var l = HhKontoRep.GetList(daten, rm, -1, -1, null, null, null, null, null);
+      cs.AddCsvLine(["Mandant_Nr", "Uid", "Sortierung", "Art", "Kz", "Name", "Gueltig_Von", "Gueltig_Bis", "EBetrag", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Sortierung, o.Art, o.Kz, o.Name, Functions.ToString(o.Gueltig_Von), Functions.ToString(o.Gueltig_Bis), Functions.ToString(o.EBetrag, 2), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    r.Ergebnis = cs.GetContent();
+    return r;
+  }
+
   /// <summary>
   /// Gets list of periods.
   /// </summary>
