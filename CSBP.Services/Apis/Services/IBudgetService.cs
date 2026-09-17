@@ -21,8 +21,14 @@ public interface IBudgetService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="page">Affected page, e.g. "HH200".</param>
   /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <param name="valuta">Search for value date.</param>
+  /// <param name="from">Affected minimum date.</param>
+  /// <param name="to">Affected maximum date.</param>
+  /// <param name="auid">Affected account ID.</param>
+  /// <param name="value">Affected value.</param>
   /// <returns>CSV file as string.</returns>
-  ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm);
+  ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm, bool valuta = false,
+      DateTime? from = null, DateTime? to = null, string auid = null, string value = null);
 
   /// <summary>
   /// Gets list of periods.

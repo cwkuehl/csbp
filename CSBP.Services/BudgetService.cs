@@ -29,8 +29,14 @@ public class BudgetService : ServiceBase, IBudgetService
   /// <param name="daten">Service data for database access.</param>
   /// <param name="page">Affected page, e.g. "HH200".</param>
   /// <param name="rm">Affected read model for filtering and sorting.</param>
+  /// <param name="valuta">Search for value date.</param>
+  /// <param name="from">Affected minimum date.</param>
+  /// <param name="to">Affected maximum date.</param>
+  /// <param name="auid">Affected account ID.</param>
+  /// <param name="value">Affected value.</param>
   /// <returns>CSV file as string.</returns>
-  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm)
+  public ServiceErgebnis<string> GetCsvString(ServiceDaten daten, string page, TableReadModel rm, bool valuta = false,
+      DateTime? from = null, DateTime? to = null, string auid = null, string value = null)
   {
     var r = new ServiceErgebnis<string>();
     if (!(page == "HH200" || page == "HH300" || page == "HH400") || rm == null)
@@ -39,7 +45,6 @@ public class BudgetService : ServiceBase, IBudgetService
     }
     rm.NoPaging = true;
     var cs = new CsvWriter();
-    //// TODO HH300, HH400
     if (page == "HH200")
     {
       var l = HhKontoRep.GetList(daten, rm, -1, -1, null, null, null, null, null);
@@ -47,6 +52,24 @@ public class BudgetService : ServiceBase, IBudgetService
       foreach (var o in l)
       {
         cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Sortierung, o.Art, o.Kz, o.Name, Functions.ToString(o.Gueltig_Von), Functions.ToString(o.Gueltig_Bis), Functions.ToString(o.EBetrag, 2), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    else if (page == "HH300")
+    {
+      var l = HhEreignisRep.GetList(daten, rm, null, null, null, null);
+      cs.AddCsvLine(["Mandant_Nr", "Uid", "Kz", "SollKontoUid", "SollKonto", "HabenKontoUid", "HabenKonto", "Bezeichnung", "EText", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, o.Bezeichnung, o.EText, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+      }
+    }
+    else if (page == "HH400")
+    {
+      var l = HhBuchungRep.GetList(daten, rm, auid, null, null, valuta, from, to, null, value);
+      cs.AddCsvLine(["SollValuta", "Btext", "Ebetrag", "Uid", "Kz", "SollKontoUid", "SollKonto", "HabenKontoUid", "HabenKonto", "BelegNr", "BelegDatum", "HabenValuta", "Betrag", "AngelegtVon", "AngelegtAm", "GeaendertVon", "GeaendertAm"]);
+      foreach (var o in l)
+      {
+        cs.AddCsvLine([Functions.ToString(o.Soll_Valuta), o.BText, Functions.ToString(o.EBetrag, 2), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, Functions.ToString(o.Beleg_Datum), Functions.ToString(o.Haben_Valuta), Functions.ToString(o.Betrag, 2), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     r.Ergebnis = cs.GetContent();
