@@ -210,38 +210,44 @@ public class CsvReader
 
   /// <summary>
   /// Lesen der nächsten Zeile bis zum Ende oder den Zeichen CRLF, CR oder LF.
+  /// Innerhalb von Anführungszeichen werden Zeilenumbrüche ignoriert.
   /// </summary>
   /// <returns>Nächste Zeile oder null, wenn Zeichen zu Ende sind.</returns>
   public string GetLine()
   {
+    if (IsEnd)
+      return null;
+    var af = false;
+    var sb = new StringBuilder();
+    do
+    {
+      var c = GetChar();
       if (IsEnd)
-          return null;
-      var sb = new StringBuilder();
-      do
+        break;
+      if (c == '\"')
+        af = !af;
+      if (c == '\r')
       {
-          var c = GetChar();
-          if (IsEnd)
-              break;
-          if (c == '\r')
-          {
-              // CRLF oder nur CR.
-              var c1 = GetChar(true);
-              if (!IsEnd && c1 == '\n')
-              {
-                  GetChar();
-                  GetChar(true);
-              }
-              break;
-          }
-          else if (c == '\n')
-          {
-              GetChar(true);
-              break;
-          }
-          sb.Append(c);
+        // CRLF oder nur CR.
+        var c1 = GetChar(true);
+        if (!IsEnd && c1 == '\n')
+        {
+          GetChar();
+          GetChar(true);
+        }
+        if (!af)
+            break;
       }
-      while (!IsEnd);
-      return sb.ToString();
+      else if (c == '\n')
+      {
+        GetChar(true);
+        if (!af)
+          break;
+      }
+      sb.Append(c);
+    }
+    while (!IsEnd);
+    return sb.ToString();
   }
 
   /// <summary>
