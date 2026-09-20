@@ -197,15 +197,14 @@ public partial class HH510Interface : CsbpBin
     ParameterGui.HH510Cashreport = kassenbericht.Active;
     if (eb.Active || gv.Active || sb.Active)
     {
-      var pdf = Get(
-       FactoryService.BudgetService.GetAnnualReport(daten, von.ValueNn, bis.ValueNn, titel.Text,
+      var html = Get(FactoryService.BudgetService.GetAnnualReport(daten, von.ValueNn, bis.ValueNn, titel.Text,
          eb.Active, gv.Active, sb.Active));
-      UiTools.SaveFile(daten, pdf, M0(HH048));
+      UiTools.SaveFile(daten, html, M0(HH048));
     }
     if (kassenbericht.Active)
     {
-      var pdf = Get(FactoryService.BudgetService.GetCashReport(daten, von.ValueNn, bis.ValueNn, titel.Text));
-      UiTools.SaveFile(daten, pdf, M0(HH049));
+      var html = Get(FactoryService.BudgetService.GetCashReport(daten, von.ValueNn, bis.ValueNn, titel.Text));
+      UiTools.SaveFile(daten, html, M0(HH049));
     }
   }
 

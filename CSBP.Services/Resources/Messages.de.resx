@@ -534,6 +534,9 @@
     <data name="HH083" xml:space="preserve">
         <value>HH083Der Betrag muss 0 sein.</value>
     </data>
+    <data name="HH084" xml:space="preserve">
+        <value>HH084Bitte eine Bilanz auswählen.</value>
+    </data>
 
     <data name="SB001" xml:space="preserve">
         <value>SB001Der Geburtsname darf nicht leer sein.</value>

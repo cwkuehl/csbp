@@ -874,6 +874,10 @@ public class BudgetService : ServiceBase, IBudgetService
     var r = new ServiceErgebnis<byte[]>();
     if (string.IsNullOrEmpty(title))
       r.Errors.Add(Message.New(HH045));
+    if (!(ob || pl || fb))
+      r.Errors.Add(Message.New(HH084));
+    if (!r.Ok)
+      return r;
     List<AccountRow> oblist = null;
     List<AccountRow> pllist = null;
     List<AccountRow> fblist = null;

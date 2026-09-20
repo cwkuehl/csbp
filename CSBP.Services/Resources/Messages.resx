@@ -534,6 +534,9 @@
     <data name="HH083" xml:space="preserve">
         <value>HH083The value must be 0.</value>
     </data>
+    <data name="HH084" xml:space="preserve">
+        <value>HH084Select a balance.</value>
+    </data>
 
     <data name="SB001" xml:space="preserve">
         <value>SB001Type in a maiden name.</value>

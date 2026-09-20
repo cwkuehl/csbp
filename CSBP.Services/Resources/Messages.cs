@@ -882,6 +882,11 @@ public partial class Messages
     get { return rm.GetString("HH083"); }
   }
 
+  public static string HH084
+  {
+    get { return rm.GetString("HH084"); }
+  }
+
   public static string SB001
   {
     get { return rm.GetString("SB001"); }
