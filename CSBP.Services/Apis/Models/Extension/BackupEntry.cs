@@ -23,6 +23,9 @@ public class BackupEntry : ModelBase
   /// <summary>Gets or sets the target directory.</summary>
   public string Target { get; set; }
 
+  /// <summary>Gets or sets last backup date.</summary>
+  public DateTime? LastBackup { get; set; }
+
   /// <summary>Gets or sets a value indicating whether to encrypt or not.</summary>
   public bool Encrypted { get; set; }
 

@@ -1752,7 +1752,7 @@
         <value>Sicherungen mit Verzeichnissen</value>
     </data>
     <data name="AG400.verzeichnisse.columns" xml:space="preserve">
-        <value>Nr.;Ziel;V.;P.;Quellen;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Ziel;Letzte Sicherung;V.;P.;Quellen;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="AG400.sicherung" xml:space="preserve">
         <value>_Sicherung</value>

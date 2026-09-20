@@ -834,7 +834,8 @@ public partial class ClientService : ServiceBase, IClientService
   {
     if (state == null || cancel == null)
       throw new ArgumentException(null, nameof(state));
-    var e = GetBackupEntryIntern(daten, uid) ?? throw new MessageException(M1013);
+    var bl = GetBackupEntryList(daten).Ergebnis;
+    var e = bl?.FirstOrDefault(x => x.Uid == uid) ?? throw new MessageException(M1013);
     state.Clear().Append(M0(M1031));
     var blist = new List<BackupFile>();
     foreach (var source in e.Sources)
@@ -936,6 +937,9 @@ public partial class ClientService : ServiceBase, IClientService
       }
       i++;
     }
+    e.LastBackup = daten.Jetzt;
+    e.MachGeaendert(daten.Jetzt, daten.BenutzerId);
+    BackupEntry.SaveBackupEntryList(bl);
     state.Clear().Append($"Ende nach dem Abgleich von {blist.Count} Verzeichnissen/Dateien.");
     return new ServiceErgebnis();
   }

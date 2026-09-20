@@ -112,10 +112,10 @@ public partial class AG400Backups : CsbpBin
       var values = new List<string[]>();
       foreach (var e in l)
       {
-        // No.;Target;E.;P.;Sources;Changed at;Changed by;Created at;Created by
+        // No.;Target;Last backup;E.;P.;Sources;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, e.Target, e.Encrypted ? "X" : "", e.Zipped ? "X" : "", Functions.Left2(e.SourcesText),
+          e.Uid, e.Target, e.LastBackup?.ToString("yyyy-MM-dd HH:mm:ss") ?? "", e.Encrypted ? "X" : "", e.Zipped ? "X" : "", Functions.Left2(e.SourcesText),
           Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
@@ -266,6 +266,7 @@ public partial class AG400Backups : CsbpBin
         var r0 = FactoryService.ClientService.MakeBackup(ServiceDaten, uid, restore, password, state, cancel);
         return r0;
       });
+      refreshAction.Click();
       r.ThrowAllErrors();
     }
     catch (Exception ex)

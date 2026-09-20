@@ -1752,7 +1752,7 @@
         <value>Backup folders</value>
     </data>
     <data name="AG400.verzeichnisse.columns" xml:space="preserve">
-        <value>No.;Target;E.;P.;Sources;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Target;Last backup;E.;P.;Sources;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="AG400.sicherung" xml:space="preserve">
         <value>_Backup</value>
