@@ -7,7 +7,7 @@ namespace CSBP.Services.NonService;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Authentication;
-using CSBP.Services.Base;
+using BlazorSpa.Base;
 using Microsoft.Extensions.Http.Resilience;
 using Polly;
 
@@ -45,7 +45,7 @@ public static class HttpClientFactory
   public static HttpClient CreateClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1, bool tls12 = false)
   {
     HttpClient client;
-    if (factory == null || (timeout >= 0 && timeout != ServiceBase.HttpTimeout) || tls12)
+    if (factory == null || (timeout >= 0 && timeout != Konstanten.HttpTimeout) || tls12)
       client = GetClient(name, timeout, tls12);
     else
       client = factory.CreateClient(name);
@@ -60,7 +60,7 @@ public static class HttpClientFactory
   private static HttpClient GetClient(string name = "HttpClientWithSSLUntrusted", int timeout = -1, bool tls12 = false)
   {
     HttpClient client = null;
-    var special = (timeout >= 0 && timeout != ServiceBase.HttpTimeout) || tls12;
+    var special = (timeout >= 0 && timeout != Konstanten.HttpTimeout) || tls12;
     if (httpsclient0 != null && !special)
     {
       client = httpsclient0;
@@ -107,7 +107,7 @@ public static class HttpClientFactory
       };
       client = new HttpClient(resilienceHandler)
       {
-        Timeout = TimeSpan.FromMilliseconds(ServiceBase.HttpTimeout),
+        Timeout = TimeSpan.FromMilliseconds(Konstanten.HttpTimeout),
       };
       if (special)
       {

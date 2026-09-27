@@ -7,6 +7,7 @@ namespace CSBP.Forms.HH;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -201,7 +202,7 @@ public partial class HH410Booking : CsbpBin
         valuta.Value = k.Soll_Valuta;
         InitLists();
         init = true;
-        SetText(betrag, Functions.ToString(k.EBetrag, 2));
+        SetText(betrag, Funktionen.ToString(k.EBetrag, 2));
         SetText(summe, "");
         SetText(sollkonto, k.Soll_Konto_Uid);
         SetText(habenkonto, k.Haben_Konto_Uid);
@@ -358,7 +359,7 @@ public partial class HH410Booking : CsbpBin
           SetText(betrag, "");
           SetText(summe, "");
           if (!string.IsNullOrEmpty(belegNr.Text))
-            SetText(belegNr, Functions.ToString(Functions.ToInt64(belegNr.Text) + 1));
+            SetText(belegNr, Funktionen.ToString(Functions.ToInt64(belegNr.Text) + 1));
           betrag.GrabFocus();
         }
         else
@@ -383,7 +384,7 @@ public partial class HH410Booking : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnAdditionClicked(object sender, EventArgs e)
   {
-    SetText(summe, Functions.ToString(CalculateValue(), 2));
+    SetText(summe, Funktionen.ToString(CalculateValue(), 2));
     SetText(betrag, "");
     betrag.GrabFocus();
   }

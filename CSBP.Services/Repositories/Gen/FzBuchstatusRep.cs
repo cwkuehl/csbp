@@ -7,8 +7,8 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Models;
-using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Repositories.Base;
 
@@ -119,7 +119,7 @@ public partial class FzBuchstatusRep : RepositoryBase
     e.Ist_Besitz = istbesitz;
     e.Lesedatum = lesedatum;
     e.Hoerdatum = hoerdatum;
-    Functions.MachNichts(replikationuid);
+    Funktionen.MachNichts(replikationuid);
     if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);

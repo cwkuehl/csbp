@@ -7,6 +7,7 @@ namespace CSBP.Forms.AM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -75,8 +76,8 @@ public partial class AM500Options : CsbpBin
         {
         Functions.ToString(e.Mandant_Nr), e.Schluessel,
         Functions.ToString(e.Wert), Functions.ToString(e.Comment), Functions.ToString(e.Default),
-        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+        Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       store = AddStringColumnsSort(einstellungen, AM500_einstellungen_columns, values);

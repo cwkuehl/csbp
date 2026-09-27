@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -116,8 +117,8 @@ public partial class AG400Backups : CsbpBin
         values.Add(new string[]
         {
           e.Uid, e.Target, e.LastBackup?.ToString("yyyy-MM-dd HH:mm:ss") ?? "", e.Encrypted ? "X" : "", e.Zipped ? "X" : "", Functions.Left2(e.SourcesText),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(verzeichnisse, AG400_verzeichnisse_columns, values);

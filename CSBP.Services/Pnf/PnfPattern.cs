@@ -7,6 +7,7 @@ namespace CSBP.Services.Pnf;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>Point and Figure pattern.
@@ -72,7 +73,7 @@ public class PnfPattern
         {
           sb.Append(' ');
         }
-        sb.Append(Functions.ToString(datum));
+        sb.Append(Funktionen.ToString(datum));
       }
       sb.Append(" (").Append(signal).Append(')');
       return sb.ToString();

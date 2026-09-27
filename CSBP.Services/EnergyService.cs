@@ -10,12 +10,12 @@ using System.Text;
 using AMWD.Protocols.Modbus.Common;
 using AMWD.Protocols.Modbus.Tcp;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using static CSBP.Services.Resources.Messages;
 
 /// <summary>
@@ -48,8 +48,8 @@ public class EnergyService : ServiceBase, IEnergyService
       {
         cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Sorting, o.Bezeichnung,
           CsbpBase.GetStockState(o.Status, o.Kuerzel), o.Datenquelle, o.Kuerzel, o.Type,
-          Functions.ToString(o.CurrentPrice), o.Pattern, o.Currency,
-          Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+          Funktionen.ToString(o.CurrentPrice), o.Pattern, o.Currency,
+          Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     r.Ergebnis = cs.GetContent();
@@ -232,12 +232,12 @@ public class EnergyService : ServiceBase, IEnergyService
     if (dt == "uint16")
     {
       d = (Functions.ToDecimal(value) ?? 0m) * factor;
-      us = (ushort)Functions.ToInt32(Functions.ToString(d));
+      us = (ushort)Funktionen.ToInt32(Funktionen.ToString(d));
     }
     else if (dt == "int16")
     {
       d = (Functions.ToDecimal(value) ?? 0m) * factor;
-      us = (ushort)Functions.ToInt32(Functions.ToString(d));
+      us = (ushort)Funktionen.ToInt32(Funktionen.ToString(d));
     }
     //// else if (dt == "int32") // TODO int32, int64, uint32, uint64
     //// {
@@ -359,7 +359,7 @@ public class EnergyService : ServiceBase, IEnergyService
     if (!string.IsNullOrWhiteSpace(q.Param5))
       sw = d.ToString(q.Param5);
     else
-      sw = Functions.ToString(d, 0);
+      sw = Funktionen.ToString(d, 0);
     if (az != null)
     {
       var wen = Functions.Between(az, $"{sw}=", ";");
@@ -419,7 +419,7 @@ public class EnergyService : ServiceBase, IEnergyService
     if (!string.IsNullOrWhiteSpace(q.Param5))
       sw = d.ToString(q.Param5);
     else
-      sw = Functions.ToString(d, 0);
+      sw = Funktionen.ToString(d, 0);
     if (az != null)
     {
       var wen = Functions.Between(az, $"{sw}=", ";");

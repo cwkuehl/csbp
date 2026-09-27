@@ -7,6 +7,7 @@ namespace CSBP.Forms.HH;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -121,15 +122,15 @@ public partial class HH100Periods : CsbpBin
         values.Add(new string[]
         {
           Functions.ToString(e.Nr), Functions.ToString(e.Nr), e.Period,
-          Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.Datum_Von), Funktionen.ToString(e.Datum_Bis),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       if (l.Count > 0)
       {
-        SetText(anfang, Functions.ToString(l.Last().Datum_Von));
-        SetText(ende, Functions.ToString(l.First().Datum_Bis));
+        SetText(anfang, Funktionen.ToString(l.Last().Datum_Von));
+        SetText(ende, Funktionen.ToString(l.First().Datum_Bis));
       }
       AddStringColumnsSort(perioden, HH100_perioden_columns, values);
     }

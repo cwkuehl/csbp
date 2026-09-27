@@ -6,6 +6,7 @@ namespace CSBP.Forms.AD;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -72,8 +73,8 @@ public partial class AD130Addresses : CsbpBin
           {
             Functions.ToString(e.Uid), Functions.ToString(e.Staat), Functions.ToString(e.Plz),
             Functions.ToString(e.Ort), Functions.ToString(e.Strasse), Functions.ToString(e.HausNr),
-            Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-            Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+            Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+            Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
           });
       }
       AddStringColumnsSort(adressen, AD130_adressen_columns, values);

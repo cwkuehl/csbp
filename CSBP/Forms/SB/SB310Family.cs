@@ -7,6 +7,7 @@ namespace CSBP.Forms.SB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -279,8 +280,8 @@ public partial class SB310Family : CsbpBin
       values.Add(new string[]
       {
         e.Uid, e.Geburtsname, e.Vorname, e.Name, e.Geschlecht,
-        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+        Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
       });
     }
     AddStringColumnsSort(kinder, SB310_kinder_columns, values);

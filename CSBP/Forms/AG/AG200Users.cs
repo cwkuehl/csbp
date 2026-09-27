@@ -6,6 +6,7 @@ namespace CSBP.Forms.AG;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -81,9 +82,9 @@ public partial class AG200Users : CsbpBin
         values.Add(new string[]
         {
           Functions.ToString(e.Person_Nr), e.Benutzer_ID, "••••••",
-          e.Permission, Functions.ToString(e.Geburt),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Permission, Funktionen.ToString(e.Geburt),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(benutzer, AG200_benutzer_columns, values);

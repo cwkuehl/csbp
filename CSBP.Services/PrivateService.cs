@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
@@ -16,7 +17,6 @@ using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Models.Views;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -29,7 +29,7 @@ public class PrivateService : ServiceBase, IPrivateService
   private const string CrLf = Konstanten.CrLf;
 
   /// <summary>Fixed bike year in statistics.</summary>
-  private static readonly bool BikeYearFixed = Functions.MachNichts() != 0;
+  private static readonly bool BikeYearFixed = Funktionen.MachNichts() != 0;
 
   /// <summary>Sets budget service.</summary>
   public IBudgetService BudgetService { private get; set; }
@@ -56,7 +56,7 @@ public class PrivateService : ServiceBase, IPrivateService
       cs.AddCsvLine(["Mandant_Nr", "Bezeichnung", "Typ", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, o.TypBezeichnung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, o.TypBezeichnung, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "FZ250")
@@ -65,7 +65,7 @@ public class PrivateService : ServiceBase, IPrivateService
       cs.AddCsvLine(["Mandant_Nr", "Fahrrad", "Datum", "Nr", "Zähler", "Km", "Schnitt", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, Functions.ToString(o.Datum), Functions.ToString(o.Nr), Functions.ToString(o.Zaehler_km, 0), Functions.ToString(o.Periode_km, 0), Functions.ToString(o.Periode_Schnitt, 2), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Bezeichnung, Funktionen.ToString(o.Datum), Functions.ToString(o.Nr), Funktionen.ToString(o.Zaehler_km, 0), Funktionen.ToString(o.Periode_km, 0), Funktionen.ToString(o.Periode_Schnitt, 2), o.Beschreibung, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "FZ700")
@@ -74,7 +74,7 @@ public class PrivateService : ServiceBase, IPrivateService
       cs.AddCsvLine(["Mandant_Nr", "Thema", "Notiz", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Thema, o.Notiz, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Thema, o.Notiz, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     r.Ergebnis = cs.GetContent();
@@ -902,14 +902,14 @@ public class PrivateService : ServiceBase, IPrivateService
         sb.Append(FZ016(Functions.Cut((vo.Bezeichnung + ": ").PadRight(laenge, ' '), laenge), km, kmJahr, kmyear1));
         if (anzahlTage > 0)
         {
-          sb.Append(CrLf).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfang) + ": ").PadRight(laenge, ' '), laenge),
+          sb.Append(CrLf).Append(FZ017(Functions.Cut((" " + Funktionen.ToString(anfang) + ": ").PadRight(laenge, ' '), laenge),
             km / anzahlTage, km / anzahlTage * jahresTage));
         }
       }
       if (anzahlTageMax > 0)
       {
         sb.Append(CrLf).Append(FZ016(Functions.Cut((M0(FZ018) + ": ").PadRight(laenge, ' '), laenge), summe, summeJahr, sumyear1));
-        sb.Append(CrLf).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfangMin) + ": ").PadRight(laenge, ' '), laenge),
+        sb.Append(CrLf).Append(FZ017(Functions.Cut((" " + Funktionen.ToString(anfangMin) + ": ").PadRight(laenge, ' '), laenge),
           summe / anzahlTageMax, summe / anzahlTageMax * jahresTage));
       }
       r.Ergebnis = sb.ToString();

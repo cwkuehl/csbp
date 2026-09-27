@@ -7,9 +7,9 @@ namespace CSBP.Services.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
-using CSBP.Services.Base;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -116,11 +116,11 @@ table {
     Xml.WriteString(M0(HH076));
     Xml.WriteEndElement(); // td
     Xml.WriteStartElement("td");
-    Xml.WriteString(Functions.ToString(From.Value.AddDays(-1)));
+    Xml.WriteString(Funktionen.ToString(From.Value.AddDays(-1)));
     Xml.WriteEndElement();
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "alignright");
-    Xml.WriteString(Functions.ToString(Vortrag, 2));
+    Xml.WriteString(Funktionen.ToString(Vortrag, 2));
     Xml.WriteEndElement(); // td
     Xml.WriteEndElement(); // tr
     Xml.WriteStartElement("tr");
@@ -130,7 +130,7 @@ table {
     Xml.WriteEndElement(); // td
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "alignright");
-    Xml.WriteString(Functions.ToString(Einnahmen, 2));
+    Xml.WriteString(Funktionen.ToString(Einnahmen, 2));
     Xml.WriteEndElement(); // td
     Xml.WriteEndElement(); // tr
     Xml.WriteStartElement("tr");
@@ -141,7 +141,7 @@ table {
     Xml.WriteEndElement(); // td
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "thead alignright");
-    Xml.WriteString(Functions.ToString(Ausgaben, 2));
+    Xml.WriteString(Funktionen.ToString(Ausgaben, 2));
     Xml.WriteEndElement(); // td
     Xml.WriteEndElement(); // tr
     Xml.WriteStartElement("tr");
@@ -151,11 +151,11 @@ table {
     Xml.WriteEndElement(); // td
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "bold");
-    Xml.WriteString(Functions.ToString(To.Value));
+    Xml.WriteString(Funktionen.ToString(To.Value));
     Xml.WriteEndElement();
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "alignright bold");
-    Xml.WriteString(Functions.ToString(Saldo, 2));
+    Xml.WriteString(Funktionen.ToString(Saldo, 2));
     Xml.WriteEndElement(); // td
     Xml.WriteEndElement(); // tr
 
@@ -176,7 +176,7 @@ table {
       Xml.WriteEndElement(); // td
       Xml.WriteStartElement("td");
       Xml.WriteAttributeString("class", "alignright");
-      Xml.WriteString(Functions.ToString(k.EBetrag, 2));
+      Xml.WriteString(Funktionen.ToString(k.EBetrag, 2));
       Xml.WriteEndElement(); // td
       Xml.WriteEndElement(); // tr
     }
@@ -187,11 +187,11 @@ table {
     Xml.WriteEndElement(); // td
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "bold tfoot");
-    Xml.WriteString(Functions.ToString(To.Value));
+    Xml.WriteString(Funktionen.ToString(To.Value));
     Xml.WriteEndElement();
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "alignright bold tfoot");
-    Xml.WriteString(Functions.ToString(bestand, 2));
+    Xml.WriteString(Funktionen.ToString(bestand, 2));
     Xml.WriteEndElement(); // td
     Xml.WriteEndElement(); // tr
 
@@ -272,7 +272,7 @@ table {
           Xml.WriteEndElement(); // td
           Xml.WriteStartElement("td");
           Xml.WriteAttributeString("class", "alignright");
-          Xml.WriteString(Functions.ToString(b.AccountEsum, 2));
+          Xml.WriteString(Funktionen.ToString(b.AccountEsum, 2));
           Xml.WriteEndElement(); // td
           Xml.WriteEndElement(); // tr
           summe += b.AccountEsum;
@@ -287,7 +287,7 @@ table {
       Xml.WriteEndElement(); // td
       Xml.WriteStartElement("td");
       Xml.WriteAttributeString("class", "bold alignright tfoot");
-      Xml.WriteString(Functions.ToString(summe, 2));
+      Xml.WriteString(Funktionen.ToString(summe, 2));
       if (i == 0)
         AddNewLine(2);
       Xml.WriteEndElement(); // td
@@ -329,7 +329,7 @@ table {
         Xml.WriteEndElement(); // td
         Xml.WriteStartElement("td");
         Xml.WriteAttributeString("class", "alignright");
-        Xml.WriteString(Functions.ToString(b.EBetrag, 2));
+        Xml.WriteString(Funktionen.ToString(b.EBetrag, 2));
         Xml.WriteEndElement(); // td
         Xml.WriteEndElement(); // tr
         Xml.WriteStartElement("tr");
@@ -350,7 +350,7 @@ table {
       Xml.WriteEndElement(); // td
       Xml.WriteStartElement("td");
       Xml.WriteAttributeString("class", "bold alignright tfoot");
-      Xml.WriteString(Functions.ToString(summe, 2));
+      Xml.WriteString(Funktionen.ToString(summe, 2));
       if (i == 0)
         AddNewLine(2);
       Xml.WriteEndElement(); // td
@@ -395,7 +395,7 @@ table {
       Xml.WriteEndElement(); // td
       Xml.WriteStartElement("td");
       Xml.WriteAttributeString("class", "bold alignright");
-      Xml.WriteString(Functions.ToString(summe, 2));
+      Xml.WriteString(Funktionen.ToString(summe, 2));
       AddNewLine();
       Xml.WriteEndElement(); // td
       Xml.WriteEndElement(); // tr
@@ -431,7 +431,7 @@ table {
         var einnahme = k.Uid == b.Soll_Konto_Uid;
         Xml.WriteStartElement("tr");
         Xml.WriteStartElement("td");
-        Xml.WriteString(Functions.ToString(b.Soll_Valuta));
+        Xml.WriteString(Funktionen.ToString(b.Soll_Valuta));
         Xml.WriteEndElement(); // td
         Xml.WriteStartElement("td");
         Xml.WriteString(b.Beleg_Nr);
@@ -443,7 +443,7 @@ table {
         Xml.WriteAttributeString("class", "alignright");
         if (einnahme)
         {
-          Xml.WriteString(Functions.ToString(b.EBetrag, 2));
+          Xml.WriteString(Funktionen.ToString(b.EBetrag, 2));
           summe += b.EBetrag;
         }
         else
@@ -455,7 +455,7 @@ table {
           AddNewLine();
         else
         {
-          Xml.WriteString(Functions.ToString(b.EBetrag, 2));
+          Xml.WriteString(Funktionen.ToString(b.EBetrag, 2));
           summe -= b.EBetrag;
         }
         Xml.WriteEndElement(); // td
@@ -476,7 +476,7 @@ table {
       Xml.WriteEndElement(); // td
       Xml.WriteStartElement("td");
       Xml.WriteAttributeString("class", "bold alignright");
-      Xml.WriteString(Functions.ToString(summe, 2));
+      Xml.WriteString(Funktionen.ToString(summe, 2));
       AddNewLine(2);
       Xml.WriteEndElement(); // td
       Xml.WriteEndElement(); // tr

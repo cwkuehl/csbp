@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -200,22 +201,22 @@ public partial class HH500Balance : CsbpBin
       {
         svalues.Add(new string[]
         {
-          e.Konto_Uid, e.AccountName, Functions.ToString(e.AccountEsum, 2),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Konto_Uid, e.AccountName, Funktionen.ToString(e.AccountEsum, 2),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       foreach (var e in habenListe)
       {
         hvalues.Add(new string[]
         {
-          e.Konto_Uid, e.AccountName, Functions.ToString(e.AccountEsum, 2),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Konto_Uid, e.AccountName, Funktionen.ToString(e.AccountEsum, 2),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
-      SetText(sollBetrag0, Functions.ToString(sollListe.Sum(a => a.AccountEsum), 2));
-      SetText(habenBetrag0, Functions.ToString(habenListe.Sum(a => a.AccountEsum), 2));
+      SetText(sollBetrag0, Funktionen.ToString(sollListe.Sum(a => a.AccountEsum), 2));
+      SetText(habenBetrag0, Funktionen.ToString(habenListe.Sum(a => a.AccountEsum), 2));
       AddStringColumnsSort(soll, HH500_soll_columns, svalues);
       AddStringColumnsSort(haben, HH500_haben_columns, hvalues);
     }
@@ -261,7 +262,7 @@ public partial class HH500Balance : CsbpBin
       }
       catch (Exception ex)
       {
-        Functions.MachNichts(ex);
+        Funktionen.MachNichts(ex);
       }
       finally
       {

@@ -6,9 +6,8 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -146,11 +145,11 @@ public partial class WP250Investments : CsbpBin
         values.Add(new string[]
         {
           e.Uid, Functions.Left2(e.Bezeichnung), CsbpBase.GetStockState(e.State.ToString(), e.StockShortcut),
-          e.StockProvider, e.StockShortcut, Functions.ToString(e.Payment, 2),
-          Functions.ToString(e.Shares, 2), Functions.ToString(e.Value, 2), Functions.ToString(e.Profit, 2),
-          Functions.ToString(e.ValueDiff, 2),
-          Functions.ToString(e.PriceDate), e.Currency, Functions.ToString(e.Geaendert_Am, true),
-          e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.StockProvider, e.StockShortcut, Funktionen.ToString(e.Payment, 2),
+          Funktionen.ToString(e.Shares, 2), Funktionen.ToString(e.Value, 2), Funktionen.ToString(e.Profit, 2),
+          Funktionen.ToString(e.ValueDiff, 2),
+          Funktionen.ToString(e.PriceDate), e.Currency, Funktionen.ToString(e.Geaendert_Am, true),
+          e.Geaendert_Von, Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
         summe += e.Payment;
         wert += e.Value;

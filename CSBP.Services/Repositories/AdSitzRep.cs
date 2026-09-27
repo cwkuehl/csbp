@@ -7,6 +7,7 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -52,7 +53,7 @@ public partial class AdSitzRep
       pl = pl.Where(a => a.Person_Status == 0);
     var al = db.AD_Adresse.Where(a => a.Mandant_Nr == daten.MandantNr);
     List<AdSitz> l;
-    if (Functions.MachNichts() == 0)
+    if (Funktionen.MachNichts() == 0)
     {
       // !string.IsNullOrEmpty(suid)
       // Es muss immer einen Sitz zu der Person geben. Adresse ist optional.

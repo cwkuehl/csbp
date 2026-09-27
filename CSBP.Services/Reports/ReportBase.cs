@@ -7,7 +7,7 @@ namespace CSBP.Services.Reports;
 using System.IO;
 using System.Text;
 using System.Xml;
-using CSBP.Services.Base;
+using BlazorSpa.Base;
 
 /// <summary>Base class for html reports.</summary>
 public partial class ReportBase
@@ -66,7 +66,7 @@ public partial class ReportBase
   /// <summary>Internal generation of report has to be overridden.</summary>
   protected virtual void DoGenerate()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>Erzeugen von neuen Zeilen.</summary>

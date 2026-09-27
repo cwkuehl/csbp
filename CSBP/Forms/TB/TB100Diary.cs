@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Base;
 using CSBP.Forms.Controls;
@@ -427,7 +428,7 @@ public partial class TB100Diary : CsbpBin
     BearbeiteEintraege(true, false);
     var puid = GetText(position2);
     var pfad = ParameterGui.TempPath;
-    var datei = Functions.GetDateiname(M0(TB005), true, false, true, "txt");
+    var datei = Funktionen.GetDateiname(M0(TB005), true, false, true, "txt");
     var daten = ServiceDaten;
     UiTools.SaveFile(daten, Get(FactoryService.DiaryService.GetDiaryReport(daten, GetSearchArray(),
       puid, from.Value, to.Value)), pfad, datei);
@@ -473,7 +474,7 @@ public partial class TB100Diary : CsbpBin
     var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (p != null)
     {
-      UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Functions.ToString(p.Latitude, 5, Functions.CultureInfoEn)}/{Functions.ToString(p.Longitude, 5, Functions.CultureInfoEn)}");
+      UiTools.StartFile($"https://www.openstreetmap.org/#map=19/{Funktionen.ToString(p.Latitude, 5, Functions.CultureInfoEn)}/{Funktionen.ToString(p.Longitude, 5, Functions.CultureInfoEn)}");
     }
   }
 
@@ -773,10 +774,10 @@ public partial class TB100Diary : CsbpBin
       // No.;Description;Latitude_r;Longitude_r;From;To;Changed at;Changed by;Created at;Created by
       values.Add(new string[]
       {
-        e.Ort_Uid, e.Description, Functions.ToString(e.Latitude, 5), Functions.ToString(e.Longitude, 5),
-        Functions.ToString(e.Datum_Von), Functions.ToString(e.Datum_Bis),
-        Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-        Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+        e.Ort_Uid, e.Description, Funktionen.ToString(e.Latitude, 5), Funktionen.ToString(e.Longitude, 5),
+        Funktionen.ToString(e.Datum_Von), Funktionen.ToString(e.Datum_Bis),
+        Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+        Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
       });
     }
     AddStringColumnsSort(positions, TB100_positions_columns, values);

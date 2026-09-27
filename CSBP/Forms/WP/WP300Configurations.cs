@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -79,8 +80,8 @@ public partial class WP300Configurations : CsbpBin
         // No.;Description;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, Functions.Left2(e.Bezeichnung), Functions.ToString(e.Geaendert_Am, true),
-          e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Uid, Functions.Left2(e.Bezeichnung), Funktionen.ToString(e.Geaendert_Am, true),
+          e.Geaendert_Von, Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(konfigurationen, WP300_konfigurationen_columns, values);

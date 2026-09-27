@@ -6,6 +6,7 @@ namespace CSBP.Services.Repositories.Base;
 
 using System;
 using System.Data.Common;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,7 @@ public class RepositoryBase
   /// </summary>
   public RepositoryBase()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>

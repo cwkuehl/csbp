@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using BlazorSpa.Base;
 using static CSBP.Services.Resources.M;
 
 /// <summary>Base class for model entity.</summary>
@@ -24,7 +25,7 @@ public class ModelBase
   /// </summary>
   public ModelBase()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>

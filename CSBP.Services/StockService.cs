@@ -12,12 +12,12 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using CSBP.Services.NonService;
 using CSBP.Services.Pnf;
 using static CSBP.Services.Resources.M;
@@ -50,7 +50,7 @@ public class StockService : ServiceBase, IStockService
     var cs = new CsvWriter();
     if (page == "WP200")
     {
-      if (Functions.MachNichts() == 0)
+      if (Funktionen.MachNichts() == 0)
       {
         var l = WpWertpapierRep.GetList(daten, rm, daten.MandantNr, null);
         cs.AddCsvLine(["Mandant_Nr", "Nr", "Sortierung", "Bezeichnung",
@@ -60,8 +60,8 @@ public class StockService : ServiceBase, IStockService
         {
           cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Sorting, o.Bezeichnung,
             CsbpBase.GetStockState(o.Status, o.Kuerzel), o.Datenquelle, o.Kuerzel, o.Type,
-            Functions.ToString(o.CurrentPrice), o.Pattern, o.Currency,
-            Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+            Funktionen.ToString(o.CurrentPrice), o.Pattern, o.Currency,
+            Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
         }
       }
       else
@@ -93,9 +93,9 @@ public class StockService : ServiceBase, IStockService
       foreach (var o in l)
       {
         cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Bezeichnung, CsbpBase.GetStockState(o.Status, "1"),
-          Functions.ToString(o.Box), CsbpBase.GetScale(o.Scale), Functions.ToString(o.Reversal), CsbpBase.GetMethod(o.Method),
-          Functions.ToString(o.Duration), Functions.ToString(o.Relative), o.Notiz, Functions.ToString(o.Angelegt_Am),
-          o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+          Funktionen.ToString(o.Box), CsbpBase.GetScale(o.Scale), Functions.ToString(o.Reversal), CsbpBase.GetMethod(o.Method),
+          Functions.ToString(o.Duration), Functions.ToString(o.Relative), o.Notiz, Funktionen.ToString(o.Angelegt_Am),
+          o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     r.Ergebnis = cs.GetContent();
@@ -651,7 +651,7 @@ public class StockService : ServiceBase, IStockService
       //// var responses = await Task.WhenAll(tasks).Result;
       try
       {
-        Task.WaitAll(tasks, HttpTimeout);
+        Task.WaitAll(tasks, Konstanten.HttpTimeout);
       }
       catch (AggregateException ae)
       {
@@ -1171,7 +1171,7 @@ public class StockService : ServiceBase, IStockService
   /// <param name="k">Affected exchange rate or null.</param>
   private static void CalculateInvestment(ServiceDaten daten, WpAnlage inv, List<WpBuchung> blist, SoKurse k)
   {
-    Functions.MachNichts(daten);
+    Funktionen.MachNichts(daten);
     //// No Payment for interests.
     inv.Payment = blist.Sum(a => a.Zahlungsbetrag - (a.Zahlungsbetrag == 0 ? 0 : a.Rabattbetrag));
     inv.Shares = blist.Sum(a => a.Anteile);
@@ -1261,7 +1261,7 @@ public class StockService : ServiceBase, IStockService
         var type1 = type[1..];
         //// https://api.onvista.de/api/v1/instruments/BOND/177301996/simple_chart_history?chartType=PRICE&endDate=2022-07-20&idNotation=297412910&startDate=2022-01-01&withEarnings=true
         //// var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/performance_values?&idNotation={shortcut}";
-        var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Functions.ToString(to.AddDays(1))}&idNotation={shortcut}&startDate={Functions.ToString(from)}&withEarnings=true";
+        var url = $"https://api.onvista.de/api/v1/instruments/{type0}/{type1}/simple_chart_history?chartType=PRICE&endDate={Funktionen.ToString(to.AddDays(1))}&idNotation={shortcut}&startDate={Funktionen.ToString(from)}&withEarnings=true";
         urls.Add((to, url));
       }
     }
@@ -1339,7 +1339,7 @@ public class StockService : ServiceBase, IStockService
         i1++;
       }
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
-      Task.WaitAll(tasks, HttpTimeout);
+      Task.WaitAll(tasks, Konstanten.HttpTimeout);
       foreach (var su in dictresponse.Values)
       {
         su.Response = su.Task.Result;
@@ -1631,7 +1631,7 @@ public class StockService : ServiceBase, IStockService
     if (!state.IstAbbruch())
     {
       var tasks = dictresponse.Values.Select(a => a.Task).ToArray();
-      Task.WaitAll(tasks, HttpTimeout);
+      Task.WaitAll(tasks, Konstanten.HttpTimeout);
       foreach (var su in dictresponse.Values)
       {
         su.Response = su.Task.Result;
@@ -1731,7 +1731,7 @@ public class StockService : ServiceBase, IStockService
           }
           var tr = c.Trend;
           t[i] = tr == 2 ? "+2" : tr == 1 ? "+1" : tr == 0.5m ? "+0,5" : tr == -2 ? "-2" : tr == -1 ? "-1" :
-            tr == -0.5m ? "-0,5" : tr == 0 ? "0" : Functions.ToString(tr, 1);
+            tr == -0.5m ? "-0,5" : tr == 0 ? "0" : Funktionen.ToString(tr, 1);
         }
         st.Assessment1 = Functions.ToString(bew[0]);
         st.Assessment2 = Functions.ToString(bew[1]);
@@ -1778,10 +1778,10 @@ public class StockService : ServiceBase, IStockService
           maxa[i] = maxi;
           difa[i] = diff;
         }
-        st.Index1 = Functions.ToString(ClIndex(difa[0], mina[0], maxa[0]));
-        st.Index2 = Functions.ToString(ClIndex(difa[1], mina[1], maxa[1]));
-        st.Index3 = Functions.ToString(ClIndex(difa[2], mina[2], maxa[2]));
-        st.Index4 = Functions.ToString(ClIndex(difa[3], mina[3], maxa[3]));
+        st.Index1 = Funktionen.ToString(ClIndex(difa[0], mina[0], maxa[0]));
+        st.Index2 = Funktionen.ToString(ClIndex(difa[1], mina[1], maxa[1]));
+        st.Index3 = Funktionen.ToString(ClIndex(difa[2], mina[2], maxa[2]));
+        st.Index4 = Funktionen.ToString(ClIndex(difa[3], mina[3], maxa[3]));
         var datum14 = bis.AddDays(-14);
         var datum200 = bis.AddDays(200);
         var datum214 = bis.AddDays(214);
@@ -1886,7 +1886,7 @@ public class StockService : ServiceBase, IStockService
       var accesskey = MaParameterRep.GetValue(daten, daten.MandantNr, Parameter.WP_FIXER_IO_ACCESS_KEY);
       if (string.IsNullOrEmpty(accesskey))
         throw new MessageException(WP049);
-      var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
+      var url = $"http://data.fixer.io/api/{Funktionen.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
       v = ExecuteHttps(url, false);
     }
     catch (Exception)

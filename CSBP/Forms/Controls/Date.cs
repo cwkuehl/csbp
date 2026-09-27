@@ -6,6 +6,7 @@ namespace CSBP.Forms.Controls;
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 using Gtk;
 using static CSBP.Services.Resources.Messages;
@@ -253,7 +254,7 @@ public partial class Date : Grid
         {
           entrecursion = true;
           unknown.Active = !value.HasValue;
-          var d = Functions.ToString(value);
+          var d = Funktionen.ToString(value);
           date.Text = d;
         }
         finally

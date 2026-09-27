@@ -12,6 +12,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Base;
 using CSBP.Forms.Controls;
@@ -224,9 +225,9 @@ public partial class CsbpBin : Bin
     var dlg = MainClass.MainWindow.FocusPage<T>();
     if (dlg == null)
     {
-      Functions.MachNichts(dialogType);
-      Functions.MachNichts(modal);
-      Functions.MachNichts(p);
+      Funktionen.MachNichts(dialogType);
+      Funktionen.MachNichts(modal);
+      Funktionen.MachNichts(p);
       var create = typeof(T).GetMethod("Create");
       dlg = create.Invoke(null, new[] { parameter1, csbpparent }) as T;
       MainClass.MainWindow.AppendPage(dlg, title);
@@ -461,7 +462,7 @@ public partial class CsbpBin : Bin
       }
       catch (Exception ex)
       {
-        Functions.MachNichts(ex);
+        Funktionen.MachNichts(ex);
       }
       return 0;
     });
@@ -499,7 +500,7 @@ public partial class CsbpBin : Bin
       }
       catch (Exception ex)
       {
-        Functions.MachNichts(ex);
+        Funktionen.MachNichts(ex);
       }
       return 0;
     });
@@ -742,7 +743,7 @@ public partial class CsbpBin : Bin
     InitData(step);
     if (si > 0)
     {
-      if (Functions.MachNichts() != 0)
+      if (Funktionen.MachNichts() != 0)
       {
         // Sortierung wiederherstellen
         tv.GetColumn(si).Button.Activate();
@@ -800,7 +801,7 @@ public partial class CsbpBin : Bin
           }
           catch (Exception ex)
           {
-            Functions.MachNichts(ex);
+            Funktionen.MachNichts(ex);
           }
           return 0;
         });

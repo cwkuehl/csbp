@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -104,11 +105,11 @@ public partial class WP400Bookings : CsbpBin
         // No.;Stock;Description;Date;Posting text;Payment_r;Discount_r;Shares_r;Interest_r;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, Functions.Left2(e.StockDescription), Functions.Left2(e.InvestmentDescription), Functions.ToString(e.Datum),
-          Functions.Left2(e.BText), Functions.ToString(e.Zahlungsbetrag, 2), Functions.ToString(e.Rabattbetrag, 2),
-          Functions.ToString(e.Anteile, 5), Functions.ToString(e.Zinsen, 2),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Uid, Functions.Left2(e.StockDescription), Functions.Left2(e.InvestmentDescription), Funktionen.ToString(e.Datum),
+          Functions.Left2(e.BText), Funktionen.ToString(e.Zahlungsbetrag, 2), Funktionen.ToString(e.Rabattbetrag, 2),
+          Funktionen.ToString(e.Anteile, 5), Funktionen.ToString(e.Zinsen, 2),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(buchungen, WP400_buchungen_columns, values);

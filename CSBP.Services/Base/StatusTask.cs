@@ -180,14 +180,14 @@ public class StatusTask
       fliste.Add("F###");
     foreach (var f in fliste)
     {
-      var dateiname = Path.Combine(Pfad, Functions.GetDateiname($"ST_Abbruch_{m}_{f}_{i}_{Servername}", true, true, true, "txt"));
+      var dateiname = Path.Combine(Pfad, Funktionen.GetDateiname($"ST_Abbruch_{m}_{f}_{i}_{Servername}", true, true, true, "txt"));
       try
       {
         File.WriteAllText(dateiname, Servername);
       }
       catch (Exception)
       {
-        Functions.MachNichts();
+        Funktionen.MachNichts();
       }
     }
   }
@@ -228,7 +228,7 @@ public class StatusTask
           }
           catch (Exception)
           {
-            Functions.MachNichts();
+            Funktionen.MachNichts();
           }
         }
       }
@@ -260,7 +260,7 @@ public class StatusTask
           }
           catch (Exception)
           {
-            Functions.MachNichts();
+            Funktionen.MachNichts();
           }
         }
       }
@@ -281,7 +281,7 @@ public class StatusTask
   {
     var r = new ServiceErgebnis<StatusTask?>();
     var dateiname = temporaer ? null
-      : Path.Combine(Pfad, Functions.GetDateiname($"ST_{mandant}_{funktion}_{Servername}", true, true, true, "txt"));
+      : Path.Combine(Pfad, Funktionen.GetDateiname($"ST_{mandant}_{funktion}_{Servername}", true, true, true, "txt"));
     var f = new StatusTask(mandant, funktion, id, dateiname, kurz);
     r.Ergebnis = f;
     if (!temporaer)
@@ -532,7 +532,7 @@ public class StatusTask
           }
           catch (Exception)
           {
-            Functions.MachNichts();
+            Funktionen.MachNichts();
           }
         }
       }
@@ -604,15 +604,15 @@ public class StatusTask
       var m = Mandant2 ?? Functions.ToString(Mandant);
       if (!string.IsNullOrEmpty(m))
         sb.Append(" von Mandant ").Append(m);
-      sb.Append(" auf Server ").Append(Functions.Right(Servername, 4)); // Server name incomplete.
+      sb.Append(" auf Server ").Append(Funktionen.Right(Servername, 4)); // Server name incomplete.
       if (daten.TryGetValue("Datenbank", out v) && v != null)
         sb.Append(" auf Datenbank ").Append(Functions.ToUpper(v));
       sb.Append(": ");
       sb.Append(tr).Append("Funktion: ").Append(Funktion);
       if (daten.TryGetValue("Name", out v) && v != null)
         sb.Append(" ").Append(v);
-      sb.Append(tr).Append("Verarbeitung gestartet: ").Append(Functions.ToString(Startzeit, true));
-      sb.Append(tr).Append("Letzte Änderung: ").Append(Functions.ToString(LetzteAenderung, true));
+      sb.Append(tr).Append("Verarbeitung gestartet: ").Append(Funktionen.ToString(Startzeit, true));
+      sb.Append(tr).Append("Letzte Änderung: ").Append(Funktionen.ToString(LetzteAenderung, true));
       if (daten.TryGetValue("Benutzer", out v) && v != null)
         sb.Append(tr).Append("User: ").Append(v);
     }
@@ -661,7 +661,7 @@ public class StatusTask
       if (daten.TryGetValue("Abbruch", out v) & v != null)
         sb.Append(tr).Append("Abbruch: angefordert");
       if (Endzeit.HasValue)
-        sb.Append(tr).Append("Verarbeitung beendet: ").Append(Functions.ToString(Endzeit.Value, true))
+        sb.Append(tr).Append("Verarbeitung beendet: ").Append(Funktionen.ToString(Endzeit.Value, true))
         .Append(" (Dauer: ").Append(Endzeit.Value.Subtract(Startzeit).TotalMilliseconds.ToString("0")).Append(" ms)");
     }
     return sb.ToString();
@@ -684,7 +684,7 @@ public class StatusTask
     {
       // ServiceBase.Log.Error("WebServiceStatusFunktion write", ex);
       // Try again after waiting a while.
-      Thread.Sleep(Functions.NextRandom(1000, 2000));
+      Thread.Sleep(Funktionen.NextRandom(1000, 2000));
       File.WriteAllText(Dateiname, GetStatus(Kurz));
     }
     Schreibzeit = j;
@@ -702,7 +702,7 @@ public class StatusTask
     }
     catch (Exception)
     {
-      Functions.MachNichts();
+      Funktionen.MachNichts();
     }
   }
 

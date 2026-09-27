@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
@@ -34,7 +35,7 @@ public class UiTools
   {
     if (bytes == null || string.IsNullOrEmpty(name))
       return;
-    var fn = Path.Combine(ParameterGui.TempPath, Functions.GetDateiname(name, daterandom, false, daterandom, ext));
+    var fn = Path.Combine(ParameterGui.TempPath, Funktionen.GetDateiname(name, daterandom, false, daterandom, ext));
     File.WriteAllBytes(fn, bytes);
     FactoryService.ClientService.CommitFile(daten, fn); // Put file into the undo stack.
     if (open)
@@ -59,7 +60,7 @@ public class UiTools
     if (string.IsNullOrEmpty(path) && string.IsNullOrEmpty(file))
       return;
     if (!string.IsNullOrWhiteSpace(file) && !string.IsNullOrWhiteSpace(ext))
-      file = Functions.GetDateiname(file, daterandom, false, daterandom, ext);
+      file = Funktionen.GetDateiname(file, daterandom, false, daterandom, ext);
     var fn = string.IsNullOrEmpty(path) ? file : string.IsNullOrEmpty(file)
         ? path : Path.Combine(path ?? "", file);
     File.WriteAllLines(fn, lines);

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -322,7 +323,7 @@ public class PnfChart
     sb.Append('(').Append(M0(WP035));
     if (Functions.CompDouble(box, 0) > 0)
     {
-      sb.Append(' ').Append(Functions.ToString(box));
+      sb.Append(' ').Append(Funktionen.ToString(box));
     }
     sb.Append(' ');
     if (skala == 0)
@@ -620,10 +621,10 @@ public class PnfChart
       DateTime von = kurse[0].Datum;
       DateTime bis = kurse[^1].Datum;
       sb.Append(WP047(von, bis, true));
-      sb.Append(" O:").Append(Functions.ToString(Functions.Round(kurse[0].Close), 2));
-      sb.Append(" H:").Append(Functions.ToString(Functions.Round(max), 2));
-      sb.Append(" L:").Append(Functions.ToString(Functions.Round(min), 2));
-      sb.Append(" C:").Append(Functions.ToString(Functions.Round(kurse[^1].Close), 2));
+      sb.Append(" O:").Append(Funktionen.ToString(Functions.Round(kurse[0].Close), 2));
+      sb.Append(" H:").Append(Funktionen.ToString(Functions.Round(max), 2));
+      sb.Append(" L:").Append(Funktionen.ToString(Functions.Round(min), 2));
+      sb.Append(" C:").Append(Funktionen.ToString(Functions.Round(kurse[^1].Close), 2));
     }
     return sb.ToString();
   }

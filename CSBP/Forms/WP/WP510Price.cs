@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -125,7 +126,7 @@ public partial class WP510Price : CsbpBin
         model = k;
         SetText(wertpapier, k.Wertpapier_Uid);
         valuta.Value = k.Datum;
-        SetText(betrag, Functions.ToString(k.Stueckpreis, 4));
+        SetText(betrag, Funktionen.ToString(k.Stueckpreis, 4));
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }

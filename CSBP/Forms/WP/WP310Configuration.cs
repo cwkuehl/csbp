@@ -5,6 +5,7 @@
 namespace CSBP.Forms.WP;
 
 using System;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -156,7 +157,7 @@ public partial class WP310Configuration : CsbpBin
         model = k;
         SetText(nr, k.Uid);
         SetText(bezeichnung, k.Bezeichnung);
-        SetText(box, Functions.ToString(k.Box, 2));
+        SetText(box, Funktionen.ToString(k.Box, 2));
         SetText(skala, Functions.ToString(k.Scale));
         SetText(umkehr, Functions.ToString(k.Reversal));
         SetText(methode, Functions.ToString(k.Method));

@@ -266,7 +266,7 @@ public class AiData
         }
         var duration = root.TryGetProperty("total_duration", out var t3) ? t3.GetDecimal() : 0;
         if (duration > 0)
-          data.FinishReasons.Add($"{Functions.ToString(duration / 1e9m)} s");
+          data.FinishReasons.Add($"{Funktionen.ToString(duration / 1e9m)} s");
       }
       else if (root.TryGetProperty("response", out var response))
       {
@@ -283,7 +283,7 @@ public class AiData
         }
         var duration = root.TryGetProperty("total_duration", out var t3) ? t3.GetDecimal() : 0;
         if (duration > 0)
-          data.FinishReasons.Add($"{Functions.ToString(duration / 1e9m)} s");
+          data.FinishReasons.Add($"{Funktionen.ToString(duration / 1e9m)} s");
       }
       else if (root.TryGetProperty("data", out var data1))
       {

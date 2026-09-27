@@ -9,15 +9,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using CSBP.Services.Budget;
 using CSBP.Services.Reports;
-using static CSBP.Services.Base.Functions;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -54,7 +53,7 @@ public class BudgetService : ServiceBase, IBudgetService
       cs.AddCsvLine(["Mandant_Nr", "Uid", "Sortierung", "Art", "Kz", "Name", "Gueltig_Von", "Gueltig_Bis", "EBetrag", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Sortierung, o.Art, o.Kz, o.Name, Functions.ToString(o.Gueltig_Von), Functions.ToString(o.Gueltig_Bis), Functions.ToString(o.EBetrag, 2), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Funktionen.ToString(o.Mandant_Nr), o.Uid, o.Sortierung, o.Art, o.Kz, o.Name, Funktionen.ToString(o.Gueltig_Von), Funktionen.ToString(o.Gueltig_Bis), Funktionen.ToString(o.EBetrag, 2), Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "HH300")
@@ -63,7 +62,7 @@ public class BudgetService : ServiceBase, IBudgetService
       cs.AddCsvLine(["Mandant_Nr", "Uid", "Kz", "SollKontoUid", "SollKonto", "HabenKontoUid", "HabenKonto", "Bezeichnung", "EText", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, o.Bezeichnung, o.EText, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, o.Bezeichnung, o.EText, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "HH400")
@@ -72,7 +71,7 @@ public class BudgetService : ServiceBase, IBudgetService
       cs.AddCsvLine(["SollValuta", "Btext", "Ebetrag", "Uid", "Kz", "SollKontoUid", "SollKonto", "HabenKontoUid", "HabenKonto", "BelegNr", "BelegDatum", "HabenValuta", "Betrag", "AngelegtVon", "AngelegtAm", "GeaendertVon", "GeaendertAm"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Soll_Valuta), o.BText, Functions.ToString(o.EBetrag, 2), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, Functions.ToString(o.Beleg_Datum), Functions.ToString(o.Haben_Valuta), Functions.ToString(o.Betrag, 2), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Funktionen.ToString(o.Soll_Valuta), o.BText, Funktionen.ToString(o.EBetrag, 2), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, Funktionen.ToString(o.Beleg_Datum), Funktionen.ToString(o.Haben_Valuta), Funktionen.ToString(o.Betrag, 2), Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     r.Ergebnis = cs.GetContent();
@@ -317,7 +316,7 @@ public class BudgetService : ServiceBase, IBudgetService
       throw new MessageException(HH017(strN));
     if (insert)
     {
-      knr = GetUid();
+      knr = Functions.GetUid();
       if (IstAktivPassivKontoIntern(type))
       {
         // Konto in Eröffnungsbilanz einfügen
@@ -734,7 +733,7 @@ public class BudgetService : ServiceBase, IBudgetService
     if (bu == null)
       belegNr = $"{date:yyyyMMdd}01";
     else
-      belegNr = Functions.ToString(ToInt64(bu.Beleg_Nr) + 1);
+      belegNr = Functions.ToString(Functions.ToInt64(bu.Beleg_Nr) + 1);
     var r = new ServiceErgebnis<string>(belegNr);
     return r;
   }
@@ -1708,7 +1707,7 @@ public class BudgetService : ServiceBase, IBudgetService
       throw new MessageException(HH035);
     if (string.IsNullOrEmpty(text))
       throw new MessageException(HH027);
-    Functions.MachNichts(bn);
+    Funktionen.MachNichts(bn);
     if (bd == null)
       throw new MessageException(HH036);
     var hhKonto = GetKontoIntern(daten, sollUid, false) ?? throw new MessageException(HH037);
@@ -1874,7 +1873,7 @@ public class BudgetService : ServiceBase, IBudgetService
 
     foreach (var str in vListe)
     {
-      var pnr3 = ToInt32(str[..10]);
+      var pnr3 = Funktionen.ToInt32(str[..10]);
       var strK3 = str.Substring(10, 2);
       var strS3 = str.Substring(12, 1);
       var knr3 = str[13..];
@@ -1988,7 +1987,7 @@ public class BudgetService : ServiceBase, IBudgetService
     string sort = null;
     while (string.IsNullOrEmpty(sort))
     {
-      sort = string.Format("{0:0000000000}", NextRandom(1000000, 10000000));
+      sort = string.Format("{0:0000000000}", Funktionen.NextRandom(1000000, 10000000));
       var k = HhKontoRep.GetMin(daten, uid, null, sort, null);
       if (k != null)
         sort = null;
@@ -2056,7 +2055,7 @@ public class BudgetService : ServiceBase, IBudgetService
   {
     var list = new List<string>();
     var columns = GetBookingColumns();
-    list.Add(EncodeCSV(columns));
+    list.Add(Functions.EncodeCSV(columns));
     if (bookings == null)
       return list;
     foreach (var b in bookings)
@@ -2070,7 +2069,7 @@ public class BudgetService : ServiceBase, IBudgetService
         ToStr(b.Betrag), ToStr(b.Angelegt_Von), ToStr(b.Angelegt_Am), ToStr(b.Geaendert_Von),
         ToStr(b.Geaendert_Am),
       };
-      list.Add(EncodeCSV(l));
+      list.Add(Functions.EncodeCSV(l));
     }
     return list;
   }

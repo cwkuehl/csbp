@@ -4,6 +4,7 @@
 
 namespace CSBP.Services.Apis.Models;
 
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -14,7 +15,7 @@ public partial class FileData : ModelBase
   /// <summary>Initializes a new instance of the <see cref="FileData"/> class.</summary>
   public FileData()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>Gets or sets the file name.</summary>

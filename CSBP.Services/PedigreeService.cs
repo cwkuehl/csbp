@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -1641,7 +1642,7 @@ public class PedigreeService : ServiceBase, IPedigreeService
   /// <param name="name">Affected pedigree name.</param>
   private static void WriteFoot(ServiceDaten daten, List<string> l, string version, string name)
   {
-    Functions.MachNichts(daten);
+    Funktionen.MachNichts(daten);
     if (version.CompareTo("5.5") >= 0)
     {
       var p = MaParameterRep.GetValue(daten, daten.MandantNr, Parameter.SB_SUBMITTER);

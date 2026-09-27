@@ -11,13 +11,13 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using CSBP.Services.NonService;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
@@ -49,7 +49,7 @@ public class DiaryService : ServiceBase, IDiaryService
       cs.AddCsvLine(["Uid", "Bezeichnung", "Breite", "Laenge", "Hoehe", "Zeitzone", "Notiz", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([o.Uid, o.Bezeichnung, Functions.ToString(o.Breite, 5), Functions.ToString(o.Laenge, 5), Functions.ToString(o.Hoehe, 2), o.Zeitzone, o.Notiz, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([o.Uid, o.Bezeichnung, Funktionen.ToString(o.Breite, 5), Funktionen.ToString(o.Laenge, 5), Funktionen.ToString(o.Hoehe, 2), o.Zeitzone, o.Notiz, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     return new ServiceErgebnis<string>(cs.GetContent());
@@ -171,11 +171,11 @@ public class DiaryService : ServiceBase, IDiaryService
       else if (listep.Count == 1)
       {
         if (vop.Datum_Von == from && vop.Datum_Bis == to)
-          Functions.MachNichts();
+          Funktionen.MachNichts();
         else if (vop.Datum_Von <= from && vop.Datum_Bis >= to)
         {
           if (from == to)
-            Functions.MachNichts(); // Case: by mistake deleted and again added.
+            Funktionen.MachNichts(); // Case: by mistake deleted and again added.
           else
           {
             // Shortens period.
@@ -367,9 +367,9 @@ public class DiaryService : ServiceBase, IDiaryService
       {
         sb.Length = 0;
         sb.Append('[');
-        _ = sb.Append(p.Bezeichnung).Append(": ").Append(Functions.ToString(p.Breite, 5)).Append(' ').Append(Functions.ToString(p.Laenge, 5));
+        _ = sb.Append(p.Bezeichnung).Append(": ").Append(Funktionen.ToString(p.Breite, 5)).Append(' ').Append(Funktionen.ToString(p.Laenge, 5));
         if (p.Hoehe != 0)
-          sb.Append(' ').Append(Functions.ToString(p.Hoehe, 2));
+          sb.Append(' ').Append(Funktionen.ToString(p.Hoehe, 2));
         if (!string.IsNullOrEmpty(p.Notiz))
           sb.Append(" (").Append(p.Notiz).Append(')');
         sb.Append(']');
@@ -731,11 +731,11 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <param name="tz">Affected timezone.</param>
   private static string RapidapiMeteostatWeather(string apikey, decimal lat, decimal lon, decimal alt, DateTime date, string tz)
   {
-    var start = Functions.ToString(date);
+    var start = Funktionen.ToString(date);
     var sb = new StringBuilder();
-    var la = Functions.ToString(lat, 4, Functions.CultureInfoEn);
-    var lo = Functions.ToString(lon, 4, Functions.CultureInfoEn);
-    var al = Functions.ToString(alt, 0, Functions.CultureInfoEn);
+    var la = Funktionen.ToString(lat, 4, Functions.CultureInfoEn);
+    var lo = Funktionen.ToString(lon, 4, Functions.CultureInfoEn);
+    var al = Funktionen.ToString(alt, 0, Functions.CultureInfoEn);
     sb.Append(@$"https://meteostat.p.rapidapi.com/point/hourly?lat={la}&lon={lo}&start={start}&end={start}&alt={al}");
     if (!string.IsNullOrEmpty(tz))
       sb.Append(@$"&tz={System.Web.HttpUtility.UrlEncode(tz)}");

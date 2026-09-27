@@ -5,6 +5,7 @@
 namespace CSBP.Forms.TB;
 
 using System;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -126,9 +127,9 @@ public partial class TB210Position : CsbpBin
         model = k;
         SetText(nr, k.Uid);
         SetText(bezeichnung, k.Bezeichnung);
-        SetText(breite, Functions.ToString(k.Breite, 5));
-        SetText(laenge, Functions.ToString(k.Laenge, 5));
-        SetText(hoehe, Functions.ToString(k.Hoehe, 2));
+        SetText(breite, Funktionen.ToString(k.Breite, 5));
+        SetText(laenge, Funktionen.ToString(k.Laenge, 5));
+        SetText(hoehe, Funktionen.ToString(k.Hoehe, 2));
         SetText(zeitzone, k.Zeitzone);
         SetText(notiz, k.Notiz);
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
@@ -156,9 +157,9 @@ public partial class TB210Position : CsbpBin
     var c = Functions.ToCoordinates(breite.Text);
     if (c != null)
     {
-      SetText(breite, Functions.ToString(c.Item1, 5));
-      SetText(laenge, Functions.ToString(c.Item2, 5));
-      SetText(hoehe, Functions.ToString(c.Item3, 2));
+      SetText(breite, Funktionen.ToString(c.Item1, 5));
+      SetText(laenge, Funktionen.ToString(c.Item2, 5));
+      SetText(hoehe, Funktionen.ToString(c.Item3, 2));
     }
   }
 

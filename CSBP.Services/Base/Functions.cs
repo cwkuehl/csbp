@@ -93,18 +93,6 @@ public static partial class Functions
   }
 
   /// <summary>
-  /// Function does nothing.
-  /// </summary>
-  /// <param name="obj">Optional parameter is not used.</param>
-  /// <returns>Number 0.</returns>
-  public static int MachNichts(object obj = null)
-  {
-    if (obj == null)
-      return 0;
-    return 0;
-  }
-
-  /// <summary>
   /// Converts string to integer.
   /// </summary>
   /// <returns>Converted value.</returns>
@@ -257,21 +245,6 @@ public static partial class Functions
     if (s.Length > l - 3)
       return s.Substring(0, l - 3) + "...";
     return s;
-  }
-
-  /// <summary>
-  /// Returns the right part of a string with the given length.
-  /// If the string is too short, it is returned unchanged.
-  /// If the string is null, the empty string is returned.
-  /// </summary>
-  /// <param name="value">Affected string.</param>
-  /// <param name="length">The number of characters to return.</param>
-  /// <returns>A shorter, the same or the empty string.</returns>
-  public static string Right(this string value, int length)
-  {
-    return value == null
-      ? string.Empty
-      : (length > value.Length ? value : value.Substring(value.Length - length, length));
   }
 
   /// <summary>
@@ -458,36 +431,6 @@ public static partial class Functions
     return s2;
   }
 
-  /// <summary>
-  /// Returns file name optionally with date and random number.
-  /// </summary>
-  /// <param name="name">Name am Anfang.</param>
-  /// <param name="datum">With current date or not.</param>
-  /// <param name="zeit">With current time or not.</param>
-  /// <param name="zufall">With random number or not.</param>
-  /// <param name="endung">Dateiendung ohne Punkt.</param>
-  /// <returns>File name.</returns>
-  public static string GetDateiname(string name, bool datum, bool zeit, bool zufall, string endung)
-  {
-    var sb = new StringBuilder();
-    if (!string.IsNullOrEmpty(name))
-      sb.Append(name);
-    if (datum)
-    {
-      if (zeit)
-        sb.Append('_').Append(DateTime.Now.ToString("yyyyMMddHHmmss"));
-      else
-        sb.Append('_').Append(DateTime.Today.ToString("yyyyMMdd"));
-    }
-    else if (zeit)
-      sb.Append('_').Append(DateTime.Now.ToString("HHmmss"));
-    if (zufall)
-      sb.Append('_').Append(NextRandom(1000, 10000));
-    if (!string.IsNullOrEmpty(endung))
-      sb.Append('.').Append(endung);
-    return sb.ToString();
-  }
-
   /// <summary>Returns a never null string.</summary>
   /// <param name="s">Affected string.</param>
   /// <returns>Not null string.</returns>
@@ -511,6 +454,18 @@ public static partial class Functions
   }
 
   /// <summary>
+  /// Converts integer to string in current culture.
+  /// </summary>
+  /// <param name="i">Affected value.</param>
+  /// <returns>Converted value.</returns>
+  public static string ToString(long? i)
+  {
+    if (!i.HasValue)
+      return string.Empty;
+    return i.Value.ToString(CultureInfoCu);
+  }
+
+  /// <summary>
   /// Converts nullable bool to string.
   /// </summary>
   /// <param name="i">Affected value.</param>
@@ -520,44 +475,6 @@ public static partial class Functions
     if (!i.HasValue)
       return string.Empty;
     return i.Value ? "true" : "false";
-  }
-
-  /// <summary>
-  /// Converts nullable decimal to string.
-  /// </summary>
-  /// <param name="d">Affected value.</param>
-  /// <param name="digits">Number of digits to print.</param>
-  /// <param name="ci">Affected culture info.</param>
-  /// <param name="withoutkomma">True, if the decimal separator is removed.</param>
-  /// <returns>Converted value.</returns>
-  public static string ToString(decimal? d, int digits = -1, CultureInfo ci = null, bool withoutkomma = false)
-  {
-    if (!d.HasValue)
-      return string.Empty;
-    var v = d.Value.ToString(digits < 0 ? "N" : $"N{digits}", ci ?? CultureInfoCu);
-    if (withoutkomma)
-      v = v.Replace(",", "");
-    return v;
-  }
-
-  /// <summary>
-  /// Converts nullable DateTime to string in format yyyy-MM-dd, yyyy-MM-dd HH:mm:ss or yyyy-MM-dd HH:mm:ss.fffffff.
-  /// </summary>
-  /// <param name="d">Affected value.</param>
-  /// <param name="time">Formats with time or not.</param>
-  /// <param name="milli">Formats with milliseconds or not.</param>
-  /// <returns>Converted value.</returns>
-  public static string ToString(DateTime? d, bool time = false, bool milli = false)
-  {
-    if (!d.HasValue)
-      return string.Empty;
-    if (time)
-    {
-      if (milli)
-        return d.Value.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
-      return d.Value.ToString("yyyy-MM-dd HH:mm:ss");
-    }
-    return d.Value.ToString("yyyy-MM-dd");
   }
 
   /// <summary>
@@ -790,29 +707,6 @@ public static partial class Functions
       m = -m;
     }
     return m;
-  }
-
-  /// <summary>
-  /// Gets the next random number between two values.
-  /// </summary>
-  /// <param name="minValue">Minimal value.</param>
-  /// <param name="maxExclusiveValue">Exclusive maximal value.</param>
-  /// <returns>Random number between two values.</returns>
-  public static int NextRandom(int minValue, int maxExclusiveValue)
-  {
-    if (minValue >= maxExclusiveValue)
-      throw new ArgumentOutOfRangeException(nameof(minValue)); // "minValue must be lower than maxExclusiveValue");
-
-    var diff = (long)maxExclusiveValue - minValue;
-    var upperBound = uint.MaxValue / diff * diff;
-
-    uint ui;
-    do
-    {
-      ui = GetRandomUInt();
-    }
-    while (ui >= upperBound);
-    return (int)(minValue + (ui % diff));
   }
 
   /// <summary>
@@ -1390,28 +1284,6 @@ public static partial class Functions
   /// <summary>Regex for file uri.</summary>
   [GeneratedRegex("^(file:\\/*)(.+?)$")]
   public static partial Regex FileRegex();
-
-  /// <summary>
-  /// Gets a random integer.
-  /// </summary>
-  /// <returns>Random integer.</returns>
-  private static uint GetRandomUInt()
-  {
-    var randomBytes = GenerateRandomBytes(sizeof(uint));
-    return BitConverter.ToUInt32(randomBytes, 0);
-  }
-
-  /// <summary>
-  /// Gets random bytes.
-  /// </summary>
-  /// <param name="bytesNumber">Number of bytes.</param>
-  /// <returns>Random bytes.</returns>
-  private static byte[] GenerateRandomBytes(int bytesNumber)
-  {
-    var buffer = new byte[bytesNumber];
-    Csp.GetBytes(buffer);
-    return buffer;
-  }
 
   /// <summary>Gets the ith character of a string or 0 if the string is shorter than i characters.</summary>
   /// <param name="str">Affected string.</param>

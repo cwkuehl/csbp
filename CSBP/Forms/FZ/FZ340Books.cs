@@ -6,6 +6,7 @@ namespace CSBP.Forms.FZ;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -118,9 +119,9 @@ public partial class FZ340Books : CsbpBin
           e.Uid, Functions.Left2(e.Titel), Functions.Left2(e.AuthorCompleteName), Functions.Left2(e.SeriesName),
           Functions.ToString(e.Seriennummer), Functions.ToString(e.Seiten),
           e.Language, e.StatePossession ? "x" : "",
-          Functions.ToString(e.StateRead), Functions.ToString(e.StateHeard),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.StateRead), Funktionen.ToString(e.StateHeard),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(buecher, FZ340_buecher_columns, values);

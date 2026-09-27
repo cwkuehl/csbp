@@ -6,6 +6,7 @@ namespace CSBP.Forms.HH;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -167,11 +168,11 @@ public partial class HH400Bookings : CsbpBin
         summe += e.EBetrag;
         values.Add(new string[]
         {
-          e.Uid, Functions.ToString(e.Soll_Valuta), e.Kz,
-          Functions.ToString(e.EBetrag, 2), Functions.Left2(e.BText),
+          e.Uid, Funktionen.ToString(e.Soll_Valuta), e.Kz,
+          Funktionen.ToString(e.EBetrag, 2), Functions.Left2(e.BText),
           e.DebitName, e.CreditName, e.Beleg_Nr,
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       SetText(buchungenStatus, HH054(anz, summe));

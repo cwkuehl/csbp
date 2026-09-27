@@ -6,6 +6,7 @@ namespace CSBP.Forms.HH;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -92,9 +93,9 @@ public partial class HH200Accounts : CsbpBin
         values.Add(new string[]
         {
           e.Uid, e.Art, e.Kz, Functions.Left2(e.Name),
-          Functions.ToString(e.Gueltig_Von), Functions.ToString(e.Gueltig_Bis), Functions.ToString(e.EBetrag, 2),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.Gueltig_Von), Funktionen.ToString(e.Gueltig_Bis), Funktionen.ToString(e.EBetrag, 2),
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(konten, HH200_konten_columns, values);

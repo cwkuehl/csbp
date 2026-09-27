@@ -13,7 +13,6 @@ using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Reports;
-using static CSBP.Services.Base.Functions;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -304,7 +303,7 @@ public class AddressService : ServiceBase, IAddressService
         row++;
         //// if (row == 18)
         ////    MachNichts();
-        var f = DecodeCSV(line);
+        var f = Functions.DecodeCSV(line);
         if (f == null)
           continue;
         if (check)
@@ -318,17 +317,17 @@ public class AddressService : ServiceBase, IAddressService
             {
               Uid = FromStr(f[0]),
               Geschlecht = FromStr(f[2]),
-              Geburt = ToDateTime(f[3]),
+              Geburt = Functions.ToDateTime(f[3]),
               Name1 = FromStr(f[5]),
               Name2 = FromStr(f[6]),
               Praedikat = FromStr(f[7]),
               Vorname = FromStr(f[8]),
               Titel = FromStr(f[9]),
-              Person_Status = ToInt32(f[10]),
+              Person_Status = Funktionen.ToInt32(f[10]),
               Angelegt_Von = FromStr(f[11]),
-              Angelegt_Am = ToDateTime(f[12]),
+              Angelegt_Am = Functions.ToDateTime(f[12]),
               Geaendert_Von = FromStr(f[13]),
-              Geaendert_Am = ToDateTime(f[14]),
+              Geaendert_Am = Functions.ToDateTime(f[14]),
             },
             Person_Uid = FromStr(f[15]),
             Uid = FromStr(f[16]),
@@ -341,11 +340,11 @@ public class AddressService : ServiceBase, IAddressService
             Homepage = FromStr(f[24]),
             Postfach = FromStr(f[25]),
             Bemerkung = FromStr(f[26]),
-            Sitz_Status = ToInt32(f[27]),
+            Sitz_Status = Funktionen.ToInt32(f[27]),
             Angelegt_Von = FromStr(f[28]),
-            Angelegt_Am = ToDateTime(f[29]),
+            Angelegt_Am = Functions.ToDateTime(f[29]),
             Geaendert_Von = FromStr(f[30]),
-            Geaendert_Am = ToDateTime(f[31]),
+            Geaendert_Am = Functions.ToDateTime(f[31]),
             Address = new AdAdresse
             {
               Uid = FromStr(f[32]),
@@ -355,11 +354,11 @@ public class AddressService : ServiceBase, IAddressService
               Strasse = FromStr(f[36]),
               HausNr = FromStr(f[37]),
               Angelegt_Von = FromStr(f[38]),
-              Angelegt_Am = ToDateTime(f[39]),
+              Angelegt_Am = Functions.ToDateTime(f[39]),
               Geaendert_Von = FromStr(f[40]),
-              Geaendert_Am = ToDateTime(f[41]),
+              Geaendert_Am = Functions.ToDateTime(f[41]),
             },
-            Reihenfolge = ToInt32(f[42]),
+            Reihenfolge = Funktionen.ToInt32(f[42]),
           };
           if (!IsPersonEmpty(s.Person.Geschlecht, s.Person.Geburt, s.Person.Name1,
               s.Person.Name2, s.Person.Praedikat, s.Person.Vorname, s.Person.Titel))
@@ -418,7 +417,7 @@ public class AddressService : ServiceBase, IAddressService
     }
     finally
     {
-      MachNichts(row);
+      Funktionen.MachNichts(row);
     }
     r.Ergebnis = AD010(pcount, perror, scount, serror, acount, aerror);
     return r;
@@ -629,7 +628,7 @@ public class AddressService : ServiceBase, IAddressService
   {
     var list = new List<string>();
     var columns = GetAddressColumns();
-    list.Add(EncodeCSV(columns));
+    list.Add(Functions.EncodeCSV(columns));
     if (sites == null)
       return list;
     foreach (var s in sites)
@@ -646,7 +645,7 @@ public class AddressService : ServiceBase, IAddressService
         ToStr(a.Plz), ToStr(a.Ort), ToStr(a.Strasse), ToStr(a.HausNr), ToStr(a.Angelegt_Von), ToStr(a.Angelegt_Am), ToStr(a.Geaendert_Von),
         ToStr(a.Geaendert_Am), ToStr(s.Reihenfolge),
       };
-      list.Add(EncodeCSV(l));
+      list.Add(Functions.EncodeCSV(l));
     }
     return list;
   }

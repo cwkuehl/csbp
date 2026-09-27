@@ -6,6 +6,7 @@ namespace CSBP.Services.Reports;
 
 using System.Collections.Generic;
 using System.Text;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using static CSBP.Services.Base.Functions;
@@ -123,7 +124,7 @@ public partial class AddressReport : ReportBase
       return "";
     var sb = new StringBuilder();
     sb.Append(" ", a.Praedikat).Append(" ", a.Name1).Append(" ", a.Name2).Append(", ", a.Vorname);
-    sb.Append(" (", a.Titel, ")").Append(", ", Functions.ToString(a.Geburt));
+    sb.Append(" (", a.Titel, ")").Append(", ", Funktionen.ToString(a.Geburt));
     return sb.ToString();
   }
 

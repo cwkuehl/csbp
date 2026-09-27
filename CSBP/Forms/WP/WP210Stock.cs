@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Linq;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -175,9 +176,9 @@ public partial class WP210Stock : CsbpBin
         SetText(provider, k.Datenquelle);
         SetText(kuerzel, k.Kuerzel);
         SetText(status, k.Status);
-        SetText(aktKurs, Functions.ToString(k.CurrentPrice));
-        SetText(stopKurs, Functions.ToString(k.StopPrice));
-        SetText(signalKurs1, Functions.ToString(k.SignalPrice1));
+        SetText(aktKurs, Funktionen.ToString(k.CurrentPrice));
+        SetText(stopKurs, Funktionen.ToString(k.StopPrice));
+        SetText(signalKurs1, Funktionen.ToString(k.SignalPrice1));
         SetText(muster, k.Pattern);
         SetText(typ, k.Type);
         SetText(waehrung, k.Currency);

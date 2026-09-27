@@ -5,6 +5,7 @@
 namespace CSBP.Forms.Controls;
 
 using System;
+using BlazorSpa.Base;
 using Cairo;
 using CSBP.Services.Base;
 using CSBP.Services.Pnf;
@@ -19,7 +20,7 @@ public class ChartPane
   /// </summary>
   public ChartPane()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>Draws a Point and Figure charts.</summary>
@@ -131,13 +132,13 @@ public class ChartPane
         if (i == iakt)
         {
           color = black;
-          DrawString(pc, x + 5, y - ygroesse, Functions.ToString(Functions.Round(aktkurs), 2), fontbold, color);
+          DrawString(pc, x + 5, y - ygroesse, Funktionen.ToString(Functions.Round(aktkurs), 2), fontbold, color);
           color = lightgray;
           yakt = y;
         }
         else
         {
-          DrawString(pc, x + 5, y - ygroesse, Functions.ToString(Functions.Round(c.Werte[i]), 2), font, color);
+          DrawString(pc, x + 5, y - ygroesse, Funktionen.ToString(Functions.Round(c.Werte[i]), 2), font, color);
         }
       }
       //// Horizontal lines
@@ -154,7 +155,7 @@ public class ChartPane
       DrawLine(pc, x, yoffset, x, y);
       if (i % 6 == 0 && i < xanzahl && c.Saeulen[i].Date != null)
       {
-        DrawString(pc, x + xgroesse, y + (ygroesse * 0.5m), Functions.ToString(c.Saeulen[i].Date), font, color);
+        DrawString(pc, x + xgroesse, y + (ygroesse * 0.5m), Funktionen.ToString(c.Saeulen[i].Date), font, color);
       }
       x += xgroesse;
     }

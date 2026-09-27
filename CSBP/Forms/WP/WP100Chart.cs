@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -151,7 +152,7 @@ public partial class WP100Chart : CsbpBin
       {
         SetText(wertpapier, model.Item2);
       }
-      SetText(box, Functions.ToString(k.Box));
+      SetText(box, Funktionen.ToString(k.Box));
       SetText(skala, k.Scale.ToString());
       SetText(umkehr, k.Reversal.ToString());
       SetText(methode, k.Method.ToString());
@@ -170,8 +171,8 @@ public partial class WP100Chart : CsbpBin
         {
           values.Add(new string[]
           {
-            Functions.ToString(e.Datum), Functions.ToString(e.Datum), Functions.ToString(e.Open),
-            Functions.ToString(e.High), Functions.ToString(e.Low), Functions.ToString(e.Close),
+            Funktionen.ToString(e.Datum), Funktionen.ToString(e.Datum), Funktionen.ToString(e.Open),
+            Funktionen.ToString(e.High), Funktionen.ToString(e.Low), Funktionen.ToString(e.Close),
           });
         }
       }

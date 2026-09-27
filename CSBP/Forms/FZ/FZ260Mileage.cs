@@ -6,6 +6,7 @@ namespace CSBP.Forms.FZ;
 
 using System;
 using System.Linq;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -145,9 +146,9 @@ public partial class FZ260Mileage : CsbpBin
         SetText(nr, k.Nr.ToString());
         SetText(fahrrad, k.Fahrrad_Uid);
         datum.Value = k.Datum;
-        SetText(zaehler, Functions.ToString(k.Zaehler_km, 0));
-        SetText(km, Functions.ToString(k.Periode_km, 0));
-        SetText(schnitt, Functions.ToString(k.Periode_Schnitt, 2));
+        SetText(zaehler, Funktionen.ToString(k.Zaehler_km, 0));
+        SetText(km, Funktionen.ToString(k.Periode_km, 0));
+        SetText(schnitt, Funktionen.ToString(k.Periode_Schnitt, 2));
         SetText(beschreibung, Functions.ToString(k.Beschreibung));
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));

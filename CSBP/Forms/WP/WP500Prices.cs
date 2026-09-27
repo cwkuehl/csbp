@@ -6,6 +6,7 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -124,9 +125,9 @@ public partial class WP500Prices : CsbpBin
         // No.;Stock;Date;Price_r;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Wertpapier_Uid, Functions.Left2(e.StockDescription), Functions.ToString(e.Datum),
-          Functions.ToString(e.Stueckpreis, 4), Functions.ToString(e.Geaendert_Am, true),
-          e.Geaendert_Von, Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Wertpapier_Uid, Functions.Left2(e.StockDescription), Funktionen.ToString(e.Datum),
+          Funktionen.ToString(e.Stueckpreis, 4), Funktionen.ToString(e.Geaendert_Am, true),
+          e.Geaendert_Von, Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(staende, WP500_staende_columns, values);

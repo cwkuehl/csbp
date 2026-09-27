@@ -7,6 +7,7 @@ namespace CSBP.Services.Server;
 using System;
 using System.Net;
 using System.Threading;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -102,7 +103,7 @@ public class HttpServer
     }
     catch (Exception ex)
     {
-      Functions.MachNichts(ex);
+      Funktionen.MachNichts(ex);
     }
   }
 }

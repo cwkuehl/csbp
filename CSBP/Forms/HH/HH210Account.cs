@@ -5,6 +5,7 @@
 namespace CSBP.Forms.HH;
 
 using System;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -172,7 +173,7 @@ public partial class HH210Account : CsbpBin
         SetText(kontoart1, k.Art);
         von.Value = k.Gueltig_Von;
         bis.Value = k.Gueltig_Bis;
-        SetText(betrag, Functions.ToString(k.EBetrag, 2));
+        SetText(betrag, Funktionen.ToString(k.EBetrag, 2));
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
         SetText(buchung, Get(FactoryService.BudgetService.GetBookingSpan(daten, k.Uid)));

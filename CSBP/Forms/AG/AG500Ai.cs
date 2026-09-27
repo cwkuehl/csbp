@@ -7,6 +7,7 @@ namespace CSBP.Forms.AG;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -134,9 +135,9 @@ public partial class AG500Ai : CsbpBin
         // No.;Date;Prompt;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Uid, Functions.ToString(e.Datum), e.Data.Prompt,
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Uid, Funktionen.ToString(e.Datum), e.Data.Prompt,
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(dialogs, AG500_dialogs_columns, values);

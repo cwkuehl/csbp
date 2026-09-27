@@ -7,6 +7,7 @@ namespace CSBP.Forms.FZ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -122,9 +123,9 @@ public partial class FZ100Statistics : CsbpBin
 
       var l = Get(FactoryService.BudgetService.GetProprietaryPlList(daten, datum.ValueNn));
       l.Reverse();
-      pplList = l.Select(a => new KeyValuePair<string, decimal>(Functions.ToString(a.Geaendert_Am), a.EBetrag)).ToList();
+      pplList = l.Select(a => new KeyValuePair<string, decimal>(Funktionen.ToString(a.Geaendert_Am), a.EBetrag)).ToList();
       var l2 = Get(FactoryService.PrivateService.GetMileages(daten, datum.ValueNn));
-      mileageList = l2.Select(a => new KeyValuePair<string, decimal>(Functions.ToString(a.Datum), a.Periode_km)).ToList();
+      mileageList = l2.Select(a => new KeyValuePair<string, decimal>(Funktionen.ToString(a.Datum), a.Periode_km)).ToList();
     }
     if (step <= 0)
     {

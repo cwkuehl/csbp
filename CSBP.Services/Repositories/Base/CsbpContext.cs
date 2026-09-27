@@ -4,6 +4,7 @@
 
 namespace CSBP.Services.Repositories.Base;
 
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using CSBP.Services.Undo;
@@ -52,7 +53,7 @@ public partial class CsbpContext : DbContext
     }
 
     // optionsBuilder.UseSqlite("Data Source=/daten/wolfgang/Entwicklung/cs/csbp/CSBP/Data/csbp.db;");
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
     {
       optionsBuilder
         .UseLoggerFactory(LoggerFactory)

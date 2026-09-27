@@ -6,6 +6,7 @@ namespace CSBP.Forms.FZ;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models.Views;
 using CSBP.Services.Base;
@@ -102,11 +103,11 @@ public partial class FZ250Mileages : CsbpBin
         // No.;Bike;Date;No.;Odometer_r;Km_r;Average_r;Description;Changed at;Changed by;Created at;Created by
         values.Add(new string[]
         {
-          e.Fahrrad_Uid, Functions.Left2(e.Bezeichnung), Functions.ToString(e.Datum),
-          Functions.ToString(e.Nr), Functions.ToString(e.Zaehler_km, 0),
-          Functions.ToString(e.Periode_km, 0), Functions.ToString(e.Periode_Schnitt, 2),
-          Functions.Left2(e.Beschreibung), Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Fahrrad_Uid, Functions.Left2(e.Bezeichnung), Funktionen.ToString(e.Datum),
+          Functions.ToString(e.Nr), Funktionen.ToString(e.Zaehler_km, 0),
+          Funktionen.ToString(e.Periode_km, 0), Funktionen.ToString(e.Periode_Schnitt, 2),
+          Functions.Left2(e.Beschreibung), Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(fahrradstaende, FZ250_fahrradstaende_columns, values);

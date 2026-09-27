@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -82,7 +83,7 @@ public partial class SO100Sudoku : CsbpBin
       }
       catch (Exception)
       {
-        Functions.MachNichts();
+        Funktionen.MachNichts();
       }
       if (context == null)
       {

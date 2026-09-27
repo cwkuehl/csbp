@@ -6,6 +6,7 @@ namespace CSBP.Forms.SB;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -82,8 +83,8 @@ public partial class SB400Sources : CsbpBin
         values.Add(new string[]
         {
           e.Uid, Functions.Left2(e.Autor), Functions.Left2(e.Beschreibung),
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(quellen, SB400_quellen_columns, values);

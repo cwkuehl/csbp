@@ -6,6 +6,7 @@ namespace CSBP.Services.Apis.Models;
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -18,7 +19,7 @@ public partial class TbOrt : ModelBase
   /// <summary>Initializes a new instance of the <see cref="TbOrt"/> class.</summary>
   public TbOrt()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>Gets or sets the value of column Mandant_Nr.</summary>

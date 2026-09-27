@@ -7,6 +7,7 @@ namespace CSBP;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Base;
 using CSBP.Forms;
@@ -97,7 +98,7 @@ public class MainClass
     MainWindow.Show();
     MainWindow.SetPermission();
     MainWindow.Start(MainWindow);
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       TestCode();
     Application.Run();
   }
@@ -177,7 +178,7 @@ public class MainClass
       var per = user == null ? (int)PermissionEnum.Without : user.Berechtigung;
       MainWindow.SetPermission(true, per);
 
-      if (Functions.MachNichts() == 0)
+      if (Funktionen.MachNichts() == 0)
       {
         // Start-Dialoge starten
 #if DEBUG
@@ -312,7 +313,7 @@ public class MainClass
     }
     catch (Exception)
     {
-      Functions.MachNichts();
+      Funktionen.MachNichts();
     }
   }
 

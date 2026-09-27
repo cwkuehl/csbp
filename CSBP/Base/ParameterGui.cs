@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text.Json;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -54,7 +55,7 @@ public class ParameterGui : Parameter
     string setting = null, bool database = false, bool client = false)
     : base(key, default_, trim, crypted, setting, database, client)
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>Gets or sets the last login client.</summary>
@@ -287,7 +288,7 @@ public class ParameterGui : Parameter
       }
       catch (System.Exception)
       {
-        Functions.MachNichts();
+        Funktionen.MachNichts();
       }
     }
     l ??= new[] { -1, -1, 400, 300 };

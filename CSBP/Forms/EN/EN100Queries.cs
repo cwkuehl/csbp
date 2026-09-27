@@ -7,6 +7,7 @@ namespace CSBP.Forms.EN;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -116,8 +117,8 @@ public partial class EN100Queries : CsbpBin
         values.Add(
         [
           e.Uid, e.Sortierung, Functions.Left2(e.Bezeichnung), CsbpBase.GetStockState(e.Status, "1"),
-          e.Host_Url, Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          e.Host_Url, Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         ]);
       }
       SetText(tabstatus, M1040(anz));

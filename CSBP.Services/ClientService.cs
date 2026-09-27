@@ -14,6 +14,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
@@ -21,7 +23,6 @@ using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Models.Extension;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using CSBP.Services.Client;
 using CSBP.Services.NonService;
 using CSBP.Services.Reports;
@@ -383,7 +384,7 @@ public partial class ClientService : ServiceBase, IClientService
       cs.AddCsvLine(["Nr", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "AG200")
@@ -392,7 +393,7 @@ public partial class ClientService : ServiceBase, IClientService
       cs.AddCsvLine(["Benutzer_ID", "Passwort", "Berechtigung", "Akt_Periode", "Person_Nr", "Geburt", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([o.Benutzer_ID, "xxx", Functions.ToString(o.Berechtigung), Functions.ToString(o.Akt_Periode), Functions.ToString(o.Person_Nr), Functions.ToString(o.Geburt), Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([o.Benutzer_ID, "xxx", Functions.ToString(o.Berechtigung), Functions.ToString(o.Akt_Periode), Functions.ToString(o.Person_Nr), Funktionen.ToString(o.Geburt), Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "AM500")
@@ -401,7 +402,7 @@ public partial class ClientService : ServiceBase, IClientService
       cs.AddCsvLine(["Schluessel", "Wert", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([o.Schluessel, o.Wert, Functions.ToString(o.Angelegt_Am), o.Angelegt_Von, Functions.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([o.Schluessel, o.Wert, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     return new ServiceErgebnis<string>(cs.GetContent());
@@ -988,7 +989,7 @@ public partial class ClientService : ServiceBase, IClientService
       {
         var j = new Dictionary<string, string>
         {
-          { "datum", Functions.ToString(e.Datum) },
+          { "datum", Funktionen.ToString(e.Datum) },
           { "eintrag", e.Eintrag },
           { "replid", "server" },
           { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
@@ -1077,16 +1078,16 @@ public partial class ClientService : ServiceBase, IClientService
         var j = new Dictionary<string, string>
         {
           { "uid", e.Uid },
-          { "sollValuta", Functions.ToString(e.Soll_Valuta) },
-          { "habenValuta", Functions.ToString(e.Haben_Valuta) },
+          { "sollValuta", Funktionen.ToString(e.Soll_Valuta) },
+          { "habenValuta", Funktionen.ToString(e.Haben_Valuta) },
           { "kz", e.Kz },
-          { "betrag", Functions.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
-          { "ebetrag", Functions.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
+          { "betrag", Funktionen.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
+          { "ebetrag", Funktionen.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
           { "sollKontoUid", e.Soll_Konto_Uid },
           { "habenKontoUid", e.Haben_Konto_Uid },
           { "btext", e.BText },
           { "belegNr", e.Beleg_Nr },
-          { "belegDatum", Functions.ToString(e.Beleg_Datum) },
+          { "belegDatum", Funktionen.ToString(e.Beleg_Datum) },
           { "replid", "server" },
           { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
@@ -1130,12 +1131,12 @@ public partial class ClientService : ServiceBase, IClientService
           { "art", e.Art },
           { "kz", e.Kz },
           { "name", e.Name },
-          { "gueltigVon", Functions.ToString(e.Gueltig_Von) },
-          { "gueltigBis", Functions.ToString(e.Gueltig_Bis) },
+          { "gueltigVon", Funktionen.ToString(e.Gueltig_Von) },
+          { "gueltigBis", Funktionen.ToString(e.Gueltig_Bis) },
           { "periodeVon", Functions.ToString(e.Periode_Von) },
           { "periodeBis", Functions.ToString(e.Periode_Bis) },
-          { "betrag", Functions.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
-          { "ebetrag", Functions.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
+          { "betrag", Funktionen.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
+          { "ebetrag", Funktionen.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
           { "replid", "server" },
           { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
@@ -1219,11 +1220,11 @@ public partial class ClientService : ServiceBase, IClientService
         var j = new Dictionary<string, string>
         {
           { "fahrradUid", e.Fahrrad_Uid },
-          { "datum", Functions.ToString(e.Datum) },
-          { "nr", Functions.ToString(e.Nr, 0, Functions.CultureInfoEn) },
-          { "zaehlerKm", Functions.ToString(e.Zaehler_km, 2, Functions.CultureInfoEn) },
-          { "periodeKm", Functions.ToString(e.Periode_km, 2, Functions.CultureInfoEn) },
-          { "periodeSchnitt", Functions.ToString(e.Periode_Schnitt, 2, Functions.CultureInfoEn) },
+          { "datum", Funktionen.ToString(e.Datum) },
+          { "nr", Funktionen.ToString(e.Nr, 0, Functions.CultureInfoEn) },
+          { "zaehlerKm", Funktionen.ToString(e.Zaehler_km, 2, Functions.CultureInfoEn) },
+          { "periodeKm", Funktionen.ToString(e.Periode_km, 2, Functions.CultureInfoEn) },
+          { "periodeSchnitt", Funktionen.ToString(e.Periode_Schnitt, 2, Functions.CultureInfoEn) },
           { "beschreibung", e.Beschreibung },
           { "replid", "server" },
           { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
@@ -1290,7 +1291,7 @@ public partial class ClientService : ServiceBase, IClientService
   /// <returns>List of AI models.</returns>
   public ServiceErgebnis<List<MaParameter>> GetAiModelList(ServiceDaten daten)
   {
-    Functions.MachNichts(daten);
+    Funktionen.MachNichts(daten);
     var l = AiData.GetAiList.Select(x => new MaParameter { Schluessel = x.Item1, Wert = x.Item2 }).ToList();
     var r = new ServiceErgebnis<List<MaParameter>>(l);
     return r;
@@ -1538,7 +1539,7 @@ public partial class ClientService : ServiceBase, IClientService
     ////var json = System.Text.Json.JsonSerializer.Serialize(jcontent, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
     ////Debug.Print($"{json}");
     string s;
-    if (Functions.MachNichts() == 0)
+    if (Funktionen.MachNichts() == 0)
     {
       var task = httpsclient.PostAsJsonAsync(url, jcontent);
       task.Wait();
@@ -1604,7 +1605,7 @@ public partial class ClientService : ServiceBase, IClientService
   /// <param name="uid">Affected ID.</param>
   private static BackupEntry GetBackupEntryIntern(ServiceDaten daten, string uid)
   {
-    Functions.MachNichts(daten);
+    Funktionen.MachNichts(daten);
     BackupEntry e = null;
     var l = BackupEntry.GetBackupEntryList();
     if (!string.IsNullOrEmpty(uid) && l != null)
@@ -1740,7 +1741,7 @@ public partial class ClientService : ServiceBase, IClientService
       }
       catch (Exception ex)
       {
-        Functions.MachNichts(ex);
+        Funktionen.MachNichts(ex);
       }
       fsOut.Close();
       fsCrypt.Close();
@@ -1827,9 +1828,9 @@ public partial class ClientService : ServiceBase, IClientService
       bool restore, bool encrypted, bool zipped, List<BackupFile> blist,
       StringBuilder state, StringBuilder cancel)
   {
-    Functions.MachNichts(daten);
-    Functions.MachNichts(state);
-    Functions.MachNichts(cancel);
+    Funktionen.MachNichts(daten);
+    Funktionen.MachNichts(state);
+    Funktionen.MachNichts(cancel);
     var tname = Path.GetFileName(Path.GetDirectoryName(source));
     var p = zipped ? Path.Combine(target, tname + ".zip")
         : Path.GetFullPath(Path.Combine(target, tname) + Path.DirectorySeparatorChar);

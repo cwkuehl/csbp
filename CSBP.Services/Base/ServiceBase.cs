@@ -29,9 +29,6 @@ using NLog;
 /// </summary>
 public class ServiceBase
 {
-  /// <summary>Milliseconds for http request timeout (10000 for fixer.io instead of 5000).</summary>
-  public const int HttpTimeout = 10000;
-
   /// <summary>Logger instance of NLog.</summary>
   public static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
@@ -446,9 +443,9 @@ public class ServiceBase
       return s;
     }
     if (o is DateTime?)
-      return Functions.ToString(o as DateTime?, true);
+      return Funktionen.ToString(o as DateTime?, true);
     if (o is decimal?)
-      return Functions.ToString(o as decimal?, 2);
+      return Funktionen.ToString(o as decimal?, 2);
     return "";
   }
 

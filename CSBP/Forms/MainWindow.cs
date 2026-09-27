@@ -499,7 +499,7 @@ public class MainWindow : Window
 
     // Icon.Save("/home/wolfgang/cs/csbp/Asciidoc/de/assets/icon/test.png", "png");
     // find /usr/share/icons -type f -name '*.png'
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
     {
       var path = "/home/wolfgang/cs/csbp/Asciidoc/de/assets/icons";
       var theme = IconTheme.Default;
@@ -634,7 +634,7 @@ public class MainWindow : Window
     // MenuBookings3.Activate();
     // MenuPrices.Activate();
     // MenuQueries.Activate();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
     {
       var alist = AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.GetName().Name).ToList();
       var sb = new StringBuilder();
@@ -769,7 +769,7 @@ public class MainWindow : Window
   public void AppendPage(CsbpBin widget, string label, bool focus = false)
   {
     var title = label.Replace("_", ""); // .Replace("&", "&amp;");
-    if (Functions.MachNichts() == 0)
+    if (Funktionen.MachNichts() == 0)
     {
       var closeImage = Image.NewFromIconName("window-close", IconSize.Button);
       var button = new Button();
@@ -1296,7 +1296,7 @@ public class MainWindow : Window
     var assembly = Assembly.GetEntryAssembly();
     var ver = assembly?.GetName().Version.ToString() ?? "1.1";
     var loc = assembly?.Location;
-    var date = string.IsNullOrEmpty(loc) ? "" : Functions.ToString(System.IO.File.GetCreationTime(loc), true);
+    var date = string.IsNullOrEmpty(loc) ? "" : Funktionen.ToString(System.IO.File.GetCreationTime(loc), true);
     var db = Parameter.Connect;
     var roles = string.Join(", ", daten.Daten.Rollen);
     using var about = new AboutDialog

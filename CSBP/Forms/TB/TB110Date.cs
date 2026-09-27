@@ -5,6 +5,7 @@
 namespace CSBP.Forms.TB;
 
 using System;
+using BlazorSpa.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
@@ -116,7 +117,7 @@ public partial class TB110Date : CsbpBin
     var p = Get(FactoryService.DiaryService.GetPosition(daten, nr.Text));
     if (p != null && p.Bezeichnung != bezeichnung.Text)
     {
-      var r = FactoryService.DiaryService.SavePosition(daten, p.Uid, bezeichnung.Text, Functions.ToString(p.Breite, 5), Functions.ToString(p.Laenge, 5), Functions.ToString(p.Hoehe, 2), p.Zeitzone, p.Notiz);
+      var r = FactoryService.DiaryService.SavePosition(daten, p.Uid, bezeichnung.Text, Funktionen.ToString(p.Breite, 5), Funktionen.ToString(p.Laenge, 5), Funktionen.ToString(p.Hoehe, 2), p.Zeitzone, p.Notiz);
       Get(r);
       if (!r.Ok)
         return;

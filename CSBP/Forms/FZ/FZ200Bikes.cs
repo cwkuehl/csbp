@@ -6,6 +6,7 @@ namespace CSBP.Forms.FZ;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -81,8 +82,8 @@ public partial class FZ200Bikes : CsbpBin
         values.Add(new string[]
         {
           e.Uid, Functions.Left2(e.Bezeichnung), e.TypBezeichnung,
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       AddStringColumnsSort(fahrraeder, FZ200_bikes_columns, values);

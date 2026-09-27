@@ -6,7 +6,7 @@ namespace CSBP.Services.Reports;
 
 using System.Collections.Generic;
 using System.Linq;
-using CSBP.Services.Base;
+using BlazorSpa.Base;
 using CSBP.Services.Budget;
 using static CSBP.Services.Resources.Messages;
 
@@ -117,7 +117,7 @@ table {
         Xml.WriteEndElement();
         Xml.WriteStartElement("td");
         Xml.WriteAttributeString("class", "td1 alignright");
-        Xml.WriteString(Functions.ToString(r.Value, 2));
+        Xml.WriteString(Funktionen.ToString(r.Value, 2));
         Xml.WriteEndElement();
       }
       if (string.IsNullOrEmpty(r.Nr2))
@@ -136,7 +136,7 @@ table {
         Xml.WriteEndElement();
         Xml.WriteStartElement("td");
         Xml.WriteAttributeString("class", "alignright");
-        Xml.WriteString(Functions.ToString(r.Value2, 2));
+        Xml.WriteString(Funktionen.ToString(r.Value2, 2));
         Xml.WriteEndElement();
       }
       Xml.WriteEndElement(); // tr
@@ -150,7 +150,7 @@ table {
     Xml.WriteEndElement();
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "tfoot td1 alignright bold");
-    Xml.WriteString(Functions.ToString(sum1, 2));
+    Xml.WriteString(Funktionen.ToString(sum1, 2));
     Xml.WriteEndElement();
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "tfoot alignleft bold");
@@ -158,7 +158,7 @@ table {
     Xml.WriteEndElement();
     Xml.WriteStartElement("td");
     Xml.WriteAttributeString("class", "tfoot alignright bold");
-    Xml.WriteString(Functions.ToString(sum2, 2));
+    Xml.WriteString(Funktionen.ToString(sum2, 2));
     Xml.WriteEndElement();
     Xml.WriteEndElement(); // tr
     Xml.WriteEndElement(); // table

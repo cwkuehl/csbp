@@ -7,6 +7,7 @@ namespace CSBP.Forms.WP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Forms.HH;
@@ -219,11 +220,11 @@ public partial class WP410Booking : CsbpBin
         SetText(nr, k.Uid);
         SetText(anlage, k.Anlage_Uid);
         valuta.Value = k.Datum;
-        SetText(preis, Functions.ToString(k.Price, 4));
-        SetText(betrag, Functions.ToString(k.Zahlungsbetrag, 2));
-        SetText(rabatt, Functions.ToString(k.Rabattbetrag, 2));
-        SetText(anteile, Functions.ToString(k.Anteile, 5));
-        SetText(zinsen, Functions.ToString(k.Zinsen, 2));
+        SetText(preis, Funktionen.ToString(k.Price, 4));
+        SetText(betrag, Funktionen.ToString(k.Zahlungsbetrag, 2));
+        SetText(rabatt, Funktionen.ToString(k.Rabattbetrag, 2));
+        SetText(anteile, Funktionen.ToString(k.Anteile, 5));
+        SetText(zinsen, Funktionen.ToString(k.Zinsen, 2));
         SetText(bText, k.BText);
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
@@ -239,7 +240,7 @@ public partial class WP410Booking : CsbpBin
           if (b != null)
           {
             hhvaluta.Value = b.Soll_Valuta;
-            SetText(hhbetrag, Functions.ToString(b.EBetrag, 2));
+            SetText(hhbetrag, Funktionen.ToString(b.EBetrag, 2));
             if (events != null)
             {
               var ev = events.FirstOrDefault(a => a.Soll_Konto_Uid == b.Soll_Konto_Uid && a.Haben_Konto_Uid == b.Haben_Konto_Uid);
@@ -447,7 +448,7 @@ public partial class WP410Booking : CsbpBin
       Get(FactoryService.StockService.GetInvestment(daten, inuid));
     var p = inv == null || !valuta.Value.HasValue ? null :
       Get(FactoryService.StockService.GetPrice(daten, inv.Wertpapier_Uid, valuta.Value.Value));
-    SetText(preis, Functions.ToString(p?.Stueckpreis, 4));
+    SetText(preis, Funktionen.ToString(p?.Stueckpreis, 4));
     if (string.IsNullOrEmpty(hhbuchung.Text))
       hhvaluta.Value = valuta.ValueNn;
     EventList(inuid);
@@ -461,13 +462,13 @@ public partial class WP410Booking : CsbpBin
     var p = Functions.ToDecimal(betrag.Text);
     var s = Functions.ToDecimal(anteile.Text);
     var z = Functions.ToDecimal(zinsen.Text) ?? 0;
-    SetText(preis2, Functions.ToString(Functions.CompDouble4(p, 0) == 0 || Functions.CompDouble4(s, 0) == 0 ? null : p / s, 6));
+    SetText(preis2, Funktionen.ToString(Functions.CompDouble4(p, 0) == 0 || Functions.CompDouble4(s, 0) == 0 ? null : p / s, 6));
     if (string.IsNullOrEmpty(hhbuchung.Text))
     {
       if (z == 0)
-        SetText(hhbetrag, Functions.ToString(Math.Abs((p ?? 0) - (Functions.ToDecimal(rabatt.Text) ?? 0)), 2));
+        SetText(hhbetrag, Funktionen.ToString(Math.Abs((p ?? 0) - (Functions.ToDecimal(rabatt.Text) ?? 0)), 2));
       else
-        SetText(hhbetrag, Functions.ToString(Math.Abs(z + (Functions.ToDecimal(rabatt.Text) ?? 0)), 2));
+        SetText(hhbetrag, Funktionen.ToString(Math.Abs(z + (Functions.ToDecimal(rabatt.Text) ?? 0)), 2));
     }
   }
 

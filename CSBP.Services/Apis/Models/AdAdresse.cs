@@ -6,6 +6,7 @@ namespace CSBP.Services.Apis.Models;
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -18,7 +19,7 @@ public partial class AdAdresse : ModelBase
   /// <summary>Initializes a new instance of the <see cref="AdAdresse"/> class.</summary>
   public AdAdresse()
   {
-    Functions.MachNichts();
+    Funktionen.MachNichts();
   }
 
   /// <summary>Gets or sets the value of column Mandant_Nr.</summary>

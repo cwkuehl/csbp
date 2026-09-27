@@ -7,6 +7,7 @@ namespace CSBP.Forms.WP;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Base;
 using CSBP.Forms.Controls;
@@ -176,8 +177,8 @@ public partial class WP220Interface : CsbpBin
       {
         cvalues.Add(new string[]
         {
-          c.Uid, Functions.Left2(c.Bezeichnung), Functions.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
-          Functions.ToString(c.Angelegt_Am, true), c.Angelegt_Von,
+          c.Uid, Functions.Left2(c.Bezeichnung), Funktionen.ToString(c.Geaendert_Am, true), c.Geaendert_Von,
+          Funktionen.ToString(c.Angelegt_Am, true), c.Angelegt_Von,
         });
       }
       AddStringColumnsSort(konfiguration, WP220_konfiguration_columns, cvalues);
@@ -193,8 +194,8 @@ public partial class WP220Interface : CsbpBin
       {
         svalues.Add(new string[]
         {
-          s.Uid, s.Bezeichnung, Functions.ToString(s.Geaendert_Am, true), s.Geaendert_Von,
-          Functions.ToString(s.Angelegt_Am, true), s.Angelegt_Von,
+          s.Uid, s.Bezeichnung, Funktionen.ToString(s.Geaendert_Am, true), s.Geaendert_Von,
+          Funktionen.ToString(s.Angelegt_Am, true), s.Angelegt_Von,
         });
       }
       AddStringColumnsSort(wertpapier, WP220_wertpapier_columns, svalues);

@@ -176,7 +176,7 @@ public partial class HttpsServer
       }
       catch (Exception ex)
       {
-        Functions.MachNichts(ex);
+        Funktionen.MachNichts(ex);
       }
       if (token != HttpsServer.token)
         r.Errors.Add(new Message($"Unberechtigt: {token}.", true));

@@ -6,8 +6,8 @@ namespace CSBP.Forms.WP;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -145,9 +145,9 @@ public partial class WP200Stocks : CsbpBin
           e.Datenquelle, e.Kuerzel, e.RelationDescription, e.Assessment, e.Trend,
           e.Assessment1, e.Trend1, e.Assessment2, e.Trend2, e.Assessment3, e.Trend3,
           e.Assessment4, e.Trend4, e.Assessment5, e.Trend5, e.Xo, e.SignalAssessment,
-          Functions.ToString(e.SignalDate), e.SignalDescription, e.Average200,
-          Functions.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
-          Functions.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
+          Funktionen.ToString(e.SignalDate), e.SignalDescription, e.Average200,
+          Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
+          Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });
       }
       SetText(status, WP056(anz));
