@@ -7,6 +7,8 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +37,7 @@ public partial class HhKontoRep
       DateTime? dle = null, DateTime? dge = null, string search = null)
   {
     var db = GetDb(daten);
-    search = Functions.TrimNull(search) ?? rm?.Search;
+    search = search.TrimNull() ?? rm?.Search;
     var l = db.HH_Konto.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (nrle >= 0)
       l = l.Where(a => a.Periode_Von <= nrle);

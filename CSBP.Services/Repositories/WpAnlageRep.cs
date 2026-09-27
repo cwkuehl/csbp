@@ -6,6 +6,8 @@ namespace CSBP.Services.Repositories;
 
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +35,7 @@ public partial class WpAnlageRep
       string uid = null, string stuid = null, bool onlyactive = false, string search = null)
   {
     var db = GetDb(daten);
-    search = Functions.TrimNull(search) ?? rm?.Search;
+    search = search.TrimNull() ?? rm?.Search;
     var wl = db.WP_Anlage.Where(a => a.Mandant_Nr == mandantnr);
     if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));

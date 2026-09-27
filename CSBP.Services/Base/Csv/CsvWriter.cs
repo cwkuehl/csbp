@@ -5,6 +5,7 @@
 namespace CSBP.Services.Base.Csv;
 
 using System.Text;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -22,7 +23,7 @@ public class CsvWriter
   private readonly string trenner = ";";
 
   /// <summary>Interner Zeilenumbruch.</summary>
-  private readonly string crlf = Constants.CrLf;
+  private readonly string crlf = Konstanten.CrLf;
 
   /// <summary>Initializes a new instance of the <see cref="CsvWriter"/> class.</summary>
   public CsvWriter()

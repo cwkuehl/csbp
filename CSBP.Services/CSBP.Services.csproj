@@ -9,6 +9,9 @@
     <PublishAot>false</PublishAot>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\blazorbp\BlazorSpa.Base\BlazorSpa.Base.csproj" />
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'!='net5.0'">
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.*" />
     <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.*" />

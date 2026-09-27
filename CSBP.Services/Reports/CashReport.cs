@@ -7,6 +7,7 @@ namespace CSBP.Services.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using static CSBP.Services.Resources.M;

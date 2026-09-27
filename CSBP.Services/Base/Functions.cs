@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Serialization;
+using BlazorSpa.Base.Services;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -227,23 +228,6 @@ public static partial class Functions
     if (lower)
       return char.ToUpper(s[0]) + s[1..].ToLower();
     return char.ToUpper(s[0]) + s[1..];
-  }
-
-  /// <summary>
-  /// Optionally trims a string and returns null if it is empty.
-  /// </summary>
-  /// <param name="s">Affected string.</param>
-  /// <param name="trim">Trim value or not.</param>
-  /// <returns>Converted string.</returns>
-  public static string TrimNull(this string s, bool trim = true)
-  {
-    if (trim)
-      s = s?.Trim();
-    if (string.IsNullOrEmpty(s))
-    {
-      return null;
-    }
-    return s;
   }
 
   /// <summary>

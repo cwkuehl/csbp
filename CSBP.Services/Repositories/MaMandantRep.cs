@@ -5,6 +5,7 @@
 namespace CSBP.Services.Repositories;
 
 using System.Collections.Generic;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;

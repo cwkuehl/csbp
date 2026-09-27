@@ -5,6 +5,7 @@
 namespace CSBP.Services.Apis.Models;
 
 using System.ComponentModel.DataAnnotations.Schema;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -56,7 +57,7 @@ public partial class EnAbfrage : ModelBase
 
     set
     {
-      Datentyp = Functions.TrimNull((value.Datatype ?? "") + Functions.Iif(string.IsNullOrEmpty(value.Enum), "", $"|{value.Enum}"));
+      Datentyp = ((value.Datatype ?? "") + Functions.Iif(string.IsNullOrEmpty(value.Enum), "", $"|{value.Enum}")).TrimNull();
     }
   }
 }

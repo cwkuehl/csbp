@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Models.Views;
@@ -22,6 +25,9 @@ using static CSBP.Services.Resources.Messages;
 /// </summary>
 public class PrivateService : ServiceBase, IPrivateService
 {
+  /// <summary>Zeilenumbruch für Ausgabe.</summary>
+  private const string CrLf = Konstanten.CrLf;
+
   /// <summary>Fixed bike year in statistics.</summary>
   private static readonly bool BikeYearFixed = Functions.MachNichts() != 0;
 
@@ -786,7 +792,7 @@ public class PrivateService : ServiceBase, IPrivateService
           if (alt.HasValue)
             sb.Append(FZ002(alt.Value - db));
           if (sb.Length > 0)
-            sb.Append(Constants.CRLF);
+            sb.Append(Konstanten.CrLf);
           sb.Append(FZ001(M0(HH001), e.Geaendert_Am, db));
           alt = db;
         }
@@ -813,39 +819,39 @@ public class PrivateService : ServiceBase, IPrivateService
       if (geburt.HasValue)
         anzahlTage = (int)(jetzt - geburt.Value).TotalDays;
       if (anzahlTage > 0)
-        sb.Append(Constants.CRLF).Append(FZ004(anzahlTage));
+        sb.Append(CrLf).Append(FZ004(anzahlTage));
       var anzahl = FzBuchRep.Count(daten, -1, null, prSerie, jetzt);
-      sb.Append(Constants.CRLF).Append(FZ005(anzahl));
+      sb.Append(CrLf).Append(FZ005(anzahl));
       var anzahl2 = FzBuchRep.Count(daten, -1, null, prSerie, jetzt, jetzt);
-      sb.Append(Constants.CRLF).Append(FZ006(anzahl2));
+      sb.Append(CrLf).Append(FZ006(anzahl2));
       if (anzahl != 0)
         sb.Append(FZ008((decimal)anzahl2 / anzahl * 100));
       anzahl2 = FzBuchRep.Count(daten, -1, null, prSerie, jetzt, null, jetzt);
-      sb.Append(Constants.CRLF).Append(FZ007(anzahl2));
+      sb.Append(CrLf).Append(FZ007(anzahl2));
       if (anzahl != 0)
         sb.Append(FZ008((decimal)anzahl2 / anzahl * 100));
       anzahl = FzBuchRep.Count(daten, 2, null, null, jetzt, null, null); // Englisch
-      sb.Append(Constants.CRLF).Append(FZ009(anzahl));
+      sb.Append(CrLf).Append(FZ009(anzahl));
       if (wk && !string.IsNullOrEmpty(prSerie))
       {
         anzahl = FzBuchRep.Count(daten, -1, prSerie, null, jetzt);
-        sb.Append(Constants.CRLF).Append(FZ010(anzahl));
+        sb.Append(CrLf).Append(FZ010(anzahl));
         anzahl2 = FzBuchRep.Count(daten, -1, prSerie, null, jetzt, jetzt);
-        sb.Append(Constants.CRLF).Append(FZ011(anzahl2));
+        sb.Append(CrLf).Append(FZ011(anzahl2));
         if (anzahl != 0)
           sb.Append(FZ008((decimal)anzahl2 / anzahl * 100));
       }
       anzahl2 = FzBuchRep.Count(daten, -1, null, prSerie, jetzt, jetzt, pages: true);
-      sb.Append(Constants.CRLF).Append(FZ012(anzahl2));
+      sb.Append(CrLf).Append(FZ012(anzahl2));
       if (wk && !string.IsNullOrEmpty(prSerie))
       {
         anzahl2 = FzBuchRep.Count(daten, -1, prSerie, null, jetzt, jetzt, pages: true);
-        sb.Append(Constants.CRLF).Append(FZ013(anzahl2));
+        sb.Append(CrLf).Append(FZ013(anzahl2));
       }
       anzahl2 = FzBuchRep.Count(daten, -1, null, null, jetzt, jetzt, pages: true);
-      sb.Append(Constants.CRLF).Append(FZ014(anzahl2));
+      sb.Append(CrLf).Append(FZ014(anzahl2));
       if (anzahlTage > 0)
-        sb.Append(Constants.CRLF).Append(FZ015((decimal)anzahl2 / anzahlTage));
+        sb.Append(CrLf).Append(FZ015((decimal)anzahl2 / anzahlTage));
       r.Ergebnis = sb.ToString();
     }
     else if (nr == 3)
@@ -892,18 +898,18 @@ public class PrivateService : ServiceBase, IPrivateService
         summeJahr += kmJahr;
         sumyear1 += kmyear1;
         if (sb.Length > 0)
-          sb.Append(Constants.CRLF);
+          sb.Append(CrLf);
         sb.Append(FZ016(Functions.Cut((vo.Bezeichnung + ": ").PadRight(laenge, ' '), laenge), km, kmJahr, kmyear1));
         if (anzahlTage > 0)
         {
-          sb.Append(Constants.CRLF).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfang) + ": ").PadRight(laenge, ' '), laenge),
+          sb.Append(CrLf).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfang) + ": ").PadRight(laenge, ' '), laenge),
             km / anzahlTage, km / anzahlTage * jahresTage));
         }
       }
       if (anzahlTageMax > 0)
       {
-        sb.Append(Constants.CRLF).Append(FZ016(Functions.Cut((M0(FZ018) + ": ").PadRight(laenge, ' '), laenge), summe, summeJahr, sumyear1));
-        sb.Append(Constants.CRLF).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfangMin) + ": ").PadRight(laenge, ' '), laenge),
+        sb.Append(CrLf).Append(FZ016(Functions.Cut((M0(FZ018) + ": ").PadRight(laenge, ' '), laenge), summe, summeJahr, sumyear1));
+        sb.Append(CrLf).Append(FZ017(Functions.Cut((" " + Functions.ToString(anfangMin) + ": ").PadRight(laenge, ' '), laenge),
           summe / anzahlTageMax, summe / anzahlTageMax * jahresTage));
       }
       r.Ergebnis = sb.ToString();

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Forms.AD;
 using CSBP.Forms.AG;
@@ -649,7 +650,7 @@ public class MainWindow : Window
         {
           // Ignore.
         }
-        sb.Append($"Name={name.Name} Version={name.Version} Location={loc}").Append(Constants.CRLF);
+        sb.Append($"Name={name.Name} Version={name.Version} Location={loc}").Append(Konstanten.CrLf);
       }
       ServiceBase.Log.Warn(sb.ToString());
     }

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -462,7 +464,7 @@ public partial class SB210Ancestor : CsbpBin
     bilder.Add(p);
     if (!string.IsNullOrWhiteSpace(dropname))
       SetText(bilddaten, bilddaten.Buffer.Text.Replace(dropname, ""));
-    SetText(bilddaten, Functions.Append(bilddaten.Buffer.Text, Constants.CRLF, metadata));
+    SetText(bilddaten, Functions.Append(bilddaten.Buffer.Text, Konstanten.CrLf, metadata));
     if (append)
     {
       imagelist.Add(new ByteDaten

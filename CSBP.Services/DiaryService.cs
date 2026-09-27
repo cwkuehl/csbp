@@ -10,6 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
@@ -447,9 +450,9 @@ public class DiaryService : ServiceBase, IDiaryService
   public ServiceErgebnis<TbOrt> SavePosition(ServiceDaten daten, string uid, string desc, string lat, string lon, string alt, string tz, string memo)
   {
     var r = new ServiceErgebnis<TbOrt>();
-    desc = Functions.TrimNull(desc);
-    tz = Functions.TrimNull(tz);
-    memo = Functions.TrimNull(memo);
+    desc = desc.TrimNull();
+    tz = tz.TrimNull();
+    memo = memo.TrimNull();
     if (string.IsNullOrEmpty(desc))
       r.Errors.Add(Message.New(TB007));
     var b = Functions.ToDecimal(lat) ?? 0;

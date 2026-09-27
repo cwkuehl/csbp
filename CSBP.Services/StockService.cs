@@ -8,17 +8,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Base.Csv;
 using CSBP.Services.NonService;
 using CSBP.Services.Pnf;
-using CSBP.Services.Resources;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 
@@ -79,7 +80,7 @@ public class StockService : ServiceBase, IStockService
         state.Beenden(r: r1);
         if (r1.Ok && r1.Ergebnis != null)
         {
-          r.Ergebnis = string.Join(Constants.CrLf, r1.Ergebnis);
+          r.Ergebnis = string.Join(Konstanten.CrLf, r1.Ergebnis);
           return r;
         }
       }

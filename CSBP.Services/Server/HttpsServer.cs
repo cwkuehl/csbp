@@ -17,6 +17,8 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
 
@@ -239,12 +241,12 @@ Cache-control: no-cache
 
     var ms = new MemoryStream();
     var rb = new StringBuilder();
-    rb.Append("HTTP/1.1 ").Append(statuscode).Append(Constants.CRLF);
+    rb.Append("HTTP/1.1 ").Append(statuscode).Append(Konstanten.CrLf);
     foreach (var d in rh)
     {
-      rb.Append(d.Key).Append(": ").Append(d.Value).Append(Constants.CRLF);
+      rb.Append(d.Key).Append(": ").Append(d.Value).Append(Konstanten.CrLf);
     }
-    rb.Append(Constants.CRLF); // Header-Ende
+    rb.Append(Konstanten.CrLf); // Header-Ende
     ms.Write(Encoding.UTF8.GetBytes(rb.ToString()));
     ms.Write(content);
     resp.HeadersAndContent = ms.ToArray();

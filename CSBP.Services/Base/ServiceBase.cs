@@ -15,6 +15,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Serialization;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Repositories;
 using CSBP.Services.Repositories.Base;
@@ -471,7 +472,7 @@ public class ServiceBase
   /// <returns>Trimmed string or null.</returns>
   protected static string N(string s)
   {
-    return Functions.TrimNull(s);
+    return s.TrimNull();
   }
 
   /// <summary>

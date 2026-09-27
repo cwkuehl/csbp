@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
-using CSBP.Services.Base;
+using BlazorSpa.Base.Services;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
 

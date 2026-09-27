@@ -4,6 +4,8 @@
 
 namespace CSBP.Services.Repositories;
 
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +25,7 @@ public partial class FzFahrradRep
   public List<FzFahrrad> GetList(ServiceDaten daten, TableReadModel rm = null, string search = null)
   {
     var db = GetDb(daten);
-    search = Functions.TrimNull(search) ?? rm?.Search;
+    search = search.TrimNull() ?? rm?.Search;
     var l = db.FZ_Fahrrad.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (CsbpBase.IsLike(search))
       l = l.Where(a => EF.Functions.Like(a.Bezeichnung, search));

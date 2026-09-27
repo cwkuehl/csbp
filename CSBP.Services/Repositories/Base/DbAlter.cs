@@ -6,6 +6,7 @@ namespace CSBP.Services.Repositories.Base;
 
 using System.Collections.Generic;
 using System.Text;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Base;
 
@@ -14,6 +15,9 @@ using CSBP.Services.Base;
 /// </summary>
 public partial class DbAlter
 {
+  /// <summary>Zeilenumbruch für Ausgabe.</summary>
+  private const string CrLf = Konstanten.CrLf;
+
   /// <summary>Pause for Jet-Engine.</summary>
   private const string JetPause = "--pause";
 
@@ -119,20 +123,20 @@ public partial class DbAlter
     else if (zieldb == DatabaseTypeEnum.MySql)
     {
       sql = string.Format("CREATE TABLE {0} ({1}{2}{1}) ENGINE=INNODB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci{3}",
-        tab, Constants.CRLF, str1, ende);
+        tab, CrLf, str1, ende);
       if (!string.IsNullOrEmpty(index))
       {
         Execute(mout, sql);
-        sql = string.Format("ALTER TABLE {0}{1} ADD (CONSTRAINT XPK{0} PRIMARY KEY ({2})){3}", tab, Constants.CRLF, index, ende);
+        sql = string.Format("ALTER TABLE {0}{1} ADD (CONSTRAINT XPK{0} PRIMARY KEY ({2})){3}", tab, CrLf, index, ende);
       }
     }
     else if (zieldb == DatabaseTypeEnum.HsqlDb)
     {
-      sql = string.Format("CREATE CACHED TABLE {0} ({1}{2}{1}){3}", tab, Constants.CRLF, str1, ende);
+      sql = string.Format("CREATE CACHED TABLE {0} ({1}{2}{1}){3}", tab, CrLf, str1, ende);
       if (!string.IsNullOrEmpty(index))
       {
         Execute(mout, sql);
-        sql = string.Format("ALTER TABLE {0}{1} ADD CONSTRAINT XPK{0} PRIMARY KEY ({2}){3}", tab, Constants.CRLF, index, ende);
+        sql = string.Format("ALTER TABLE {0}{1} ADD CONSTRAINT XPK{0} PRIMARY KEY ({2}){3}", tab, CrLf, index, ende);
       }
     }
     else if (zieldb == DatabaseTypeEnum.SqLite)
@@ -192,7 +196,7 @@ public partial class DbAlter
     }
     else if (zieldb == DatabaseTypeEnum.MySql)
     {
-      sql = string.Format("ALTER TABLE {0}{1} ADD {2} {3}({4}){5}", tab, Constants.CRLF, unique ? "UNIQUE" : "INDEX", index, spalten, ende);
+      sql = string.Format("ALTER TABLE {0}{1} ADD {2} {3}({4}){5}", tab, CrLf, unique ? "UNIQUE" : "INDEX", index, spalten, ende);
 
       // ALTER TABLE `DB`.`VM_Buchung_2` ADD INDEX `Schluessel` (
       // `Mandant_Nr` , `Schluessel` )
@@ -202,11 +206,11 @@ public partial class DbAlter
     else if (zieldb == DatabaseTypeEnum.HsqlDb)
     {
       if (unique)
-        sql = string.Format("ALTER TABLE {0}{1} ADD CONSTRAINT {2} UNIQUE ({3}){4}", tab, Constants.CRLF, index, spalten, ende);
+        sql = string.Format("ALTER TABLE {0}{1} ADD CONSTRAINT {2} UNIQUE ({3}){4}", tab, CrLf, index, spalten, ende);
     }
     else if (zieldb == DatabaseTypeEnum.SqLite)
     {
-      sql = string.Format("CREATE {0} INDEX IF NOT EXISTS {1} ON {2}{3}({4}){5}", unique ? "UNIQUE" : "INDEX", index, tab, Constants.CRLF, spalten, ende);
+      sql = string.Format("CREATE {0} INDEX IF NOT EXISTS {1} ON {2}{3}({4}){5}", unique ? "UNIQUE" : "INDEX", index, tab, CrLf, spalten, ende);
     }
     else
     {
@@ -425,7 +429,7 @@ public partial class DbAlter
     if (dt == DatabaseTypeEnum.MySql || dt == DatabaseTypeEnum.HsqlDb || dt == DatabaseTypeEnum.SqLite)
       ende = ";";
     else if (dt == DatabaseTypeEnum.SqlServer)
-      ende = Constants.CRLF + "GO";
+      ende = CrLf + "GO";
     return ende;
   }
 
@@ -615,6 +619,6 @@ public partial class DbAlter
   {
     if (zieldb == DatabaseTypeEnum.SqLite)
       sql = sql.ToUpper();
-    mout.Add(sql + Constants.CRLF);
+    mout.Add(sql + CrLf);
   }
 }

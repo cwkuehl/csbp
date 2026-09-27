@@ -7,6 +7,8 @@ namespace CSBP.Forms.WP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
@@ -237,7 +239,7 @@ public partial class WP260Investment : CsbpBin
     if (DialogType == DialogTypeEnum.New || DialogType == DialogTypeEnum.Copy
       || DialogType == DialogTypeEnum.Edit)
     {
-      var v = Functions.TrimNull(stand.Text);
+      var v = stand.Text.TrimNull();
       var rb = FactoryService.StockService.SaveInvestment(daten,
         DialogType == DialogTypeEnum.Edit ? nr.Text : null, GetText(wertpapier), bezeichnung.Text,
         notiz.Buffer.Text, Functions.ToInt32(GetText(status)), GetText(depot), GetText(abrechnung), GetText(ertrag),

@@ -6,6 +6,8 @@ namespace CSBP.Services.Repositories;
 
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +38,7 @@ public partial class WpWertpapierRep
     bool onlyactive = false, string search = null, string reuid = null)
   {
     var db = GetDb(daten);
-    search = Functions.TrimNull(search) ?? rm?.Search;
+    search = search.TrimNull() ?? rm?.Search;
     var wl = db.WP_Wertpapier.Where(a => a.Mandant_Nr == mandantnr);
     if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));

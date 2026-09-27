@@ -11,9 +11,6 @@ public static class Constants
 {
 #pragma warning disable SA1310
 
-  /// <summary>Liefert Zeilenumbruch (Windows).</summary>
-  public const string CrLf = "\r\n";
-
   /// <summary>Benutzer-ID für Initialisierung.</summary>
   public const string USER_ID = "Benutzer-ID";
 
@@ -43,9 +40,6 @@ public static class Constants
 
   /// <summary>Mandant-Einstellung: EXAMPLES.</summary>
   public const string EINST_MA_EXAMPLES = "EXAMPLES";
-
-  /// <summary>Zeilenumbruch bei Windows.</summary>
-  public const string CRLF = "\r\n";
 
   /// <summary>Halbes Jahr in Tagen.</summary>
   public const int STOCK_DAYS = 183;

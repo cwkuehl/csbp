@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using BlazorSpa.Base;
 using CSBP.Services.Base;
 
 /// <summary>
@@ -155,13 +156,13 @@ public class AiData
       var root = doc.RootElement;
       if (root.TryGetProperty("model", out var model))
       {
-        data.Model = Functions.TrimNull(model.GetString());
+        data.Model = model.GetString().TrimNull();
       }
       if (root.TryGetProperty("prompt", out var prompt))
       {
         // gpt-3.5-turbo-instruct
-        data.Prompt = Functions.TrimNull(prompt.GetString());
-        data.AssistantPrompts.Add(Functions.TrimNull(prompt.GetString()));
+        data.Prompt = prompt.GetString().TrimNull();
+        data.AssistantPrompts.Add(prompt.GetString().TrimNull());
       }
       if (root.TryGetProperty("temperature", out var temperature))
       {
@@ -180,14 +181,14 @@ public class AiData
           if (arr1.TryGetProperty("content", out var c) && arr1.TryGetProperty("role", out var role))
           {
             if (role.GetString() == "system")
-              data.SystemPrompt = Functions.TrimNull(c.GetString());
+              data.SystemPrompt = c.GetString().TrimNull();
             else if (role.GetString() == "user")
             {
-              data.Prompt = Functions.TrimNull(c.GetString());
-              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+              data.Prompt = c.GetString().TrimNull();
+              data.AssistantPrompts.Add(c.GetString().TrimNull());
             }
             else if (role.GetString() == "assistant")
-              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+              data.AssistantPrompts.Add(c.GetString().TrimNull());
           }
         }
       }
@@ -199,7 +200,7 @@ public class AiData
         {
           var arr1 = arr.Current;
           if (string.IsNullOrEmpty(data.SystemPrompt))
-            data.SystemPrompt = Functions.TrimNull(arr1.GetString());
+            data.SystemPrompt = arr1.GetString().TrimNull();
         }
       }
     }
@@ -229,20 +230,20 @@ public class AiData
             // gpt-3.5-turbo
             if (message.TryGetProperty("content", out var c))
             {
-              data.Messages.Add(Functions.TrimNull(c.GetString()));
-              data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+              data.Messages.Add(c.GetString().TrimNull());
+              data.AssistantPrompts.Add(c.GetString().TrimNull());
             }
             break;
           }
           else if (arr1.TryGetProperty("text", out var ptext))
           {
             // gpt-3.5-turbo-instruct
-            data.Messages.Add(Functions.TrimNull(ptext.GetString()));
-            data.AssistantPrompts.Add(Functions.TrimNull(ptext.GetString()));
+            data.Messages.Add(ptext.GetString().TrimNull());
+            data.AssistantPrompts.Add(ptext.GetString().TrimNull());
           }
           if (arr1.TryGetProperty("finish_reason", out var t3))
           {
-            data.FinishReasons.Add(Functions.TrimNull(t3.GetString()));
+            data.FinishReasons.Add(t3.GetString().TrimNull());
           }
         }
       }
@@ -252,8 +253,8 @@ public class AiData
         // {"model":"llama3_max","created_at":"2024-04-28T20:23:37.556685488Z","message":{"role":"assistant","content":"Das ist ein Test, okay! Ich bin bereit, um meine Fähigkeiten zu zeigen. Los geht's! Was ist das nächste Problem?"},"done":true,"total_duration":169306417245,"load_duration":24180638401,"prompt_eval_count":58,"prompt_eval_duration":16433220000,"eval_count":33,"eval_duration":128422227000}
         if (message.TryGetProperty("content", out var c))
         {
-          data.Messages.Add(Functions.TrimNull(c.GetString()));
-          data.AssistantPrompts.Add(Functions.TrimNull(c.GetString()));
+          data.Messages.Add(c.GetString().TrimNull());
+          data.AssistantPrompts.Add(c.GetString().TrimNull());
         }
         if (root.TryGetProperty("prompt_eval_count", out var t1))
         {
@@ -271,7 +272,7 @@ public class AiData
       {
         // Local Llava
         // {"model":"llava:7b","created_at":"2024-05-14T20:08:15.245784397Z","response":" The image appears to be a photograph of a printed document, possibly a business card or an informational card. The text on the card is in German, and it includes contact details such as a name, address, phone numbers, and email addresses. There are also some decorative elements at the top right corner that seem to be a small illustration or design. The style of the image suggests it could be from an informal business setting, given the casual presentation of the information. ","done":true,"context":[733,16289,28793,6685,456,3469,733,28748,16289,28793,415,3469,8045,298,347,264,9180,302,264,15180,3248,28725,8189,264,1955,4148,442,396,5227,1249,4148,28723,415,2245,356,272,4148,349,297,5567,28725,304,378,5532,3754,4162,1259,390,264,1141,28725,2962,28725,4126,5551,28725,304,4927,14501,28723,1387,460,835,741,8059,1197,5176,438,272,1830,1103,6581,369,1709,298,347,264,1741,8740,352,442,2621,28723,415,3238,302,272,3469,12308,378,829,347,477,396,5227,282,1955,5587,28725,2078,272,13316,14909,302,272,1871,28723,28705],"total_duration":140229829507,"load_duration":6722426299,"prompt_eval_count":1,"prompt_eval_duration":108026235000,"eval_count":99,"eval_duration":25426222000}
-        data.Messages.Add(Functions.TrimNull(response.GetString()));
+        data.Messages.Add(response.GetString().TrimNull());
         if (root.TryGetProperty("prompt_eval_count", out var t1))
         {
           data.PromptTokens = t1.GetDecimal();
@@ -292,7 +293,7 @@ public class AiData
           var arr1 = arr.Current;
           if (arr1.TryGetProperty("url", out var c))
           {
-            data.Messages.Add(Functions.TrimNull(c.GetString()));
+            data.Messages.Add(c.GetString().TrimNull());
           }
         }
       }

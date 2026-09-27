@@ -5,6 +5,7 @@
 namespace CSBP.Services.Apis.Services;
 
 using System.Collections.Generic;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 

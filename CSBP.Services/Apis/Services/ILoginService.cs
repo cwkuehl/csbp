@@ -4,6 +4,7 @@
 
 namespace CSBP.Services.Apis.Services;
 
+using BlazorSpa.Base.Services;
 using CSBP.Services.Base;
 
 /// <summary>

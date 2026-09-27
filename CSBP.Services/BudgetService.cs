@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
 using CSBP.Services.Base;
@@ -1669,7 +1672,7 @@ public class BudgetService : ServiceBase, IBudgetService
     {
       var i = h[c];
       if (i >= 0 && werte != null && werte.Count > i)
-        return Functions.TrimNull(werte[i]);
+        return werte[i].TrimNull();
     }
     return null;
   }

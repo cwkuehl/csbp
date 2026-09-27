@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +44,7 @@ public partial class HhBuchungRep
     bool desc = true, bool euro = true, int max = 0, bool tracking = false)
   {
     var db = GetDb(daten);
-    search = Functions.TrimNull(search) ?? rm?.Search;
+    search = search.TrimNull() ?? rm?.Search;
     var l = db.HH_Buchung.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!tracking)
       l = l.AsNoTracking();

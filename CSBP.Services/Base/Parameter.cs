@@ -6,6 +6,7 @@ namespace CSBP.Services.Base;
 
 using System.Collections.Generic;
 using System.Reflection;
+using BlazorSpa.Base;
 using CSBP.Services.Resources;
 
 /// <summary>

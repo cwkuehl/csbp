@@ -5,6 +5,7 @@
 namespace CSBP.Forms.WP;
 
 using System;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;

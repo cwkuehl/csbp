@@ -7,6 +7,8 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +34,7 @@ public partial class HhEreignisRep
       DateTime? to = null, string search = null)
   {
     var db = GetDb(daten);
-    search = Functions.TrimNull(search) ?? rm?.Search;
+    search = search.TrimNull() ?? rm?.Search;
     var l = db.HH_Ereignis.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(auid))
       l = l.Where(a => a.Soll_Konto_Uid == auid || a.Haben_Konto_Uid == auid);

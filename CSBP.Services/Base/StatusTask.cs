@@ -7,12 +7,17 @@
 namespace CSBP.Services.Base;
 
 using System.Text;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Services;
 
 /// <summary>
 /// This class manages the status of a running task.
 /// </summary>
 public class StatusTask
 {
+  /// <summary>Zeilenumbruch für Ausgabe.</summary>
+  private const string CrLf = Konstanten.CrLf;
+
   /// <summary>
   /// Interne Daten.
   /// </summary>
@@ -128,7 +133,7 @@ public class StatusTask
           if (!file.Contains("ST_Abbruch_") && (fliste == null || Array.Exists(fliste, a => file.Contains(a))))
           {
               if (sb.Length > 0)
-                  sb.Append(Constants.CrLf).Append(Constants.CrLf);
+                  sb.Append(CrLf).Append(CrLf);
               sb.Append(File.ReadAllText(file));
           }
       }
@@ -308,16 +313,16 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   public void SetMandant(string s)
   {
-    Mandant2 = Functions.TrimNull(s);
+    Mandant2 = s.TrimNull();
     Aendern();
   }
 
   /// <summary>Sets an error.</summary>
   /// <param name="s">Affected string.</param>
   /// <param name="nichtueberschreiben">An existing error is not overwritten.</param>
-  public void SetFehler(string s, bool nichtueberschreiben = false)
+  public void SetFehler(string? s, bool nichtueberschreiben = false)
   {
-    var f = Functions.TrimNull(s);
+    var f = s.TrimNull();
     if (nichtueberschreiben && daten["Fehler"] != null)
       return;
     //// if (f != null)
@@ -328,15 +333,15 @@ public class StatusTask
   /// <summary>Sets the result.</summary>
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
-  public void SetErgebnis(string s, bool anhaengen = false)
+  public void SetErgebnis(string? s, bool anhaengen = false)
   {
-    s = Functions.TrimNull(s);
+    s = s.TrimNull();
     if (anhaengen && daten.TryGetValue("Ergebnis", out var v) && !string.IsNullOrEmpty(v))
     {
       if (s == null)
         s = v;
       else
-        s = $"{s}{Constants.CrLf}{v}";
+        s = $"{s}{CrLf}{v}";
     }
     daten["Ergebnis"] = s;
     Aendern();
@@ -346,7 +351,7 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   public void SetDatenbank(string s)
   {
-    daten["Datenbank"] = Functions.TrimNull(s);
+    daten["Datenbank"] = s.TrimNull();
     Aendern();
   }
 
@@ -357,7 +362,7 @@ public class StatusTask
   public bool SetName(string s, string? trenner = null)
   {
     var da = false;
-    daten["Name"] = Functions.TrimNull(s);
+    daten["Name"] = s.TrimNull();
     if (trenner != null && daten.TryGetValue("Ergebnis", out var v) && !string.IsNullOrEmpty(v))
     {
       da = true;
@@ -375,7 +380,7 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   public void SetTabelle(string s)
   {
-    daten["Tabelle"] = Functions.TrimNull(s);
+    daten["Tabelle"] = s.TrimNull();
     daten["Nr"] = Functions.ToString(0);
     daten["Anzahl"] = Functions.ToString(0);
     Aendern();
@@ -407,9 +412,9 @@ public class StatusTask
 
   /// <summary>Sets the posting position.</summary>
   /// <param name="s">Affected string.</param>
-  public void SetBust(string s)
+  public void SetBust(string? s)
   {
-    daten["Bust"] = Functions.TrimNull(s);
+    daten["Bust"] = s.TrimNull();
     //// daten["Nr"] = Functions.ToString(0);
     //// daten["Anzahl"] = Functions.ToString(0);
     Aendern();
@@ -419,9 +424,9 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
   /// <param name="trenner">Separator to be used.</param>
-  public void SetMeldung(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
+  public void SetMeldung(string? s, bool anhaengen = false, string? trenner = CrLf)
   {
-    s = Functions.TrimNull(s);
+    s = s.TrimNull();
     if (anhaengen && daten.TryGetValue("Meldung", out var v) && !string.IsNullOrEmpty(v))
     {
       if (s == null)
@@ -437,9 +442,9 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
   /// <param name="trenner">Separator to be used.</param>
-  public void SetMeldung1(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
+  public void SetMeldung1(string? s, bool anhaengen = false, string? trenner = CrLf)
   {
-    s = Functions.TrimNull(s);
+    s = s.TrimNull();
     if (anhaengen && daten.TryGetValue("Meldung1", out var v) && !string.IsNullOrEmpty(v))
     {
       if (s == null)
@@ -455,9 +460,9 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
   /// <param name="trenner">Separator to be used.</param>
-  public void SetMeldung2(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
+  public void SetMeldung2(string? s, bool anhaengen = false, string? trenner = CrLf)
   {
-    s = Functions.TrimNull(s);
+    s = s.TrimNull();
     if (anhaengen && daten.TryGetValue("Meldung2", out var v) && !string.IsNullOrEmpty(v))
     {
       if (s == null)
@@ -473,9 +478,9 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   /// <param name="anhaengen">Affected string to be appended.</param>
   /// <param name="trenner">Separator to be used.</param>
-  public void SetMeldung3(string s, bool anhaengen = false, string? trenner = Constants.CrLf)
+  public void SetMeldung3(string? s, bool anhaengen = false, string? trenner = CrLf)
   {
-    s = Functions.TrimNull(s);
+    s = s.TrimNull();
     if (anhaengen && daten.TryGetValue("Meldung3", out var v) && !string.IsNullOrEmpty(v))
     {
       if (s == null)
@@ -491,7 +496,7 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   public void SetMeldung4(string s)
   {
-    daten["Meldung4"] = Functions.TrimNull(s);
+    daten["Meldung4"] = Funktionen.TrimNull(s);
     Aendern();
   }
 
@@ -553,7 +558,7 @@ public class StatusTask
   /// <param name="s">Affected string.</param>
   public void SetXmlDaten(string s)
   {
-    daten["XmlDaten"] = Functions.TrimNull(s);
+    daten["XmlDaten"] = s.TrimNull();
     Aendern();
   }
 
@@ -586,7 +591,7 @@ public class StatusTask
   public string GetStatus(bool kurz = false)
   {
     var sb = new StringBuilder();
-    var tr = Constants.CrLf;
+    var tr = CrLf;
     string? v;
     if (kurz)
     {
@@ -713,8 +718,8 @@ public class StatusTask
   {
     var sbf = new StringBuilder();
     var sbe = new StringBuilder();
-    var f = Functions.TrimNull(fehler);
-    var e = Functions.TrimNull(ergebnis);
+    var f = fehler.TrimNull();
+    var e = ergebnis.TrimNull();
     if (daten.TryGetValue("Fehler", out var v) && v != null)
     {
       if (r == null)
@@ -732,13 +737,13 @@ public class StatusTask
     if (!string.IsNullOrEmpty(f))
     {
       if (sbf.Length > 0)
-        sbf.Append(Constants.CrLf);
+        sbf.Append(CrLf);
       sbf.Append(f);
     }
     if (!string.IsNullOrEmpty(e))
     {
         if (sbe.Length > 0)
-          sbe.Append(Constants.CrLf);
+          sbe.Append(CrLf);
         sbe.Append(e);
     }
     if (r != null)
@@ -746,13 +751,13 @@ public class StatusTask
       foreach (var m in r.Messages)
       {
         if (sbe.Length > 0)
-          sbe.Append(Constants.CrLf);
+          sbe.Append(CrLf);
         sbe.Append(m.MessageText);
       }
       foreach (var m in r.Errors)
       {
         if (sbf.Length > 0)
-          sbf.Append(Constants.CrLf);
+          sbf.Append(CrLf);
         sbf.Append(m.MessageText);
       }
     }
@@ -781,8 +786,8 @@ public class StatusTask
   {
     var sbf = new StringBuilder();
     var sbe = new StringBuilder();
-    var f = Functions.TrimNull(fehler);
-    var e = Functions.TrimNull(ergebnis);
+    var f = fehler.TrimNull();
+    var e = ergebnis.TrimNull();
     if (daten.TryGetValue("Fehler", out var v) && v != null)
     {
       if (r == null)
@@ -800,13 +805,13 @@ public class StatusTask
     if (!string.IsNullOrEmpty(f))
     {
       if (sbf.Length > 0)
-        sbf.Append(Constants.CrLf);
+        sbf.Append(CrLf);
       sbf.Append(f);
     }
     if (!string.IsNullOrEmpty(e))
     {
         if (sbe.Length > 0)
-          sbe.Append(Constants.CrLf);
+          sbe.Append(CrLf);
         sbe.Append(e);
     }
     if (r != null)
@@ -814,13 +819,13 @@ public class StatusTask
       foreach (var m in r.Messages)
       {
         if (sbe.Length > 0)
-          sbe.Append(Constants.CrLf);
+          sbe.Append(CrLf);
         sbe.Append(m.MessageText);
       }
       foreach (var m in r.Errors)
       {
         if (sbf.Length > 0)
-          sbf.Append(Constants.CrLf);
+          sbf.Append(CrLf);
         sbf.Append(m.MessageText);
       }
     }
