@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "BlazorSpa.Base",
+			"path": "../blazorbp/BlazorSpa.Base"
+		}
+	],
+	"settings": {
+		"vssolution.trackActiveItem": false,
+		"terminal.integrated.env.linux": {}
+	}
+}
