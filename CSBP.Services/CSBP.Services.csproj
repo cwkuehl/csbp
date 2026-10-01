@@ -12,17 +12,17 @@
   <ItemGroup>
     <ProjectReference Include="..\..\blazorbp\BlazorSpa.Base\BlazorSpa.Base.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'!='net5.0'">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="10.*" />
-    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.*" /> <!-- 11.08.2026 Conflict between 10.0.10.0 and 10.0.11.0 in blazorBp. 10.09.2026 Conflict because of specifc version -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.*" /> <!--06.07.2025 Conflict between 9.0.5 and 9.0.6 in blazorBp. -->
-    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" /> <!-- 16.07.2026 2.1.11 weist eine bekannte hoch Schweregrad-Sicherheitsanfälligkeit -->
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.*" />
-    <PackageReference Include="NLog" Version="5.*" />
-    <PackageReference Include="System.Reactive" Version="6.*" />
-    <!--PackageReference Include="System.Reflection.DispatchProxy" Version="4.*" /-->
-    <PackageReference Include="AMWD.Protocols.Modbus.Tcp" Version="0.5.0" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.10.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" /> <!-- 11.08.2026 Conflict between 10.0.10.0 and 10.0.11.0 in blazorBp. 10.09.2026 Conflict because of specifc version -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" /> <!--06.07.2025 Conflict between 9.0.5 and 9.0.6 in blazorBp. -->
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="3.53.3" /> <!-- 16.07.2026 2.1.11 weist eine bekannte hoch Schweregrad-Sicherheitsanfälligkeit -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+    <PackageReference Include="NLog" Version="6.2.1" />
+    <PackageReference Include="System.Reactive" Version="7.0.0" />
+    <!--PackageReference Include="System.Reflection.DispatchProxy" Version="4.0.0" /-->
+    <PackageReference Include="AMWD.Protocols.Modbus.Tcp" Version="0.6.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj'" />

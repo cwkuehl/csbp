@@ -125,7 +125,7 @@ public partial class HhBuchungRep
       if (rm.NoPaging)
       {
         var lx1 = SortList(l, rm.SortColumn);
-        return lx1.ToList();
+        return MakeSaldo(lx1.ToList(), auid, tracking);
       }
       else
       {
@@ -137,13 +137,13 @@ public partial class HhBuchungRep
         var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
         var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
         var lx2 = lx1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
-        return lx2;
+        return MakeSaldo(lx2, auid, tracking);
       }
     }
     if (max <= 0)
-      return l5.ToList();
+      return MakeSaldo(l5.ToList(), auid, tracking);
     else
-      return l5.Take(max).ToList();
+      return MakeSaldo(l5.Take(max).ToList(), auid, tracking);
   }
 
   /// <summary>
@@ -224,6 +224,25 @@ public partial class HhBuchungRep
     if (date.HasValue)
       l = l.Where(a => a.Beleg_Datum == date);
     return l.OrderByDescending(a => a.Beleg_Datum).ThenByDescending(a => a.Uid).FirstOrDefault();
+  }
+
+  /// <summary>
+  /// Change the sign of the amount for the affected account to get a saldo.
+  /// </summary>
+  /// <param name="l">Affected list of bookings.</param>
+  /// <param name="auid">Affected account ID.</param>
+  /// <param name="tracking">Tracking flag.</param>
+  /// <returns>List of bookings with saldo enabled values.</returns>
+  private List<HhBuchung> MakeSaldo(List<HhBuchung> l, string auid, bool tracking = false)
+  {
+    if (l == null || l.Count <= 0 || string.IsNullOrEmpty(auid) || tracking)
+      return l;
+    foreach (var b in l)
+    {
+      if (b.Haben_Konto_Uid == auid)
+        b.EBetrag = -b.EBetrag;
+    }
+    return l;
   }
 
 #pragma warning restore CA1822
