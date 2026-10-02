@@ -324,7 +324,7 @@ public class EnergyService : ServiceBase, IEnergyService
   /// <returns>Value from JSON.</returns>
   private static string GetDatentypJsonValue(EnAbfrage q, string json)
   {
-    var wert = Functions.Between(json, q.Param1, q.Param2);
+    var wert = Funktionen.Between(json, q.Param1, q.Param2);
     var arr = q.Datentyp.Split('|');
     var dt = arr[0];
     var az = arr.Length > 1 ? arr[1] : null; // Enum, Aufzählung
@@ -362,9 +362,9 @@ public class EnergyService : ServiceBase, IEnergyService
       sw = Funktionen.ToString(d, 0);
     if (az != null)
     {
-      var wen = Functions.Between(az, $"{sw}=", ";");
+      var wen = Funktionen.Between(az, $"{sw}=", ";");
       if (wen == null)
-        wen = Functions.Between(az, "_=", ";");
+        wen = Funktionen.Between(az, "_=", ";");
       if (wen != null)
         sw = wen;
     }
@@ -422,9 +422,9 @@ public class EnergyService : ServiceBase, IEnergyService
       sw = Funktionen.ToString(d, 0);
     if (az != null)
     {
-      var wen = Functions.Between(az, $"{sw}=", ";");
+      var wen = Funktionen.Between(az, $"{sw}=", ";");
       if (wen == null)
-        wen = Functions.Between(az, "_=", ";");
+        wen = Funktionen.Between(az, "_=", ";");
       if (wen != null)
         sw = wen;
     }

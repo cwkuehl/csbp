@@ -6,6 +6,7 @@ namespace CSBP.Services;
 
 using System;
 using System.Linq;
+using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;

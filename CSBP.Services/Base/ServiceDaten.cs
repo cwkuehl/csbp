@@ -5,6 +5,7 @@
 namespace CSBP.Services.Base;
 
 using System;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Undo;
 
 /// <summary>
