@@ -111,14 +111,14 @@ public class UiTools
     if (undoAction != null)
     {
       var tt = undoAction.TooltipText ?? "";
-      tt = Functions.Between(tt, null, " (") ?? tt;
+      tt = Funktionen.Between(tt, null, " (") ?? tt;
       tt = $"{tt} ({c.Item1})";
       undoAction.TooltipText = tt;
     }
     if (redoAction != null)
     {
       var tt = redoAction.TooltipText ?? "";
-      tt = Functions.Between(tt, null, " (") ?? tt;
+      tt = Funktionen.Between(tt, null, " (") ?? tt;
       tt = $"{tt} ({c.Item2})";
       redoAction.TooltipText = tt;
     }

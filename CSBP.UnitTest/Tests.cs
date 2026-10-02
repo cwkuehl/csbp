@@ -14,6 +14,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
 using CSBP.Services.Apis.Models.Extension;
 using CSBP.Services.Base;
@@ -43,42 +44,42 @@ public class Tests
     Debug.Print("CSBP.UnitTest gestartet." + (args?[0] ?? ""));
     var t = new Tests();
     t.Setup();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       CuttingOptimizer.Test();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.MachNichts();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.GenerateForm();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.GenerateResxDesigner();
-    if (Functions.MachNichts() == 0)
+    if (Funktionen.MachNichts() == 0)
     {
       t.GenerierenModelCs();
       t.GenerierenReps();
     }
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.GenerierenSqlSkript();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.Tls();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.OpenWeatherMap();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.RapidapiMeteostatWeather();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
       t.OpenAiChatGpt();
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
     {
       var t1 = new AntlrTest();
       t1.Setup();
       t1.TestParser();
     }
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
     {
       var t1 = new ServiceTest();
       t1.Setup();
       t1.TestAll();
     }
-    Functions.Between("Rückgängig", null, "(");
+    Funktionen.Between("Rückgängig", null, "(");
   }
 
   /// <summary>
@@ -95,7 +96,7 @@ public class Tests
   [Test]
   public void MachNichts()
   {
-    Assert.AreEqual(0, Functions.MachNichts());
+    Assert.AreEqual(0, Funktionen.MachNichts());
   }
 
   /// <summary>
@@ -793,10 +794,10 @@ namespace CSBP.Forms.{unit.ToUpper()}
     if (!File.Exists(datei))
     {
       File.WriteAllText(datei, s);
-      File.AppendAllText(datei, Constants.CRLF + gc.Ms + Constants.CRLF);
+      File.AppendAllText(datei, Konstanten.CrLf + gc.Ms + Konstanten.CrLf);
     }
     //// File.AppendAllText(xmlfile, Constants.CRLF);
-    //// if (Functions.MachNichts() == 0)
+    //// if (Funktionen.MachNichts() == 0)
     ////   File.AppendAllText(xmlfile, Constants.CRLF + ms + Constants.CRLF);
     //// Process.Start(xmlfile);
   }
@@ -826,7 +827,7 @@ namespace CSBP.Forms.{unit.ToUpper()}
       var name = d.Attribute("name").Value;
       var namecs = name.Replace('.', '_');
       ////var value = (d.Descendants("value").FirstOrDefault()?.FirstNode as XText)?.Value;
-      values.Append(Constants.CRLF).Append(Constants.CRLF);
+      values.Append(Konstanten.CrLf).Append(Konstanten.CrLf);
       values.Append($@"  public static string {namecs}
   {{
     get {{ return rm.GetString(""{name}""); }}
@@ -884,7 +885,7 @@ public partial class {filename}
     // };
     //// httpsclient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
     var httpsclient = HttpClientFactory.CreateClient(timeout: 5000);
-    if (Functions.MachNichts() != 0)
+    if (Funktionen.MachNichts() != 0)
     {
       // The request was canceled due to the configured HttpClient.Timeout of 5 seconds elapsing.
       // Probably error after firmware update 2022-01-03.
@@ -930,7 +931,7 @@ public partial class {filename}
     var lon = "8.3184";
     var alt = "85";
     var tz = System.Web.HttpUtility.UrlEncode("Europe/Berlin"); // https://en.wikipedia.org/wiki/List_of_tz_database_time_zones UTC
-    var start = Functions.ToString(new DateTime(2023, 2, 5));
+    var start = Funktionen.ToString(new DateTime(2023, 2, 5));
     var url = @$"https://meteostat.p.rapidapi.com/point/hourly?lat={lat}&lon={lon}&start={start}&end={start}&alt={alt}&tz={tz}";
     var httpsclient = HttpClientFactory.CreateClient(timeout: 5000, tls12: true);
     httpsclient.DefaultRequestHeaders.Add("X-RapidAPI-Key", apikey);
@@ -1131,7 +1132,7 @@ public partial class {filename}
     }
     catch (Exception ex)
     {
-      Functions.MachNichts(ex);
+      Funktionen.MachNichts(ex);
     }
     key = key.Trim();
     return key;
