@@ -149,7 +149,7 @@ public partial class FZ260Mileage : CsbpBin
         SetText(zaehler, Funktionen.ToString(k.Zaehler_km, 0));
         SetText(km, Funktionen.ToString(k.Periode_km, 0));
         SetText(schnitt, Funktionen.ToString(k.Periode_Schnitt, 2));
-        SetText(beschreibung, Functions.ToString(k.Beschreibung));
+        SetText(beschreibung, Funktionen.ToString(k.Beschreibung));
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }

@@ -242,7 +242,7 @@ public partial class FZ710Memo : CsbpBin
     {
       table.Add(new XElement("spalte", new XAttribute("nr", $"{x}"), new XAttribute("breite", "50")));
     }
-    table.Add(new XElement("notiz", Functions.ToString(memo)));
+    table.Add(new XElement("notiz", Funktionen.ToString(memo)));
     using var stringWriter = new StringWriter();
     using var xmlTextWriter = XmlWriter.Create(stringWriter);
     doc.WriteTo(xmlTextWriter);

@@ -449,7 +449,7 @@ public partial class HH410Booking : CsbpBin
   private string GetOperator()
   {
     var op = "";
-    var strBetrag = Functions.ToString(betrag.Text).Trim();
+    var strBetrag = Funktionen.ToString(betrag.Text).Trim();
     if (strBetrag.StartsWith("+", StringComparison.InvariantCulture))
     {
       strBetrag = strBetrag[1..];

@@ -96,7 +96,7 @@ public class ParameterGui : Parameter
   /// <summary>Gets or sets a value indicating whether the birthday list is opened after the login.</summary>
   public static bool AD120Start
   {
-    get { return Functions.ToBool(GetValue("AD120Start")) ?? false; }
+    get { return Funktionen.ToBool(GetValue("AD120Start")) ?? false; }
     set { SetValue("AD120Start", Functions.ToString(value)); }
   }
 
@@ -138,7 +138,7 @@ public class ParameterGui : Parameter
   /// <summary>Gets or sets a value indicating whether the cash report is selected.</summary>
   public static bool HH510Cashreport
   {
-    get { return Functions.ToBool(GetValue("HH510Cashreport")) ?? false; }
+    get { return Funktionen.ToBool(GetValue("HH510Cashreport")) ?? false; }
     set { SetValue("HH510Cashreport", Functions.ToString(value)); }
   }
 

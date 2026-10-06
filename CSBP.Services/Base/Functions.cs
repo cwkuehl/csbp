@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Serialization;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using static CSBP.Services.Resources.M;
 using static CSBP.Services.Resources.Messages;
@@ -182,28 +183,6 @@ public static partial class Functions
   }
 
   /// <summary>
-  /// Converts string to nullable bool.
-  /// </summary>
-  /// <param name="s">Affected string.</param>
-  /// <returns>Converted value.</returns>
-  public static bool? ToBool(string s)
-  {
-    if (!string.IsNullOrWhiteSpace(s) && bool.TryParse(s, out var d))
-      return d;
-    return null;
-  }
-
-  /// <summary>
-  /// Converts string to upper case.
-  /// </summary>
-  /// <param name="value">Affected string.</param>
-  /// <returns>Converted string.</returns>
-  public static string ToUpper(this string value)
-  {
-    return value == null ? string.Empty : value.ToUpper();
-  }
-
-  /// <summary>
   /// Converts first character to upper, the rest to lower case.
   /// </summary>
   /// <param name="s">Affected string.</param>
@@ -332,7 +311,7 @@ public static partial class Functions
   {
     if (sb != null)
     {
-      var s = ToString(obj);
+      var s = Funktionen.ToString(obj);
       if (sb.Length > 0 && s.Length > 0)
       {
         if (!string.IsNullOrEmpty(filler1))
@@ -429,16 +408,6 @@ public static partial class Functions
     if (b)
       return s1;
     return s2;
-  }
-
-  /// <summary>Returns a never null string.</summary>
-  /// <param name="s">Affected string.</param>
-  /// <returns>Not null string.</returns>
-  public static string ToString(string s)
-  {
-    if (string.IsNullOrEmpty(s))
-      return "";
-    return s;
   }
 
   /// <summary>

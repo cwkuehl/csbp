@@ -470,7 +470,7 @@ public partial class TB100Diary : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnPositionsRowActivated(object sender, RowActivatedArgs e)
   {
-    var uid = Functions.ToString(GetText(positions));
+    var uid = Funktionen.ToString(GetText(positions));
     var p = positionList.FirstOrDefault(a => a.Ort_Uid == uid);
     if (p != null)
     {

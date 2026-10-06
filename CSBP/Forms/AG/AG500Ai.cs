@@ -235,7 +235,7 @@ public partial class AG500Ai : CsbpBin
   /// <param name="e">Affected event.</param>
   protected void OnDialogsRowActivated(object sender, RowActivatedArgs e)
   {
-    var uid = Functions.ToString(GetText(dialogs));
+    var uid = Funktionen.ToString(GetText(dialogs));
     var l = Get(FactoryService.ClientService.GetDialogList(ServiceDaten, null, uid)) ?? new List<AgDialog>();
     var d = l.FirstOrDefault();
     if (d?.Data != null)

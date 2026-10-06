@@ -436,7 +436,7 @@ public class ServiceBase
       return Functions.ToString((int?)o);
     if (o is string)
     {
-      var s = Functions.ToString(o as string);
+      var s = Funktionen.ToString(o as string);
       s = s.Replace("\r\n", "<br>");
       s = s.Replace("\r", "<br>");
       s = s.Replace("\n", "<br>");

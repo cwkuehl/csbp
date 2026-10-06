@@ -66,7 +66,7 @@ public class MainClass
       ParameterGui.Init();
       var sharedpath = ParameterGui.TempPath;
       var temppath = ParameterGui.TempPath;
-      CsbpBase.SetValues(sharedpath, temppath);
+      SpaBase.SetValues(sharedpath, temppath);
       StatusTask.Aufraeumen();
     }
     catch (Exception ex)
