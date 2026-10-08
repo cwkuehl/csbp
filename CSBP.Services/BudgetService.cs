@@ -413,7 +413,7 @@ public class BudgetService : ServiceBase, IBudgetService
       SaveChanges(daten);
       var p0 = HhPeriodeRep.GetMaxMin(daten, true, from);
       var bi = HhBilanzRep.Get(daten, daten.MandantNr, p0.Nr, Constants.KZBI_EROEFFNUNG, hhKonto.Uid);
-      if (bi.EBetrag != value)
+      if (bi != null && bi.EBetrag != value)
       {
         // Anfangswerte ändern und in allen Periode
         var diff = value - bi.EBetrag;
