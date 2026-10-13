@@ -109,9 +109,10 @@ public class DiaryService : ServiceBase, IDiaryService
   /// <param name="date">Affected date.</param>
   /// <param name="entry">Affected Entry.</param>
   /// <param name="pos">Affected list of positions.</param>
-  public ServiceErgebnis SaveEntry(ServiceDaten daten, DateTime date, string entry, List<Tuple<string, DateTime, DateTime>> pos)
+  /// <returns>True if the entry was changed successfully, otherwise false.</returns>
+  public ServiceErgebnis<bool> SaveEntry(ServiceDaten daten, DateTime date, string entry, List<Tuple<string, DateTime, DateTime>> pos)
   {
-    var r = new ServiceErgebnis();
+    var r = new ServiceErgebnis<bool>(false);
     if (!string.IsNullOrEmpty(entry))
       entry = Functions.FilterWindows1252(entry).Trim();
     var leer = string.IsNullOrEmpty(entry);
@@ -126,6 +127,7 @@ public class DiaryService : ServiceBase, IDiaryService
         tbEintrag.Datum = date;
         tbEintrag.Eintrag = entry;
         TbEintragRep.Insert(daten, tbEintrag);
+        r.Ergebnis = true;
       }
     }
     else if (!leer)
@@ -135,12 +137,14 @@ public class DiaryService : ServiceBase, IDiaryService
         tbEintrag.Replikation_Uid ??= Functions.GetUid();
         tbEintrag.Eintrag = entry;
         TbEintragRep.Update(daten, tbEintrag);
+        r.Ergebnis = true;
       }
     }
     else
     {
       // Deletes empty entry and keeps positions.
       TbEintragRep.Delete(daten, tbEintrag);
+      r.Ergebnis = true;
       //// if (pos != null)
       ////   pos.Clear();
     }

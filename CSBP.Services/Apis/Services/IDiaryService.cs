@@ -43,8 +43,8 @@ public interface IDiaryService
   /// <param name="date">Affected date.</param>
   /// <param name="entry">Affected Entry.</param>
   /// <param name="pos">Affected list of positions.</param>
-  /// <returns>Possible errors.</returns>
-  ServiceErgebnis SaveEntry(ServiceDaten daten, DateTime date, string entry, List<Tuple<string, DateTime, DateTime>> pos);
+  /// <returns>True if the entry was changed successfully, otherwise false.</returns>
+  ServiceErgebnis<bool> SaveEntry(ServiceDaten daten, DateTime date, string entry, List<Tuple<string, DateTime, DateTime>> pos);
 
   /// <summary>
   /// Gets bool array of a month if there is an entry.
