@@ -32,7 +32,7 @@ public partial class WpAnlageRep
   /// <param name="search">Affected text search.</param>
   /// <returns>List of investments.</returns>
   public List<WpAnlage> GetList(ServiceDaten daten, TableReadModel rm, int mandantnr, string desc,
-      string uid = null, string stuid = null, bool onlyactive = false, string search = null)
+    string uid = null, string stuid = null, bool onlyactive = false, string search = null)
   {
     var db = GetDb(daten);
     search = search.TrimNull() ?? rm?.Search;

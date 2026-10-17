@@ -7,6 +7,8 @@ namespace CSBP.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -22,23 +24,26 @@ public partial class WpBuchungRep
   /// Gets a list of bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="mandantnr">Affected client number.</param>
-  /// <param name="text">Affected description.</param>
-  /// <param name="uid">Affected uid.</param>
+  /// <param name="search">Affected text search.</param>
+  /// <param name="uid">Affected booking uid.</param>
   /// <param name="stuid">Affected stock uid.</param>
   /// <param name="inuid">Affected investment uid.</param>
-  /// <param name="buid">Affected booking uid.</param>
+  /// <param name="buid">Affected budget booking uid.</param>
   /// <param name="from">Affected from date.</param>
   /// <param name="to">Affected to date.</param>
   /// <param name="desc">Descending by date or not.</param>
   /// <returns>List of bookings.</returns>
-  public List<WpBuchung> GetList(ServiceDaten daten, int mandantnr, string text, string uid = null,
-      string stuid = null, string inuid = null, string buid = null, DateTime? from = null, DateTime? to = null, bool desc = false)
+  public List<WpBuchung> GetList(ServiceDaten daten, TableReadModel rm, int mandantnr, string search, string uid = null,
+    string stuid = null, string inuid = null, string buid = null, DateTime? from = null, DateTime? to = null,
+    bool desc = false)
   {
     var db = GetDb(daten);
+    search = search.TrimNull() ?? rm?.Search;
     var wl = db.WP_Buchung.Where(a => a.Mandant_Nr == mandantnr);
-    if (CsbpBase.IsLike(text))
-      wl = wl.Where(a => EF.Functions.Like(a.BText, text));
+    //// if (CsbpBase.IsLike(search))
+    ////   wl = wl.Where(a => EF.Functions.Like(a.BText, search) || EF.Functions.Like(a.Notiz, search));
     if (!string.IsNullOrEmpty(uid))
       wl = wl.Where(a => a.Uid == uid);
     if (!string.IsNullOrEmpty(stuid))
@@ -67,6 +72,39 @@ public partial class WpBuchungRep
         a.booking.Price = a.price?.Stueckpreis;
         return a.booking;
       });
+    var ls = CsbpBase.IsLike(search);
+    if (ls)
+    {
+      var ll = new List<WpBuchung>();
+      foreach (var a in l)
+      {
+        if (!ls || Like(a.BText, search) || Like(a.Notiz, search)
+        || Like(a.StockDescription, search) || Like(a.InvestmentDescription, search))
+          ll.Add(a);
+      }
+      l = ll;
+    }
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      // Gesucht wurde schon oben.
+      if (rm.NoPaging)
+      {
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        return l1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        var anz = l.Count();
+        var summe = anz <= 0m ? 0m : l.Sum(e => e.Zahlungsbetrag);
+        rm.Essence = Resources.M.HH054(anz, summe);
+        var l1 = SortList(l.AsQueryable(), rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var l2 = l1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return l2;
+      }
+    }
     if (desc)
       return l.OrderByDescending(a => a.Datum).ToList();
     return l.OrderBy(a => a.Datum).ToList();

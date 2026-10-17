@@ -245,13 +245,16 @@ public interface IStockService
   /// Gets a list of bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="stuid">Affected stock ID.</param>
   /// <param name="inuid">Affected investment ID.</param>
+  /// <param name="from">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
   /// <returns>List of bookings.</returns>
-  ServiceErgebnis<List<WpBuchung>> GetBookingList(ServiceDaten daten,
-    string desc = null, string uid = null, string stuid = null, string inuid = null);
+  ServiceErgebnis<List<WpBuchung>> GetBookingList(ServiceDaten daten, TableReadModel rm,
+    string desc = null, string uid = null, string stuid = null, string inuid = null, DateTime? from = null, DateTime? to = null);
 
   /// <summary>
   /// Gets a booking.

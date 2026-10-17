@@ -554,7 +554,7 @@ public class StockService : ServiceBase, IStockService
     {
       SaveChanges(daten);
       var i = r.Ergebnis;
-      var ilist = WpBuchungRep.GetList(daten, daten.MandantNr, null, inuid: i.Uid, to: valuta.Value);
+      var ilist = WpBuchungRep.GetList(daten, null, daten.MandantNr, null, inuid: i.Uid, to: valuta.Value);
       var shares = ilist.Sum(a => a.Anteile);
       if (shares > 0)
       {
@@ -574,7 +574,7 @@ public class StockService : ServiceBase, IStockService
   public ServiceErgebnis DeleteInvestment(ServiceDaten daten, WpAnlage e)
   {
     var r = new ServiceErgebnis();
-    var l = WpBuchungRep.GetList(daten, daten.MandantNr, null, inuid: e.Uid);
+    var l = WpBuchungRep.GetList(daten, null, daten.MandantNr, null, inuid: e.Uid);
     if (l.Any())
       r.Errors.Add(Message.New(WP018));
     if (r.Ok)
@@ -678,7 +678,7 @@ public class StockService : ServiceBase, IStockService
       // Kurse berechnen.
       var inv = list[i];
       state.SetMeldung(WP009(i + 1, l, inv.Bezeichnung, date, null));
-      var blist = WpBuchungRep.GetList(daten, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
+      var blist = WpBuchungRep.GetList(daten, null, inv.Mandant_Nr, null, inuid: inv.Uid, to: date);
       inv.MinDate = blist.FirstOrDefault()?.Datum;
       var max = blist.LastOrDefault()?.Datum;
       if (!inv.MaxDate.HasValue || (max.HasValue && (max.Value > inv.MaxDate.Value || max.Value < date)))
@@ -758,16 +758,19 @@ public class StockService : ServiceBase, IStockService
   /// Gets a list of bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="desc">Affected Description.</param>
   /// <param name="uid">Affected ID.</param>
   /// <param name="stuid">Affected stock ID.</param>
   /// <param name="inuid">Affected investment ID.</param>
+  /// <param name="from">Affected from date.</param>
+  /// <param name="to">Affected to date.</param>
   /// <returns>List of bookings.</returns>
-  public ServiceErgebnis<List<WpBuchung>> GetBookingList(ServiceDaten daten,
-      string desc = null, string uid = null, string stuid = null, string inuid = null)
+  public ServiceErgebnis<List<WpBuchung>> GetBookingList(ServiceDaten daten, TableReadModel rm,
+      string desc = null, string uid = null, string stuid = null, string inuid = null, DateTime? from = null, DateTime? to = null)
   {
-    var r = new ServiceErgebnis<List<WpBuchung>>(WpBuchungRep.GetList(daten, daten.MandantNr,
-        desc, uid, stuid, inuid, desc: true));
+    var r = new ServiceErgebnis<List<WpBuchung>>(WpBuchungRep.GetList(daten, rm, daten.MandantNr,
+        desc, uid, stuid, inuid, desc: true, from: from, to: to));
     return r;
   }
 
@@ -779,7 +782,7 @@ public class StockService : ServiceBase, IStockService
   /// <returns>Booking or null.</returns>
   public ServiceErgebnis<WpBuchung> GetBooking(ServiceDaten daten, string uid)
   {
-    var l = WpBuchungRep.GetList(daten, daten.MandantNr, null, uid).FirstOrDefault();
+    var l = WpBuchungRep.GetList(daten, null, daten.MandantNr, null, uid).FirstOrDefault();
     var r = new ServiceErgebnis<WpBuchung>(l);
     return r;
   }

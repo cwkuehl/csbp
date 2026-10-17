@@ -97,7 +97,7 @@ public partial class WP400Bookings : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.StockService.GetBookingList(daten, bezeichnung.Text,
+      var l = Get(FactoryService.StockService.GetBookingList(daten, null, bezeichnung.Text,
           null, null, GetText(anlage))) ?? new List<WpBuchung>();
       var values = new List<string[]>();
       foreach (var e in l)
