@@ -253,7 +253,7 @@ public partial class WP410Booking : CsbpBin
       nr.IsEditable = false;
       anlage.Sensitive = !loeschen;
       valuta.Sensitive = !loeschen;
-      preis.IsEditable = !loeschen;
+      preis.IsEditable = false;
       betrag.IsEditable = !loeschen;
       rabatt.IsEditable = !loeschen;
       anteile.IsEditable = !loeschen;
