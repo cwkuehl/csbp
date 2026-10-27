@@ -35,7 +35,7 @@ public partial class WpAnlageRep
     string uid = null, string stuid = null, bool onlyactive = false, string search = null)
   {
     var db = GetDb(daten);
-    search = search.TrimNull() ?? rm?.Search;
+    search = (string.IsNullOrEmpty(search) ? null : search) ?? rm?.Search; // Search with space!
     var wl = db.WP_Anlage.Where(a => a.Mandant_Nr == mandantnr);
     if (CsbpBase.IsLike(desc))
       wl = wl.Where(a => EF.Functions.Like(a.Bezeichnung, desc));
