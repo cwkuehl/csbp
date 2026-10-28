@@ -971,7 +971,18 @@ public class StockService : ServiceBase, IStockService
   /// <returns>Possibly errors.</returns>
   public ServiceErgebnis DeleteBooking(ServiceDaten daten, WpBuchung e)
   {
-    WpBuchungRep.Delete(daten, e);
+    if (e != null)
+      e = WpBuchungRep.Get(daten, e);
+    if (e != null)
+    {
+      if (!string.IsNullOrEmpty(e.BookingUid))
+      {
+        var b = HhBuchungRep.Get(daten, daten.MandantNr, e.BookingUid);
+        if (b != null && b.Kz == Constants.KZB_AKTIV)
+          BudgetService.ReverseBooking(daten, b);
+      }
+      WpBuchungRep.Delete(daten, e);
+    }
     return new ServiceErgebnis();
   }
 
