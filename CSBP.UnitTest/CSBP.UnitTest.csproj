@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\blazorbp\BlazorSpa.Base\BlazorSpa.Base.csproj" />
+    <ProjectReference Include="..\CSBP.Services\CSBP.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <!--PackageReference Include="mstest.testadapter" Version="2.2.8" />
     <PackageReference Include="mstest.testframework" Version="2.2.8" /-->
     <!--PackageReference Include="xunit" Version="2.4.1" />
@@ -33,10 +37,6 @@
     <AssemblyAttribute Include="System.CLSCompliantAttribute">
       <_Parameter1>false</_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
-  <ItemGroup>
-    <!-- <ProjectReference Include="..\CSBP\CSBP.csproj" /> -->
-    <ProjectReference Include="..\CSBP.Services\CSBP.Services.csproj" />
   </ItemGroup>
 
 </Project>

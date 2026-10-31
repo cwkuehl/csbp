@@ -9,8 +9,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using BlazorSpa.Base;
+using BlazorSpa.Base.Csv;
+using BlazorSpa.Base.Services;
 using CSBP.Services.Base;
-using CSBP.Services.Base.Csv;
 using CSBP.Services.Factory;
 using NUnit.Framework;
 
@@ -75,7 +77,10 @@ public class ServiceTest
     //// var search = "pmp amundi e%";
     //// var search = "DB Allianz Global Water Funds";
     var search = "PMP Broadcom Inc";
-    var r = FactoryService.StockService.CalculateInvestments(daten, null, null, null, date, true, search, new StringBuilder(), new StringBuilder());
+    var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "CalculateInvestments", "0");
+    rs.ThrowAllErrors("HinzufuegenFunktion");
+    var state = rs.Ergebnis;
+    var r = FactoryService.StockService.CalculateInvestments(daten, null, null, null, date, true, search, state);
     r.ThrowAllErrors("CalculateInvestments");
   }
 
@@ -114,7 +119,7 @@ public class ServiceTest
       {
         var avg = r?.Ergebnis.Where(a => a.Time.Hour >= 6 && a.Time.Hour <= 22).Average(a => a.Temp);
         //// Debug.WriteLine($"Average temperature for {date:yyyy-MM-dd} is {avg: 0.00} °C");
-        cs.AddCsvLine([Functions.ToString(date), Functions.ToString(avg)]);
+        cs.AddCsvLine([Funktionen.ToString(date), Funktionen.ToString(avg)]);
         date = date.AddDays(1);
       }
       r.ThrowAllErrors("GetAverageTemperatureList");
