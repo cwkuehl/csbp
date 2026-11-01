@@ -14,17 +14,19 @@ using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
-using NUnit.Framework;
+using Xunit;
 
 /// <summary>Test class for services.</summary>
-public class ServiceTest
+public class ServiceTest : IDisposable
 {
   private static ServiceDaten daten; // = new ServiceDaten(1, "Test", null);
 
-  /// <summary>Test setup.</summary>
-  [SetUp]
-  public void Setup()
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ServiceTest"/> class.
+  /// </summary>
+  public ServiceTest()
   {
+    // 1. Setup: Wird vor jedem Test ausgeführt
     var connect = "Data Source=/home/wolfgang/hsqldb/csbp.db";
     Parameter.Connect = connect;
     daten = new ServiceDaten("0", 1, "Administrator", null);
@@ -35,9 +37,17 @@ public class ServiceTest
   }
 
   /// <summary>
+  /// Disposes the instance of the <see cref="ServiceTest"/> class.
+  /// </summary>
+  public void Dispose()
+  {
+    // 3. TearDown: Wird nach jedem Test ausgeführt
+  }
+
+  /// <summary>
   /// Call of all Tests.
   /// </summary>
-  [Test]
+  [Fact]
   public void TestAll()
   {
     // GetMileages();
@@ -49,7 +59,7 @@ public class ServiceTest
   /// <summary>
   /// Test of function PrivateService.GetMileages.
   /// </summary>
-  [Test]
+  [Fact]
   public void GetMileages()
   {
     // var dates = new List<DateTime> { new(2024, 12, 30), new(2024, 12, 31), new(2025, 1, 1) };
@@ -70,7 +80,7 @@ public class ServiceTest
   /// <summary>
   /// Test of function StockService.CalculateInvestments.
   /// </summary>
-  [Test]
+  [Fact]
   public void CalculateInvestments()
   {
     var date = new DateTime(2024, 12, 27);
@@ -87,7 +97,7 @@ public class ServiceTest
   /// <summary>
   /// Test of function DiaryService.GetWeatherList.
   /// </summary>
-  [Test]
+  [Fact]
   public void GetWeatherList()
   {
     // var date = new DateTime(2024, 12, 30);
@@ -102,10 +112,10 @@ public class ServiceTest
   /// <summary>
   /// Calculate average temperatures.
   /// </summary>
-  [Test]
+  [Fact]
   public void GetAverageTemperatureList()
   {
-    var date = new DateTime(2026, 01, 7);
+    var date = new DateTime(2026, 10, 30);
     var today = DateTime.Today;
     var r0 = FactoryService.DiaryService.GetPositionList(daten, text: "%IM4%");
     r0.ThrowAllErrors("GetPositionList");

@@ -8,21 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Antlr4.Runtime;
-using NUnit.Framework;
+using Xunit;
 
 /// <summary>
 /// Class for testing and generating files.
 /// </summary>
 public class AntlrTest
 {
-  /// <summary>Test setup.</summary>
-  [SetUp]
-  public void Setup()
-  {
-  }
-
   /// <summary>Test of parser.</summary>
-  [Test]
+  [Fact]
   public void TestParser()
   {
     var text = @"Modell ABC

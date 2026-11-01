@@ -20,20 +20,6 @@
       "requireExactSource": false
     },
     {
-      "name": ".NET 10 UnitTest Linux",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build.unittest",
-      "program": "${workspaceFolder}/CSBP.UnitTest/bin/Debug/net10.0/CSBP.UnitTest.dll",
-      "args": [
-        "DB_DRIVER_CONNECTxxx=Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db"
-      ],
-      "cwd": "${workspaceFolder}/CSBP.UnitTest",
-      "console": "internalConsole",
-      "stopAtEntry": false,
-      "requireExactSource": true
-    },
-    {
       "name": ".NET Core Attach",
       "type": "coreclr",
       "request": "attach",
