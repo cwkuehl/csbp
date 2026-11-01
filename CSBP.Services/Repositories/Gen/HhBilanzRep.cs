@@ -110,8 +110,9 @@ public partial class HhBilanzRep : RepositoryBase
   /// <param name="angelegtam">Value of column Angelegt_Am.</param>
   /// <param name="geaendertvon">Value of column Geaendert_Von.</param>
   /// <param name="geaendertam">Value of column Geaendert_Am.</param>
+  /// <param name="pex">Number of period, if no changes could be made.</param>
   /// <returns>Saved entity.</returns>
-  public HhBilanz Save(ServiceDaten daten, int mandantnr, int periode, string kz, string kontouid, string sh, decimal betrag, string esh, decimal ebetrag, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null)
+  public HhBilanz Save(ServiceDaten daten, int mandantnr, int periode, string kz, string kontouid, string sh, decimal betrag, string esh, decimal ebetrag, string angelegtvon = null, DateTime? angelegtam = null, string geaendertvon = null, DateTime? geaendertam = null, int pex = 0)
   {
     var db = GetDb(daten);
     var a = Get(daten, mandantnr, periode, kz, kontouid);
@@ -123,15 +124,22 @@ public partial class HhBilanzRep : RepositoryBase
     e.Kz = kz;
     e.Konto_Uid = kontouid;
     e.SH = sh;
-    e.Betrag = betrag;
+    //// if (Functions.CompDouble(e.Betrag, betrag) != 0 || Functions.CompDouble(e.EBetrag, ebetrag) != 0)
+    //// if (pex > 0 && Functions.CompDouble(e.EBetrag, ebetrag) != 0)
+    ////     throw new Exception($"HH_Bilanz.Update in Periode {pex}: Nr. {e.Konto_Uid}  DM {e.Betrag} {betrag}  € {e.EBetrag} {ebetrag}");
+    if (Functions.CompDouble(e.Betrag, betrag) != 0)
+      e.Betrag = betrag;
     e.ESH = esh;
-    e.EBetrag = ebetrag;
+    if (Functions.CompDouble(e.EBetrag, ebetrag) != 0)
+      e.EBetrag = ebetrag;
     if (a == null)
     {
       MachAngelegt(e, daten, angelegtam, angelegtvon);
       if (!string.IsNullOrEmpty(geaendertvon))
         MachGeaendert(e, daten, geaendertam, geaendertvon);
       db.HH_Bilanz.Add(e);
+      //// if (pex > 0)
+      ////   throw new Exception($"HH_Bilanz.Add in Periode {pex}");
     }
     else if (db.Entry(e).State == Microsoft.EntityFrameworkCore.EntityState.Modified)
     {
@@ -139,6 +147,8 @@ public partial class HhBilanzRep : RepositoryBase
         MachAngelegt(e, daten, angelegtam, angelegtvon);
       MachGeaendert(e, daten, geaendertam, geaendertvon);
       db.HH_Bilanz.Update(e);
+      //// if (pex > 0)
+      ////   throw new Exception($"HH_Bilanz.Update in Periode {pex}");
     }
     return e;
   }

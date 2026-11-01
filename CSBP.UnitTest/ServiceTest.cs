@@ -8,25 +8,29 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using BlazorSpa.Base;
 using BlazorSpa.Base.Csv;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Xunit;
+using Xunit.Abstractions;
 
 /// <summary>Test class for services.</summary>
 public class ServiceTest : IDisposable
 {
   private static ServiceDaten daten; // = new ServiceDaten(1, "Test", null);
 
+  private readonly ITestOutputHelper output;
+
   /// <summary>
   /// Initializes a new instance of the <see cref="ServiceTest"/> class.
   /// </summary>
-  public ServiceTest()
+  /// <param name="output">The test output helper.</param>
+  public ServiceTest(ITestOutputHelper output)
   {
     // 1. Setup: Wird vor jedem Test ausgeführt
+    this.output = output;
     var connect = "Data Source=/home/wolfgang/hsqldb/csbp.db";
     Parameter.Connect = connect;
     daten = new ServiceDaten("0", 1, "Administrator", null);
@@ -54,6 +58,20 @@ public class ServiceTest : IDisposable
     // CalculateInvestments();
     // GetWeatherList();
     GetAverageTemperatureList();
+  }
+
+  /// <summary>
+  /// Call of all Tests.
+  /// </summary>
+  [Fact]
+  public void BalanceTest()
+  {
+    var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "AnalyseBalances", "0");
+    rs.ThrowAllErrors("HinzufuegenFunktion");
+    var state = rs.Ergebnis;
+    var r = FactoryService.BudgetService.AnalyseBalances(daten, -1, -1, state);
+    r.ThrowAllErrors("AnalyseBalances");
+    output.WriteLine($"AnalyseBalances: {r.Ergebnis}");
   }
 
   /// <summary>

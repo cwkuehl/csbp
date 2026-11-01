@@ -819,6 +819,8 @@ public class BudgetService : ServiceBase, IBudgetService
       var pnr = HolePassendePeriodeNr(daten, von.Value);
       pber = pnr;
     }
+    //// pber = 10360; // TODO entfernen
+    //// HhPeriodeRep.Save(daten, daten.MandantNr, Constants.PN_BERECHNET, daten.Heute, daten.Heute, pber);
     state.Clear().Append(M0(HH060));
     var rc = AktualisierenBilanz(daten, state, cancel, pber, alles);
     state.Clear();
@@ -1189,6 +1191,59 @@ public class BudgetService : ServiceBase, IBudgetService
   }
 
   /// <summary>
+  /// Analyses Balances.
+  /// </summary>
+  /// <param name="daten">Service data for database access.</param>
+  /// <param name="from">Affected first period or -1.</param>
+  /// <param name="to">Affected last period or -1.</param>
+  /// <param name="state">State of calculation is always updated.</param>
+  /// <returns>Report as string.</returns>
+  public ServiceErgebnis<string> AnalyseBalances(ServiceDaten daten, int from = -1, int to = -1, StatusTask state = null)
+  {
+    var r = new ServiceErgebnis<string>();
+    var sb = new StringBuilder();
+    var pmin = HhPeriodeRep.GetMaxMin(daten, true);
+    if (pmin == null)
+      throw new Exception("KeinePeriode vorhanden.");
+    var pnrmin = pmin.Nr;
+    if (from < pnrmin)
+      from = pnrmin;
+    var p = HhPeriodeRep.Get(daten, daten.MandantNr, from);
+    sb.AppendLine($"Start-Periode {from} {Funktionen.ToString(p.Datum_Von)}");
+    var pliste = HhPeriodeRep.GetList(daten, from: null);
+    var kliste = HhKontoRep.GetList(daten, null, -1, -1, Constants.ARTK_AKTIVKONTO, Constants.ARTK_PASSIVKONTO);
+    var pnr = from;
+    foreach (var k in kliste)
+    {
+      var kpab = k.Periode_Von <= pnrmin ? pnrmin : k.Periode_Von;
+      var p1 = pliste.First(a => a.Nr == kpab);
+      var dv = p1.Datum_Von;
+      var ab = Funktionen.ToString(dv);
+      var gab = k.Gueltig_Von.HasValue ? Funktionen.ToString(k.Gueltig_Von.Value) : "".CutOrPadRight(10);
+      var ksoll = k.Betrag;
+      var kesoll = k.EBetrag;
+      var kist = 0m;
+      var keist = 0m;
+      if (kpab == pnr)
+      {
+        var b = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, kpab, kpab, k.Uid)?.FirstOrDefault();
+        if (b != null)
+        {
+          kist = b.Betrag;
+          keist = b.EBetrag;
+        }
+      }
+      var problem = Functions.CompDouble(ksoll, kist) != 0 || Functions.CompDouble(kesoll, keist) != 0;
+      if (k.Gueltig_Von.HasValue && (k.Gueltig_Von.Value < p1.Datum_Von || k.Gueltig_Von.Value > p1.Datum_Bis))
+        problem = true;
+      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist,12:N2} {keist,12:N2} {Funktionen.Iif(problem, " <==", "")}");
+      //// TODO Prüfen des Kontos in allen Perioden.
+    }
+    r.Ergebnis = sb.ToString();
+    return r;
+  }
+
+  /// <summary>
   /// Gets account balance at the beginning of the period.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
@@ -1326,9 +1381,9 @@ public class BudgetService : ServiceBase, IBudgetService
       else
         AktualisierenEK(Constants.KZBI_EROEFFNUNG, ebliste, ek, gv);
       AktualisierenBilanz1(daten, p, ebliste, gvliste, sbliste, ek, gv);
-      SaveBanlaceList(daten, ebliste);
-      SaveBanlaceList(daten, gvliste);
-      SaveBanlaceList(daten, sbliste);
+      SaveBanlaceList(daten, ebliste, p);
+      SaveBanlaceList(daten, gvliste, p);
+      SaveBanlaceList(daten, sbliste, p);
       berechnet = p;
       SaveChanges(daten);
       var per = HhPeriodeRep.Get(daten, daten.MandantNr, p);
@@ -1351,11 +1406,12 @@ public class BudgetService : ServiceBase, IBudgetService
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="l">Affected balance list.</param>
-  private static void SaveBanlaceList(ServiceDaten daten, Dictionary<string, HhBilanz> l)
+  /// <param name="pex">Number of period, if no changes could be made.</param>
+  private static void SaveBanlaceList(ServiceDaten daten, Dictionary<string, HhBilanz> l, int pex)
   {
     foreach (var b in l.Values.ToList())
     {
-      HhBilanzRep.Save(daten, b.Mandant_Nr, b.Periode, b.Kz, b.Konto_Uid, b.SH, b.Betrag, b.ESH, b.EBetrag);
+      HhBilanzRep.Save(daten, b.Mandant_Nr, b.Periode, b.Kz, b.Konto_Uid, b.SH, b.Betrag, b.ESH, b.EBetrag, pex: pex);
     }
   }
 
