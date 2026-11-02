@@ -1204,15 +1204,19 @@ public class BudgetService : ServiceBase, IBudgetService
     var sb = new StringBuilder();
     var pmin = HhPeriodeRep.GetMaxMin(daten, true);
     if (pmin == null)
-      throw new Exception("KeinePeriode vorhanden.");
+      throw new Exception("Keine Periode vorhanden.");
     var pnrmin = pmin.Nr;
     if (from < pnrmin)
       from = pnrmin;
-    var p = HhPeriodeRep.Get(daten, daten.MandantNr, from);
-    sb.AppendLine($"Start-Periode {from} {Funktionen.ToString(p.Datum_Von)}");
+    var pmax = HhPeriodeRep.GetMaxMin(daten, false);
+    var pnrmax = pmax.Nr;
+    if (to < 0)
+      to = pnrmax;
+    var p0 = HhPeriodeRep.Get(daten, daten.MandantNr, from);
+    sb.AppendLine($"Start-Periode {from} {Funktionen.ToString(p0.Datum_Von)}");
     var pliste = HhPeriodeRep.GetList(daten, from: null);
     var kliste = HhKontoRep.GetList(daten, null, -1, -1, Constants.ARTK_AKTIVKONTO, Constants.ARTK_PASSIVKONTO);
-    var pnr = from;
+    ////var pnr = from;
     foreach (var k in kliste)
     {
       var kpab = k.Periode_Von <= pnrmin ? pnrmin : k.Periode_Von;
@@ -1222,22 +1226,58 @@ public class BudgetService : ServiceBase, IBudgetService
       var gab = k.Gueltig_Von.HasValue ? Funktionen.ToString(k.Gueltig_Von.Value) : "".CutOrPadRight(10);
       var ksoll = k.Betrag;
       var kesoll = k.EBetrag;
-      var kist = 0m;
-      var keist = 0m;
-      if (kpab == pnr)
+      var kist0 = 0m;
+      var keist0 = 0m;
+      var b = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, kpab, kpab, k.Uid)?.FirstOrDefault();
+      if (b != null)
       {
-        var b = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, kpab, kpab, k.Uid)?.FirstOrDefault();
-        if (b != null)
-        {
-          kist = b.Betrag;
-          keist = b.EBetrag;
-        }
+        kist0 = b.Betrag;
+        keist0 = b.EBetrag;
       }
-      var problem = Functions.CompDouble(ksoll, kist) != 0 || Functions.CompDouble(kesoll, keist) != 0;
-      if (k.Gueltig_Von.HasValue && (k.Gueltig_Von.Value < p1.Datum_Von || k.Gueltig_Von.Value > p1.Datum_Bis))
-        problem = true;
-      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist,12:N2} {keist,12:N2} {Funktionen.Iif(problem, " <==", "")}");
+      //// Falscher Anfangsbestand
+      var problem1 = Functions.CompDouble(ksoll, kist0) != 0 || Functions.CompDouble(kesoll, keist0) != 0;
+      //// Falsche Startperiode
+      var problem2 = k.Gueltig_Von.HasValue && (k.Gueltig_Von.Value < p1.Datum_Von || k.Gueltig_Von.Value > p1.Datum_Bis);
+      //// Bilanzierung in einer Periode vor der Gueltig_Von-Periode
+      var problem3 = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, -1, kpab - 1, k.Uid)?.FirstOrDefault() != null;
       //// TODO Prüfen des Kontos in allen Perioden.
+      var problem4 = 0;
+      var kist = kist0;
+      var keist = keist0;
+      for (var pnr = kpab; pnr <= to; pnr++)
+      {
+        var be = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, pnr, pnr, k.Uid)?.FirstOrDefault();
+        if (be == null || Functions.CompDouble(be.Betrag, kist) != 0 || Functions.CompDouble(be.EBetrag, keist) != 0)
+        {
+          problem4 = pnr;
+          break;
+        }
+        else
+        {
+          kist = be.Betrag;
+          keist = be.EBetrag;
+        }
+        var p = pliste.First(a => a.Nr == pnr);
+        var buliste = HhBuchungRep.GetList(daten, null, k.Uid, null, Constants.KZB_AKTIV, true, from: p.Datum_Von, to: p.Datum_Bis);
+        foreach (var bu in buliste)
+        {
+          kist += bu.Betrag;
+          keist += bu.EBetrag;
+        }
+        var bs = HhBilanzRep.GetList(daten, Constants.KZBI_SCHLUSS, pnr, pnr, k.Uid)?.FirstOrDefault();
+        if (bs == null || Functions.CompDouble(bs.Betrag, kist) != 0 || Functions.CompDouble(bs.EBetrag, keist) != 0)
+        {
+          problem4 = pnr;
+          break;
+        }
+        else
+        {
+          kist = bs.Betrag;
+          keist = bs.EBetrag;
+        }
+        //// sb.AppendLine($"  Periode {pnr} EB {kist,12:N2} {keist,12:N2}");
+      }
+      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}");
     }
     r.Ergebnis = sb.ToString();
     return r;
