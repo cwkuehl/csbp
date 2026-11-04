@@ -161,7 +161,7 @@ public partial class HH400Bookings : CsbpBin
           von.Value, bis.Value, bText.Text, GetText(konto), betrag.Text)) ?? new List<HhBuchung>();
       var anz = l.Count;
       var summe = 0m;
-      //// No.;Value date;A.;Value_r;Posting text;Debit account;Credit account;Receipt;Changed at;Changed by;Created at;Created by
+      //// No.;Value date;A.;Value_r;DM_r;!;Posting text;Debit account;Credit account;Receipt;Changed at;Changed by;Created at;Created by
       var values = new List<string[]>();
       foreach (var e in l)
       {
@@ -169,8 +169,10 @@ public partial class HH400Bookings : CsbpBin
         values.Add(new string[]
         {
           e.Uid, Funktionen.ToString(e.Soll_Valuta), e.Kz,
-          Funktionen.ToString(e.EBetrag, 2), Functions.Left2(e.BText),
-          e.DebitName, e.CreditName, e.Beleg_Nr,
+          Funktionen.ToString(e.EBetrag, 2), Funktionen.ToString(e.Betrag, 2),
+          Functions.CompDouble(Math.Abs(e.EBetrag), Functions.KonvEURO(Math.Abs(e.Betrag))) != 0
+            && Functions.CompDouble(Math.Abs(e.Betrag), Functions.KonvDM(Math.Abs(e.EBetrag))) != 0 ? "x" : "",
+          Functions.Left2(e.BText), e.DebitName, e.CreditName, e.Beleg_Nr,
           Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
         });

@@ -2950,7 +2950,7 @@
         <value>Buchungen</value>
     </data>
     <data name="HH400.buchungen.columns" xml:space="preserve">
-        <value>Nr.;Valuta;K.;Betrag_r;Buchungstext;Sollkonto;Habenkonto;Beleg;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
+        <value>Nr.;Valuta;K.;Betrag_r;DM_r;!;Buchungstext;Sollkonto;Habenkonto;Beleg;Geändert am;Geändert von;Angelegt am;Angelegt von</value>
     </data>
     <data name="HH400.buchungenStatus" xml:space="preserve">
         <value>Status</value>

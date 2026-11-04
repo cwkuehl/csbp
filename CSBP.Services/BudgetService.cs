@@ -1212,14 +1212,16 @@ public class BudgetService : ServiceBase, IBudgetService
     var pnrmax = pmax.Nr;
     if (to < 0)
       to = pnrmax;
-    var p0 = HhPeriodeRep.Get(daten, daten.MandantNr, from);
-    sb.AppendLine($"Start-Periode {from} {Funktionen.ToString(p0.Datum_Von)}");
+    var pa = HhPeriodeRep.Get(daten, daten.MandantNr, from);
+    var pe = HhPeriodeRep.Get(daten, daten.MandantNr, to);
+    sb.AppendLine($"Perioden von {from} {Funktionen.ToString(pa.Datum_Von)} bis {to} {Funktionen.ToString(pe.Datum_Bis)}");
     var pliste = HhPeriodeRep.GetList(daten, from: null);
     var kliste = HhKontoRep.GetList(daten, null, -1, -1, Constants.ARTK_AKTIVKONTO, Constants.ARTK_PASSIVKONTO);
     ////var pnr = from;
     foreach (var k in kliste)
     {
       var kpab = k.Periode_Von <= pnrmin ? pnrmin : k.Periode_Von;
+      var kpbis = k.Periode_Bis >= pnrmax ? pnrmax : k.Periode_Bis;
       var p1 = pliste.First(a => a.Nr == kpab);
       var dv = p1.Datum_Von;
       var ab = Funktionen.ToString(dv);
@@ -1241,43 +1243,81 @@ public class BudgetService : ServiceBase, IBudgetService
       //// Bilanzierung in einer Periode vor der Gueltig_Von-Periode
       var problem3 = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, -1, kpab - 1, k.Uid)?.FirstOrDefault() != null;
       //// TODO Prüfen des Kontos in allen Perioden.
+      //// 1. Periode von fehlerhafter DM-Bilanzsumme
       var problem4 = 0;
+      //// 1. Periode von fehlerhafter Euro-Bilanzsumme
+      var problem4e = 0;
+      //// Buchung mit falschem DM-Euro-Betragsverhältnis
+      var problem5 = 0;
       var kist = kist0;
       var keist = keist0;
-      for (var pnr = kpab; pnr <= to; pnr++)
+      var anfang = true;
+      for (var pnr = kpab; pnr <= kpbis; pnr++)
       {
         var be = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, pnr, pnr, k.Uid)?.FirstOrDefault();
-        if (be == null || Functions.CompDouble(be.Betrag, kist) != 0 || Functions.CompDouble(be.EBetrag, keist) != 0)
+        if (be == null)
         {
           problem4 = pnr;
+          problem4e = pnr;
           break;
         }
         else
         {
-          kist = be.Betrag;
-          keist = be.EBetrag;
+          if (problem4 == 0 && !anfang && Functions.CompDouble(be.Betrag, kist) != 0)
+            problem4 = pnr;
+          else
+            kist = be.Betrag;
+          if (problem4e == 0 && !anfang && Functions.CompDouble(be.EBetrag, keist) != 0)
+            problem4e = pnr;
+          else
+            keist = be.EBetrag;
         }
+        anfang = false;
         var p = pliste.First(a => a.Nr == pnr);
         var buliste = HhBuchungRep.GetList(daten, null, k.Uid, null, Constants.KZB_AKTIV, true, from: p.Datum_Von, to: p.Datum_Bis);
         foreach (var bu in buliste)
         {
-          kist += bu.Betrag;
-          keist += bu.EBetrag;
+          if (problem5 == 0 && Functions.CompDouble(Math.Abs(bu.EBetrag), Functions.KonvEURO(Math.Abs(bu.Betrag))) != 0
+            && Functions.CompDouble(Math.Abs(bu.Betrag), Functions.KonvDM(Math.Abs(bu.EBetrag))) != 0)
+            problem5 = pnr;
+          if (bu.Soll_Konto_Uid == k.Uid)
+          {
+            if (problem4 == 0)
+              kist -= bu.Betrag;
+            if (problem4e == 0)
+              keist -= bu.EBetrag;
+          }
+          else if (bu.Haben_Konto_Uid == k.Uid)
+          {
+            if (problem4 == 0)
+              kist += bu.Betrag;
+            if (problem4e == 0)
+              keist += bu.EBetrag;
+          }
         }
         var bs = HhBilanzRep.GetList(daten, Constants.KZBI_SCHLUSS, pnr, pnr, k.Uid)?.FirstOrDefault();
-        if (bs == null || Functions.CompDouble(bs.Betrag, kist) != 0 || Functions.CompDouble(bs.EBetrag, keist) != 0)
+        if (bs == null)
         {
           problem4 = pnr;
+          problem4e = pnr;
           break;
         }
         else
         {
-          kist = bs.Betrag;
-          keist = bs.EBetrag;
+          if (problem4 == 0 && !anfang && Functions.CompDouble(bs.Betrag, kist) != 0)
+            problem4 = pnr;
+          else
+            kist = bs.Betrag;
+          if (problem4e == 0 && !anfang && Functions.CompDouble(bs.EBetrag, keist) != 0)
+            problem4e = pnr;
+          else
+            keist = bs.EBetrag;
         }
+        if (problem4 > 0 && problem4e > 0 && problem5 > 0)
+          break;
         //// sb.AppendLine($"  Periode {pnr} EB {kist,12:N2} {keist,12:N2}");
       }
-      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}");
+      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Art} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}{Funktionen.Iif(problem4e > 0, $" x4e:{problem4e}", "")}{Funktionen.Iif(problem5 > 0, $" x5:{problem5}", "")}");
     }
     r.Ergebnis = sb.ToString();
     return r;

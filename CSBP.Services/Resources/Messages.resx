@@ -2947,7 +2947,7 @@
         <value>Bookings</value>
     </data>
     <data name="HH400.buchungen.columns" xml:space="preserve">
-        <value>No.;Value date;A.;Value_r;Posting text;Debit account;Credit account;Receipt;Changed at;Changed by;Created at;Created by</value>
+        <value>No.;Value date;A.;Value_r;DM_r;!;Posting text;Debit account;Credit account;Receipt;Changed at;Changed by;Created at;Created by</value>
     </data>
     <data name="HH400.buchungenStatus" xml:space="preserve">
         <value>State</value>
