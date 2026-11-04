@@ -285,7 +285,7 @@ public partial class EN100Queries : CsbpBin
     }
     catch (Exception ex)
     {
-      Application.Invoke((sender, e) => { ShowError(ex.Message); });
+      Application.Invoke((sender, e) => { ShowError(ex.Message, false); });
     }
     finally
     {
