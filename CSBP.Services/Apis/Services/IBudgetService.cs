@@ -327,12 +327,12 @@ public interface IBudgetService
   ServiceErgebnis<List<HhBilanz>> GetProprietaryPlList(ServiceDaten daten, DateTime from, int years = 10);
 
   /// <summary>
-  /// Analyses Balances.
+  /// Analyzes Balances, Accounts and Bookings.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
   /// <param name="from">Affected first period or -1.</param>
   /// <param name="to">Affected last period or -1.</param>
   /// <param name="state">Task for asynchronous execution.</param>
   /// <returns>Report as string.</returns>
-  ServiceErgebnis<string> AnalyseBalances(ServiceDaten daten, int from = -1, int to = -1, StatusTask state = null);
+  ServiceErgebnis<string> AnalyzeBalances(ServiceDaten daten, int from = -1, int to = -1, StatusTask state = null);
 }

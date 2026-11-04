@@ -66,12 +66,12 @@ public class ServiceTest : IDisposable
   [Fact]
   public void BalanceTest()
   {
-    var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "AnalyseBalances", "0");
+    var rs = StatusTask.HinzufuegenFunktion(daten.MandantNr, "AnalyzeBalances", "0");
     rs.ThrowAllErrors("HinzufuegenFunktion");
     var state = rs.Ergebnis;
-    var r = FactoryService.BudgetService.AnalyseBalances(daten, -1, -1, state);
-    r.ThrowAllErrors("AnalyseBalances");
-    output.WriteLine($"AnalyseBalances: {r.Ergebnis}");
+    var r = FactoryService.BudgetService.AnalyzeBalances(daten, -1, -1, state);
+    r.ThrowAllErrors("AnalyzeBalances");
+    output.WriteLine($"AnalyzeBalances: {r.Ergebnis}");
   }
 
   /// <summary>
