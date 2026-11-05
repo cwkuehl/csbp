@@ -38,7 +38,7 @@ public partial class HhKontoRep
   {
     var db = GetDb(daten);
     search = search.TrimNull() ?? rm?.Search;
-    var l = db.HH_Konto.Where(a => a.Mandant_Nr == daten.MandantNr);
+    var l = db.HH_Konto.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (nrle >= 0)
       l = l.Where(a => a.Periode_Von <= nrle);
     if (nrge >= 0)

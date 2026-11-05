@@ -1072,7 +1072,7 @@ public partial class ClientService : ServiceBase, IClientService
             e.Angelegt_Von, e.Angelegt_Am, e.Geaendert_Von, e.Geaendert_Am);
         }
       }
-      var l = HhBuchungRep.GetList(daten, null, null, null, from: daten.Heute.AddDays(-days));
+      var l = HhBuchungRep.GetList(daten, null, null, null, from: daten.Heute.AddDays(-days), saldo: false);
       foreach (var e in l)
       {
         var j = new Dictionary<string, string>

@@ -39,11 +39,13 @@ public partial class HhBuchungRep
   /// <param name="euro">Compares euro value or not.</param>
   /// <param name="max">How many rows? 0 means all.</param>
   /// <param name="tracking">With tracking or AsNoTracking.</param>
+  /// <param name="saldo">Calculates saldo or not.</param>
   public List<HhBuchung> GetList(ServiceDaten daten, TableReadModel rm, string auid, bool? debit, string attr = Constants.KZB_AKTIV,
     bool valuta = true, DateTime? from = null, DateTime? to = null, string search = null, string value = null,
-    bool desc = true, bool euro = true, int max = 0, bool tracking = false)
+    bool desc = true, bool euro = true, int max = 0, bool tracking = false, bool saldo = false)
   {
     var db = GetDb(daten);
+    saldo = saldo && !string.IsNullOrEmpty(auid) && !tracking;
     search = search.TrimNull() ?? rm?.Search;
     var l = db.HH_Buchung.Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!tracking)
@@ -125,7 +127,7 @@ public partial class HhBuchungRep
       if (rm.NoPaging)
       {
         var lx1 = SortList(l, rm.SortColumn);
-        return MakeSaldo(lx1.ToList(), auid, tracking);
+        return MakeSaldo(lx1.ToList(), auid, saldo);
       }
       else
       {
@@ -137,13 +139,13 @@ public partial class HhBuchungRep
         var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
         var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
         var lx2 = lx1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
-        return MakeSaldo(lx2, auid, tracking);
+        return MakeSaldo(lx2, auid, saldo);
       }
     }
     if (max <= 0)
-      return MakeSaldo(l5.ToList(), auid, tracking);
+      return MakeSaldo(l5.ToList(), auid, saldo);
     else
-      return MakeSaldo(l5.Take(max).ToList(), auid, tracking);
+      return MakeSaldo(l5.Take(max).ToList(), auid, saldo);
   }
 
   /// <summary>
@@ -231,16 +233,19 @@ public partial class HhBuchungRep
   /// </summary>
   /// <param name="l">Affected list of bookings.</param>
   /// <param name="auid">Affected account ID.</param>
-  /// <param name="tracking">Tracking flag.</param>
+  /// <param name="saldo">Calculates saldo or not.</param>
   /// <returns>List of bookings with saldo enabled values.</returns>
-  private List<HhBuchung> MakeSaldo(List<HhBuchung> l, string auid, bool tracking = false)
+  private List<HhBuchung> MakeSaldo(List<HhBuchung> l, string auid, bool saldo = false)
   {
-    if (l == null || l.Count <= 0 || string.IsNullOrEmpty(auid) || tracking)
+    if (l == null || l.Count <= 0 || string.IsNullOrEmpty(auid) || !saldo)
       return l;
     foreach (var b in l)
     {
       if (b.Haben_Konto_Uid == auid)
+      {
+        b.Betrag = -b.Betrag;
         b.EBetrag = -b.EBetrag;
+      }
     }
     return l;
   }

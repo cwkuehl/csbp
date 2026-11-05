@@ -67,7 +67,7 @@ public class BudgetService : ServiceBase, IBudgetService
     }
     else if (page == "HH400")
     {
-      var l = HhBuchungRep.GetList(daten, rm, auid, null, null, valuta, from, to, null, value);
+      var l = HhBuchungRep.GetList(daten, rm, auid, null, null, valuta, from, to, null, value, saldo: true);
       cs.AddCsvLine(["SollValuta", "Btext", "Ebetrag", "Uid", "Kz", "SollKontoUid", "SollKonto", "HabenKontoUid", "HabenKonto", "BelegNr", "BelegDatum", "HabenValuta", "Betrag", "AngelegtVon", "AngelegtAm", "GeaendertVon", "GeaendertAm"]);
       foreach (var o in l)
       {
@@ -599,7 +599,7 @@ public class BudgetService : ServiceBase, IBudgetService
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null)
   {
-    var r = new ServiceErgebnis<List<HhBuchung>>(HhBuchungRep.GetList(daten, rm, auid, null, null, valuta, from, to, text, value, true));
+    var r = new ServiceErgebnis<List<HhBuchung>>(HhBuchungRep.GetList(daten, rm, auid, null, null, valuta, from, to, text, value, true, saldo: true));
     return r;
   }
 
@@ -618,7 +618,7 @@ public class BudgetService : ServiceBase, IBudgetService
       DateTime? from = null, DateTime? to = null, string text = null, string auid = null,
       string value = null)
   {
-    var l = HhBuchungRep.GetList(daten, null, auid, null, null, valuta, from, to, text, value, true);
+    var l = HhBuchungRep.GetList(daten, null, auid, null, null, valuta, from, to, text, value, true, saldo: true);
     var list = FillBookingList(l);
     var r = new ServiceErgebnis<List<string>>(list);
     return r;
@@ -1242,7 +1242,7 @@ public class BudgetService : ServiceBase, IBudgetService
       var problem2 = k.Gueltig_Von.HasValue && (k.Gueltig_Von.Value < p1.Datum_Von || k.Gueltig_Von.Value > p1.Datum_Bis);
       //// Bilanzierung in einer Periode vor der Gueltig_Von-Periode
       var problem3 = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, -1, kpab - 1, k.Uid)?.FirstOrDefault() != null;
-      //// TODO Prüfen des Kontos in allen Perioden.
+      //// Prüfen des Kontos in allen Perioden.
       //// 1. Periode von fehlerhafter DM-Bilanzsumme
       var problem4 = 0;
       //// 1. Periode von fehlerhafter Euro-Bilanzsumme
@@ -1251,15 +1251,24 @@ public class BudgetService : ServiceBase, IBudgetService
       var problem5 = 0;
       var kist = kist0;
       var keist = keist0;
+      var kist1 = kist0;
+      var keist1 = keist0;
       var anfang = true;
+      var strsb = "";
+      var bilanz = Funktionen.MachNichts() != 0;
       for (var pnr = kpab; pnr <= kpbis; pnr++)
       {
+        var p = pliste.First(a => a.Nr == pnr);
         var be = HhBilanzRep.GetList(daten, Constants.KZBI_EROEFFNUNG, pnr, pnr, k.Uid)?.FirstOrDefault();
         if (be == null)
         {
-          problem4 = pnr;
-          problem4e = pnr;
-          break;
+          if (problem4 == 0)
+            problem4 = pnr;
+          if (problem4e == 0)
+            problem4e = pnr;
+          kist = 0;
+          keist = 0;
+          //// break;
         }
         else
         {
@@ -1272,8 +1281,9 @@ public class BudgetService : ServiceBase, IBudgetService
           else
             keist = be.EBetrag;
         }
+        if (bilanz)
+          sb.AppendLine($" Periode {pnr} {Funktionen.ToString(p.Datum_Von)} EB {kist,12:N2} {keist,12:N2} berechnet {kist1,12:N2} {keist1,12:N2}");
         anfang = false;
-        var p = pliste.First(a => a.Nr == pnr);
         var buliste = HhBuchungRep.GetList(daten, null, k.Uid, null, Constants.KZB_AKTIV, true, from: p.Datum_Von, to: p.Datum_Bis);
         foreach (var bu in buliste)
         {
@@ -1282,42 +1292,57 @@ public class BudgetService : ServiceBase, IBudgetService
             problem5 = pnr;
           if (bu.Soll_Konto_Uid == k.Uid)
           {
-            if (problem4 == 0)
-              kist -= bu.Betrag;
-            if (problem4e == 0)
-              keist -= bu.EBetrag;
+            kist -= bu.Betrag;
+            kist1 -= bu.Betrag;
+            keist -= bu.EBetrag;
+            keist1 -= bu.EBetrag;
           }
           else if (bu.Haben_Konto_Uid == k.Uid)
           {
-            if (problem4 == 0)
-              kist += bu.Betrag;
-            if (problem4e == 0)
-              keist += bu.EBetrag;
+            kist += bu.Betrag;
+            kist1 += bu.Betrag;
+            keist += bu.EBetrag;
+            keist1 += bu.EBetrag;
           }
         }
         var bs = HhBilanzRep.GetList(daten, Constants.KZBI_SCHLUSS, pnr, pnr, k.Uid)?.FirstOrDefault();
         if (bs == null)
         {
+          if (problem4 == 0)
           problem4 = pnr;
-          problem4e = pnr;
-          break;
+          if (problem4e == 0)
+            problem4e = pnr;
+          kist = 0;
+          keist = 0;
+          //// break;
         }
         else
         {
           if (problem4 == 0 && !anfang && Functions.CompDouble(bs.Betrag, kist) != 0)
             problem4 = pnr;
-          else
-            kist = bs.Betrag;
+          kist = bs.Betrag;
           if (problem4e == 0 && !anfang && Functions.CompDouble(bs.EBetrag, keist) != 0)
             problem4e = pnr;
-          else
-            keist = bs.EBetrag;
+          keist = bs.EBetrag;
         }
-        if (problem4 > 0 && problem4e > 0 && problem5 > 0)
-          break;
-        //// sb.AppendLine($"  Periode {pnr} EB {kist,12:N2} {keist,12:N2}");
+        if (bilanz || pnr == kpbis)
+          strsb = $"  Periode {pnr} {Funktionen.ToString(p.Datum_Bis)} SB {kist,12:N2} {keist,12:N2} berechnet {kist1,12:N2} {keist1,12:N2}";
+        if (bilanz)
+          sb.AppendLine(strsb);
+        //// if (problem4 > 0 && problem4e > 0 && problem5 > 0)
+        ////   break;
       }
-      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Art} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}{Funktionen.Iif(problem4e > 0, $" x4e:{problem4e}", "")}{Funktionen.Iif(problem5 > 0, $" x5:{problem5}", "")}");
+      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Art} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}{Funktionen.Iif(problem4e > 0, $" x4e:{problem4e}", "")}{Funktionen.Iif(problem5 > 0, $" x5:{problem5}", "")}{strsb}");
+      if (problem1 && k.Kz != Constants.KZK_EK && k.Kz != Constants.KZK_GV)
+      {
+        // k.Art == Constants.ARTK_AKTIVKONTO) // && k.Name == "Auto")
+        k.Betrag = kist0;
+        k.EBetrag = keist0;
+        HhKontoRep.Update(daten, k);
+        //// break;
+      }
+      if (bilanz)
+        break;
     }
     r.Ergebnis = sb.ToString();
     return r;

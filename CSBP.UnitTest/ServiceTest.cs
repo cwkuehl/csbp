@@ -7,6 +7,7 @@ namespace CSBP.UnitTest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using BlazorSpa.Base;
 using BlazorSpa.Base.Csv;
@@ -72,6 +73,14 @@ public class ServiceTest : IDisposable
     var r = FactoryService.BudgetService.AnalyzeBalances(daten, -1, -1, state);
     r.ThrowAllErrors("AnalyzeBalances");
     output.WriteLine($"AnalyzeBalances: {r.Ergebnis}");
+    var filename = "/home/wolfgang/Downloads/AnalyzeBalances.txt";
+    File.WriteAllText(filename, r.Ergebnis);
+    using var mousepad = Process.Start(new ProcessStartInfo
+    {
+      FileName = "mousepad",
+      ArgumentList = { filename },
+      UseShellExecute = false,
+    });
   }
 
   /// <summary>
