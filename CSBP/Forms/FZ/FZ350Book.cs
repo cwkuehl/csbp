@@ -6,6 +6,7 @@ namespace CSBP.Forms.FZ;
 
 using System;
 using System.Linq;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -201,9 +202,9 @@ public partial class FZ350Book : CsbpBin
         SetText(untertitel, k.Untertitel);
         SetText(autor, k.Autor_Uid);
         SetText(serie, k.Serie_Uid);
-        SetText(seriennummer, Functions.ToString(k.Seriennummer == 0 ? (int?)null : k.Seriennummer));
-        SetText(seiten, Functions.ToString(k.Seiten == 0 ? (int?)null : k.Seiten));
-        SetText(sprache1, Functions.ToString(k.Sprache_Nr));
+        SetText(seriennummer, Funktionen.ToString(k.Seriennummer == 0 ? (int?)null : k.Seriennummer));
+        SetText(seiten, Funktionen.ToString(k.Seiten == 0 ? (int?)null : k.Seiten));
+        SetText(sprache1, Funktionen.ToString(k.Sprache_Nr));
         besitz.Active = k.StatePossession;
         lesedatum.Value = k.StateRead;
         hoerdatum.Value = k.StateHeard;

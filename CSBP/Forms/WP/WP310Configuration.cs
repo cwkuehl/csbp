@@ -158,10 +158,10 @@ public partial class WP310Configuration : CsbpBin
         SetText(nr, k.Uid);
         SetText(bezeichnung, k.Bezeichnung);
         SetText(box, Funktionen.ToString(k.Box, 2));
-        SetText(skala, Functions.ToString(k.Scale));
-        SetText(umkehr, Functions.ToString(k.Reversal));
-        SetText(methode, Functions.ToString(k.Method));
-        SetText(dauer, Functions.ToString(k.Duration));
+        SetText(skala, Funktionen.ToString(k.Scale));
+        SetText(umkehr, Funktionen.ToString(k.Reversal));
+        SetText(methode, Funktionen.ToString(k.Method));
+        SetText(dauer, Funktionen.ToString(k.Duration));
         relativ.Active = k.Relative;
         SetText(status, k.Status);
         SetText(notiz, k.Notiz);

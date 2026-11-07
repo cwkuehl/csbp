@@ -5,8 +5,8 @@
 namespace CSBP.Forms.AM;
 
 using System;
+using BlazorSpa.Base;
 using CSBP.Services.Apis.Enums;
-using CSBP.Services.Base;
 using CSBP.Services.Factory;
 using Gtk;
 
@@ -92,7 +92,7 @@ public partial class AM100Change : CsbpBin
     if (step <= 0)
     {
       var daten = ServiceDaten;
-      SetText(mandant, Functions.ToString(daten.MandantNr));
+      SetText(mandant, Funktionen.ToString(daten.MandantNr));
       SetText(benutzer, daten.BenutzerId);
       SetText(kennwortAlt, "");
       SetText(kennwortNeu, "");

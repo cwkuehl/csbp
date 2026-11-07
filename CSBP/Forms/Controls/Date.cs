@@ -239,7 +239,7 @@ public partial class Date : Grid
       if (value.HasValue)
       {
         date.IsEditable = true;
-        daytext.Text = Functions.ToStringWd(value.Value);
+        daytext.Text = Funktionen.ToStringWd(value.Value);
       }
       else
       {

@@ -297,7 +297,7 @@ public partial class FZ710Memo : CsbpBin
       for (var i = 0; i < zeilen; i++)
       {
         var arr = new string[spalten + 2];
-        arr[0] = Functions.ToString(i + 1);
+        arr[0] = Funktionen.ToString(i + 1);
         arr[1] = $"{i + 1:000}";
         var zellen = table.SelectNodes($"zelle[@y='{i}']");
         foreach (XmlElement z in zellen)

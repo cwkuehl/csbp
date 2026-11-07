@@ -287,9 +287,9 @@ public partial class SB210Ancestor : CsbpBin
           SetText(mutterNr, k.Mother?.Uid);
         }
         SetText(quelle, k.Quelle_Uid);
-        SetText(status1, Functions.ToString(k.Status1));
-        SetText(status2, Functions.ToString(k.Status2));
-        SetText(status3, Functions.ToString(k.Status3));
+        SetText(status1, Funktionen.ToString(k.Status1));
+        SetText(status2, Funktionen.ToString(k.Status2));
+        SetText(status3, Funktionen.ToString(k.Status3));
         SetText(angelegt, ModelBase.FormatDateOf(k.Angelegt_Am, k.Angelegt_Von));
         SetText(geaendert, ModelBase.FormatDateOf(k.Geaendert_Am, k.Geaendert_Von));
       }

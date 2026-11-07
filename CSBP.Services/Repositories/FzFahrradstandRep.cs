@@ -91,7 +91,7 @@ public partial class FzFahrradstandRep
   public decimal Count(ServiceDaten daten, string buid = null, DateTime? datege = null, DateTime? datele = null)
   {
     var db = GetDb(daten);
-    var l = db.FZ_Fahrradstand.Where(a => a.Mandant_Nr == daten.MandantNr);
+    var l = db.FZ_Fahrradstand.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(buid))
       l = l.Where(a => a.Fahrrad_Uid == buid);
     if (datege.HasValue)

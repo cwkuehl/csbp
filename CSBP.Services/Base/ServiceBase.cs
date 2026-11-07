@@ -431,9 +431,9 @@ public class ServiceBase
     if (o == null)
       return "";
     if (o is int @int)
-      return Functions.ToString(@int);
+      return Funktionen.ToString(@int);
     if (o is int?)
-      return Functions.ToString((int?)o);
+      return Funktionen.ToString((int?)o);
     if (o is string)
     {
       var s = Funktionen.ToString(o as string);

@@ -97,14 +97,14 @@ public class ParameterGui : Parameter
   public static bool AD120Start
   {
     get { return Funktionen.ToBool(GetValue("AD120Start")) ?? false; }
-    set { SetValue("AD120Start", Functions.ToString(value)); }
+    set { SetValue("AD120Start", Funktionen.ToString(value)); }
   }
 
   /// <summary>Gets or sets the amount of days in the birthday list.</summary>
   public static int AD120Days
   {
     get { return Functions.ToInt32(GetValue("AD120Days") ?? "12"); }
-    set { SetValue("AD120Days", Functions.ToString(value)); }
+    set { SetValue("AD120Days", Funktionen.ToString(value)); }
   }
 
   /// <summary>Gets or sets the address file name.</summary>
@@ -139,7 +139,7 @@ public class ParameterGui : Parameter
   public static bool HH510Cashreport
   {
     get { return Funktionen.ToBool(GetValue("HH510Cashreport")) ?? false; }
-    set { SetValue("HH510Cashreport", Functions.ToString(value)); }
+    set { SetValue("HH510Cashreport", Funktionen.ToString(value)); }
   }
 
   /// <summary>Gets or sets the booking file name.</summary>

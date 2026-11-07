@@ -5,6 +5,7 @@
 namespace CSBP.Forms.AG;
 
 using System;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -136,7 +137,7 @@ public partial class AG210User : CsbpBin
           return;
         }
         model = k;
-        SetText(nr, Functions.ToString(k.Person_Nr));
+        SetText(nr, Funktionen.ToString(k.Person_Nr));
         SetText(benutzerId, k.Benutzer_ID);
         SetText(kennwort, k.Passwort);
         SetText(berechtigung1, k.Berechtigung.ToString());

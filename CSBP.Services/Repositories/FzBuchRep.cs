@@ -34,7 +34,7 @@ public partial class FzBuchRep
     string name = null, int no = 0, int max = 0, bool descseries = false)
   {
     var db = GetDb(daten);
-    var wl = db.FZ_Buch.Where(a => a.Mandant_Nr == daten.MandantNr);
+    var wl = db.FZ_Buch.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(bouid))
       wl = wl.Where(a => a.Uid == bouid);
     if (!string.IsNullOrEmpty(auuid))
@@ -45,11 +45,11 @@ public partial class FzBuchRep
       wl = wl.Where(a => EF.Functions.Like(a.Titel, name) || EF.Functions.Like(a.Untertitel, name));
     if (no > 0)
       wl = wl.Where(a => a.Seriennummer == no);
-    var l = wl.Join(db.FZ_Buchautor.Where(a => a.Mandant_Nr == daten.MandantNr),
+    var l = wl.Join(db.FZ_Buchautor.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr),
       a => a.Autor_Uid, b => b.Uid, (a, b) => new { book = a, author = b });
-    var l1 = l.Join(db.FZ_Buchserie.Where(a => a.Mandant_Nr == daten.MandantNr),
+    var l1 = l.Join(db.FZ_Buchserie.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr),
       a => a.book.Serie_Uid, b => b.Uid, (a, b) => new { a.book, a.author, series = b });
-    var l2 = l1.Join(db.FZ_Buchstatus.Where(a => a.Mandant_Nr == daten.MandantNr),
+    var l2 = l1.Join(db.FZ_Buchstatus.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr),
       a => a.book.Uid, b => b.Buch_Uid, (a, b) => new { a.book, a.author, a.series, state = b });
     var l3 = descseries ? l2.OrderByDescending(a => a.book.Serie_Uid).ThenByDescending(a => a.book.Seriennummer)
       : l2.OrderByDescending(a => a.state.Lesedatum).ThenByDescending(a => a.book.Serie_Uid).ThenByDescending(a => a.book.Seriennummer);
@@ -83,7 +83,7 @@ public partial class FzBuchRep
     DateTime? createdle = null, DateTime? readle = null, DateTime? heardle = null, bool pages = false)
   {
     var db = GetDb(daten);
-    var l = db.FZ_Buch.Where(a => a.Mandant_Nr == daten.MandantNr);
+    var l = db.FZ_Buch.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (lnr >= 0)
       l = l.Where(a => a.Sprache_Nr == lnr);
     if (!string.IsNullOrEmpty(suid))
@@ -92,7 +92,7 @@ public partial class FzBuchRep
       l = l.Where(a => a.Serie_Uid != suidne);
     if (createdle.HasValue)
       l = l.Where(a => a.Angelegt_Am <= createdle.Value);
-    var ls = db.FZ_Buchstatus.Where(a => a.Mandant_Nr == daten.MandantNr);
+    var ls = db.FZ_Buchstatus.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (readle.HasValue)
       ls = ls.Where(a => a.Lesedatum <= readle.Value);
     if (heardle.HasValue)

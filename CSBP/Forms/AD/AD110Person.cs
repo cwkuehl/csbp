@@ -5,6 +5,7 @@
 namespace CSBP.Forms.AD;
 
 using System;
+using BlazorSpa.Base;
 using BlazorSpa.Base.Services;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -379,6 +380,6 @@ public partial class AD110Person : CsbpBin
     SetText(staat, ad?.Staat);
     SetText(plz, ad?.Plz);
     SetText(ort, ad?.Ort);
-    SetText(adresseAnzahl, Functions.ToString(diff + Get(FactoryService.AddressService.GetAddressCount(ServiceDaten, ad?.Uid))));
+    SetText(adresseAnzahl, Funktionen.ToString(diff + Get(FactoryService.AddressService.GetAddressCount(ServiceDaten, ad?.Uid))));
   }
 }

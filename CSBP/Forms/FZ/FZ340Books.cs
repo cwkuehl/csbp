@@ -117,7 +117,7 @@ public partial class FZ340Books : CsbpBin
         values.Add(new string[]
         {
           e.Uid, Functions.Left2(e.Titel), Functions.Left2(e.AuthorCompleteName), Functions.Left2(e.SeriesName),
-          Functions.ToString(e.Seriennummer), Functions.ToString(e.Seiten),
+          Funktionen.ToString(e.Seriennummer), Funktionen.ToString(e.Seiten),
           e.Language, e.StatePossession ? "x" : "",
           Funktionen.ToString(e.StateRead), Funktionen.ToString(e.StateHeard),
           Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,

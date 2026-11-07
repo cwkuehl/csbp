@@ -354,7 +354,7 @@ public partial class ClientService : ServiceBase, IClientService
       }
       if (versionalt < version)
       {
-        p.Wert = Functions.ToString(version);
+        p.Wert = Funktionen.ToString(version);
         MaParameterRep.Update(daten, p);
         versionalt = version;
       }
@@ -384,7 +384,7 @@ public partial class ClientService : ServiceBase, IClientService
       cs.AddCsvLine(["Nr", "Beschreibung", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Nr), o.Beschreibung, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Funktionen.ToString(o.Nr), o.Beschreibung, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "AG200")
@@ -393,7 +393,7 @@ public partial class ClientService : ServiceBase, IClientService
       cs.AddCsvLine(["Benutzer_ID", "Passwort", "Berechtigung", "Akt_Periode", "Person_Nr", "Geburt", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([o.Benutzer_ID, "xxx", Functions.ToString(o.Berechtigung), Functions.ToString(o.Akt_Periode), Functions.ToString(o.Person_Nr), Funktionen.ToString(o.Geburt), Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([o.Benutzer_ID, "xxx", Funktionen.ToString(o.Berechtigung), Funktionen.ToString(o.Akt_Periode), Funktionen.ToString(o.Person_Nr), Funktionen.ToString(o.Geburt), Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "AM500")
@@ -992,9 +992,9 @@ public partial class ClientService : ServiceBase, IClientService
           { "datum", Funktionen.ToString(e.Datum) },
           { "eintrag", e.Eintrag },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);
@@ -1011,9 +1011,9 @@ public partial class ClientService : ServiceBase, IClientService
           { "thema", e.Thema },
           { "notiz", e.Notiz },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);
@@ -1089,9 +1089,9 @@ public partial class ClientService : ServiceBase, IClientService
           { "belegNr", e.Beleg_Nr },
           { "belegDatum", Funktionen.ToString(e.Beleg_Datum) },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);
@@ -1111,9 +1111,9 @@ public partial class ClientService : ServiceBase, IClientService
           { "bezeichnung", e.Bezeichnung },
           { "etext", e.EText },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);
@@ -1133,14 +1133,14 @@ public partial class ClientService : ServiceBase, IClientService
           { "name", e.Name },
           { "gueltigVon", Funktionen.ToString(e.Gueltig_Von) },
           { "gueltigBis", Funktionen.ToString(e.Gueltig_Bis) },
-          { "periodeVon", Functions.ToString(e.Periode_Von) },
-          { "periodeBis", Functions.ToString(e.Periode_Bis) },
+          { "periodeVon", Funktionen.ToString(e.Periode_Von) },
+          { "periodeBis", Funktionen.ToString(e.Periode_Bis) },
           { "betrag", Funktionen.ToString(e.Betrag, 2, Functions.CultureInfoEn) },
           { "ebetrag", Funktionen.ToString(e.EBetrag, 2, Functions.CultureInfoEn) },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);
@@ -1155,11 +1155,11 @@ public partial class ClientService : ServiceBase, IClientService
         {
           { "uid", e.Uid },
           { "bezeichnung", e.Bezeichnung },
-          { "typ", Functions.ToString(e.Typ) },
+          { "typ", Funktionen.ToString(e.Typ) },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);
@@ -1227,9 +1227,9 @@ public partial class ClientService : ServiceBase, IClientService
           { "periodeSchnitt", Funktionen.ToString(e.Periode_Schnitt, 2, Functions.CultureInfoEn) },
           { "beschreibung", e.Beschreibung },
           { "replid", "server" },
-          { "angelegtAm", Functions.ToStringT(e.Angelegt_Am, true) },
+          { "angelegtAm", Funktionen.ToStringT(e.Angelegt_Am, true) },
           { "angelegtVon", e.Angelegt_Von },
-          { "geaendertAm", Functions.ToStringT(e.Geaendert_Am, true) },
+          { "geaendertAm", Funktionen.ToStringT(e.Geaendert_Am, true) },
           { "geaendertVon", e.Geaendert_Von },
         };
         ja.Add(j);

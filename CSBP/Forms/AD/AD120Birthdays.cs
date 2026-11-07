@@ -6,6 +6,7 @@ namespace CSBP.Forms.AD;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base;
 using CSBP.Base;
 using CSBP.Forms.Controls;
 using CSBP.Services.Apis.Enums;
@@ -89,7 +90,7 @@ public partial class AD120Birthdays : CsbpBin
     if (step <= 0)
     {
       datum.Value = daten.Heute;
-      SetText(tage, Functions.ToString(ParameterGui.AD120Days));
+      SetText(tage, Funktionen.ToString(ParameterGui.AD120Days));
       starten.Active = ParameterGui.AD120Start;
       EventsActive = true;
     }

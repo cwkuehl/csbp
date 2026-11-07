@@ -62,7 +62,7 @@ public class BudgetService : ServiceBase, IBudgetService
       cs.AddCsvLine(["Mandant_Nr", "Uid", "Kz", "SollKontoUid", "SollKonto", "HabenKontoUid", "HabenKonto", "Bezeichnung", "EText", "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(o.Mandant_Nr), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, o.Bezeichnung, o.EText, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
+        cs.AddCsvLine([Funktionen.ToString(o.Mandant_Nr), o.Uid, o.Kz, o.Soll_Konto_Uid, o.DebitName, o.Haben_Konto_Uid, o.CreditName, o.Bezeichnung, o.EText, Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
     else if (page == "HH400")
@@ -733,7 +733,7 @@ public class BudgetService : ServiceBase, IBudgetService
     if (bu == null)
       belegNr = $"{date:yyyyMMdd}01";
     else
-      belegNr = Functions.ToString(Functions.ToInt64(bu.Beleg_Nr) + 1);
+      belegNr = Funktionen.ToString(Functions.ToInt64(bu.Beleg_Nr) + 1);
     var r = new ServiceErgebnis<string>(belegNr);
     return r;
   }
@@ -826,7 +826,7 @@ public class BudgetService : ServiceBase, IBudgetService
     state.Clear();
     cancel.Append("End");
     var r = new ServiceErgebnis<string[]>(new[] { "", "" });
-    r.Ergebnis[0] = Functions.ToString(rc);
+    r.Ergebnis[0] = Funktionen.ToString(rc);
     return r;
   }
 

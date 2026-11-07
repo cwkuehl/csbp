@@ -845,7 +845,7 @@ public partial class {filename}
     //// var date = DateTime.Today;
     //// var shortcut = "USD";
     var accesskey = GetAppKey("fixer.io");
-    //// var url = $"http://data.fixer.io/api/{Functions.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
+    //// var url = $"http://data.fixer.io/api/{Funktionen.ToString(date)}?symbols={shortcut}&access_key={accesskey}";
     var url = $"http://data.fixer.io/api/2020-10-01?symbols=USD&access_key={accesskey}";
     //// var url = "https://www.onvista.de/fonds/snapshotHistoryCSV?idNotation=295567847&datetimeTzStartRange=24.09.2020&timeSpan=7D&codeResolution=1D";
     // var handler = new System.Net.Http.HttpClientHandler

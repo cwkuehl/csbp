@@ -380,7 +380,7 @@ public class Formulas
                 count++;
             }
           }
-          val = Functions.ToString(count);
+          val = Funktionen.ToString(count);
         }
       }
       else if (f.Function == "days")

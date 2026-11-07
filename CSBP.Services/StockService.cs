@@ -58,7 +58,7 @@ public class StockService : ServiceBase, IStockService
           "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
         foreach (var o in l)
         {
-          cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Sorting, o.Bezeichnung,
+          cs.AddCsvLine([Funktionen.ToString(daten.MandantNr), o.Uid, o.Sorting, o.Bezeichnung,
             CsbpBase.GetStockState(o.Status, o.Kuerzel), o.Datenquelle, o.Kuerzel, o.Type,
             Funktionen.ToString(o.CurrentPrice), o.Pattern, o.Currency,
             Funktionen.ToString(o.Angelegt_Am), o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
@@ -92,9 +92,9 @@ public class StockService : ServiceBase, IStockService
         "Angelegt_Am", "Angelegt_Von", "Geaendert_Am", "Geaendert_Von"]);
       foreach (var o in l)
       {
-        cs.AddCsvLine([Functions.ToString(daten.MandantNr), o.Uid, o.Bezeichnung, CsbpBase.GetStockState(o.Status, "1"),
-          Funktionen.ToString(o.Box), CsbpBase.GetScale(o.Scale), Functions.ToString(o.Reversal), CsbpBase.GetMethod(o.Method),
-          Functions.ToString(o.Duration), Functions.ToString(o.Relative), o.Notiz, Funktionen.ToString(o.Angelegt_Am),
+        cs.AddCsvLine([Funktionen.ToString(daten.MandantNr), o.Uid, o.Bezeichnung, CsbpBase.GetStockState(o.Status, "1"),
+          Funktionen.ToString(o.Box), CsbpBase.GetScale(o.Scale), Funktionen.ToString(o.Reversal), CsbpBase.GetMethod(o.Method),
+          Funktionen.ToString(o.Duration), Funktionen.ToString(o.Relative), o.Notiz, Funktionen.ToString(o.Angelegt_Am),
           o.Angelegt_Von, Funktionen.ToString(o.Geaendert_Am), o.Geaendert_Von]);
       }
     }
@@ -1747,11 +1747,11 @@ public class StockService : ServiceBase, IStockService
           t[i] = tr == 2 ? "+2" : tr == 1 ? "+1" : tr == 0.5m ? "+0,5" : tr == -2 ? "-2" : tr == -1 ? "-1" :
             tr == -0.5m ? "-0,5" : tr == 0 ? "0" : Funktionen.ToString(tr, 1);
         }
-        st.Assessment1 = Functions.ToString(bew[0]);
-        st.Assessment2 = Functions.ToString(bew[1]);
-        st.Assessment3 = Functions.ToString(bew[2]);
-        st.Assessment4 = Functions.ToString(bew[3]);
-        st.Assessment5 = Functions.ToString(bew[4]);
+        st.Assessment1 = Funktionen.ToString(bew[0]);
+        st.Assessment2 = Funktionen.ToString(bew[1]);
+        st.Assessment3 = Funktionen.ToString(bew[2]);
+        st.Assessment4 = Funktionen.ToString(bew[3]);
+        st.Assessment5 = Funktionen.ToString(bew[4]);
         st.Assessment = string.Format("{0:00}", bew[0] + bew[1] + bew[2] + bew[3] + bew[4]);
         st.Trend1 = t[0];
         st.Trend2 = t[1];
@@ -1760,7 +1760,7 @@ public class StockService : ServiceBase, IStockService
         st.Trend5 = t[4];
         st.Trend = string.Format("{0:0}", Functions.ToInt32(t[0]) + Functions.ToInt32(t[1]) + Functions.ToInt32(t[2]) + Functions.ToInt32(t[3]) + Functions.ToInt32(t[4]));
         st.PriceDate = kursdatum;
-        st.SignalAssessment = Functions.ToString(signalbew);
+        st.SignalAssessment = Funktionen.ToString(signalbew);
         st.SignalDate = signaldatum == from ? null : signaldatum;
         st.SignalDescription = signalbez;
         var ia = new int[] { 182, 730, 1460, 3650 };
@@ -1829,7 +1829,7 @@ public class StockService : ServiceBase, IStockService
         {
           var schnitt200 = summe200 / anzahl200;
           var schnitt214 = summe214 / anzahl214;
-          st.Average200 = Functions.ToString(Functions.CompDouble(schnitt200, schnitt214));
+          st.Average200 = Funktionen.ToString(Functions.CompDouble(schnitt200, schnitt214));
         }
         WpWertpapierRep.Update(daten, st);
         //// Debug.WriteLine($"6 {st.Parameter}");

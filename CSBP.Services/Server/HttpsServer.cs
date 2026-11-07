@@ -235,7 +235,7 @@ Cache-control: no-cache
     */
     var content = Encoding.UTF8.GetBytes(response ?? "");
     if (content.Length > 0)
-      rh["Content-length"] = Functions.ToString(content.Length);
+      rh["Content-length"] = Funktionen.ToString(content.Length);
     resp.Content = content;
     resp.ContentLenth = content.Length;
 

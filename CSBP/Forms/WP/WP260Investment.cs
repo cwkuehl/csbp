@@ -181,7 +181,7 @@ public partial class WP260Investment : CsbpBin
         SetText(nr, k.Uid);
         SetText(wertpapier, k.Wertpapier_Uid);
         SetText(bezeichnung, k.Bezeichnung);
-        SetText(status, Functions.ToString(k.State));
+        SetText(status, Funktionen.ToString(k.State));
         SetText(depot, k.PortfolioAccountUid);
         SetText(abrechnung, k.SettlementAccountUid);
         SetText(ertrag, k.IncomeAccountUid);

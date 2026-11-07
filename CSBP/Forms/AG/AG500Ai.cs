@@ -336,7 +336,7 @@ public partial class AG500Ai : CsbpBin
       {
         SetText(systemprompt, data.SystemPrompt);
         SetText(prompt, data.Prompt);
-        //// SetText(maxtokens, Functions.ToString(data.MaxTokens));
+        //// SetText(maxtokens, Funktionen.ToString(data.MaxTokens));
         SetText(model, data.Model);
       }
       SetText(response, data.GetDialogHistory);

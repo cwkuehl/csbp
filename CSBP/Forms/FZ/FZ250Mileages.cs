@@ -104,7 +104,7 @@ public partial class FZ250Mileages : CsbpBin
         values.Add(new string[]
         {
           e.Fahrrad_Uid, Functions.Left2(e.Bezeichnung), Funktionen.ToString(e.Datum),
-          Functions.ToString(e.Nr), Funktionen.ToString(e.Zaehler_km, 0),
+          Funktionen.ToString(e.Nr), Funktionen.ToString(e.Zaehler_km, 0),
           Funktionen.ToString(e.Periode_km, 0), Funktionen.ToString(e.Periode_Schnitt, 2),
           Functions.Left2(e.Beschreibung), Funktionen.ToString(e.Geaendert_Am, true), e.Geaendert_Von,
           Funktionen.ToString(e.Angelegt_Am, true), e.Angelegt_Von,
