@@ -1326,13 +1326,13 @@ public class BudgetService : ServiceBase, IBudgetService
           keist = bs.EBetrag;
         }
         if (bilanz || pnr == kpbis)
-          strsb = $"  Periode {pnr} {Funktionen.ToString(p.Datum_Bis)} SB {kist,12:N2} {keist,12:N2} berechnet {kist1,12:N2} {keist1,12:N2}";
+          strsb = $"  Periode {pnr:00000} {Funktionen.ToString(p.Datum_Bis)} SB {kist,12:N2} {keist,12:N2} berechnet {kist1,12:N2} {keist1,12:N2}";
         if (bilanz)
           sb.AppendLine(strsb);
         //// if (problem4 > 0 && problem4e > 0 && problem5 > 0)
         ////   break;
       }
-      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Art} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}{Funktionen.Iif(problem4e > 0, $" x4e:{problem4e}", "")}{Funktionen.Iif(problem5 > 0, $" x5:{problem5}", "")}{strsb}");
+      sb.AppendLine($"Konto {k.Uid.CutOrPadLeft(10)} {k.Art} {k.Name.CutOrPadRight(30)}: {ksoll,12:N2} {kesoll,12:N2} ab {kpab:00000} {gab} {ab} EB {kist0,12:N2} {keist0,12:N2}{Funktionen.Iif(problem1, " x1", "")}{Funktionen.Iif(problem2, " x2", "")}{Funktionen.Iif(problem3, " x3", "")}{Funktionen.Iif(problem4 > 0, $" x4:{problem4}", "")}{Funktionen.Iif(problem4e > 0, $" x4e:{problem4e}", "")}{Funktionen.Iif(problem5 > 0, $" x5:{problem5}", "")}{strsb}");
       if (problem1 && k.Kz != Constants.KZK_EK && k.Kz != Constants.KZK_GV)
       {
         // k.Art == Constants.ARTK_AKTIVKONTO) // && k.Name == "Auto")

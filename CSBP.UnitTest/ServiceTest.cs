@@ -33,6 +33,7 @@ public class ServiceTest : IDisposable
     // 1. Setup: Wird vor jedem Test ausgeführt
     this.output = output;
     var connect = "Data Source=/home/wolfgang/hsqldb/csbp.db";
+    //// var connect = "Data Source=/home/wolfgang/Dokumente/Rainbows/hsqldb/csbp-rainbow.db";
     Parameter.Connect = connect;
     daten = new ServiceDaten("0", 1, "Administrator", null);
     var r1 = FactoryService.ClientService.InitDb(daten);
