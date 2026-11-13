@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Apis.Services;
@@ -69,16 +70,17 @@ public class AddressService : ServiceBase, IAddressService
   /// </summary>
   /// <returns>List of sites.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="actual">Only actual persons or not.</param>
   /// <param name="search">Affected search string.</param>
   /// <param name="name">Affected name.</param>
   /// <param name="firstname">Affected first name.</param>
   /// <param name="puid">Affected person ID.</param>
   /// <param name="suid">Affected site ID.</param>
-  public ServiceErgebnis<List<AdSitz>> GetPersonList(ServiceDaten daten, bool actual, string search,
+  public ServiceErgebnis<List<AdSitz>> GetPersonList(ServiceDaten daten, TableReadModel rm, bool actual, string search,
     string name, string firstname, string puid, string suid)
   {
-    var l = AdSitzRep.GetList(daten, actual, search, name, firstname, puid, suid);
+    var l = AdSitzRep.GetList(daten, rm, actual, search, name, firstname, puid, suid);
     var r = new ServiceErgebnis<List<AdSitz>>(l);
     return r;
   }
@@ -91,7 +93,7 @@ public class AddressService : ServiceBase, IAddressService
   /// <param name="suid">Affected site ID.</param>
   public ServiceErgebnis<AdSitz> GetSite(ServiceDaten daten, string suid)
   {
-    var l = AdSitzRep.GetList(daten, false, suid: suid);
+    var l = AdSitzRep.GetList(daten, null, false, suid: suid);
     var r = new ServiceErgebnis<AdSitz>(l.FirstOrDefault());
     return r;
   }
@@ -151,10 +153,10 @@ public class AddressService : ServiceBase, IAddressService
     var r = new ServiceErgebnis();
     if (e == null || string.IsNullOrEmpty(e.Uid))
       return r;
-    var s = AdSitzRep.GetList(daten, false, puid: e.Person_Uid, suid: e.Uid).FirstOrDefault();
+    var s = AdSitzRep.GetList(daten, null, false, puid: e.Person_Uid, suid: e.Uid).FirstOrDefault();
     if (!string.IsNullOrEmpty(s.Adresse_Uid))
     {
-      var list = AdSitzRep.GetList(daten, false, auid: s.Adresse_Uid);
+      var list = AdSitzRep.GetList(daten, null, false, auid: s.Adresse_Uid);
       if (list.Count <= 1)
       {
         var a = AdAdresseRep.Get(daten, daten.MandantNr, s.Adresse_Uid);
@@ -164,7 +166,7 @@ public class AddressService : ServiceBase, IAddressService
     }
     if (s != null)
       AdSitzRep.Delete(daten, s);
-    var plist = AdSitzRep.GetList(daten, false, puid: e.Person_Uid).Where(a => a.Uid != e.Uid).ToList();
+    var plist = AdSitzRep.GetList(daten, null, false, puid: e.Person_Uid).Where(a => a.Uid != e.Uid).ToList();
     if (plist.Count <= 0)
     {
       var p = AdPersonRep.Get(daten, daten.MandantNr, s.Person_Uid);
@@ -200,7 +202,7 @@ public class AddressService : ServiceBase, IAddressService
     if (site != null)
     {
       var o = 1;
-      var l = AdSitzRep.GetList(daten, false, puid: site.Person_Uid);
+      var l = AdSitzRep.GetList(daten, null, false, puid: site.Person_Uid);
       foreach (var s in l)
       {
         var order = o;
@@ -254,7 +256,7 @@ public class AddressService : ServiceBase, IAddressService
   /// <param name="daten">Service data for database access.</param>
   public ServiceErgebnis<List<string>> ExportAddressList(ServiceDaten daten)
   {
-    var sites = AdSitzRep.GetList(daten, false);
+    var sites = AdSitzRep.GetList(daten, null, false);
     var list = FillAddressList(sites);
     var r = new ServiceErgebnis<List<string>>(list);
     return r;
@@ -432,7 +434,7 @@ public class AddressService : ServiceBase, IAddressService
   {
     var r = new ServiceErgebnis<byte[]>();
     var ueberschrift = AD003(daten.Jetzt);
-    var l = AdSitzRep.GetList(daten, true);
+    var l = AdSitzRep.GetList(daten, null, true);
     var rp = new AddressReport
     {
       Caption = ueberschrift,
@@ -535,7 +537,7 @@ public class AddressService : ServiceBase, IAddressService
       auid = a?.Uid;
     }
     var order = 1; // beginnt mit 1
-    var list = AdSitzRep.GetList(daten, false, puid: uid, suid: suid);
+    var list = AdSitzRep.GetList(daten, null, false, puid: uid, suid: suid);
     if (string.IsNullOrEmpty(suid))
     {
       if (list.Any())
@@ -546,7 +548,7 @@ public class AddressService : ServiceBase, IAddressService
     else
     {
       // Import eines bestehenden Sitzes
-      list = AdSitzRep.GetList(daten, false, puid: uid);
+      list = AdSitzRep.GetList(daten, null, false, puid: uid);
       if (list.Any())
         order = list.Max(x => x.Reihenfolge) + 1; // letzter Sitz
     }

@@ -96,7 +96,7 @@ public partial class AD100Persons : CsbpBin
     }
     if (step <= 1)
     {
-      var l = Get(FactoryService.AddressService.GetPersonList(ServiceDaten, false, suche.Text, name.Text,
+      var l = Get(FactoryService.AddressService.GetPersonList(ServiceDaten, null, false, suche.Text, name.Text,
         vorname.Text)) ?? new List<AdSitz>();
 #pragma warning disable CS0618
       var store = AddStringColumns(personen, AD100_personen_columns);

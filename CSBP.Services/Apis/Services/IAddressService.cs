@@ -6,6 +6,7 @@ namespace CSBP.Services.Apis.Services;
 
 using System;
 using System.Collections.Generic;
+using BlazorSpa.Base.Models;
 using BlazorSpa.Base.Services;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
@@ -28,6 +29,7 @@ public interface IAddressService
   /// Gets list of sites with persons and addresses.
   /// </summary>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="actual">Only actual persons or not.</param>
   /// <param name="search">Affected search string.</param>
   /// <param name="name">Affected name.</param>
@@ -35,7 +37,7 @@ public interface IAddressService
   /// <param name="puid">Affected person ID.</param>
   /// <param name="suid">Affected site ID.</param>
   /// <returns>List of sites.</returns>
-  ServiceErgebnis<List<AdSitz>> GetPersonList(ServiceDaten daten, bool actual, string search = null,
+  ServiceErgebnis<List<AdSitz>> GetPersonList(ServiceDaten daten, TableReadModel rm, bool actual, string search = null,
     string name = null, string firstname = null, string puid = null, string suid = null);
 
   /// <summary>

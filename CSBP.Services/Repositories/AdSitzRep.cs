@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlazorSpa.Base;
+using BlazorSpa.Base.Models;
 using CSBP.Services.Apis.Models;
 using CSBP.Services.Base;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ public partial class AdSitzRep
   /// </summary>
   /// <returns>List with sites.</returns>
   /// <param name="daten">Service data for database access.</param>
+  /// <param name="rm">Affected read model for filtering and sorting.</param>
   /// <param name="actual">Only actual persons or not.</param>
   /// <param name="search">Affected search string.</param>
   /// <param name="name">Affected name.</param>
@@ -31,18 +33,19 @@ public partial class AdSitzRep
   /// <param name="puid">Affected person ID.</param>
   /// <param name="suid">Affected site ID.</param>
   /// <param name="auid">Affected address ID.</param>
-  public List<AdSitz> GetList(ServiceDaten daten, bool actual, string search = null, string name = null,
+  public List<AdSitz> GetList(ServiceDaten daten, TableReadModel rm, bool actual, string search = null, string name = null,
     string firstname = null, string puid = null, string suid = null, string auid = null)
   {
     var db = GetDb(daten);
-    var sl = db.AD_Sitz.Where(a => a.Mandant_Nr == daten.MandantNr);
+    search = search.TrimNull() ?? rm?.Search;
+    var sl = db.AD_Sitz.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(suid))
       sl = sl.Where(a => a.Uid == suid);
     if (!string.IsNullOrEmpty(auid))
       sl = sl.Where(a => a.Adresse_Uid == auid);
     if (actual)
       sl = sl.Where(a => a.Sitz_Status == 0);
-    var pl = db.AD_Person.Where(a => a.Mandant_Nr == daten.MandantNr);
+    var pl = db.AD_Person.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
     if (!string.IsNullOrEmpty(puid))
       pl = pl.Where(a => a.Uid == puid);
     if (CsbpBase.IsLike(name))
@@ -51,43 +54,22 @@ public partial class AdSitzRep
       pl = pl.Where(a => EF.Functions.Like(a.Vorname, firstname));
     if (actual)
       pl = pl.Where(a => a.Person_Status == 0);
-    var al = db.AD_Adresse.Where(a => a.Mandant_Nr == daten.MandantNr);
-    List<AdSitz> l;
-    if (Funktionen.MachNichts() == 0)
-    {
-      // !string.IsNullOrEmpty(suid)
-      // Es muss immer einen Sitz zu der Person geben. Adresse ist optional.
-      l = pl.Join(sl, a => new { a.Mandant_Nr, a.Uid },
-        b => new { b.Mandant_Nr, Uid = b.Person_Uid }, (a, b) => new { person = a, site = b })
-        .GroupJoin(al, a => new { a.site.Mandant_Nr, Uid = a.site.Adresse_Uid },
-        b => new { b.Mandant_Nr, b.Uid }, (a, b) => new { a.person, a.site, address = b })
-        .SelectMany(ab => ab.address.DefaultIfEmpty(), (a, b) => new { a.person, a.site, address = b })
-        .ToList()
-        .Select(a =>
-        {
-          var site = a.site;
-          site.Person = a.person;
-          site.Address = a.address;
-          return site;
-        }).ToList();
-    }
-    else
-    {
-      l = pl.GroupJoin(sl, a => new { a.Mandant_Nr, a.Uid },
-        b => new { b.Mandant_Nr, Uid = b.Person_Uid }, (a, b) => new { person = a, site = b })
-        .SelectMany(ab => ab.site.DefaultIfEmpty(), (a, b) => new { a.person, site = b })
-        .GroupJoin(al, a => new { a.site.Mandant_Nr, Uid = a.site.Adresse_Uid },
-        b => new { b.Mandant_Nr, b.Uid }, (a, b) => new { a.person, a.site, address = b })
-        .SelectMany(ab => ab.address.DefaultIfEmpty(), (a, b) => new { a.person, a.site, address = b })
-        .ToList()
-        .Select(a =>
-        {
-          var site = a.site ?? new AdSitz();
-          site.Person = a.person;
-          site.Address = a.address;
-          return site;
-        }).ToList();
-    }
+    var al = db.AD_Adresse.AsNoTracking().Where(a => a.Mandant_Nr == daten.MandantNr);
+    IQueryable<AdSitz> l;
+    //// Es muss immer einen Sitz zu der Person geben. Adresse ist optional.
+    l = pl.Join(sl, a => new { a.Mandant_Nr, a.Uid },
+      b => new { b.Mandant_Nr, Uid = b.Person_Uid }, (a, b) => new { person = a, site = b })
+      .GroupJoin(al, a => new { a.site.Mandant_Nr, Uid = a.site.Adresse_Uid },
+      b => new { b.Mandant_Nr, b.Uid }, (a, b) => new { a.person, a.site, address = b })
+      .SelectMany(ab => ab.address.DefaultIfEmpty(), (a, b) => new { a.person, a.site, address = b })
+      .ToList()
+      .Select(a =>
+      {
+        var site = a.site;
+        site.Person = a.person;
+        site.Address = a.address;
+        return site;
+      }).AsQueryable();
     if (CsbpBase.IsLike(search))
     {
       // l = l.Where(a => Like(a.Person.Name1, search) || Like(a.Person.Name2, search)
@@ -115,9 +97,27 @@ public partial class AdSitzRep
         || Like(a.Address.HausNr, search))))
           ll.Add(a);
       }
-      l = ll;
+      l = ll.AsQueryable();
     }
-    var l2 = l.OrderBy(a => a?.Person?.Name1).ThenBy(a => a?.Person?.Vorname).ThenBy(a => a?.Person?.Uid)
+    if (rm != null && !string.IsNullOrEmpty(rm.SortColumn))
+    {
+      if (rm.NoPaging)
+      {
+        var lx1 = SortList(l, rm.SortColumn);
+        return lx1.ToList();
+      }
+      else
+      {
+        rm.PageCount = rm.RowsPerPage == 0 ? 1 : (int)Math.Ceiling(l.Count() / (decimal)(rm.RowsPerPage ?? 0));
+        rm.Essence = Resources.M.M1040(l.Count());
+        var lx1 = SortList(l, rm.SortColumn);
+        var page = Math.Max(1, rm.SelectedPage ?? 1) - 1;
+        var rowsPerPage = Math.Max(1, rm.RowsPerPage ?? 1);
+        var lx2 = lx1.Skip(page * rowsPerPage).Take(rowsPerPage).ToList();
+        return lx2;
+      }
+    }
+    var l2 = l.ToList().OrderBy(a => a?.Person?.Name1).ThenBy(a => a?.Person?.Vorname).ThenBy(a => a?.Person?.Uid)
       .ThenBy(a => a?.Reihenfolge).ThenBy(a => a?.Uid).ToList();
     return l2;
   }
