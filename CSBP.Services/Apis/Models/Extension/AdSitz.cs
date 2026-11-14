@@ -31,6 +31,20 @@ public partial class AdSitz : ModelBase
     }
   }
 
+  /// <summary>Gets last name and first name without parenthesis.</summary>
+  ////[NotMapped]
+  public string PersonNameSort
+  {
+    get
+    {
+      var sb = new StringBuilder();
+      sb.Append(Person?.Name1);
+      if (!string.IsNullOrEmpty(Person?.Vorname))
+        sb.Append(", ").Append(Person?.Vorname);
+      return sb.ToString();
+    }
+  }
+
   /// <summary>Gets site name.</summary>
   ////[NotMapped]
   public string SiteName
@@ -43,6 +57,20 @@ public partial class AdSitz : ModelBase
       if (!string.IsNullOrEmpty(Address?.Ort))
         sb.Append(", ").Append(Address?.Ort);
       sb.Append(Sitz_Status == 0 ? "" : ")");
+      return sb.ToString();
+    }
+  }
+
+  /// <summary>Gets site name without parenthesis.</summary>
+  ////[NotMapped]
+  public string SiteNameSort
+  {
+    get
+    {
+      var sb = new StringBuilder();
+      sb.Append(Name);
+      if (!string.IsNullOrEmpty(Address?.Ort))
+        sb.Append(", ").Append(Address?.Ort);
       return sb.ToString();
     }
   }
