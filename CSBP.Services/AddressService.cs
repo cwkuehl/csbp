@@ -154,7 +154,7 @@ public class AddressService : ServiceBase, IAddressService
     if (e == null || string.IsNullOrEmpty(e.Uid))
       return r;
     var s = AdSitzRep.GetList(daten, null, false, puid: e.Person_Uid, suid: e.Uid).FirstOrDefault();
-    if (!string.IsNullOrEmpty(s.Adresse_Uid))
+    if (!string.IsNullOrEmpty(s?.Adresse_Uid))
     {
       var list = AdSitzRep.GetList(daten, null, false, auid: s.Adresse_Uid);
       if (list.Count <= 1)
